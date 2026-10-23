@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit Bridge · 利润析视</title>
+<style>
+:root {
+  --bg:#eef1f7; --card:#ffffff; --border:#e4e8f0; --text:#1e293b; --muted:#64748b;
+  --blue:#2563eb; --title-blue:#1d55a5; --green:#16a34a; --red:#dc2626; --cream:#f2efe9;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif; padding:20px 28px; }
+header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+h1 { font-size:22px; color:var(--title-blue); }
+h1 .sub { color:var(--muted); font-size:13px; font-weight:normal; margin-left:10px; }
+.controls { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+select, button { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-size:13px; cursor:pointer; }
+select:hover, button:hover { border-color:var(--blue); }
+#companySelect { min-width:150px; font-weight:600; }
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px; }
+.kpi { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.kpi .label { color:var(--muted); font-size:12px; margin-bottom:6px; }
+.kpi .value { font-size:22px; font-weight:700; }
+.kpi .delta { font-size:12px; margin-top:6px; }
+.delta.up { color:var(--green); } .delta.down { color:var(--red); } .delta.na { color:var(--muted); }
+#chartPanel { background:var(--cream); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
+#chartPanel .in-title { text-align:center; padding-top:18px; font-size:26px; font-weight:800; color:var(--title-blue); }
+#chartPanel .asof { position:absolute; top:20px; right:24px; font-size:13px; color:var(--text); }
+#sankey { width:100%; display:block; }
+#tooltip { position:absolute; pointer-events:none; background:rgba(30,41,59,.95); color:#fff; padding:8px 12px;
+  border-radius:6px; font-size:12px; line-height:1.5; display:none; z-index:10; max-width:260px; }
+footer { margin-top:14px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+footer a { color:var(--blue); }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title"></h1>
+  <div class="controls">
+    <select id="companySelect"></select>
+    <select id="quarterSelect"></select>
+    <button id="btnReset"></button>
+    <button id="btnExport"></button>
+    <button id="btnLang"></button>
+  </div>
+</header>
+<div class="kpis" id="kpis"></div>
+<div id="chartPanel">
+  <div class="in-title" id="chartTitle"></div>
+  <div class="asof" id="chartAsof"></div>
+  <svg id="sankey"></svg>
+  <div id="tooltip"></div>
+</div>
+<footer>
+  <span id="srcLine"></span>
+  <span id="updLine"></span>
+</footer>
+<script src="data/profit.json.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
