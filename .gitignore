@@ -1,0 +1,15 @@
+node_modules/
+*.log
+fetch_log.txt
+# chrome test profiles (tooling artifacts, huge)
+.chrome_profile/
+.chrome_prof_test/
+# animation frames captured during build/verification
+frames/
+frames_dense/
+# verification screenshots at repo root
+/*.png
+downloads/
+audit_dl/
+shots/
+Thumbs.db
