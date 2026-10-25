@@ -1,0 +1,159 @@
+[
+  {
+    "ticker": "NVDA",
+    "cik": 1045810,
+    "nameZh": "英伟达",
+    "nameEn": "NVIDIA Corporation",
+    "color": "#1d55a5",
+    "reports": ["market platform", "segment"],
+    "segmentMap": [
+      ["^data center$", "Data Center", null],
+      ["^hyperscale", "Hyperscale", "Data Center"],
+      ["^ai clouds", "AI Clouds, Industrial & Enterprise", "Data Center"],
+      ["^edge computing", "Edge Computing", null],
+      ["^gaming", "Gaming", null],
+      ["^professional visualization", "Professional Visualization", null],
+      ["^automotive", "Automotive", null],
+      ["^oem", "OEM & Other", null]
+    ]
+  },
+  {
+    "ticker": "AAPL",
+    "cik": 320193,
+    "nameZh": "苹果",
+    "nameEn": "Apple Inc.",
+    "color": "#b91c1c",
+    "reports": ["net sales disaggregated by significant products", "disaggregated net sales", "products and services performance", "segment.*details"],
+    "segmentMap": [
+      ["^iphone", "iPhone", null],
+      ["^mac$", "Mac", null],
+      ["^ipad", "iPad", null],
+      ["^wearables", "Wearables, Home and Accessories", null],
+      ["^services", "Services", null],
+      ["^americas|^europe|^greater china|^japan|^rest of asia pacific", null, null]
+    ]
+  },
+  {
+    "ticker": "MSFT",
+    "cik": 789019,
+    "nameZh": "微软",
+    "nameEn": "Microsoft Corporation",
+    "color": "#0f766e",
+    "reports": ["segment.*(revenue|details)", "segment"],
+    "segmentMap": [
+      ["intelligent cloud", "Intelligent Cloud", null],
+      ["productivity and business processes", "Productivity and Business Processes", null],
+      ["more personal computing", "More Personal Computing", null]
+    ]
+  },
+  {
+    "ticker": "GOOGL",
+    "cik": 1652044,
+    "nameZh": "谷歌",
+    "nameEn": "Alphabet Inc.",
+    "color": "#7c3aed",
+    "reports": ["disaggregated revenues", "revenues.*details", "segment"],
+    "segmentMap": [
+      ["google search & other", "Google Search & other", null],
+      ["youtube ads", "YouTube ads", null],
+      ["google network", "Google Network", null],
+      ["google subscriptions, platforms, and devices|google other", "Google subscriptions, platforms, and devices", null],
+      ["google services total|^google services$", null, null],
+      ["^google cloud$", "Google Cloud", null],
+      ["^other bets$", "Other Bets", null],
+      ["hedging", null, null],
+      ["^total revenues", null, null]
+    ]
+  },
+  {
+    "ticker": "AMZN",
+    "cik": 1018724,
+    "nameZh": "亚马逊",
+    "nameEn": "Amazon.com, Inc.",
+    "color": "#c2410c",
+    "reports": ["segment"],
+    "segmentMap": [
+      ["^north america", "North America", null],
+      ["^international", "International", null],
+      ["^aws$|aws segment|amazon web services", "AWS", null]
+    ]
+  },
+  {
+    "ticker": "META",
+    "cik": 1326801,
+    "nameZh": "Meta",
+    "nameEn": "Meta Platforms, Inc.",
+    "color": "#be185d",
+    "reports": ["segment"],
+    "segmentMap": [
+      ["family of apps|foa", "Family of Apps", null],
+      ["reality labs|rl", "Reality Labs", null]
+    ]
+  },
+  {
+    "ticker": "TSLA",
+    "cik": 1318605,
+    "nameZh": "特斯拉",
+    "nameEn": "Tesla, Inc.",
+    "color": "#15803d",
+    "reports": ["total revenues and gross profit by reportable segment", "segment", "revenue recognition"],
+    "segmentMap": [
+      ["^automotive segment$", "Automotive", null],
+      ["^automotive sales", "Automotive", null],
+      ["automotive regulatory credits", "Automotive", null],
+      ["^automotive leasing", "Automotive", null],
+      ["^total automotive", null, null],
+      ["^energy generation and storage segment$", "Energy generation and storage", null],
+      ["energy generation and storage", "Energy generation and storage", null],
+      ["^services and other segment$", "Services and other", null],
+      ["^services and other", "Services and other", null]
+    ]
+  },
+  {
+    "ticker": "ORCL",
+    "cik": 1341439,
+    "nameZh": "甲骨文",
+    "nameEn": "Oracle Corporation",
+    "color": "#a16207",
+    "reports": ["segment information \\(details\\)"],
+    "segmentMap": [
+      ["cloud and software|cloud and license", "Cloud and Software", null],
+      ["\\bhardware\\b", "Hardware", null],
+      ["\\bservices\\b", "Services", null]
+    ]
+  },
+  {
+    "ticker": "AMD",
+    "cik": 2488,
+    "nameZh": "超威半导体",
+    "nameEn": "Advanced Micro Devices, Inc.",
+    "color": "#1e40af",
+    "reports": ["segment"],
+    "segmentMap": [
+      ["^client and gaming (client|gaming)$", null, null],
+      ["^client and gaming", "Client and Gaming", null],
+      ["^data center", "Data Center", null],
+      ["^gaming", "Gaming", null],
+      ["^client", "Client", null],
+      ["^embedded", "Embedded", null],
+      ["^all other", "All Other", null]
+    ]
+  },
+  {
+    "ticker": "INTC",
+    "cik": 50863,
+    "nameZh": "英特尔",
+    "nameEn": "Intel Corporation",
+    "color": "#4d7c0f",
+    "reports": ["segment"],
+    "segmentMap": [
+      ["client computing group|ccg", "Client Computing Group (CCG)", null],
+      ["data center and ai|dcai", "Data Center and AI (DCAI)", null],
+      ["network and edge|nex", "Network and Edge (NEX)", null],
+      ["^altera", "Altera", null],
+      ["^mobileye", "Mobileye", null],
+      ["intel foundry|foundry services", "Intel Foundry", null],
+      ["^all other|^other", "All Other", null]
+    ]
+  }
+]

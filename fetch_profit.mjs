@@ -5,20 +5,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const UA = 'ProfitBridgeDashboard research contact@example.com';
-const COMPANIES = [
-  { ticker: 'NVDA', cik: 1045810, name: 'NVIDIA Corporation' },
-  { ticker: 'AAPL', cik: 320193, name: 'Apple Inc.' },
-  { ticker: 'MSFT', cik: 789019, name: 'Microsoft Corporation' },
-  { ticker: 'GOOGL', cik: 1652044, name: 'Alphabet Inc.' },
-  { ticker: 'AMZN', cik: 1018724, name: 'Amazon.com, Inc.' },
-  { ticker: 'META', cik: 1326801, name: 'Meta Platforms, Inc.' },
-  { ticker: 'TSLA', cik: 1318605, name: 'Tesla, Inc.' },
+// registry: ticker/cik/names come from data/companies.json; extra fetch-only companies stay inline
+const REGISTRY = JSON.parse(fs.readFileSync(path.join('data', 'companies.json'), 'utf8'));
+const EXTRA = [
   { ticker: 'TSM', cik: 1046179, name: 'Taiwan Semiconductor Manufacturing Co., Ltd.' },
   { ticker: 'AVGO', cik: 1730168, name: 'Broadcom Inc.' },
-  { ticker: 'ORCL', cik: 1341439, name: 'Oracle Corporation' },
-  { ticker: 'AMD', cik: 2488, name: 'Advanced Micro Devices, Inc.' },
-  { ticker: 'INTC', cik: 50863, name: 'Intel Corporation' },
 ];
+const COMPANIES = [...REGISTRY.map(c => ({ ticker: c.ticker, cik: c.cik, name: c.nameEn })), ...EXTRA];
 
 // tag candidates, first that exists wins, per metric
 const TAGS = {
@@ -96,7 +89,7 @@ async function fetchCompany(c) {
   for (const end of ends) {
     const q = { end };
     for (const [k, p] of Object.entries(picked)) {
-      if (p?.map.has(end)) q[k] = p.map.get(end).val;
+      if (p?.map.has(end)) q[k] = Math.round(p.map.get(end).val / 1e6 * 10) / 10; // USD → $M
     }
     if (q.revenue == null || q.netInc == null) continue;
     quarters.push(q);
@@ -124,7 +117,7 @@ for (const c of COMPANIES) {
 const ok = results.filter(r => r.status === 'ok');
 const companies = {};
 for (const r of ok) {
-  companies[r.ticker] = { name: r.name, cik: r.cik, currency: 'USD', quarters: r.quarters };
+  companies[r.ticker] = { name: r.name, cik: r.cik, currency: 'USD-M', quarters: r.quarters };
 }
 const out = {
   updated: new Date().toISOString(),
