@@ -8,9 +8,7 @@
 const I18N = {
   en: {
     appTitle: 'Profit Bridge', langBtn: '中文',
-    revenue: 'Revenue', gross: 'Gross profit', opInc: 'Operating income', netInc: 'Net income',
-    grossMargin: 'Gross margin', opMargin: 'Operating margin', netMargin: 'Net margin',
-    qoq: 'QoQ', yoy: 'YoY', reset: 'Reset', exportPNG: 'Export PNG', exportSVG: 'Export SVG',
+    reset: '', exportPNG: 'Export PNG', exportSVG: 'Export SVG',
     nodes: {
       revenue: 'Revenue', cogs: 'Cost of revenue', gross: 'Gross profit', opex: 'Operating expenses',
       rd: 'R&D expenses', sga: 'Selling, general & admin',
@@ -23,9 +21,7 @@ const I18N = {
   },
   zh: {
     appTitle: '利润析视', langBtn: 'English',
-    revenue: '营业收入', gross: '毛利润', opInc: '营业利润', netInc: '净利润',
-    grossMargin: '毛利率', opMargin: '营业利润率', netMargin: '净利率',
-    qoq: '环比', yoy: '同比', reset: '回到默认', exportPNG: '导出 PNG', exportSVG: '导出 SVG',
+    reset: '', exportPNG: '导出 PNG', exportSVG: '导出 SVG',
     nodes: {
       revenue: '营收', cogs: '营收成本', gross: '毛利润', opex: '营业费用',
       rd: '研发费用', sga: '销售与管理费用',
@@ -52,7 +48,7 @@ function shortName(ticker) {
   const stripped = c.name.replace(/,? (Inc\.|Corporation|Co\.,? Ltd\.|Ltd\.|Platforms, Inc\.|com, Inc\.)$/, '');
   return lang === 'zh' ? (ZH_NAMES[ticker] || stripped) : stripped;
 }
-let lang = 'en';
+let lang = 'zh'; // 中文界面为默认，右上按钮切换 English
 const t = k => I18N[lang][k];
 const tn = k => I18N[lang].nodes[k] || k;
 
@@ -216,8 +212,8 @@ function renderChart() {
   document.getElementById('chartAsof').textContent = `${t('asof')} ${qv.end}`;
 
   const labelRich = {
-    n: { fontSize: 12, fontWeight: 700, color: '#1e293b', lineHeight: 16 },
-    v: { fontSize: 11, fontWeight: 600, color: '#64748b', lineHeight: 14 },
+    n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21 },
+    v: { fontSize: 14, fontWeight: 600, color: '#64748b', lineHeight: 18 },
   };
   const data = g.nodes.map(n => {
     const d = { name: n.name, value: n.value, depth: n.depth, itemStyle: n.itemStyle };
@@ -250,11 +246,11 @@ function renderChart() {
       type: 'sankey',
       layout: 'none',               // manual depth layout (pitfall #5)
       nodeAlign: 'justify',
-      nodeWidth: 20, nodeGap: 24,
-      left: hasAgg ? 190 : 150, right: 150, top: 60, bottom: 40,
+      nodeWidth: 30, nodeGap: 22,
+      left: hasAgg ? 210 : 170, right: 170, top: 60, bottom: 40,
       emphasis: { focus: 'adjacency' },
       label: {
-        fontSize: 12,
+        fontSize: 15,
         formatter: p => `{n|${displayName(p)}}\n{v|$${p.value.toFixed(1)}B}`,
         rich: labelRich,
       },
@@ -264,10 +260,56 @@ function renderChart() {
   }, true); // notMerge: full replacement on every company/quarter switch
 }
 
-function kpiCard(label, value, dv) {
-  const cls = dv == null ? 'na' : dv >= 0 ? 'up' : 'down';
-  return `<div class="kpi"><div class="label">${label.label}</div><div class="value">${value}</div>
-    <div class="delta ${cls}">${label.qoq} ${fmtDelta(dv.qoq)} · ${label.yoy} ${fmtDelta(dv.yoy)}</div></div>`;
+/* ---- left logo rail ---- */
+const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d','#15803d','#a16207','#1e40af','#4d7c0f'];
+function renderLogoRail() {
+  const rail = document.getElementById('logoRail');
+  rail.innerHTML = Object.keys(DATA.companies).map((tk, i) =>
+    `<div class="logo${tk === state.company ? ' active' : ''}" data-sym="${tk}" title="${tk} · ${ZH_NAMES[tk] || ''}">
+       <img src="data/logos/${tk}.png" alt="${tk}"
+         onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0,2)}</div>'">
+     </div>`).join('');
+  rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => {
+    state.company = el.dataset.sym; state.qIndex = null; render();
+  }));
+}
+
+/* ---- bottom timeline ---- */
+function fqLabel(end) {
+  const m = Number(end.slice(5, 7));
+  return `${end.slice(0, 4)} Q${Math.floor((m - 1) / 3) + 1}`;
+}
+function curQIndex() { return state.qIndex == null ? DATA.companies[state.company].quarters.length - 1 : state.qIndex; }
+function setQuarter(i) {
+  const n = DATA.companies[state.company].quarters.length;
+  i = Math.max(0, Math.min(n - 1, i));
+  if (i === curQIndex()) { renderTimeline(); return; }
+  state.qIndex = i;
+  render(); // full setOption(data+links) via renderChart — never partial updates
+}
+function renderTimeline() {
+  const qs = DATA.companies[state.company].quarters, n = qs.length, cur = curQIndex();
+  const ticks = document.getElementById('tlTicks');
+  ticks.innerHTML = qs.map((x, i) =>
+    `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}">
+       <div class="q">${fqLabel(x.end)}</div><div class="d">${x.end}</div></div>`).join('');
+  ticks.querySelectorAll('.tl-tick').forEach(el =>
+    el.addEventListener('click', () => setQuarter(Number(el.dataset.i))));
+  const pct = n > 1 ? (cur / (n - 1)) * 100 : 0;
+  document.getElementById('tlFill').style.width = pct + '%';
+  document.getElementById('tlThumb').style.left = pct + '%';
+}
+function initTimelineDrag() {
+  const thumb = document.getElementById('tlThumb');
+  let dragging = false;
+  thumb.addEventListener('pointerdown', e => { dragging = true; thumb.setPointerCapture(e.pointerId); e.preventDefault(); });
+  thumb.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const track = thumb.parentElement, r = track.getBoundingClientRect();
+    const frac = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+    setQuarter(Math.round(frac * (DATA.companies[state.company].quarters.length - 1)));
+  });
+  thumb.addEventListener('pointerup', () => { dragging = false; });
 }
 
 function render() {
@@ -275,27 +317,12 @@ function render() {
   const qv = q();
   document.getElementById('title').innerHTML =
     `${t('appTitle')}&nbsp;<span class="sub">${c.name} · ${qv.end}${lang === 'zh' ? ' 季度末' : ' (quarter end)'}</span>`;
-  document.getElementById('btnReset').textContent = t('reset');
-  document.getElementById('btnExportPNG').textContent = t('exportPNG');
-  document.getElementById('btnExportSVG').textContent = t('exportSVG');
+  document.getElementById('btnExportPNG').querySelector('span').textContent = t('exportPNG');
+  document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
   document.getElementById('btnLang').textContent = t('langBtn');
 
-  const qs = document.getElementById('quarterSelect');
-  qs.innerHTML = c.quarters.map((x, i) =>
-    `<option value="${i}" ${i === (state.qIndex ?? c.quarters.length - 1) ? 'selected' : ''}>${x.end}</option>`).join('');
-  document.getElementById('companySelect').value = state.company;
-
-  const m = (a, b) => (a != null && b) ? a / b : null;
-  const deltas = { revenue: delta('revenue'), opInc: delta('opInc'), netInc: delta('netInc') };
-  const gm = m(qv.gross, qv.revenue), om = m(qv.opInc, qv.revenue), nm = m(qv.netInc, qv.revenue);
-  const p1 = prev(1);
-  const pDelta = (cur, pb, num, den) => (cur != null && pb != null && pb[num] != null && pb[den]) ? cur - pb[num] / pb[den] : null;
-  document.getElementById('kpis').innerHTML =
-    kpiCard({ label: t('revenue'), qoq: t('qoq'), yoy: t('yoy') }, '$' + fmtB(qv.revenue), deltas.revenue) +
-    kpiCard({ label: t('grossMargin'), qoq: t('qoq'), yoy: t('yoy') }, fmtPct(gm), { qoq: pDelta(gm, p1, 'gross', 'revenue'), yoy: null }) +
-    kpiCard({ label: t('opMargin'), qoq: t('qoq'), yoy: t('yoy') }, fmtPct(om), { qoq: pDelta(om, p1, 'opInc', 'revenue'), yoy: null }) +
-    kpiCard({ label: t('netMargin'), qoq: t('qoq'), yoy: t('yoy') }, fmtPct(nm), { qoq: pDelta(nm, p1, 'netInc', 'revenue'), yoy: null });
-
+  renderLogoRail();
+  renderTimeline();
   renderChart();
 
   document.getElementById('srcLine').innerHTML =
@@ -348,14 +375,7 @@ function exportSVG() {
 }
 
 function initControls() {
-  const cs = document.getElementById('companySelect');
-  cs.innerHTML = Object.entries(DATA.companies)
-    .map(([tk, c]) => `<option value="${tk}">${tk} — ${c.name}</option>`).join('');
-  cs.addEventListener('change', () => { state.company = cs.value; state.qIndex = null; render(); });
-  document.getElementById('quarterSelect').addEventListener('change', e => {
-    state.qIndex = Number(e.target.value); render();
-  });
-  document.getElementById('btnReset').addEventListener('click', () => { state = { company: 'NVDA', qIndex: null }; render(); });
+  initTimelineDrag();
   document.getElementById('btnLang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; render(); });
   document.getElementById('btnExportPNG').addEventListener('click', exportPNG);
   document.getElementById('btnExportSVG').addEventListener('click', exportSVG);

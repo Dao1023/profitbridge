@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,52 +11,98 @@
 }
 * { box-sizing:border-box; margin:0; padding:0; }
 body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif; padding:20px 28px; }
-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
-h1 { font-size:22px; color:var(--title-blue); }
-h1 .sub { color:var(--muted); font-size:13px; font-weight:normal; margin-left:10px; }
-.controls { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-select, button { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-size:13px; cursor:pointer; }
-select:hover, button:hover { border-color:var(--blue); }
-#companySelect { min-width:150px; font-weight:600; }
-.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px; }
-.kpi { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
-.kpi .label { color:var(--muted); font-size:12px; margin-bottom:6px; }
-.kpi .value { font-size:22px; font-weight:700; }
-.kpi .delta { font-size:12px; margin-top:6px; }
-.delta.up { color:var(--green); } .delta.down { color:var(--red); } .delta.na { color:var(--muted); }
+.layout { display:flex; gap:18px; align-items:stretch; }
+
+/* ---- left logo rail ---- */
+#logoRail { width:132px; flex:0 0 132px; display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  align-content:start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px; }
+.logo { position:relative; border:2px solid transparent; border-radius:10px; background:var(--bg);
+  cursor:pointer; padding:6px; display:flex; align-items:center; justify-content:center; transition:border-color .15s, background .15s, transform .1s; }
+.logo:hover { border-color:#b9c6dd; transform:translateY(-1px); }
+.logo.active { border-color:var(--blue); background:#e8effc; }
+.logo img { width:100%; height:auto; display:block; border-radius:6px; }
+.logo .mono { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:18px; color:#fff; border-radius:6px; }
+
+/* ---- main column ---- */
+.main { flex:1; min-width:0; }
+header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+h1 { font-size:28px; color:var(--title-blue); }
+h1 .sub { color:var(--muted); font-size:15px; font-weight:normal; margin-left:10px; }
+.controls { display:flex; gap:10px; align-items:center; }
+#btnLang { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; }
+#btnLang:hover { border-color:var(--blue); }
+.exportGroup { display:flex; background:var(--card); border:1px solid #d8dee9; border-radius:10px; overflow:hidden; box-shadow:0 1px 3px rgba(30,41,59,.06); }
+.exportGroup button { appearance:none; border:none; background:transparent; color:var(--text); padding:9px 18px;
+  font-size:13.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:7px; transition:background .15s, color .15s; }
+.exportGroup button + button { border-left:1px solid #e4e8f0; }
+.exportGroup button:hover { background:#e8effc; color:var(--title-blue); }
+.exportGroup button:active { background:#dbe7fa; }
+.exportGroup svg { width:15px; height:15px; }
+
 #chartPanel { background:var(--cream); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
-#chartPanel .in-title { text-align:center; padding-top:18px; font-size:26px; font-weight:800; color:var(--title-blue); }
-#chartPanel .asof { position:absolute; top:20px; right:24px; font-size:13px; color:var(--text); }
-#sankey { width:100%; height:640px; display:block; }
+#chartPanel .in-title { text-align:center; padding-top:20px; font-size:32px; font-weight:800; color:var(--title-blue); }
+#chartPanel .asof { position:absolute; top:22px; right:26px; font-size:14px; color:var(--text); }
+#sankey { width:100%; height:660px; display:block; }
+
+/* ---- bottom timeline ---- */
+#timeline { padding:10px 26px 16px; }
+.tl-track { position:relative; height:6px; background:#dfe3ec; border-radius:3px; margin:0 30px; }
+.tl-fill { position:absolute; left:0; top:0; bottom:0; background:var(--blue); border-radius:3px; }
+.tl-thumb { position:absolute; top:50%; width:20px; height:20px; border-radius:50%; background:#fff;
+  border:3px solid var(--blue); box-shadow:0 1px 4px rgba(30,41,59,.25); transform:translate(-50%,-50%); cursor:grab; }
+.tl-thumb:active { cursor:grabbing; }
+.tl-ticks { display:flex; justify-content:space-between; margin:10px 30px 0; }
+.tl-tick { flex:0 0 auto; text-align:center; cursor:pointer; color:var(--muted); font-size:12.5px; line-height:1.35; user-select:none; }
+.tl-tick .q { font-weight:600; }
+.tl-tick:hover .q { color:var(--blue); }
+.tl-tick.active .q { color:var(--blue); font-weight:800; }
+.tl-tick.active .d { color:var(--text); font-weight:600; }
+.tl-tick .d { font-size:11px; color:#9aa4b5; }
+.tl-tick.active { transform:scale(1.06); }
+.tl-tick { transition:transform .12s; }
+
 footer { margin-top:14px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
 footer a { color:var(--blue); }
 #covLine { margin-top:8px; color:var(--muted); font-size:12px; }
 #covLine a { color:var(--blue); }
+
+@media (max-width: 900px) {
+  .layout { flex-direction:column; }
+  #logoRail { width:100%; flex:none; grid-template-columns:repeat(10,1fr); }
+}
 </style>
 </head>
 <body>
-<header>
-  <h1 id="title"></h1>
-  <div class="controls">
-    <select id="companySelect"></select>
-    <select id="quarterSelect"></select>
-    <button id="btnReset"></button>
-    <button id="btnExportPNG"></button>
-    <button id="btnExportSVG"></button>
-    <button id="btnLang"></button>
+<div class="layout">
+  <div id="logoRail"></div>
+  <div class="main">
+    <header>
+      <h1 id="title"></h1>
+      <div class="controls">
+        <div class="exportGroup">
+          <button id="btnExportPNG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportPNG"></span></button>
+          <button id="btnExportSVG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportSVG"></span></button>
+        </div>
+        <button id="btnLang"></button>
+      </div>
+    </header>
+    <div id="chartPanel">
+      <div class="in-title" id="chartTitle"></div>
+      <div class="asof" id="chartAsof"></div>
+      <div id="sankey"></div>
+      <div id="timeline">
+        <div class="tl-track"><div class="tl-fill" id="tlFill"></div><div class="tl-thumb" id="tlThumb"></div></div>
+        <div class="tl-ticks" id="tlTicks"></div>
+      </div>
+    </div>
+    <footer>
+      <span id="srcLine"></span>
+      <span id="updLine"></span>
+    </footer>
+    <div id="covLine"></div>
   </div>
-</header>
-<div class="kpis" id="kpis"></div>
-<div id="chartPanel">
-  <div class="in-title" id="chartTitle"></div>
-  <div class="asof" id="chartAsof"></div>
-  <div id="sankey"></div>
 </div>
-<footer>
-  <span id="srcLine"></span>
-  <span id="updLine"></span>
-</footer>
-<div id="covLine"></div>
 <script src="vendor/echarts.min.js"></script>
 <script src="data/profit.json.js"></script>
 <script src="app.js"></script>
