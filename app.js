@@ -18,6 +18,11 @@ const I18N = {
     source: 'Data source:', updated: 'Data updated:', asof: 'As of',
     coverage: 'Segment inflow (input side) available:', coverageNone: 'No segment data loaded — output waterfall only.',
     quartersWith: 'quarters with segments', ofQ: 'of', segSource: 'segments:',
+    pctBtn: '% of revenue', qoqBtn: 'QoQ',
+    pctNote: 'Shares are relative to this quarter\'s revenue; expense lines shown as % of revenue.',
+    qoqNote: 'QoQ: flows/amounts = % change vs prior quarter; margins = percentage points (pp). “—” = no prior-quarter data.',
+    margins: { gross: 'Gross margin', op: 'Operating margin', net: 'Net margin' },
+    ofRev: '% of rev', qoqSuffix: 'QoQ',
   },
   zh: {
     appTitle: '利润析视', langBtn: 'English',
@@ -31,6 +36,11 @@ const I18N = {
     source: '数据来源：', updated: '数据更新：', asof: '截至',
     coverage: '分部流入（input 侧）可用：', coverageNone: '未加载分部数据 —— 仅绘制利润瀑布。',
     quartersWith: '个季度有分部数据', ofQ: '/', segSource: '分部数据：',
+    pctBtn: '占比', qoqBtn: '环比',
+    pctNote: '占比口径：均相对本季营收；费用项显示占营收比。',
+    qoqNote: '环比口径：金额/流量为环比 % 变化；利润率为百分点（pp）。“—”表示上季无数据。',
+    margins: { gross: '毛利率', op: '营业利润率', net: '净利率' },
+    ofRev: '占营收', qoqSuffix: 'QoQ',
   },
 };
 
@@ -55,12 +65,83 @@ const tn = k => I18N[lang].nodes[k] || k;
 let DATA = null;      // profit.json (values in USD)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
 let chart = null;     // echarts instance
-let state = { company: 'NVDA', qIndex: null }; // qIndex null = latest
+let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false } }; // qIndex null = latest
 
 const fmtB = v => v == null ? '—' :
   (v / 1e9).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US', { maximumFractionDigits: 2 }) + 'B';
 const fmtPct = v => v == null ? '—' : (v * 100).toFixed(1) + '%';
 const fmtDelta = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + '%';
+const fmtPP = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + 'pp';
+
+/* ---- label-mode helpers (pct / QoQ); only change label display, never node values ---- */
+const MARGIN_KEYS = ['gross', 'op', 'net'];
+const KEY_ALIAS = { netLoss: 'net' };
+
+/* Raw USD metrics for one quarter, mirroring the nodes buildGraph() actually creates
+   (same guards: opex only when the waterfall branch emits it, etc.). */
+function rawMetrics(qv) {
+  if (!qv) return null;
+  const B = 1e9;
+  const m = {
+    revenue: qv.revenue, gross: qv.gross != null ? qv.gross : null,
+    cogs: qv.gross != null ? qv.revenue - qv.gross : null,
+    rd: qv.rd != null ? qv.rd : null, sga: qv.sga != null ? qv.sga : null,
+    op: qv.opInc != null ? qv.opInc : null, net: qv.netInc != null ? qv.netInc : null,
+  };
+  let opex = null;
+  if (m.gross != null && m.op != null && m.op >= 0 && m.op <= m.gross) {
+    const opexVal = m.gross - m.op;
+    if (m.rd != null && m.sga != null && m.rd / B + m.sga / B <= opexVal / B * 1.001) {
+      const other = opexVal - m.rd - m.sga;
+      opex = other > 0 ? other : null;
+    } else opex = opexVal;
+  } else if (m.gross == null && m.op != null && m.op >= 0) {
+    opex = m.revenue - m.op;
+  }
+  m.opex = opex;
+  m.taxOther = (m.op != null && m.net != null) ? Math.max(m.op - m.net, 0) : null;
+  m.nonop = (m.op != null && m.net != null) ? Math.max(m.net - m.op, 0) : null;
+  return m;
+}
+
+/* amount QoQ (% change vs prior quarter); null when either side lacks data */
+function qoqAmount(name) {
+  const curM = rawMetrics(q()), prevQ = prev(1), prevM = rawMetrics(prevQ);
+  if (!curM || !prevM) return null;
+  const k = KEY_ALIAS[name] || name;
+  const cv = curM[k], pv = prevM[k];
+  return (cv != null && pv != null && pv !== 0) ? (cv - pv) / Math.abs(pv) : null;
+}
+
+/* segment-node amount QoQ; null if the prior quarter has no segment data or the segment is missing */
+function qoqSegment(name) {
+  const nm = name.slice(4), prevQ = prev(1);
+  if (!prevQ) return null;
+  const find = list => {
+    if (!list) return null;
+    const top = list.find(s => s.name === nm);
+    if (top) return top.value;
+    for (const s of list) if (s.children) { const ch = s.children.find(c => c.name === nm); if (ch) return ch.value; }
+    return null;
+  };
+  const cv = find(segmentsFor(state.company, q().end));
+  const pv = find(segmentsFor(state.company, prevQ.end));
+  return (cv != null && pv != null && pv !== 0) ? (cv - pv) / Math.abs(pv) : null;
+}
+
+/* margin (pp) QoQ for gross/op/net — change of ratio vs prior quarter, in percentage points */
+function qoqMarginPP(key) {
+  const mg = m => (m && m.revenue && m[key] != null) ? m[key] / m.revenue : null;
+  const a = mg(rawMetrics(q())), b = mg(rawMetrics(prev(1)));
+  return (a != null && b != null) ? (a - b) : null;
+}
+
+/* QoQ line for a node label: flows/amounts → fmtDelta %, margins (only when pct mode shows them as ratios) → pp */
+function qoqText(name) {
+  if (state.mode.pct && MARGIN_KEYS.includes(name)) return fmtPP(qoqMarginPP(name));
+  const v = name.startsWith('seg:') ? qoqSegment(name) : qoqAmount(name);
+  return fmtDelta(v); // '—' when no prior data
+}
 
 function q() {
   const c = DATA.companies[state.company];
@@ -214,12 +295,50 @@ function renderChart() {
   const labelRich = {
     n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21 },
     v: { fontSize: 14, fontWeight: 600, color: '#64748b', lineHeight: 18 },
+    p: { fontSize: 14, fontWeight: 700, color: '#2563eb', lineHeight: 18 },   // share of revenue
+    m: { fontSize: 14, fontWeight: 700, color: '#1d55a5', lineHeight: 18 },   // margin ratios
+    up: { fontSize: 13, fontWeight: 700, color: '#16a34a', lineHeight: 17 },
+    down: { fontSize: 13, fontWeight: 700, color: '#dc2626', lineHeight: 17 },
+    flat: { fontSize: 13, fontWeight: 600, color: '#94a3b8', lineHeight: 17 }, // '—' no prior data
   };
+
+  /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
+  function nodeLabel(p) {
+    const revB = qv.revenue / 1e9;
+    const isMargin = MARGIN_KEYS.includes(p.name);
+    const amt = `$${p.value.toFixed(1)}B`;
+    let body = `{n|${displayName(p)}}`;
+    const parts = [];
+    if (state.mode.pct) {
+      if (isMargin) {
+        const mg = rawMetrics(qv)[p.name] / qv.revenue;
+        parts.push(`{m|${t('margins')[p.name]} ${fmtPct(mg)}}`);
+      } else if (p.name === 'revenue') {
+        parts.push('{p|100%}');
+      } else {
+        parts.push(p.name.startsWith('seg:')
+          ? `{p|${fmtPct(p.value / revB)}}`
+          : `{p|${fmtPct(p.value / revB)} ${t('ofRev')}}`);
+      }
+    }
+    parts.push(`{v|${amt}}`);
+    body += '\n' + parts.join(' · ');
+    if (state.mode.qoq) {
+      const qt = qoqText(p.name);
+      if (qt === '—') body += `\n{flat|— QoQ}`;
+      else {
+        const neg = qt.startsWith('-');
+        body += `\n{${neg ? 'down' : 'up'}|${qt} ${t('qoqSuffix')}}`;
+      }
+    }
+    return body;
+  }
+
   const data = g.nodes.map(n => {
     const d = { name: n.name, value: n.value, depth: n.depth, itemStyle: n.itemStyle };
     // per-node label placement to avoid overlaps (pitfall #3)
     if (n.name === 'revenue') {
-      d.label = { position: 'top', distance: 6, formatter: p => `{n|${displayName(p)}}\n{v|$${p.value.toFixed(1)}B}` };
+      d.label = { position: 'top', distance: 6, formatter: nodeLabel };
     } else if (n.depth === 0 && (!segList || !segList.some(s => s.children && s.children.length))) {
       d.label = { position: 'right', distance: 6 };   // no aggregate column: safe right of node
     } else if (n.depth === (segList && segList.some(s => s.children && s.children.length) ? 2 : (segList ? 1 : 0)) + 3) {
@@ -251,13 +370,24 @@ function renderChart() {
       emphasis: { focus: 'adjacency' },
       label: {
         fontSize: 15,
-        formatter: p => `{n|${displayName(p)}}\n{v|$${p.value.toFixed(1)}B}`,
+        formatter: nodeLabel,
         rich: labelRich,
       },
       data,                          // FULL data + links every time (pitfall #1)
       links: g.links,
     }],
   }, true); // notMerge: full replacement on every company/quarter switch
+  window.__lastOption = {
+    backgroundColor: '#f2efe9',
+    tooltip: undefined,
+    series: [{
+      type: 'sankey', layout: 'none', nodeAlign: 'justify',
+      nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: 60, bottom: 40,
+      emphasis: { focus: 'adjacency' },
+      label: { fontSize: 15, formatter: nodeLabel, rich: labelRich },
+      data, links: g.links,
+    }],
+  };
 }
 
 /* ---- left logo rail ---- */
@@ -321,6 +451,18 @@ function render() {
   document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
   document.getElementById('btnLang').textContent = t('langBtn');
 
+  // label-mode buttons: text + active state (stackable pct/qoq)
+  document.getElementById('lblPct').textContent = t('pctBtn');
+  document.getElementById('lblQoQ').textContent = t('qoqBtn');
+  document.getElementById('btnPct').classList.toggle('active', state.mode.pct);
+  document.getElementById('btnQoQ').classList.toggle('active', state.mode.qoq);
+  const noteEl = document.getElementById('modeNote');
+  const notes = [];
+  if (state.mode.pct) notes.push(t('pctNote'));
+  if (state.mode.qoq) notes.push(t('qoqNote'));
+  noteEl.textContent = notes.join(' ');
+  noteEl.style.display = notes.length ? '' : 'none';
+
   renderLogoRail();
   renderTimeline();
   renderChart();
@@ -353,7 +495,7 @@ function exportPNG() {
   if (!chart) return;
   // SVG renderer's getDataURL cannot rasterize; re-render into an offscreen
   // canvas instance at 2x and export a real PNG from there.
-  const opt = chart.getOption();
+  const opt = window.__lastOption || chart.getOption(); // full option incl. label formatters → current mode WYSIWYG
   opt.backgroundColor = '#f2efe9';
   const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: 1600, height: 900 });
   off.setOption(opt);
@@ -379,6 +521,8 @@ function initControls() {
   document.getElementById('btnLang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; render(); });
   document.getElementById('btnExportPNG').addEventListener('click', exportPNG);
   document.getElementById('btnExportSVG').addEventListener('click', exportSVG);
+  document.getElementById('btnPct').addEventListener('click', () => { state.mode.pct = !state.mode.pct; render(); });
+  document.getElementById('btnQoQ').addEventListener('click', () => { state.mode.qoq = !state.mode.qoq; render(); });
 }
 
 (async function main() {
