@@ -1,6 +1,8 @@
-/* Profit Bridge dashboard — data-driven, all figures from data/profit.json (SEC EDGAR XBRL).
-   Sankey rendered as hand-built SVG in the style of the original video: cream panel, solid
-   node rects, bold bezier ribbons colored by profit/cost path, node labels with values. */
+/* Profit Bridge dashboard — data-driven, all figures from data/profit.json (SEC EDGAR XBRL)
+   and data/segments.json (SEC EDGAR XBRL segment R files).
+   Sankey rendered with the ECharts (v5.6.0) sankey series, SVG renderer.
+   Input side: segment inflows (blue) → Revenue (gray, center).
+   Output side: profit waterfall (green) + cost branches (red) + non-operating inflow. */
 'use strict';
 
 const I18N = {
@@ -8,7 +10,7 @@ const I18N = {
     appTitle: 'Profit Bridge', langBtn: '中文',
     revenue: 'Revenue', gross: 'Gross profit', opInc: 'Operating income', netInc: 'Net income',
     grossMargin: 'Gross margin', opMargin: 'Operating margin', netMargin: 'Net margin',
-    qoq: 'QoQ', yoy: 'YoY', reset: 'Reset', export: 'Export PNG',
+    qoq: 'QoQ', yoy: 'YoY', reset: 'Reset', exportPNG: 'Export PNG', exportSVG: 'Export SVG',
     nodes: {
       revenue: 'Revenue', cogs: 'Cost of revenue', gross: 'Gross profit', opex: 'Operating expenses',
       rd: 'R&D expenses', sga: 'Selling, general & admin',
@@ -16,15 +18,14 @@ const I18N = {
       loss: 'Operating loss', netLoss: 'Net loss',
     },
     source: 'Data source:', updated: 'Data updated:', asof: 'As of',
-    marginOf: 'margin of revenue', pctOfRev: 'of revenue', na: 'N/A',
-    unitNote: 'Unit: USD billion',
-    nonopNote: 'Net contribution of non-operating items (gross non-operating income less tax effects)',
+    coverage: 'Segment inflow (input side) available:', coverageNone: 'No segment data loaded — output waterfall only.',
+    quartersWith: 'quarters with segments', ofQ: 'of', segSource: 'segments:',
   },
   zh: {
     appTitle: '利润析视', langBtn: 'English',
     revenue: '营业收入', gross: '毛利润', opInc: '营业利润', netInc: '净利润',
     grossMargin: '毛利率', opMargin: '营业利润率', netMargin: '净利率',
-    qoq: '环比', yoy: '同比', reset: '回到默认', export: '导出 PNG',
+    qoq: '环比', yoy: '同比', reset: '回到默认', exportPNG: '导出 PNG', exportSVG: '导出 SVG',
     nodes: {
       revenue: '营收', cogs: '营收成本', gross: '毛利润', opex: '营业费用',
       rd: '研发费用', sga: '销售与管理费用',
@@ -32,9 +33,8 @@ const I18N = {
       loss: '经营亏损', netLoss: '净亏损',
     },
     source: '数据来源：', updated: '数据更新：', asof: '截至',
-    marginOf: '占营收比', pctOfRev: '占营收比重', na: '无数据',
-    unitNote: '单位：十亿美元 (USD)',
-    nonopNote: '非经营性项目的净贡献（税前非经营收益扣除税项影响后的净额）',
+    coverage: '分部流入（input 侧）可用：', coverageNone: '未加载分部数据 —— 仅绘制利润瀑布。',
+    quartersWith: '个季度有分部数据', ofQ: '/', segSource: '分部数据：',
   },
 };
 
@@ -43,8 +43,6 @@ const ZH_NAMES = {
   NVDA: '英伟达', AAPL: '苹果', MSFT: '微软', GOOGL: '谷歌', AMZN: '亚马逊',
   META: 'Meta', TSLA: '特斯拉', ORCL: '甲骨文', AMD: '超威半导体', INTC: '英特尔',
 };
-/* calendar quarter label, e.g. Q3 2026 — honest calendar-based naming (fiscal years differ
-   per issuer; the exact fiscal period end is always shown next to it) */
 function quarterLabel(end) {
   const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
   return `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
@@ -58,7 +56,9 @@ let lang = 'en';
 const t = k => I18N[lang][k];
 const tn = k => I18N[lang].nodes[k] || k;
 
-let DATA = null;
+let DATA = null;      // profit.json (values in USD)
+let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
+let chart = null;     // echarts instance
 let state = { company: 'NVDA', qIndex: null }; // qIndex null = latest
 
 const fmtB = v => v == null ? '—' :
@@ -82,247 +82,186 @@ function delta(field) {
   return { qoq: d(p1), yoy: d(p4) };
 }
 
-/* Build the profit-bridge structure strictly from the selected quarter's real values.
-   Every link value is non-negative; each node's out-slots sum to its value where applicable,
-   so ribbon widths are exactly proportional to dollar amounts. */
-function buildSankey(qv) {
-  const { revenue: rev, gross, opInc: op, netInc: net } = qv;
-  const links = [], nodes = [];
-  const addNode = (id, v) => nodes.push({ name: id, value: v });
+/* ---- palette (no gradients anywhere; ribbons are solid per-link colors) ---- */
+const BLUE = '#3b82c4', GRAY = '#4b5563', GREEN = '#16a34a', RED = '#dc2626', GOLD = '#d4a017';
+const NODE_COLORS = { revenue: GRAY, gross: GREEN, cogs: RED, opex: RED, rd: RED, sga: RED,
+  op: GREEN, taxOther: RED, net: GREEN, nonop: GOLD, netLoss: RED };
+const FLOW_OPACITY = 0.55;
+
+/* segment inflow availability for a company+quarter (segments are $M) */
+function segmentsFor(ticker, qEnd) {
+  const c = SEG && SEG.companies && SEG.companies[ticker];
+  return (c && c.quarters && c.quarters[qEnd]) || null;
+}
+
+/* Build the full echarts sankey graph ($B units) for the selected quarter.
+   Columns: [segments(+children) 0] [aggregate parents 1] [revenue] [gross/cogs] [rd/sga/other/op] [net/tax].
+   All values non-negative; out-slots of every node sum to its value. */
+function buildGraph(qv, segList) {
+  const B = 1e9, M = 1e6;
+  const rev = qv.revenue / B, gross = qv.gross != null ? qv.gross / B : null,
+        op = qv.opInc != null ? qv.opInc / B : null, net = qv.netInc != null ? qv.netInc / B : null;
+  const nodes = [], links = [];
+  const hasChildren = segList && segList.some(s => s.children && s.children.length);
+  const revDepth = hasChildren ? 2 : (segList ? 1 : 0);
+  const segName = n => 'seg:' + n; // namespace so segments can never collide with computed node ids
+
+  // ---- input side ----
+  if (segList && segList.length) {
+    for (const s of segList) {
+      if (s.children && s.children.length) {
+        const parentVal = s.children.reduce((a, c) => a + c.value, 0) / 1000; // $M → $B
+        for (const ch of s.children) {
+          nodes.push({ name: segName(ch.name), value: ch.value / 1000, depth: 0, itemStyle: { color: BLUE } });
+          links.push({ source: segName(ch.name), target: segName(s.name), value: ch.value / 1000 });
+        }
+        nodes.push({ name: segName(s.name), value: parentVal, depth: 1, itemStyle: { color: BLUE } });
+        links.push({ source: segName(s.name), target: 'revenue', value: parentVal });
+      } else {
+        nodes.push({ name: segName(s.name), value: s.value / 1000, depth: 0, itemStyle: { color: BLUE } });
+        links.push({ source: segName(s.name), target: 'revenue', value: s.value / 1000 });
+      }
+    }
+  }
+
+  // ---- revenue + output waterfall ----
+  nodes.push({ name: 'revenue', value: rev, depth: revDepth, itemStyle: { color: GRAY } });
   const hasOpexSplit = qv.rd != null && qv.sga != null;
-  addNode('revenue', rev);
   if (gross != null) {
-    addNode('gross', gross);
-    addNode('cogs', rev - gross);
+    nodes.push({ name: 'gross', value: gross, depth: revDepth + 1, itemStyle: { color: GREEN } });
+    nodes.push({ name: 'cogs', value: rev - gross, depth: revDepth + 1, itemStyle: { color: RED } });
     links.push({ source: 'revenue', target: 'gross', value: gross });
     if (rev - gross > 0) links.push({ source: 'revenue', target: 'cogs', value: rev - gross });
     if (op != null && op >= 0 && op <= gross) {
-      addNode('op', op);
+      nodes.push({ name: 'op', value: op, depth: revDepth + 2, itemStyle: { color: GREEN } });
       const opexVal = gross - op;
-      if (hasOpexSplit && qv.rd + qv.sga <= opexVal * 1.001) {
-        // issuer tags both R&D and SG&A: show the real split (original-video style)
-        addNode('rd', qv.rd);
-        addNode('sga', qv.sga);
-        const other = opexVal - qv.rd - qv.sga;
-        if (other > 0) { addNode('opex', other); links.push({ source: 'gross', target: 'opex', value: other }); }
-        links.push({ source: 'gross', target: 'rd', value: qv.rd });
-        links.push({ source: 'gross', target: 'sga', value: qv.sga });
+      if (hasOpexSplit && qv.rd / B + qv.sga / B <= opexVal * 1.001) {
+        nodes.push({ name: 'rd', value: qv.rd / B, depth: revDepth + 2, itemStyle: { color: RED } });
+        nodes.push({ name: 'sga', value: qv.sga / B, depth: revDepth + 2, itemStyle: { color: RED } });
+        const other = opexVal - qv.rd / B - qv.sga / B;
+        if (other > 0) { nodes.push({ name: 'opex', value: other, depth: revDepth + 2, itemStyle: { color: RED } }); links.push({ source: 'gross', target: 'opex', value: other }); }
+        links.push({ source: 'gross', target: 'rd', value: qv.rd / B });
+        links.push({ source: 'gross', target: 'sga', value: qv.sga / B });
       } else {
-        addNode('opex', opexVal);
+        nodes.push({ name: 'opex', value: opexVal, depth: revDepth + 2, itemStyle: { color: RED } });
         links.push({ source: 'gross', target: 'opex', value: opexVal });
       }
       links.push({ source: 'gross', target: 'op', value: op });
     }
   } else if (op != null && op >= 0) {
-    // issuer does not tag GrossProfit (GOOGL/AMZN/META/ORCL): revenue splits into op + costs
-    addNode('op', op);
-    addNode('opex', rev - op);
+    nodes.push({ name: 'op', value: op, depth: revDepth + 1, itemStyle: { color: GREEN } });
+    nodes.push({ name: 'opex', value: rev - op, depth: revDepth + 1, itemStyle: { color: RED } });
     links.push({ source: 'revenue', target: 'op', value: op });
     links.push({ source: 'revenue', target: 'opex', value: rev - op });
   }
   if (op != null && op > 0 && net != null) {
-    if (!nodes.find(n => n.name === 'op')) addNode('op', op);
     if (net >= 0) {
-      addNode('net', net);
+      nodes.push({ name: 'net', value: net, depth: revDepth + 3, itemStyle: { color: GREEN } });
       links.push({ source: 'op', target: 'net', value: Math.min(net, op) });
-      if (op - net > 0) { addNode('taxOther', op - net); links.push({ source: 'op', target: 'taxOther', value: op - net }); }
-      if (net > op) { addNode('nonop', net - op); links.push({ source: 'nonop', target: 'net', value: net - op }); }
+      if (op - net > 0) { nodes.push({ name: 'taxOther', value: op - net, depth: revDepth + 3, itemStyle: { color: RED } }); links.push({ source: 'op', target: 'taxOther', value: op - net }); }
+      if (net > op) {
+        nodes.push({ name: 'nonop', value: net - op, depth: revDepth + 2, itemStyle: { color: GOLD } });
+        links.push({ source: 'nonop', target: 'net', value: net - op });
+      }
     } else {
-      addNode('netLoss', -net);
-      addNode('taxOther', op);
+      nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 3, itemStyle: { color: RED } });
+      nodes.push({ name: 'taxOther', value: op, depth: revDepth + 3, itemStyle: { color: RED } });
       links.push({ source: 'op', target: 'taxOther', value: op });
       links.push({ source: 'taxOther', target: 'netLoss', value: -net });
     }
   }
-  const cleanLinks = links.filter(l => l.value > 0 && l.source !== l.target);
+
+  const cleanLinks = links.filter(l => l.value > 0 && l.source !== l.target)
+    .map(l => ({ ...l, lineStyle: { color: linkColor(l), opacity: FLOW_OPACITY, curveness: 0.5 } }));
   return { nodes, links: cleanLinks };
 }
-
-const NODE_COLORS = {
-  revenue: '#4b5563', gross: '#16a34a', cogs: '#dc2626', opex: '#ef4444', rd: '#ef4444', sga: '#ef4444',
-  op: '#16a34a', taxOther: '#dc2626', net: '#16a34a', nonop: '#22c55e', loss: '#dc2626', netLoss: '#dc2626',
-};
-const INK = '#1e293b', MUTED = '#64748b';
-const FLOW_OPACITY = 0.62;
-const NODE_W = 18;
-
-/* Column layout (like the original: revenue → gross/cost → op/expenses → net/tax) */
-function layoutSankey(struct, W, H) {
-  const cols = [['revenue'], ['gross', 'cogs'], ['op', 'rd', 'sga', 'opex', 'nonop'], ['net', 'netLoss', 'taxOther']];
-  const byName = Object.fromEntries(struct.nodes.map(n => [n.name, n]));
-  const present = cols.map(col => col.filter(n => byName[n]));
-  const maxSum = Math.max(...present.map(col => col.reduce((s, n) => s + byName[n].value, 0)));
-  const top = 74, bottom = 28;
-  const scale = (H - top - bottom) / maxSum;   // px per dollar — single common scale
-  const gap = 72;  // room for a full label stack (or a flipped one) between stacked nodes
-  const colX = present.map((_, i) => 70 + i * ((W - 320) / (present.length - 1)));
-  present.forEach((col, ci) => {
-    const colH = col.reduce((s, n) => s + byName[n].value * scale, 0) + gap * (col.length - 1);
-    let y = top + (H - top - bottom - colH) / 2;
-    col.forEach(name => {
-      const n = byName[name];
-      n.x = colX[ci]; n.y = y; n.h = n.value * scale; n.col = ci;
-      y += n.h + gap;
-    });
-  });
-  // assign link slots: outgoing top-to-bottom by target column, incoming likewise
-  const outCursor = {}, inCursor = {};
-  const orderKey = l => present.findIndex(c => c.includes(l.target)) * 1000 + byName[l.target].y;
-  [...struct.links].sort((a, b) => orderKey(a) - orderKey(b)).forEach(l => {
-    const s = byName[l.source], tg = byName[l.target];
-    outCursor[s.name] = outCursor[s.name] ?? s.y;
-    l.sy = outCursor[s.name]; outCursor[s.name] += l.value * scale;
-    inCursor[tg.name] = inCursor[tg.name] ?? tg.y;
-    l.ty = inCursor[tg.name]; inCursor[tg.name] += l.value * scale;
-  });
-  struct.byName = byName;
-  struct.scale = scale;
-  return struct;
+function linkColor(l) {
+  if (l.source.startsWith('seg:')) return BLUE; // all input-side ribbons (children→parent, parent/segment→revenue)
+  if (l.source === 'nonop') return GOLD;
+  if (l.target === 'gross' || l.target === 'op' || l.target === 'net') return GREEN;
+  return RED; // cogs / rd / sga / opex / taxOther / netLoss branches
 }
+const displayName = n => n.name.startsWith('seg:') ? n.name.slice(4) : tn(n.name);
 
-function ribbonPath(l) {
-  const x1 = l.x0 + NODE_W, x2 = l.x1;
-  const y1t = l.sy, y1b = l.sy + l.value * l.scale;
-  const y2t = l.ty, y2b = l.ty + l.value * l.scale;
-  const cx = (x1 + x2) / 2;
-  return `M${x1},${y1t} C${cx},${y1t} ${cx},${y2t} ${x2},${y2t} L${x2},${y2b} C${cx},${y2b} ${cx},${y1b} ${x1},${y1b} Z`;
-}
-
-const SVG_NS = 'http://www.w3.org/2000/svg';
-function el(name, attrs, parent) {
-  const e = document.createElementNS(SVG_NS, name);
-  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
-  if (parent) parent.appendChild(e);
-  return e;
-}
-function svgText(parent, x, y, str, attrs) {
-  const e = el('text', { x, y, ...attrs }, parent);
-  e.textContent = str;
-  return e;
+/* self-consistency check: input-side leaf inflows must equal revenue */
+function checkConsistency(qv, g) {
+  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue / 1e9, ok: null, waterfall: {} };
+  const leafLinks = g.links.filter(l => l.source.startsWith('seg:') &&
+    !g.nodes.some(n => n.name === l.source && n.depth === 1)); // leaves, not aggregate parents
+  const inputSum = leafLinks.reduce((a, l) => a + l.value, 0);
+  out.inputSum = inputSum;
+  out.ok = Math.abs(inputSum - out.revenue) < 0.005;
+  const byName = Object.fromEntries(g.nodes.map(n => [n.name, n.value]));
+  out.waterfall = {
+    gross: byName.gross, cogs: byName.cogs, op: byName.op, net: byName.net,
+    grossEq: byName.gross == null || Math.abs(byName.gross + (byName.cogs || 0) - out.revenue) < 0.005,
+    opEq: byName.op == null || qv.gross == null || Math.abs(byName.op + (byName.rd || 0) + (byName.sga || 0) + (byName.opex || 0) - byName.gross) < 0.01,
+    netEq: byName.net == null || Math.abs(byName.net - qv.netInc / 1e9) < 0.005,
+  };
+  return out;
 }
 
 function renderChart() {
   const qv = q();
-  const W = Math.max(document.getElementById('chartPanel').clientWidth, 900);
-  const H = 600;
-  const struct = layoutSankey(buildSankey(qv), W, H);
-  const byName = struct.byName;
-
-  const svg = document.getElementById('sankey');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('width', W); svg.setAttribute('height', H);
-  svg.innerHTML = '';
-  const defs = el('defs', {}, svg);
-
-  const tooltip = document.getElementById('tooltip');
-  const showTip = (evt, html) => {
-    tooltip.innerHTML = html;
-    tooltip.style.display = 'block';
-    const panel = document.getElementById('chartPanel').getBoundingClientRect();
-    let x = evt.clientX - panel.left + 14, y = evt.clientY - panel.top + 14;
-    if (x > panel.width - 270) x -= 290;
-    tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
+  const segList = segmentsFor(state.company, qv.end);
+  const g = buildGraph(qv, segList);
+  window.__bridgeCheck = checkConsistency(qv, g);
+  window.__sankeyMeta = {
+    company: state.company, quarter: qv.end,
+    nodes: g.nodes.map(n => ({ name: displayName(n), value: +n.value.toFixed(4), depth: n.depth })),
+    links: g.links.map(l => ({ source: displayName({ name: l.source }), target: displayName({ name: l.target }), value: +l.value.toFixed(4) })),
   };
-  const hideTip = () => { tooltip.style.display = 'none'; };
 
-  // ribbons
-  for (const l of struct.links) {
-    const s = byName[l.source], tg = byName[l.target];
-    l.x0 = s.x; l.x1 = tg.x; l.scale = struct.scale;
-    const g = el('linearGradient', { id: `grad_${l.source}_${l.target}`, x1: '0%', y1: '0%', x2: '100%', y2: '0%' }, defs);
-    el('stop', { offset: '0%', 'stop-color': NODE_COLORS[s.name], 'stop-opacity': 0.85 }, g);
-    el('stop', { offset: '100%', 'stop-color': NODE_COLORS[tg.name], 'stop-opacity': 0.85 }, g);
-    const p = el('path', {
-      d: ribbonPath(l), fill: `url(#grad_${l.source}_${l.target})`,
-      opacity: FLOW_OPACITY, stroke: 'none',
-    }, svg);
-    p.addEventListener('mousemove', e => showTip(e,
-      `${tn(l.source)} → ${tn(l.target)}<br/><b>$${fmtB(l.value)}</b> (${fmtPct(l.value / qv.revenue)} ${t('pctOfRev')})`));
-    p.addEventListener('mouseleave', hideTip);
-  }
-
-  // nodes + labels
-  const TITLE_SAFE_Y = 48; // keep below the in-panel title / as-of line
-  for (const n of struct.nodes) {
-    const rect = el('rect', { x: n.x, y: n.y, width: NODE_W, height: n.h, fill: NODE_COLORS[n.name], rx: 1 }, svg);
-    const note = n.name === 'nonop' ? `<br/><span style="color:#64748b">${t('nonopNote')}</span>` : '';
-    rect.addEventListener('mousemove', e => showTip(e, `<b>${tn(n.name)}</b><br/>$${fmtB(n.value)}${qv.revenue ? `<br/>${fmtPct(n.value / qv.revenue)} ${t('pctOfRev')}` : ''}${note}`));
-    rect.addEventListener('mouseleave', hideTip);
-  }
-
-  // label placement: per-column greedy layout. Each stack tries ABOVE the node first,
-  // then BELOW; a placement is valid only if it clears the title zone, every node rect
-  // in the column, and every already-placed label stack (prevents label↔label overlaps).
-  const colNodes = {};
-  for (const n of struct.nodes) (colNodes[n.col] ??= []).push(n);
-  const placed = {}; // col -> [{y1,y2}]
-  const boxHits = (col, y1, y2) =>
-    (placed[col] || []).some(b => y1 < b.y2 - 2 && y2 > b.y1 + 2);
-  for (const col of Object.keys(colNodes)) {
-    const nodes = colNodes[col].slice().sort((a, b) => a.y - b.y);
-    const nodeBoxes = nodes.map(n => ({ y1: n.y - 6, y2: n.y + n.h + 6 }));
-    placed[col] = [];
-    for (const n of nodes) {
-      const cx = n.x + NODE_W / 2;
-      const color = NODE_COLORS[n.name];
-      const margin = n.name === 'gross' ? qv.gross / qv.revenue
-        : n.name === 'op' ? qv.opInc / qv.revenue
-        : n.name === 'net' || n.name === 'netLoss' ? qv.netInc / qv.revenue : null;
-      const isCost = n.name === 'cogs' || n.name === 'opex' || n.name === 'rd' || n.name === 'sga' || n.name === 'taxOther';
-      const valStr = isCost ? `($${fmtB(n.value)})` : `$${fmtB(n.value)}`;
-      if (n.name === 'revenue') {
-        svgText(svg, cx, n.y - 34, tn('revenue'), { 'text-anchor': 'middle', 'font-size': 17, 'font-weight': 700, fill: INK });
-        svgText(svg, cx, n.y - 13, valStr.replace(/[()]/g, ''), { 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 800, fill: INK });
-        continue;
-      }
-      if (n.name === 'net' || n.name === 'netLoss') {
-        const lx = n.x + NODE_W + 12; // right-side label, no column conflicts
-        svgText(svg, lx, n.y + 4, tn(n.name), { 'font-size': 17, 'font-weight': 700, fill: color });
-        svgText(svg, lx, n.y + 25, valStr.replace(/[()]/g, ''), { 'font-size': 16, 'font-weight': 800, fill: color });
-        if (margin != null) svgText(svg, lx, n.y + 42, fmtPct(margin) + ' ' + t('marginOf'), { 'font-size': 11, fill: MUTED });
-        continue;
-      }
-      const nLines = margin != null ? 3 : 2;
-      const stackH = nLines * 21;
-      const others = nodeBoxes.filter((_, i) => nodes[i] !== n);
-      const clear = (y1, y2) => y1 >= TITLE_SAFE_Y && !others.some(b => y1 < b.y2 && y2 > b.y1) && !boxHits(col, y1, y2) && y2 <= H - 30;
-      const tryAbove = n.y - 16 - stackH, tryBelow = n.y + n.h + 16;
-      let below = false, y0, side = false;
-      if (clear(tryAbove, tryAbove + stackH)) y0 = tryAbove;
-      else if (clear(tryBelow, tryBelow + stackH)) { y0 = tryBelow; below = true; }
-      else { side = true; } // last resort: right of the node (like the net label)
-      if (!side) placed[col].push({ y1: y0 - 4, y2: y0 + stackH + 4 });
-      const lines = [
-        [tn(n.name), { 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 700, fill: color }],
-        [valStr, { 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 800, fill: color }],
-      ];
-      if (margin != null) lines.push([fmtPct(margin) + ' ' + t('marginOf'), { 'text-anchor': 'middle', 'font-size': 11, fill: MUTED }]);
-      if (side) {
-        const lx = n.x + NODE_W + 12, yMid = n.y + n.h / 2 - (stackH - 16) / 2;
-        lines.forEach(([str, attrs], i) => {
-          const a = { ...attrs, 'text-anchor': 'start' };
-          if (i === 0) a['font-size'] = 15;
-          svgText(svg, lx, yMid + i * 21, str, a);
-        });
-      } else {
-        lines.forEach(([str, attrs], i) => svgText(svg, cx, y0 + 16 + i * 21, str, attrs));
-      }
-    }
-  }
-
-  // unit note (bottom-left, like original)
-  svgText(svg, 24, H - 12, t('unitNote'), { 'font-size': 11, fill: MUTED });
-
-  // chart panel inner title + as-of
   document.getElementById('chartTitle').textContent = `${shortName(state.company)} ${quarterLabel(qv.end)}`;
   document.getElementById('chartAsof').textContent = `${t('asof')} ${qv.end}`;
 
-  // test hook: pixel-accurate geometry + values
-  window.__sankeyMeta = {
-    company: state.company, quarter: qv.end, scale: struct.scale,
-    nodes: struct.nodes.map(n => ({ name: n.name, value: n.value, x: n.x, y: n.y, h: n.h })),
-    links: struct.links.map(l => ({ source: l.source, target: l.target, value: l.value, sy: l.sy, ty: l.ty, h: l.value * struct.scale })),
+  const labelRich = {
+    n: { fontSize: 12, fontWeight: 700, color: '#1e293b', lineHeight: 16 },
+    v: { fontSize: 11, fontWeight: 600, color: '#64748b', lineHeight: 14 },
   };
+  const data = g.nodes.map(n => {
+    const d = { name: n.name, value: n.value, depth: n.depth, itemStyle: n.itemStyle };
+    // per-node label placement to avoid overlaps (pitfall #3)
+    if (n.name === 'revenue') {
+      d.label = { position: 'top', distance: 6, formatter: p => `{n|${displayName(p)}}\n{v|$${p.value.toFixed(1)}B}` };
+    } else if (n.depth === 0 && (!segList || !segList.some(s => s.children && s.children.length))) {
+      d.label = { position: 'right', distance: 6 };   // no aggregate column: safe right of node
+    } else if (n.depth === (segList && segList.some(s => s.children && s.children.length) ? 2 : (segList ? 1 : 0)) + 3) {
+      d.label = { position: 'right', distance: 8 };   // last column: label right, no conflicts
+    } else {
+      d.label = { position: 'top', distance: 5 };
+    }
+    return d;
+  });
+  const hasAgg = segList && segList.some(s => s.children && s.children.length);
+
+  chart.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'item', confine: true,
+      formatter: p => {
+        const nm = displayName(p);
+        return p.dataType === 'edge'
+          ? `${displayName({ name: p.data.source })} → ${displayName({ name: p.data.target })}<br/><b>$${p.data.value.toFixed(1)}B</b>`
+          : `<b>${nm}</b><br/>$${p.value.toFixed(1)}B`;
+      },
+    },
+    series: [{
+      type: 'sankey',
+      layout: 'none',               // manual depth layout (pitfall #5)
+      nodeAlign: 'justify',
+      nodeWidth: 20, nodeGap: 24,
+      left: hasAgg ? 190 : 150, right: 150, top: 60, bottom: 40,
+      emphasis: { focus: 'adjacency' },
+      label: {
+        fontSize: 12,
+        formatter: p => `{n|${displayName(p)}}\n{v|$${p.value.toFixed(1)}B}`,
+        rich: labelRich,
+      },
+      data,                          // FULL data + links every time (pitfall #1)
+      links: g.links,
+    }],
+  }, true); // notMerge: full replacement on every company/quarter switch
 }
 
 function kpiCard(label, value, dv) {
@@ -337,7 +276,8 @@ function render() {
   document.getElementById('title').innerHTML =
     `${t('appTitle')}&nbsp;<span class="sub">${c.name} · ${qv.end}${lang === 'zh' ? ' 季度末' : ' (quarter end)'}</span>`;
   document.getElementById('btnReset').textContent = t('reset');
-  document.getElementById('btnExport').textContent = t('export');
+  document.getElementById('btnExportPNG').textContent = t('exportPNG');
+  document.getElementById('btnExportSVG').textContent = t('exportSVG');
   document.getElementById('btnLang').textContent = t('langBtn');
 
   const qs = document.getElementById('quarterSelect');
@@ -361,42 +301,50 @@ function render() {
   document.getElementById('srcLine').innerHTML =
     `${t('source')} <a href="${DATA.sourceUrl}" target="_blank">SEC EDGAR XBRL companyfacts</a> (US-GAAP)`;
   document.getElementById('updLine').textContent = `${t('updated')} ${DATA.updated}`;
+
+  // coverage footnote: which companies have an input side, and segment sourceUrl
+  const cov = document.getElementById('covLine');
+  if (SEG && SEG.companies) {
+    const withSeg = Object.keys(DATA.companies).filter(tk => {
+      const s = SEG.companies[tk];
+      return s && s.quarters && Object.keys(s.quarters).length > 0;
+    });
+    const detail = withSeg.map(tk => {
+      const n = Object.keys(SEG.companies[tk].quarters).length;
+      return `${tk} (${n}${lang === 'zh' ? '' : ''}/${DATA.companies[tk].quarters.length})`;
+    }).join(' · ');
+    cov.innerHTML = lang === 'zh'
+      ? `${t('coverage')} ${detail}（括号内为有分部数据的季节数/总季节数；缺失季度仅绘制利润瀑布）　${t('segSource')} <a href="${SEG.sourceUrl}" target="_blank">SEC EDGAR XBRL segment R files</a>`
+      : `${t('coverage')} ${detail} — quarters with segments vs total (quarters without segments render waterfall only). ${t('segSource')} <a href="${SEG.sourceUrl}" target="_blank">SEC EDGAR XBRL segment R files</a>`;
+  } else {
+    cov.textContent = t('coverageNone');
+  }
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
 }
 
 function exportPNG() {
-  const svg = document.getElementById('sankey');
-  const panel = document.getElementById('chartPanel');
-  // serialize the SVG with inlined text styles, draw onto cream canvas with title/as-of
-  const clone = svg.cloneNode(true);
-  clone.setAttribute('xmlns', SVG_NS);
-  const xml = new XMLSerializer().serializeToString(clone);
-  const svgBlob = new Blob([xml], { type: 'image/svg+xml;charset=utf-8' });
-  const url = URL.createObjectURL(svgBlob);
-  const img = new Image();
-  img.onload = () => {
-    const W = panel.clientWidth, H = panel.clientHeight, ratio = 2;
-    const topPad = 56; // headroom so in-chart node labels near y=0 are never clipped
-    const canvas = document.createElement('canvas');
-    canvas.width = W * ratio; canvas.height = (H + topPad) * ratio;
-    const ctx = canvas.getContext('2d');
-    ctx.scale(ratio, ratio);
-    ctx.fillStyle = '#f2efe9';
-    ctx.fillRect(0, 0, W, H + topPad);
-    const title = document.getElementById('chartTitle').textContent;
-    ctx.fillStyle = '#1d55a5'; ctx.font = 'bold 26px "Segoe UI", sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(title, W / 2, 40);
-    ctx.fillStyle = INK; ctx.font = '13px "Segoe UI", sans-serif'; ctx.textAlign = 'right';
-    ctx.fillText(document.getElementById('chartAsof').textContent, W - 24, 36);
-    ctx.textAlign = 'left';
-    ctx.drawImage(img, 0, topPad, W, svg.clientHeight);
-    URL.revokeObjectURL(url);
-    const a = document.createElement('a');
-    a.download = `profit_bridge_${state.company}_${q().end}.png`;
-    a.href = canvas.toDataURL('image/png');
-    document.body.appendChild(a); a.click(); a.remove();
-  };
-  img.src = url;
+  if (!chart) return;
+  // SVG renderer's getDataURL cannot rasterize; re-render into an offscreen
+  // canvas instance at 2x and export a real PNG from there.
+  const opt = chart.getOption();
+  opt.backgroundColor = '#f2efe9';
+  const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: 1600, height: 900 });
+  off.setOption(opt);
+  const a = document.createElement('a');
+  a.download = `profit_bridge_${state.company}_${q().end}.png`;
+  a.href = off.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#f2efe9' });
+  document.body.appendChild(a); a.click(); a.remove();
+  off.dispose();
+}
+function exportSVG() {
+  if (!chart) return;
+  const svg = chart.renderToSVGString();
+  const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.download = `profit_bridge_${state.company}_${q().end}.svg`;
+  a.href = url; document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
 }
 
 function initControls() {
@@ -409,7 +357,8 @@ function initControls() {
   });
   document.getElementById('btnReset').addEventListener('click', () => { state = { company: 'NVDA', qIndex: null }; render(); });
   document.getElementById('btnLang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; render(); });
-  document.getElementById('btnExport').addEventListener('click', exportPNG);
+  document.getElementById('btnExportPNG').addEventListener('click', exportPNG);
+  document.getElementById('btnExportSVG').addEventListener('click', exportSVG);
 }
 
 (async function main() {
@@ -422,7 +371,13 @@ function initControls() {
   if (!loaded && window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
   if (!loaded) { document.getElementById('title').textContent = 'data/profit.json not found'; return; }
   DATA = loaded;
-  window.addEventListener('resize', () => renderChart());
+  try {
+    const res = await fetch('data/segments.json');
+    if (res.ok) SEG = await res.json();
+  } catch (e) { /* segments optional — waterfall only */ }
+
+  chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
+  window.addEventListener('resize', () => { chart.resize(); renderChart(); });
   initControls();
   render();
 })();
