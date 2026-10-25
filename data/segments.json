@@ -1,10 +1,9 @@
 {
-  "updated": "2026-10-25T16:02:32.358Z",
+  "updated": "2026-10-25T18:34:01.769Z",
   "source": "SEC EDGAR XBRL segment R files (FilingSummary.xml → R*.htm, per-filing segment/disaggregation tables)",
   "sourceUrl": "https://www.sec.gov/Archives/edgar/data/",
   "companies": {
     "NVDA": {
-      "report": "Segment Information - Summary of Segments (Details)",
       "quarters": {
         "2022-10-30": [
           {
@@ -163,41 +162,45 @@
         "2025-04-27": [
           {
             "name": "Data Center",
-            "value": 39112,
-            "children": [
-              {
-                "name": "Hyperscale",
-                "value": 17599
-              },
-              {
-                "name": "AI Clouds, Industrial & Enterprise",
-                "value": 21513
-              }
-            ]
+            "value": 39112
           },
           {
-            "name": "Edge Computing",
-            "value": 4950
+            "name": "Gaming",
+            "value": 3763
+          },
+          {
+            "name": "Automotive",
+            "value": 567
+          },
+          {
+            "name": "Professional Visualization",
+            "value": 509
+          },
+          {
+            "name": "OEM & Other",
+            "value": 111
           }
         ],
         "2025-07-27": [
           {
             "name": "Data Center",
-            "value": 41096,
-            "children": [
-              {
-                "name": "Hyperscale",
-                "value": 24168
-              },
-              {
-                "name": "AI Clouds, Industrial & Enterprise",
-                "value": 16928
-              }
-            ]
+            "value": 41096
           },
           {
-            "name": "Edge Computing",
-            "value": 5647
+            "name": "Gaming",
+            "value": 4287
+          },
+          {
+            "name": "Professional Visualization",
+            "value": 601
+          },
+          {
+            "name": "Automotive",
+            "value": 586
+          },
+          {
+            "name": "OEM & Other",
+            "value": 173
           }
         ],
         "2025-10-26": [
@@ -265,8 +268,95 @@
       }
     },
     "AAPL": {
-      "report": "Segment Information and Geographic Data - Information by Reportable Segment (Details)",
       "quarters": {
+        "2022-12-31": [
+          {
+            "name": "iPhone",
+            "value": 65775
+          },
+          {
+            "name": "Services",
+            "value": 20766
+          },
+          {
+            "name": "Wearables, Home and Accessories",
+            "value": 13482
+          },
+          {
+            "name": "iPad",
+            "value": 9396
+          },
+          {
+            "name": "Mac",
+            "value": 7735
+          }
+        ],
+        "2023-04-01": [
+          {
+            "name": "iPhone",
+            "value": 51334
+          },
+          {
+            "name": "Services",
+            "value": 20907
+          },
+          {
+            "name": "Wearables, Home and Accessories",
+            "value": 8757
+          },
+          {
+            "name": "Mac",
+            "value": 7168
+          },
+          {
+            "name": "iPad",
+            "value": 6670
+          }
+        ],
+        "2023-07-01": [
+          {
+            "name": "iPhone",
+            "value": 39669
+          },
+          {
+            "name": "Services",
+            "value": 21213
+          },
+          {
+            "name": "Wearables, Home and Accessories",
+            "value": 8284
+          },
+          {
+            "name": "Mac",
+            "value": 6840
+          },
+          {
+            "name": "iPad",
+            "value": 5791
+          }
+        ],
+        "2023-12-30": [
+          {
+            "name": "iPhone",
+            "value": 69702
+          },
+          {
+            "name": "Services",
+            "value": 23117
+          },
+          {
+            "name": "Wearables, Home and Accessories",
+            "value": 11953
+          },
+          {
+            "name": "Mac",
+            "value": 7780
+          },
+          {
+            "name": "iPad",
+            "value": 7023
+          }
+        ],
         "2024-03-30": [
           {
             "name": "iPhone",
@@ -446,7 +536,6 @@
       }
     },
     "MSFT": {
-      "report": "Segment Revenue (Detail)",
       "quarters": {
         "2022-09-30": [
           {
@@ -619,8 +708,137 @@
       }
     },
     "GOOGL": {
-      "report": "Revenues - Revenue by Segment (Details)",
       "quarters": {
+        "2019-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 22547
+          },
+          {
+            "name": "Google Network",
+            "value": 5015
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 3620
+          },
+          {
+            "name": "YouTube ads",
+            "value": 3025
+          },
+          {
+            "name": "Google Cloud",
+            "value": 1825
+          },
+          {
+            "name": "Other Bets",
+            "value": 170
+          }
+        ],
+        "2020-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 24502
+          },
+          {
+            "name": "Google Network",
+            "value": 5223
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 4435
+          },
+          {
+            "name": "YouTube ads",
+            "value": 4038
+          },
+          {
+            "name": "Google Cloud",
+            "value": 2777
+          },
+          {
+            "name": "Other Bets",
+            "value": 135
+          }
+        ],
+        "2020-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 21319
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 5124
+          },
+          {
+            "name": "Google Network",
+            "value": 4736
+          },
+          {
+            "name": "YouTube ads",
+            "value": 3812
+          },
+          {
+            "name": "Google Cloud",
+            "value": 3007
+          },
+          {
+            "name": "Other Bets",
+            "value": 148
+          }
+        ],
+        "2021-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 31879
+          },
+          {
+            "name": "Google Network",
+            "value": 6800
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6494
+          },
+          {
+            "name": "YouTube ads",
+            "value": 6005
+          },
+          {
+            "name": "Google Cloud",
+            "value": 4047
+          },
+          {
+            "name": "Other Bets",
+            "value": 198
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 35845
+          },
+          {
+            "name": "Google Network",
+            "value": 7597
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7002
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6623
+          },
+          {
+            "name": "Google Cloud",
+            "value": 4628
+          },
+          {
+            "name": "Other Bets",
+            "value": 192
+          }
+        ],
         "2024-06-30": [
           {
             "name": "Google Search & other",
@@ -806,7 +1024,6 @@
       }
     },
     "AMZN": {
-      "report": "Segment Information - Reportable Segments and Reconciliation to Consolidated Net Income (Details)",
       "quarters": {
         "2022-09-30": [
           {
@@ -979,8 +1196,47 @@
       }
     },
     "META": {
-      "report": "Segment Information - Segment Information of Revenue and Income (Details)",
       "quarters": {
+        "2022-09-30": [
+          {
+            "name": "Family of Apps",
+            "value": 27429
+          },
+          {
+            "name": "Reality Labs",
+            "value": 285
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "Family of Apps",
+            "value": 28306
+          },
+          {
+            "name": "Reality Labs",
+            "value": 339
+          }
+        ],
+        "2023-06-30": [
+          {
+            "name": "Family of Apps",
+            "value": 31723
+          },
+          {
+            "name": "Reality Labs",
+            "value": 276
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "Family of Apps",
+            "value": 33936
+          },
+          {
+            "name": "Reality Labs",
+            "value": 210
+          }
+        ],
         "2024-03-31": [
           {
             "name": "Family of Apps",
@@ -1064,7 +1320,6 @@
       }
     },
     "TSLA": {
-      "report": "Segment Reporting and Information about Geographic Areas - Schedule of Total Revenues and Gross Profit by Reportable Segment (Detail)",
       "quarters": {
         "2022-09-30": [
           {
@@ -1189,7 +1444,6 @@
       }
     },
     "ORCL": {
-      "report": "SEGMENT INFORMATION (Details)",
       "quarters": {
         "2022-11-30": [
           {
@@ -1362,7 +1616,6 @@
       }
     },
     "AMD": {
-      "report": "Segment Reporting (Details)",
       "quarters": {
         "2022-09-24": [
           {
@@ -1555,6 +1808,8 @@
     }
   },
   "notes": [
+    "NVDA: 2026-04-26 起公司披露口径变为两个分部（Compute & Networking / Graphics），此前为 5 个市场平台列；前端按现有口径渲染",
     "INTC: degraded — segment revenues include intersegment sales (Intel Foundry model); no clean external-revenue split"
-  ]
+  ],
+  "failures": []
 }
