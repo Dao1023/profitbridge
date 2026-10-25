@@ -44,31 +44,32 @@ const I18N = {
   },
 };
 
-/* zh display names for chart title (original video uses Chinese issuer names) */
-const ZH_NAMES = {
+/* zh display names for chart title — from data/companies.json registry (built-in fallback) */
+const ZH_NAMES_FALLBACK = {
   NVDA: '英伟达', AAPL: '苹果', MSFT: '微软', GOOGL: '谷歌', AMZN: '亚马逊',
   META: 'Meta', TSLA: '特斯拉', ORCL: '甲骨文', AMD: '超威半导体', INTC: '英特尔',
 };
+let REGISTRY = []; // data/companies.json — single source of company truth (see P4 governance)
+const regOf = tk => REGISTRY.find(c => c.ticker === tk) || null;
 function quarterLabel(end) {
   const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
   return `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
 }
 function shortName(ticker) {
   const c = DATA.companies[ticker];
-  const stripped = c.name.replace(/,? (Inc\.|Corporation|Co\.,? Ltd\.|Ltd\.|Platforms, Inc\.|com, Inc\.)$/, '');
-  return lang === 'zh' ? (ZH_NAMES[ticker] || stripped) : stripped;
+  const stripped = (c.name || '').replace(/,? (Inc\.|Corporation|Co\.,? Ltd\.|Ltd\.|Platforms, Inc\.|com, Inc\.)$/, '');
+  return lang === 'zh' ? (regOf(ticker)?.nameZh || ZH_NAMES_FALLBACK[ticker] || stripped) : stripped;
 }
 let lang = 'zh'; // 中文界面为默认，右上按钮切换 English
 const t = k => I18N[lang][k];
 const tn = k => I18N[lang].nodes[k] || k;
 
-let DATA = null;      // profit.json (values in USD)
+let DATA = null;      // profit.json (values in $M)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
 let chart = null;     // echarts instance
 let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false } }; // qIndex null = latest
 
-const fmtB = v => v == null ? '—' :
-  (v / 1e9).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US', { maximumFractionDigits: 2 }) + 'B';
+const MB = 1e3; // $M → $B display factor (all data is in $M)
 const fmtPct = v => v == null ? '—' : (v * 100).toFixed(1) + '%';
 const fmtDelta = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + '%';
 const fmtPP = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + 'pp';
@@ -81,7 +82,7 @@ const KEY_ALIAS = { netLoss: 'net' };
    (same guards: opex only when the waterfall branch emits it, etc.). */
 function rawMetrics(qv) {
   if (!qv) return null;
-  const B = 1e9;
+  const B = MB;
   const m = {
     revenue: qv.revenue, gross: qv.gross != null ? qv.gross : null,
     cogs: qv.gross != null ? qv.revenue - qv.gross : null,
@@ -153,12 +154,6 @@ function prev(offset) {
   const i = (state.qIndex == null ? qs.length - 1 : state.qIndex) - offset;
   return i >= 0 ? qs[i] : null;
 }
-function delta(field) {
-  const cur = q(), p1 = prev(1), p4 = prev(4);
-  const d = (p) => (p && p[field] != null && cur[field] != null) ? (cur[field] - p[field]) / Math.abs(p[field]) : null;
-  return { qoq: d(p1), yoy: d(p4) };
-}
-
 /* ---- palette (no gradients anywhere; ribbons are solid per-link colors) ---- */
 const BLUE = '#3b82c4', GRAY = '#4b5563', GREEN = '#16a34a', RED = '#dc2626', GOLD = '#d4a017';
 const NODE_COLORS = { revenue: GRAY, gross: GREEN, cogs: RED, opex: RED, rd: RED, sga: RED,
@@ -175,7 +170,7 @@ function segmentsFor(ticker, qEnd) {
    Columns: [segments(+children) 0] [aggregate parents 1] [revenue] [gross/cogs] [rd/sga/other/op] [net/tax].
    All values non-negative; out-slots of every node sum to its value. */
 function buildGraph(qv, segList) {
-  const B = 1e9, M = 1e6;
+  const B = MB, M = 1;
   const rev = qv.revenue / B, gross = qv.gross != null ? qv.gross / B : null,
         op = qv.opInc != null ? qv.opInc / B : null, net = qv.netInc != null ? qv.netInc / B : null;
   const nodes = [], links = [];
@@ -262,7 +257,7 @@ const displayName = n => n.name.startsWith('seg:') ? n.name.slice(4) : tn(n.name
 
 /* self-consistency check: input-side leaf inflows must equal revenue */
 function checkConsistency(qv, g) {
-  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue / 1e9, ok: null, waterfall: {} };
+  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue / MB, ok: null, waterfall: {} };
   const leafLinks = g.links.filter(l => l.source.startsWith('seg:') &&
     !g.nodes.some(n => n.name === l.source && n.depth === 1)); // leaves, not aggregate parents
   const inputSum = leafLinks.reduce((a, l) => a + l.value, 0);
@@ -273,7 +268,7 @@ function checkConsistency(qv, g) {
     gross: byName.gross, cogs: byName.cogs, op: byName.op, net: byName.net,
     grossEq: byName.gross == null || Math.abs(byName.gross + (byName.cogs || 0) - out.revenue) < 0.005,
     opEq: byName.op == null || qv.gross == null || Math.abs(byName.op + (byName.rd || 0) + (byName.sga || 0) + (byName.opex || 0) - byName.gross) < 0.01,
-    netEq: byName.net == null || Math.abs(byName.net - qv.netInc / 1e9) < 0.005,
+    netEq: byName.net == null || Math.abs(byName.net - qv.netInc / MB) < 0.005,
   };
   return out;
 }
@@ -304,7 +299,7 @@ function renderChart() {
 
   /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
   function nodeLabel(p) {
-    const revB = qv.revenue / 1e9;
+    const revB = qv.revenue / MB;
     const isMargin = MARGIN_KEYS.includes(p.name);
     const amt = `$${p.value.toFixed(1)}B`;
     let body = `{n|${displayName(p)}}`;
@@ -395,9 +390,9 @@ const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d'
 function renderLogoRail() {
   const rail = document.getElementById('logoRail');
   rail.innerHTML = Object.keys(DATA.companies).map((tk, i) =>
-    `<div class="logo${tk === state.company ? ' active' : ''}" data-sym="${tk}" title="${tk} · ${ZH_NAMES[tk] || ''}">
+    `<div class="logo${tk === state.company ? ' active' : ''}" data-sym="${tk}" title="${tk} · ${regOf(tk)?.nameZh || ZH_NAMES_FALLBACK[tk] || ''}">
        <img src="data/logos/${tk}.png" alt="${tk}"
-         onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0,2)}</div>'">
+         onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${regOf(tk)?.color || MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0,2)}</div>'">
      </div>`).join('');
   rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => {
     state.company = el.dataset.sym; state.qIndex = null; render();
@@ -405,9 +400,14 @@ function renderLogoRail() {
 }
 
 /* ---- bottom timeline ---- */
+/* Label by calendar quarter of the quarter's MID-point (end − 45d), so the whole
+   covered interval drives the label: NVDA's FY-Q ending 2026-01-25 → "2025 Q4"
+   (not "2026 Q1"), AAPL ending 2026-06-27 → "2026 Q2". Correct for non-calendar
+   fiscal years without per-company FY tables. */
 function fqLabel(end) {
-  const m = Number(end.slice(5, 7));
-  return `${end.slice(0, 4)} Q${Math.floor((m - 1) / 3) + 1}`;
+  const mid = new Date(new Date(end + 'T00:00:00Z').getTime() - 45 * 86400000);
+  const y = mid.getUTCFullYear(), m = mid.getUTCMonth() + 1;
+  return `${y} Q${Math.floor((m - 1) / 3) + 1}`;
 }
 function curQIndex() { return state.qIndex == null ? DATA.companies[state.company].quarters.length - 1 : state.qIndex; }
 function setQuarter(i) {
@@ -539,6 +539,10 @@ function initControls() {
     const res = await fetch('data/segments.json');
     if (res.ok) SEG = await res.json();
   } catch (e) { /* segments optional — waterfall only */ }
+  try {
+    const res = await fetch('data/companies.json');
+    if (res.ok) REGISTRY = await res.json();
+  } catch (e) { /* registry optional — built-in fallbacks cover the 10 dashboard companies */ }
 
   chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
   window.addEventListener('resize', () => { chart.resize(); renderChart(); });

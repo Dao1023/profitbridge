@@ -13,3 +13,7 @@ downloads/
 audit_dl/
 shots/
 Thumbs.db
+archive
+
+# locked live browser profile dir (only chrome profile remnants, never commit)
+tmp-lib-research/
