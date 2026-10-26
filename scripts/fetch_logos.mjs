@@ -9,12 +9,12 @@
 // same naming convention, so the existsSync guard below skips them.
 //
 // PRIMARY SOURCE (2026-10 rework, full watchlist replacement): companiesmarketcap.com
-// uniform 256px square CDN logos — https://companiesmarketcap.com/img/company-logos/256/<KEY>.webp
-// where KEY is the CMC symbol (US ticker, HK = 0700.HK style, TW mapped to ADR, TCEHY for
-// Tencent). All data/logos/<ticker>.png for the watchlist were re-downloaded from there
-// (webp->png). Exceptions kept non-CMC: BIDU (CMC serves the Baidu Baike mark; using
-// Wikipedia Baidu.svg), HUAWEI/LEGO (private, not on CMC). Future maintenance: try CMC
-// first, fall back to Wikimedia / icon.horse.
+// watchlist-table logos — https://companiesmarketcap.com/img/company-logos/64/<KEY>.webp
+// (the SAME 64px square icon art the site renders in its watchlist table; NOTE the
+// /128//192//256/ sizes of the same key are DIFFERENT horizontal wordmark artwork, so
+// always re-fetch from /64/). KEY = CMC symbol: US ticker; HK = 0700.HK style; Tencent =
+// TCEHY; Xiaomi ADR = XIACF; 2330.TW -> TSM; SMIC-A 688981.SS -> 0981.HK. HUAWEI/LEGO are
+// private (not on CMC) and keep their manual art. Future maintenance: fetch /64/ first.
 import fs from 'node:fs';
 import path from 'node:path';
 const REGISTRY = JSON.parse(fs.readFileSync('data/companies.json', 'utf8'));
