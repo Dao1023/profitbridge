@@ -285,7 +285,6 @@ function renderChart() {
   };
 
   document.getElementById('chartTitle').textContent = `${shortName(state.company)} ${quarterLabel(qv.end)}`;
-  document.getElementById('chartAsof').textContent = `${t('asof')} ${qv.end}`;
 
   const labelRich = {
     n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21 },
@@ -400,15 +399,6 @@ function renderLogoRail() {
 }
 
 /* ---- bottom timeline ---- */
-/* Label by calendar quarter of the quarter's MID-point (end − 45d), so the whole
-   covered interval drives the label: NVDA's FY-Q ending 2026-01-25 → "2025 Q4"
-   (not "2026 Q1"), AAPL ending 2026-06-27 → "2026 Q2". Correct for non-calendar
-   fiscal years without per-company FY tables. */
-function fqLabel(end) {
-  const mid = new Date(new Date(end + 'T00:00:00Z').getTime() - 45 * 86400000);
-  const y = mid.getUTCFullYear(), m = mid.getUTCMonth() + 1;
-  return `${y} Q${Math.floor((m - 1) / 3) + 1}`;
-}
 function curQIndex() { return state.qIndex == null ? DATA.companies[state.company].quarters.length - 1 : state.qIndex; }
 function setQuarter(i) {
   const n = DATA.companies[state.company].quarters.length;
@@ -417,42 +407,72 @@ function setQuarter(i) {
   state.qIndex = i;
   render(); // full setOption(data+links) via renderChart — never partial updates
 }
+function yearOf(end) { return new Date(end + 'T00:00:00Z').getUTCFullYear(); }
 function renderTimeline() {
   const qs = DATA.companies[state.company].quarters, n = qs.length, cur = curQIndex();
   const ticks = document.getElementById('tlTicks');
-  // adaptive sampling: with long histories (up to 64 quarters) rendering every tick
-  // overflows the track — show an evenly spaced sample (≤14 ticks, always keeping the
-  // first, last and active quarter); the drag thumb still reaches every quarter.
-  const MAXTICKS = 14;
-  const show = new Set();
-  if (n > MAXTICKS) {
-    const step = Math.ceil(n / MAXTICKS);
-    for (let i = 0; i < n; i += step) show.add(i);
-    show.add(n - 1); show.add(cur);
-  } else {
-    for (let i = 0; i < n; i++) show.add(i);
+  // year-dedup sampling: always keep the first, last and active quarter, plus one
+  // representative per calendar year — the same year never gets two ticks. The
+  // active tick additionally shows the full quarter-end date; sampled ticks show
+  // the bare year (with 64 quarters a "Y Qx + date" label set overflows the track).
+  const order = [cur, n - 1, 0];
+  const byYear = new Map();
+  for (let i = 0; i < n; i++) { const y = yearOf(qs[i].end); if (!byYear.has(y)) byYear.set(y, i); }
+  for (const i of [...byYear.values()].sort((a, b) => a - b)) order.push(i);
+  const usedYears = new Set(), show = [];
+  for (const i of order) {
+    const y = yearOf(qs[i].end);
+    if (usedYears.has(y)) continue;
+    usedYears.add(y); show.push(i);
   }
-  const shown = [...show].sort((a, b) => a - b);
-  ticks.innerHTML = shown.map(i =>
-    `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}">
-       <div class="q">${fqLabel(qs[i].end)}</div><div class="d">${qs[i].end}</div></div>`).join('');
+  show.sort((a, b) => a - b);
+  ticks.innerHTML = show.map(i =>
+    `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}" title="${qs[i].end}">
+       <div class="q">${yearOf(qs[i].end)}</div>${i === cur ? `<div class="d">${qs[i].end}</div>` : ''}</div>`).join('');
   ticks.querySelectorAll('.tl-tick').forEach(el =>
     el.addEventListener('click', () => setQuarter(Number(el.dataset.i))));
   const pct = n > 1 ? (cur / (n - 1)) * 100 : 0;
   document.getElementById('tlFill').style.width = pct + '%';
   document.getElementById('tlThumb').style.left = pct + '%';
+  renderSnapDots(n);
+}
+/* one semi-transparent landing mark per quarter on the track; the nearest mark
+   to the pointer lights up while dragging, and release snaps to it */
+function renderSnapDots(n) {
+  const track = document.querySelector('.tl-track');
+  track.querySelectorAll('.tl-dot').forEach(d => d.remove());
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement('div');
+    d.className = 'tl-dot'; d.dataset.i = i;
+    d.style.left = (n > 1 ? (i / (n - 1)) * 100 : 0) + '%';
+    track.appendChild(d);
+  }
+}
+function markNearDot(idx) {
+  const tl = document.getElementById('timeline');
+  tl.querySelectorAll('.tl-dot').forEach(d => d.classList.toggle('near', Number(d.dataset.i) === idx));
 }
 function initTimelineDrag() {
   const thumb = document.getElementById('tlThumb');
+  const tl = document.getElementById('timeline');
   let dragging = false;
-  thumb.addEventListener('pointerdown', e => { dragging = true; thumb.setPointerCapture(e.pointerId); e.preventDefault(); });
-  thumb.addEventListener('pointermove', e => {
-    if (!dragging) return;
+  const qIndexAt = e => {
     const track = thumb.parentElement, r = track.getBoundingClientRect();
     const frac = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
-    setQuarter(Math.round(frac * (DATA.companies[state.company].quarters.length - 1)));
+    return Math.round(frac * (DATA.companies[state.company].quarters.length - 1));
+  };
+  thumb.addEventListener('pointerenter', () => { if (!dragging) tl.classList.add('hover'); });
+  thumb.addEventListener('pointerleave', () => { if (!dragging) tl.classList.remove('hover'); });
+  thumb.addEventListener('pointerdown', e => { dragging = true; tl.classList.add('dragging'); const i = qIndexAt(e); setQuarter(i); markNearDot(i); thumb.setPointerCapture(e.pointerId); e.preventDefault(); });
+  thumb.addEventListener('pointermove', e => {
+    if (!dragging) { tl.classList.add('hover'); return; }
+    const i = qIndexAt(e);
+    setQuarter(i);      // render() rebuilds the dots, so mark near AFTER it
+    markNearDot(i);
   });
-  thumb.addEventListener('pointerup', () => { dragging = false; });
+  const endDrag = () => { dragging = false; tl.classList.remove('dragging', 'hover'); markNearDot(-1); };
+  thumb.addEventListener('pointerup', endDrag);
+  thumb.addEventListener('pointercancel', endDrag);
 }
 
 function render() {
@@ -469,12 +489,6 @@ function render() {
   document.getElementById('lblQoQ').textContent = t('qoqBtn');
   document.getElementById('btnPct').classList.toggle('active', state.mode.pct);
   document.getElementById('btnQoQ').classList.toggle('active', state.mode.qoq);
-  const noteEl = document.getElementById('modeNote');
-  const notes = [];
-  if (state.mode.pct) notes.push(t('pctNote'));
-  if (state.mode.qoq) notes.push(t('qoqNote'));
-  noteEl.textContent = notes.join(' ');
-  noteEl.style.display = notes.length ? '' : 'none';
 
   renderLogoRail();
   renderTimeline();
