@@ -68,11 +68,13 @@ const tl = await evl(`(()=>{
   const rects=ts.map(e=>e.getBoundingClientRect());
   const overlap=rects.some((r,i)=>i&&r.left<rects[i-1].right-1);
   const dis=ts.map(e=>Number(e.dataset.i));
-  return {n, shown:ts.length, dis, overlap,
+  const labels=ts.map(e=>e.querySelector('.q').textContent.trim());
+  const yearTicks=labels.filter(s=>/^\\d{4}$/.test(s));
+  return {n, shown:ts.length, dis, labels, yearTicks,
           fits: rects.at(-1).right<=innerWidth && rects[0].left>=0,
           hasFirst: dis[0]===0, hasLast: dis.at(-1)===n-1, hasActive: dis.includes(n-1)};
 })()`);
-check('NVDA timeline samples long history (shown < n, ≤14)', tl.shown < tl.n && tl.shown <= 14, JSON.stringify({ n: tl.n, shown: tl.shown }));
+check('NVDA timeline year-only ticks, unique, ≤20', tl.yearTicks.length === new Set(tl.yearTicks).size && tl.yearTicks.length <= 20 && tl.yearTicks.length >= 10, JSON.stringify({ ticks: tl.yearTicks }));
 check('timeline keeps first/last/active ticks', tl.hasFirst && tl.hasLast && tl.hasActive, JSON.stringify(tl));
 check('timeline fits viewport, ticks not overlapping', tl.fits && !tl.overlap);
 // drag thumb to an unsampled quarter (idx 5) → chart updates
