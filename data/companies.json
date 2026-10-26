@@ -155,5 +155,18 @@
       ["intel foundry|foundry services", "Intel Foundry", null],
       ["^all other|^other", "All Other", null]
     ]
+  },
+  {
+    "ticker": "AVGO",
+    "cik": 1730168,
+    "nameZh": "博通",
+    "nameEn": "Broadcom Inc.",
+    "color": "#c026d3",
+    "reports": ["segment", "revenue.*disaggregation"],
+    "segmentMap": [
+      ["semiconductor solutions", "Semiconductor solutions", null],
+      ["infrastructure software", "Infrastructure software", null],
+      ["ip licensing", "IP licensing", null]
+    ]
   }
 ]

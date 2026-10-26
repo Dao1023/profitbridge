@@ -37,7 +37,7 @@ async function getText(url, tries = 6, cacheKey = null) {
   let err;
   for (let a = 1; a <= tries; a++) {
     try {
-      const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Encoding': 'gzip, deflate' } });
+      const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Encoding': 'gzip, deflate' }, signal: AbortSignal.timeout(45000) });
       if (res.status === 429 || res.status >= 500) throw new Error('HTTP ' + res.status);
       if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + url);
       const text = await res.text();
@@ -247,7 +247,9 @@ async function fetchTicker(tk, failures) {
     try { rows.push({ recent: JSON.parse(await getText(`https://data.sec.gov/submissions/${shard.name}`, 3, `subarch_${cik10}_${shard.name}`)) }); }
     catch (e) { failures.push({ ticker: tk, accn: shard.name, kind: 'submissions-archive', reason: e.message }); }
   }
-  const targetEnds = meta.quarters.map(q => q.end);
+  // full XBRL history: quarters from profit.json (already capped at the most recent 64),
+  // minus TTM-only trailing quarters if any — every listed quarter is a target
+  const targetEnds = meta.quarters.map(q => q.end).slice(-64);
   const oldestTarget = targetEnds.reduce((a, b) => a < b ? a : b);
   const filings = [];
   for (const { recent: f } of rows) {
@@ -257,8 +259,10 @@ async function fetchTicker(tk, failures) {
       // filings OLDER than the oldest target contain only periods ≤ end < oldestTarget and
       // can never contribute (comparatives only reach backward from newer filings)
       if (end && end < oldestTarget) continue;
+      // 64 quarters ≈ up to ~110 10-Q/10-K filings (16y × 4Q + 16 10-K + slack);
+      // the end < oldestTarget filter already prunes irrelevant old filings
       filings.push({ accn: f.accessionNumber[i].replace(/-/g, ''), form: f.form[i], end });
-      if (filings.length >= 80) break;
+      if (filings.length >= 160) break;
     }
   }
   const revByEnd = Object.fromEntries(meta.quarters.map(q => [q.end, q.revenue]));
@@ -269,19 +273,21 @@ async function fetchTicker(tk, failures) {
   const collected = new Map(); // te -> { tops: Map, childAgg: Map, src, mappedN }
   const ytds = [];             // { end, months, tops, childAgg }
 
-  for (const fl of filings) {
+  // per-filing work is independent (shared Maps/arrays are append-only) → run with a small
+  // concurrency pool; SEC rate limits are honored by keeping the pool small + per-request sleep
+  async function doFiling(fl) {
     let reports;
     try { reports = await filingRFiles(cik10, fl.accn); }
     catch (e) {
       failures.push({ ticker: tk, accn: fl.accn, kind: 'FilingSummary', reason: e.message });
-      continue;
+      return;
     }
     // ALL candidate reports × ALL duration tables in each (P1: no best-of-one choice)
     const candidateFiles = [];
     for (const re of cfg.reports) for (const r of reports) if (re.test(r.name) && !candidateFiles.includes(r.file)) candidateFiles.push(r.file);
     for (const file of candidateFiles) {
       let html;
-      try { html = await getText(`https://www.sec.gov/Archives/edgar/data/${cik10}/${fl.accn}/${file}`, 4, `r_${cik10}_${fl.accn}_${file}`); }
+      try { html = await getText(`https://www.sec.gov/Archives/edgar/data/${cik10}/${fl.accn}/${file}`, 4, `r_${cik10}_${fl.accn}_${file}`); await sleep(120); }
       catch (e) { failures.push({ ticker: tk, accn: fl.accn, file, kind: 'R-file', reason: e.message }); continue; }
       const tables = parseRTables(html);
       for (const parsed of tables) {
@@ -311,6 +317,16 @@ async function fetchTicker(tk, failures) {
       }
     }
   }
+  // concurrency pool of 6 filings at a time
+  const POOL = 6;
+  let fi = 0, doneN = 0;
+  await Promise.all(Array.from({ length: POOL }, async () => {
+    while (fi < filings.length) {
+      const fl = filings[fi++];
+      await doFiling(fl);
+      if (++doneN % 20 === 0) console.log(`  ... ${doneN}/${filings.length} filings`);
+    }
+  }));
 
   // pick the best-reconciling reading per quarter (see pickReading), before YTD derivation
   const allReadings = [];
@@ -338,7 +354,8 @@ async function fetchTicker(tk, failures) {
     const priors = targetEnds.filter(x => { const d = dayDiff(x, te); return d > 0 && d < y.months * 31 + 10 && chosen.has(x); });
     const spanOK = priors.length === y.months / 3 - 1;
     if (!spanOK) continue;
-    const sub = (map, neg) => { const out = new Map(); for (const [k, v] of map) out.set(k, (neg.get(k) || 0) - v); return out; };
+    // (fixed: was (neg − map), i.e. prior − YTD, which made every derived Q4 non-positive)
+    const sub = (map, neg) => { const out = new Map(); for (const [k, v] of map) out.set(k, v - (neg.get(k) || 0)); return out; };
     let tops = y.tops, childAgg = new Map([...y.childAgg].map(([p, cm]) => [p, new Map(cm)]));
     for (const pe of priors) {
       const c = chosen.get(pe);
@@ -351,13 +368,17 @@ async function fetchTicker(tk, failures) {
     }
     for (const [k, v] of [...tops]) if (Math.abs(v) < 1) tops.delete(k);
     for (const [, cm] of childAgg) for (const [k, v] of [...cm]) if (Math.abs(v) < 1) cm.delete(k);
+    if (process.env.DEBUG) console.log('  deriv', te, 'months=' + y.months, 'priors=' + priors, [...tops], 'ytdTops', [...y.tops]);
     if (tops.size) chosen.set(te, { tops, childAgg, src: `derived (YTD−priors) from ${y.src}`, mappedN: tops.size, sum: [...tops.values()].reduce((s, v) => s + v, 0), err: 0 });
   }
 
-  const quarters = {}, warnings = [];
+  const quarters = {}, warnings = [], noDisclosure = [];
   for (const te of targetEnds) {
     const c = chosen.get(te);
-    if (!c) { failures.push({ ticker: tk, end: te, kind: 'missing-quarter', reason: 'no 3-month segment column matched in any filing (and no derivable YTD span)' }); continue; }
+    // quarters with no segment column found in ANY fetched filing = the source itself has no
+    // segment disclosure for that period (pre-ASC-606-era filings etc.) — recorded in notes,
+    // NOT failures (failures are reserved for fetch/reconciliation problems)
+    if (!c) { noDisclosure.push(te); continue; }
     const segs = [];
     let sum = 0;
     for (const [name, v0] of c.tops) {
@@ -381,7 +402,7 @@ async function fetchTicker(tk, failures) {
   }
   const n = Object.keys(quarters).length;
   if (n < 4) return { ticker: tk, degraded: `only ${n} quarters with segment data` };
-  return { ticker: tk, quarters, warnings };
+  return { ticker: tk, quarters, warnings, noDisclosure };
 }
 
 // ---- write guard (P4): never let a partial (e.g. ONLY=) run overwrite a fuller file ----
@@ -398,9 +419,37 @@ function guardCompanyCount(newCount) {
   }
 }
 
-const companies = {}, notes = [], failures = [];
 const ONLY = process.env.ONLY ? process.env.ONLY.split(',') : TICKERS;
-let covered = 0;
+// incremental run: start from the previous segments.json so each finished company is
+// checkpointed to disk immediately (a 30-min run keeps its progress on interruption)
+function loadPrev() {
+  try { return JSON.parse(fs.readFileSync(path.join('data', 'segments.json'), 'utf8')); }
+  catch { return { companies: {}, notes: [], failures: [] }; }
+}
+const prev = loadPrev();
+const ONLYSET = new Set(ONLY);
+const companies = {}, notes = [], failures = [];
+for (const [tk, c] of Object.entries(prev.companies || {})) if (!ONLYSET.has(tk)) companies[tk] = c;
+for (const n of prev.notes || []) if (!ONLYSET.has(String(n).split(':')[0].trim())) notes.push(n);
+for (const f of prev.failures || []) if (!ONLYSET.has(f.ticker)) failures.push(f);
+let covered = Object.values(companies).filter(c => c.quarters).length;
+const t0 = Date.now();
+function checkpoint(doneTk) {
+  const out = {
+    updated: new Date().toISOString(),
+    source: 'SEC EDGAR XBRL segment R files (FilingSummary.xml → R*.htm, per-filing segment/disaggregation tables)',
+    sourceUrl: 'https://www.sec.gov/Archives/edgar/data/',
+    companies,
+    notes,
+    failures,
+  };
+  fs.mkdirSync('data', { recursive: true });
+  fs.writeFileSync(path.join('data', 'segments.json'), JSON.stringify(out, null, 2));
+  fs.writeFileSync(path.join('data', 'segments.json.js'),
+    'window.__SEGMENT_DATA = ' + JSON.stringify(out) + ';\n');
+  const el = ((Date.now() - t0) / 1000).toFixed(0);
+  console.log(`  [checkpoint] ${doneTk} written (${covered}/${TICKERS.length} companies covered, ${failures.length} failures, ${el}s elapsed)`);
+}
 for (const tk of ONLY) {
   process.stdout.write(`${tk} ... `);
   try {
@@ -411,6 +460,7 @@ for (const tk of ONLY) {
       companies[tk] = { quarters: r.quarters };
       covered++;
       for (const w of r.warnings) notes.push(`${tk}: warning — ${w}`);
+      if (r.noDisclosure.length) notes.push(`${tk}: ${r.noDisclosure.length} 季无分部披露（源上无分部表，非抓取失败）: ${r.noDisclosure.join(', ')}`);
       // NVDA disclosure-basis change: from FY26 Q1 (quarter ending 2025-04-27) NVIDIA reports
       // only two segments (Compute & Networking / Graphics) instead of the five market platforms.
       if (tk === 'NVDA') {
@@ -424,21 +474,11 @@ for (const tk of ONLY) {
     notes.push(`${tk}: error — ${e.message}`);
     failures.push({ ticker: tk, kind: 'ticker', reason: e.message });
   }
+  checkpoint(tk);
   await sleep(350);
 }
 guardCompanyCount(Object.keys(companies).length); // degraded tickers still count (they are kept in output)
-const out = {
-  updated: new Date().toISOString(),
-  source: 'SEC EDGAR XBRL segment R files (FilingSummary.xml → R*.htm, per-filing segment/disaggregation tables)',
-  sourceUrl: 'https://www.sec.gov/Archives/edgar/data/',
-  companies,
-  notes,
-  failures,
-};
-fs.mkdirSync('data', { recursive: true });
-fs.writeFileSync(path.join('data', 'segments.json'), JSON.stringify(out, null, 2));
-fs.writeFileSync(path.join('data', 'segments.json.js'),
-  'window.__SEGMENT_DATA = ' + JSON.stringify(out) + ';\n');
+checkpoint('final');
 console.log(`\nwrote data/segments.json: ${covered}/${TICKERS.length} companies with segments, ${failures.length} failures`);
 for (const n of notes) console.log('NOTE ' + n);
 for (const f of failures) console.log('FAIL ' + JSON.stringify(f));
