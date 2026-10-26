@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T04:54:18.170Z",
+  "updated": "2026-10-26T14:37:39.924Z",
   "source": "SEC EDGAR XBRL segment R files (FilingSummary.xml → R*.htm, per-filing segment/disaggregation tables)",
   "sourceUrl": "https://www.sec.gov/Archives/edgar/data/",
   "companies": {
@@ -4363,302 +4363,1314 @@
       "degraded": "segment revenues include intersegment sales (Intel Foundry model); no clean external-revenue split"
     },
     "AVGO": {
+      "degraded": "only 2 quarters with segment data"
+    },
+    "MU": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "V": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "PLTR": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "CSCO": {
       "quarters": {
-        "2018-02-04": [
+        "2020-10-24": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4955
+            "name": "Product",
+            "value": 8587
           },
           {
-            "name": "Infrastructure software",
-            "value": 328
-          },
-          {
-            "name": "IP licensing",
-            "value": 44
+            "name": "Services",
+            "value": 3342
           }
         ],
-        "2018-05-06": [
+        "2021-01-23": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4537
+            "name": "Product",
+            "value": 8572
           },
           {
-            "name": "Infrastructure software",
-            "value": 447
-          },
-          {
-            "name": "IP licensing",
-            "value": 30
+            "name": "Services",
+            "value": 3388
           }
         ],
-        "2018-08-05": [
+        "2021-10-30": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4568
+            "name": "Product",
+            "value": 9529
           },
           {
-            "name": "Infrastructure software",
-            "value": 492
-          },
-          {
-            "name": "IP licensing",
-            "value": 3
+            "name": "Services",
+            "value": 3371
           }
         ],
-        "2019-02-03": [
+        "2022-01-29": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4374
+            "name": "Product",
+            "value": 9353
           },
           {
-            "name": "Infrastructure software",
-            "value": 1403
-          },
-          {
-            "name": "IP licensing",
-            "value": 12
+            "name": "Services",
+            "value": 3367
           }
         ],
-        "2019-05-05": [
+        "2022-10-29": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4088
+            "name": "Networking",
+            "value": 8031
           },
           {
-            "name": "Infrastructure software",
-            "value": 1413
+            "name": "Services",
+            "value": 3387
           },
           {
-            "name": "IP licensing",
-            "value": 16
+            "name": "Collaboration",
+            "value": 1086
+          },
+          {
+            "name": "Security",
+            "value": 971
+          },
+          {
+            "name": "Observability",
+            "value": 157
           }
         ],
-        "2019-08-04": [
+        "2023-01-28": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4353
+            "name": "Networking",
+            "value": 8092
           },
           {
-            "name": "Infrastructure software",
-            "value": 1140
+            "name": "Services",
+            "value": 3437
           },
           {
-            "name": "IP licensing",
-            "value": 22
+            "name": "Collaboration",
+            "value": 958
+          },
+          {
+            "name": "Security",
+            "value": 943
+          },
+          {
+            "name": "Observability",
+            "value": 162
           }
         ],
-        "2020-02-02": [
+        "2023-04-29": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4191
+            "name": "Networking",
+            "value": 8982
           },
           {
-            "name": "Infrastructure software",
-            "value": 1667
+            "name": "Services",
+            "value": 3479
+          },
+          {
+            "name": "Collaboration",
+            "value": 985
+          },
+          {
+            "name": "Security",
+            "value": 958
+          },
+          {
+            "name": "Observability",
+            "value": 167
           }
         ],
-        "2020-05-03": [
+        "2023-10-28": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4027
+            "name": "Networking",
+            "value": 8822
           },
           {
-            "name": "Infrastructure software",
-            "value": 1715
+            "name": "Services",
+            "value": 3529
+          },
+          {
+            "name": "Collaboration",
+            "value": 1117
+          },
+          {
+            "name": "Security",
+            "value": 1010
+          },
+          {
+            "name": "Observability",
+            "value": 190
           }
         ],
-        "2020-08-02": [
+        "2024-01-27": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4219
+            "name": "Networking",
+            "value": 7081
           },
           {
-            "name": "Infrastructure software",
-            "value": 1602
+            "name": "Services",
+            "value": 3559
+          },
+          {
+            "name": "Collaboration",
+            "value": 989
+          },
+          {
+            "name": "Security",
+            "value": 973
+          },
+          {
+            "name": "Observability",
+            "value": 188
           }
         ],
-        "2020-11-01": [
+        "2024-04-27": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4830
+            "name": "Networking",
+            "value": 6522
           },
           {
-            "name": "Infrastructure software",
-            "value": 1637
+            "name": "Services",
+            "value": 3678
+          },
+          {
+            "name": "Security",
+            "value": 1304
+          },
+          {
+            "name": "Collaboration",
+            "value": 987
+          },
+          {
+            "name": "Observability",
+            "value": 211
           }
         ],
-        "2021-01-31": [
+        "2024-10-26": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4908
+            "name": "Product",
+            "value": 10114
           },
           {
-            "name": "Infrastructure software",
-            "value": 1747
+            "name": "Services",
+            "value": 3727
           }
         ],
-        "2021-05-02": [
+        "2025-01-25": [
           {
-            "name": "Semiconductor solutions",
-            "value": 4820
+            "name": "Networking",
+            "value": 6850
           },
           {
-            "name": "Infrastructure software",
-            "value": 1790
+            "name": "Services",
+            "value": 3757
+          },
+          {
+            "name": "Security",
+            "value": 2111
+          },
+          {
+            "name": "Collaboration",
+            "value": 996
+          },
+          {
+            "name": "Observability",
+            "value": 277
           }
         ],
-        "2021-08-01": [
+        "2025-04-26": [
           {
-            "name": "Semiconductor solutions",
-            "value": 5021
+            "name": "Product",
+            "value": 10374
           },
           {
-            "name": "Infrastructure software",
-            "value": 1757
+            "name": "Services",
+            "value": 3775
           }
         ],
-        "2022-01-30": [
+        "2025-10-25": [
           {
-            "name": "Semiconductor solutions",
-            "value": 5873
+            "name": "Networking",
+            "value": 7768
           },
           {
-            "name": "Infrastructure software",
-            "value": 1833
+            "name": "Services",
+            "value": 3806
+          },
+          {
+            "name": "Security",
+            "value": 1980
+          },
+          {
+            "name": "Collaboration",
+            "value": 1055
+          },
+          {
+            "name": "Observability",
+            "value": 274
           }
         ],
-        "2022-05-01": [
+        "2026-01-24": [
           {
-            "name": "Semiconductor solutions",
-            "value": 6229
+            "name": "Product",
+            "value": 11642
           },
           {
-            "name": "Infrastructure software",
-            "value": 1874
+            "name": "Services",
+            "value": 3707
           }
         ],
-        "2022-07-31": [
+        "2026-04-25": [
           {
-            "name": "Semiconductor solutions",
-            "value": 6624
+            "name": "Product",
+            "value": 12117
           },
           {
-            "name": "Infrastructure software",
-            "value": 1840
-          }
-        ],
-        "2022-10-30": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 7092
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 1838
-          }
-        ],
-        "2023-01-29": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 7107
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 1808
-          }
-        ],
-        "2023-04-30": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 6808
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 1925
-          }
-        ],
-        "2023-07-30": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 6941
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 1935
-          }
-        ],
-        "2024-02-04": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 7390
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 4571
-          }
-        ],
-        "2024-05-05": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 7202
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 5285
-          }
-        ],
-        "2024-08-04": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 7274
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 5798
-          }
-        ],
-        "2024-11-03": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 8230
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 5824
-          }
-        ],
-        "2025-02-02": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 8212
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 6704
-          }
-        ],
-        "2025-05-04": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 8408
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 6596
-          }
-        ],
-        "2025-08-03": [
-          {
-            "name": "Semiconductor solutions",
-            "value": 9166
-          },
-          {
-            "name": "Infrastructure software",
-            "value": 6786
+            "name": "Services",
+            "value": 3724
           }
         ]
       }
+    },
+    "KO": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "DELL": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "NFLX": {
+      "quarters": {
+        "2024-03-31": [
+          {
+            "name": "UCAN",
+            "value": 4224.3
+          },
+          {
+            "name": "EMEA",
+            "value": 2958.2
+          },
+          {
+            "name": "LATAM",
+            "value": 1165
+          },
+          {
+            "name": "APAC",
+            "value": 1022.9
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "UCAN",
+            "value": 4295.6
+          },
+          {
+            "name": "EMEA",
+            "value": 3007.8
+          },
+          {
+            "name": "LATAM",
+            "value": 1204.1
+          },
+          {
+            "name": "APAC",
+            "value": 1051.8
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "UCAN",
+            "value": 4322.5
+          },
+          {
+            "name": "EMEA",
+            "value": 3133.5
+          },
+          {
+            "name": "LATAM",
+            "value": 1240.9
+          },
+          {
+            "name": "APAC",
+            "value": 1127.9
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "UCAN",
+            "value": 4617.1
+          },
+          {
+            "name": "EMEA",
+            "value": 3404.7
+          },
+          {
+            "name": "LATAM",
+            "value": 1261.9
+          },
+          {
+            "name": "APAC",
+            "value": 1259.1
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "UCAN",
+            "value": 4929
+          },
+          {
+            "name": "EMEA",
+            "value": 3538.2
+          },
+          {
+            "name": "LATAM",
+            "value": 1306.7
+          },
+          {
+            "name": "APAC",
+            "value": 1305.3
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "UCAN",
+            "value": 5071.8
+          },
+          {
+            "name": "EMEA",
+            "value": 3699.1
+          },
+          {
+            "name": "LATAM",
+            "value": 1370.9
+          },
+          {
+            "name": "APAC",
+            "value": 1368.6
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "UCAN",
+            "value": 5245.3
+          },
+          {
+            "name": "EMEA",
+            "value": 3998.4
+          },
+          {
+            "name": "APAC",
+            "value": 1509
+          },
+          {
+            "name": "LATAM",
+            "value": 1497.1
+          }
+        ],
+        "2026-06-30": [
+          {
+            "name": "UCAN",
+            "value": 5431.7
+          },
+          {
+            "name": "EMEA",
+            "value": 4033.5
+          },
+          {
+            "name": "LATAM",
+            "value": 1584.3
+          },
+          {
+            "name": "APAC",
+            "value": 1510.5
+          }
+        ],
+        "2026-09-30": [
+          {
+            "name": "UCAN",
+            "value": 5628.2
+          },
+          {
+            "name": "EMEA",
+            "value": 4106.6
+          },
+          {
+            "name": "LATAM",
+            "value": 1602.6
+          },
+          {
+            "name": "APAC",
+            "value": 1536.8
+          }
+        ]
+      }
+    },
+    "IBM": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "QCOM": {
+      "quarters": {
+        "2011-03-27": [
+          {
+            "name": "QCT",
+            "value": 1962
+          },
+          {
+            "name": "QTL",
+            "value": 1746
+          }
+        ],
+        "2011-06-26": [
+          {
+            "name": "QCT",
+            "value": 2194
+          },
+          {
+            "name": "QTL",
+            "value": 1257
+          }
+        ],
+        "2011-09-25": [
+          {
+            "name": "QCT",
+            "value": 2587
+          },
+          {
+            "name": "QTL",
+            "value": 1362
+          }
+        ],
+        "2011-12-25": [
+          {
+            "name": "QCT",
+            "value": 3085
+          },
+          {
+            "name": "QTL",
+            "value": 1440
+          }
+        ],
+        "2012-03-25": [
+          {
+            "name": "QCT",
+            "value": 3059
+          },
+          {
+            "name": "QTL",
+            "value": 1723
+          }
+        ],
+        "2012-06-24": [
+          {
+            "name": "QCT",
+            "value": 2869
+          },
+          {
+            "name": "QTL",
+            "value": 1593
+          }
+        ],
+        "2012-12-30": [
+          {
+            "name": "QCT",
+            "value": 4120
+          },
+          {
+            "name": "QTL",
+            "value": 1757
+          }
+        ],
+        "2013-03-31": [
+          {
+            "name": "QCT",
+            "value": 3916
+          },
+          {
+            "name": "QTL",
+            "value": 2057
+          }
+        ],
+        "2013-06-30": [
+          {
+            "name": "QCT",
+            "value": 4222
+          },
+          {
+            "name": "QTL",
+            "value": 1867
+          }
+        ],
+        "2013-09-29": [
+          {
+            "name": "QCT",
+            "value": 4457
+          },
+          {
+            "name": "QTL",
+            "value": 1873
+          }
+        ],
+        "2013-12-29": [
+          {
+            "name": "QCT",
+            "value": 4616
+          },
+          {
+            "name": "QTL",
+            "value": 1900
+          }
+        ],
+        "2014-03-30": [
+          {
+            "name": "QCT",
+            "value": 4243
+          },
+          {
+            "name": "QTL",
+            "value": 2071
+          }
+        ],
+        "2014-06-29": [
+          {
+            "name": "QCT",
+            "value": 4957
+          },
+          {
+            "name": "QTL",
+            "value": 1803
+          }
+        ],
+        "2014-12-28": [
+          {
+            "name": "QCT",
+            "value": 5242
+          },
+          {
+            "name": "QTL",
+            "value": 1816
+          }
+        ],
+        "2015-03-29": [
+          {
+            "name": "QCT",
+            "value": 4434
+          },
+          {
+            "name": "QTL",
+            "value": 2414
+          }
+        ],
+        "2015-06-28": [
+          {
+            "name": "QCT",
+            "value": 3853
+          },
+          {
+            "name": "QTL",
+            "value": 1931
+          }
+        ],
+        "2015-09-27": [
+          {
+            "name": "QCT",
+            "value": 3625
+          },
+          {
+            "name": "QTL",
+            "value": 1786
+          },
+          {
+            "name": "QSI",
+            "value": 4
+          }
+        ],
+        "2015-12-27": [
+          {
+            "name": "QCT",
+            "value": 4096
+          },
+          {
+            "name": "QTL",
+            "value": 1607
+          },
+          {
+            "name": "QSI",
+            "value": 9
+          }
+        ],
+        "2016-03-27": [
+          {
+            "name": "QCT",
+            "value": 3337
+          },
+          {
+            "name": "QTL",
+            "value": 2135
+          },
+          {
+            "name": "QSI",
+            "value": 12
+          }
+        ],
+        "2016-06-26": [
+          {
+            "name": "QCT",
+            "value": 3853
+          },
+          {
+            "name": "QTL",
+            "value": 2038
+          },
+          {
+            "name": "QSI",
+            "value": 12
+          }
+        ],
+        "2016-12-25": [
+          {
+            "name": "QCT",
+            "value": 4101
+          },
+          {
+            "name": "QTL",
+            "value": 1811
+          },
+          {
+            "name": "QSI",
+            "value": 14
+          }
+        ],
+        "2017-06-25": [
+          {
+            "name": "QCT",
+            "value": 4052
+          },
+          {
+            "name": "QTL",
+            "value": 1172
+          },
+          {
+            "name": "QSI",
+            "value": 56
+          }
+        ],
+        "2017-09-24": [
+          {
+            "name": "QCT",
+            "value": 4650
+          },
+          {
+            "name": "QTL",
+            "value": 1235
+          },
+          {
+            "name": "QSI",
+            "value": 43
+          }
+        ],
+        "2018-12-30": [
+          {
+            "name": "QCT",
+            "value": 3739
+          },
+          {
+            "name": "QTL",
+            "value": 1018
+          },
+          {
+            "name": "QSI",
+            "value": 27
+          }
+        ],
+        "2019-03-31": [
+          {
+            "name": "QCT",
+            "value": 3722
+          },
+          {
+            "name": "QTL",
+            "value": 1122
+          },
+          {
+            "name": "QSI",
+            "value": 98
+          }
+        ],
+        "2019-09-29": [
+          {
+            "name": "QCT",
+            "value": 3611
+          },
+          {
+            "name": "QTL",
+            "value": 1159
+          },
+          {
+            "name": "QSI",
+            "value": 9
+          }
+        ],
+        "2019-12-29": [
+          {
+            "name": "QCT",
+            "value": 3618
+          },
+          {
+            "name": "QTL",
+            "value": 1404
+          },
+          {
+            "name": "QSI",
+            "value": 20
+          }
+        ],
+        "2020-03-29": [
+          {
+            "name": "QCT",
+            "value": 4100
+          },
+          {
+            "name": "QTL",
+            "value": 1072
+          },
+          {
+            "name": "QSI",
+            "value": 10
+          }
+        ],
+        "2020-06-28": [
+          {
+            "name": "QCT",
+            "value": 3807
+          },
+          {
+            "name": "QTL",
+            "value": 1044
+          },
+          {
+            "name": "QSI",
+            "value": 3
+          }
+        ],
+        "2020-12-27": [
+          {
+            "name": "QCT",
+            "value": 6533
+          },
+          {
+            "name": "QTL",
+            "value": 1660
+          },
+          {
+            "name": "QSI",
+            "value": 9
+          }
+        ],
+        "2021-03-28": [
+          {
+            "name": "QCT",
+            "value": 6281
+          },
+          {
+            "name": "QTL",
+            "value": 1614
+          },
+          {
+            "name": "QSI",
+            "value": 10
+          }
+        ],
+        "2021-06-27": [
+          {
+            "name": "QCT",
+            "value": 6472
+          },
+          {
+            "name": "QTL",
+            "value": 1489
+          },
+          {
+            "name": "QSI",
+            "value": 11
+          }
+        ],
+        "2021-12-26": [
+          {
+            "name": "QCT",
+            "value": 8847
+          },
+          {
+            "name": "QTL",
+            "value": 1818
+          },
+          {
+            "name": "QSI",
+            "value": 8
+          }
+        ],
+        "2022-03-27": [
+          {
+            "name": "QCT",
+            "value": 9548
+          },
+          {
+            "name": "QTL",
+            "value": 1580
+          },
+          {
+            "name": "QSI",
+            "value": 6
+          }
+        ],
+        "2022-06-26": [
+          {
+            "name": "QCT",
+            "value": 9378
+          },
+          {
+            "name": "QTL",
+            "value": 1519
+          },
+          {
+            "name": "QSI",
+            "value": 8
+          }
+        ],
+        "2022-12-25": [
+          {
+            "name": "QCT",
+            "value": 7892
+          },
+          {
+            "name": "QTL",
+            "value": 1524
+          },
+          {
+            "name": "QSI",
+            "value": 7
+          }
+        ],
+        "2023-03-26": [
+          {
+            "name": "QCT",
+            "value": 7942
+          },
+          {
+            "name": "QTL",
+            "value": 1290
+          },
+          {
+            "name": "QSI",
+            "value": 7
+          }
+        ],
+        "2023-06-25": [
+          {
+            "name": "QCT",
+            "value": 7174
+          },
+          {
+            "name": "QTL",
+            "value": 1230
+          },
+          {
+            "name": "QSI",
+            "value": 9
+          }
+        ],
+        "2023-12-24": [
+          {
+            "name": "QCT",
+            "value": 8423
+          },
+          {
+            "name": "QTL",
+            "value": 1460
+          },
+          {
+            "name": "QSI",
+            "value": 13
+          }
+        ],
+        "2024-03-24": [
+          {
+            "name": "QCT",
+            "value": 8026
+          },
+          {
+            "name": "QTL",
+            "value": 1318
+          },
+          {
+            "name": "QSI",
+            "value": 3
+          }
+        ],
+        "2024-06-23": [
+          {
+            "name": "QCT",
+            "value": 8069
+          },
+          {
+            "name": "QTL",
+            "value": 1273
+          },
+          {
+            "name": "QSI",
+            "value": 2
+          }
+        ],
+        "2024-12-29": [
+          {
+            "name": "QCT",
+            "value": 10084
+          },
+          {
+            "name": "QTL",
+            "value": 1535
+          }
+        ],
+        "2025-03-30": [
+          {
+            "name": "QCT",
+            "value": 9469
+          },
+          {
+            "name": "QTL",
+            "value": 1319
+          }
+        ],
+        "2025-06-29": [
+          {
+            "name": "QCT",
+            "value": 8993
+          },
+          {
+            "name": "QTL",
+            "value": 1318
+          }
+        ],
+        "2025-12-28": [
+          {
+            "name": "QCT",
+            "value": 10613
+          },
+          {
+            "name": "QTL",
+            "value": 1592
+          }
+        ],
+        "2026-03-29": [
+          {
+            "name": "QCT",
+            "value": 9076
+          },
+          {
+            "name": "QTL",
+            "value": 1382
+          }
+        ],
+        "2026-06-28": [
+          {
+            "name": "QCT",
+            "value": 8504
+          },
+          {
+            "name": "QTL",
+            "value": 1278
+          }
+        ]
+      }
+    },
+    "MCD": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "SBUX": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "ADBE": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "MSI": {
+      "quarters": {
+        "2019-03-30": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1069
+          },
+          {
+            "name": "Software and Services",
+            "value": 588
+          }
+        ],
+        "2019-06-29": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1238
+          },
+          {
+            "name": "Software and Services",
+            "value": 622
+          }
+        ],
+        "2019-09-28": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1349
+          },
+          {
+            "name": "Software and Services",
+            "value": 645
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1673
+          },
+          {
+            "name": "Software and Services",
+            "value": 703
+          }
+        ],
+        "2020-03-28": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 993
+          },
+          {
+            "name": "Software and Services",
+            "value": 662
+          }
+        ],
+        "2020-06-27": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 968
+          },
+          {
+            "name": "Software and Services",
+            "value": 650
+          }
+        ],
+        "2020-09-26": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1163
+          },
+          {
+            "name": "Software and Services",
+            "value": 705
+          }
+        ],
+        "2021-04-03": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1015
+          },
+          {
+            "name": "Software and Services",
+            "value": 758
+          }
+        ],
+        "2021-07-03": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1198
+          },
+          {
+            "name": "Software and Services",
+            "value": 773
+          }
+        ],
+        "2021-10-02": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1325
+          },
+          {
+            "name": "Software and Services",
+            "value": 782
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1495
+          },
+          {
+            "name": "Software and Services",
+            "value": 825
+          }
+        ],
+        "2022-04-02": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1103
+          },
+          {
+            "name": "Software and Services",
+            "value": 789
+          }
+        ],
+        "2022-07-02": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1285
+          },
+          {
+            "name": "Software and Services",
+            "value": 855
+          }
+        ],
+        "2022-10-01": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1529
+          },
+          {
+            "name": "Software and Services",
+            "value": 844
+          }
+        ],
+        "2023-04-01": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1303
+          },
+          {
+            "name": "Software and Services",
+            "value": 868
+          }
+        ],
+        "2023-07-01": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1437
+          },
+          {
+            "name": "Software and Services",
+            "value": 966
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1612
+          },
+          {
+            "name": "Software and Services",
+            "value": 944
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1890
+          },
+          {
+            "name": "Software and Services",
+            "value": 958
+          }
+        ],
+        "2024-03-30": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1490
+          },
+          {
+            "name": "Software and Services",
+            "value": 899
+          }
+        ],
+        "2024-06-29": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1658
+          },
+          {
+            "name": "Software and Services",
+            "value": 970
+          }
+        ],
+        "2024-09-28": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1784
+          },
+          {
+            "name": "Software and Services",
+            "value": 1006
+          }
+        ],
+        "2025-03-29": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1546
+          },
+          {
+            "name": "Software and Services",
+            "value": 982
+          }
+        ],
+        "2025-06-28": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1653
+          },
+          {
+            "name": "Software and Services",
+            "value": 1112
+          }
+        ],
+        "2025-09-27": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1897
+          },
+          {
+            "name": "Software and Services",
+            "value": 1112
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 2157
+          },
+          {
+            "name": "Software and Services",
+            "value": 1223
+          }
+        ],
+        "2026-04-04": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1559
+          },
+          {
+            "name": "Software and Services",
+            "value": 1155
+          }
+        ],
+        "2026-07-04": [
+          {
+            "name": "Products and Systems Integration",
+            "value": 1908
+          },
+          {
+            "name": "Software and Services",
+            "value": 1225
+          }
+        ]
+      }
+    },
+    "HPQ": {
+      "degraded": "could not reconcile segment units with revenue"
+    },
+    "U": {
+      "degraded": "only 2 quarters with segment data"
     }
   },
   "notes": [
@@ -4681,7 +5693,57 @@
     "ORCL: 17 季无分部披露（源上无分部表，非抓取失败）: 2012-02-29, 2012-05-31, 2012-08-31, 2012-11-30, 2013-02-28, 2013-05-31, 2013-08-31, 2013-11-30, 2014-02-28, 2014-05-31, 2014-08-31, 2015-05-31, 2017-05-31, 2019-05-31, 2021-05-31, 2023-05-31, 2025-05-31",
     "AMD: 42 季无分部披露（源上无分部表，非抓取失败）: 2012-03-31, 2012-06-30, 2012-09-29, 2012-12-29, 2013-03-30, 2013-06-29, 2013-09-28, 2013-12-28, 2014-03-29, 2014-06-28, 2014-09-27, 2014-12-27, 2015-03-28, 2015-06-27, 2015-09-26, 2015-12-26, 2016-03-26, 2016-06-25, 2016-09-24, 2016-12-31, 2017-04-01, 2017-07-01, 2017-09-30, 2017-12-30, 2018-03-31, 2018-06-30, 2018-09-29, 2018-12-29, 2019-03-30, 2019-06-29, 2019-09-28, 2019-12-28, 2020-03-28, 2020-06-27, 2020-09-26, 2020-12-26, 2021-03-27, 2021-12-25, 2022-12-31, 2023-12-30, 2024-12-28, 2025-12-27",
     "INTC: degraded — segment revenues include intersegment sales (Intel Foundry model); no clean external-revenue split",
-    "AVGO: 8 季无分部披露（源上无分部表，非抓取失败）: 2017-01-29, 2017-04-30, 2017-07-30, 2017-10-29, 2019-11-03, 2021-10-31, 2023-10-29, 2025-11-02"
+    "AVGO: degraded — only 2 quarters with segment data",
+    "MU: degraded — could not reconcile segment units with revenue",
+    "V: degraded — could not reconcile segment units with revenue",
+    "PLTR: degraded — could not reconcile segment units with revenue",
+    "CSCO: 19 季无分部披露（源上无分部表，非抓取失败）: 2011-04-30, 2011-07-30, 2012-04-28, 2012-07-28, 2012-10-27, 2013-01-26, 2013-04-27, 2013-07-27, 2014-01-25, 2014-04-26, 2014-07-26, 2016-07-30, 2017-01-28, 2017-04-29, 2017-07-29, 2019-07-27, 2021-07-31, 2023-07-29, 2025-07-26",
+    "KO: degraded — could not reconcile segment units with revenue",
+    "DELL: degraded — could not reconcile segment units with revenue",
+    "NFLX: 55 季无分部披露（源上无分部表，非抓取失败）: 2010-12-31, 2011-03-31, 2011-06-30, 2011-09-30, 2011-12-31, 2012-03-31, 2012-06-30, 2012-09-30, 2012-12-31, 2013-03-31, 2013-06-30, 2013-09-30, 2013-12-31, 2014-03-31, 2014-06-30, 2014-09-30, 2014-12-31, 2015-03-31, 2015-06-30, 2015-09-30, 2015-12-31, 2016-03-31, 2016-06-30, 2016-09-30, 2016-12-31, 2017-03-31, 2017-06-30, 2017-09-30, 2017-12-31, 2018-03-31, 2018-06-30, 2018-09-30, 2018-12-31, 2019-03-31, 2019-06-30, 2019-09-30, 2019-12-31, 2020-03-31, 2020-06-30, 2020-09-30, 2020-12-31, 2021-03-31, 2021-06-30, 2021-09-30, 2021-12-31, 2022-03-31, 2022-06-30, 2022-09-30, 2022-12-31, 2023-03-31, 2023-06-30, 2023-09-30, 2023-12-31, 2024-12-31, 2025-12-31",
+    "IBM: degraded — could not reconcile segment units with revenue",
+    "QCOM: warning — 2011-03-27: segment sum off revenue by 4.19%",
+    "QCOM: warning — 2011-06-26: segment sum off revenue by 4.75%",
+    "QCOM: warning — 2011-09-25: segment sum off revenue by 4.08%",
+    "QCOM: warning — 2011-12-25: segment sum off revenue by 3.33%",
+    "QCOM: warning — 2012-03-25: segment sum off revenue by 3.26%",
+    "QCOM: warning — 2012-06-24: segment sum off revenue by 3.55%",
+    "QCOM: warning — 2012-12-30: segment sum off revenue by 2.34%",
+    "QCOM: warning — 2013-03-31: segment sum off revenue by 2.47%",
+    "QCOM: warning — 2013-06-30: segment sum off revenue by 2.47%",
+    "QCOM: warning — 2013-09-29: segment sum off revenue by 2.31%",
+    "QCOM: warning — 2013-12-29: segment sum off revenue by 1.60%",
+    "QCOM: warning — 2014-03-30: segment sum off revenue by 0.83%",
+    "QCOM: warning — 2014-06-29: segment sum off revenue by 0.68%",
+    "QCOM: warning — 2014-12-28: segment sum off revenue by 0.58%",
+    "QCOM: warning — 2015-03-29: segment sum off revenue by 0.67%",
+    "QCOM: warning — 2015-06-28: segment sum off revenue by 0.82%",
+    "QCOM: warning — 2015-09-27: segment sum off revenue by 0.75%",
+    "QCOM: warning — 2015-12-27: segment sum off revenue by 1.09%",
+    "QCOM: warning — 2016-03-27: segment sum off revenue by 1.21%",
+    "QCOM: warning — 2016-06-26: segment sum off revenue by 2.33%",
+    "QCOM: warning — 2016-12-25: segment sum off revenue by 1.22%",
+    "QCOM: warning — 2017-06-25: segment sum off revenue by 1.42%",
+    "QCOM: warning — 2017-09-24: segment sum off revenue by 0.68%",
+    "QCOM: warning — 2018-12-30: segment sum off revenue by 1.20%",
+    "QCOM: warning — 2019-03-31: segment sum off revenue by 0.80%",
+    "QCOM: warning — 2019-09-29: segment sum off revenue by 0.73%",
+    "QCOM: warning — 2019-12-29: segment sum off revenue by 0.69%",
+    "QCOM: warning — 2020-03-29: segment sum off revenue by 0.65%",
+    "QCOM: warning — 2020-06-28: segment sum off revenue by 0.80%",
+    "QCOM: warning — 2021-06-27: segment sum off revenue by 1.09%",
+    "QCOM: warning — 2024-06-23: segment sum off revenue by 0.52%",
+    "QCOM: warning — 2025-03-30: segment sum off revenue by 1.74%",
+    "QCOM: warning — 2025-06-29: segment sum off revenue by 0.52%",
+    "QCOM: warning — 2026-03-29: segment sum off revenue by 1.33%",
+    "QCOM: warning — 2026-06-28: segment sum off revenue by 1.66%",
+    "QCOM: 14 季无分部披露（源上无分部表，非抓取失败）: 2010-09-26, 2012-09-30, 2014-09-28, 2016-09-25, 2017-12-24, 2018-03-25, 2018-06-24, 2018-09-30, 2020-09-27, 2021-09-26, 2022-09-25, 2023-09-24, 2024-09-29, 2025-09-28",
+    "MCD: degraded — could not reconcile segment units with revenue",
+    "SBUX: degraded — could not reconcile segment units with revenue",
+    "ADBE: degraded — could not reconcile segment units with revenue",
+    "MSI: 37 季无分部披露（源上无分部表，非抓取失败）: 2010-10-02, 2010-12-31, 2011-04-02, 2011-07-02, 2011-10-01, 2011-12-31, 2012-03-31, 2012-06-30, 2012-09-29, 2012-12-31, 2013-03-30, 2013-06-29, 2013-09-28, 2013-12-31, 2014-03-29, 2014-06-28, 2014-09-27, 2014-12-31, 2015-04-04, 2015-07-04, 2015-10-03, 2015-12-31, 2016-04-02, 2016-07-02, 2016-10-01, 2016-12-31, 2017-04-01, 2017-07-01, 2017-09-30, 2017-12-31, 2018-03-31, 2018-06-30, 2018-09-29, 2018-12-31, 2020-12-31, 2022-12-31, 2024-12-31",
+    "HPQ: degraded — could not reconcile segment units with revenue",
+    "U: degraded — only 2 quarters with segment data"
   ],
   "failures": [
     {
@@ -4834,13 +5896,13 @@
       "ticker": "TSLA",
       "accn": "000119312511139677",
       "kind": "FilingSummary",
-      "reason": "fetch failed"
+      "reason": "HTTP 404 https://www.sec.gov/Archives/edgar/data/0001318605/000119312511139677/FilingSummary.xml"
     },
     {
       "ticker": "TSLA",
       "accn": "000119312511054847",
       "kind": "FilingSummary",
-      "reason": "fetch failed"
+      "reason": "HTTP 404 https://www.sec.gov/Archives/edgar/data/0001318605/000119312511054847/FilingSummary.xml"
     },
     {
       "ticker": "TSLA",
@@ -4996,53 +6058,1461 @@
       "src": "derived (YTD−priors) from 10-K 000095017024075605/R78.htm"
     },
     {
-      "ticker": "AMD",
-      "accn": "000119312513069422",
-      "file": "R80.htm",
+      "ticker": "INTC",
+      "accn": "000095012311074495",
+      "file": "R50.htm",
       "kind": "R-file",
-      "reason": "fetch failed"
+      "reason": "HTTP 429"
     },
     {
       "ticker": "INTC",
-      "accn": "000005086313000104",
-      "file": "R26.htm",
+      "accn": "000119312511297669",
+      "file": "R74.htm",
       "kind": "R-file",
-      "reason": "fetch failed"
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "INTC",
+      "accn": "000095012311074495",
+      "file": "R73.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "INTC",
+      "accn": "000095012310099521",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016826000080",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016826000054",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
     },
     {
       "ticker": "AVGO",
       "accn": "000173016825000121",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016825000098",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016826000016",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016825000064",
+      "file": "R17.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016825000064",
+      "file": "R29.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016825000064",
+      "file": "R58.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016825000021",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000023",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000139",
       "file": "R21.htm",
       "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000099",
+      "file": "R17.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016823000077",
+      "file": "R28.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000139",
+      "file": "R31.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000099",
+      "file": "R29.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000080",
+      "file": "R29.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016823000077",
+      "file": "R54.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016823000096",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016823000064",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000139",
+      "file": "R42.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000099",
+      "file": "R65.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000080",
+      "file": "R65.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016823000008",
+      "file": "R18.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000118",
+      "file": "R21.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016824000139",
+      "file": "R96.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000118",
+      "file": "R38.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000094",
+      "file": "R29.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000118",
+      "file": "R89.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000081",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000094",
+      "file": "R57.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000029",
+      "file": "R17.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000118",
+      "file": "R43.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016821000153",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016821000123",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000029",
+      "file": "R28.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016820000164",
+      "file": "R17.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016822000029",
+      "file": "R54.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016821000116",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016821000045",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016820000164",
+      "file": "R30.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016820000226",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016820000109",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016820000164",
+      "file": "R63.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016819000101",
+      "file": "R17.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016820000045",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016819000144",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016818000084",
+      "file": "R18.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016819000118",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016819000036",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016818000084",
+      "file": "R35.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016819000101",
+      "file": "R67.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016818000084",
+      "file": "R85.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016818000039",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "AVGO",
+      "accn": "000173016818000019",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312526000006",
+      "file": "R58.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312525000046",
+      "file": "R72.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312525000021",
+      "file": "R80.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312526000006",
+      "file": "R59.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312525000028",
+      "file": "R110.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312526000023",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312526000015",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312525000046",
+      "file": "R75.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312526000006",
+      "file": "R60.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312525000028",
+      "file": "R111.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312525000009",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312524000047",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312524000027",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312524000007",
+      "file": "R81.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312524000019",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312523000077",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312523000041",
+      "file": "R79.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312523000054",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312522000004",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312522000048",
+      "file": "R104.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312521000065",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312521000032",
+      "file": "R75.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312520000034",
+      "file": "R81.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312519000174",
+      "file": "R80.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312521000052",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312521000012",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312520000082",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312519000014",
+      "file": "R77.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312519000035",
+      "file": "R77.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312519000014",
+      "file": "R78.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312520000067",
+      "file": "R82.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312519000035",
+      "file": "R78.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312519000094",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312518000156",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312518000092",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312518000065",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312518000036",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312517000166",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312517000131",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312517000085",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312517000037",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312516000146",
+      "file": "R83.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312517000005",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312516000269",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312516000201",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312516000176",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312515000112",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312514000068",
+      "file": "R85.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312515000063",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312515000039",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312515000010",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312514000195",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312514000013",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312513000228",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312513000108",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312513000007",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312512000156",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312512000084",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312512000057",
+      "file": "R78.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "MU",
+      "accn": "000072312511000189",
+      "kind": "FilingSummary",
       "reason": "fetch failed"
     },
     {
-      "ticker": "AVGO",
-      "end": "2018-11-04",
-      "kind": "reconciliation",
-      "reason": "segment sum off revenue by 382953329.0% — dropped",
-      "src": "derived (YTD−priors) from 10-K 000173016820000226/R90.htm"
+      "ticker": "MU",
+      "accn": "000072312511000122",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
     },
     {
-      "ticker": "AVGO",
-      "end": "2026-02-01",
+      "ticker": "CSCO",
+      "end": "2010-10-30",
       "kind": "reconciliation",
-      "reason": "segment sum off revenue by 33.6% — dropped",
-      "src": "10-Q 000173016826000016/R52.htm"
+      "reason": "segment sum off revenue by 7.3% — dropped",
+      "src": "10-Q 000119312511319161/R92.htm"
     },
     {
-      "ticker": "AVGO",
-      "end": "2026-05-03",
+      "ticker": "CSCO",
+      "end": "2011-01-29",
       "kind": "reconciliation",
-      "reason": "segment sum off revenue by 32.7% — dropped",
-      "src": "10-Q 000173016826000054/R51.htm"
+      "reason": "segment sum off revenue by 9.1% — dropped",
+      "src": "10-Q 000119312512069159/R95.htm"
     },
     {
-      "ticker": "AVGO",
-      "end": "2026-08-02",
+      "ticker": "CSCO",
+      "end": "2011-10-29",
       "kind": "reconciliation",
-      "reason": "segment sum off revenue by 32.1% — dropped",
-      "src": "10-Q 000173016826000080/R52.htm"
+      "reason": "segment sum off revenue by 7.9% — dropped",
+      "src": "10-Q 000119312511319161/R92.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2012-01-28",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 8.9% — dropped",
+      "src": "10-Q 000119312512069159/R95.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2013-10-26",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 88.3% — dropped",
+      "src": "10-Q 000085887714000043/R105.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2014-10-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 11.5% — dropped",
+      "src": "10-Q 000085887715000073/R108.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2015-01-24",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 12.2% — dropped",
+      "src": "10-Q 000085887716000090/R108.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2015-04-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 11.7% — dropped",
+      "src": "10-Q 000085887716000109/R109.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2015-07-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 87.9% — dropped",
+      "src": "derived (YTD−priors) from 10-K 000085887717000016/R129.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2015-10-24",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 9.8% — dropped",
+      "src": "10-Q 000085887716000123/R109.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2016-01-23",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 12.3% — dropped",
+      "src": "10-Q 000085887716000090/R108.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2016-04-30",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 13.1% — dropped",
+      "src": "10-Q 000085887716000109/R109.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2016-10-29",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 11.6% — dropped",
+      "src": "10-Q 000085887716000123/R109.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2017-10-28",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 20.6% — dropped",
+      "src": "10-Q 000085887718000015/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2018-01-27",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 22.0% — dropped",
+      "src": "10-Q 000085887719000003/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2018-04-28",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 20.7% — dropped",
+      "src": "10-Q 000085887719000007/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2018-07-28",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 19.8% — dropped",
+      "src": "derived (YTD−priors) from 10-K 000085887720000010/R127.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2018-10-27",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 19.2% — dropped",
+      "src": "10-Q 000085887719000018/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2019-01-26",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 20.0% — dropped",
+      "src": "10-Q 000085887720000004/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2019-04-27",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 19.3% — dropped",
+      "src": "10-Q 000085887720000006/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2019-10-26",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 6.2% — dropped",
+      "src": "10-Q 000085887720000015/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2020-01-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 6.2% — dropped",
+      "src": "10-Q 000085887721000004/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2020-04-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 6.5% — dropped",
+      "src": "10-Q 000085887721000008/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2020-07-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 12.3% — dropped",
+      "src": "derived (YTD−priors) from 10-K 000085887722000013/R131.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2021-05-01",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 6.8% — dropped",
+      "src": "10-Q 000085887721000008/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2022-04-30",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 8.8% — dropped",
+      "src": "10-Q 000085887723000013/R51.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2022-07-30",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 281.5% — dropped",
+      "src": "derived (YTD−priors) from 10-K 000085887724000017/R136.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2024-07-27",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 215.5% — dropped",
+      "src": "derived (YTD−priors) from 10-K 000085887726000132/R128.htm"
+    },
+    {
+      "ticker": "CSCO",
+      "end": "2026-07-25",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 64.2% — dropped",
+      "src": "derived (YTD−priors) from 10-K 000085887726000132/R128.htm"
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2010-12-26",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 5.2% — dropped",
+      "src": "10-Q 000123445212000055/R43.htm"
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2017-03-26",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 18.1% — dropped",
+      "src": "10-Q 000123445217000077/R44.htm"
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2019-06-30",
+      "kind": "reconciliation",
+      "reason": "segment sum off revenue by 49.4% — dropped",
+      "src": "10-Q 000172894920000057/R40.htm"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000006",
+      "file": "R37.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000034",
+      "file": "R10.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000045",
+      "file": "R52.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000020",
+      "file": "R37.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000006",
+      "file": "R38.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000045",
+      "file": "R10.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000020",
+      "file": "R10.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000034",
+      "file": "R24.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721719000071",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721719000048",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000006",
+      "file": "R10.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000045",
+      "file": "R28.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000020",
+      "file": "R24.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000006",
+      "file": "R25.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721720000045",
+      "file": "R49.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721719000034",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721719000017",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721718000052",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721718000044",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721718000026",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721718000008",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721717000043",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721717000029",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721717000019",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721717000008",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915009251",
+      "file": "R49.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721716000093",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000004721716000082",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746916013586",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915009251",
+      "file": "R9.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746916010678",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915007197",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915009251",
+      "file": "R27.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915005313",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915001999",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915009251",
+      "file": "R46.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915009251",
+      "file": "R47.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "HPQ",
+      "accn": "000104746915009251",
+      "file": "R48.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000095",
+      "file": "R60.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080626000032",
+      "file": "R59.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000151",
+      "file": "R30.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000169",
+      "file": "R30.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080626000032",
+      "file": "R30.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000095",
+      "file": "R32.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000151",
+      "file": "R31.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000169",
+      "file": "R31.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080626000043",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080626000011",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080626000032",
+      "file": "R31.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000026",
+      "file": "R47.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000053",
+      "file": "R44.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000026",
+      "file": "R95.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000053",
+      "file": "R48.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000227",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000098",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080625000026",
+      "file": "R51.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000053",
+      "file": "R49.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080623000181",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000189",
+      "file": "R30.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080623000016",
+      "file": "R43.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080624000189",
+      "file": "R31.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080623000128",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080623000059",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080623000016",
+      "file": "R47.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080622000054",
+      "file": "R29.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080622000084",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080622000004",
+      "kind": "FilingSummary",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080621000052",
+      "file": "R53.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080620000011",
+      "file": "R37.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
+    },
+    {
+      "ticker": "U",
+      "accn": "000181080620000011",
+      "file": "R38.htm",
+      "kind": "R-file",
+      "reason": "HTTP 429"
     }
   ]
 }
