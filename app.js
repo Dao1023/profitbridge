@@ -91,14 +91,14 @@ const INDUSTRY_GROUPS = [
     '00700.HK','03690.HK','01024.HK','03888.HK','601360.SS'] },
   { id: 'hw', zh: '硬件/消费电子', en: 'Hardware / Devices', tickers: [
     'AAPL','DELL','HPQ','CSCO','MSI','SONY','005930.KS','066570.KS','00992.HK',
-    '002415.SZ','000333.SZ','000100.SZ'] },
+    '002415.SZ','000333.SZ','000100.SZ','HUAWEI'] },
   { id: 'auto', zh: '汽车/新能源', en: 'Auto / Energy', tickers: ['TSLA','LI','300750.SZ','002594.SZ'] },
   { id: 'space', zh: '航天', en: 'Aerospace', tickers: ['SPCX'] },
   { id: 'cons', zh: '消费', en: 'Consumer', tickers: [
     'KO','MCD','SBUX','LKNCY','02097.HK','00151.HK','600519.SS','600887.SS','NESN.SW','MC.PA',
-    'AAPL','SONY'] },
+    'AAPL','SONY','LEGO'] },
   { id: 'fin', zh: '金融', en: 'Financials', tickers: ['V','01398.HK','03968.HK'] },
-  { id: 'tele', zh: '通信', en: 'Telecom', tickers: ['00941.HK','00728.HK','00762.HK','000063.SZ'] },
+  { id: 'tele', zh: '通信', en: 'Telecom', tickers: ['00941.HK','00728.HK','00762.HK','000063.SZ','HUAWEI'] },
 ];
 const INDUSTRY_OF = {};
 for (const g of INDUSTRY_GROUPS) g.tickers.forEach(tk => { (INDUSTRY_OF[tk] ||= []).push(g.id); });

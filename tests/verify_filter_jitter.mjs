@@ -91,6 +91,39 @@ const allBack = await evl(`(() => ({
 check('全部 resets filter + clears hash', allBack.visible === totalLogos && allBack.hash === '' , `visible=${allBack.visible} hash='${allBack.hash}'`);
 await shot('filter-all.png');
 
+// ---------- annual private companies (HUAWEI/LEGO): mapping + annual rendering ----------
+// select HUAWEI explicitly and check FY label + bar view + telecom/hw filters
+await evl(`[...document.querySelectorAll('#logoRail .logo')].find(l => l.dataset.sym === 'HUAWEI').click()`);
+await new Promise(r => setTimeout(r, 1200));
+const hwChk = await evl(`(() => ({
+  title: document.getElementById('chartTitle').textContent,
+  fyTick: !!document.querySelector('#tlTicks .tl-tick.active'),
+  bridgeCheck: window.__bridgeCheck ? window.__bridgeCheck.ok : null,
+  hasSegments: !!(window.__bridgeCheck && window.__bridgeCheck.inputSum > 0),
+}))()`);
+// bridgeCheck.ok is only meaningful for companies WITH segment inflows;
+// HUAWEI has none (waterfall-only render) so ok=false there is expected, not an error
+check('HUAWEI renders as annual (FY title, no error)',
+  /华为|HUAWEI/i.test(hwChk.title) && hwChk.title.includes('FY') && (hwChk.bridgeCheck !== false || !hwChk.hasSegments), JSON.stringify(hwChk));
+await evl(`document.getElementById('btnViewBar').click()`);
+await new Promise(r => setTimeout(r, 800));
+const hwBar = await evl(`({ meta: !!window.__barMeta, q: window.__barMeta && window.__barMeta.quarterCount, hasData: window.__barMeta && window.__barMeta.data.some(v => v != null) })`);
+check('HUAWEI bar view works (annual series has data)', hwBar.meta && hwBar.q > 0 && hwBar.hasData, JSON.stringify(hwBar));
+await evl(`document.getElementById('btnViewBridge').click()`);
+await new Promise(r => setTimeout(r, 500));
+const teleFilter = await evl(`(() => {
+  document.querySelector('#industryBar .indBtn[data-ind="tele"]').click();
+  return !document.querySelector('#logoRail .logo[data-sym="HUAWEI"]')?.classList.contains('hidden');
+})()`);
+check('HUAWEI in 通信 filter', teleFilter === true);
+const legoCons = await evl(`(() => {
+  document.querySelector('#industryBar .indBtn[data-ind="all"]').click();
+  document.querySelector('#industryBar .indBtn[data-ind="cons"]').click();
+  return !document.querySelector('#logoRail .logo[data-sym="LEGO"]')?.classList.contains('hidden');
+})()`);
+check('LEGO in 消费 filter', legoCons === true);
+await evl(`document.querySelector('#industryBar .indBtn[data-ind="all"]').click()`);
+
 // ---------- jitter: click company switch, DOM node identity + layout stability ----------
 const railDom = await evl(`(() => {
   const imgs = [...document.querySelectorAll('#logoRail img')];
