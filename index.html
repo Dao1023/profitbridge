@@ -16,7 +16,9 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 /* ---- left logo rail ---- */
 #logoRail { width:132px; flex:0 0 132px; display:grid; grid-template-columns:1fr 1fr; gap:10px;
   align-content:start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px;
-  max-height:calc(100vh - 40px); overflow-y:auto; }
+  max-height:calc(100vh - 40px); overflow-y:auto;
+  scrollbar-width:none; -ms-overflow-style:none; /* scrollable, scrollbar hidden */ }
+#logoRail::-webkit-scrollbar { display:none; }
 /* white cell + hairline ring via inset box-shadow (zero layout impact, unlike a
    border) so JPG white-background logos sit on a clean matching surface */
 .logo { position:relative; border:2px solid transparent; border-radius:10px; background:#fff;
