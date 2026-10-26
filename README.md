@@ -20,7 +20,7 @@
 
 ## 覆盖范围
 
-**79 家公司 · 3,088 季/年度期 · 7 个市场**（实测统计自合并后 `data/profit.json`，2026-10-26）。
+**79 家公司 · 3,189 季/年度期 · 7 个市场**（实测统计自合并后 `data/profit.json`，2026-10-26）。美股条目无 64 季封顶，为 EDGAR XBRL 完整连续历史（AAPL 71 季、MSFT 76 季、CSCO 72 季等）；7 期尾端缺口（V/KO/NXPI 10-Q、SONY/TSM/TME/DIDIY 20-F）已从 filing 内嵌 iXBRL 实抓补齐（SEC companyfacts 未收录该批申报财务 facts），覆盖审计缺失期=0。
 
 | 市场 | 公司数 | 期数 | 口径 |
 | --- | --- | --- | --- |

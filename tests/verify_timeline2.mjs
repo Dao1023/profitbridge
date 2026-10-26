@@ -113,7 +113,7 @@ check('nearest dot highlighted (.near) = target quarter', JSON.stringify(dragRes
 check('near dot is blue (highlighted)', dragRes.shotDot === 'rgb(37, 99, 235)', dragRes.shotDot);
 check('release snaps to nearest quarter (idx5)', dragRes.after === 5 && dragRes.end === DATA_SNAP5(), dragRes.end);
 check('drag end clears highlight', dragRes.classCleared && dragRes.nearCleared === 0);
-function DATA_SNAP5(){ return '2012-01-29'; } // NVDA idx5 quarter-end (kept from prior regression)
+function DATA_SNAP5(){ return '2011-10-30'; } // NVDA idx5 quarter-end (full-history backfill shifted idx by 1)
 
 // hover highlight
 const hoverRes = await evlA(`(async()=>{

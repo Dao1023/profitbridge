@@ -24,19 +24,19 @@ const mt = P.companies['600519.SS'].quarters.at(-1);
 ok(mt.end === '2026-06-30' && approx(mt.revenue, 37575.16, 0.001) && approx(mt.netInc, 17274.37, 0.001), `茅台 latest ${mt.end} rev=${mt.revenue} ni=${mt.netInc}`);
 ok(mt.fxToUsd > 0.13 && mt.fxToUsd < 0.16, `茅台 fxToUsd sane (${mt.fxToUsd})`);
 
-// 4) NXPI first/last of the 29 EDGAR quarters
+// 4) NXPI first/last of the 30 EDGAR quarters (incl. 2026-06-28 from iXBRL backfill)
 const nx = P.companies.NXPI.quarters;
-ok(nx.length === 29, `NXPI 29 quarters (got ${nx.length})`);
+ok(nx.length === 30, `NXPI 30 quarters (got ${nx.length})`);
 ok(nx[0].end === '2019-03-31' && nx[0].revenue === 2094 && nx[0].netInc === -21, `NXPI first ${nx[0].end} rev=2094 netInc=-21`);
-ok(nx.at(-1).end === '2026-03-29' && nx.at(-1).revenue === 3181, `NXPI last ${nx.at(-1).end} rev=3181`);
+ok(nx.at(-1).end === '2026-06-28' && nx.at(-1).revenue === 3496 && nx.at(-1).netInc === 767, `NXPI last ${nx.at(-1).end} rev=3496 netInc=767`);
 
 // 5) ASML FY2024: 7571.6 EUR-M netInc → USD display ≈ ×1.0389
 const as = P.companies.ASML.quarters.find(q => q.end === '2024-12-31');
 ok(as && approx(as.netInc, 7571.6, 0.001), `ASML FY2024 netInc 7571.6 EUR-M`);
 ok(approx(as.netInc * as.fxToUsd, 7571.6 * 1.0389, 0.001), `ASML FY2024 USD display ≈ ${Math.round(as.netInc * as.fxToUsd)} (expect ≈7866)`);
 
-// 6) TSM 10FY TWD-M entry intact + per-period fx; separate from 2330.TW
-ok(P.companies.TSM.quarters.length === 10 && P.companies.TSM.currency === 'TWD-M', 'TSM 10FY TWD-M');
+// 6) TSM 11FY TWD-M entry intact + per-period fx; separate from 2330.TW
+ok(P.companies.TSM.quarters.length === 11 && P.companies.TSM.currency === 'TWD-M', 'TSM 11FY TWD-M');
 ok(P.companies['2330.TW'].frequency === 'q' && P.companies['2330.TW'].currency === 'TWD-M', '2330.TW separate quarterly entry');
 ok(P.companies.TSM.quarters.every(q => q.fxToUsd > 0.02 && q.fxToUsd < 0.04), 'TSM per-period fx present (approx marked)');
 
