@@ -15,11 +15,15 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 
 /* ---- left logo rail ---- */
 #logoRail { width:132px; flex:0 0 132px; display:grid; grid-template-columns:1fr 1fr; gap:10px;
-  align-content:start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px; }
+  align-content:start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px;
+  max-height:calc(100vh - 40px); overflow-y:auto; }
 .logo { position:relative; border:2px solid transparent; border-radius:10px; background:var(--bg);
   cursor:pointer; padding:6px; display:flex; align-items:center; justify-content:center; transition:border-color .15s, background .15s, transform .1s; }
 .logo:hover { border-color:#b9c6dd; transform:translateY(-1px); }
 .logo.active { border-color:var(--blue); background:#e8effc; }
+.logo.preview { border-style:dashed; }
+.pvBadge { position:absolute; top:-7px; right:-5px; background:#7c3aed; color:#fff; font-size:8.5px; font-weight:700;
+  padding:1px 4px; border-radius:5px; letter-spacing:.4px; }
 .logo img { width:100%; height:auto; display:block; border-radius:6px; }
 .logo .mono { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center;
   font-weight:800; font-size:18px; color:#fff; border-radius:6px; }
@@ -30,8 +34,9 @@ header { display:flex; align-items:center; justify-content:space-between; flex-w
 h1 { font-size:28px; color:var(--title-blue); }
 h1 .sub { color:var(--muted); font-size:15px; font-weight:normal; margin-left:10px; }
 .controls { display:flex; gap:10px; align-items:center; }
-#btnLang { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; }
-#btnLang:hover { border-color:var(--blue); }
+#btnLang, #btnCur { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; }
+#btnLang:hover, #btnCur:hover { border-color:var(--blue); }
+#btnCur.active { border-color:var(--blue); color:var(--blue); background:#e8effc; }
 .exportGroup { display:flex; background:var(--card); border:1px solid #d8dee9; border-radius:10px; overflow:hidden; box-shadow:0 1px 3px rgba(30,41,59,.06); }
 .exportGroup button { appearance:none; border:none; background:transparent; color:var(--text); padding:9px 18px;
   font-size:13.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:7px; transition:background .15s, color .15s; }
@@ -106,6 +111,7 @@ footer a { color:var(--blue); }
           <button id="btnExportPNG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportPNG"></span></button>
           <button id="btnExportSVG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportSVG"></span></button>
         </div>
+        <button id="btnCur" style="display:none"></button>
         <button id="btnLang"></button>
       </div>
     </header>

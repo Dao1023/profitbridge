@@ -61,7 +61,7 @@ let REGISTRY = []; // data/companies.json — single source of company truth (se
 const regOf = tk => REGISTRY.find(c => c.ticker === tk) || null;
 function quarterLabel(end) {
   const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
-  return `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
+  return isAnnual() ? `FY ${y}` : `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
 }
 function shortName(ticker) {
   const c = DATA.companies[ticker];
@@ -75,9 +75,34 @@ const tn = k => I18N[lang].nodes[k] || k;
 let DATA = null;      // profit.json (values in $M)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
 let chart = null;     // echarts instance
-let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue' }; // qIndex null = latest
+let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue', curMode: 'native' }; // qIndex null = latest; curMode: CNY companies 'native' ¥ | 'usd'
 
-const MB = 1e3; // $M → $B display factor (all data is in $M)
+const MB = 1e3; // millions → billions display factor (all data is in millions of the reporting currency)
+/* reporting-currency symbol per company (currency field = <ISO>-M; foreign filers like
+   SPOT/ASML EUR, SONY JPY, TME CNY store values as filed) */
+const CUR_SYM = { USD: '$', EUR: '€', JPY: '¥', CNY: '¥', TWD: 'NT$', KRW: '₩', CHF: 'CHF ' };
+const curSym = (tk = state.company) =>
+  CUR_SYM[(DATA.companies[tk].currency || 'USD-M').slice(0, 3)] || (DATA.companies[tk].currency || 'USD-M').slice(0, 3) + ' ';
+const isAnnual = (tk = state.company) => DATA.companies[tk].frequency === 'annual'; // 20-F annual series vs 10-Q quarterly
+/* ---- multi-currency display layer ----
+   Native values live in profit.json in the reporting currency (entry.currency).
+   USD entries show as-is. CNY entries get a ¥/US$ toggle (per-period fxToUsd).
+   Every other non-USD currency (EUR/JPY/TWD/KRW/CHF-M) auto-converts to USD for display. */
+const curOf = (tk = state.company) => (DATA.companies[tk].currency || 'USD-M');
+const isUsd = (tk = state.company) => curOf(tk) === 'USD-M';
+const canToggleCur = (tk = state.company) => curOf(tk) === 'CNY-M';
+const dispInUsd = (tk = state.company) => isUsd(tk) || !canToggleCur(tk) || state.curMode === 'usd';
+/* native value → display-unit scale (unitless); per-period fxToUsd, 1 for USD/native */
+function dispFactor(qv, tk = state.company) {
+  return dispInUsd(tk) && qv && qv.fxToUsd != null ? qv.fxToUsd : 1;
+}
+/* scale for segments.json values (always USD $M): to USD display 1, to native CNY 1/fx */
+function segFactor(qv, tk = state.company) {
+  return dispInUsd(tk) ? 1 : 1 / (qv && qv.fxToUsd != null ? qv.fxToUsd : 1);
+}
+function dispSym(tk = state.company) { return dispInUsd(tk) ? '$' : '¥'; }
+/* QoQ label — '同比/YoY' on annual series, '环比/QoQ' otherwise */
+const qoqSuffix = () => isAnnual() ? (lang === 'zh' ? '同比' : 'YoY') : t('qoqSuffix');
 const fmtPct = v => v == null ? '—' : (v * 100).toFixed(1) + '%';
 const fmtDelta = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + '%';
 const fmtPP = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + 'pp';
@@ -90,12 +115,12 @@ const KEY_ALIAS = { netLoss: 'net' };
    (same guards: opex only when the waterfall branch emits it, etc.). */
 function rawMetrics(qv) {
   if (!qv) return null;
-  const B = MB;
+  const B = MB, f = dispFactor(qv);
   const m = {
-    revenue: qv.revenue, gross: qv.gross != null ? qv.gross : null,
-    cogs: qv.gross != null ? qv.revenue - qv.gross : null,
-    rd: qv.rd != null ? qv.rd : null, sga: qv.sga != null ? qv.sga : null,
-    op: qv.opInc != null ? qv.opInc : null, net: qv.netInc != null ? qv.netInc : null,
+    revenue: qv.revenue * f, gross: qv.gross != null ? qv.gross * f : null,
+    cogs: qv.gross != null ? (qv.revenue - qv.gross) * f : null,
+    rd: qv.rd != null ? qv.rd * f : null, sga: qv.sga != null ? qv.sga * f : null,
+    op: qv.opInc != null ? qv.opInc * f : null, net: qv.netInc != null ? qv.netInc * f : null,
   };
   let opex = null;
   if (m.gross != null && m.op != null && m.op >= 0 && m.op <= m.gross) {
@@ -158,9 +183,19 @@ function q() {
   return c.quarters[i];
 }
 function prev(offset) {
+  /* comparable prior period: same period class (annual row vs single quarter),
+     sane day-gap (annual ↔ annual: 300–400d; quarter ↔ quarter: 70–250d).
+     Prevents comparing across the annual/interim boundary in hk-mixed series. */
   const qs = DATA.companies[state.company].quarters;
-  const i = (state.qIndex == null ? qs.length - 1 : state.qIndex) - offset;
-  return i >= 0 ? qs[i] : null;
+  const curIdx = state.qIndex == null ? qs.length - 1 : state.qIndex;
+  const i = curIdx - (offset || 0);
+  if (i < 0 || i >= qs.length) return null;
+  const cur = qs[curIdx], p = qs[i];
+  const cls = qv => (isAnnual() || qv.periodType === 'annual') ? 'annual' : 'q';
+  if (cls(p) !== cls(cur)) return null;
+  const d = Math.abs((new Date(p.end) - new Date(cur.end)) / 864e5);
+  if (cls(cur) === 'annual') return (d >= 300 && d <= 400) ? p : null;
+  return (d >= 70 && d <= 250) ? p : null;
 }
 /* ---- palette (no gradients anywhere; ribbons are solid per-link colors) ---- */
 const BLUE = '#3b82c4', GRAY = '#4b5563', GREEN = '#16a34a', RED = '#dc2626', GOLD = '#d4a017';
@@ -178,9 +213,9 @@ function segmentsFor(ticker, qEnd) {
    Columns: [segments(+children) 0] [aggregate parents 1] [revenue] [gross/cogs] [rd/sga/other/op] [net/tax].
    All values non-negative; out-slots of every node sum to its value. */
 function buildGraph(qv, segList) {
-  const B = MB, M = 1;
-  const rev = qv.revenue / B, gross = qv.gross != null ? qv.gross / B : null,
-        op = qv.opInc != null ? qv.opInc / B : null, net = qv.netInc != null ? qv.netInc / B : null;
+  const B = MB, M = 1, f = dispFactor(qv), sf = segFactor(qv);
+  const rev = qv.revenue * f / B, gross = qv.gross != null ? qv.gross * f / B : null,
+        op = qv.opInc != null ? qv.opInc * f / B : null, net = qv.netInc != null ? qv.netInc * f / B : null;
   const nodes = [], links = [];
   const hasChildren = segList && segList.some(s => s.children && s.children.length);
   const revDepth = hasChildren ? 2 : (segList ? 1 : 0);
@@ -190,16 +225,16 @@ function buildGraph(qv, segList) {
   if (segList && segList.length) {
     for (const s of segList) {
       if (s.children && s.children.length) {
-        const parentVal = s.children.reduce((a, c) => a + c.value, 0) / 1000; // $M → $B
+        const parentVal = s.children.reduce((a, c) => a + c.value, 0) * sf / 1000;
         for (const ch of s.children) {
-          nodes.push({ name: segName(ch.name), value: ch.value / 1000, depth: 0, itemStyle: { color: BLUE } });
-          links.push({ source: segName(ch.name), target: segName(s.name), value: ch.value / 1000 });
+          nodes.push({ name: segName(ch.name), value: ch.value * sf / 1000, depth: 0, itemStyle: { color: BLUE } });
+          links.push({ source: segName(ch.name), target: segName(s.name), value: ch.value * sf / 1000 });
         }
         nodes.push({ name: segName(s.name), value: parentVal, depth: 1, itemStyle: { color: BLUE } });
         links.push({ source: segName(s.name), target: 'revenue', value: parentVal });
       } else {
-        nodes.push({ name: segName(s.name), value: s.value / 1000, depth: 0, itemStyle: { color: BLUE } });
-        links.push({ source: segName(s.name), target: 'revenue', value: s.value / 1000 });
+        nodes.push({ name: segName(s.name), value: s.value * sf / 1000, depth: 0, itemStyle: { color: BLUE } });
+        links.push({ source: segName(s.name), target: 'revenue', value: s.value * sf / 1000 });
       }
     }
   }
@@ -215,13 +250,13 @@ function buildGraph(qv, segList) {
     if (op != null && op >= 0 && op <= gross) {
       nodes.push({ name: 'op', value: op, depth: revDepth + 2, itemStyle: { color: GREEN } });
       const opexVal = gross - op;
-      if (hasOpexSplit && qv.rd / B + qv.sga / B <= opexVal * 1.001) {
-        nodes.push({ name: 'rd', value: qv.rd / B, depth: revDepth + 2, itemStyle: { color: RED } });
-        nodes.push({ name: 'sga', value: qv.sga / B, depth: revDepth + 2, itemStyle: { color: RED } });
-        const other = opexVal - qv.rd / B - qv.sga / B;
+      if (hasOpexSplit && qv.rd * f / B + qv.sga * f / B <= opexVal * 1.001) {
+        nodes.push({ name: 'rd', value: qv.rd * f / B, depth: revDepth + 2, itemStyle: { color: RED } });
+        nodes.push({ name: 'sga', value: qv.sga * f / B, depth: revDepth + 2, itemStyle: { color: RED } });
+        const other = opexVal - qv.rd * f / B - qv.sga * f / B;
         if (other > 0) { nodes.push({ name: 'opex', value: other, depth: revDepth + 2, itemStyle: { color: RED } }); links.push({ source: 'gross', target: 'opex', value: other }); }
-        links.push({ source: 'gross', target: 'rd', value: qv.rd / B });
-        links.push({ source: 'gross', target: 'sga', value: qv.sga / B });
+        links.push({ source: 'gross', target: 'rd', value: qv.rd * f / B });
+        links.push({ source: 'gross', target: 'sga', value: qv.sga * f / B });
       } else {
         nodes.push({ name: 'opex', value: opexVal, depth: revDepth + 2, itemStyle: { color: RED } });
         links.push({ source: 'gross', target: 'opex', value: opexVal });
@@ -233,6 +268,18 @@ function buildGraph(qv, segList) {
     nodes.push({ name: 'opex', value: rev - op, depth: revDepth + 1, itemStyle: { color: RED } });
     links.push({ source: 'revenue', target: 'op', value: op });
     links.push({ source: 'revenue', target: 'opex', value: rev - op });
+  } else if (net != null) {
+    // no gross/op disclosed (HK-style revenue+netProfit only): pure waterfall revenue → net
+    if (net >= 0) {
+      nodes.push({ name: 'net', value: net, depth: revDepth + 1, itemStyle: { color: GREEN } });
+      links.push({ source: 'revenue', target: 'net', value: Math.min(net, rev) });
+      if (rev - net > 0) { nodes.push({ name: 'taxOther', value: rev - net, depth: revDepth + 1, itemStyle: { color: RED } }); links.push({ source: 'revenue', target: 'taxOther', value: rev - net }); }
+    } else {
+      nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 1, itemStyle: { color: RED } });
+      nodes.push({ name: 'taxOther', value: rev, depth: revDepth + 1, itemStyle: { color: RED } });
+      links.push({ source: 'revenue', target: 'taxOther', value: rev });
+      links.push({ source: 'taxOther', target: 'netLoss', value: -net });
+    }
   }
   if (op != null && op > 0 && net != null) {
     if (net >= 0) {
@@ -265,7 +312,8 @@ const displayName = n => n.name.startsWith('seg:') ? n.name.slice(4) : tn(n.name
 
 /* self-consistency check: input-side leaf inflows must equal revenue */
 function checkConsistency(qv, g) {
-  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue / MB, ok: null, waterfall: {} };
+  const f = dispFactor(qv);
+  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue * f / MB, ok: null, waterfall: {} };
   const leafLinks = g.links.filter(l => l.source.startsWith('seg:') &&
     !g.nodes.some(n => n.name === l.source && n.depth === 1)); // leaves, not aggregate parents
   const inputSum = leafLinks.reduce((a, l) => a + l.value, 0);
@@ -275,8 +323,8 @@ function checkConsistency(qv, g) {
   out.waterfall = {
     gross: byName.gross, cogs: byName.cogs, op: byName.op, net: byName.net,
     grossEq: byName.gross == null || Math.abs(byName.gross + (byName.cogs || 0) - out.revenue) < 0.005,
-    opEq: byName.op == null || qv.gross == null || Math.abs(byName.op + (byName.rd || 0) + (byName.sga || 0) + (byName.opex || 0) - byName.gross) < 0.01,
-    netEq: byName.net == null || Math.abs(byName.net - qv.netInc / MB) < 0.005,
+    opEq: byName.op == null || qv.gross == null || Math.abs(byName.op + (byName.rd || 0) * f / MB + (byName.sga || 0) * f / MB + (byName.opex || 0) - byName.gross) < 0.01,
+    netEq: byName.net == null || Math.abs(byName.net - qv.netInc * f / MB) < 0.005,
   };
   return out;
 }
@@ -307,9 +355,9 @@ function renderChart() {
 
   /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
   function nodeLabel(p) {
-    const revB = qv.revenue / MB;
+    const revB = qv.revenue * dispFactor(qv) / MB;
     const isMargin = MARGIN_KEYS.includes(p.name);
-    const amt = `$${p.value.toFixed(1)}B`;
+    const amt = `${dispSym()}${p.value.toFixed(1)}B`;
     let body = `{n|${displayName(p)}}`;
     const parts = [];
     if (state.mode.pct) {
@@ -331,7 +379,7 @@ function renderChart() {
       if (qt === '—') body += `\n{flat|— QoQ}`;
       else {
         const neg = qt.startsWith('-');
-        body += `\n{${neg ? 'down' : 'up'}|${qt} ${t('qoqSuffix')}}`;
+        body += `\n{${neg ? 'down' : 'up'}|${qt} ${qoqSuffix()}}`;
       }
     }
     return body;
@@ -360,8 +408,8 @@ function renderChart() {
       formatter: p => {
         const nm = displayName(p);
         return p.dataType === 'edge'
-          ? `${displayName({ name: p.data.source })} → ${displayName({ name: p.data.target })}<br/><b>$${p.data.value.toFixed(1)}B</b>`
-          : `<b>${nm}</b><br/>$${p.value.toFixed(1)}B`;
+          ? `${displayName({ name: p.data.source })} → ${displayName({ name: p.data.target })}<br/><b>${dispSym()}${p.data.value.toFixed(1)}B</b>`
+          : `<b>${nm}</b><br/>${dispSym()}${p.value.toFixed(1)}B`;
       },
     },
     series: [{
@@ -408,10 +456,21 @@ function segValueFor(ticker, qEnd, name) {
   return null;
 }
 
+/* disclosed single periods for the bar view — mixed-frequency entries (hk-mixed/mixed)
+   draw only the actually disclosed single quarters; derived annual rows are excluded
+   (no double counting, no fabricated equal-spacing axis) */
+function barQuarters(ticker) {
+  const e = DATA.companies[ticker];
+  return (e.frequency === 'hk-mixed' || e.frequency === 'mixed')
+    ? e.quarters.filter(qv => qv.periodType !== 'annual')
+    : e.quarters;
+}
+
 /* Every selectable bar item for a company, with its full-history series precomputed.
    groups: items (income-statement lines, $B) / segments (from segments.json, $B) / margins (%). */
 function buildBarItems(ticker) {
-  const qs = DATA.companies[ticker].quarters;
+  const qs = barQuarters(ticker);
+  const f0 = dispInUsd(ticker) ? 1 : 1 / (qs[qs.length - 1] && qs[qs.length - 1].fxToUsd != null ? qs[qs.length - 1].fxToUsd : 1); // segment scale (per-period fx differs; segments only exist on US cos anyway)
   const out = [];
   for (const id of BAR_PROFIT_ITEMS) {
     const data = qs.map(qv => { const m = rawMetrics(qv); return m && m[id] != null ? m[id] / MB : null; });
@@ -426,7 +485,7 @@ function buildBarItems(ticker) {
           if (!seen.has(nm)) { seen.add(nm); segNames.push(nm); }
   }
   for (const nm of segNames) {
-    const data = qs.map(qv => { const v = segValueFor(ticker, qv.end, nm); return v != null ? v / MB : null; });
+    const data = qs.map(qv => { const v = segValueFor(ticker, qv.end, nm); return v != null ? v * segFactor(qv, ticker) / MB : null; });
     out.push({ id: 'seg:' + nm, segName: nm, label: nm, group: 'segments', kind: 'segment', color: BLUE, data, hasData: data.some(v => v != null) });
   }
   for (const mk of BAR_MARGIN_ITEMS) {
@@ -456,16 +515,16 @@ function renderBarSelect() {
    pct/qoq modes annotate the tooltip (bar height always stays the raw amount —
    a 64-bar % -of-revenue chart would flatten the scale and lose the trend). */
 function renderBarChart() {
-  const qs = DATA.companies[state.company].quarters;
+  const qs = barQuarters(state.company);
   const items = buildBarItems(state.company);
   const item = items.find(i => i.id === state.barItem) || items[0];
-  const labels = qs.map(qv => {
-    const qn = Math.floor((Number(qv.end.slice(5, 7)) - 1) / 3) + 1;
-    return `Q${qn}'${qv.end.slice(2, 4)}`;
-  });
+  const perRowLabel = qv => (qv.periodType === 'annual' || isAnnual())
+    ? 'FY ' + qv.end.slice(0, 4)
+    : `Q${Math.floor((Number(qv.end.slice(5, 7)) - 1) / 3) + 1}'${qv.end.slice(2, 4)}`;
+  const labels = qs.map(perRowLabel);
   const hasAny = item.data.some(v => v != null);
   const isMargin = item.kind === 'margin';
-  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : '$' + v.toFixed(1) + 'B';
+  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : dispSym() + v.toFixed(1) + 'B';
   document.getElementById('chartTitle').textContent =
     `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t('barFullHistory') : ''}`;
 
@@ -489,7 +548,7 @@ function renderBarChart() {
         if (state.mode.qoq && i > 0) { // margins → pp, amounts → % change
           const pv = item.data[i - 1];
           const d = (val != null && pv != null) ? (isMargin ? (val - pv) : (val - pv) / Math.abs(pv)) : null;
-          lines.push(`${t('qoqSuffix')} ${isMargin ? fmtPP(d) : fmtDelta(d)}`);
+          lines.push(`${qoqSuffix()} ${isMargin ? fmtPP(d) : fmtDelta(d)}`);
         }
         return lines.join('<br/>');
       },
@@ -497,11 +556,11 @@ function renderBarChart() {
     grid: { left: 64, right: 24, top: 48, bottom: 68 },
     xAxis: {
       type: 'category', data: labels,
-      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b' },
+      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },
       axisLine: { lineStyle: { color: '#cbd5e1' } }, axisTick: { alignWithLabel: true },
     },
     yAxis: {
-      type: 'value', name: isMargin ? '%' : '$B', nameTextStyle: { color: '#64748b' },
+      type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#64748b' },
       axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
     },
     graphic: hasAny ? [] : [{ type: 'text', left: 'center', top: 'middle',
@@ -521,13 +580,16 @@ function renderBarChart() {
 const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d','#15803d','#a16207','#1e40af','#4d7c0f'];
 function renderLogoRail() {
   const rail = document.getElementById('logoRail');
-  rail.innerHTML = Object.keys(DATA.companies).map((tk, i) =>
-    `<div class="logo${tk === state.company ? ' active' : ''}" data-sym="${tk}" title="${tk} · ${regOf(tk)?.nameZh || ZH_NAMES_FALLBACK[tk] || ''}">
+  rail.innerHTML = Object.keys(DATA.companies).map((tk, i) => {
+    const c = DATA.companies[tk];
+    return `<div class="logo${tk === state.company ? ' active' : ''}${c.preview ? ' preview' : ''}" data-sym="${tk}" title="${tk} · ${regOf(tk)?.nameZh || ZH_NAMES_FALLBACK[tk] || ''}">
        <img src="data/logos/${tk}.png" alt="${tk}"
-         onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${regOf(tk)?.color || MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0,2)}</div>'">
-     </div>`).join('');
+         onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${regOf(tk)?.color || MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0, 2)}</div>'">
+       ${c.preview ? '<span class="pvBadge">Preview</span>' : ''}
+     </div>`;
+  }).join('');
   rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => {
-    state.company = el.dataset.sym; state.qIndex = null; render();
+    state.company = el.dataset.sym; state.qIndex = null; state.curMode = 'native'; render();
   }));
 }
 
@@ -612,14 +674,22 @@ function render() {
   const c = DATA.companies[state.company];
   const qv = q();
   document.getElementById('title').innerHTML =
-    `${t('appTitle')}&nbsp;<span class="sub">${c.name} · ${qv.end}${lang === 'zh' ? ' 季度末' : ' (quarter end)'}</span>`;
+    `${t('appTitle')}&nbsp;<span class="sub">${c.name} · ${qv.end}${isAnnual() ? (lang === 'zh' ? ' 财年末' : ' (fiscal year end)') : (lang === 'zh' ? ' 季度末' : ' (quarter end)')}${c.currency && c.currency !== 'USD-M' ? ' · ' + c.currency.replace('-M', '') : ''}${dispInUsd() && c.currency !== 'USD-M' ? ' ≈US$' : ''}${c.preview ? (lang === 'zh' ? ' · Preview（未上市，预览数据）' : ' · Preview (private)') : ''}</span>`;
   document.getElementById('btnExportPNG').querySelector('span').textContent = t('exportPNG');
   document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
   document.getElementById('btnLang').textContent = t('langBtn');
 
-  // label-mode buttons: text + active state (stackable pct/qoq)
+  // currency toggle: only CNY-reporting companies get a ¥/US$ switch
+  const btnCur = document.getElementById('btnCur');
+  btnCur.style.display = canToggleCur() ? '' : 'none';
+  if (canToggleCur()) {
+    btnCur.textContent = dispInUsd() ? (lang === 'zh' ? '显示 ¥' : 'Show ¥') : (lang === 'zh' ? '显示 US$' : 'Show US$');
+    btnCur.classList.toggle('active', dispInUsd());
+  }
+
+  // label-mode buttons: text + active state (stackable pct/qoq; annual series → 同比/YoY)
   document.getElementById('lblPct').textContent = t('pctBtn');
-  document.getElementById('lblQoQ').textContent = t('qoqBtn');
+  document.getElementById('lblQoQ').textContent = isAnnual() ? (lang === 'zh' ? '同比' : 'YoY') : t('qoqBtn');
   document.getElementById('btnPct').classList.toggle('active', state.mode.pct);
   document.getElementById('btnQoQ').classList.toggle('active', state.mode.qoq);
 
@@ -636,7 +706,7 @@ function render() {
   renderChart();
 
   document.getElementById('srcLine').innerHTML =
-    `${t('source')} <a href="${DATA.sourceUrl}" target="_blank">SEC EDGAR XBRL companyfacts</a> (US-GAAP)`;
+    `${t('source')} <a href="${DATA.sourceUrl}" target="_blank">SEC EDGAR XBRL</a> · HKEX/东财 (HK·A股) · KR/TW/EU disclosures`;
   document.getElementById('updLine').textContent = `${t('updated')} ${DATA.updated}`;
 
   // coverage footnote: which companies have an input side, and segment sourceUrl
@@ -693,6 +763,11 @@ function initControls() {
   document.getElementById('btnQoQ').addEventListener('click', () => { state.mode.qoq = !state.mode.qoq; render(); });
   document.getElementById('btnViewBridge').addEventListener('click', () => { if (state.view !== 'bridge') { state.view = 'bridge'; render(); } });
   document.getElementById('btnViewBar').addEventListener('click', () => { if (state.view !== 'bar') { state.view = 'bar'; render(); } });
+  document.getElementById('btnCur').addEventListener('click', () => {
+    if (!canToggleCur()) return;
+    state.curMode = dispInUsd() ? 'native' : 'usd';
+    render();
+  });
 }
 
 (async function main() {
@@ -705,6 +780,15 @@ function initControls() {
   if (!loaded && window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
   if (!loaded) { document.getElementById('title').textContent = 'data/profit.json not found'; return; }
   DATA = loaded;
+  // profitPreview (e.g. SPCX): injected as an isolated entry so the rail/bridge can
+  // render it, but it is NOT part of the main comparison series (marked preview).
+  if (DATA.profitPreview && !DATA.companies[DATA.profitPreview.ticker]) {
+    const pv = DATA.profitPreview;
+    DATA.companies[pv.ticker] = {
+      name: pv.name, currency: pv.currency || 'USD-M', frequency: pv.frequency || 'q',
+      quarters: pv.quarters, preview: true, notes: pv.status || 'preview',
+    };
+  }
   try {
     const res = await fetch('data/segments.json');
     if (res.ok) SEG = await res.json();
