@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T16:16:23.345Z",
+  "updated": "2026-10-26T16:20:46.157Z",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -28123,6 +28123,192 @@
         }
       ],
       "notes": "10-Q as-reported USD-M (4 single quarters, 2025-03-31..2026-06-30; 2025-09 Nasdaq IPO) — below minKeep, exempted into main series mirroring SPCX precedent; watchlist backfill (site ticker CBRS)."
+    },
+    "HUAWEI": {
+      "name": "Huawei Technologies Co., Ltd. 华为",
+      "currency": "CNY-M",
+      "frequency": "annual",
+      "companyType": "private",
+      "quarters": [
+        {
+          "end": "2019-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 858800,
+          "gross": null,
+          "opInc": null,
+          "netInc": 62700,
+          "rd": 131700,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2020-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 891400,
+          "gross": null,
+          "opInc": null,
+          "netInc": 64600,
+          "rd": 141900,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2021-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 636807,
+          "gross": null,
+          "opInc": 121412,
+          "netInc": 113718,
+          "rd": 142700,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2022-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 642338,
+          "gross": null,
+          "opInc": 42216,
+          "netInc": 35562,
+          "rd": 161500,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2023-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 704174,
+          "gross": null,
+          "opInc": 104401,
+          "netInc": 86950,
+          "rd": 164700,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2024-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 862072,
+          "gross": null,
+          "opInc": 79361,
+          "netInc": 62574,
+          "rd": 179700,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2025-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14975786,
+          "revenue": 880941,
+          "gross": null,
+          "opInc": 96937,
+          "netInc": 68036,
+          "rd": 192300,
+          "sga": null,
+          "tax": null
+        }
+      ],
+      "notes": "Private filer (unlisted; publishes audited annual reports): companyType=private, synthetic ticker HUAWEI (no real listing). FY=calendar year, IFRS consolidated, audited by KPMG. CNY-M as-reported; opInc/null rd null before FY2021 (2019-2020 operating profit not in official highlights table). R&D 2019/2020/2023/2024/2025 from official annual-report news releases (131.7/141.9/164.7/179.7/192.3 Bn CNY); 2021 142.7 & 2022 161.5 Bn CNY per FY2022 report (bjnews cross-check). FY2021-2025 rev/op/NI from huawei.com bond-investor-relations Financial Highlights five-year table (https://www.huawei.com/en/bond-investor-relations/financial-highlights); FY2019 https://www.huawei.com/en/news/2020/3/Huawei-2019-annual-report; FY2020 https://www.huawei.com/de/news/2021/huawei-schliesst-geschaeftsjahr-2020-mit-umsatz-und-gewinnwachstum-ab. fxToUsd snapshot 1/USD-CNY 6.677446 (open.er-api.com 2026-10-27, single rate)."
+    },
+    "LEGO": {
+      "name": "LEGO Group (LEGO System A/S) 乐高",
+      "currency": "DKK-M",
+      "frequency": "annual",
+      "companyType": "private",
+      "quarters": [
+        {
+          "end": "2019-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 38500,
+          "gross": null,
+          "opInc": 10800,
+          "netInc": 8300,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2020-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 43700,
+          "gross": null,
+          "opInc": 12900,
+          "netInc": 4100,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2021-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 55300,
+          "gross": null,
+          "opInc": 17000,
+          "netInc": 13300,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2022-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 64600,
+          "gross": null,
+          "opInc": 17900,
+          "netInc": 13800,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2023-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 65900,
+          "gross": null,
+          "opInc": 17100,
+          "netInc": 13100,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2024-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 74300,
+          "gross": null,
+          "opInc": 18700,
+          "netInc": 13800,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        },
+        {
+          "end": "2025-12-31",
+          "periodType": "annual",
+          "fxToUsd": 0.14977145,
+          "revenue": 83500,
+          "gross": null,
+          "opInc": 22000,
+          "netInc": 16700,
+          "rd": null,
+          "sga": null,
+          "tax": null
+        }
+      ],
+      "notes": "Private filer (family-owned, unlisted; publishes audited annual reports): companyType=private, synthetic ticker LEGO (no real ticker). FY=calendar year, IFRS, audited (Deloitte). DKK-M as-reported; press-release rounded values (Bn DKK → M). FY2019 https://www.lego.com/aboutus/news/2020/march/annual-results; FY2020 https://www.lego.com/da-dk/aboutus/news/2021/march/2020-annual-results (NI 4.1 Bn DKK one-off tax, LEGO Foundation share transaction); FY2021 https://www.lego.com/da-dk/aboutus/news/2022/march/2021-annual-results; FY2022/FY2023 https://www.lego.com/en-us/aboutus/news/2024/march/lego-delivered-topline-growth-and-outpaced-market-in-2023; FY2024 https://www.lego.com/en-us/aboutus/news/2025/march/lego-group-delivers-record-results-in-2024. fxToUsd snapshot 1/USD-DKK 6.67684 (open.er-api.com 2026-10-27, single rate). FY2025 https://www.lego.com/en-de/aboutus/news/2026/march/the-lego-group-delivers-record-results-in-2025-driven-by-strong-brand-and-innovative-portfolio (rev 83.5 / op 22.0 / NI 16.7 Bn DKK)."
     }
   },
   "skipped": [
@@ -28683,7 +28869,10 @@
     "DIDIY: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-13 (acc 0001104659-26-042350) — gross derived as revenue − cost of sales; SEC companyfacts had not ingested this filing's financial facts",
     "SPCX: 2026-06 Nasdaq IPO 后仅披露 2 季（10-Q 2026-08-04 与 2026-10-22，报告期 2026-06-30/2026-09-30），低于 minKeep=12 护栏，经豁免单独收录进主序列；数字取自 10-Q 内嵌 XBRL，Q3 与 R4 报表逐项核对一致（rev 14575 / cost 5478 / NI 4404 / RD 4596 / SGA 1707）。",
     "GOOG: watchlist site ticker for Alphabet is GOOG; data entry keyed as GOOGL (same issuer, same SEC registrant CIK 1652044) — GOOG is a display alias, no separate entry.",
-    "Watchlist backfill 2026-10-27: NTES (20-F 18FY CNY-M), CHA (20-F 3FY CNY-M, exemption), CBRS (10-Q 4Q USD-M, exemption) added; 09633.HK skipped (semi-annual only); GOOG=GOOGL alias; fx per period-end via frankfurter.app ECB reference."
+    "Watchlist backfill 2026-10-27: NTES (20-F 18FY CNY-M), CHA (20-F 3FY CNY-M, exemption), CBRS (10-Q 4Q USD-M, exemption) added; 09633.HK skipped (semi-annual only); GOOG=GOOGL alias; fx per period-end via frankfurter.app ECB reference.",
+    "HUAWEI: new private-filer entry (unlisted, official audited annual reports), CNY-M annual FY=Dec, synthetic ticker, 7 FY 2019-2025.",
+    "LEGO: new private-filer entry (unlisted, official audited annual reports), DKK-M annual FY=Dec, synthetic ticker, 6 FY 2019-2024.",
+    "ByteDance/MiHoYo: NOT added — no official audited public financial statements exist (media-cited internal figures only); out of scope by no-public-filings rule."
   ],
   "failures": []
 }

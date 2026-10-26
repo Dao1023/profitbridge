@@ -1486,5 +1486,21 @@
     "nameZh": "Cerebras",
     "nameEn": "Cerebras Systems Inc.",
     "color": "#f97316"
+  },
+  {
+    "ticker": "HUAWEI",
+    "nameZh": "华为",
+    "nameEn": "Huawei Technologies Co., Ltd.",
+    "color": "#cf0a2c",
+    "frequency": "annual",
+    "companyType": "private"
+  },
+  {
+    "ticker": "LEGO",
+    "nameZh": "乐高",
+    "nameEn": "The LEGO Group",
+    "color": "#ffcf00",
+    "frequency": "annual",
+    "companyType": "private"
   }
 ]
