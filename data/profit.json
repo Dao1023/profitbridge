@@ -16596,7 +16596,7 @@
       "name": "Trip.com Group Limited",
       "cik": 1269238,
       "currency": "CNY-M",
-      "frequency": "annual",
+      "frequency": "mixed",
       "quarters": [
         {
           "end": "2008-12-31",
@@ -16606,7 +16606,8 @@
           "netInc": 444.1,
           "tax": 102.9,
           "fxToUsd": 0.14656,
-          "fxDate": "2008-12-31"
+          "fxDate": "2008-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2009-12-31",
@@ -16617,7 +16618,8 @@
           "rd": 308.5,
           "tax": 131.7,
           "fxToUsd": 0.14648,
-          "fxDate": "2009-12-31"
+          "fxDate": "2009-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2010-12-31",
@@ -16628,7 +16630,8 @@
           "rd": 453.9,
           "tax": 205,
           "fxToUsd": 0.15146,
-          "fxDate": "2010-12-31"
+          "fxDate": "2010-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2011-12-31",
@@ -16639,7 +16642,8 @@
           "rd": 601.5,
           "tax": 262.2,
           "fxToUsd": 0.15859,
-          "fxDate": "2011-12-30"
+          "fxDate": "2011-12-30",
+          "periodType": "annual"
         },
         {
           "end": "2012-12-31",
@@ -16650,7 +16654,8 @@
           "rd": 911.9,
           "tax": 294.5,
           "fxToUsd": 0.1605,
-          "fxDate": "2012-12-31"
+          "fxDate": "2012-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2013-12-31",
@@ -16661,7 +16666,8 @@
           "rd": 1245.7,
           "tax": 293.7,
           "fxToUsd": 0.16518,
-          "fxDate": "2013-12-31"
+          "fxDate": "2013-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2014-12-31",
@@ -16672,7 +16678,8 @@
           "rd": 2321.3,
           "tax": 130.8,
           "fxToUsd": 0.16111,
-          "fxDate": "2014-12-31"
+          "fxDate": "2014-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2015-12-31",
@@ -16683,7 +16690,8 @@
           "rd": 3296.7,
           "tax": 470.2,
           "fxToUsd": 0.15419,
-          "fxDate": "2015-12-31"
+          "fxDate": "2015-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2016-12-31",
@@ -16694,7 +16702,8 @@
           "rd": 7687,
           "tax": 482,
           "fxToUsd": 0.144,
-          "fxDate": "2016-12-30"
+          "fxDate": "2016-12-30",
+          "periodType": "annual"
         },
         {
           "end": "2017-12-31",
@@ -16705,7 +16714,8 @@
           "rd": 8259,
           "tax": 1285,
           "fxToUsd": 0.15367,
-          "fxDate": "2017-12-29"
+          "fxDate": "2017-12-29",
+          "periodType": "annual"
         },
         {
           "end": "2018-12-31",
@@ -16716,7 +16726,8 @@
           "rd": 9620,
           "tax": 793,
           "fxToUsd": 0.14539,
-          "fxDate": "2018-12-31"
+          "fxDate": "2018-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2019-12-31",
@@ -16727,7 +16738,8 @@
           "rd": 10670,
           "tax": 1742,
           "fxToUsd": 0.14365,
-          "fxDate": "2019-12-31"
+          "fxDate": "2019-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2020-12-31",
@@ -16738,7 +16750,21 @@
           "rd": 7667,
           "tax": 355,
           "fxToUsd": 0.15296,
-          "fxDate": "2020-12-31"
+          "fxDate": "2020-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2021-09-30",
+          "periodType": "q",
+          "revenue": 5344,
+          "gross": 4121,
+          "opInc": -246,
+          "netInc": -849,
+          "rd": 2305,
+          "sga": 2062,
+          "tax": 95,
+          "fxToUsd": 0.1547,
+          "fxDate": "2021-09-30"
         },
         {
           "end": "2021-12-31",
@@ -16749,7 +16775,47 @@
           "rd": 8992,
           "tax": 270,
           "fxToUsd": 0.15742,
-          "fxDate": "2021-12-31"
+          "fxDate": "2021-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2022-03-31",
+          "periodType": "q",
+          "revenue": 4109,
+          "gross": 3042,
+          "opInc": -359,
+          "netInc": -989,
+          "rd": 1974,
+          "sga": 1427,
+          "tax": -14,
+          "fxToUsd": 0.15768,
+          "fxDate": "2022-03-31"
+        },
+        {
+          "end": "2022-06-30",
+          "periodType": "q",
+          "revenue": 4011,
+          "gross": 3035,
+          "opInc": -167,
+          "netInc": 69,
+          "rd": 1772,
+          "sga": 1430,
+          "tax": 173,
+          "fxToUsd": 0.14919,
+          "fxDate": "2022-06-30"
+        },
+        {
+          "end": "2022-09-30",
+          "periodType": "q",
+          "revenue": 6892,
+          "gross": 5621,
+          "opInc": 854,
+          "netInc": 266,
+          "rd": 2491,
+          "sga": 2276,
+          "tax": 277,
+          "fxToUsd": 0.14053,
+          "fxDate": "2022-09-30"
         },
         {
           "end": "2022-12-31",
@@ -16760,7 +16826,47 @@
           "rd": 8341,
           "tax": 682,
           "fxToUsd": 0.14495,
-          "fxDate": "2022-12-30"
+          "fxDate": "2022-12-30",
+          "periodType": "annual"
+        },
+        {
+          "end": "2023-03-31",
+          "periodType": "q",
+          "revenue": 9198,
+          "gross": 7561,
+          "opInc": 2241,
+          "netInc": 3375,
+          "rd": 2674,
+          "sga": 2646,
+          "tax": 341,
+          "fxToUsd": 0.14546,
+          "fxDate": "2023-03-31"
+        },
+        {
+          "end": "2023-06-30",
+          "periodType": "q",
+          "revenue": 11247,
+          "gross": 9240,
+          "opInc": 2977,
+          "netInc": 631,
+          "rd": 2953,
+          "sga": 3310,
+          "tax": 562,
+          "fxToUsd": 0.13757,
+          "fxDate": "2023-06-30"
+        },
+        {
+          "end": "2023-09-30",
+          "periodType": "q",
+          "revenue": 13740,
+          "gross": 11273,
+          "opInc": 3909,
+          "netInc": 4615,
+          "rd": 3577,
+          "sga": 3787,
+          "tax": 448,
+          "fxToUsd": 0.13696,
+          "fxDate": "2023-09-29"
         },
         {
           "end": "2023-12-31",
@@ -16771,7 +16877,47 @@
           "rd": 12120,
           "tax": 1750,
           "fxToUsd": 0.14075,
-          "fxDate": "2023-12-29"
+          "fxDate": "2023-12-29",
+          "periodType": "annual"
+        },
+        {
+          "end": "2024-03-31",
+          "periodType": "q",
+          "revenue": 11905,
+          "gross": 9667,
+          "opInc": 3315,
+          "netInc": 4312,
+          "rd": 3109,
+          "sga": 3243,
+          "tax": 664,
+          "fxToUsd": 0.13835,
+          "fxDate": "2024-03-28"
+        },
+        {
+          "end": "2024-06-30",
+          "periodType": "q",
+          "revenue": 12772,
+          "gross": 10460,
+          "opInc": 3555,
+          "netInc": 3833,
+          "rd": 2993,
+          "sga": 3912,
+          "tax": 693,
+          "fxToUsd": 0.13769,
+          "fxDate": "2024-06-28"
+        },
+        {
+          "end": "2024-09-30",
+          "periodType": "q",
+          "revenue": 15873,
+          "gross": 13073,
+          "opInc": 5006,
+          "netInc": 6765,
+          "rd": 3640,
+          "sga": 4427,
+          "tax": 721,
+          "fxToUsd": 0.1426,
+          "fxDate": "2024-09-30"
         },
         {
           "end": "2024-12-31",
@@ -16782,7 +16928,47 @@
           "rd": 13139,
           "tax": 2604,
           "fxToUsd": 0.137,
-          "fxDate": "2024-12-31"
+          "fxDate": "2024-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2025-03-31",
+          "periodType": "q",
+          "revenue": 13830,
+          "gross": 11125,
+          "opInc": 3563,
+          "netInc": 4277,
+          "rd": 3525,
+          "sga": 4037,
+          "tax": 638,
+          "fxToUsd": 0.13787,
+          "fxDate": "2025-03-31"
+        },
+        {
+          "end": "2025-06-30",
+          "periodType": "q",
+          "revenue": 14843,
+          "gross": 12025,
+          "opInc": 4102,
+          "netInc": 4846,
+          "rd": 3500,
+          "sga": 4423,
+          "tax": 998,
+          "fxToUsd": 0.13957,
+          "fxDate": "2025-06-30"
+        },
+        {
+          "end": "2025-09-30",
+          "periodType": "q",
+          "revenue": 18338,
+          "gross": 14979,
+          "opInc": 5574,
+          "netInc": 19890,
+          "rd": 4083,
+          "sga": 5322,
+          "tax": 3344,
+          "fxToUsd": 0.14046,
+          "fxDate": "2025-09-30"
         },
         {
           "end": "2025-12-31",
@@ -16793,9 +16979,37 @@
           "rd": 15136,
           "tax": 5815,
           "fxToUsd": 0.14284,
-          "fxDate": "2025-12-31"
+          "fxDate": "2025-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2026-03-31",
+          "periodType": "q",
+          "revenue": 16208,
+          "gross": 12878,
+          "opInc": 3945,
+          "netInc": 2499,
+          "rd": 4062,
+          "sga": 4871,
+          "tax": 893,
+          "fxToUsd": 0.14492,
+          "fxDate": "2026-03-31"
+        },
+        {
+          "end": "2026-06-30",
+          "periodType": "q",
+          "revenue": 15663,
+          "gross": 12503,
+          "opInc": -1462,
+          "netInc": -2458,
+          "rd": 3792,
+          "sga": 10173,
+          "tax": 799,
+          "fxToUsd": 0.14737,
+          "fxDate": "2026-06-30"
         }
-      ]
+      ],
+      "notes": "TCOM: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
     },
     "JD": {
       "name": "JD.com, Inc.",
