@@ -9,9 +9,9 @@ await new Promise(r=>ws.onopen=r);
 const send=(method,params={})=>new Promise(res=>{const i=++id;pend.set(i,res);ws.send(JSON.stringify({id:i,method,params}))});
 const evl=async ex=>(await send('Runtime.evaluate',{expression:ex,returnByValue:true})).result?.result?.value;
 await send('Page.enable');
-await send('Page.navigate',{url:'file:///C:/Users/Dao/Code/dao1023/dsh-temp/goldpit3/index.html'});
+await send('Page.navigate',{url:'file:///C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/index.html'});
 await new Promise(r=>setTimeout(r,800));
-const shot=async name=>{const m=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync('C:/Users/Dao/Code/dao1023/dsh-temp/goldpit3/audit_'+name+'.png',Buffer.from(m.result.data,'base64'))};
+const shot=async name=>{const m=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync('C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/audit_'+name+'.png',Buffer.from(m.result.data,'base64'))};
 
 // 1. render sankey
 await shot('1_sankey');

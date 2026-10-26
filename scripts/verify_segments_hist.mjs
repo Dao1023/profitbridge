@@ -9,12 +9,12 @@ import { execFile } from 'child_process';
 const BASE = 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9335;
-const SHOTS = 'C:/Users/Dao/Code/dao1023/dsh-temp/goldpit3/shots';
+const SHOTS = 'C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/shots';
 fs.mkdirSync(SHOTS, { recursive: true });
 
 const chrome = execFile(CHROME, [
   `--remote-debugging-port=${PORT}`, '--headless=new', '--no-first-run', '--window-size=1680,1050',
-  '--user-data-dir=C:/Users/Dao/Code/dao1023/dsh-temp/goldpit3/archive/tmp_r/verify-profile-seghist', 'about:blank',
+  '--user-data-dir=C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/archive/tmp_r/verify-profile-seghist', 'about:blank',
 ]);
 await new Promise(r => setTimeout(r, 1500));
 const list = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json();

@@ -4,11 +4,11 @@ import { execFile } from 'child_process';
 const BASE = 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9333;
-const SHOTS = 'C:/Users/Dao/Code/dao1023/dsh-temp/goldpit3/shots';
+const SHOTS = 'C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/shots';
 
 const chrome = execFile(CHROME, [
   `--remote-debugging-port=${PORT}`, '--headless=new', '--no-first-run', '--window-size=1680,1050',
-  '--user-data-dir=C:/Users/Dao/Code/dao1023/dsh-temp/goldpit3/archive/tmp_r/verify-profile', 'about:blank',
+  '--user-data-dir=C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/archive/tmp_r/verify-profile', 'about:blank',
 ]);
 await new Promise(r => setTimeout(r, 1500));
 

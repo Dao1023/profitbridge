@@ -1,5 +1,5 @@
 import time, json, os
-DL = r"C:\Users\Dao\Code\dao1023\dsh-temp\goldpit3"
+DL = r"C:\Users\Dao\Code\dao1023\dsh-temp\profitbridge"
 SHOTS = os.path.join(DL, "shots")
 
 def grab(name):
