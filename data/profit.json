@@ -16169,7 +16169,7 @@
           "fxDate": "2026-09-30"
         }
       ],
-      "notes": "TSM: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported TWD-M, fetched 2026-10-26, window 2021-12-31..2026-09-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
+      "notes": "TSM: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported TWD-M, fetched 2026-10-26, window 2021-12-31..2026-09-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end; TWD 无 ECB/frankfurter 覆盖，季度行 fxToUsd 采用 open.er-api.com 最新快照单汇率（与 2330.TW 条目同惯例），fxDate 为快照日期——季度行为单汇率口径."
     },
     "ASML": {
       "name": "ASML HOLDING NV",
