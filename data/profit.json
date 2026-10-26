@@ -31295,7 +31295,7 @@
           "fxToUsd": 1.21274155
         }
       ],
-      "notes": "FY Dec; staging snapshot fx USD/CHF 0.824578 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule."
+      "notes": "FY Dec; staging snapshot fx USD/CHF 0.824578 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule. 审计结论：实际披露制度为半年报（Swiss semi-annual reporting），不做季度硬掰；stockanalysis 的\"quarterly\"页面为派生口径不入库，期望口径保持年度."
     },
     "MC.PA": {
       "name": "LVMH Moët Hennessy Louis Vuitton SE",
@@ -31348,7 +31348,7 @@
           "fxToUsd": 1.12091287
         }
       ],
-      "notes": "FY Dec; staging snapshot fx USD/EUR 0.89213 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule."
+      "notes": "FY Dec; staging snapshot fx USD/EUR 0.89213 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule. 审计结论：法国 AMF 半年报制度（annual + half-year），不做季度硬掰；stockanalysis quarterly 为派生口径不入库，期望口径保持年度."
     },
     "2454.TW": {
       "name": "MediaTek Inc.",
@@ -32408,7 +32408,7 @@
           "tax": null
         }
       ],
-      "notes": "Private filer (unlisted; publishes audited annual reports): companyType=private, synthetic ticker HUAWEI (no real listing). FY=calendar year, IFRS consolidated, audited by KPMG. CNY-M as-reported; opInc/null rd null before FY2021 (2019-2020 operating profit not in official highlights table). R&D 2019/2020/2023/2024/2025 from official annual-report news releases (131.7/141.9/164.7/179.7/192.3 Bn CNY); 2021 142.7 & 2022 161.5 Bn CNY per FY2022 report (bjnews cross-check). FY2021-2025 rev/op/NI from huawei.com bond-investor-relations Financial Highlights five-year table (https://www.huawei.com/en/bond-investor-relations/financial-highlights); FY2019 https://www.huawei.com/en/news/2020/3/Huawei-2019-annual-report; FY2020 https://www.huawei.com/de/news/2021/huawei-schliesst-geschaeftsjahr-2020-mit-umsatz-und-gewinnwachstum-ab. fxToUsd snapshot 1/USD-CNY 6.677446 (open.er-api.com 2026-10-27, single rate)."
+      "notes": "Private filer (unlisted; publishes audited annual reports): companyType=private, synthetic ticker HUAWEI (no real listing). FY=calendar year, IFRS consolidated, audited by KPMG. CNY-M as-reported; opInc/null rd null before FY2021 (2019-2020 operating profit not in official highlights table). R&D 2019/2020/2023/2024/2025 from official annual-report news releases (131.7/141.9/164.7/179.7/192.3 Bn CNY); 2021 142.7 & 2022 161.5 Bn CNY per FY2022 report (bjnews cross-check). FY2021-2025 rev/op/NI from huawei.com bond-investor-relations Financial Highlights five-year table (https://www.huawei.com/en/bond-investor-relations/financial-highlights); FY2019 https://www.huawei.com/en/news/2020/3/Huawei-2019-annual-report; FY2020 https://www.huawei.com/de/news/2021/huawei-schliesst-geschaeftsjahr-2020-mit-umsatz-und-gewinnwachstum-ab. fxToUsd snapshot 1/USD-CNY 6.677446 (open.er-api.com 2026-10-27, single rate). 审计结论：非上市无公开季度披露，保持年度期望."
     },
     "LEGO": {
       "name": "The LEGO Group",
@@ -32501,7 +32501,7 @@
           "tax": null
         }
       ],
-      "notes": "Private filer (family-owned, unlisted; publishes audited annual reports): companyType=private, synthetic ticker LEGO (no real ticker). FY=calendar year, IFRS, audited (Deloitte). DKK-M as-reported; press-release rounded values (Bn DKK → M). FY2019 https://www.lego.com/aboutus/news/2020/march/annual-results; FY2020 https://www.lego.com/da-dk/aboutus/news/2021/march/2020-annual-results (NI 4.1 Bn DKK one-off tax, LEGO Foundation share transaction); FY2021 https://www.lego.com/da-dk/aboutus/news/2022/march/2021-annual-results; FY2022/FY2023 https://www.lego.com/en-us/aboutus/news/2024/march/lego-delivered-topline-growth-and-outpaced-market-in-2023; FY2024 https://www.lego.com/en-us/aboutus/news/2025/march/lego-group-delivers-record-results-in-2024. fxToUsd snapshot 1/USD-DKK 6.67684 (open.er-api.com 2026-10-27, single rate). FY2025 https://www.lego.com/en-de/aboutus/news/2026/march/the-lego-group-delivers-record-results-in-2025-driven-by-strong-brand-and-innovative-portfolio (rev 83.5 / op 22.0 / NI 16.7 Bn DKK)."
+      "notes": "Private filer (family-owned, unlisted; publishes audited annual reports): companyType=private, synthetic ticker LEGO (no real ticker). FY=calendar year, IFRS, audited (Deloitte). DKK-M as-reported; press-release rounded values (Bn DKK → M). FY2019 https://www.lego.com/aboutus/news/2020/march/annual-results; FY2020 https://www.lego.com/da-dk/aboutus/news/2021/march/2020-annual-results (NI 4.1 Bn DKK one-off tax, LEGO Foundation share transaction); FY2021 https://www.lego.com/da-dk/aboutus/news/2022/march/2021-annual-results; FY2022/FY2023 https://www.lego.com/en-us/aboutus/news/2024/march/lego-delivered-topline-growth-and-outpaced-market-in-2023; FY2024 https://www.lego.com/en-us/aboutus/news/2025/march/lego-group-delivers-record-results-in-2024. fxToUsd snapshot 1/USD-DKK 6.67684 (open.er-api.com 2026-10-27, single rate). FY2025 https://www.lego.com/en-de/aboutus/news/2026/march/the-lego-group-delivers-record-results-in-2025-driven-by-strong-brand-and-innovative-portfolio (rev 83.5 / op 22.0 / NI 16.7 Bn DKK). 审计结论：非上市无公开季度披露，保持年度期望."
     },
     "02513.HK": {
       "name": "Z.AI",

@@ -21,7 +21,8 @@
     "ticker": "000660.KS",
     "nameZh": "SK海力士",
     "nameEn": "SK hynix",
-    "color": "#ea002c"
+    "color": "#ea002c",
+    "frequency": "mixed"
   },
   {
     "ticker": "00100.HK",
@@ -52,7 +53,8 @@
     "ticker": "005930.KS",
     "nameZh": "三星电子",
     "nameEn": "Samsung Electronics",
-    "color": "#1428a0"
+    "color": "#1428a0",
+    "frequency": "mixed"
   },
   {
     "ticker": "00700.HK",
@@ -144,7 +146,8 @@
     "ticker": "066570.KS",
     "nameZh": "LG电子",
     "nameEn": "LG Electronics",
-    "color": "#a50034"
+    "color": "#a50034",
+    "frequency": "mixed"
   },
   {
     "ticker": "09633.HK",
@@ -366,7 +369,7 @@
     "nameZh": "安谋",
     "nameEn": "Arm Holdings plc",
     "color": "#0091bd",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "ASML",
@@ -374,7 +377,7 @@
     "nameZh": "阿斯麦",
     "nameEn": "ASML Holding N.V.",
     "color": "#0d1e8c",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "AVGO",
@@ -410,7 +413,7 @@
     "nameZh": "阿里巴巴",
     "nameEn": "Alibaba Group Holding Limited",
     "color": "#ff6a00",
-    "frequency": "annual",
+    "frequency": "mixed",
     "reports": [
       "segment.*details",
       "segment information"
@@ -464,7 +467,7 @@
     "nameZh": "百度",
     "nameEn": "Baidu, Inc.",
     "color": "#2932e1",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "BILI",
@@ -487,7 +490,7 @@
     "nameZh": "霸王茶姬",
     "nameEn": "Chagee Holdings Limited",
     "color": "#9a1f2e",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "CRWV",
@@ -577,7 +580,7 @@
     "nameZh": "滴滴",
     "nameEn": "DiDi Global Inc.",
     "color": "#ff7a45",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "DUOL",
@@ -782,7 +785,7 @@
     "nameZh": "京东",
     "nameEn": "JD.com, Inc.",
     "color": "#e1251b",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "KO",
@@ -851,7 +854,7 @@
     "nameZh": "理想汽车",
     "nameEn": "Li Auto Inc.",
     "color": "#00c271",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "LKNCY",
@@ -859,7 +862,7 @@
     "nameZh": "瑞幸咖啡",
     "nameEn": "Luckin Coffee Inc.",
     "color": "#00339a",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "MC.PA",
@@ -1057,7 +1060,7 @@
     "nameZh": "网易",
     "nameEn": "NetEase, Inc.",
     "color": "#d43c33",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "NVDA",
@@ -1183,7 +1186,7 @@
     "nameZh": "拼多多",
     "nameEn": "PDD Holdings Inc.",
     "color": "#e02e24",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "PLTR",
@@ -1280,7 +1283,7 @@
     "nameZh": "索尼",
     "nameEn": "Sony Group Corporation",
     "color": "#171717",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "SPCX",
@@ -1295,7 +1298,7 @@
     "nameZh": "声田",
     "nameEn": "Spotify Technology S.A.",
     "color": "#1db954",
-    "frequency": "annual",
+    "frequency": "mixed",
     "reports": [
       "segment.*details",
       "segment information"
@@ -1319,7 +1322,7 @@
     "nameZh": "意法半导体",
     "nameEn": "STMicroelectronics N.V.",
     "color": "#03234b",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "TCOM",
@@ -1327,7 +1330,7 @@
     "nameZh": "携程",
     "nameEn": "Trip.com Group Limited",
     "color": "#1c66e5",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "TME",
@@ -1335,7 +1338,7 @@
     "nameZh": "腾讯音乐",
     "nameEn": "Tencent Music Entertainment Group",
     "color": "#31c27c",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "TSLA",
@@ -1402,7 +1405,7 @@
     "nameZh": "台积电",
     "nameEn": "Taiwan Semiconductor Manufacturing Company Limited",
     "color": "#c8102e",
-    "frequency": "annual",
+    "frequency": "mixed",
     "reports": [
       "segment.*details",
       "supplemental.*revenue"
@@ -1513,7 +1516,7 @@
     "nameZh": "微博",
     "nameEn": "Weibo Corporation",
     "color": "#e6162d",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "XNET",
@@ -1521,7 +1524,7 @@
     "nameZh": "迅雷",
     "nameEn": "Xunlei Limited",
     "color": "#3f8cff",
-    "frequency": "annual"
+    "frequency": "mixed"
   },
   {
     "ticker": "ZH",
@@ -1529,6 +1532,6 @@
     "nameZh": "知乎",
     "nameEn": "Zhihu Inc.",
     "color": "#0084ff",
-    "frequency": "annual"
+    "frequency": "mixed"
   }
 ]
