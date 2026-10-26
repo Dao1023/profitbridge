@@ -21,7 +21,7 @@ const REGISTRY = JSON.parse(fs.readFileSync(path.join('data', 'companies.json'),
 const EXTRA = [
   { ticker: 'AVGO', cik: 1730168, name: 'Broadcom Inc.' },
 ];
-const COMPANIES = [...REGISTRY.map(c => ({ ticker: c.ticker, cik: c.cik, name: c.nameEn })), ...EXTRA];
+const COMPANIES = [...REGISTRY.map(c => ({ ticker: c.ticker, cik: c.cik, name: c.nameEn, frequency: c.frequency || 'q' })), ...EXTRA];
 
 // metric → ordered tag candidates (union; earlier tag wins an overlapping period end).
 // `gross` falls back to revenue − cost when no GrossProfit fact exists for a period
@@ -34,7 +34,20 @@ const TAGS = {
   netInc: ['NetIncomeLoss', 'ProfitLoss'],
   rd: ['ResearchAndDevelopmentExpense', 'TechnologyAndContentExpense'],
   sga: ['SellingGeneralAndAdministrativeExpense'],
-  tax: ['IncomeTaxExpenseBenefit'],
+  tax: ['IncomeTaxExpenseBenefit', 'IncomeTaxExpense'],
+};
+// IFRS-only filers (ifrs-full taxonomy: TSM/SPOT/TME) don't use us-gaap tags — also try
+// these aliases under 'ifrs-full' (union; us-gaap facts still win on overlapping ends
+// because collectTag returns us-gaap first and collectMetric keeps the first tag hit).
+const IFRS_TAGS = {
+  revenue: ['Revenue', 'RevenueFromContractsWithCustomers'],
+  gross: ['GrossProfit'],
+  cost: ['CostOfSales'],
+  opInc: ['OperatingIncomeLoss'],
+  netInc: ['ProfitLoss'],
+  rd: ['ResearchAndDevelopmentExpense'],
+  sga: ['SellingGeneralAndAdministrativeExpense'],
+  tax: ['IncomeTaxExpense'],
 };
 const DERIVED_KEYS = ['revenue', 'gross', 'cost', 'opInc', 'netInc', 'rd', 'sga', 'tax'];
 
@@ -60,11 +73,12 @@ const days = (a, b) => Math.round((new Date(b) - new Date(a)) / 86400000);
 
 // For one XBRL tag: map of period-end → best fact, split into quarterly (85–100d) and
 // annual (330–400d, 10-K full-year periods used for Q4 derivation).
-function collectTag(facts, tag) {
-  const node = facts?.facts?.['us-gaap']?.[tag];
-  if (!node) return null;
-  const units = node.units?.USD;
-  if (!Array.isArray(units)) return null;
+function collectTag(facts, tag, cur) {
+  const units = ['us-gaap', 'ifrs-full'].flatMap(tax => {
+    const node = facts?.facts?.[tax]?.[tag];
+    return node?.units && Array.isArray(node.units[cur]) ? [node.units[cur]] : [];
+  }).flat();
+  if (!units.length) return null;
   const q = new Map(), a = new Map();
   const score = x => (x.form === '10-Q' ? 2 : x.form === '10-K' ? 1 : 0) + (x.fp === 'Q' ? 0.5 : 0);
   for (const f of units) {
@@ -80,10 +94,22 @@ function collectTag(facts, tag) {
 
 // Union across candidate tags for one metric: { q: end→val, a: end→val }.
 // Earlier tag in the list wins on overlapping ends (keeps previously published values stable).
-function collectMetric(facts, tagList) {
+// Company reporting currency: foreign private issuers file in their reporting currency
+// (SPOT EUR, SONY JPY, TME CNY, TSM TWD+USD). Prefer USD when the company reports in both
+// (TSM), else use the currency of its primary revenue tags — values are stored as filed.
+function pickCurrency(facts) {
+  const cands = ['us-gaap', 'ifrs-full'].flatMap(tax =>
+    ['Revenues', 'RevenueFromContractWithCustomerExcludingAssessedTax', 'Revenue', 'RevenueFromContractsWithCustomers']
+      .map(t => facts?.facts?.[tax]?.[t]?.units).filter(Boolean));
+  const keys = [...new Set(cands.flatMap(u => Object.keys(u)))].filter(k => /^[A-Z]{3}$/.test(k));
+  if (keys.includes('USD')) return 'USD';
+  return keys[0] || 'USD';
+}
+
+function collectMetric(facts, tagList, cur) {
   const out = { q: new Map(), a: new Map(), used: [] };
   for (const tag of tagList) {
-    const c = collectTag(facts, tag);
+    const c = collectTag(facts, tag, cur);
     if (!c) continue;
     out.used.push(tag);
     for (const [end, f] of c.q) if (!out.q.has(end)) out.q.set(end, f.val);
@@ -113,58 +139,66 @@ function deriveQ4(metric) {
 }
 
 async function fetchCompany(c) {
+  const freq = c.frequency === 'annual' ? 'annual' : 'q';
   const facts = await getJSON(`https://data.sec.gov/api/xbrl/companyfacts/CIK${String(c.cik).padStart(10, '0')}.json`);
   const entityName = facts.entityName || c.name;
+  const cur = pickCurrency(facts);
   const picked = {}, failures = [];
   for (const [key, tags] of Object.entries(TAGS)) {
-    picked[key] = collectMetric(facts, tags);
+    const tagList = [...tags, ...(IFRS_TAGS[key] || [])];
+    picked[key] = collectMetric(facts, tagList, cur);
     if (!picked[key] && (key === 'revenue' || key === 'netInc')) {
       failures.push({ ticker: c.ticker, kind: 'metric-missing', reason: `no XBRL facts for ${key} (tags: ${tags.join(', ')})` });
     }
   }
   if (!picked.revenue || !picked.netInc) return { ticker: c.ticker, cik: c.cik, name: entityName, status: 'skipped', reason: 'missing revenue/net income XBRL data', failures };
 
-  // merge derived Q4s into the quarterly maps
-  for (const key of DERIVED_KEYS) {
-    for (const { end, val } of deriveQ4(picked[key])) picked[key].q.set(end, val);
+  if (freq === 'q') {
+    // merge derived Q4s into the quarterly maps
+    for (const key of DERIVED_KEYS) {
+      for (const { end, val } of deriveQ4(picked[key])) picked[key].q.set(end, val);
+    }
   }
-  // gross fallback: revenue − cost where GrossProfit absent
-  for (const [end, rev] of picked.revenue.q) {
-    if (picked.gross?.q.has(end)) continue;
-    const cost = picked.cost?.q.get(end);
+  // gross fallback: revenue − cost where GrossProfit absent (both cadences)
+  const seriesMap = freq === 'annual' ? 'a' : 'q';
+  for (const [end, rev] of picked.revenue[seriesMap]) {
+    if (picked.gross?.[seriesMap].has(end)) continue;
+    const cost = picked.cost?.[seriesMap].get(end);
     if (cost != null) {
       if (!picked.gross) picked.gross = { q: new Map(), a: new Map(), used: ['derived: revenue − cost'] };
-      picked.gross.q.set(end, rev - cost);
+      picked.gross[seriesMap].set(end, rev - cost);
     }
   }
 
-  const ends = [...picked.revenue.q.keys()].sort();
+  const ends = [...picked.revenue[seriesMap].keys()].sort();
   const quarters = [];
   for (const end of ends) {
     const q = { end };
     for (const key of DERIVED_KEYS) {
-      const v = picked[key]?.q.get(end);
+      const v = picked[key]?.[seriesMap].get(end);
       if (v != null) q[key] = Math.round(v / 1e6 * 10) / 10; // USD → $M
     }
     delete q.cost;
     if (q.revenue == null || q.netInc == null) continue;
     quarters.push(q);
   }
-  // full continuous quarterly history: keep the longest consecutive run whose quarter ends
-  // are all 80–100 days apart (strict suffix — the dashboard shows history up to the latest
-  // quarter), capped at MAX_QTRS quarters (XBRL before the cap gets spotty; noted in output).
-  const MAX_QTRS = 64;
+  // full continuous history: keep the longest consecutive run whose period ends are all
+  // inside the cadence window (q: 80–100d; annual: 300–400d), strict suffix, capped
+  // (q: 64 quarters; annual: 24 years) — XBRL before the cap gets spotty; noted in output.
+  const [loD, hiD] = freq === 'annual' ? [300, 400] : [80, 100];
+  const MAX_N = freq === 'annual' ? 24 : 64;
   let start = quarters.length - 1;
   while (start > 0) {
     const d = days(quarters[start - 1].end, quarters[start].end);
-    if (d < 80 || d > 100) break;
+    if (d < loD || d > hiD) break;
     start--;
   }
   let keep = quarters.slice(start);
-  if (keep.length > MAX_QTRS) keep = keep.slice(-MAX_QTRS);
-  const capNote = quarters.length - start > keep.length ? `history truncated to last ${MAX_QTRS} continuous quarters (full XBRL run: ${quarters.length - start})` : null;
-  if (keep.length < 12) return { ticker: c.ticker, cik: c.cik, name: entityName, status: 'skipped', reason: `only ${keep.length} continuous quarterly periods found (EDGAR XBRL)`, failures };
-  return { ticker: c.ticker, cik: c.cik, name: entityName, status: 'ok', quarters: keep, capNote, failures };
+  if (keep.length > MAX_N) keep = keep.slice(-MAX_N);
+  const capNote = quarters.length - start > keep.length ? `history truncated to last ${MAX_N} continuous ${freq === 'annual' ? 'fiscal years' : 'quarters'} (full XBRL run: ${quarters.length - start})` : null;
+  const minKeep = freq === 'annual' ? 5 : 12;
+  if (keep.length < minKeep) return { ticker: c.ticker, cik: c.cik, name: entityName, status: 'skipped', reason: `only ${keep.length} continuous ${freq === 'annual' ? 'annual' : 'quarterly'} periods found (EDGAR XBRL)`, failures };
+  return { ticker: c.ticker, cik: c.cik, name: entityName, status: 'ok', frequency: freq, currency: cur, quarters: keep, capNote, failures };
 }
 
 // ---- internal consistency checks (per quarter, on the fetched values) ----
@@ -182,11 +216,12 @@ function checkCompany(tk, quarters) {
   }
   return issues;
 }
-function checkCoverage(tk, quarters) {
+function checkCoverage(tk, quarters, freq = 'q') {
+  const [loD, hiD] = freq === 'annual' ? [300, 400] : [80, 105];
   const issues = [];
   for (let i = 1; i < quarters.length; i++) {
     const d = days(quarters[i - 1].end, quarters[i].end);
-    if (d < 80 || d > 105) issues.push(`${tk}: gap ${quarters[i - 1].end} → ${quarters[i].end} (${d}d)`);
+    if (d < loD || d > hiD) issues.push(`${tk}: gap ${quarters[i - 1].end} → ${quarters[i].end} (${d}d)`);
   }
   return issues;
 }
@@ -201,14 +236,35 @@ function guard(prev, companies, failures) {
       (prevCount != null ? `, previous file had ${prevCount}` : '') + '). A partial run would destroy full data.');
   }
   for (const [tk, c] of Object.entries(companies)) {
-    if (!c.quarters || c.quarters.length < 12) {
-      throw new Error(`write guard: ${tk} has only ${c.quarters?.length ?? 0} quarters (<12) — refusing to write.`);
+    if (c.frequency === 'hk-mixed' || c.frequency === 'mixed') {
+      // mixed-frequency entries: validate continuity per periodType group
+      // (annual group 300–400d; interim/q1/q3 single-quarter group 70–250d), not one-size-fits-all
+      const groups = {};
+      for (const q of c.quarters) (groups[q.periodType || 'q'] ||= []).push(q);
+      for (const [pt, g] of Object.entries(groups)) {
+        const real = g.filter(q => q.revenue != null).sort((a, b) => a.end < b.end ? -1 : 1);
+        const annual = pt === 'annual';
+        const loD = annual ? 300 : 70, hiD = annual ? 400 : 250;
+        for (let i = 1; i < real.length; i++) {
+          const d = days(real[i - 1].end, real[i].end);
+          if (d < loD || d > hiD) {
+            console.log(`GUARD-NOTE ${tk}: ${pt} group gap ${real[i - 1].end} → ${real[i].end} (${d}d, expected ${loD}–${hiD}) — kept (mixed-frequency as-disclosed).`);
+          }
+        }
+      }
+      continue;
     }
-    // calendar continuity: sorted quarter ends must be 80–100 days apart; any gap >100d is a hole
+    const annual = c.frequency === 'annual';
+    const minKeep = annual ? 5 : 12, loD = annual ? 300 : 80, hiD = annual ? 400 : 100;
+    if (!c.quarters || c.quarters.length < minKeep) {
+      throw new Error(`write guard: ${tk} has only ${c.quarters?.length ?? 0} ${annual ? 'annual' : 'quarterly'} periods (<${minKeep}) — refusing to write.`);
+    }
+    // calendar continuity: consecutive period ends must be inside the cadence window; any
+    // gap outside it is a hole (q: 80–100d; annual: 300–400d per task spec)
     for (let i = 1; i < c.quarters.length; i++) {
       const d = days(c.quarters[i - 1].end, c.quarters[i].end);
-      if (d < 80 || d > 100) {
-        throw new Error(`write guard: ${tk} calendar gap ${c.quarters[i - 1].end} → ${c.quarters[i].end} (${d}d, allowed 80–100) — refusing to write a holed file.`);
+      if (d < loD || d > hiD) {
+        throw new Error(`write guard: ${tk} calendar gap ${c.quarters[i - 1].end} → ${c.quarters[i].end} (${d}d, allowed ${loD}–${hiD}) — refusing to write a holed file.`);
       }
     }
   }
@@ -236,10 +292,12 @@ const companies = {}, notes = [], failures = [];
 for (const r of results) {
   if (r.failures) failures.push(...r.failures);
   if (r.status === 'ok') {
-    companies[r.ticker] = { name: r.name, cik: r.cik, currency: 'USD-M', quarters: r.quarters };
+    companies[r.ticker] = { name: r.name, cik: r.cik, currency: `${r.currency}-M`, quarters: r.quarters };
+    if (r.currency !== 'USD') notes.push(`${r.ticker}: reported in ${r.currency}, values stored as filed (millions of ${r.currency})`);
+    if (r.frequency === 'annual') companies[r.ticker].frequency = 'annual';
     if (r.capNote) notes.push(`${r.ticker}: ${r.capNote}`);
     for (const i of checkCompany(r.ticker, r.quarters)) notes.push(`${r.ticker}: consistency — ${i}`);
-    for (const i of checkCoverage(r.ticker, r.quarters)) notes.push(`${r.ticker}: coverage — ${i}`);
+    for (const i of checkCoverage(r.ticker, r.quarters, r.frequency)) notes.push(`${r.ticker}: coverage — ${i}`);
   } else {
     failures.push({ ticker: r.ticker, kind: r.status, reason: r.reason });
   }
@@ -249,7 +307,7 @@ guard(prev, companies, failures);
 
 const out = {
   updated: new Date().toISOString(),
-  source: 'SEC EDGAR XBRL companyfacts API (US-GAAP tags; quarterly periods 85-100d; fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts)',
+  source: 'SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:"annual"; foreign filers stored in their reporting currency — currency field is <ISO>-M)',
   sourceUrl: 'https://data.sec.gov/api/xbrl/companyfacts/',
   companies,
   skipped: results.filter(r => r.status !== 'ok').map(r => ({ ticker: r.ticker, status: r.status, reason: r.reason })),

@@ -15,8 +15,9 @@ import path from 'node:path';
 
 const UA = 'ProfitBridgeDashboard research contact@example.com';
 const profit = JSON.parse(fs.readFileSync(path.join('data', 'profit.json'), 'utf8'));
-// registry: adding a company = adding one entry to data/companies.json
-const REGISTRY = JSON.parse(fs.readFileSync(path.join('data', 'companies.json'), 'utf8'));
+// registry: adding a company = adding one entry to data/companies.json; companies without a
+// segmentMap/reports config (no segment disclosure worth parsing) are simply not fetched
+const REGISTRY = JSON.parse(fs.readFileSync(path.join('data', 'companies.json'), 'utf8')).filter(c => c.reports && c.segmentMap);
 const TICKERS = REGISTRY.map(c => c.ticker);
 const CONFIG = Object.fromEntries(REGISTRY.map(c => [c.ticker, {
   reports: c.reports.map(src => new RegExp(src, 'i')),
@@ -247,14 +248,16 @@ async function fetchTicker(tk, failures) {
     try { rows.push({ recent: JSON.parse(await getText(`https://data.sec.gov/submissions/${shard.name}`, 3, `subarch_${cik10}_${shard.name}`)) }); }
     catch (e) { failures.push({ ticker: tk, accn: shard.name, kind: 'submissions-archive', reason: e.message }); }
   }
-  // full XBRL history: quarters from profit.json (already capped at the most recent 64),
-  // minus TTM-only trailing quarters if any — every listed quarter is a target
+  // full XBRL history: periods from profit.json (quarters, or fiscal years for 20-F filers)
+  const annual = meta.frequency === 'annual'; // 20-F filers: annual (12-month) segment columns
   const targetEnds = meta.quarters.map(q => q.end).slice(-64);
   const oldestTarget = targetEnds.reduce((a, b) => a < b ? a : b);
   const filings = [];
   for (const { recent: f } of rows) {
     for (let i = 0; i < f.form.length; i++) {
-      if (f.form[i] !== '10-Q' && f.form[i] !== '10-K') continue;
+      const fm = f.form[i];
+      if (fm !== '10-Q' && fm !== '10-K' && fm !== '20-F') continue;
+      if (fm === '20-F' && !annual) continue; // quarterly filers never need 20-F
       const end = f.reportDate ? f.reportDate[i] : null;
       // filings OLDER than the oldest target contain only periods ≤ end < oldestTarget and
       // can never contribute (comparatives only reach backward from newer filings)
@@ -307,7 +310,7 @@ async function fetchTicker(tk, failures) {
           if (tops.size < 2) continue; // need >=2 real segments; rejects geographic/misc tables
           const src = `${fl.form} ${fl.accn}/${file}`;
           const sum = [...tops.values()].reduce((s, v) => s + v, 0);
-          if (p.months === 3) {
+          if (p.months === 3 || (p.months === 12 && annual)) {
             if (!collected.has(te)) collected.set(te, []);
             collected.get(te).push({ tops, childAgg, mappedN, src, sum });
           } else if (p.months === 6 || p.months >= 9) {
