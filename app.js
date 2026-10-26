@@ -83,7 +83,7 @@ const INDUSTRY_GROUPS = [
     'NVDA','AMD','INTC','AVGO','MU','QCOM','NXPI','ARM','STM','TSM','ASML',
     '00981.HK','688981.SS','688825.SS','688256.SS','688795.SS','2454.TW','2330.TW','000660.KS','005930.KS'] },
   { id: 'ai', zh: 'AI', en: 'AI', tickers: [
-    'NVDA','AMD','GOOGL','MSFT','META','AVGO','BIDU','CRWV','PLTR','TSLA',
+    'NVDA','AMD','GOOGL','MSFT','META','AVGO','BIDU','CRWV','PLTR','TSLA','SPCX',
     '688256.SS','688795.SS'] },
   { id: 'soft', zh: '软件/互联网', en: 'Software / Internet', tickers: [
     'MSFT','GOOGL','AMZN','META','ORCL','PLTR','NFLX','ADBE','IBM','U','DUOL','SPOT','CRWV',

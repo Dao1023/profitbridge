@@ -75,6 +75,12 @@ check('multi-value hash deep-link applies union on load', deeplink.active === 'c
 check('SPCX shown as normal company (no Preview badge)', !deeplink.spcxPreviewBadge);
 await shot('filter-cons-space.png');
 
+// ---------- SPCX spans 航天+AI: AI filter alone must show it ----------
+await evl(`document.querySelector('#industryBar .indBtn[data-ind="ai"]').click()`);
+await new Promise(r => setTimeout(r, 300));
+const spcxAi = await evl(`!document.querySelector('#logoRail .logo[data-sym="SPCX"]')?.classList.contains('hidden')`);
+check('SPCX tagged 航天+AI (AI filter shows it)', spcxAi === true, `spcxVisibleInAI=${spcxAi}`);
+
 // ---------- reset: 全部 ----------
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="all"]').click()`);
 await new Promise(r => setTimeout(r, 300));
