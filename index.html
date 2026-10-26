@@ -17,14 +17,19 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 #logoRail { width:132px; flex:0 0 132px; display:grid; grid-template-columns:1fr 1fr; gap:10px;
   align-content:start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px;
   max-height:calc(100vh - 40px); overflow-y:auto; }
-.logo { position:relative; border:2px solid transparent; border-radius:10px; background:var(--bg);
+/* white cell + hairline ring via inset box-shadow (zero layout impact, unlike a
+   border) so JPG white-background logos sit on a clean matching surface */
+.logo { position:relative; border:2px solid transparent; border-radius:10px; background:#fff;
+  box-shadow:inset 0 0 0 1px rgba(100,116,139,.28);
   cursor:pointer; padding:6px; display:flex; align-items:center; justify-content:center; transition:border-color .15s, background .15s, transform .1s; }
-.logo:hover { border-color:#b9c6dd; transform:translateY(-1px); }
-.logo.active { border-color:var(--blue); background:#e8effc; }
+.logo:hover { border-color:#b9c6dd; transform:translateY(-1px); box-shadow:inset 0 0 0 1px rgba(100,116,139,.45); }
+.logo.active { border-color:var(--blue); background:#e8effc; box-shadow:inset 0 0 0 1px rgba(37,99,235,.55); }
 .logo.preview { border-style:dashed; }
 .pvBadge { position:absolute; top:-7px; right:-5px; background:#7c3aed; color:#fff; font-size:8.5px; font-weight:700;
   padding:1px 4px; border-radius:5px; letter-spacing:.4px; }
-.logo img { width:100%; height:auto; display:block; border-radius:6px; }
+/* fixed aspect-ratio + placeholder background: the img box never collapses
+   while loading, so the rail cannot shift when logos finish loading */
+.logo img { width:100%; aspect-ratio:1; object-fit:contain; display:block; border-radius:6px; background:#fff; }
 .logo .mono { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center;
   font-weight:800; font-size:18px; color:#fff; border-radius:6px; }
 
@@ -85,6 +90,17 @@ footer a { color:var(--blue); }
 #covLine { margin-top:8px; color:var(--muted); font-size:12px; }
 #covLine a { color:var(--blue); }
 
+/* ---- industry filter bar ---- */
+#industryBar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px; }
+#industryBar .lbl { font-size:12.5px; color:var(--muted); font-weight:600; margin-right:2px; }
+.indBtn { appearance:none; border:1px solid #d8dee9; background:var(--card); color:var(--text);
+  border-radius:999px; padding:5px 13px; font-size:12.5px; font-weight:600; cursor:pointer;
+  transition:background .15s, color .15s, border-color .15s; }
+.indBtn:hover { border-color:var(--blue); color:var(--title-blue); }
+.indBtn.active { background:#dbe7fa; border-color:var(--blue); color:var(--title-blue); }
+.indBtn .cnt { color:#9aa4b5; font-weight:600; font-size:11px; margin-left:5px; }
+.logo.hidden { display:none; }
+
 @media (max-width: 900px) {
   .layout { flex-direction:column; }
   #logoRail { width:100%; flex:none; grid-template-columns:repeat(10,1fr); }
@@ -92,6 +108,7 @@ footer a { color:var(--blue); }
 </style>
 </head>
 <body>
+<div id="industryBar"><span class="lbl">行业</span></div>
 <div class="layout">
   <div id="logoRail"></div>
   <div class="main">

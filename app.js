@@ -75,7 +75,30 @@ const tn = k => I18N[lang].nodes[k] || k;
 let DATA = null;      // profit.json (values in $M)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
 let chart = null;     // echarts instance
-let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue', curMode: 'native' }; // qIndex null = latest; curMode: CNY companies 'native' ¥ | 'usd'
+/* ---- industry filter: mapping table lives here (data/ untouched) ----
+   7 groups designed from the actual 79-company composition; unknown tickers → 'other' */
+const INDUSTRY_GROUPS = [
+  { id: 'semi', zh: '半导体', en: 'Semiconductors', tickers: [
+    'NVDA','AMD','INTC','AVGO','MU','QCOM','NXPI','ARM','STM','TSM','ASML',
+    '00981.HK','688981.SS','688825.SS','688256.SS','688795.SS','2454.TW','2330.TW','000660.KS'] },
+  { id: 'soft', zh: '软件/互联网', en: 'Software / Internet', tickers: [
+    'MSFT','GOOGL','AMZN','META','ORCL','PLTR','NFLX','ADBE','IBM','U','DUOL','SPOT','CRWV',
+    'BABA','BIDU','TCOM','JD','PDD','BILI','WB','ZH','XNET','TME','DIDIY',
+    '00700.HK','03690.HK','01024.HK','03888.HK','601360.SS'] },
+  { id: 'hw', zh: '硬件/消费电子', en: 'Hardware / Devices', tickers: [
+    'AAPL','DELL','HPQ','CSCO','MSI','SONY','005930.KS','066570.KS','00992.HK',
+    '002415.SZ','000333.SZ','000100.SZ'] },
+  { id: 'auto', zh: '汽车/新能源', en: 'Auto / Energy', tickers: ['TSLA','LI','300750.SZ','002594.SZ'] },
+  { id: 'cons', zh: '消费', en: 'Consumer', tickers: [
+    'KO','MCD','SBUX','LKNCY','02097.HK','00151.HK','600519.SS','600887.SS','NESN.SW','MC.PA'] },
+  { id: 'fin', zh: '金融', en: 'Financials', tickers: ['V','01398.HK','03968.HK'] },
+  { id: 'tele', zh: '通信', en: 'Telecom', tickers: ['00941.HK','00728.HK','00762.HK','000063.SZ'] },
+];
+const INDUSTRY_OF = {};
+for (const g of INDUSTRY_GROUPS) g.tickers.forEach(tk => { INDUSTRY_OF[tk] = g.id; });
+const industryOf = tk => INDUSTRY_OF[tk] || 'other';
+
+let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue', curMode: 'native', industry: 'all' }; // qIndex null = latest; curMode: CNY companies 'native' ¥ | 'usd'
 
 const MB = 1e3; // millions → billions display factor (all data is in millions of the reporting currency)
 /* reporting-currency symbol per company (currency field = <ISO>-M; foreign filers like
@@ -580,17 +603,52 @@ function renderBarChart() {
 const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d','#15803d','#a16207','#1e40af','#4d7c0f'];
 function renderLogoRail() {
   const rail = document.getElementById('logoRail');
-  rail.innerHTML = Object.keys(DATA.companies).map((tk, i) => {
-    const c = DATA.companies[tk];
-    return `<div class="logo${tk === state.company ? ' active' : ''}${c.preview ? ' preview' : ''}" data-sym="${tk}" title="${tk} · ${regOf(tk)?.nameZh || ZH_NAMES_FALLBACK[tk] || ''}">
-       <img src="data/logos/${tk}.png" alt="${tk}"
-         onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${regOf(tk)?.color || MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0, 2)}</div>'">
-       ${c.preview ? '<span class="pvBadge">Preview</span>' : ''}
-     </div>`;
-  }).join('');
-  rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => {
-    state.company = el.dataset.sym; state.qIndex = null; state.curMode = 'native'; render();
-  }));
+  /* build DOM once; subsequent renders only toggle classes — re-creating <img>
+     nodes on company switch re-fetched logos and made the rail visibly jitter */
+  if (rail.dataset.built !== '1' || rail.dataset.lang !== lang) {
+    rail.innerHTML = Object.keys(DATA.companies).map((tk, i) => {
+      const c = DATA.companies[tk];
+      return `<div class="logo${tk === state.company ? ' active' : ''}${c.preview ? ' preview' : ''}" data-sym="${tk}" title="${tk} · ${regOf(tk)?.nameZh || ZH_NAMES_FALLBACK[tk] || ''}">
+         <img src="data/logos/${tk}.png" alt="${tk}"
+           onerror="this.outerHTML='<div class=\\'mono\\' style=\\'background:${regOf(tk)?.color || MONO_COLORS[i % MONO_COLORS.length]}\\'>${tk.slice(0, 2)}</div>'">
+         ${c.preview ? '<span class="pvBadge">Preview</span>' : ''}
+       </div>`;
+    }).join('');
+    rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => {
+      state.company = el.dataset.sym; state.qIndex = null; state.curMode = 'native'; render();
+    }));
+    rail.dataset.built = '1'; rail.dataset.lang = lang;
+  }
+  /* incremental update: active highlight + industry visibility, no DOM rebuild */
+  rail.querySelectorAll('.logo').forEach(el => {
+    const tk = el.dataset.sym;
+    el.classList.toggle('active', tk === state.company);
+    el.classList.toggle('hidden', state.industry !== 'all' && industryOf(tk) !== state.industry);
+  });
+}
+
+/* ---- industry filter bar (top of page, above the logo rail) ---- */
+function renderIndustryBar() {
+  const bar = document.getElementById('industryBar');
+  if (bar.dataset.built !== '1' || bar.dataset.lang !== lang) {
+    const counts = {};
+    Object.keys(DATA.companies).forEach(tk => { const id = industryOf(tk); counts[id] = (counts[id] || 0) + 1; });
+    const btn = (id, label, cnt) => `<button class="indBtn" data-ind="${id}">${label}<span class="cnt">${cnt}</span></button>`;
+    const all = lang === 'zh' ? '全部' : 'All', other = lang === 'zh' ? '其他' : 'Other';
+    bar.innerHTML = `<span class="lbl">${lang === 'zh' ? '行业' : 'Industry'}</span>`
+      + btn('all', all, Object.keys(DATA.companies).length)
+      + INDUSTRY_GROUPS.map(g => btn(g.id, lang === 'zh' ? g.zh : g.en, counts[g.id] || 0)).join('')
+      + btn('other', other, counts.other || 0);
+    bar.querySelectorAll('.indBtn').forEach(el => el.addEventListener('click', () => {
+      state.industry = el.dataset.ind;
+      // URL hash sync (replaceState: no history spam); 'all' clears the hash
+      const url = state.industry === 'all' ? location.pathname + location.search : '#ind=' + state.industry;
+      history.replaceState ? history.replaceState(null, '', url) : (location.hash = url);
+      render();
+    }));
+    bar.dataset.built = '1'; bar.dataset.lang = lang;
+  }
+  bar.querySelectorAll('.indBtn').forEach(el => el.classList.toggle('active', el.dataset.ind === state.industry));
 }
 
 /* ---- bottom timeline ---- */
@@ -701,6 +759,7 @@ function render() {
   document.getElementById('timeline').style.display = state.view === 'bar' ? 'none' : '';
   renderBarSelect(); // must run before renderChart — it fixes state.barItem for the new company
 
+  renderIndustryBar();
   renderLogoRail();
   renderTimeline();
   renderChart();
@@ -799,6 +858,9 @@ function initControls() {
   } catch (e) { /* registry optional — built-in fallbacks cover the 10 dashboard companies */ }
 
   chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
+  // industry filter deep-link: #ind=<groupId>
+  const m = location.hash.match(/^#ind=([\w-]+)$/);
+  if (m) state.industry = m[1];
   window.addEventListener('resize', () => { chart.resize(); renderChart(); });
   initControls();
   render();
