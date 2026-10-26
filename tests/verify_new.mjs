@@ -73,5 +73,21 @@ const bridge = [nq.revenue, nq.gross, nq.opInc, nq.netInc].map(v => +(v / 1000).
 ok(nq.end === '2026-10-31' || nq.end === '2026-11-01' || true, `NVDA latest ${nq.end}`);
 ok(JSON.stringify(bridge) === JSON.stringify([96.2, 72.1, 63.7, 59.7]), `NVDA latest bridge = ${bridge}`);
 
+// 13) watchlist backfill 2026-10-27: NTES / CHA / CBRS + 09633.HK skipped + GOOG alias note
+const nt = P.companies.NTES;
+ok(nt && nt.frequency === 'annual' && nt.currency === 'CNY-M' && nt.quarters.length === 18, `NTES 18FY CNY-M annual (got ${nt && nt.quarters.length})`);
+ok(nt.quarters.at(-1).end === '2025-12-31' && approx(nt.quarters.at(-1).revenue, 112625.8, 0.001) && approx(nt.quarters.at(-1).netInc, 34797.8, 0.001), 'NTES FY2025 rev=112625.8 NI=34797.8 CNY-M');
+ok(nt.quarters.every(q => q.fxToUsd > 0.1 && q.fxToUsd < 0.2), 'NTES per-FY fx sane');
+const ch = P.companies.CHA;
+ok(ch && ch.frequency === 'annual' && ch.currency === 'CNY-M' && ch.quarters.length === 3, 'CHA 3FY CNY-M annual');
+ok(ch.quarters.at(-1).end === '2025-12-31' && approx(ch.quarters.at(-1).revenue, 12907.4, 0.001) && approx(ch.quarters.at(-1).netInc, 1171.1, 0.001), 'CHA FY2025 rev=12907.4 NI=1171.1 CNY-M');
+ok(ch.quarters.every(q => q.gross == null), 'CHA has no gross facts (20-F XBRL lacks GrossProfit)');
+const cb = P.companies.CBRS;
+ok(cb && cb.frequency === 'q' && cb.currency === 'USD-M' && cb.quarters.length === 4, 'CBRS 4Q USD-M quarterly');
+ok(cb.quarters[0].end === '2025-03-31' && approx(cb.quarters[0].revenue, 99.5, 0.01), 'CBRS Q1-25 rev=99.5 USD-M');
+ok(cb.quarters.at(-1).end === '2026-06-30' && approx(cb.quarters.at(-1).revenue, 180.1, 0.01) && approx(cb.quarters.at(-1).netInc, -450.5, 0.01), 'CBRS Q2-26 rev=180.1 NI=-450.5 USD-M');
+ok(P.skipped.some(s => s.ticker === '09633.HK'), 'skipped has 09633.HK (Nongfu Spring semi-annual only)');
+ok(P.notes.some(n => n.startsWith('GOOG:')), 'GOOG=GOOGL alias documented in notes');
+
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nALL PASS');
 process.exit(fails ? 1 : 0);

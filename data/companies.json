@@ -1463,5 +1463,28 @@
     "nameZh": "台积电",
     "nameEn": "TSMC (TWSE)",
     "color": "#c8102e"
+  },
+  {
+    "ticker": "NTES",
+    "cik": 1110646,
+    "nameZh": "网易",
+    "nameEn": "NetEase, Inc.",
+    "color": "#d43c33",
+    "frequency": "annual"
+  },
+  {
+    "ticker": "CHA",
+    "cik": 2013649,
+    "nameZh": "霸王茶姬",
+    "nameEn": "Chagee Holdings Limited",
+    "color": "#9a1f2e",
+    "frequency": "annual"
+  },
+  {
+    "ticker": "CBRS",
+    "cik": 2021728,
+    "nameZh": "Cerebras",
+    "nameEn": "Cerebras Systems Inc.",
+    "color": "#f97316"
   }
 ]

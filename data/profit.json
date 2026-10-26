@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T15:54:36.114Z",
+  "updated": "2026-10-26T16:16:23.345Z",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -27812,6 +27812,317 @@
           "tax": -390
         }
       ]
+    },
+    "NTES": {
+      "name": "NetEase, Inc.",
+      "cik": 1110646,
+      "currency": "CNY-M",
+      "frequency": "annual",
+      "quarters": [
+        {
+          "end": "2008-12-31",
+          "gross": 2505.9,
+          "opInc": 1914.6,
+          "netInc": 1596.7,
+          "rd": 221.7,
+          "tax": 300.7,
+          "periodType": "annual",
+          "fxToUsd": 0.14656,
+          "fxDate": "2008-12-31"
+        },
+        {
+          "end": "2009-12-31",
+          "revenue": 3823.5,
+          "gross": 2784.6,
+          "opInc": 2023.4,
+          "netInc": 1850.4,
+          "rd": 244.3,
+          "tax": 313.9,
+          "periodType": "annual",
+          "fxToUsd": 0.14648,
+          "fxDate": "2009-12-31"
+        },
+        {
+          "end": "2010-12-31",
+          "revenue": 5659.8,
+          "gross": 3708.8,
+          "opInc": 2544.3,
+          "netInc": 2235.8,
+          "rd": 317.9,
+          "tax": 344.4,
+          "periodType": "annual",
+          "fxToUsd": 0.15146,
+          "fxDate": "2010-12-31"
+        },
+        {
+          "end": "2011-12-31",
+          "revenue": 7472.8,
+          "gross": 4918.4,
+          "opInc": 3323.4,
+          "netInc": 3234.3,
+          "rd": 465.5,
+          "tax": 392.8,
+          "periodType": "annual",
+          "fxToUsd": 0.15859,
+          "fxDate": "2011-12-30"
+        },
+        {
+          "end": "2012-12-31",
+          "revenue": 8380,
+          "gross": 5622.9,
+          "opInc": 3711.6,
+          "netInc": 3637.5,
+          "rd": 718.3,
+          "tax": 691.6,
+          "periodType": "annual",
+          "fxToUsd": 0.1605,
+          "fxDate": "2012-12-31"
+        },
+        {
+          "end": "2013-12-31",
+          "revenue": 9771.3,
+          "gross": 6717.7,
+          "opInc": 4352.6,
+          "netInc": 4443.9,
+          "rd": 921.6,
+          "tax": 530.6,
+          "periodType": "annual",
+          "fxToUsd": 0.16518,
+          "fxDate": "2013-12-31"
+        },
+        {
+          "end": "2014-12-31",
+          "revenue": 12480.4,
+          "gross": 8451.3,
+          "opInc": 4765.1,
+          "netInc": 4756.6,
+          "rd": 1323.5,
+          "tax": 662.7,
+          "periodType": "annual",
+          "fxToUsd": 0.16111,
+          "fxDate": "2014-12-31"
+        },
+        {
+          "end": "2015-12-31",
+          "revenue": 22802.9,
+          "gross": 13403.6,
+          "opInc": 7272.1,
+          "netInc": 6735.1,
+          "rd": 2158.9,
+          "tax": 1273.4,
+          "periodType": "annual",
+          "fxToUsd": 0.15419,
+          "fxDate": "2015-12-31"
+        },
+        {
+          "end": "2016-12-31",
+          "revenue": 38178.8,
+          "gross": 21663.8,
+          "opInc": 12628.9,
+          "netInc": 11604.5,
+          "rd": 3047,
+          "tax": 2102.5,
+          "periodType": "annual",
+          "fxToUsd": 0.144,
+          "fxDate": "2016-12-30"
+        },
+        {
+          "end": "2017-12-31",
+          "revenue": 44437.4,
+          "gross": 25043,
+          "opInc": 12994.9,
+          "netInc": 10849.1,
+          "rd": 4161.7,
+          "tax": 2156,
+          "periodType": "annual",
+          "fxToUsd": 0.15367,
+          "fxDate": "2017-12-29"
+        },
+        {
+          "end": "2018-12-31",
+          "revenue": 51178.6,
+          "gross": 27346.1,
+          "opInc": 9977.3,
+          "netInc": 6477.4,
+          "rd": 7378.5,
+          "tax": 2460.7,
+          "periodType": "annual",
+          "fxToUsd": 0.14539,
+          "fxDate": "2018-12-31"
+        },
+        {
+          "end": "2019-12-31",
+          "revenue": 59241.1,
+          "gross": 31555.3,
+          "opInc": 13790.7,
+          "netInc": 21431.1,
+          "rd": 8413.2,
+          "tax": 2914.7,
+          "periodType": "annual",
+          "fxToUsd": 0.14365,
+          "fxDate": "2019-12-31"
+        },
+        {
+          "end": "2020-12-31",
+          "revenue": 73667.1,
+          "gross": 38983.4,
+          "opInc": 14538.4,
+          "netInc": 12330.2,
+          "rd": 10369.4,
+          "tax": 3041.8,
+          "periodType": "annual",
+          "fxToUsd": 0.15296,
+          "fxDate": "2020-12-31"
+        },
+        {
+          "end": "2021-12-31",
+          "revenue": 87606,
+          "gross": 46970.8,
+          "opInc": 16417.1,
+          "netInc": 16976.2,
+          "rd": 14076,
+          "tax": 4128.3,
+          "periodType": "annual",
+          "fxToUsd": 0.15742,
+          "fxDate": "2021-12-31"
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 96495.8,
+          "gross": 52766.1,
+          "opInc": 19628.6,
+          "netInc": 19843.3,
+          "rd": 15039,
+          "tax": 5031.8,
+          "periodType": "annual",
+          "fxToUsd": 0.14495,
+          "fxDate": "2022-12-30"
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 103468.2,
+          "gross": 63063.4,
+          "opInc": 27709.1,
+          "netInc": 29357.2,
+          "rd": 16484.9,
+          "tax": 4699.7,
+          "periodType": "annual",
+          "fxToUsd": 0.14075,
+          "fxDate": "2023-12-29"
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 105295.2,
+          "gross": 65807.1,
+          "opInc": 29584,
+          "netInc": 30256.3,
+          "rd": 17524.8,
+          "tax": 5461.4,
+          "periodType": "annual",
+          "fxToUsd": 0.137,
+          "fxDate": "2024-12-31"
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 112625.8,
+          "gross": 72401.9,
+          "opInc": 35834.9,
+          "netInc": 34797.8,
+          "rd": 17719.1,
+          "tax": 6032.7,
+          "periodType": "annual",
+          "fxToUsd": 0.14284,
+          "fxDate": "2025-12-31"
+        }
+      ],
+      "notes": "20-F as-reported CNY-M (18 FY, 2008-12-31..2025-12-31); watchlist backfill (site ticker NTES)."
+    },
+    "CHA": {
+      "name": "Chagee Holdings Limited",
+      "cik": 2013649,
+      "currency": "CNY-M",
+      "frequency": "annual",
+      "quarters": [
+        {
+          "end": "2023-12-31",
+          "revenue": 4640.2,
+          "opInc": 1074.1,
+          "netInc": 800.9,
+          "rd": 11.5,
+          "tax": 203.8,
+          "periodType": "annual",
+          "fxToUsd": 0.14075,
+          "fxDate": "2023-12-29"
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 12405.6,
+          "opInc": 2886.6,
+          "netInc": 2516.1,
+          "rd": 193.5,
+          "tax": 527.5,
+          "periodType": "annual",
+          "fxToUsd": 0.137,
+          "fxDate": "2024-12-31"
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 12907.4,
+          "opInc": 1347.2,
+          "netInc": 1171.1,
+          "rd": 268.5,
+          "tax": 431.7,
+          "periodType": "annual",
+          "fxToUsd": 0.14284,
+          "fxDate": "2025-12-31"
+        }
+      ],
+      "notes": "20-F as-reported CNY-M (3 FY, 2023-12-31..2025-12-31; 2025-04 NASDAQ IPO); no GrossProfit/SGA facts in 20-F XBRL (tax+rd present); kept below minKeep=8 by exemption, mirrors DIDIY 6-FY precedent; watchlist backfill (site ticker CHA)."
+    },
+    "CBRS": {
+      "name": "Cerebras Systems Inc.",
+      "cik": 2021728,
+      "currency": "USD-M",
+      "frequency": "q",
+      "quarters": [
+        {
+          "end": "2025-03-31",
+          "revenue": 99.5,
+          "gross": 41.6,
+          "opInc": -28.5,
+          "netInc": -23.9,
+          "rd": 52.8,
+          "tax": 1.7
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 103.3,
+          "gross": 32.1,
+          "opInc": -57.2,
+          "netInc": 309.5,
+          "rd": 60.8,
+          "tax": 1.7
+        },
+        {
+          "end": "2026-03-31",
+          "revenue": 193.4,
+          "gross": 86.2,
+          "opInc": -15,
+          "netInc": -14,
+          "rd": 75.5,
+          "tax": 1.5
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 180.1,
+          "gross": 25.6,
+          "opInc": -477.2,
+          "netInc": -450.5,
+          "rd": 320.2,
+          "tax": 0.3
+        }
+      ],
+      "notes": "10-Q as-reported USD-M (4 single quarters, 2025-03-31..2026-06-30; 2025-09 Nasdaq IPO) — below minKeep, exempted into main series mirroring SPCX precedent; watchlist backfill (site ticker CBRS)."
     }
   },
   "skipped": [
@@ -27834,6 +28145,11 @@
       "ticker": "00100.HK",
       "status": "skipped",
       "reason": "MiniMax: only 6 single quarters derivable (Q3×2 + Q4×4) from cumulative HKEX disclosures (< staging minKeep 8)."
+    },
+    {
+      "ticker": "09633.HK",
+      "status": "skipped",
+      "reason": "NongFu Spring: HKEX semi-annual reporter only (FY + H1 cumulative disclosures); 0 single quarters derivable (minKeep 8) — same rule as 02513.HK Z.AI."
     }
   ],
   "units": "$M",
@@ -28365,7 +28681,9 @@
     "TSM: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-16 (acc 0001628280-26-025362) — SEC companyfacts had not ingested this filing's financial facts",
     "TME: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-17 (acc 0001193125-26-160257) — SEC companyfacts had not ingested this filing's financial facts",
     "DIDIY: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-13 (acc 0001104659-26-042350) — gross derived as revenue − cost of sales; SEC companyfacts had not ingested this filing's financial facts",
-    "SPCX: 2026-06 Nasdaq IPO 后仅披露 2 季（10-Q 2026-08-04 与 2026-10-22，报告期 2026-06-30/2026-09-30），低于 minKeep=12 护栏，经豁免单独收录进主序列；数字取自 10-Q 内嵌 XBRL，Q3 与 R4 报表逐项核对一致（rev 14575 / cost 5478 / NI 4404 / RD 4596 / SGA 1707）。"
+    "SPCX: 2026-06 Nasdaq IPO 后仅披露 2 季（10-Q 2026-08-04 与 2026-10-22，报告期 2026-06-30/2026-09-30），低于 minKeep=12 护栏，经豁免单独收录进主序列；数字取自 10-Q 内嵌 XBRL，Q3 与 R4 报表逐项核对一致（rev 14575 / cost 5478 / NI 4404 / RD 4596 / SGA 1707）。",
+    "GOOG: watchlist site ticker for Alphabet is GOOG; data entry keyed as GOOGL (same issuer, same SEC registrant CIK 1652044) — GOOG is a display alias, no separate entry.",
+    "Watchlist backfill 2026-10-27: NTES (20-F 18FY CNY-M), CHA (20-F 3FY CNY-M, exemption), CBRS (10-Q 4Q USD-M, exemption) added; 09633.HK skipped (semi-annual only); GOOG=GOOGL alias; fx per period-end via frankfurter.app ECB reference."
   ],
   "failures": []
 }
