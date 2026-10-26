@@ -4,11 +4,11 @@ import { execFile } from 'child_process';
 const BASE = 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9333;
-const SHOTS = 'C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/shots';
+const SHOTS = new URL('./.shots/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 
 const chrome = execFile(CHROME, [
   `--remote-debugging-port=${PORT}`, '--headless=new', '--no-first-run', '--window-size=1680,1050',
-  '--user-data-dir=C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge/archive/tmp_r/verify-profile', 'about:blank',
+  '--user-data-dir=' + new URL('./.chrome/verify-profile/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'), 'about:blank',
 ]);
 await new Promise(r => setTimeout(r, 1500));
 
@@ -124,21 +124,8 @@ await new Promise(r => setTimeout(r, 300));
 const enBtns = await evl(`document.getElementById('lblPct').textContent+'|'+document.getElementById('lblQoQ').textContent`);
 check('en mode labels', enBtns === '% of revenue|QoQ', enBtns);
 
-// ---------- timeline labels: non-calendar-FY companies labeled by covered interval ----------
-const tlChecks = await evl(`(()=>{
-  const r = {};
-  r.fqNVDA = fqLabel('2026-01-25');   // NVDA FY26 Q4 ends 2026-01-25 → mid 2025-12 → 2025 Q4
-  r.fqAAPL = fqLabel('2026-06-27');   // AAPL → 2026 Q2
-  r.tlSample = [...document.querySelectorAll('.tl-tick .q')].slice(-3).map(e=>e.textContent);
-  return r;
-})()`);
-check('fqLabel NVDA 2026-01-25 → 2025 Q4', tlChecks.fqNVDA === '2025 Q4', tlChecks.fqNVDA);
-check('fqLabel AAPL 2026-06-27 → 2026 Q2', tlChecks.fqAAPL === '2026 Q2', tlChecks.fqAAPL);
-// every rendered tick label must equal fqLabel of its own quarter-end (covers non-calendar FY)
-const tlAll = await evl(`[...document.querySelectorAll('.tl-tick')].map(e=>{const q=e.querySelector('.q').textContent, d=e.querySelector('.d').textContent; return [q, d, fqLabel(d)];})`);
-check('NVDA timeline labels = fqLabel(end) for all ticks',
-  tlAll.every(([q, d, f]) => q === f), tlAll.map(([q, d, f]) => `${d}:${q}`).join(','));
-await shot('nvda_timeline_labels.png');
+// timeline label semantics (year-tick + fqLabel) are asserted in tests/verify_timeline2.mjs
+// after the year-only tick redesign (commit 375526b removed fqLabel from app.js).
 
 const fails = results.filter(r => !r.ok);
 console.log(`\n${results.length - fails.length}/${results.length} passed`);
