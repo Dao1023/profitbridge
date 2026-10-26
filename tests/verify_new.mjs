@@ -53,8 +53,14 @@ ok(grossBad.length === 0, `no gross>revenue beyond known IBM 2020-12-31 (${gross
 ok(P.companies['00700.HK'].quarters.length === 94 && P.companies['00700.HK'].quarters.every(q => q.fxToUsd > 0.1 && q.fxToUsd < 0.2), 'Tencent 94 single quarters with fx');
 ok(P.companies['03690.HK'].quarters.every(q => q.periodType !== 'annual'), 'Meituan hk-mixed singles only');
 
-// 9) skipped + preview
-for (const t of ['TCEHY', 'XIACF', '02513.HK', '00100.HK']) ok(P.skipped.some(s => s.ticker === t), `skipped has ${t}`);
+// 9) skipped + preview — 02513/00100 promoted into main data 2026-10-27 (guardrail rule change:
+//    short-history HK filers included with as-disclosed cumulative periods)
+for (const t of ['TCEHY', 'XIACF']) ok(P.skipped.some(s => s.ticker === t), `skipped has ${t}`);
+ok(!P.skipped.some(s => ['02513.HK', '00100.HK', '09633.HK'].includes(s.ticker)), 'skipped no longer holds 02513/00100/09633');
+const zai = P.companies['02513.HK'];
+ok(zai && zai.quarters.length === 7 && zai.quarters.at(-1).end === '2026-06-30' && zai.quarters.every(q => q.cumulative), `Z.AI 02513.HK 7 cumulative periods, latest 2026-06-30 (got ${zai && zai.quarters.length})`);
+const mmn = P.companies['00100.HK'];
+ok(mmn && mmn.quarters.length === 8 && mmn.quarters.at(-1).end === '2026-06-30' && mmn.quarters[0].revenue == null, `MiniMax 00100.HK 8 cumulative periods, first rev null (got ${mmn && mmn.quarters.length})`);
 // SPCX: no longer a Preview special case — must exist with real quarters, either
 // already migrated into the main series or still arriving via profitPreview (UI injects it as normal)
 const spcx = P.companies.SPCX || (P.profitPreview && P.profitPreview.ticker === 'SPCX' ? P.profitPreview : null);
@@ -86,7 +92,8 @@ const cb = P.companies.CBRS;
 ok(cb && cb.frequency === 'q' && cb.currency === 'USD-M' && cb.quarters.length === 4, 'CBRS 4Q USD-M quarterly');
 ok(cb.quarters[0].end === '2025-03-31' && approx(cb.quarters[0].revenue, 99.5, 0.01), 'CBRS Q1-25 rev=99.5 USD-M');
 ok(cb.quarters.at(-1).end === '2026-06-30' && approx(cb.quarters.at(-1).revenue, 180.1, 0.01) && approx(cb.quarters.at(-1).netInc, -450.5, 0.01), 'CBRS Q2-26 rev=180.1 NI=-450.5 USD-M');
-ok(P.skipped.some(s => s.ticker === '09633.HK'), 'skipped has 09633.HK (Nongfu Spring semi-annual only)');
+const nfs = P.companies['09633.HK'];
+ok(nfs && nfs.frequency === 'hk-mixed' && nfs.quarters.length === 17 && nfs.quarters.at(-1).end === '2026-06-30', `NongFu 09633.HK 17 cumulative periods annual+interim, latest 2026-06-30 (got ${nfs && nfs.quarters.length})`);
 ok(P.notes.some(n => n.startsWith('GOOG:')), 'GOOG=GOOGL alias documented in notes');
 
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nALL PASS');

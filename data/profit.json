@@ -28772,135 +28772,135 @@
           "fxToUsd": 0.15033
         },
         {
-          "end": "2018-06-30",
+          "end": "2018-09-30",
           "revenue": 9248.125,
           "netInc": 1364.413,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.15107
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2018-12-31",
+          "end": "2019-03-31",
           "revenue": 20712.027,
           "netInc": 3476.599,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.14539
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2019-06-30",
+          "end": "2019-09-30",
           "revenue": 9304.071,
           "netInc": 1614.913,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.14555
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2019-12-31",
+          "end": "2020-03-31",
           "revenue": 20094.531,
           "netInc": 3649.215,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.14365
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2020-06-30",
+          "end": "2020-09-30",
           "revenue": 10299.247,
           "netInc": 1952.396,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.14135
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2020-12-31",
+          "end": "2021-03-31",
           "revenue": 21998.4,
           "netInc": 4157.809,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.15296
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2021-06-30",
+          "end": "2021-09-30",
           "revenue": 11382.567,
           "netInc": 2090.045,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.15486
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2021-12-31",
+          "end": "2022-03-31",
           "revenue": 23984.891,
           "netInc": 4202.655,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.15742
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2022-06-30",
+          "end": "2022-09-30",
           "revenue": 10832.945,
           "netInc": 1596.054,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.14919
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2022-12-31",
+          "end": "2023-03-31",
           "revenue": 22928.219,
           "netInc": 3371.584,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.14495
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2023-06-30",
+          "end": "2023-09-30",
           "revenue": 11274.818,
           "netInc": 1732.245,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.13757
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2023-12-31",
+          "end": "2024-03-31",
           "revenue": 23586.327,
           "netInc": 3990.474,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.14075
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2024-06-30",
+          "end": "2024-09-30",
           "revenue": 10876.637,
           "netInc": 1863.371,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.13769
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2024-12-31",
+          "end": "2025-03-31",
           "revenue": 23510.737,
           "netInc": 4335.565,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.137
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2025-06-30",
+          "end": "2025-09-30",
           "revenue": 11107.792,
           "netInc": 1717.427,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.13957
+          "fxToUsd": 0.120824
         },
         {
-          "end": "2025-12-31",
+          "end": "2026-03-31",
           "revenue": 24400.665,
           "netInc": 3837.07,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.14284
+          "fxToUsd": 0.120824
         }
       ],
-      "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, 44 periods 2004-12-31..2025-12-31 included as-disclosed cumulative series, NOT differenced. Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). eastmoney REPORT_DATE off-by-one for 00151 corrected via STD_REPORT_DATE. Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging. Watchlist ticker 0151.HK."
+      "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, included as-disclosed cumulative series, NOT differenced. FISCAL-YEAR CHANGE: FYE moved from 12-31 to 3-31; FY2017/18 is a 15-month transition period (2017-01-01..2018-03-31, revenue 24,854.462M RMB per HKEX announcement ltn20180605212_c.pdf) — not included as a separate row (NP attributable not machine-extractable; CY2017 annual absent from eastmoney rows). Period ends corrected to eastmoney REPORT_DATE (STD_REPORT_DATE is one quarter early for this issuer). Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging + HKEX PDF. Watchlist ticker 0151.HK."
     },
     "09633.HK": {
       "name": "Nongfu Spring",

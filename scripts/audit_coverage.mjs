@@ -66,26 +66,45 @@ function auditProfit(ticker, pc) {
     }
     res.rule = `annual（FY@${a ? (a.m + 1 + '/' + a.d) : '?'}，每年 1 期）`;
   } else if (freq === 'hk-mixed') {
-    // per periodType (q1..q4/annual), each fiscal year should have one period
+    // per periodType (q1..q4/annual), each fiscal year should have one period.
+    // Ends are CLUSTERED by anchor month/day within each type so a fiscal-year-end
+    // change (e.g. 00151: FYE 12-31 → 3-31, 15-month transition) is treated as a
+    // boundary between segments, not a gap; each cluster is walked independently.
     const types = Object.keys(res.periodTypes);
-    const fy = {}; // fiscal-year -> last end per type
     const maxAll = Math.max(...ends.map((e) => D(e).getTime()));
     for (const t of types) {
-      const series = qs.filter((q) => (q.periodType || 'q') === t).map((q) => q.end);
+      const series = qs.filter((q) => (q.periodType || 'q') === t).map((q) => q.end).sort();
       const lastT = Math.max(...series.map((e) => D(e).getTime()));
-      // 期型停披：末次该型期比全公司最新期早 >2 年 → 公司披露口径变更（停披），非缺失
-      if (maxAll - lastT > 2 * 365 * 86400000) {
+      // 期型停披：末次该型期比全公司最新期早 >1 年 → 公司披露口径变更（停披），非缺失
+      if (maxAll - lastT > 365 * 86400000) {
         res.discontinued = (res.discontinued || []).concat(t);
         continue;
       }
-      const a = { m: D(series.at(-1)).getUTCMonth(), d: D(series.at(-1)).getUTCDate() };
-      const y0 = D(series[0]).getUTCFullYear();
-      for (const d of anchorDates(a, y0 + 1, AUDIT_DATE.getUTCFullYear())) {
-        if (d.getTime() + 45 * 86400000 <= AUDIT_DATE.getTime() && !series.some((e) => Math.abs(days(D(e), d)) <= 92)) res.missing.push(fmt(d) + `[${t}]`);
-        else if (!series.some((e) => Math.abs(days(D(e), d)) <= 92)) res.dueNotYet++;
+      // cluster by anchor (month,day); clusters sorted by time, boundaries = anchor change
+      const clusters = [];
+      for (const e of series) {
+        const d = D(e);
+        const a = `${d.getUTCMonth()}/${d.getUTCDate()}`;
+        const last = clusters.at(-1);
+        if (last && last.anchor === a) last.ends.push(e);
+        else clusters.push({ anchor: a, ends: [e] });
       }
+      for (let ci = 0; ci < clusters.length; ci++) {
+        const cl = clusters[ci];
+        const [m, d] = cl.anchor.split('/').map(Number);
+        const a = { m, d };
+        const y0 = D(cl.ends[0]).getUTCFullYear();
+        // walk bound: either the next anchor-regime's first end (+92d tolerance) or audit date + lag
+        const bound = ci + 1 < clusters.length ? D(clusters[ci + 1].ends[0]).getTime() + 92 * 86400000 : AUDIT_DATE.getTime() + 45 * 86400000;
+        for (const ed of anchorDates(a, y0 + 1, AUDIT_DATE.getUTCFullYear())) {
+          if (ed.getTime() > bound) break;
+          if (ed.getTime() + 45 * 86400000 <= AUDIT_DATE.getTime() && !series.some((e) => Math.abs(days(D(e), ed)) <= 92)) res.missing.push(fmt(ed) + `[${t}]`);
+          else if (!series.some((e) => Math.abs(days(D(e), ed)) <= 92)) res.dueNotYet++;
+        }
+      }
+      if (clusters.length > 1) res.fiscalChange = (res.fiscalChange || []).concat(`${t}:${clusters.map((c) => c.anchor).join('→')}`);
     }
-    res.rule = `hk-mixed（按 periodType 分组：${types.join(',')}，各型每年 1 期${res.discontinued ? `；停披型：${res.discontinued.join(',')}` : ''}）`;
+    res.rule = `hk-mixed（按 periodType 分组：${types.join(',')}，各型每年 1 期；期末锚点聚类核对${res.discontinued ? `；停披型：${res.discontinued.join(',')}` : ''}${res.fiscalChange ? `；财年切换：${res.fiscalChange.join(' ')}` : ''}）`;
   } else if (freq === 'mixed') {
     // as-filed pattern (e.g. KR: Q1/Q3/FY) — expect same periodType set every full year
     const byYear = {};
@@ -134,8 +153,11 @@ function auditProfit(ticker, pc) {
   if (nulls.length) reasons.push(`字段 null：${nulls.length} 期 revenue/netInc 为 null（差分或未披露字段）`);
   if (freq === 'annual') reasons.push('频次=annual：数据源口径即年度，无季度期属口径设计，非缺失');
   if (freq === 'mixed') reasons.push('频次=mixed：as-filed 口径（如韩国 Q1/Q3/FY），未披露型季属披露制度，非缺失');
-  if (freq === 'hk-mixed') reasons.push('频次=hk-mixed：港式累计差分，periodType 各型逐年核对' + (res.discontinued ? `（停披型 ${res.discontinued.join(',')}：末次距今>2 年，披露口径变更，非缺失）` : ''));
+  if (freq === 'hk-mixed') reasons.push('频次=hk-mixed：港式累计差分，periodType 各型逐年核对（期末锚点聚类，财年切换不计缺失）' + (res.discontinued ? `（停披型 ${res.discontinued.join(',')}：末次距今>1 年，披露口径变更，非缺失）` : ''));
   if (/not (separately )?disclosed|no differencing/.test(notes)) reasons.push('notes 明示披露制度不含该期型');
+  if (/below minKeep|exempted|IPO 20\d\d/.test(notes)) reasons.push('notes 明示 minKeep 护栏裁剪 / IPO 豁免（上市前无公开披露期，系列起点即上市后首期）→ 非抓取漏期');
+  if (/上市时间短/.test(notes)) reasons.push('notes 明示上市时间短、仅 N 期正式披露（护栏口径变更后如实入站）→ 非抓取漏期');
+  if (/FISCAL-YEAR CHANGE|fiscal-year change/i.test(notes)) reasons.push('notes 明示财年切换（旧锚点年度未单独刊发/15 个月过渡期并入）→ 锚点切换期缺口属口径变更，非抓取漏期');
   if (res.missing.length && !reasons.length) reasons.push('notes/frequency 无解释 → 疑似抓取漏期，可补抓');
   res.reasons = reasons;
   res.coverage = res.missing.length === 0 ? 100 : null;
