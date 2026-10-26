@@ -28032,7 +28032,7 @@
       "name": "NetEase, Inc.",
       "cik": 1110646,
       "currency": "CNY-M",
-      "frequency": "annual",
+      "frequency": "mixed",
       "quarters": [
         {
           "end": "2008-12-31",
@@ -28190,6 +28190,19 @@
           "fxDate": "2020-12-31"
         },
         {
+          "end": "2021-09-30",
+          "periodType": "q",
+          "revenue": 22190.749,
+          "gross": 11810.768,
+          "opInc": 3775.203,
+          "netInc": 3181.782,
+          "rd": 3761.239,
+          "sga": 4274.326,
+          "tax": 807.648,
+          "fxToUsd": 0.1547,
+          "fxDate": "2021-09-30"
+        },
+        {
           "end": "2021-12-31",
           "revenue": 87606,
           "gross": 46970.8,
@@ -28200,6 +28213,45 @@
           "periodType": "annual",
           "fxToUsd": 0.15742,
           "fxDate": "2021-12-31"
+        },
+        {
+          "end": "2022-03-31",
+          "periodType": "q",
+          "revenue": 23555.842,
+          "gross": 12836.379,
+          "opInc": 5507.039,
+          "netInc": 4394.023,
+          "rd": 3398.082,
+          "sga": 3931.258,
+          "tax": 1219.271,
+          "fxToUsd": 0.15768,
+          "fxDate": "2022-03-31"
+        },
+        {
+          "end": "2022-06-30",
+          "periodType": "q",
+          "revenue": 23159.078,
+          "gross": 12941.491,
+          "opInc": 4946.331,
+          "netInc": 5291.476,
+          "rd": 3581.7,
+          "sga": 4413.46,
+          "tax": 1259.32,
+          "fxToUsd": 0.14919,
+          "fxDate": "2022-06-30"
+        },
+        {
+          "end": "2022-09-30",
+          "periodType": "q",
+          "revenue": 24426.76,
+          "gross": 13743.892,
+          "opInc": 4741.776,
+          "netInc": 6699.364,
+          "rd": 3969.156,
+          "sga": 5032.96,
+          "tax": 1586.673,
+          "fxToUsd": 0.14053,
+          "fxDate": "2022-09-30"
         },
         {
           "end": "2022-12-31",
@@ -28214,6 +28266,45 @@
           "fxDate": "2022-12-30"
         },
         {
+          "end": "2023-03-31",
+          "periodType": "q",
+          "revenue": 25046.287,
+          "gross": 14896.546,
+          "opInc": 7220.09,
+          "netInc": 6754.634,
+          "rd": 3749.732,
+          "sga": 3926.724,
+          "tax": 1628.559,
+          "fxToUsd": 0.14546,
+          "fxDate": "2023-03-31"
+        },
+        {
+          "end": "2023-06-30",
+          "periodType": "q",
+          "revenue": 24011.301,
+          "gross": 14375.413,
+          "opInc": 6062.654,
+          "netInc": 8242.767,
+          "rd": 3908.907,
+          "sga": 4403.852,
+          "tax": 712.09,
+          "fxToUsd": 0.13757,
+          "fxDate": "2023-06-30"
+        },
+        {
+          "end": "2023-09-30",
+          "periodType": "q",
+          "revenue": 27270.406,
+          "gross": 16966.3,
+          "opInc": 7557.909,
+          "netInc": 7836.888,
+          "rd": 4347.052,
+          "sga": 5061.339,
+          "tax": 1290.398,
+          "fxToUsd": 0.13696,
+          "fxDate": "2023-09-29"
+        },
+        {
           "end": "2023-12-31",
           "revenue": 103468.2,
           "gross": 63063.4,
@@ -28224,6 +28315,45 @@
           "periodType": "annual",
           "fxToUsd": 0.14075,
           "fxDate": "2023-12-29"
+        },
+        {
+          "end": "2024-03-31",
+          "periodType": "q",
+          "revenue": 26851.741,
+          "gross": 17015.92,
+          "opInc": 7622.483,
+          "netInc": 7633.946,
+          "rd": 4174.758,
+          "sga": 5218.679,
+          "tax": 1485.91,
+          "fxToUsd": 0.13835,
+          "fxDate": "2024-03-28"
+        },
+        {
+          "end": "2024-06-30",
+          "periodType": "q",
+          "revenue": 25485.805,
+          "gross": 16042.218,
+          "opInc": 6993.323,
+          "netInc": 6758.749,
+          "rd": 4455.717,
+          "sga": 4593.178,
+          "tax": 1300.939,
+          "fxToUsd": 0.13769,
+          "fxDate": "2024-06-28"
+        },
+        {
+          "end": "2024-09-30",
+          "periodType": "q",
+          "revenue": 26209.879,
+          "gross": 16476.605,
+          "opInc": 7146.737,
+          "netInc": 6538.435,
+          "rd": 4424.469,
+          "sga": 4905.399,
+          "tax": 1289.545,
+          "fxToUsd": 0.1426,
+          "fxDate": "2024-09-30"
         },
         {
           "end": "2024-12-31",
@@ -28238,6 +28368,45 @@
           "fxDate": "2024-12-31"
         },
         {
+          "end": "2025-03-31",
+          "periodType": "q",
+          "revenue": 28828.545,
+          "gross": 18479.406,
+          "opInc": 10441.159,
+          "netInc": 10301.157,
+          "rd": 4386.313,
+          "sga": 3651.934,
+          "tax": 1905.143,
+          "fxToUsd": 0.13787,
+          "fxDate": "2025-03-31"
+        },
+        {
+          "end": "2025-06-30",
+          "periodType": "q",
+          "revenue": 27891.664,
+          "gross": 18052.482,
+          "opInc": 9061.084,
+          "netInc": 8601.01,
+          "rd": 4356.646,
+          "sga": 4634.752,
+          "tax": 1560.757,
+          "fxToUsd": 0.13957,
+          "fxDate": "2025-06-30"
+        },
+        {
+          "end": "2025-09-30",
+          "periodType": "q",
+          "revenue": 28358.625,
+          "gross": 18177.605,
+          "opInc": 8013.466,
+          "netInc": 8615.677,
+          "rd": 4541.891,
+          "sga": 5622.248,
+          "tax": 1316.356,
+          "fxToUsd": 0.14046,
+          "fxDate": "2025-09-30"
+        },
+        {
           "end": "2025-12-31",
           "revenue": 112625.8,
           "gross": 72401.9,
@@ -28248,9 +28417,35 @@
           "periodType": "annual",
           "fxToUsd": 0.14284,
           "fxDate": "2025-12-31"
+        },
+        {
+          "end": "2026-03-31",
+          "periodType": "q",
+          "revenue": 30591.281,
+          "gross": 21217.072,
+          "opInc": 12656.833,
+          "netInc": 10674.106,
+          "rd": 4482.157,
+          "sga": 4078.082,
+          "tax": 2523.838,
+          "fxToUsd": 0.14492,
+          "fxDate": "2026-03-31"
+        },
+        {
+          "end": "2026-06-30",
+          "periodType": "q",
+          "revenue": 30106.546,
+          "gross": 21217.325,
+          "opInc": 12089.338,
+          "netInc": 6980.656,
+          "rd": 4643.91,
+          "sga": 4484.077,
+          "tax": 2458.674,
+          "fxToUsd": 0.14737,
+          "fxDate": "2026-06-30"
         }
       ],
-      "notes": "20-F as-reported CNY-M (18 FY, 2008-12-31..2025-12-31); watchlist backfill (site ticker NTES)."
+      "notes": "20-F as-reported CNY-M (18 FY, 2008-12-31..2025-12-31); watchlist backfill (site ticker NTES). NTES: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
     },
     "CHA": {
       "name": "Chagee Holdings Limited",
