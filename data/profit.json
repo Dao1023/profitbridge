@@ -15978,7 +15978,8 @@
           "sga": 225.7,
           "tax": 177.2,
           "fxToUsd": 1.4721,
-          "fxDate": "2007-12-31"
+          "fxDate": "2007-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2008-12-31",
@@ -15990,7 +15991,8 @@
           "sga": 210.2,
           "tax": -12.7,
           "fxToUsd": 1.3917,
-          "fxDate": "2008-12-31"
+          "fxDate": "2008-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2009-12-31",
@@ -16002,7 +16004,8 @@
           "sga": 154.8,
           "tax": -20.6,
           "fxToUsd": 1.4406,
-          "fxDate": "2009-12-31"
+          "fxDate": "2009-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2010-12-31",
@@ -16014,7 +16017,8 @@
           "sga": 181,
           "tax": 220.7,
           "fxToUsd": 1.3362,
-          "fxDate": "2010-12-31"
+          "fxDate": "2010-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2011-12-31",
@@ -16026,7 +16030,8 @@
           "sga": 217.9,
           "tax": 181.7,
           "fxToUsd": 1.2939,
-          "fxDate": "2011-12-30"
+          "fxDate": "2011-12-30",
+          "periodType": "annual"
         },
         {
           "end": "2012-12-31",
@@ -16038,7 +16043,8 @@
           "sga": 259.3,
           "tax": 4.3,
           "fxToUsd": 1.3194,
-          "fxDate": "2012-12-31"
+          "fxDate": "2012-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2013-12-31",
@@ -16050,7 +16056,8 @@
           "sga": 311.7,
           "tax": 8,
           "fxToUsd": 1.3791,
-          "fxDate": "2013-12-31"
+          "fxDate": "2013-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2014-12-31",
@@ -16062,7 +16069,8 @@
           "sga": 321.1,
           "tax": 77,
           "fxToUsd": 1.2141,
-          "fxDate": "2014-12-31"
+          "fxDate": "2014-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2015-12-31",
@@ -16073,7 +16081,8 @@
           "sga": 345.7,
           "tax": 161.4,
           "fxToUsd": 1.0887,
-          "fxDate": "2015-12-31"
+          "fxDate": "2015-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2016-12-31",
@@ -16084,7 +16093,8 @@
           "sga": 374.8,
           "tax": 234.4,
           "fxToUsd": 1.0541,
-          "fxDate": "2016-12-30"
+          "fxDate": "2016-12-30",
+          "periodType": "annual"
         },
         {
           "end": "2017-12-31",
@@ -16096,7 +16106,8 @@
           "sga": 416.6,
           "tax": 306,
           "fxToUsd": 1.1993,
-          "fxDate": "2017-12-29"
+          "fxDate": "2017-12-29",
+          "periodType": "annual"
         },
         {
           "end": "2018-12-31",
@@ -16108,7 +16119,8 @@
           "sga": 488,
           "tax": 351.6,
           "fxToUsd": 1.145,
-          "fxDate": "2018-12-31"
+          "fxDate": "2018-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2019-12-31",
@@ -16120,7 +16132,8 @@
           "sga": 520.5,
           "tax": 191.7,
           "fxToUsd": 1.1234,
-          "fxDate": "2019-12-31"
+          "fxDate": "2019-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2020-12-31",
@@ -16132,7 +16145,8 @@
           "sga": 544.9,
           "tax": 551.5,
           "fxToUsd": 1.2271,
-          "fxDate": "2020-12-31"
+          "fxDate": "2020-12-31",
+          "periodType": "annual"
         },
         {
           "end": "2021-12-31",
@@ -16144,7 +16158,47 @@
           "sga": 725.6,
           "tax": 1021.4,
           "fxToUsd": 1.1326,
-          "fxDate": "2021-12-31"
+          "fxDate": "2021-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2022-04-03",
+          "periodType": "q",
+          "revenue": 3534.4,
+          "gross": 1731,
+          "opInc": 784.6,
+          "netInc": 695.3,
+          "rd": 738.7,
+          "sga": 207.7,
+          "tax": 114.4,
+          "fxToUsd": 1.1052,
+          "fxDate": "2022-04-01"
+        },
+        {
+          "end": "2022-07-03",
+          "periodType": "q",
+          "revenue": 5430.5,
+          "gross": 2664.5,
+          "opInc": 1653.4,
+          "netInc": 1410.9,
+          "rd": 789.1,
+          "sga": 222,
+          "tax": 246.2,
+          "fxToUsd": 1.0425,
+          "fxDate": "2022-07-01"
+        },
+        {
+          "end": "2022-10-02",
+          "periodType": "q",
+          "revenue": 5778.3,
+          "gross": 2993.7,
+          "opInc": 1938.5,
+          "netInc": 1701.5,
+          "rd": 819.4,
+          "sga": 235.8,
+          "tax": 252,
+          "fxToUsd": 0.9748,
+          "fxDate": "2022-09-30"
         },
         {
           "end": "2022-12-31",
@@ -16156,7 +16210,47 @@
           "sga": 945.9,
           "tax": 969.9,
           "fxToUsd": 1.0666,
-          "fxDate": "2022-12-30"
+          "fxDate": "2022-12-30",
+          "periodType": "annual"
+        },
+        {
+          "end": "2023-04-02",
+          "periodType": "q",
+          "revenue": 6746.2,
+          "gross": 3413.2,
+          "opInc": 2205,
+          "netInc": 1955.8,
+          "rd": 947.9,
+          "sga": 260.3,
+          "tax": 302.6,
+          "fxToUsd": 1.0875,
+          "fxDate": "2023-03-31"
+        },
+        {
+          "end": "2023-07-02",
+          "periodType": "q",
+          "revenue": 6902.3,
+          "gross": 3544,
+          "opInc": 2263,
+          "netInc": 1941.7,
+          "rd": 999.9,
+          "sga": 281.1,
+          "tax": 403.9,
+          "fxToUsd": 1.0866,
+          "fxDate": "2023-06-30"
+        },
+        {
+          "end": "2023-10-01",
+          "periodType": "q",
+          "revenue": 6673,
+          "gross": 3461.6,
+          "opInc": 2182.4,
+          "netInc": 1893.4,
+          "rd": 991.4,
+          "sga": 287.8,
+          "tax": 343.7,
+          "fxToUsd": 1.0594,
+          "fxDate": "2023-09-29"
         },
         {
           "end": "2023-12-31",
@@ -16168,7 +16262,47 @@
           "sga": 1113.2,
           "tax": 1435.8,
           "fxToUsd": 1.105,
-          "fxDate": "2023-12-29"
+          "fxDate": "2023-12-29",
+          "periodType": "annual"
+        },
+        {
+          "end": "2024-03-31",
+          "periodType": "q",
+          "revenue": 5290,
+          "gross": 2696.6,
+          "opInc": 1391.4,
+          "netInc": 1223.8,
+          "rd": 1031.9,
+          "sga": 273.3,
+          "tax": 224,
+          "fxToUsd": 1.0811,
+          "fxDate": "2024-03-28"
+        },
+        {
+          "end": "2024-06-30",
+          "periodType": "q",
+          "revenue": 6242.8,
+          "gross": 3212.2,
+          "opInc": 1834.6,
+          "netInc": 1577.9,
+          "rd": 1100.6,
+          "sga": 277,
+          "tax": 291.6,
+          "fxToUsd": 1.0705,
+          "fxDate": "2024-06-28"
+        },
+        {
+          "end": "2024-09-29",
+          "periodType": "q",
+          "revenue": 7467.3,
+          "gross": 3793.4,
+          "opInc": 2441.2,
+          "netInc": 2076.5,
+          "rd": 1055.2,
+          "sga": 297,
+          "tax": 441.2,
+          "fxToUsd": 1.1158,
+          "fxDate": "2024-09-27"
         },
         {
           "end": "2024-12-31",
@@ -16180,7 +16314,47 @@
           "sga": 1165.7,
           "tax": 1680.6,
           "fxToUsd": 1.0389,
-          "fxDate": "2024-12-31"
+          "fxDate": "2024-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2025-03-30",
+          "periodType": "q",
+          "revenue": 7741.5,
+          "gross": 4179.7,
+          "opInc": 2737.9,
+          "netInc": 2355,
+          "rd": 1161.1,
+          "sga": 280.7,
+          "tax": 465.1,
+          "fxToUsd": 1.0797,
+          "fxDate": "2025-03-28"
+        },
+        {
+          "end": "2025-06-29",
+          "periodType": "q",
+          "revenue": 7691.7,
+          "gross": 4129.5,
+          "opInc": 2664.1,
+          "netInc": 2290.3,
+          "rd": 1166.7,
+          "sga": 298.7,
+          "tax": 487.4,
+          "fxToUsd": 1.1704,
+          "fxDate": "2025-06-27"
+        },
+        {
+          "end": "2025-09-28",
+          "periodType": "q",
+          "revenue": 7516,
+          "gross": 3880.3,
+          "opInc": 2468.4,
+          "netInc": 2124.5,
+          "rd": 1108.7,
+          "sga": 303.2,
+          "tax": 442.2,
+          "fxToUsd": 1.1672,
+          "fxDate": "2025-09-26"
         },
         {
           "end": "2025-12-31",
@@ -16192,10 +16366,51 @@
           "sga": 1257.8,
           "tax": 2013.4,
           "fxToUsd": 1.175,
-          "fxDate": "2025-12-31"
+          "fxDate": "2025-12-31",
+          "periodType": "annual"
+        },
+        {
+          "end": "2026-03-29",
+          "periodType": "q",
+          "revenue": 8766.9,
+          "gross": 4645,
+          "opInc": 3157.8,
+          "netInc": 2756.7,
+          "rd": 1184.9,
+          "sga": 302.3,
+          "tax": 546.6,
+          "fxToUsd": 1.1517,
+          "fxDate": "2026-03-27"
+        },
+        {
+          "end": "2026-06-28",
+          "periodType": "q",
+          "revenue": 9326.5,
+          "gross": 5035.4,
+          "opInc": 3456.1,
+          "netInc": 2917.6,
+          "rd": 1276.6,
+          "sga": 302.7,
+          "tax": 609.6,
+          "fxToUsd": 1.1401,
+          "fxDate": "2026-06-26"
+        },
+        {
+          "end": "2026-09-27",
+          "periodType": "q",
+          "revenue": 11662,
+          "gross": 6699.8,
+          "opInc": 5172.8,
+          "netInc": 4960.4,
+          "rd": 1174.4,
+          "sga": 352.6,
+          "tax": 925,
+          "fxToUsd": 1.1403,
+          "fxDate": "2026-09-25"
         }
       ],
-      "frequency": "annual"
+      "frequency": "mixed",
+      "notes": "ASML: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported EUR-M, fetched 2026-10-26, window 2021-12-31..2026-09-27; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
     },
     "SONY": {
       "name": "Sony Group Corp",
