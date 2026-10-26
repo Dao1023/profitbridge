@@ -25,7 +25,7 @@ const I18N = {
     ofRev: '% of rev', qoqSuffix: 'QoQ',
     viewBridge: 'Profit bridge', viewBar: 'Bar chart',
     barGroups: { items: 'Income statement', segments: 'Segments', margins: 'Margins' },
-    barNoData: 'No disclosed data for this item', barFullHistory: 'full history',
+    barNoData: 'No disclosed data for this item', barFullHistory: 'full history', barFullHistoryAnnual: 'full history (annual)',
     barNoDataTag: 'no data',
   },
   zh: {
@@ -47,7 +47,7 @@ const I18N = {
     ofRev: '占营收', qoqSuffix: 'QoQ',
     viewBridge: '利润桥', viewBar: '柱状图',
     barGroups: { items: '利润科目', segments: '分部', margins: '利润率' },
-    barNoData: '该子项无披露数据', barFullHistory: '全历史季度',
+    barNoData: '该子项无披露数据', barFullHistory: '全历史季度', barFullHistoryAnnual: '全历史年度',
     barNoDataTag: '无数据',
   },
 };
@@ -555,7 +555,7 @@ function renderBarChart() {
   const isMargin = item.kind === 'margin';
   const fmtVal = v => isMargin ? v.toFixed(1) + '%' : dispSym() + v.toFixed(1) + 'B';
   document.getElementById('chartTitle').textContent =
-    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t('barFullHistory') : ''}`;
+    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : 'barFullHistory') : ''}`;
 
   const opt = {
     backgroundColor: 'transparent',

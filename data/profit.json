@@ -27509,7 +27509,7 @@
       "notes": "FY Dec; staging snapshot fx USD/EUR 0.89213 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule."
     },
     "2454.TW": {
-      "name": "MediaTek Inc. 聯發科",
+      "name": "MediaTek Inc.",
       "currency": "TWD-M",
       "frequency": "q",
       "quarters": [
@@ -27643,7 +27643,7 @@
       "notes": "TWSE quarterly; native TWD-M; fxToUsd from staging snapshot USD/TWD 32.596145 (open.er-api.com 2026-10-26, single rate)."
     },
     "2330.TW": {
-      "name": "Taiwan Semiconductor Manufacturing Company 台積電",
+      "name": "Taiwan Semiconductor Manufacturing Company",
       "currency": "TWD-M",
       "frequency": "q",
       "quarters": [
@@ -28125,7 +28125,7 @@
       "notes": "10-Q as-reported USD-M (4 single quarters, 2025-03-31..2026-06-30; 2025-09 Nasdaq IPO) — below minKeep, exempted into main series mirroring SPCX precedent; watchlist backfill (site ticker CBRS)."
     },
     "HUAWEI": {
-      "name": "Huawei Technologies Co., Ltd. 华为",
+      "name": "Huawei Technologies Co., Ltd.",
       "currency": "CNY-M",
       "frequency": "annual",
       "companyType": "private",
@@ -28218,7 +28218,7 @@
       "notes": "Private filer (unlisted; publishes audited annual reports): companyType=private, synthetic ticker HUAWEI (no real listing). FY=calendar year, IFRS consolidated, audited by KPMG. CNY-M as-reported; opInc/null rd null before FY2021 (2019-2020 operating profit not in official highlights table). R&D 2019/2020/2023/2024/2025 from official annual-report news releases (131.7/141.9/164.7/179.7/192.3 Bn CNY); 2021 142.7 & 2022 161.5 Bn CNY per FY2022 report (bjnews cross-check). FY2021-2025 rev/op/NI from huawei.com bond-investor-relations Financial Highlights five-year table (https://www.huawei.com/en/bond-investor-relations/financial-highlights); FY2019 https://www.huawei.com/en/news/2020/3/Huawei-2019-annual-report; FY2020 https://www.huawei.com/de/news/2021/huawei-schliesst-geschaeftsjahr-2020-mit-umsatz-und-gewinnwachstum-ab. fxToUsd snapshot 1/USD-CNY 6.677446 (open.er-api.com 2026-10-27, single rate)."
     },
     "LEGO": {
-      "name": "LEGO Group (LEGO System A/S) 乐高",
+      "name": "The LEGO Group",
       "currency": "DKK-M",
       "frequency": "annual",
       "companyType": "private",
