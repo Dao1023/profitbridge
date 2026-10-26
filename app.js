@@ -420,9 +420,22 @@ function setQuarter(i) {
 function renderTimeline() {
   const qs = DATA.companies[state.company].quarters, n = qs.length, cur = curQIndex();
   const ticks = document.getElementById('tlTicks');
-  ticks.innerHTML = qs.map((x, i) =>
+  // adaptive sampling: with long histories (up to 64 quarters) rendering every tick
+  // overflows the track — show an evenly spaced sample (≤14 ticks, always keeping the
+  // first, last and active quarter); the drag thumb still reaches every quarter.
+  const MAXTICKS = 14;
+  const show = new Set();
+  if (n > MAXTICKS) {
+    const step = Math.ceil(n / MAXTICKS);
+    for (let i = 0; i < n; i += step) show.add(i);
+    show.add(n - 1); show.add(cur);
+  } else {
+    for (let i = 0; i < n; i++) show.add(i);
+  }
+  const shown = [...show].sort((a, b) => a - b);
+  ticks.innerHTML = shown.map(i =>
     `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}">
-       <div class="q">${fqLabel(x.end)}</div><div class="d">${x.end}</div></div>`).join('');
+       <div class="q">${fqLabel(qs[i].end)}</div><div class="d">${qs[i].end}</div></div>`).join('');
   ticks.querySelectorAll('.tl-tick').forEach(el =>
     el.addEventListener('click', () => setQuarter(Number(el.dataset.i))));
   const pct = n > 1 ? (cur / (n - 1)) * 100 : 0;
