@@ -30797,8 +30797,60 @@
       "name": "Chagee Holdings Limited",
       "cik": 2013649,
       "currency": "CNY-M",
-      "frequency": "annual",
+      "frequency": "mixed",
       "quarters": [
+        {
+          "end": "2022-12-31",
+          "periodType": "q",
+          "revenue": 215.633,
+          "gross": 74.501,
+          "opInc": -2.723,
+          "netInc": -17.115,
+          "rd": null,
+          "sga": 54.629,
+          "tax": 0.39,
+          "fxToUsd": 0.14495,
+          "fxDate": "2022-12-30"
+        },
+        {
+          "end": "2023-03-31",
+          "periodType": "q",
+          "revenue": 417.027,
+          "gross": 170.816,
+          "opInc": 80.14,
+          "netInc": 50.197,
+          "rd": null,
+          "sga": 61.892,
+          "tax": 19.458,
+          "fxToUsd": 0.14546,
+          "fxDate": "2023-03-31"
+        },
+        {
+          "end": "2023-06-30",
+          "periodType": "q",
+          "revenue": 732.385,
+          "gross": 307.606,
+          "opInc": 151.355,
+          "netInc": 114.806,
+          "rd": null,
+          "sga": 111.999,
+          "tax": 38.657,
+          "fxToUsd": 0.13757,
+          "fxDate": "2023-06-30"
+        },
+        {
+          "end": "2023-09-30",
+          "periodType": "q",
+          "revenue": 1443.711,
+          "gross": 656.365,
+          "opInc": 366.316,
+          "netInc": 176.372,
+          "rd": null,
+          "sga": 201.026,
+          "tax": 75.612,
+          "fxToUsd": 0.13696,
+          "fxDate": "2023-09-29"
+        },
         {
           "end": "2023-12-31",
           "revenue": 4640.2,
@@ -30809,6 +30861,45 @@
           "periodType": "annual",
           "fxToUsd": 0.14075,
           "fxDate": "2023-12-29"
+        },
+        {
+          "end": "2024-03-31",
+          "periodType": "q",
+          "revenue": 2506.571,
+          "gross": 1132.165,
+          "opInc": 705.943,
+          "netInc": 567.732,
+          "rd": null,
+          "sga": 330.213,
+          "tax": 149.398,
+          "fxToUsd": 0.13835,
+          "fxDate": "2024-03-28"
+        },
+        {
+          "end": "2024-06-30",
+          "periodType": "q",
+          "revenue": 3023.337,
+          "gross": 1417.616,
+          "opInc": 743.923,
+          "netInc": 591.484,
+          "rd": null,
+          "sga": 546.164,
+          "tax": 158.321,
+          "fxToUsd": 0.13769,
+          "fxDate": "2024-06-28"
+        },
+        {
+          "end": "2024-09-30",
+          "periodType": "q",
+          "revenue": 3541.248,
+          "gross": 1636.539,
+          "opInc": 794.25,
+          "netInc": 613.824,
+          "rd": null,
+          "sga": 675.593,
+          "tax": 161.659,
+          "fxToUsd": 0.1426,
+          "fxDate": "2024-09-30"
         },
         {
           "end": "2024-12-31",
@@ -30822,6 +30913,45 @@
           "fxDate": "2024-12-31"
         },
         {
+          "end": "2025-03-31",
+          "periodType": "q",
+          "revenue": 3392.711,
+          "gross": 1645.383,
+          "opInc": 820.776,
+          "netInc": 649.861,
+          "rd": null,
+          "sga": 652.149,
+          "tax": 158.746,
+          "fxToUsd": 0.13787,
+          "fxDate": "2025-03-31"
+        },
+        {
+          "end": "2025-06-30",
+          "periodType": "q",
+          "revenue": 3331.881,
+          "gross": 1610.962,
+          "opInc": 107.614,
+          "netInc": 62.754,
+          "rd": null,
+          "sga": 1329.625,
+          "tax": 126.403,
+          "fxToUsd": 0.13957,
+          "fxDate": "2025-06-30"
+        },
+        {
+          "end": "2025-09-30",
+          "periodType": "q",
+          "revenue": 3208.33,
+          "gross": 1455.136,
+          "opInc": 454.396,
+          "netInc": 394.212,
+          "rd": null,
+          "sga": 821.872,
+          "tax": 108.492,
+          "fxToUsd": 0.14046,
+          "fxDate": "2025-09-30"
+        },
+        {
           "end": "2025-12-31",
           "revenue": 12907.4,
           "opInc": 1347.2,
@@ -30831,9 +30961,35 @@
           "periodType": "annual",
           "fxToUsd": 0.14284,
           "fxDate": "2025-12-31"
+        },
+        {
+          "end": "2026-03-31",
+          "periodType": "q",
+          "revenue": 3546.001,
+          "gross": 1474.293,
+          "opInc": 547.158,
+          "netInc": 450.328,
+          "rd": null,
+          "sga": 768.17,
+          "tax": 120.261,
+          "fxToUsd": 0.14492,
+          "fxDate": "2026-03-31"
+        },
+        {
+          "end": "2026-06-30",
+          "periodType": "q",
+          "revenue": 3414.604,
+          "gross": 1276.643,
+          "opInc": 524.731,
+          "netInc": 467.26,
+          "rd": null,
+          "sga": 636.083,
+          "tax": 116.072,
+          "fxToUsd": 0.14737,
+          "fxDate": "2026-06-30"
         }
       ],
-      "notes": "20-F as-reported CNY-M (3 FY, 2023-12-31..2025-12-31; 2025-04 NASDAQ IPO); no GrossProfit/SGA facts in 20-F XBRL (tax+rd present); kept below minKeep=8 by exemption, mirrors DIDIY 6-FY precedent; watchlist backfill (site ticker CHA)."
+      "notes": "20-F as-reported CNY-M (3 FY, 2023-12-31..2025-12-31; 2025-04 NASDAQ IPO); no GrossProfit/SGA facts in 20-F XBRL (tax+rd present); kept below minKeep=8 by exemption, mirrors DIDIY 6-FY precedent; watchlist backfill (site ticker CHA). CHA: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2022-12-31..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
     },
     "CBRS": {
       "name": "Cerebras Systems Inc.",
