@@ -152,7 +152,7 @@ function auditProfit(ticker, pc) {
   if (/truncated to last \d+/.test(notes)) reasons.push('抓取截断：notes 明示 history truncated（如 64-quarter cap）→ 可补抓');
   if (nulls.length) reasons.push(`字段 null：${nulls.length} 期 revenue/netInc 为 null（差分或未披露字段）`);
   if (freq === 'annual') reasons.push('频次=annual：数据源口径即年度，无季度期属口径设计，非缺失');
-  if (freq === 'mixed') reasons.push('频次=mixed：as-filed 口径（如韩国 Q1/Q3/FY），未披露型季属披露制度，非缺失');
+  if (freq === 'mixed') reasons.push('频次=mixed：as-filed 口径（年度 20-F/年报 + 实际季度 6-K 披露并存，periodType annual/q 各期逐年核对；韩国 Q1/Q3/FY 同规则），未披露型季属披露制度，非缺失');
   if (freq === 'hk-mixed') reasons.push('频次=hk-mixed：港式累计差分，periodType 各型逐年核对（期末锚点聚类，财年切换不计缺失）' + (res.discontinued ? `（停披型 ${res.discontinued.join(',')}：末次距今>1 年，披露口径变更，非缺失）` : ''));
   if (/not (separately )?disclosed|no differencing/.test(notes)) reasons.push('notes 明示披露制度不含该期型');
   if (/below minKeep|exempted|IPO 20\d\d/.test(notes)) reasons.push('notes 明示 minKeep 护栏裁剪 / IPO 豁免（上市前无公开披露期，系列起点即上市后首期）→ 非抓取漏期');

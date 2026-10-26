@@ -35,8 +35,8 @@ const as = P.companies.ASML.quarters.find(q => q.end === '2024-12-31');
 ok(as && approx(as.netInc, 7571.6, 0.001), `ASML FY2024 netInc 7571.6 EUR-M`);
 ok(approx(as.netInc * as.fxToUsd, 7571.6 * 1.0389, 0.001), `ASML FY2024 USD display ≈ ${Math.round(as.netInc * as.fxToUsd)} (expect ≈7866)`);
 
-// 6) TSM 11FY TWD-M entry intact + per-period fx; separate from 2330.TW
-ok(P.companies.TSM.quarters.length === 11 && P.companies.TSM.currency === 'TWD-M', 'TSM 11FY TWD-M');
+// 6) TSM mixed (11FY annual + 15q backfill) TWD-M entry + per-period fx; separate from 2330.TW
+ok(P.companies.TSM.frequency === 'mixed' && P.companies.TSM.quarters.length === 26 && P.companies.TSM.currency === 'TWD-M', 'TSM mixed 11FY+15q TWD-M');
 ok(P.companies['2330.TW'].frequency === 'q' && P.companies['2330.TW'].currency === 'TWD-M', '2330.TW separate quarterly entry');
 ok(P.companies.TSM.quarters.every(q => q.fxToUsd > 0.02 && q.fxToUsd < 0.04), 'TSM per-period fx present (approx marked)');
 
@@ -81,13 +81,15 @@ ok(JSON.stringify(bridge) === JSON.stringify([96.2, 72.1, 63.7, 59.7]), `NVDA la
 
 // 13) watchlist backfill 2026-10-27: NTES / CHA / CBRS + 09633.HK skipped + GOOG alias note
 const nt = P.companies.NTES;
-ok(nt && nt.frequency === 'annual' && nt.currency === 'CNY-M' && nt.quarters.length === 18, `NTES 18FY CNY-M annual (got ${nt && nt.quarters.length})`);
-ok(nt.quarters.at(-1).end === '2025-12-31' && approx(nt.quarters.at(-1).revenue, 112625.8, 0.001) && approx(nt.quarters.at(-1).netInc, 34797.8, 0.001), 'NTES FY2025 rev=112625.8 NI=34797.8 CNY-M');
+ok(nt && nt.frequency === 'mixed' && nt.currency === 'CNY-M' && nt.quarters.length === 33, `NTES mixed 18FY+15q CNY-M (got ${nt && nt.frequency} ${nt && nt.quarters.length})`);
+const ntFy = nt.quarters.filter(q => q.periodType === 'annual');
+ok(ntFy.length === 18 && ntFy.at(-1).end === '2025-12-31' && approx(ntFy.at(-1).revenue, 112625.8, 0.001) && approx(ntFy.at(-1).netInc, 34797.8, 0.001), 'NTES FY2025 rev=112625.8 NI=34797.8 CNY-M');
 ok(nt.quarters.every(q => q.fxToUsd > 0.1 && q.fxToUsd < 0.2), 'NTES per-FY fx sane');
 const ch = P.companies.CHA;
-ok(ch && ch.frequency === 'annual' && ch.currency === 'CNY-M' && ch.quarters.length === 3, 'CHA 3FY CNY-M annual');
-ok(ch.quarters.at(-1).end === '2025-12-31' && approx(ch.quarters.at(-1).revenue, 12907.4, 0.001) && approx(ch.quarters.at(-1).netInc, 1171.1, 0.001), 'CHA FY2025 rev=12907.4 NI=1171.1 CNY-M');
-ok(ch.quarters.every(q => q.gross == null), 'CHA has no gross facts (20-F XBRL lacks GrossProfit)');
+ok(ch && ch.frequency === 'mixed' && ch.currency === 'CNY-M' && ch.quarters.length === 15, 'CHA mixed 3FY+12q CNY-M');
+const chFy = ch.quarters.filter(q => q.periodType === 'annual');
+ok(chFy.length === 3 && chFy.at(-1).end === '2025-12-31' && approx(chFy.at(-1).revenue, 12907.4, 0.001) && approx(chFy.at(-1).netInc, 1171.1, 0.001), 'CHA FY2025 rev=12907.4 NI=1171.1 CNY-M');
+ok(chFy.every(q => q.gross == null), 'CHA annual has no gross facts (20-F XBRL lacks GrossProfit)');
 const cb = P.companies.CBRS;
 ok(cb && cb.frequency === 'q' && cb.currency === 'USD-M' && cb.quarters.length === 4, 'CBRS 4Q USD-M quarterly');
 ok(cb.quarters[0].end === '2025-03-31' && approx(cb.quarters[0].revenue, 99.5, 0.01), 'CBRS Q1-25 rev=99.5 USD-M');
@@ -95,6 +97,23 @@ ok(cb.quarters.at(-1).end === '2026-06-30' && approx(cb.quarters.at(-1).revenue,
 const nfs = P.companies['09633.HK'];
 ok(nfs && nfs.frequency === 'hk-mixed' && nfs.quarters.length === 17 && nfs.quarters.at(-1).end === '2026-06-30', `NongFu 09633.HK 17 cumulative periods annual+interim, latest 2026-06-30 (got ${nfs && nfs.quarters.length})`);
 ok(P.notes.some(n => n.startsWith('GOOG:')), 'GOOG=GOOGL alias documented in notes');
+
+// 14) quarterly backfill 2026-10-27: 21 companies annual→mixed (periodType annual/q, FY-end dedup)
+const bdf = ['BIDU','NTES','TME','LKNCY','DIDIY','BABA','BILI','TCOM','JD','PDD','LI','WB','ZH','XNET','CHA','ARM','SPOT','STM','ASML','SONY','TSM'];
+for (const tk of bdf) {
+  const e = P.companies[tk];
+  ok(e && e.frequency === 'mixed', `${tk} frequency=mixed`);
+  const ends = e.quarters.map(q => q.end);
+  ok(new Set(ends).size === ends.length, `${tk} no duplicate period ends`);
+  ok(e.quarters.every(q => q.periodType === 'annual' || q.periodType === 'q'), `${tk} periodType ∈ {annual,q}`);
+  ok(e.quarters.every(q => q.fxToUsd > 0), `${tk} fxToUsd present`);
+}
+ok(P.companies.BILI.currency === 'CNY-M' && P.companies.LI.currency === 'CNY-M' && P.companies.ZH.currency === 'CNY-M', 'BILI/LI/ZH as-reported CNY-M');
+ok(P.companies.TSM.currency === 'TWD-M' && P.companies.SONY.currency === 'JPY-M' && P.companies.SPOT.currency === 'EUR-M', 'TSM/SONY/SPOT 本位币');
+ok(/Financial Services/.test(P.companies.SONY.notes), 'SONY q-vs-FY scope gap documented');
+ok(/460\.428/.test(P.companies.XNET.notes), 'XNET SEC 20-F verification documented');
+ok(P.companies['NESN.SW'].frequency === 'annual' && /半年报/.test(P.companies['NESN.SW'].notes), 'NESN.SW stays annual (半年报制度 noted)');
+ok(P.companies['MC.PA'].frequency === 'annual' && P.companies.HUAWEI.frequency === 'annual' && P.companies.LEGO.frequency === 'annual', 'MC.PA/HUAWEI/LEGO stay annual');
 
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nALL PASS');
 process.exit(fails ? 1 : 0);
