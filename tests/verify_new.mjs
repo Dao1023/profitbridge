@@ -7,7 +7,7 @@ const ok = (cond, msg) => { if (!cond) { console.error('FAIL', msg); fails++; } 
 const approx = (a, b, tol) => Math.abs(a - b) <= Math.abs(b) * tol;
 
 // 1) scale: 79+ companies incl. HK/A-share/KR/TW/EU entries (data agent may add more)
-ok(Object.keys(P.companies).length >= 79, `>=79 companies (got ${Object.keys(P.companies).length})`);
+ok(Object.keys(P.companies).length >= 80, `>=80 companies (got ${Object.keys(P.companies).length})`);
 ok(P.companies['00700.HK'] && P.companies['600519.SS'] && P.companies['005930.KS'] && P.companies['2330.TW'] && P.companies['NESN.SW'], 'HK/A-share/KR/TW/EU entries present');
 
 // 2) Tencent FY2024: four single quarters sum to 660,257 CNY-M; USD-converted ≈ $90,455M (±3%, avg-rate convention)

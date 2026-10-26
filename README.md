@@ -14,17 +14,17 @@
 - 📊 **全历史柱状图** — 任选科目/分部，2010 → 2026 逐季时间序列，**无断季、无空洞**。
 - 🎚️ **占比 / 环比一键切换** — 看结构（占营收 %）或看动能（QoQ 变化），不用碰 Excel。
 - 🏛️ **每个数字可溯源** — 美股来自 SEC EDGAR XBRL 真实申报，港/A/韩/台/欧股来自交易所与权威聚合源，不是拍脑袋。
-- 💱 **多币种多频次** — 79 家、7 个市场、申报本位币入库；年度看同比、港混频不跨期环比，口径不撒谎。
+- 💱 **多币种多频次** — 80 家、7 个市场、申报本位币入库；年度看同比、港混频不跨期环比，口径不撒谎。
 - 🫥 **缺数据就留白** — 不编数、不插值。没披露的季度诚实空着，这是工程诚信，不是缺陷。
 - ⚡ **纯前端零构建** — 无框架、无 npm install，克隆或点开链接即可运行。
 
 ## 覆盖范围
 
-**79 家公司 · 3,189 季/年度期 · 7 个市场**（实测统计自合并后 `data/profit.json`，2026-10-26）。美股条目无 64 季封顶，为 EDGAR XBRL 完整连续历史（AAPL 71 季、MSFT 76 季、CSCO 72 季等）；7 期尾端缺口（V/KO/NXPI 10-Q、SONY/TSM/TME/DIDIY 20-F）已从 filing 内嵌 iXBRL 实抓补齐（SEC companyfacts 未收录该批申报财务 facts），覆盖审计缺失期=0。
+**80 家公司 · 3,191 季/年度期 · 7 个市场**（实测统计自合并后 `data/profit.json`，2026-10-26）。美股条目无 64 季封顶，为 EDGAR XBRL 完整连续历史（AAPL 71 季、MSFT 76 季、CSCO 72 季等）；SPCX（SpaceX）IPO 后仅 2 季经豁免入主序列；7 期尾端缺口（V/KO/NXPI 10-Q、SONY/TSM/TME/DIDIY 20-F）已从 filing 内嵌 iXBRL 实抓补齐（SEC companyfacts 未收录该批申报财务 facts），覆盖审计缺失期=0。
 
 | 市场 | 公司数 | 期数 | 口径 |
 | --- | --- | --- | --- |
-| 美股（EDGAR 季度 10-Q/10-K） | 44 | 2,470q | USD-M，Q4=FY−Q1..Q3 |
+| 美股（EDGAR 季度 10-Q/10-K） | 45 | 2,472q | USD-M，Q4=FY−Q1..Q3；SPCX（SpaceX）2026-06 IPO 后仅披露 2 季，低于 minKeep=12 经豁免单独收录 |
 | 年度申报（20-F/年报：阿里/百度/京东/拼多多/瑞幸/TSM/DIDIY/ASML/ARM/SPOT/STM/SONY/NESN/MC 等） | 21 | — | 申报本位币（CNY/TWD/EUR/CHF/JPY-M），frequency:'annual' |
 | 港股（HKEX/东财，累计期差分为单季） | 11 | 313q | CNY-M，frequency:'hk-mixed'，联想为 USD 单季 17q |
 | 韩股（stockanalysis/fnguide 独立单季） | 3 | 111q | KRW-M，frequency:'mixed' |
@@ -44,7 +44,6 @@
 
 - **TCEHY / XIACF**：非 SEC 注册主体（EDGAR 无对应申报，财务仅在港交所披露），不在 EDGAR 数据范围内；
 - **02513.HK（Z.AI）/ 00100.HK（MiniMax）**：港股累计期可差分出的单季不足 8 季，达不到最低序列长度；
-- **SPCX（SpaceX）**：非上市，仅以 `profitPreview` 隔离预览（logo 栏 Preview 标注），不进入主序列与对比。
 
 ## 快速开始
 

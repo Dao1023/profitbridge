@@ -27784,6 +27784,34 @@
         }
       ],
       "notes": "TWSE quarterly; native TWD-M; fxToUsd from staging snapshot USD/TWD 32.596145 (open.er-api.com 2026-10-26, single rate). 独立于 TSM 20-F TWD-M 年度条目（口径互见，禁跨条目环比）。"
+    },
+    "SPCX": {
+      "name": "Space Exploration Technologies Corp. (SpaceX)",
+      "cik": 1181412,
+      "currency": "USD-M",
+      "frequency": "q",
+      "quarters": [
+        {
+          "end": "2026-06-30",
+          "revenue": 7814,
+          "gross": 4319,
+          "opInc": -143,
+          "netInc": -541,
+          "rd": 3548,
+          "sga": 912,
+          "tax": 23
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 14575,
+          "gross": 9097,
+          "opInc": 2791,
+          "netInc": 4404,
+          "rd": 4596,
+          "sga": 1707,
+          "tax": -390
+        }
+      ]
     }
   },
   "skipped": [
@@ -28336,36 +28364,8 @@
     "SONY: FY 2026-03-31 extracted directly from the 20-F iXBRL filed 2026-06-18 (acc 0001193125-26-274893) — ProfitLoss −302,492 M JPY as filed; SEC companyfacts had not ingested this filing's financial facts",
     "TSM: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-16 (acc 0001628280-26-025362) — SEC companyfacts had not ingested this filing's financial facts",
     "TME: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-17 (acc 0001193125-26-160257) — SEC companyfacts had not ingested this filing's financial facts",
-    "DIDIY: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-13 (acc 0001104659-26-042350) — gross derived as revenue − cost of sales; SEC companyfacts had not ingested this filing's financial facts"
+    "DIDIY: FY 2025-12-31 extracted directly from the 20-F iXBRL filed 2026-04-13 (acc 0001104659-26-042350) — gross derived as revenue − cost of sales; SEC companyfacts had not ingested this filing's financial facts",
+    "SPCX: 2026-06 Nasdaq IPO 后仅披露 2 季（10-Q 2026-08-04 与 2026-10-22，报告期 2026-06-30/2026-09-30），低于 minKeep=12 护栏，经豁免单独收录进主序列；数字取自 10-Q 内嵌 XBRL，Q3 与 R4 报表逐项核对一致（rev 14575 / cost 5478 / NI 4404 / RD 4596 / SGA 1707）。"
   ],
-  "failures": [],
-  "profitPreview": {
-    "ticker": "SPCX",
-    "name": "SPACE EXPLORATION TECHNOLOGIES CORP",
-    "currency": "USD-M",
-    "frequency": "q",
-    "status": "preview (private; NOT in main series)",
-    "quarters": [
-      {
-        "end": "2026-06-30",
-        "revenue": 7814,
-        "gross": 4319,
-        "opInc": -143,
-        "netInc": -541,
-        "rd": 3548,
-        "sga": 912,
-        "tax": 23
-      },
-      {
-        "end": "2026-09-30",
-        "revenue": 14575,
-        "gross": 9097,
-        "opInc": 2791,
-        "netInc": 4404,
-        "rd": 4596,
-        "sga": 1707,
-        "tax": -390
-      }
-    ]
-  }
+  "failures": []
 }
