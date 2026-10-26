@@ -1,19 +1,22 @@
-node_modules/
+# --- ignore-by-default: everything at root, then whitelist what belongs in the repo ---
+/*
+!/.gitattributes
+!/.gitignore
+!/README.md
+!/index.html
+!/app.js
+!/start.bat
+!/data/
+!/docs/
+!/scripts/
+!/tests/
+!/vendor/
+
+# tooling residue inside tests/ (screenshots, chrome profiles)
+/tests/.shots/
+/tests/.chrome/
+
+# os junk
+Thumbs.db
 *.log
 fetch_log.txt
-# chrome test profiles (tooling artifacts, huge)
-.chrome_profile/
-.chrome_prof_test/
-# animation frames captured during build/verification
-frames/
-frames_dense/
-# verification screenshots at repo root
-/*.png
-downloads/
-audit_dl/
-shots/
-Thumbs.db
-archive
-
-# locked live browser profile dir (only chrome profile remnants, never commit)
-tmp-lib-research/
