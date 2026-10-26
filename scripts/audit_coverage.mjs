@@ -69,8 +69,15 @@ function auditProfit(ticker, pc) {
     // per periodType (q1..q4/annual), each fiscal year should have one period
     const types = Object.keys(res.periodTypes);
     const fy = {}; // fiscal-year -> last end per type
+    const maxAll = Math.max(...ends.map((e) => D(e).getTime()));
     for (const t of types) {
       const series = qs.filter((q) => (q.periodType || 'q') === t).map((q) => q.end);
+      const lastT = Math.max(...series.map((e) => D(e).getTime()));
+      // 期型停披：末次该型期比全公司最新期早 >2 年 → 公司披露口径变更（停披），非缺失
+      if (maxAll - lastT > 2 * 365 * 86400000) {
+        res.discontinued = (res.discontinued || []).concat(t);
+        continue;
+      }
       const a = { m: D(series.at(-1)).getUTCMonth(), d: D(series.at(-1)).getUTCDate() };
       const y0 = D(series[0]).getUTCFullYear();
       for (const d of anchorDates(a, y0 + 1, AUDIT_DATE.getUTCFullYear())) {
@@ -78,7 +85,7 @@ function auditProfit(ticker, pc) {
         else if (!series.some((e) => Math.abs(days(D(e), d)) <= 92)) res.dueNotYet++;
       }
     }
-    res.rule = `hk-mixed（按 periodType 分组：${types.join(',')}，各型每年 1 期）`;
+    res.rule = `hk-mixed（按 periodType 分组：${types.join(',')}，各型每年 1 期${res.discontinued ? `；停披型：${res.discontinued.join(',')}` : ''}）`;
   } else if (freq === 'mixed') {
     // as-filed pattern (e.g. KR: Q1/Q3/FY) — expect same periodType set every full year
     const byYear = {};
@@ -127,7 +134,7 @@ function auditProfit(ticker, pc) {
   if (nulls.length) reasons.push(`字段 null：${nulls.length} 期 revenue/netInc 为 null（差分或未披露字段）`);
   if (freq === 'annual') reasons.push('频次=annual：数据源口径即年度，无季度期属口径设计，非缺失');
   if (freq === 'mixed') reasons.push('频次=mixed：as-filed 口径（如韩国 Q1/Q3/FY），未披露型季属披露制度，非缺失');
-  if (freq === 'hk-mixed') reasons.push('频次=hk-mixed：港式累计差分，periodType 各型逐年核对');
+  if (freq === 'hk-mixed') reasons.push('频次=hk-mixed：港式累计差分，periodType 各型逐年核对' + (res.discontinued ? `（停披型 ${res.discontinued.join(',')}：末次距今>2 年，披露口径变更，非缺失）` : ''));
   if (/not (separately )?disclosed|no differencing/.test(notes)) reasons.push('notes 明示披露制度不含该期型');
   if (res.missing.length && !reasons.length) reasons.push('notes/frequency 无解释 → 疑似抓取漏期，可补抓');
   res.reasons = reasons;

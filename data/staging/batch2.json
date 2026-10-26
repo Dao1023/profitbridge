@@ -1,0 +1,2815 @@
+{
+  "batch": 2,
+  "results": [
+    {
+      "ticker": "TSM",
+      "name": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+      "cik": 1046179,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1046179,
+        "title": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+        "forms": {
+          "6-K": 637,
+          "20-F": 12
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "TWD-M",
+        "periods": 10,
+        "range": [
+          "2015-12-31",
+          "2024-12-31"
+        ],
+        "latest": {
+          "end": "2024-12-31",
+          "revenue": 2894307.7,
+          "gross": 1624353.6,
+          "netInc": 1157523.9,
+          "rd": 204181.8
+        },
+        "series": [
+          {
+            "end": "2015-12-31",
+            "revenue": 843497.4,
+            "gross": 410394.9,
+            "netInc": 302832.9,
+            "rd": 65544.6
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 947938.3,
+            "gross": 474832.1,
+            "netInc": 331797.3,
+            "rd": 71207.7
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 977447.2,
+            "gross": 494826.4,
+            "netInc": 345039,
+            "rd": 80732.5
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 1031473.6,
+            "gross": 497874.3,
+            "netInc": 363106.2,
+            "rd": 85895.6
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 1069985.4,
+            "gross": 492701.9,
+            "netInc": 354027,
+            "rd": 91418.7
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 1339254.8,
+            "gross": 711130.1,
+            "netInc": 511008,
+            "rd": 109486
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 1587415,
+            "gross": 819537.3,
+            "netInc": 592880.6,
+            "rd": 124734.8
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 2263891.3,
+            "gross": 1348354.8,
+            "netInc": 993294.7,
+            "rd": 163262.2
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 2161735.8,
+            "gross": 1175110.6,
+            "netInc": 851027.7,
+            "rd": 182370.2
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 2894307.7,
+            "gross": 1624353.6,
+            "netInc": 1157523.9,
+            "rd": 204181.8
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001628280-26-025362",
+        "form": "20-F",
+        "reports": [
+          "OPERATING SEGMENTS INFORMATION",
+          "OPERATING SEGMENTS INFORMATION (Tables)",
+          "NET REVENUE - Summary of Disaggregation of Revenue from Contracts with Customers by Product (Details)",
+          "NET REVENUE - Summary of Disaggregation of Revenue from Contracts with Customers by Geographical Location (Details)",
+          "NET REVENUE - Summary of Disaggregation of Revenue from Contracts with Customers Based on Platform Type (Details)",
+          "NET REVENUE - Summary of Disaggregation of Revenue from Contracts with Customers Based on Resolution (Details)",
+          "OPERATING SEGMENTS INFORMATION - Additional Information (Details)",
+          "OPERATING SEGMENTS INFORMATION - Geographic Information (Details)",
+          "OPERATING SEGMENTS INFORMATION - Major Customers Representing at Least 10 Percent of Net Revenue (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "TSMC IR 2024 Annual Report / Business Overview (investor.tsmc.com)",
+        "status": "match",
+        "seen": "FY2024 revenue NT$2,894B, net income consistent with NT$1,157.5B"
+      },
+      "notes": [
+        "EDGAR companyfacts XBRL ends FY2024 (TWD); FY2025 20-F filed 2026-04-16 (accession 0001628280-26-025362) but its XBRL facts not yet present in companyfacts as of 2026-10-26. TSM files IFRS annual only (no quarterly XBRL) — class A. Currency: TWD (primary; USD convenience facts cover fewer years)."
+      ]
+    },
+    {
+      "ticker": "ASML",
+      "name": "ASML HOLDING NV",
+      "cik": 937966,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 937966,
+        "title": "ASML HOLDING NV",
+        "forms": {
+          "6-K": 362,
+          "20-F": 25
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "EUR-M",
+        "periods": 19,
+        "range": [
+          "2007-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 32667.3,
+          "gross": 17258,
+          "opInc": 11301.4,
+          "netInc": 9609.4,
+          "rd": 4698.8,
+          "sga": 1257.8,
+          "tax": 2013.4
+        },
+        "series": [
+          {
+            "end": "2007-12-31",
+            "revenue": 3768.2,
+            "gross": 1549.7,
+            "opInc": 814.7,
+            "netInc": 671,
+            "sga": 225.7,
+            "tax": 177.2
+          },
+          {
+            "end": "2008-12-31",
+            "revenue": 2953.7,
+            "gross": 1015.5,
+            "opInc": 289.2,
+            "netInc": 322.4,
+            "rd": 516.1,
+            "sga": 210.2,
+            "tax": -12.7
+          },
+          {
+            "end": "2009-12-31",
+            "revenue": 1596.1,
+            "gross": 458.4,
+            "opInc": -163.1,
+            "netInc": -150.9,
+            "rd": 466.8,
+            "sga": 154.8,
+            "tax": -20.6
+          },
+          {
+            "end": "2010-12-31",
+            "revenue": 4507.9,
+            "gross": 1955.2,
+            "opInc": 1250.7,
+            "netInc": 1021.8,
+            "rd": 523.4,
+            "sga": 181,
+            "tax": 220.7
+          },
+          {
+            "end": "2011-12-31",
+            "revenue": 5651,
+            "gross": 2449.4,
+            "opInc": 1641.2,
+            "netInc": 1467,
+            "rd": 590.3,
+            "sga": 217.9,
+            "tax": 181.7
+          },
+          {
+            "end": "2012-12-31",
+            "revenue": 4731.6,
+            "gross": 2005.3,
+            "opInc": 1156.8,
+            "netInc": 1146.3,
+            "rd": 589.2,
+            "sga": 259.3,
+            "tax": 4.3
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 5245.3,
+            "gross": 2177.3,
+            "opInc": 1047.9,
+            "netInc": 1015.5,
+            "rd": 882,
+            "sga": 311.7,
+            "tax": 8
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 5856.3,
+            "gross": 2596.4,
+            "opInc": 1282.2,
+            "netInc": 1196.6,
+            "rd": 1074,
+            "sga": 321.1,
+            "tax": 77
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 6287.4,
+            "gross": 2895.7,
+            "opInc": 1565.1,
+            "netInc": 1387.2,
+            "sga": 345.7,
+            "tax": 161.4
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 6875.1,
+            "gross": 3145.3,
+            "opInc": 1758.5,
+            "netInc": 1557.8,
+            "sga": 374.8,
+            "tax": 234.4
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 8962.7,
+            "gross": 4020.2,
+            "opInc": 2439.7,
+            "netInc": 2066.7,
+            "rd": 1259.7,
+            "sga": 416.6,
+            "tax": 306
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 10944,
+            "gross": 5029.2,
+            "opInc": 2965.3,
+            "netInc": 2591.6,
+            "rd": 1575.9,
+            "sga": 488,
+            "tax": 351.6
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 11820,
+            "gross": 5279.8,
+            "opInc": 2790.8,
+            "netInc": 2592.3,
+            "rd": 1968.5,
+            "sga": 520.5,
+            "tax": 191.7
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 13978.5,
+            "gross": 6797.2,
+            "opInc": 4051.5,
+            "netInc": 3553.7,
+            "rd": 2200.8,
+            "sga": 544.9,
+            "tax": 551.5
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 18611,
+            "gross": 9809,
+            "opInc": 6750.1,
+            "netInc": 5883.2,
+            "rd": 2547,
+            "sga": 725.6,
+            "tax": 1021.4
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 21173.4,
+            "gross": 10700.1,
+            "opInc": 6500.7,
+            "netInc": 5624.2,
+            "rd": 3253.5,
+            "sga": 945.9,
+            "tax": 969.9
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 27558.5,
+            "gross": 14136.1,
+            "opInc": 9042.3,
+            "netInc": 7839,
+            "rd": 3980.6,
+            "sga": 1113.2,
+            "tax": 1435.8
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 28262.9,
+            "gross": 14492,
+            "opInc": 9022.6,
+            "netInc": 7571.6,
+            "rd": 4303.7,
+            "sga": 1165.7,
+            "tax": 1680.6
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 32667.3,
+            "gross": 17258,
+            "opInc": 11301.4,
+            "netInc": 9609.4,
+            "rd": 4698.8,
+            "sga": 1257.8,
+            "tax": 2013.4
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001628280-26-011378",
+        "form": "20-F",
+        "reports": [
+          "Segment disclosure",
+          "Segment disclosure (Tables)",
+          "Segment disclosure - Narrative (Details)",
+          "Segment disclosure - Net Sales for New and Used Systems (Details)",
+          "Segment disclosure - Net Sales and Long-Lived Assets by Geographic Region (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "ASML press release 2026-01-28 (investor.asml.com)",
+        "status": "match",
+        "seen": "€32.7B total net sales, €9.6B net income in 2025"
+      },
+      "notes": [
+        "IFRS 20-F annual only (EUR)."
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "name": "ARM HOLDINGS PLC /UK",
+      "cik": 1973239,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1973239,
+        "title": "ARM HOLDINGS PLC /UK",
+        "forms": {
+          "6-K": 34,
+          "20-F": 3,
+          "F-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "USD-M",
+        "periods": 5,
+        "range": [
+          "2022-03-31",
+          "2026-03-31"
+        ],
+        "latest": {
+          "end": "2026-03-31",
+          "revenue": 4920,
+          "gross": 4799,
+          "opInc": 900,
+          "netInc": 904,
+          "rd": 2776,
+          "sga": 1115,
+          "tax": 253
+        },
+        "series": [
+          {
+            "end": "2022-03-31",
+            "revenue": 2703,
+            "gross": 2572,
+            "opInc": 633,
+            "netInc": 549,
+            "rd": 995,
+            "sga": 897,
+            "tax": 109.7
+          },
+          {
+            "end": "2023-03-31",
+            "revenue": 2679,
+            "gross": 2573,
+            "opInc": 671,
+            "netInc": 524,
+            "rd": 1133,
+            "sga": 762,
+            "tax": 146.8
+          },
+          {
+            "end": "2024-03-31",
+            "revenue": 3233,
+            "gross": 3079,
+            "opInc": 111,
+            "netInc": 306,
+            "rd": 1979,
+            "sga": 983,
+            "tax": -94
+          },
+          {
+            "end": "2025-03-31",
+            "revenue": 4007,
+            "gross": 3886,
+            "opInc": 831,
+            "netInc": 792,
+            "rd": 2071,
+            "sga": 984,
+            "tax": -72
+          },
+          {
+            "end": "2026-03-31",
+            "revenue": 4920,
+            "gross": 4799,
+            "opInc": 900,
+            "netInc": 904,
+            "rd": 2776,
+            "sga": 1115,
+            "tax": 253
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001973239-26-000097",
+        "form": "20-F",
+        "reports": [
+          "Segment and Geographic Information",
+          "Segment and Geographic Information (Tables)",
+          "Revenue - Schedule of Disaggregation of Revenue (Details)",
+          "Revenue - Schedule of Revenue by Geographical Location (Details)",
+          "Segment and Geographic Information - Narrative (Details)",
+          "Segment and Geographic Information - Schedule of Segment Reporting Information, by Segment (Details)",
+          "Segment and Geographic Information - Schedule of Long-Lived Assets by Geographic Area (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "stockanalysis.com/stocks/arm/financials + investors.arm.com 20-F exhibit",
+        "status": "match",
+        "seen": "FY ended 2026-03-31 revenue ~$4.92B, net income ~$904M"
+      },
+      "notes": [
+        "FPI 20-F annual; history starts FY2023 (IPO 2023-09); 5 FY periods 2022-03..2026-03."
+      ]
+    },
+    {
+      "ticker": "STM",
+      "name": "STMicroelectronics N.V.",
+      "cik": 932787,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 932787,
+        "title": "STMicroelectronics N.V.",
+        "forms": {
+          "6-K": 824,
+          "20-F": 31,
+          "15-12B": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "USD-M",
+        "periods": 19,
+        "range": [
+          "2007-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 11800,
+          "gross": 3999,
+          "opInc": 175,
+          "netInc": 166,
+          "rd": 2044,
+          "sga": 1632,
+          "tax": 220
+        },
+        "series": [
+          {
+            "end": "2007-12-31",
+            "revenue": 10001,
+            "gross": 3536,
+            "opInc": -545,
+            "netInc": -477,
+            "rd": 1802,
+            "sga": 1099,
+            "tax": -23
+          },
+          {
+            "end": "2008-12-31",
+            "revenue": 9842,
+            "gross": 3560,
+            "opInc": -198,
+            "netInc": -786,
+            "rd": 2152,
+            "sga": 1187,
+            "tax": -43
+          },
+          {
+            "end": "2009-12-31",
+            "revenue": 8510,
+            "gross": 2626,
+            "opInc": -1023,
+            "netInc": -1131,
+            "rd": 2365,
+            "sga": 1159,
+            "tax": -95
+          },
+          {
+            "end": "2010-12-31",
+            "revenue": 10346,
+            "gross": 4015,
+            "opInc": 476,
+            "netInc": 830,
+            "rd": 2350,
+            "sga": 1175,
+            "tax": 149
+          },
+          {
+            "end": "2011-12-31",
+            "revenue": 9735,
+            "gross": 3574,
+            "opInc": 46,
+            "netInc": 650,
+            "rd": 2352,
+            "sga": 1210,
+            "tax": 181
+          },
+          {
+            "end": "2012-12-31",
+            "revenue": 8493,
+            "gross": 2783,
+            "opInc": -2081,
+            "netInc": -1158,
+            "rd": 2413,
+            "sga": 1166,
+            "tax": 51
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 8082,
+            "gross": 2614,
+            "opInc": -465,
+            "netInc": -500,
+            "rd": 1816,
+            "sga": 1066,
+            "tax": 37
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 7404,
+            "gross": 2498,
+            "opInc": 168,
+            "netInc": 128,
+            "rd": 1520,
+            "sga": 927,
+            "tax": -23
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 6897,
+            "gross": 2332,
+            "opInc": 109,
+            "netInc": 104,
+            "rd": 1425,
+            "sga": 897,
+            "tax": -21
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 6973,
+            "gross": 2459,
+            "opInc": 227,
+            "netInc": 165,
+            "rd": 1331,
+            "sga": 907,
+            "tax": 31
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 8347,
+            "gross": 3272,
+            "opInc": 1005,
+            "netInc": 802,
+            "rd": 1296,
+            "sga": 981,
+            "tax": 143
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 9664,
+            "gross": 3861,
+            "opInc": 1400,
+            "netInc": 1287,
+            "rd": 1398,
+            "sga": 1095,
+            "tax": 96
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 9556,
+            "gross": 3696,
+            "opInc": 1203,
+            "netInc": 1032,
+            "rd": 1498,
+            "sga": 1093,
+            "tax": 156
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 10219,
+            "gross": 3789,
+            "opInc": 1323,
+            "netInc": 1106,
+            "rd": 1548,
+            "sga": 1109,
+            "tax": 159
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 12761,
+            "gross": 5326,
+            "opInc": 2419,
+            "netInc": 2000,
+            "rd": 1723,
+            "sga": 1323,
+            "tax": 331
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 16128,
+            "gross": 7635,
+            "opInc": 4439,
+            "netInc": 3960,
+            "rd": 1901,
+            "sga": 1454,
+            "tax": 520
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 17286,
+            "gross": 8287,
+            "opInc": 4611,
+            "netInc": 4211,
+            "rd": 2100,
+            "sga": 1631,
+            "tax": 541
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 13269,
+            "gross": 5220,
+            "opInc": 1676,
+            "netInc": 1557,
+            "rd": 2077,
+            "sga": 1649,
+            "tax": 313
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 11800,
+            "gross": 3999,
+            "opInc": 175,
+            "netInc": 166,
+            "rd": 2044,
+            "sga": 1632,
+            "tax": 220
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0000932787-26-000009",
+        "form": "20-F",
+        "reports": [
+          "Segment Information",
+          "Segment Information (Tables)",
+          "Revenues - Summary of Consolidated Net Revenues Disaggregated by Reportable Segment, Geographical Region of Shipment, Nature and Market Channel (Details)",
+          "Segment Reporting - Additional information (Details)",
+          "Segment Information - Net Revenues by Product Segment and by Product Line (Details)",
+          "Segment Information - Operating Income by Reportable Segment (Details)",
+          "Segment Information - Reconciliation of Operating Income of Reportable Segments to Total Consolidated Operating Income (Details)",
+          "Segment Information - Net Revenues (Details)",
+          "Segment Information - Property, Plant &amp; Equipment (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "ST newsroom Q4/FY2025 press release (newsroom.st.com)",
+        "status": "match",
+        "seen": "FY2025 net revenues ~$11.8B, net income marginal (~$166M)"
+      },
+      "notes": [
+        "US-GAAP 20-F annual filer (USD)."
+      ]
+    },
+    {
+      "ticker": "SONY",
+      "name": "Sony Group Corp",
+      "cik": 313838,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 313838,
+        "title": "Sony Group Corp",
+        "forms": {
+          "6-K": 740,
+          "20-F": 16
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "JPY-M",
+        "periods": 18,
+        "range": [
+          "2008-03-31",
+          "2025-03-31"
+        ],
+        "latest": {
+          "end": "2025-03-31",
+          "revenue": 12957064,
+          "gross": 4452254,
+          "netInc": 1159887,
+          "rd": 734578,
+          "sga": 2256829
+        },
+        "series": [
+          {
+            "end": "2008-03-31",
+            "revenue": 8871414,
+            "opInc": 475299,
+            "netInc": 369435,
+            "sga": 1714445,
+            "tax": 203478
+          },
+          {
+            "end": "2009-03-31",
+            "revenue": 7729993,
+            "opInc": -227783,
+            "netInc": -98938,
+            "rd": 497297,
+            "sga": 1686030,
+            "tax": -72741
+          },
+          {
+            "end": "2010-03-31",
+            "revenue": 7213998,
+            "opInc": 31772,
+            "netInc": -40802,
+            "rd": 432001,
+            "sga": 1544890,
+            "tax": 13958
+          },
+          {
+            "end": "2011-03-31",
+            "revenue": 7181273,
+            "opInc": 199821,
+            "netInc": -259585,
+            "rd": 426814,
+            "sga": 1501813,
+            "tax": 425339
+          },
+          {
+            "end": "2012-03-31",
+            "revenue": 6493083,
+            "opInc": -65663,
+            "netInc": -455038,
+            "rd": 433477,
+            "sga": 1375242,
+            "tax": 316753
+          },
+          {
+            "end": "2013-03-31",
+            "revenue": 6795504,
+            "opInc": 226503,
+            "netInc": 41540,
+            "rd": 473610,
+            "sga": 1457626,
+            "tax": 140398
+          },
+          {
+            "end": "2014-03-31",
+            "revenue": 7767266,
+            "opInc": 26495,
+            "netInc": -128369,
+            "rd": 466030,
+            "sga": 1728520,
+            "tax": 94582
+          },
+          {
+            "end": "2015-03-31",
+            "revenue": 8215880,
+            "opInc": 68548,
+            "netInc": -125980,
+            "rd": 464320,
+            "sga": 1811461,
+            "tax": 88733
+          },
+          {
+            "end": "2016-03-31",
+            "revenue": 8105712,
+            "opInc": 294197,
+            "netInc": 147791,
+            "rd": 468183,
+            "sga": 1691930,
+            "tax": 94789
+          },
+          {
+            "end": "2017-03-31",
+            "revenue": 7603250,
+            "gross": 2850240,
+            "opInc": 288702,
+            "netInc": 73289,
+            "rd": 447456,
+            "sga": 1505956,
+            "tax": 124058
+          },
+          {
+            "end": "2018-03-31",
+            "revenue": 8543982,
+            "gross": 3355723,
+            "opInc": 734860,
+            "netInc": 490794,
+            "rd": 458518,
+            "sga": 1583197,
+            "tax": 151770
+          },
+          {
+            "end": "2019-03-31",
+            "revenue": 8665687,
+            "gross": 3514937,
+            "opInc": 894235,
+            "netInc": 916271,
+            "rd": 481202,
+            "sga": 1576825,
+            "tax": 45098
+          },
+          {
+            "end": "2020-03-31",
+            "revenue": 8259885,
+            "gross": 3506711,
+            "opInc": 845459,
+            "netInc": 582191,
+            "rd": 499290,
+            "sga": 1502625,
+            "tax": 177190
+          },
+          {
+            "end": "2021-03-31",
+            "revenue": 8999360,
+            "gross": 3933481,
+            "opInc": 971865,
+            "netInc": 1171776,
+            "rd": 545357,
+            "sga": 1473154,
+            "tax": 995
+          },
+          {
+            "end": "2022-03-31",
+            "revenue": 9921513,
+            "gross": 4075709,
+            "netInc": 888406,
+            "rd": 618368,
+            "sga": 1588473
+          },
+          {
+            "end": "2023-03-31",
+            "revenue": 10974373,
+            "gross": 3799650,
+            "netInc": 1011773,
+            "rd": 735698,
+            "sga": 1969170
+          },
+          {
+            "end": "2024-03-31",
+            "revenue": 13020768,
+            "gross": 4931451,
+            "netInc": 980494,
+            "rd": 742772,
+            "sga": 2156156
+          },
+          {
+            "end": "2025-03-31",
+            "revenue": 12957064,
+            "gross": 4452254,
+            "netInc": 1159887,
+            "rd": 734578,
+            "sga": 2256829
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001193125-26-274893",
+        "form": "20-F",
+        "reports": [
+          "Business segment information",
+          "Participation and residual liabilities in the Pictures segment",
+          "Business segment information (Tables)",
+          "Participation and residual liabilities in the Pictures segment (Tables)",
+          "Business segment information - Summary of components of segment sales (Detail)",
+          "Business segment information - Summary of components of segment profit or loss (Detail)",
+          "Business segment information - Summary of components of other significant items (Detail)",
+          "Business segment information - Summary of Sales and Operating Revenue to External Customers by Product Category (Detail)",
+          "Business segment information - Summary of sales attributed to countries and areas based on location of external customers and non-current assets (Detail)",
+          "Goodwill and intangible assets - Summary of Carrying Amount of Goodwill by Segment (Detail)",
+          "Participation and residual liabilities in the Pictures segment  - Summary of Detailed Information on Participation and Residual Liabilities Explanatory (Detail)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "Sony IR (sony.com) FY2024 consolidated results",
+        "status": "match",
+        "seen": "revenue ¥12,957.1B, net income ¥1,159.9B"
+      },
+      "notes": [
+        "IFRS 20-F annual only (JPY), FY ends 03-31."
+      ]
+    },
+    {
+      "ticker": "BABA",
+      "name": "Alibaba Group Holding Ltd",
+      "cik": 1577552,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1577552,
+        "title": "Alibaba Group Holding Ltd",
+        "forms": {
+          "6-K": 352,
+          "20-F": 12,
+          "F-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 14,
+        "range": [
+          "2013-03-31",
+          "2026-03-31"
+        ],
+        "latest": {
+          "end": "2026-03-31",
+          "revenue": 1023670,
+          "gross": 407534,
+          "opInc": 50150,
+          "netInc": 103592,
+          "rd": 66533,
+          "tax": 30045
+        },
+        "series": [
+          {
+            "end": "2013-03-31",
+            "revenue": 34517,
+            "gross": 24798,
+            "opInc": 10751,
+            "netInc": 8532,
+            "rd": 3753,
+            "tax": 1457
+          },
+          {
+            "end": "2014-03-31",
+            "revenue": 52504,
+            "gross": 39135,
+            "opInc": 24920,
+            "netInc": 23315,
+            "rd": 5093,
+            "tax": 3196
+          },
+          {
+            "end": "2015-03-31",
+            "revenue": 76204,
+            "gross": 52370,
+            "opInc": 23135,
+            "netInc": 24261,
+            "rd": 10658,
+            "tax": 6416
+          },
+          {
+            "end": "2016-03-31",
+            "revenue": 101143,
+            "gross": 66788,
+            "opInc": 29102,
+            "netInc": 71460,
+            "rd": 13788,
+            "tax": 8449
+          },
+          {
+            "end": "2017-03-31",
+            "revenue": 158273,
+            "gross": 98790,
+            "opInc": 48055,
+            "netInc": 43675,
+            "rd": 17060,
+            "tax": 13776
+          },
+          {
+            "end": "2018-03-31",
+            "revenue": 250266,
+            "gross": 143222,
+            "opInc": 69314,
+            "netInc": 64093,
+            "rd": 22754,
+            "tax": 18199
+          },
+          {
+            "end": "2019-03-31",
+            "revenue": 376844,
+            "gross": 169915,
+            "opInc": 57084,
+            "netInc": 87886,
+            "rd": 37435,
+            "tax": 16553
+          },
+          {
+            "end": "2020-03-31",
+            "revenue": 509711,
+            "gross": 227344,
+            "opInc": 91430,
+            "netInc": 149433,
+            "rd": 43080,
+            "tax": 20562
+          },
+          {
+            "end": "2021-03-31",
+            "revenue": 717289,
+            "gross": 296084,
+            "opInc": 89678,
+            "netInc": 150578,
+            "rd": 57236,
+            "tax": 29278
+          },
+          {
+            "end": "2022-03-31",
+            "revenue": 853062,
+            "gross": 313612,
+            "opInc": 69638,
+            "netInc": 62249,
+            "rd": 55465,
+            "tax": 26815
+          },
+          {
+            "end": "2023-03-31",
+            "revenue": 868687,
+            "gross": 318992,
+            "opInc": 100351,
+            "netInc": 72783,
+            "rd": 56744,
+            "tax": 15549
+          },
+          {
+            "end": "2024-03-31",
+            "revenue": 941168,
+            "gross": 354845,
+            "opInc": 113350,
+            "netInc": 80009,
+            "rd": 52256,
+            "tax": 22529
+          },
+          {
+            "end": "2025-03-31",
+            "revenue": 996347,
+            "gross": 398062,
+            "opInc": 140905,
+            "netInc": 130109,
+            "rd": 57151,
+            "tax": 35445
+          },
+          {
+            "end": "2026-03-31",
+            "revenue": 1023670,
+            "gross": 407534,
+            "opInc": 50150,
+            "netInc": 103592,
+            "rd": 66533,
+            "tax": 30045
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001193125-26-231755",
+        "form": "20-F",
+        "reports": [
+          "Segment information",
+          "Segment information (Tables)",
+          "Revenue - Breakdown by segment (Details)",
+          "Segment information (Details)",
+          "Segment information - Schedule of segment reporting (Details)",
+          "Segment information - Reconciliation from the Adjusted EBITA to the consolidated net income (Details)",
+          "Segment information - Depreciation and impairment of property and equipment and operating lease cost relating to land use rights by segments and others (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "Alibaba FY2026 results PR 2026-05-13 (ali-home / nasdaq.com)",
+        "status": "match",
+        "seen": "FY2026 revenue RMB 1,023.7B, net income RMB 103.6B"
+      },
+      "notes": [
+        "FY ends 03-31. us-gaap→(dual) CNY primary; 14 FY 2013-03..2026-03."
+      ]
+    },
+    {
+      "ticker": "BIDU",
+      "name": "Baidu, Inc.",
+      "cik": 1329099,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1329099,
+        "title": "Baidu, Inc.",
+        "forms": {
+          "6-K": 287,
+          "20-F": 21,
+          "F-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 19,
+        "range": [
+          "2007-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 129079,
+          "gross": 56643,
+          "opInc": -5823,
+          "netInc": 5589,
+          "rd": 20433,
+          "sga": 25843,
+          "tax": 1259
+        },
+        "series": [
+          {
+            "end": "2007-12-31",
+            "revenue": 1744.4,
+            "gross": 1099,
+            "opInc": 547.2,
+            "netInc": 629,
+            "rd": 140.7,
+            "sga": 411.2,
+            "tax": -12.8
+          },
+          {
+            "end": "2008-12-31",
+            "revenue": 3198.3,
+            "gross": 2042.8,
+            "opInc": 1096.7,
+            "netInc": 1048.1,
+            "rd": 286.3,
+            "sga": 659.8,
+            "tax": 116.1
+          },
+          {
+            "end": "2009-12-31",
+            "revenue": 4447.8,
+            "gross": 2831.5,
+            "opInc": 1604.9,
+            "netInc": 1485.1,
+            "rd": 422.6,
+            "sga": 804,
+            "tax": 198
+          },
+          {
+            "end": "2010-12-31",
+            "revenue": 7915.1,
+            "gross": 5765.8,
+            "opInc": 3958.8,
+            "netInc": 3525.2,
+            "rd": 718,
+            "sga": 1089,
+            "tax": 536
+          },
+          {
+            "end": "2011-12-31",
+            "revenue": 14500.8,
+            "gross": 10603.9,
+            "opInc": 7576.7,
+            "netInc": 6638.6,
+            "rd": 1334.4,
+            "sga": 1692.8,
+            "tax": 1188.9
+          },
+          {
+            "end": "2012-12-31",
+            "revenue": 22306,
+            "gross": 15857.5,
+            "opInc": 11051.3,
+            "netInc": 10456,
+            "rd": 2304.8,
+            "sga": 2501.3,
+            "tax": 1574.2
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 31943.9,
+            "gross": 20472.1,
+            "opInc": 11191.7,
+            "netInc": 10550.7,
+            "rd": 4106.8,
+            "sga": 5173.5,
+            "tax": 1828.9
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 49052.3,
+            "gross": 30166.9,
+            "opInc": 12803.8,
+            "netInc": 13196.9,
+            "rd": 6981,
+            "sga": 10382.1,
+            "tax": 2231.2
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 66382,
+            "gross": 38924,
+            "opInc": 11672,
+            "netInc": 33664,
+            "rd": 10176,
+            "sga": 17076,
+            "tax": 5475
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 70549,
+            "gross": 35271,
+            "opInc": 10049,
+            "netInc": 11632,
+            "rd": 10151,
+            "sga": 15071,
+            "tax": 2913
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 84809,
+            "gross": 41747,
+            "opInc": 15691,
+            "netInc": 18301,
+            "rd": 12928,
+            "sga": 13128,
+            "tax": 2995
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 102277,
+            "gross": 50533,
+            "opInc": 15530,
+            "netInc": 27573,
+            "rd": 15772,
+            "sga": 19231,
+            "tax": 4743
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 107413,
+            "gross": 44563,
+            "opInc": 6307,
+            "netInc": 2057,
+            "rd": 18346,
+            "sga": 19910,
+            "tax": 1948
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 107074,
+            "gross": 51916,
+            "opInc": 14340,
+            "netInc": 22472,
+            "rd": 19513,
+            "sga": 18063,
+            "tax": 4064
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 124493,
+            "gross": 60179,
+            "opInc": 10518,
+            "netInc": 10226,
+            "rd": 24938,
+            "sga": 24723,
+            "tax": 3187
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 123675,
+            "gross": 59740,
+            "opInc": 15911,
+            "netInc": 7559,
+            "rd": 23315,
+            "sga": 20514,
+            "tax": 2578
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 134598,
+            "gross": 69567,
+            "opInc": 21856,
+            "netInc": 20315,
+            "rd": 24192,
+            "sga": 23519,
+            "tax": 3649
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 133125,
+            "gross": 67023,
+            "opInc": 21270,
+            "netInc": 23760,
+            "rd": 22133,
+            "sga": 23620,
+            "tax": 4447
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 129079,
+            "gross": 56643,
+            "opInc": -5823,
+            "netInc": 5589,
+            "rd": 20433,
+            "sga": 25843,
+            "tax": 1259
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001193125-26-109289",
+        "form": "20-F",
+        "reports": [
+          "Segment Reporting",
+          "Segment Reporting (Tables)",
+          "Segment Reporting - Additional Information (Detail)",
+          "Segment Reporting - Summary of Group's Operating Segment Results (Detail)",
+          "Segment Reporting - Summary of Revenue Disaggregated by Revenue (Detail)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "eastmoney 2026-02-27 (百度2025年营收1291亿元)",
+        "status": "match",
+        "seen": "2025 revenue RMB 129.1B"
+      },
+      "notes": [
+        "us-gaap CNY annual, 19 FY 2007..2025."
+      ]
+    },
+    {
+      "ticker": "TCOM",
+      "name": "Trip.com Group Ltd",
+      "cik": 1269238,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1269238,
+        "title": "Trip.com Group Ltd",
+        "forms": {
+          "6-K": 265,
+          "20-F": 23,
+          "F-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 18,
+        "range": [
+          "2008-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 62409,
+          "gross": 50287,
+          "opInc": 15773,
+          "netInc": 33294,
+          "rd": 15136,
+          "tax": 5815
+        },
+        "series": [
+          {
+            "end": "2008-12-31",
+            "revenue": 1588.3,
+            "gross": 1155.4,
+            "opInc": 461.2,
+            "netInc": 444.1,
+            "tax": 102.9
+          },
+          {
+            "end": "2009-12-31",
+            "revenue": 2122.6,
+            "gross": 1537.4,
+            "opInc": 687.4,
+            "netInc": 659,
+            "rd": 308.5,
+            "tax": 131.7
+          },
+          {
+            "end": "2010-12-31",
+            "revenue": 3066.7,
+            "gross": 2256,
+            "opInc": 1054.1,
+            "netInc": 1048.1,
+            "rd": 453.9,
+            "tax": 205
+          },
+          {
+            "end": "2011-12-31",
+            "revenue": 3726.3,
+            "gross": 2693,
+            "opInc": 1066,
+            "netInc": 1076.4,
+            "rd": 601.5,
+            "tax": 262.2
+          },
+          {
+            "end": "2012-12-31",
+            "revenue": 4409.2,
+            "gross": 3121,
+            "opInc": 654.6,
+            "netInc": 714.4,
+            "rd": 911.9,
+            "tax": 294.5
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 5717,
+            "gross": 4000,
+            "opInc": 838.4,
+            "netInc": 998.3,
+            "rd": 1245.7,
+            "tax": 293.7
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 7772.6,
+            "gross": 5246.3,
+            "opInc": -150.8,
+            "netInc": 242.7,
+            "rd": 2321.3,
+            "tax": 130.8
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 11496.9,
+            "gross": 7854.1,
+            "opInc": 381,
+            "netInc": 2507.7,
+            "rd": 3296.7,
+            "tax": 470.2
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 19805,
+            "gross": 14515,
+            "opInc": -1552,
+            "netInc": -1418,
+            "rd": 7687,
+            "tax": 482
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 26796,
+            "gross": 22118,
+            "opInc": 2943,
+            "netInc": 2155,
+            "rd": 8259,
+            "tax": 1285
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 30965,
+            "gross": 24641,
+            "opInc": 2605,
+            "netInc": 1112,
+            "rd": 9620,
+            "tax": 793
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 35666,
+            "gross": 28294,
+            "opInc": 5040,
+            "netInc": 7011,
+            "rd": 10670,
+            "tax": 1742
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 18316,
+            "gross": 14285,
+            "opInc": -1423,
+            "netInc": -3247,
+            "rd": 7667,
+            "tax": 355
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 20023,
+            "gross": 15425,
+            "opInc": -1411,
+            "netInc": -550,
+            "rd": 8992,
+            "tax": 270
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 20039,
+            "gross": 15526,
+            "opInc": 88,
+            "netInc": 1403,
+            "rd": 8341,
+            "tax": 682
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 44510,
+            "gross": 36389,
+            "opInc": 11324,
+            "netInc": 9918,
+            "rd": 12120,
+            "tax": 1750
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 53294,
+            "gross": 43304,
+            "opInc": 14177,
+            "netInc": 17067,
+            "rd": 13139,
+            "tax": 2604
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 62409,
+            "gross": 50287,
+            "opInc": 15773,
+            "netInc": 33294,
+            "rd": 15136,
+            "tax": 5815
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001193125-26-183379",
+        "form": "20-F",
+        "reports": [
+          "GEOGRAPHIC INFORMATION",
+          "GEOGRAPHIC INFORMATION (Tables)",
+          "GEOGRAPHIC INFORMATION - Revenue from external customers by geographic areas (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "Trip.com Q4/FY2025 PR (ctripcominternationalltd.gcs-web.com) + AAStocks",
+        "status": "match",
+        "seen": "2025 NP RMB 33.294B (up 95%)"
+      },
+      "notes": [
+        "us-gaap CNY annual, 18 FY 2008..2025."
+      ]
+    },
+    {
+      "ticker": "JD",
+      "name": "JD.com, Inc.",
+      "cik": 1549802,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1549802,
+        "title": "JD.com, Inc.",
+        "forms": {
+          "6-K": 189,
+          "20-F": 12,
+          "F-1": 2
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 14,
+        "range": [
+          "2012-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 1309085,
+          "gross": 210028,
+          "opInc": 2774,
+          "netInc": 23142,
+          "rd": 22229,
+          "tax": 2181
+        },
+        "series": [
+          {
+            "end": "2012-12-31",
+            "revenue": 41380.5,
+            "gross": 3482.1,
+            "opInc": -1951.1,
+            "netInc": -1729.5,
+            "tax": 6.1
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 69339.8,
+            "gross": 6844.3,
+            "opInc": -578.8,
+            "netInc": -49.9,
+            "tax": 0
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 115002.3,
+            "gross": 13370.9,
+            "opInc": -5802.4,
+            "netInc": -4996.4,
+            "tax": 19.3
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 181042.3,
+            "gross": 22081.9,
+            "opInc": -5357.9,
+            "netInc": -9107.9,
+            "tax": -14.6
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 258289.9,
+            "gross": 35355.3,
+            "opInc": -1251.7,
+            "netInc": -3806.8,
+            "tax": 166.4
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 362331.8,
+            "gross": 50814.9,
+            "opInc": -835.5,
+            "netInc": -11.7,
+            "rd": 6652.4,
+            "tax": 139.6
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 462019.8,
+            "gross": 65953.6,
+            "opInc": -2619.1,
+            "netInc": -2800.5,
+            "rd": 12144.4,
+            "tax": 426.9
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 576888,
+            "gross": 84421,
+            "opInc": 8995,
+            "netInc": 11890,
+            "rd": 14619,
+            "tax": 1803
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 745802,
+            "gross": 109108,
+            "opInc": 12343,
+            "netInc": 49337,
+            "rd": 16149,
+            "tax": 1482
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 951592,
+            "gross": 129066,
+            "opInc": 4141,
+            "netInc": -4467,
+            "rd": 16332,
+            "tax": 1887
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 1046236,
+            "gross": 147073,
+            "opInc": 19723,
+            "netInc": 9691,
+            "rd": 16893,
+            "tax": 4176
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 1084662,
+            "gross": 159704,
+            "opInc": 26025,
+            "netInc": 23257,
+            "rd": 16393,
+            "tax": 8393
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 1158819,
+            "gross": 183868,
+            "opInc": 38736,
+            "netInc": 44660,
+            "rd": 17031,
+            "tax": 6878
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 1309085,
+            "gross": 210028,
+            "opInc": 2774,
+            "netInc": 23142,
+            "rd": 22229,
+            "tax": 2181
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001193125-26-157870",
+        "form": "20-F",
+        "reports": [
+          "Segment reporting",
+          "Segment reporting (Tables)",
+          "Segment reporting (Details)",
+          "Segment reporting (Details 1)",
+          "Segment reporting (Details 2)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "JD.com FY2025 results 6-K exhibit (EDGAR/fast-edgar 2026-03)",
+        "status": "consistent-source-found",
+        "seen": "exact figures not text-verified; filing exists"
+      },
+      "notes": [
+        "us-gaap CNY annual, 14 FY 2012..2025."
+      ]
+    },
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings Inc.",
+      "cik": 1737806,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1737806,
+        "title": "PDD Holdings Inc.",
+        "forms": {
+          "6-K": 69,
+          "20-F": 8,
+          "F-1": 2
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 10,
+        "range": [
+          "2016-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 431845.7,
+          "gross": 243044,
+          "opInc": 93102.1,
+          "netInc": 97842.5,
+          "rd": 16496.2,
+          "tax": 21732.8
+        },
+        "series": [
+          {
+            "end": "2016-12-31",
+            "revenue": 504.9,
+            "gross": -73,
+            "opInc": -286.2,
+            "netInc": -292,
+            "rd": 29.4
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 1744.1,
+            "gross": 1021.2,
+            "opInc": -595.7,
+            "netInc": -525.1,
+            "rd": 129.2
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 13120,
+            "gross": 10214.7,
+            "opInc": -10799.7,
+            "netInc": -10217.1,
+            "rd": 1116.1,
+            "tax": 0
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 30141.9,
+            "gross": 23803.1,
+            "opInc": -8538.2,
+            "netInc": -6967.6,
+            "rd": 3870.4,
+            "tax": 0
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 59491.9,
+            "gross": 40213.2,
+            "opInc": -9380.3,
+            "netInc": -7179.7,
+            "rd": 6891.7,
+            "tax": 0
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 93949.9,
+            "gross": 62231.8,
+            "opInc": 6896.8,
+            "netInc": 7768.7,
+            "rd": 8992.6,
+            "tax": 1933.6
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 130557.6,
+            "gross": 99095.3,
+            "opInc": 30401.9,
+            "netInc": 31538.1,
+            "rd": 10384.7,
+            "tax": 4725.7
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 247639.2,
+            "gross": 155915.6,
+            "opInc": 58698.8,
+            "netInc": 60026.5,
+            "rd": 10952.4,
+            "tax": 11849.9
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 393836.1,
+            "gross": 239935.7,
+            "opInc": 108422.9,
+            "netInc": 112434.5,
+            "rd": 12659.4,
+            "tax": 20266.8
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 431845.7,
+            "gross": 243044,
+            "opInc": 93102.1,
+            "netInc": 97842.5,
+            "rd": 16496.2,
+            "tax": 21732.8
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001104659-26-050727",
+        "form": "20-F",
+        "reports": [
+          "Summary of Significant Accounting Policies - Segment reporting (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "PDD Holdings FY2025 results exhibit (investor.pddholdings.com)",
+        "status": "consistent-source-found",
+        "seen": "exact figures not text-verified; filing exists"
+      },
+      "notes": [
+        "us-gaap CNY annual, 10 FY 2016..2025."
+      ]
+    },
+    {
+      "ticker": "LKNCY",
+      "name": "Luckin Coffee Inc.",
+      "cik": 1767582,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1767582,
+        "title": "Luckin Coffee Inc.",
+        "forms": {
+          "6-K": 87,
+          "20-F": 7,
+          "F-1": 2
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 8,
+        "range": [
+          "2018-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 49288.1,
+          "opInc": 5072.9,
+          "netInc": 3600.4,
+          "tax": 1679.8
+        },
+        "series": [
+          {
+            "end": "2018-12-31",
+            "revenue": 840.7,
+            "opInc": -1598,
+            "netInc": -1619.2
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 3024.9,
+            "opInc": -3212.1,
+            "netInc": -3160.5,
+            "tax": 1.4
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 4033.4,
+            "opInc": -2587.3,
+            "netInc": -5603,
+            "tax": -637.8
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 7965.3,
+            "opInc": -539.1,
+            "netInc": 578.7,
+            "tax": -63.9
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 13293,
+            "opInc": 1156.2,
+            "netInc": 488.2,
+            "tax": 638.5
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 24903.2,
+            "opInc": 3020.4,
+            "netInc": 2844,
+            "tax": 258.1
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 34474.8,
+            "opInc": 3570.1,
+            "netInc": 2955.7,
+            "tax": 770.6
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 49288.1,
+            "opInc": 5072.9,
+            "netInc": 3600.4,
+            "tax": 1679.8
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001104659-26-035712",
+        "form": "20-F",
+        "reports": [
+          "SEGMENT REPORTING",
+          "SEGMENT REPORTING (Tables)",
+          "SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES - Employee benefit expenses and Segment reporting (Details)",
+          "SEGMENT REPORTING (Details)",
+          "SEGMENT REPORTING - Operating income from segment (Details)",
+          "SEGMENT REPORTING - Net revenues (Details)",
+          "SEGMENT REPORTING - Consolidated Operating income (Details)",
+          "SEGMENT REPORTING - Assets (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "Luckin Coffee Q4/FY2025 results PR (investor.luckincoffee.com)",
+        "status": "consistent-source-found",
+        "seen": "exact figures not text-verified; PR exists"
+      },
+      "notes": [
+        "Still an SEC reporting issuer post-delisting (OTC pink LKNCY): us-gaap CNY annual, 8 FY 2018..2025, 20-F cadence."
+      ]
+    },
+    {
+      "ticker": "NXPI",
+      "name": "NXP Semiconductors N.V.",
+      "cik": 1413447,
+      "class": "Q",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1413447,
+        "title": "NXP Semiconductors N.V.",
+        "forms": {
+          "8-K": 84,
+          "10-Q": 21,
+          "10-K": 7,
+          "6-K": 134,
+          "20-F": 7
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "q",
+        "currency": "USD-M",
+        "periods": 29,
+        "range": [
+          "2019-03-31",
+          "2026-03-29"
+        ],
+        "latest": {
+          "end": "2026-03-29",
+          "revenue": 3181,
+          "gross": 1788,
+          "opInc": 1505,
+          "netInc": 1122,
+          "rd": 588,
+          "sga": 284,
+          "tax": 272
+        },
+        "series": [
+          {
+            "end": "2019-03-31",
+            "revenue": 2094,
+            "gross": 1072,
+            "opInc": 54,
+            "netInc": -21,
+            "rd": 415,
+            "sga": 248,
+            "tax": -9
+          },
+          {
+            "end": "2019-06-30",
+            "revenue": 2217,
+            "gross": 1151,
+            "opInc": 157,
+            "netInc": 41,
+            "rd": 408,
+            "sga": 230,
+            "tax": 21
+          },
+          {
+            "end": "2019-09-29",
+            "revenue": 2265,
+            "gross": 1186,
+            "opInc": 233,
+            "netInc": 109,
+            "rd": 396,
+            "sga": 221,
+            "tax": 28
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 2301,
+            "gross": 1209,
+            "opInc": 197,
+            "netInc": 114,
+            "rd": 424,
+            "sga": 225,
+            "tax": -20
+          },
+          {
+            "end": "2020-03-29",
+            "revenue": 2021,
+            "gross": 997,
+            "opInc": 68,
+            "netInc": -21,
+            "rd": 425,
+            "sga": 233,
+            "tax": 2
+          },
+          {
+            "end": "2020-06-28",
+            "revenue": 1817,
+            "gross": 860,
+            "opInc": -145,
+            "netInc": -214,
+            "rd": 402,
+            "sga": 222,
+            "tax": -33
+          },
+          {
+            "end": "2020-09-27",
+            "revenue": 2267,
+            "gross": 1090,
+            "opInc": 32,
+            "netInc": -22,
+            "rd": 438,
+            "sga": 203,
+            "tax": -57
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 2507,
+            "gross": 1288,
+            "opInc": 463,
+            "netInc": 309,
+            "rd": 460,
+            "sga": 221,
+            "tax": 5
+          },
+          {
+            "end": "2021-04-04",
+            "revenue": 2567,
+            "gross": 1355,
+            "opInc": 492,
+            "netInc": 353,
+            "rd": 461,
+            "sga": 222,
+            "tax": 40
+          },
+          {
+            "end": "2021-07-04",
+            "revenue": 2596,
+            "gross": 1422,
+            "opInc": 573,
+            "netInc": 397,
+            "rd": 476,
+            "sga": 234,
+            "tax": 65
+          },
+          {
+            "end": "2021-10-03",
+            "revenue": 2861,
+            "gross": 1583,
+            "opInc": 711,
+            "netInc": 519,
+            "rd": 492,
+            "sga": 243,
+            "tax": 95
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 3039,
+            "gross": 1707,
+            "opInc": 807,
+            "netInc": 602,
+            "rd": 507,
+            "sga": 257,
+            "tax": 72
+          },
+          {
+            "end": "2022-04-03",
+            "revenue": 3136,
+            "gross": 1777,
+            "opInc": 873,
+            "netInc": 657,
+            "rd": 518,
+            "sga": 251,
+            "tax": 114
+          },
+          {
+            "end": "2022-07-03",
+            "revenue": 3312,
+            "gross": 1882,
+            "opInc": 943,
+            "netInc": 670,
+            "rd": 542,
+            "sga": 265,
+            "tax": 129
+          },
+          {
+            "end": "2022-10-02",
+            "revenue": 3445,
+            "gross": 1967,
+            "opInc": 1001,
+            "netInc": 738,
+            "rd": 548,
+            "sga": 289,
+            "tax": 149
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 3312,
+            "gross": 1891,
+            "opInc": 980,
+            "netInc": 722,
+            "rd": 540,
+            "sga": 261,
+            "tax": 137
+          },
+          {
+            "end": "2023-04-02",
+            "revenue": 3121,
+            "gross": 1770,
+            "opInc": 825,
+            "netInc": 615,
+            "rd": 577,
+            "sga": 280,
+            "tax": 118
+          },
+          {
+            "end": "2023-07-02",
+            "revenue": 3299,
+            "gross": 1881,
+            "opInc": 937,
+            "netInc": 698,
+            "rd": 589,
+            "sga": 274,
+            "tax": 158
+          },
+          {
+            "end": "2023-10-01",
+            "revenue": 3434,
+            "gross": 1965,
+            "opInc": 992,
+            "netInc": 787,
+            "rd": 601,
+            "sga": 294,
+            "tax": 123
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 3422,
+            "gross": 1937,
+            "opInc": 907,
+            "netInc": 697,
+            "rd": 651,
+            "sga": 311,
+            "tax": 124
+          },
+          {
+            "end": "2024-03-31",
+            "revenue": 3126,
+            "gross": 1783,
+            "opInc": 856,
+            "netInc": 639,
+            "rd": 564,
+            "sga": 306,
+            "tax": 141
+          },
+          {
+            "end": "2024-06-30",
+            "revenue": 3127,
+            "gross": 1792,
+            "opInc": 896,
+            "netInc": 658,
+            "rd": 594,
+            "sga": 270,
+            "tax": 154
+          },
+          {
+            "end": "2024-09-29",
+            "revenue": 3250,
+            "gross": 1866,
+            "opInc": 990,
+            "netInc": 718,
+            "rd": 577,
+            "sga": 265,
+            "tax": 173
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 3111,
+            "gross": 1678,
+            "opInc": 675,
+            "netInc": 495,
+            "rd": 612,
+            "sga": 323,
+            "tax": 77
+          },
+          {
+            "end": "2025-03-30",
+            "revenue": 2835,
+            "gross": 1560,
+            "opInc": 723,
+            "netInc": 490,
+            "rd": 547,
+            "sga": 281,
+            "tax": 130
+          },
+          {
+            "end": "2025-06-29",
+            "revenue": 2926,
+            "gross": 1562,
+            "opInc": 687,
+            "netInc": 445,
+            "rd": 573,
+            "sga": 278,
+            "tax": 116
+          },
+          {
+            "end": "2025-09-28",
+            "revenue": 3173,
+            "gross": 1787,
+            "opInc": 893,
+            "netInc": 631,
+            "rd": 575,
+            "sga": 286,
+            "tax": 148
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 3335,
+            "gross": 1807,
+            "opInc": 744,
+            "netInc": 455,
+            "rd": 665,
+            "sga": 359,
+            "tax": 131
+          },
+          {
+            "end": "2026-03-29",
+            "revenue": 3181,
+            "gross": 1788,
+            "opInc": 1505,
+            "netInc": 1122,
+            "rd": 588,
+            "sga": 284,
+            "tax": 272
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001413447-26-000008",
+        "form": "10-K",
+        "reports": [
+          "Segments and Geographical Information",
+          "Segments and Geographical Information (Tables)",
+          "Supplemental Financial Information - Disaggregation of revenue (Details)",
+          "Accounts Receivable, net - Summary of Accounts Receivable, Net Disaggregated By Sales Channel (Detail)",
+          "Segments and Geographical Information - Geographical Information (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "NXP Q1 2026 PR (investors.nxp.com) + Simply Wall St",
+        "status": "match",
+        "seen": "Q1 2026 EPS $4.44 → net income ~$1.12B; revenue ~$3.18B"
+      },
+      "notes": [
+        "Domestic filer: 10-Q/10-K quarterly XBRL (USD), 29 quarters 2019-03..2026-03-29 incl. derived fiscal Q4 (FY−Q1−Q2−Q3)."
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "name": "SPACE EXPLORATION TECHNOLOGIES CORP",
+      "cik": 1181412,
+      "class": "Q",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1181412,
+        "title": "SPACE EXPLORATION TECHNOLOGIES CORP",
+        "forms": {
+          "8-K": 10,
+          "10-Q": 2,
+          "S-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": null,
+      "segments": {
+        "status": "no 10-K/20-F found"
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "Börse Stuttgart market report 2026-10 + sec-api.io SPCX Q3 2026 analysis",
+        "status": "match",
+        "seen": "SpaceX first quarterly profit since June 2026 IPO (Q3 2026 net income positive)"
+      },
+      "notes": [
+        "only 2 continuous periods (<min 12) — IPO/recent filer; periods attached as profitPreview",
+        "Empirically confirmed listed: S-1 2026-05-20, 424B4 2026-06-12, 8-A12B 2026-06-10, 10-Qs for 2026-06-30 and 2026-09-30. Only 2 quarters of XBRL (<12 minimum) — series attached as profitPreview (Q2 2026 rev $7,814M / netInc −$541M; Q3 2026 rev $14,575M / netInc +$4,404M, USD-M)."
+      ],
+      "profitPreview": {
+        "frequency": "q",
+        "currency": "USD-M",
+        "periods": 2,
+        "series": [
+          {
+            "end": "2026-06-30",
+            "revenue": 7814,
+            "gross": 4319,
+            "opInc": -143,
+            "netInc": -541,
+            "rd": 3548,
+            "sga": 912,
+            "tax": 23
+          },
+          {
+            "end": "2026-09-30",
+            "revenue": 14575,
+            "gross": 9097,
+            "opInc": 2791,
+            "netInc": 4404,
+            "rd": 4596,
+            "sga": 1707,
+            "tax": -390
+          }
+        ]
+      }
+    },
+    {
+      "ticker": "TCEHY",
+      "name": null,
+      "cik": null,
+      "class": "N",
+      "lookup": {
+        "method": "ticker+name-search",
+        "query": "TENCENT HOLDINGS",
+        "result": "no match in company_tickers.json; EDGAR company browse found no 20-F filer"
+      },
+      "profit": null,
+      "segments": null,
+      "source": null,
+      "crossCheck": null,
+      "notes": [
+        "ticker TCEHY not mapped on EDGAR; name search \"TENCENT HOLDINGS\" found no reporting issuer",
+        "Tencent Holdings is not an SEC registrant: ticker TCEHY absent from EDGAR company_tickers.json; EDGAR company browse for \"TENCENT HOLDINGS\" (type=20-F) returns no filer. Tencent financials are HKEX-only — out of EDGAR scope. Proxy-summary/NCEN 13F data excluded per task spec."
+      ]
+    },
+    {
+      "ticker": "XIACF",
+      "name": "Xiaomi Corporation/ADR",
+      "cik": 1748830,
+      "class": "N",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1748830,
+        "title": "Xiaomi Corporation/ADR",
+        "forms": {},
+        "deregistration": "not in recent filings"
+      },
+      "profit": null,
+      "segments": {
+        "status": "no 10-K/20-F found"
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": null,
+      "notes": [
+        "EDGAR maps XIACF to CIK 1748830 \"Xiaomi Corporation/ADR\", whose filings are only F-6EF/F-6 POS ADR registrations — no 10-K/20-F/10-Q. Xiaomi is not an SEC reporting issuer (HKEX-listed 1810.HK); financials out of EDGAR scope."
+      ]
+    },
+    {
+      "ticker": "DIDIY",
+      "name": "DiDi Global Inc.",
+      "cik": 1764757,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1764757,
+        "title": "DiDi Global Inc.",
+        "forms": {
+          "20-F": 5,
+          "6-K": 9,
+          "F-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "CNY-M",
+        "periods": 6,
+        "range": [
+          "2019-12-31",
+          "2024-12-31"
+        ],
+        "latest": {
+          "end": "2024-12-31",
+          "revenue": 206798.6,
+          "gross": 37805.5,
+          "netInc": 1274.8,
+          "rd": 7754
+        },
+        "series": [
+          {
+            "end": "2019-12-31",
+            "revenue": 154786.1,
+            "gross": 15121.4,
+            "opInc": -8013.4,
+            "netInc": -9728.5,
+            "rd": 5347.4,
+            "tax": -348
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 141736.2,
+            "gross": 15912,
+            "opInc": -13787.9,
+            "netInc": -10514.5,
+            "rd": 6316.8,
+            "tax": -303.2
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 173827.4,
+            "gross": 16964.2,
+            "opInc": -48441.7,
+            "netInc": -49343.7,
+            "rd": 9414.6,
+            "tax": 166.3
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 140791.7,
+            "gross": 24991.8,
+            "opInc": -17824.5,
+            "netInc": -23783.3,
+            "rd": 9555.6,
+            "tax": 3.9
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 192379.9,
+            "gross": 29444.8,
+            "opInc": -5741.3,
+            "netInc": 493.5,
+            "rd": 8934,
+            "tax": 89.7
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 206798.6,
+            "gross": 37805.5,
+            "netInc": 1274.8,
+            "rd": 7754
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001104659-26-042350",
+        "form": "20-F",
+        "reports": [
+          "Segment reporting",
+          "Segment reporting (Tables)",
+          "Segment reporting (Details)",
+          "Segment reporting - Adjusted EBITA and a reconciliation from the segment Adjusted EBITA to total consolidated loss from operations (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "DiDi FY2025 20-F index (fast-edgar 2026-04-13)",
+        "status": "consistent-source-found",
+        "seen": "FY2024 figures not independently text-verified; FY2025 20-F exists on EDGAR but XBRL not ingested"
+      },
+      "notes": [
+        "20-F cadence continues post-delisting (5 × 20-F, latest FY2025 filed 2026-04-13, accession 0001104659-26-042350). companyfacts XBRL: us-gaap CNY FY2019–2023 then ifrs-full CNY FY2022–2024 (taxonomy switch mid-history); union → 6 FY 2019..2024. FY2025 20-F XBRL not yet ingested. Segment reports present in 20-F FilingSummary (Segment reporting / Adjusted EBITA reconciliation)."
+      ]
+    },
+    {
+      "ticker": "WB",
+      "name": "WEIBO Corp",
+      "cik": 1595761,
+      "class": "A",
+      "lookup": {
+        "method": "ticker",
+        "via": "company_tickers.json",
+        "cik": 1595761,
+        "title": "WEIBO Corp",
+        "forms": {
+          "6-K": 132,
+          "20-F": 12,
+          "F-1": 1
+        },
+        "deregistration": "not in recent filings"
+      },
+      "profit": {
+        "frequency": "annual",
+        "currency": "USD-M",
+        "periods": 14,
+        "range": [
+          "2012-12-31",
+          "2025-12-31"
+        ],
+        "latest": {
+          "end": "2025-12-31",
+          "revenue": 1757.2,
+          "gross": 1335.4,
+          "opInc": 464.8,
+          "netInc": 449,
+          "rd": 324.2,
+          "tax": 144.5
+        },
+        "series": [
+          {
+            "end": "2012-12-31",
+            "revenue": 65.9,
+            "gross": 19.5,
+            "opInc": -97.8,
+            "netInc": -102.5,
+            "rd": 71.2,
+            "tax": -1.6
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 188.3,
+            "gross": 128.4,
+            "opInc": -58.6,
+            "netInc": -39.8,
+            "rd": 100.7,
+            "tax": 0.3
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 334.2,
+            "gross": 250.6,
+            "opInc": -22.1,
+            "netInc": -65.3,
+            "rd": 125.8,
+            "tax": 1.1
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 477.9,
+            "gross": 335.9,
+            "opInc": 37.5,
+            "netInc": 34.7,
+            "rd": 143.4,
+            "tax": 2.6
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 655.8,
+            "gross": 484.6,
+            "opInc": 141,
+            "netInc": 108,
+            "rd": 154.1,
+            "tax": 4.3
+          },
+          {
+            "end": "2017-12-31",
+            "revenue": 1150.1,
+            "gross": 918.8,
+            "opInc": 407.6,
+            "netInc": 352.6,
+            "rd": 193.4,
+            "tax": 66.7
+          },
+          {
+            "end": "2018-12-31",
+            "revenue": 1718.5,
+            "gross": 1440.9,
+            "opInc": 609.3,
+            "netInc": 571.8,
+            "rd": 249.9,
+            "tax": 96.2
+          },
+          {
+            "end": "2019-12-31",
+            "revenue": 1766.9,
+            "gross": 1438.1,
+            "opInc": 597.6,
+            "netInc": 494.7,
+            "rd": 284.4,
+            "tax": 109.6
+          },
+          {
+            "end": "2020-12-31",
+            "revenue": 1689.9,
+            "gross": 1387.8,
+            "opInc": 506.8,
+            "netInc": 313.4,
+            "rd": 324.1,
+            "tax": 61.3
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 2257.1,
+            "gross": 1853.2,
+            "opInc": 697.4,
+            "netInc": 428.3,
+            "rd": 430.7,
+            "tax": 138.8
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 1836.3,
+            "gross": 1435.7,
+            "opInc": 480.5,
+            "netInc": 85.6,
+            "rd": 415.2,
+            "tax": 30.3
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 1759.8,
+            "gross": 1385.6,
+            "opInc": 472.9,
+            "netInc": 342.6,
+            "rd": 333.6,
+            "tax": 145.3
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 1754.7,
+            "gross": 1385.2,
+            "opInc": 494.3,
+            "netInc": 300.8,
+            "rd": 308.7,
+            "tax": 110.6
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 1757.2,
+            "gross": 1335.4,
+            "opInc": 464.8,
+            "netInc": 449,
+            "rd": 324.2,
+            "tax": 144.5
+          }
+        ]
+      },
+      "segments": {
+        "status": "segment reports found",
+        "filing": "0001104659-26-047217",
+        "form": "20-F",
+        "reports": [
+          "Significant Accounting Policies - Intangible Assets Other Than Goodwill, Foreign Currency and Segment Reporting (Details)"
+        ]
+      },
+      "source": "SEC EDGAR XBRL companyfacts/submissions API; Q4 derived as FY−Q1−Q2−Q3 (quarterly cadence); 20-F filers annual, ifrs-full namespace supported",
+      "crossCheck": {
+        "source": "上海证券报 cnstock (微博2025年净利润32.24亿元, +49%)",
+        "status": "match",
+        "seen": "net profit RMB 3,224M ≈ $449M USD-M as filed"
+      },
+      "notes": [
+        "us-gaap USD annual (Weibo reports in USD), 14 FY 2012..2025."
+      ]
+    }
+  ],
+  "updated": "2026-10-26T13:45:24.317Z",
+  "notes": [
+    "Class: Q=10-Q quarterly XBRL available; A=20-F/annual XBRL only (frequency:\"annual\"); N=no SEC reporting to fetch (objective lookup result recorded).",
+    "Q4 derivation (Q class): fiscal Q4 = FY annual fact − Q1 − Q2 − Q3, logic copied from scripts/fetch_profit.mjs.",
+    "Currency: values stored as filed in the primary reporting currency (currency field <ISO>-M); pickCurrency prefers the currency with the most revenue facts (20-F filers add USD convenience facts covering fewer years).",
+    "Segments field = objective evidence scan of the latest annual filing FilingSummary.xml (report names), not full numeric extraction.",
+    "crossCheck = independent web sources (company IR press releases / stockanalysis / news), verdicts match / consistent-source-found."
+  ]
+}

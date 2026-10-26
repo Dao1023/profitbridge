@@ -1,0 +1,394 @@
+[
+ {
+  "ticker": "MU",
+  "cls": "Q",
+  "cik": 723125,
+  "name": "MICRON TECHNOLOGY INC",
+  "reason": "",
+  "n10Q": 27,
+  "n10K": 10,
+  "n20F": 0
+ },
+ {
+  "ticker": "V",
+  "cls": "Q",
+  "cik": 1403161,
+  "name": "VISA INC.",
+  "reason": "",
+  "n10Q": 35,
+  "n10K": 11,
+  "n20F": 0
+ },
+ {
+  "ticker": "PLTR",
+  "cls": "Q",
+  "cik": 1321655,
+  "name": "Palantir Technologies Inc.",
+  "reason": "",
+  "n10Q": 18,
+  "n10K": 6,
+  "n20F": 0
+ },
+ {
+  "ticker": "CSCO",
+  "cls": "Q",
+  "cik": 858877,
+  "name": "CISCO SYSTEMS, INC.",
+  "reason": "",
+  "n10Q": 18,
+  "n10K": 7,
+  "n20F": 0
+ },
+ {
+  "ticker": "KO",
+  "cls": "Q",
+  "cik": 21344,
+  "name": "COCA COLA CO",
+  "reason": "",
+  "n10Q": 26,
+  "n10K": 8,
+  "n20F": 0
+ },
+ {
+  "ticker": "DELL",
+  "cls": "Q",
+  "cik": 1571996,
+  "name": "Dell Technologies Inc.",
+  "reason": "",
+  "n10Q": 8,
+  "n10K": 3,
+  "n20F": 0
+ },
+ {
+  "ticker": "NFLX",
+  "cls": "Q",
+  "cik": 1065280,
+  "name": "NETFLIX INC",
+  "reason": "",
+  "n10Q": 11,
+  "n10K": 3,
+  "n20F": 0
+ },
+ {
+  "ticker": "IBM",
+  "cls": "Q",
+  "cik": 51143,
+  "name": "INTERNATIONAL BUSINESS MACHINES CORP",
+  "reason": "",
+  "n10Q": 21,
+  "n10K": 7,
+  "n20F": 0
+ },
+ {
+  "ticker": "ARM",
+  "cls": "A",
+  "cik": 1973239,
+  "name": "ARM HOLDINGS PLC /UK",
+  "reason": "3 20-F, taxonomy=us-gaap+dei+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 3
+ },
+ {
+  "ticker": "QCOM",
+  "cls": "Q",
+  "cik": 804328,
+  "name": "QUALCOMM INC/DE",
+  "reason": "",
+  "n10Q": 24,
+  "n10K": 8,
+  "n20F": 0
+ },
+ {
+  "ticker": "MCD",
+  "cls": "Q",
+  "cik": 63908,
+  "name": "MCDONALDS CORP",
+  "reason": "",
+  "n10Q": 29,
+  "n10K": 10,
+  "n20F": 0
+ },
+ {
+  "ticker": "SBUX",
+  "cls": "Q",
+  "cik": 829224,
+  "name": "STARBUCKS CORP",
+  "reason": "",
+  "n10Q": 33,
+  "n10K": 10,
+  "n20F": 0
+ },
+ {
+  "ticker": "ADBE",
+  "cls": "Q",
+  "cik": 796343,
+  "name": "ADOBE INC.",
+  "reason": "",
+  "n10Q": 26,
+  "n10K": 8,
+  "n20F": 0
+ },
+ {
+  "ticker": "MSI",
+  "cls": "Q",
+  "cik": 68505,
+  "name": "Motorola Solutions, Inc.",
+  "reason": "",
+  "n10Q": 29,
+  "n10K": 9,
+  "n20F": 0
+ },
+ {
+  "ticker": "SPOT",
+  "cls": "A",
+  "cik": 1639920,
+  "name": "Spotify Technology S.A.",
+  "reason": "8 20-F, taxonomy=dei+ifrs-full+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 8
+ },
+ {
+  "ticker": "HPQ",
+  "cls": "Q",
+  "cik": 47217,
+  "name": "HP INC",
+  "reason": "",
+  "n10Q": 30,
+  "n10K": 10,
+  "n20F": 0
+ },
+ {
+  "ticker": "CRWV",
+  "cls": "Q",
+  "cik": 1769628,
+  "name": "CoreWeave, Inc.",
+  "reason": "",
+  "n10Q": 3,
+  "n10K": 1,
+  "n20F": 0
+ },
+ {
+  "ticker": "U",
+  "cls": "Q",
+  "cik": 1810806,
+  "name": "Unity Software Inc.",
+  "reason": "",
+  "n10Q": 18,
+  "n10K": 6,
+  "n20F": 0
+ },
+ {
+  "ticker": "DUOL",
+  "cls": "Q",
+  "cik": 1562088,
+  "name": "Duolingo, Inc.",
+  "reason": "",
+  "n10Q": 16,
+  "n10K": 5,
+  "n20F": 0
+ },
+ {
+  "ticker": "NXPI",
+  "cls": "Q",
+  "cik": 1413447,
+  "name": "NXP Semiconductors N.V.",
+  "reason": "",
+  "n10Q": 21,
+  "n10K": 7,
+  "n20F": 7
+ },
+ {
+  "ticker": "STM",
+  "cls": "A",
+  "cik": 932787,
+  "name": "STMicroelectronics N.V.",
+  "reason": "31 20-F, taxonomy=dei+us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 31
+ },
+ {
+  "ticker": "TSM",
+  "cls": "A",
+  "cik": 1046179,
+  "name": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+  "reason": "12 20-F, taxonomy=dei+ifrs-full+srt",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 12
+ },
+ {
+  "ticker": "ASML",
+  "cls": "A",
+  "cik": 937966,
+  "name": "ASML HOLDING NV",
+  "reason": "25 20-F, taxonomy=dei+us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 25
+ },
+ {
+  "ticker": "SPCX",
+  "cls": "Q",
+  "cik": 1181412,
+  "name": "SPACE EXPLORATION TECHNOLOGIES CORP",
+  "reason": "",
+  "n10Q": 2,
+  "n10K": 0,
+  "n20F": 0
+ },
+ {
+  "ticker": "TCEHY",
+  "cls": "S",
+  "reason": "no ticker→CIK match in SEC company_tickers.json"
+ },
+ {
+  "ticker": "SONY",
+  "cls": "A",
+  "cik": 313838,
+  "name": "Sony Group Corp",
+  "reason": "16 20-F, taxonomy=dei+us-gaap+ifrs-full+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 16
+ },
+ {
+  "ticker": "BABA",
+  "cls": "A",
+  "cik": 1577552,
+  "name": "Alibaba Group Holding Ltd",
+  "reason": "12 20-F, taxonomy=dei+us-gaap+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 12
+ },
+ {
+  "ticker": "BIDU",
+  "cls": "A",
+  "cik": 1329099,
+  "name": "Baidu, Inc.",
+  "reason": "21 20-F, taxonomy=us-gaap+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 21
+ },
+ {
+  "ticker": "TCOM",
+  "cls": "A",
+  "cik": 1269238,
+  "name": "Trip.com Group Ltd",
+  "reason": "23 20-F, taxonomy=dei+us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 23
+ },
+ {
+  "ticker": "JD",
+  "cls": "A",
+  "cik": 1549802,
+  "name": "JD.com, Inc.",
+  "reason": "12 20-F, taxonomy=us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 12
+ },
+ {
+  "ticker": "PDD",
+  "cls": "A",
+  "cik": 1737806,
+  "name": "PDD Holdings Inc.",
+  "reason": "8 20-F, taxonomy=us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 8
+ },
+ {
+  "ticker": "LI",
+  "cls": "A",
+  "cik": 1791706,
+  "name": "Li Auto Inc.",
+  "reason": "6 20-F, taxonomy=us-gaap+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 6
+ },
+ {
+  "ticker": "BILI",
+  "cls": "A",
+  "cik": 1723690,
+  "name": "Bilibili Inc.",
+  "reason": "8 20-F, taxonomy=us-gaap+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 8
+ },
+ {
+  "ticker": "WB",
+  "cls": "A",
+  "cik": 1595761,
+  "name": "WEIBO Corp",
+  "reason": "12 20-F, taxonomy=us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 12
+ },
+ {
+  "ticker": "ZH",
+  "cls": "A",
+  "cik": 1835724,
+  "name": "Zhihu Inc.",
+  "reason": "5 20-F, taxonomy=us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 5
+ },
+ {
+  "ticker": "XNET",
+  "cls": "A",
+  "cik": 1510593,
+  "name": "Xunlei Ltd",
+  "reason": "12 20-F, taxonomy=dei+us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 12
+ },
+ {
+  "ticker": "TME",
+  "cls": "A",
+  "cik": 1744676,
+  "name": "Tencent Music Entertainment Group",
+  "reason": "8 20-F, taxonomy=dei+ifrs-full+ffd",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 8
+ },
+ {
+  "ticker": "LKNCY",
+  "cls": "A",
+  "cik": 1767582,
+  "name": "Luckin Coffee Inc.",
+  "reason": "7 20-F, taxonomy=us-gaap",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 7
+ },
+ {
+  "ticker": "DIDIY",
+  "cls": "A",
+  "cik": 1764757,
+  "name": "DiDi Global Inc.",
+  "reason": "5 20-F, taxonomy=us-gaap+ifrs-full+srt",
+  "n10Q": 0,
+  "n10K": 0,
+  "n20F": 5
+ },
+ {
+  "ticker": "XIACF",
+  "cls": "ERR",
+  "cik": 1748830,
+  "name": "Xiaomi Corporation/ADR",
+  "reason": "HTTP 404"
+ }
+]

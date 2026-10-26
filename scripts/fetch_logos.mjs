@@ -7,6 +7,14 @@
 // were manually sourced (Wikimedia Commons / zh·en Wikipedia local files / icon.horse
 // brand favicons), square-padded to 1:1, and committed as data/logos/<ticker>.png —
 // same naming convention, so the existsSync guard below skips them.
+//
+// PRIMARY SOURCE (2026-10 rework, full watchlist replacement): companiesmarketcap.com
+// uniform 256px square CDN logos — https://companiesmarketcap.com/img/company-logos/256/<KEY>.webp
+// where KEY is the CMC symbol (US ticker, HK = 0700.HK style, TW mapped to ADR, TCEHY for
+// Tencent). All data/logos/<ticker>.png for the watchlist were re-downloaded from there
+// (webp->png). Exceptions kept non-CMC: BIDU (CMC serves the Baidu Baike mark; using
+// Wikipedia Baidu.svg), HUAWEI/LEGO (private, not on CMC). Future maintenance: try CMC
+// first, fall back to Wikimedia / icon.horse.
 import fs from 'node:fs';
 import path from 'node:path';
 const REGISTRY = JSON.parse(fs.readFileSync('data/companies.json', 'utf8'));

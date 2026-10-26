@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T16:20:46.157Z",
+  "updated": "2026-10-26T16:49:55.664Z",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -28309,33 +28309,1044 @@
         }
       ],
       "notes": "Private filer (family-owned, unlisted; publishes audited annual reports): companyType=private, synthetic ticker LEGO (no real ticker). FY=calendar year, IFRS, audited (Deloitte). DKK-M as-reported; press-release rounded values (Bn DKK → M). FY2019 https://www.lego.com/aboutus/news/2020/march/annual-results; FY2020 https://www.lego.com/da-dk/aboutus/news/2021/march/2020-annual-results (NI 4.1 Bn DKK one-off tax, LEGO Foundation share transaction); FY2021 https://www.lego.com/da-dk/aboutus/news/2022/march/2021-annual-results; FY2022/FY2023 https://www.lego.com/en-us/aboutus/news/2024/march/lego-delivered-topline-growth-and-outpaced-market-in-2023; FY2024 https://www.lego.com/en-us/aboutus/news/2025/march/lego-group-delivers-record-results-in-2024. fxToUsd snapshot 1/USD-DKK 6.67684 (open.er-api.com 2026-10-27, single rate). FY2025 https://www.lego.com/en-de/aboutus/news/2026/march/the-lego-group-delivers-record-results-in-2025-driven-by-strong-brand-and-innovative-portfolio (rev 83.5 / op 22.0 / NI 16.7 Bn DKK)."
+    },
+    "02513.HK": {
+      "name": "Z.AI",
+      "currency": "CNY-M",
+      "frequency": "hk-mixed",
+      "quarters": [
+        {
+          "end": "2022-12-31",
+          "revenue": 57.409,
+          "netInc": -143.374,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14495
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 124.538,
+          "netInc": -787.96,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14075
+        },
+        {
+          "end": "2024-06-30",
+          "revenue": 44.909,
+          "netInc": -1235.551,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13769
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 312.414,
+          "netInc": -2956.491,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.137
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 190.877,
+          "netInc": -2351.173,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13957
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 724.334,
+          "netInc": -4698.203,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14284
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 953.892,
+          "netInc": -2071.326,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14737
+        }
+      ],
+      "notes": "HKEX filer, IPO 2026-03 (上市时间短): only annual + interim (H1) cumulative disclosures available, 0 single quarters derivable — included as-disclosed cumulative series per short-history rule (SPCX 2-period exemption precedent), periodType interim/annual, NOT differenced. 7 periods 2022-12-31..2026-06-30. Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging (data/staging/batch3.json). Watchlist ticker 2513.HK."
+    },
+    "00100.HK": {
+      "name": "MiniMax",
+      "currency": "CNY-M",
+      "frequency": "hk-mixed",
+      "quarters": [
+        {
+          "end": "2022-12-31",
+          "revenue": null,
+          "netInc": -513.486,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14495
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 24.506,
+          "netInc": -1906.989,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14075
+        },
+        {
+          "end": "2024-09-30",
+          "revenue": 136.322,
+          "netInc": -2132.646,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.1426
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 219.412,
+          "netInc": -3344.317,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.137
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 217.829,
+          "netInc": -2879.103,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13957
+        },
+        {
+          "end": "2025-09-30",
+          "revenue": 379.697,
+          "netInc": -3638.108,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.14046
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 555.542,
+          "netInc": -13155.222,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14284
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 793.967,
+          "netInc": -2438.282,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14737
+        }
+      ],
+      "notes": "HKEX filer MINIMAX-W, IPO 2026-01 (上市时间短): annual + interim + Q3 cumulative disclosures, 8 periods 2022-12-31..2026-06-30 included as-disclosed cumulative series per short-history rule (no minKeep guardrail), NOT differenced. 2022-12-31 revenue not disclosed (null). Source: eastmoney RPT_HKF10_FN_MAININDICATOR (code normalization 0100→00100) via batch3 staging. Watchlist ticker 0100.HK."
+    },
+    "02097.HK": {
+      "name": "Mixue",
+      "currency": "CNY-M",
+      "frequency": "hk-mixed",
+      "quarters": [
+        {
+          "end": "2021-12-31",
+          "revenue": 10350.986,
+          "netInc": 1910.361,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15742
+        },
+        {
+          "end": "2022-09-30",
+          "revenue": 10543.24,
+          "netInc": 1616.956,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.14053
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 13575.577,
+          "netInc": 1996.715,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14495
+        },
+        {
+          "end": "2023-09-30",
+          "revenue": 15393.328,
+          "netInc": 2400.853,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.13696
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 20302.465,
+          "netInc": 3137.341,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14075
+        },
+        {
+          "end": "2024-06-30",
+          "revenue": 10677.054,
+          "netInc": 1884.458,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13769
+        },
+        {
+          "end": "2024-09-30",
+          "revenue": 18659.671,
+          "netInc": 3486.065,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.1426
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 24828.874,
+          "netInc": 4436.504,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.137
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 14874.809,
+          "netInc": 2692.884,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13957
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 33559.923,
+          "netInc": 5886.704,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14284
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 15215.804,
+          "netInc": 2296.314,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14737
+        }
+      ],
+      "notes": "HKEX filer 蜜雪集团 Mixue Group, IPO 2025-03: annual + interim + Q3 cumulative disclosures, 11 periods 2021-12-31..2026-06-30 included as-disclosed cumulative series (no differencing forced), NOT differenced. 2025 起仅披露中期+年报（三季报停披，末次 2024-09-30）. Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging. Watchlist ticker 2097.HK."
+    },
+    "00151.HK": {
+      "name": "Want Want China",
+      "currency": "CNY-M",
+      "frequency": "hk-mixed",
+      "quarters": [
+        {
+          "end": "2004-12-31",
+          "revenue": 4291.605,
+          "netInc": 601.081,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.12082
+        },
+        {
+          "end": "2005-12-31",
+          "revenue": 5502.714,
+          "netInc": 893.968,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.12391
+        },
+        {
+          "end": "2006-09-30",
+          "revenue": 4767.871,
+          "netInc": 678.495,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.12652
+        },
+        {
+          "end": "2006-12-31",
+          "revenue": 6636.989,
+          "netInc": 990.346,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.12812
+        },
+        {
+          "end": "2007-06-30",
+          "revenue": 3809.555,
+          "netInc": 573.782,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13135
+        },
+        {
+          "end": "2007-09-30",
+          "revenue": 5749.345,
+          "netInc": 932.879,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.13322
+        },
+        {
+          "end": "2007-12-31",
+          "revenue": 7995.177,
+          "netInc": 1291.073,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.13691
+        },
+        {
+          "end": "2008-06-30",
+          "revenue": 4866.092,
+          "netInc": 884.707,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14589
+        },
+        {
+          "end": "2008-12-31",
+          "revenue": 10620.066,
+          "netInc": 1795.149,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14656
+        },
+        {
+          "end": "2009-06-30",
+          "revenue": 5452.744,
+          "netInc": 825.143,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.1464
+        },
+        {
+          "end": "2009-12-31",
+          "revenue": 11682.053,
+          "netInc": 2134.687,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14648
+        },
+        {
+          "end": "2010-06-30",
+          "revenue": 6807.144,
+          "netInc": 1095.094,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14746
+        },
+        {
+          "end": "2010-12-31",
+          "revenue": 14862.074,
+          "netInc": 2373.761,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15146
+        },
+        {
+          "end": "2011-06-30",
+          "revenue": 8280.115,
+          "netInc": 1080.874,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.15472
+        },
+        {
+          "end": "2011-12-31",
+          "revenue": 18565.602,
+          "netInc": 2642.963,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15859
+        },
+        {
+          "end": "2012-06-30",
+          "revenue": 9661.373,
+          "netInc": 1460.293,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.15735
+        },
+        {
+          "end": "2012-12-31",
+          "revenue": 21110.813,
+          "netInc": 3481.023,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.1605
+        },
+        {
+          "end": "2013-06-30",
+          "revenue": 10840.226,
+          "netInc": 1900.63,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.16293
+        },
+        {
+          "end": "2013-12-31",
+          "revenue": 23276.202,
+          "netInc": 4190.497,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.16518
+        },
+        {
+          "end": "2014-06-30",
+          "revenue": 11398.683,
+          "netInc": 1959.359,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.16121
+        },
+        {
+          "end": "2014-12-31",
+          "revenue": 23101.293,
+          "netInc": 3796.87,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.16111
+        },
+        {
+          "end": "2015-06-30",
+          "revenue": 11137.915,
+          "netInc": 1749.939,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.1613
+        },
+        {
+          "end": "2015-12-31",
+          "revenue": 21389.32,
+          "netInc": 3382.526,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15419
+        },
+        {
+          "end": "2016-06-30",
+          "revenue": 9709.476,
+          "netInc": 1756.442,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.15053
+        },
+        {
+          "end": "2016-09-30",
+          "revenue": 13741.517,
+          "netInc": 2343.48,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.14989
+        },
+        {
+          "end": "2016-12-31",
+          "revenue": 19710.128,
+          "netInc": 3519.168,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.144
+        },
+        {
+          "end": "2017-06-30",
+          "revenue": 8959.785,
+          "netInc": 1274.1,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14747
+        },
+        {
+          "end": "2017-09-30",
+          "revenue": 13585.43,
+          "netInc": 2020.869,
+          "periodType": "q3",
+          "cumulative": true,
+          "fxToUsd": 0.15033
+        },
+        {
+          "end": "2018-06-30",
+          "revenue": 9248.125,
+          "netInc": 1364.413,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.15107
+        },
+        {
+          "end": "2018-12-31",
+          "revenue": 20712.027,
+          "netInc": 3476.599,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14539
+        },
+        {
+          "end": "2019-06-30",
+          "revenue": 9304.071,
+          "netInc": 1614.913,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14555
+        },
+        {
+          "end": "2019-12-31",
+          "revenue": 20094.531,
+          "netInc": 3649.215,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14365
+        },
+        {
+          "end": "2020-06-30",
+          "revenue": 10299.247,
+          "netInc": 1952.396,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14135
+        },
+        {
+          "end": "2020-12-31",
+          "revenue": 21998.4,
+          "netInc": 4157.809,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15296
+        },
+        {
+          "end": "2021-06-30",
+          "revenue": 11382.567,
+          "netInc": 2090.045,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.15486
+        },
+        {
+          "end": "2021-12-31",
+          "revenue": 23984.891,
+          "netInc": 4202.655,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15742
+        },
+        {
+          "end": "2022-06-30",
+          "revenue": 10832.945,
+          "netInc": 1596.054,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14919
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 22928.219,
+          "netInc": 3371.584,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14495
+        },
+        {
+          "end": "2023-06-30",
+          "revenue": 11274.818,
+          "netInc": 1732.245,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13757
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 23586.327,
+          "netInc": 3990.474,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14075
+        },
+        {
+          "end": "2024-06-30",
+          "revenue": 10876.637,
+          "netInc": 1863.371,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13769
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 23510.737,
+          "netInc": 4335.565,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.137
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 11107.792,
+          "netInc": 1717.427,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13957
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 24400.665,
+          "netInc": 3837.07,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14284
+        }
+      ],
+      "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, 44 periods 2004-12-31..2025-12-31 included as-disclosed cumulative series, NOT differenced. Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). eastmoney REPORT_DATE off-by-one for 00151 corrected via STD_REPORT_DATE. Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging. Watchlist ticker 0151.HK."
+    },
+    "09633.HK": {
+      "name": "Nongfu Spring",
+      "currency": "CNY-M",
+      "frequency": "hk-mixed",
+      "quarters": [
+        {
+          "end": "2017-12-31",
+          "revenue": 17491.214,
+          "netInc": 3380.409,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15367
+        },
+        {
+          "end": "2018-12-31",
+          "revenue": 20475.045,
+          "netInc": 3606.059,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14539
+        },
+        {
+          "end": "2019-06-30",
+          "revenue": 12309.589,
+          "netInc": 2876.745,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14555
+        },
+        {
+          "end": "2019-12-31",
+          "revenue": 24021.041,
+          "netInc": 4948.568,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14365
+        },
+        {
+          "end": "2020-06-30",
+          "revenue": 11544.593,
+          "netInc": 2864.498,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14135
+        },
+        {
+          "end": "2020-12-31",
+          "revenue": 22877.297,
+          "netInc": 5277.426,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15296
+        },
+        {
+          "end": "2021-06-30",
+          "revenue": 15174.757,
+          "netInc": 4012.918,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.15486
+        },
+        {
+          "end": "2021-12-31",
+          "revenue": 29696.406,
+          "netInc": 7161.794,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15742
+        },
+        {
+          "end": "2022-06-30",
+          "revenue": 16598.761,
+          "netInc": 4608.325,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14919
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 33239.187,
+          "netInc": 8495.25,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14495
+        },
+        {
+          "end": "2023-06-30",
+          "revenue": 20462.425,
+          "netInc": 5775.421,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13757
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 42667.221,
+          "netInc": 12079.498,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14075
+        },
+        {
+          "end": "2024-06-30",
+          "revenue": 22173.084,
+          "netInc": 6239.579,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13769
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 42895.992,
+          "netInc": 12123.304,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.137
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 25622.201,
+          "netInc": 7622.082,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.13957
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 52552.91,
+          "netInc": 15868.274,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.14284
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 29718.1,
+          "netInc": 8886.846,
+          "periodType": "interim",
+          "cumulative": true,
+          "fxToUsd": 0.14737
+        }
+      ],
+      "notes": "HKEX filer 农夫山泉 Nongfu Spring: semi-annual reporter — annual + interim (H1) cumulative disclosures only, 17 periods 2017-12-31..2026-06-30 included as-disclosed cumulative series (半年报口径，不做差分硬凑), NOT differenced. Source: eastmoney RPT_HKF10_FN_MAININDICATOR (fetched 2026-10-27). fx: frankfurter CNY→USD per period end, peg fallback 1/8.2765. Watchlist ticker 9633.HK."
+    },
+    "01810.HK": {
+      "name": "Xiaomi",
+      "currency": "CNY-M",
+      "frequency": "hk-mixed",
+      "quarters": [
+        {
+          "end": "2015-12-31",
+          "revenue": 66811.258,
+          "netInc": -7581.295,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.15419
+        },
+        {
+          "end": "2016-12-31",
+          "revenue": 68434.161,
+          "netInc": 553.25,
+          "periodType": "annual",
+          "cumulative": true,
+          "fxToUsd": 0.144
+        },
+        {
+          "end": "2017-03-31",
+          "revenue": 18531.793,
+          "netInc": -7845.891,
+          "periodType": "q1",
+          "fxToUsd": 0.14518
+        },
+        {
+          "end": "2017-06-30",
+          "revenue": 26879.009,
+          "netInc": -11960.551,
+          "periodType": "q2",
+          "fxToUsd": 0.14747
+        },
+        {
+          "end": "2017-09-30",
+          "revenue": 34099.88,
+          "netInc": -10989.808,
+          "periodType": "q3",
+          "fxToUsd": 0.15033
+        },
+        {
+          "end": "2017-12-31",
+          "revenue": 35114.06,
+          "netInc": -13029.766,
+          "periodType": "q4",
+          "fxToUsd": 0.15367
+        },
+        {
+          "end": "2018-03-31",
+          "revenue": 34412.362,
+          "netInc": -7005.123,
+          "periodType": "q1",
+          "fxToUsd": 0.15905
+        },
+        {
+          "end": "2018-06-30",
+          "revenue": 45235.473,
+          "netInc": 14651.318,
+          "periodType": "q2",
+          "fxToUsd": 0.15107
+        },
+        {
+          "end": "2018-09-30",
+          "revenue": 50846.214,
+          "netInc": 2498.788,
+          "periodType": "q3",
+          "fxToUsd": 0.14531
+        },
+        {
+          "end": "2018-12-31",
+          "revenue": 44421.376,
+          "netInc": 3408.903,
+          "periodType": "q4",
+          "fxToUsd": 0.14539
+        },
+        {
+          "end": "2019-03-31",
+          "revenue": 43756.823,
+          "netInc": 3125.959,
+          "periodType": "q1",
+          "fxToUsd": 0.14901
+        },
+        {
+          "end": "2019-06-30",
+          "revenue": 51951.129,
+          "netInc": 1951.956,
+          "periodType": "q2",
+          "fxToUsd": 0.14555
+        },
+        {
+          "end": "2019-09-30",
+          "revenue": 53661.006,
+          "netInc": 2525.063,
+          "periodType": "q3",
+          "fxToUsd": 0.13999
+        },
+        {
+          "end": "2019-12-31",
+          "revenue": 56469.724,
+          "netInc": 2441.186,
+          "periodType": "q4",
+          "fxToUsd": 0.14365
+        },
+        {
+          "end": "2020-03-31",
+          "revenue": 49702.167,
+          "netInc": 2163.515,
+          "periodType": "q1",
+          "fxToUsd": 0.14085
+        },
+        {
+          "end": "2020-06-30",
+          "revenue": 53537.805,
+          "netInc": 4498.128,
+          "periodType": "q2",
+          "fxToUsd": 0.14135
+        },
+        {
+          "end": "2020-09-30",
+          "revenue": 72162.777,
+          "netInc": 4880.596,
+          "periodType": "q3",
+          "fxToUsd": 0.14686
+        },
+        {
+          "end": "2020-12-31",
+          "revenue": 70462.884,
+          "netInc": 8813.265,
+          "periodType": "q4",
+          "fxToUsd": 0.15296
+        },
+        {
+          "end": "2021-03-31",
+          "revenue": 76882.163,
+          "netInc": 7792.889,
+          "periodType": "q1",
+          "fxToUsd": 0.15265
+        },
+        {
+          "end": "2021-06-30",
+          "revenue": 87788.96,
+          "netInc": 8268.477,
+          "periodType": "q2",
+          "fxToUsd": 0.15486
+        },
+        {
+          "end": "2021-09-30",
+          "revenue": 78062.855,
+          "netInc": 792.256,
+          "periodType": "q3",
+          "fxToUsd": 0.1547
+        },
+        {
+          "end": "2021-12-31",
+          "revenue": 85575.167,
+          "netInc": 2485.699,
+          "periodType": "q4",
+          "fxToUsd": 0.15742
+        },
+        {
+          "end": "2022-03-31",
+          "revenue": 73351.502,
+          "netInc": -587.6,
+          "periodType": "q1",
+          "fxToUsd": 0.15768
+        },
+        {
+          "end": "2022-06-30",
+          "revenue": 70170.877,
+          "netInc": 1386.4,
+          "periodType": "q2",
+          "fxToUsd": 0.14919
+        },
+        {
+          "end": "2022-09-30",
+          "revenue": 70474.269,
+          "netInc": -1476.05,
+          "periodType": "q3",
+          "fxToUsd": 0.14053
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 66047.368,
+          "netInc": 3151.28,
+          "periodType": "q4",
+          "fxToUsd": 0.14495
+        },
+        {
+          "end": "2023-03-31",
+          "revenue": 59477.134,
+          "netInc": 4203.839,
+          "periodType": "q1",
+          "fxToUsd": 0.14546
+        },
+        {
+          "end": "2023-06-30",
+          "revenue": 67354.908,
+          "netInc": 3669.975,
+          "periodType": "q2",
+          "fxToUsd": 0.13757
+        },
+        {
+          "end": "2023-09-30",
+          "revenue": 70894.412,
+          "netInc": 4873.861,
+          "periodType": "q3",
+          "fxToUsd": 0.13696
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 73243.687,
+          "netInc": 4727.498,
+          "periodType": "q4",
+          "fxToUsd": 0.14075
+        },
+        {
+          "end": "2024-03-31",
+          "revenue": 75506.822,
+          "netInc": 4182.061,
+          "periodType": "q1",
+          "fxToUsd": 0.13835
+        },
+        {
+          "end": "2024-06-30",
+          "revenue": 88887.828,
+          "netInc": 5098.002,
+          "periodType": "q2",
+          "fxToUsd": 0.13769
+        },
+        {
+          "end": "2024-09-30",
+          "revenue": 92506.541,
+          "netInc": 5352.404,
+          "periodType": "q3",
+          "fxToUsd": 0.1426
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 109005.159,
+          "netInc": 9025.659,
+          "periodType": "q4",
+          "fxToUsd": 0.137
+        },
+        {
+          "end": "2025-03-31",
+          "revenue": 111293.337,
+          "netInc": 10924.321,
+          "periodType": "q1",
+          "fxToUsd": 0.13787
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 115956.091,
+          "netInc": 11904.405,
+          "periodType": "q2",
+          "fxToUsd": 0.13957
+        },
+        {
+          "end": "2025-09-30",
+          "revenue": 113120.734,
+          "netInc": 12270.874,
+          "periodType": "q3",
+          "fxToUsd": 0.14046
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 116916.525,
+          "netInc": 6543.789,
+          "periodType": "q4",
+          "fxToUsd": 0.14284
+        },
+        {
+          "end": "2026-03-31",
+          "revenue": 99141.618,
+          "netInc": 4723.12,
+          "periodType": "q1",
+          "fxToUsd": 0.14492
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 108921.609,
+          "netInc": 9462.405,
+          "periodType": "q2",
+          "fxToUsd": 0.14737
+        }
+      ],
+      "notes": "HKEX filer 小米集团 Xiaomi Corporation (watchlist ticker XIACF = OTC ADR, absent from EDGAR with no financial filings — data via HK listing): full quarterly cumulative disclosure chain from 2017-03-31, differenced to single quarters (q1..q4, same convention as other hk-mixed entries); 2015/2016 annual-only disclosures kept as-disclosed cumulative annual periods. Latest 2026-06-30. Source: eastmoney RPT_HKF10_FN_MAININDICATOR (fetched 2026-10-27). fx: frankfurter CNY→USD per period end, peg fallback 1/8.2765."
     }
   },
   "skipped": [
     {
       "ticker": "TCEHY",
       "status": "skipped",
-      "reason": "Tencent Holdings is not an SEC registrant: ticker TCEHY absent from EDGAR company_tickers.json; financials are HKEX-only — out of EDGAR scope (already covered via 00700.HK entry)."
+      "reason": "Tencent Holdings is not an SEC registrant: ticker TCEHY absent from EDGAR company_tickers.json; financials are HKEX-only — out of EDGAR scope (already covered via 00700.HK entry). RE-AUDITED 2026-10-27 under short-history rule: factual reason stands (OTC ADR, not an SEC registrant, no EDGAR financials); data fully covered by 00700.HK HKEX entry (94 quarters)."
     },
     {
       "ticker": "XIACF",
       "status": "skipped",
-      "reason": "EDGAR maps XIACF to CIK 1748830 \"Xiaomi Corporation/ADR\", filings only F-6EF/F-6 POS ADR registrations — no 10-K/20-F/10-Q; Xiaomi is HKEX-listed 1810.HK, out of EDGAR scope."
-    },
-    {
-      "ticker": "02513.HK",
-      "status": "skipped",
-      "reason": "Z.AI: only annual + interim (H1) cumulative HKEX disclosures available; 0 single quarters derivable (minKeep 8)."
-    },
-    {
-      "ticker": "00100.HK",
-      "status": "skipped",
-      "reason": "MiniMax: only 6 single quarters derivable (Q3×2 + Q4×4) from cumulative HKEX disclosures (< staging minKeep 8)."
-    },
-    {
-      "ticker": "09633.HK",
-      "status": "skipped",
-      "reason": "NongFu Spring: HKEX semi-annual reporter only (FY + H1 cumulative disclosures); 0 single quarters derivable (minKeep 8) — same rule as 02513.HK Z.AI."
+      "reason": "RE-AUDITED 2026-10-27: factual reason stands (XIACF ADR maps to CIK 1748830, filings F-6EF/F-6 POS only, no 10-K/20-F/10-Q); financial data now included via 01810.HK entry — skip retained only as watchlist-ticker alias note."
     }
   ],
   "units": "$M",
@@ -28872,7 +29883,8 @@
     "Watchlist backfill 2026-10-27: NTES (20-F 18FY CNY-M), CHA (20-F 3FY CNY-M, exemption), CBRS (10-Q 4Q USD-M, exemption) added; 09633.HK skipped (semi-annual only); GOOG=GOOGL alias; fx per period-end via frankfurter.app ECB reference.",
     "HUAWEI: new private-filer entry (unlisted, official audited annual reports), CNY-M annual FY=Dec, synthetic ticker, 7 FY 2019-2025.",
     "LEGO: new private-filer entry (unlisted, official audited annual reports), DKK-M annual FY=Dec, synthetic ticker, 6 FY 2019-2024.",
-    "ByteDance/MiHoYo: NOT added — no official audited public financial statements exist (media-cited internal figures only); out of scope by no-public-filings rule."
+    "ByteDance/MiHoYo: NOT added — no official audited public financial statements exist (media-cited internal figures only); out of scope by no-public-filings rule.",
+    "01810.HK/09633.HK/02513.HK/00100.HK/02097.HK/00151.HK: short-history rule backfill 2026-10-27 (用户拍板「有多少正式披露期就入多少，不设最低期数」) — cumulative HK disclosures included as-disclosed (cumulative:true) where differencing not possible; Xiaomi 01810 full chain differenced to single quarters."
   ],
   "failures": []
 }

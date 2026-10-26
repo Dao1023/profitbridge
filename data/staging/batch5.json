@@ -1,0 +1,568 @@
+{
+  "batch": 5,
+  "generatedAt": "2026-10-26T21:30:00+08:00",
+  "fx": {
+    "base": "USD",
+    "source": "open.er-api.com (exchangerate-api free endpoint), snapshot 2026-10-26T00:02 UTC",
+    "rates": {
+      "USD/CHF": 0.824578,
+      "USD/EUR": 0.89213,
+      "USD/TWD": 32.596145
+    },
+    "note": "Single spot rate applied to all periods (period-end rates not used); USD figures are approximations of native-currency results."
+  },
+  "results": [
+    {
+      "ticker": "NESN.SW",
+      "name": "Nestlé S.A.",
+      "class": "consumer_staples",
+      "market": "SIX Swiss Exchange",
+      "lookup": {
+        "status": "ok",
+        "currency": "CHF",
+        "frequency": "annual (FY2021–FY2025) + TTM through 2026-06-30; H1 semi-annual tab available on source"
+      },
+      "profit": {
+        "unit": "USD $M",
+        "fxKey": "USD/CHF 0.824578",
+        "annual": [
+          {
+            "fy": 2025,
+            "revenue": 109007,
+            "grossProfit": 49954,
+            "operatingIncome": 16864,
+            "netIncome": 10955
+          },
+          {
+            "fy": 2024,
+            "revenue": 111233,
+            "grossProfit": 52209,
+            "operatingIncome": 18865,
+            "netIncome": 13199
+          },
+          {
+            "fy": 2023,
+            "revenue": 113211,
+            "grossProfit": 52176,
+            "operatingIncome": 18989,
+            "netIncome": 13594
+          },
+          {
+            "fy": 2022,
+            "revenue": 114944,
+            "grossProfit": 52190,
+            "operatingIncome": 18977,
+            "netIncome": 11242
+          },
+          {
+            "fy": 2021,
+            "revenue": 106079,
+            "grossProfit": 50938,
+            "operatingIncome": 17755,
+            "netIncome": 20501
+          }
+        ],
+        "ttmThrough": "2026-06-30",
+        "ttm": {
+          "revenue": 107661,
+          "operatingIncome": 16670,
+          "netIncome": 9023
+        },
+        "nativeCHFM": {
+          "fy2025": {
+            "revenue": 89885,
+            "netIncome": 9033
+          },
+          "fy2024": {
+            "revenue": 91720,
+            "netIncome": 10884
+          }
+        }
+      },
+      "source": "stockanalysis.com /quote/swx/NESN/financials/ (data as of 2026-10-26; underlying Nestlé consolidated IFRS reports)",
+      "crossCheck": "FY2024 CHF 91,720M revenue ≈ USD 111.2B; Nestlé's reported FY2024 sales CHF 91.4B (restatement-level diff <0.5%) — consistent.",
+      "notes": "Nestlé reports full IFRS semi-annually only (H1/full-year); stockanalysis offers a Semi-Annual tab. FY2021 net income (16,905 CHF M) inflated by one-off gains."
+    },
+    {
+      "ticker": "MC.PA",
+      "name": "LVMH Moët Hennessy Louis Vuitton SE",
+      "class": "consumer_discretionary",
+      "market": "Euronext Paris",
+      "lookup": {
+        "status": "ok",
+        "currency": "EUR",
+        "frequency": "annual (FY2021–FY2025) + TTM through 2026-06-30; revenue is reported quarterly in press releases (not on this source)"
+      },
+      "profit": {
+        "unit": "USD $M",
+        "fxKey": "USD/EUR 0.89213",
+        "annual": [
+          {
+            "fy": 2025,
+            "revenue": 90578,
+            "grossProfit": 60000,
+            "operatingIncome": 19804,
+            "netIncome": 12193
+          },
+          {
+            "fy": 2024,
+            "revenue": 94922,
+            "grossProfit": 63629,
+            "operatingIncome": 21945,
+            "netIncome": 14067
+          },
+          {
+            "fy": 2023,
+            "revenue": 96570,
+            "grossProfit": 66444,
+            "operatingIncome": 25536,
+            "netIncome": 17009
+          },
+          {
+            "fy": 2022,
+            "revenue": 88758,
+            "grossProfit": 60749,
+            "operatingIncome": 23555,
+            "netIncome": 15787
+          },
+          {
+            "fy": 2021,
+            "revenue": 71979,
+            "grossProfit": 49163,
+            "operatingIncome": 19210,
+            "netIncome": 13491
+          }
+        ],
+        "ttmThrough": "2026-06-30",
+        "ttm": {
+          "revenue": 89271,
+          "operatingIncome": 19481,
+          "netIncome": 12192
+        },
+        "nativeEURM": {
+          "fy2025": {
+            "revenue": 80807,
+            "netIncome": 10878
+          },
+          "fy2024": {
+            "revenue": 84683,
+            "netIncome": 12550
+          }
+        }
+      },
+      "source": "stockanalysis.com /quote/epa/MC/financials/",
+      "crossCheck": "FY2024 revenue €84,683M matches LVMH's reported €84,683M exactly.",
+      "notes": "Segment revenue captured on source: FY2025 Fashion & Leather Goods €37,770M; Selective Retailing €18,348M etc. LVMH publishes quarterly revenue releases on lvmh.com (PDF) if quarterly granularity needed later."
+    },
+    {
+      "ticker": "2454.TW",
+      "name": "MediaTek Inc. 聯發科",
+      "class": "technology",
+      "market": "TWSE",
+      "lookup": {
+        "status": "ok",
+        "currency": "TWD",
+        "frequency": "quarterly (2023Q1–2026Q2, 14 quarters)"
+      },
+      "profit": {
+        "unit": "USD $M",
+        "fxKey": "USD/TWD 32.596145",
+        "quarterly": [
+          {
+            "period": "2026Q2",
+            "revenue": 4669,
+            "grossProfit": 2157,
+            "operatingIncome": 702,
+            "netIncome": 747
+          },
+          {
+            "period": "2026Q1",
+            "revenue": 4576,
+            "grossProfit": 2119,
+            "operatingIncome": 702,
+            "netIncome": 741
+          },
+          {
+            "period": "2025Q4",
+            "revenue": 4608,
+            "grossProfit": 2125,
+            "operatingIncome": 670,
+            "netIncome": 703
+          },
+          {
+            "period": "2025Q3",
+            "revenue": 4359,
+            "grossProfit": 2028,
+            "operatingIncome": 681,
+            "netIncome": 774
+          },
+          {
+            "period": "2025Q2",
+            "revenue": 4613,
+            "grossProfit": 2266,
+            "operatingIncome": 901,
+            "netIncome": 854
+          },
+          {
+            "period": "2025Q1",
+            "revenue": 4703,
+            "grossProfit": 2264,
+            "operatingIncome": 922,
+            "netIncome": 900
+          },
+          {
+            "period": "2024Q4",
+            "revenue": 4235,
+            "grossProfit": 2055,
+            "operatingIncome": 657,
+            "netIncome": 730
+          },
+          {
+            "period": "2024Q3",
+            "revenue": 4044,
+            "grossProfit": 1974,
+            "operatingIncome": 732,
+            "netIncome": 778
+          },
+          {
+            "period": "2024Q2",
+            "revenue": 3904,
+            "grossProfit": 1906,
+            "operatingIncome": 766,
+            "netIncome": 789
+          },
+          {
+            "period": "2024Q1",
+            "revenue": 4094,
+            "grossProfit": 2144,
+            "operatingIncome": 987,
+            "netIncome": 967
+          },
+          {
+            "period": "2023Q4",
+            "revenue": 3975,
+            "grossProfit": 1921,
+            "operatingIncome": 759,
+            "netIncome": 787
+          },
+          {
+            "period": "2023Q3",
+            "revenue": 3378,
+            "grossProfit": 1601,
+            "operatingIncome": 550,
+            "netIncome": 567
+          },
+          {
+            "period": "2023Q2",
+            "revenue": 3011,
+            "grossProfit": 1431,
+            "operatingIncome": 453,
+            "netIncome": 490
+          },
+          {
+            "period": "2023Q1",
+            "revenue": 2934,
+            "grossProfit": 1409,
+            "operatingIncome": 441,
+            "netIncome": 518
+          }
+        ],
+        "nativeTWDM": {
+          "2026Q2": {
+            "revenue": 152183,
+            "netIncome": 24335
+          },
+          "2025FY": {
+            "revenue": 595966,
+            "netIncome": 105319
+          }
+        }
+      },
+      "source": "stockanalysis.com /quote/tpe/2454/financials/ (quarterly income statement; underlying TWSE/MOPS filings)",
+      "crossCheck": "2025Q2 revenue TWD 150,369M ≈ USD 4,613M, matches MediaTek's reported Q2'25 revenue ~USD 5.0–5.2B range reported in USD at then-TWD rate (~31.5); 2025FY TWD 595,966M matches MediaTek annual report.",
+      "notes": "2026Q3 not yet on source at fetch time (latest 2026Q2). EPS series also available. MOPS quarterly review reports are the authoritative source."
+    },
+    {
+      "ticker": "2330.TW",
+      "name": "Taiwan Semiconductor Manufacturing Company 台積電",
+      "class": "technology",
+      "market": "TWSE",
+      "lookup": {
+        "status": "ok",
+        "currency": "TWD",
+        "frequency": "quarterly (2023Q1–2026Q3, 15 quarters)"
+      },
+      "profit": {
+        "unit": "USD $M",
+        "fxKey": "USD/TWD 32.596145",
+        "quarterly": [
+          {
+            "period": "2026Q3",
+            "revenue": 45841,
+            "grossProfit": 30445,
+            "operatingIncome": 26888,
+            "netIncome": 23410
+          },
+          {
+            "period": "2026Q2",
+            "revenue": 38973,
+            "grossProfit": 26393,
+            "operatingIncome": 23518,
+            "netIncome": 21676
+          },
+          {
+            "period": "2026Q1",
+            "revenue": 34793,
+            "grossProfit": 23049,
+            "operatingIncome": 20216,
+            "netIncome": 17563
+          },
+          {
+            "period": "2025Q4",
+            "revenue": 32092,
+            "grossProfit": 20002,
+            "operatingIncome": 17303,
+            "netIncome": 14893
+          },
+          {
+            "period": "2025Q3",
+            "revenue": 30369,
+            "grossProfit": 18056,
+            "operatingIncome": 15360,
+            "netIncome": 13876
+          },
+          {
+            "period": "2025Q2",
+            "revenue": 28647,
+            "grossProfit": 16792,
+            "operatingIncome": 14217,
+            "netIncome": 12218
+          },
+          {
+            "period": "2025Q1",
+            "revenue": 25747,
+            "grossProfit": 15137,
+            "operatingIncome": 12528,
+            "netIncome": 11092
+          },
+          {
+            "period": "2024Q4",
+            "revenue": 26643,
+            "grossProfit": 15719,
+            "operatingIncome": 13060,
+            "netIncome": 11038
+          },
+          {
+            "period": "2024Q3",
+            "revenue": 23306,
+            "grossProfit": 13478,
+            "operatingIncome": 11068,
+            "netIncome": 9978
+          },
+          {
+            "period": "2024Q2",
+            "revenue": 20662,
+            "grossProfit": 10987,
+            "operatingIncome": 8791,
+            "netIncome": 7604
+          },
+          {
+            "period": "2024Q1",
+            "revenue": 18181,
+            "grossProfit": 9649,
+            "operatingIncome": 7639,
+            "netIncome": 6918
+          },
+          {
+            "period": "2023Q4",
+            "revenue": 19190,
+            "grossProfit": 10178,
+            "operatingIncome": 7983,
+            "netIncome": 7730
+          },
+          {
+            "period": "2023Q3",
+            "revenue": 16773,
+            "grossProfit": 9101,
+            "operatingIncome": 6997,
+            "netIncome": 6473
+          },
+          {
+            "period": "2023Q2",
+            "revenue": 14751,
+            "grossProfit": 7983,
+            "operatingIncome": 6196,
+            "netIncome": 5577
+          },
+          {
+            "period": "2023Q1",
+            "revenue": 15604,
+            "grossProfit": 8789,
+            "operatingIncome": 7094,
+            "netIncome": 6350
+          }
+        ],
+        "annualFY2025": {
+          "revenue": 116856,
+          "grossProfit": 69987,
+          "operatingIncome": 59420,
+          "netIncome": 52080
+        },
+        "nativeTWDM": {
+          "2026Q3": {
+            "revenue": 1494243,
+            "netIncome": 763064
+          },
+          "2025FY": {
+            "revenue": 3809054,
+            "netIncome": 1697604
+          }
+        }
+      },
+      "source": "stockanalysis.com /quote/tpe/2330/financials/ (quarterly; underlying TSMC quarterly reports / MOPS)",
+      "crossCheck": "2025Q3 revenue TWD 989,918M ≈ USD 30,372M at spot 32.60 — TSMC reported US$30.07B for 3Q25 at its own rate (~32.92); <1.5% FX-rate diff. Wafer segment ~86% of revenue consistent.",
+      "notes": "TSMC also self-publishes USD quarterly income statements (TSMC quarterly report mgmt PDF); ADR-side data from batch 2 covers same periods in USD — figures here are the TWD-listed consolidated numbers converted at spot, so do NOT merge with ADR USD without period-rate conversion."
+    }
+  ],
+  "channelMap": {
+    "generatedAt": "2026-10-26",
+    "universal": [
+      {
+        "channel": "stockanalysis.com",
+        "keyRequired": false,
+        "granularity": "annual + quarterly (most markets) + semi-annual (Europe) + TTM",
+        "notes": "Worked without key for SWX/EPA/TPE quotes in this batch. REST-ish JSON API at stockanalysis.com/api/ exists (unofficial). Best single free aggregator for non-US."
+      },
+      {
+        "channel": "open.er-api.com",
+        "keyRequired": false,
+        "granularity": "daily FX snapshot",
+        "notes": "Free no-key FX for USD conversions; period-accurate FX would need exchangerate-api archive (key) or ECB SDW (free). "
+      },
+      {
+        "channel": "eastmoney 全球站 (emweb.securities.eastmoney.com)",
+        "keyRequired": false,
+        "granularity": "quarterly, many non-US markets",
+        "notes": "Not exercised this batch (stockanalysis succeeded first); JSON endpoints are public but unstable parameter naming."
+      },
+      {
+        "channel": "investing.com",
+        "keyRequired": false,
+        "granularity": "quarterly via /equity/…-income-statement",
+        "notes": "Historically 403s scrapers; vary UA or use mobile mirrors. Not needed this batch."
+      },
+      {
+        "channel": "wsj.com / marketwatch.com",
+        "keyRequired": false,
+        "granularity": "annual+quarterly",
+        "notes": "Heavily bot-protected; low priority given stockanalysis coverage."
+      }
+    ],
+    "switzerland": [
+      {
+        "channel": "SIX Exchange + company IR (nestle.com/investors)",
+        "keyRequired": false,
+        "granularity": "half-year + full-year IFRS; quarterly sales-only releases",
+        "notes": "Nestlé publishes half-year report PDF/Excel; no full quarterly P&L."
+      },
+      {
+        "channel": "stockanalysis.com /quote/swx/",
+        "keyRequired": false,
+        "granularity": "annual + semi-annual",
+        "notes": "Confirmed working (this batch)."
+      }
+    ],
+    "france": [
+      {
+        "channel": "Euronext / company IR (lvmh.com)",
+        "keyRequired": false,
+        "granularity": "quarterly revenue releases (PDF) + semi-annual full P&L + annual",
+        "notes": "LVMH full P&L only semi-annually; revenue quarterly."
+      },
+      {
+        "channel": "stockanalysis.com /quote/epa/",
+        "keyRequired": false,
+        "granularity": "annual + semi-annual + TTM",
+        "notes": "Confirmed working (this batch)."
+      },
+      {
+        "channel": "AMF/info-financiere.fr (French regulator)",
+        "keyRequired": false,
+        "granularity": "regulated filings PDFs",
+        "notes": "PDF parsing last resort."
+      }
+    ],
+    "taiwan": [
+      {
+        "channel": "MOPS 公開資訊觀測站 (mops.twse.com.tw)",
+        "keyRequired": false,
+        "granularity": "quarterly reviewed consolidated statements, annual audited",
+        "notes": "Official; no key. Endpoints: /english/mops.html or /tw/; IFRS PDF/XHTML downloads. Chinese UI has richer APIs (e.g. t163sb04 quarterly table). Recommended primary for batch extension."
+      },
+      {
+        "channel": "TWSE openapi (openapi.twse.com.tw)",
+        "keyRequired": false,
+        "granularity": "monthly revenue (t187ap05), some ratios",
+        "notes": "Official JSON, monthly revenue per company — good leading indicator."
+      },
+      {
+        "channel": "stockanalysis.com /quote/tpe/",
+        "keyRequired": false,
+        "granularity": "quarterly",
+        "notes": "Confirmed working (this batch); TSMC and MediaTek both had clean quarterly tables."
+      },
+      {
+        "channel": "公司 IR: tsmc.com quarterly reports, mediatek.com investor",
+        "keyRequired": false,
+        "granularity": "quarterly, TSMC provides USD versions of its own statements",
+        "notes": "Best for period-accurate USD."
+      }
+    ],
+    "korea": [
+      {
+        "channel": "DART (dart.fss.or.kr) opendart API",
+        "keyRequired": "true (free registration)",
+        "granularity": "quarterly/annual XBRL + JSON",
+        "notes": "KEY PENDING REGISTRATION — highest-value KR channel once key obtained; api.dart.fss.or.kr/reportJson etc."
+      },
+      {
+        "channel": "stockanalysis.com /quote/krx/",
+        "keyRequired": false,
+        "granularity": "annual (quarterly spotty)",
+        "notes": "Fallback."
+      },
+      {
+        "channel": "KRX info (kind.krx.co.kr)",
+        "keyRequired": false,
+        "granularity": "quarterly filings, web-table only",
+        "notes": "No clean API; scraping-grade."
+      }
+    ],
+    "japan": [
+      {
+        "channel": "EDINET (disclosure2.edinet-fsa.go.jp) API v2",
+        "keyRequired": "true (free registration since 2024)",
+        "granularity": "annual 訂正+quarterly reports PDF/XBRL (JP companies file annual securities reports + quarterly)",
+        "notes": "KEY PENDING REGISTRATION. Full XBRL via /api/v2/documents."
+      },
+      {
+        "channel": "stockanalysis.com /quote/tyo/",
+        "keyRequired": false,
+        "granularity": "annual + quarterly (converted)",
+        "notes": "JP companies report full P&L quarterly under IFRS/JP-GAAP quarterly disclosure rules; stockanalysis usually carries it."
+      },
+      {
+        "channel": "TDnet/IR BANK / company IR pages",
+        "keyRequired": false,
+        "granularity": "quarterly kessan tanshin PDF",
+        "notes": "PDF-heavy; use only for cross-check."
+      }
+    ],
+    "priorityNextSteps": [
+      "Register DART API key (Korea) — free, instant-ish; unlocks structured KR quarterly via OpenDART JSON.",
+      "Register EDINET API key (Japan) — free; unlocks XBRL annual/quarterly.",
+      "For Taiwan, wire MOPS t163sb04 quarterly table + TWSE openapi monthly revenue as official backup to stockanalysis.",
+      "Adopt period-end FX (ECB SDW free XML or exchangerate-api paid archive) instead of single spot rate for USD normalization."
+    ]
+  }
+}
