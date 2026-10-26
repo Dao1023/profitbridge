@@ -41,6 +41,10 @@ h1 .sub { color:var(--muted); font-size:15px; font-weight:normal; margin-left:10
 .exportGroup svg { width:15px; height:15px; }
 .exportGroup button.active { background:#dbe7fa; color:var(--title-blue); }
 .exportGroup button.active:hover { background:#cfe0f8; }
+#barSelect { appearance:auto; background:var(--card); color:var(--text); border:1px solid #d8dee9; border-radius:10px;
+  padding:8px 12px; font-size:13.5px; font-weight:600; cursor:pointer; box-shadow:0 1px 3px rgba(30,41,59,.06); max-width:230px; }
+#barSelect:hover { border-color:var(--blue); }
+#barSelect option:disabled { color:#b6bfcc; }
 
 #chartPanel { background:var(--cream); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
 #chartPanel .in-title { text-align:center; padding-top:20px; font-size:32px; font-weight:800; color:var(--title-blue); }
@@ -89,10 +93,15 @@ footer a { color:var(--blue); }
     <header>
       <h1 id="title"></h1>
       <div class="controls">
+        <div class="exportGroup" id="viewGroup">
+          <button id="btnViewBridge"><span id="lblViewBridge"></span></button>
+          <button id="btnViewBar"><span id="lblViewBar"></span></button>
+        </div>
         <div class="exportGroup" id="modeGroup">
           <button id="btnPct"><span id="lblPct"></span></button>
           <button id="btnQoQ"><span id="lblQoQ"></span></button>
         </div>
+        <select id="barSelect" style="display:none"></select>
         <div class="exportGroup">
           <button id="btnExportPNG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportPNG"></span></button>
           <button id="btnExportSVG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportSVG"></span></button>

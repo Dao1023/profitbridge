@@ -23,6 +23,10 @@ const I18N = {
     qoqNote: 'QoQ: flows/amounts = % change vs prior quarter; margins = percentage points (pp). “—” = no prior-quarter data.',
     margins: { gross: 'Gross margin', op: 'Operating margin', net: 'Net margin' },
     ofRev: '% of rev', qoqSuffix: 'QoQ',
+    viewBridge: 'Profit bridge', viewBar: 'Bar chart',
+    barGroups: { items: 'Income statement', segments: 'Segments', margins: 'Margins' },
+    barNoData: 'No disclosed data for this item', barFullHistory: 'full history',
+    barNoDataTag: 'no data',
   },
   zh: {
     appTitle: '利润析视', langBtn: 'English',
@@ -41,6 +45,10 @@ const I18N = {
     qoqNote: '环比口径：金额/流量为环比 % 变化；利润率为百分点（pp）。“—”表示上季无数据。',
     margins: { gross: '毛利率', op: '营业利润率', net: '净利率' },
     ofRev: '占营收', qoqSuffix: 'QoQ',
+    viewBridge: '利润桥', viewBar: '柱状图',
+    barGroups: { items: '利润科目', segments: '分部', margins: '利润率' },
+    barNoData: '该子项无披露数据', barFullHistory: '全历史季度',
+    barNoDataTag: '无数据',
   },
 };
 
@@ -67,7 +75,7 @@ const tn = k => I18N[lang].nodes[k] || k;
 let DATA = null;      // profit.json (values in $M)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
 let chart = null;     // echarts instance
-let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false } }; // qIndex null = latest
+let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue' }; // qIndex null = latest
 
 const MB = 1e3; // $M → $B display factor (all data is in $M)
 const fmtPct = v => v == null ? '—' : (v * 100).toFixed(1) + '%';
@@ -274,6 +282,7 @@ function checkConsistency(qv, g) {
 }
 
 function renderChart() {
+  if (state.view === 'bar') { renderBarChart(); return; }
   const qv = q();
   const segList = segmentsFor(state.company, qv.end);
   const g = buildGraph(qv, segList);
@@ -384,6 +393,130 @@ function renderChart() {
   };
 }
 
+/* ---- bar (time-series) view: x = all quarters, y = one selectable sub-item ---- */
+const BAR_PROFIT_ITEMS = ['revenue', 'gross', 'op', 'net', 'cogs', 'rd', 'sga', 'taxOther'];
+const BAR_MARGIN_ITEMS = ['gross', 'op', 'net'];
+const MARGIN_COLOR = '#1d55a5';
+
+/* top-level OR child segment value for name in a given quarter; null when absent */
+function segValueFor(ticker, qEnd, name) {
+  const list = segmentsFor(ticker, qEnd);
+  if (!list) return null;
+  const top = list.find(s => s.name === name);
+  if (top) return top.value;
+  for (const s of list) { const ch = (s.children || []).find(c => c.name === name); if (ch) return ch.value; }
+  return null;
+}
+
+/* Every selectable bar item for a company, with its full-history series precomputed.
+   groups: items (income-statement lines, $B) / segments (from segments.json, $B) / margins (%). */
+function buildBarItems(ticker) {
+  const qs = DATA.companies[ticker].quarters;
+  const out = [];
+  for (const id of BAR_PROFIT_ITEMS) {
+    const data = qs.map(qv => { const m = rawMetrics(qv); return m && m[id] != null ? m[id] / MB : null; });
+    out.push({ id, label: tn(id), group: 'items', kind: 'amount', color: NODE_COLORS[id], data, hasData: data.some(v => v != null) });
+  }
+  const segNames = [];
+  if (SEG && SEG.companies[ticker] && SEG.companies[ticker].quarters) {
+    const seen = new Set();
+    for (const list of Object.values(SEG.companies[ticker].quarters))
+      for (const s of list)
+        for (const nm of [s.name, ...(s.children || []).map(c => c.name)])
+          if (!seen.has(nm)) { seen.add(nm); segNames.push(nm); }
+  }
+  for (const nm of segNames) {
+    const data = qs.map(qv => { const v = segValueFor(ticker, qv.end, nm); return v != null ? v / MB : null; });
+    out.push({ id: 'seg:' + nm, segName: nm, label: nm, group: 'segments', kind: 'segment', color: BLUE, data, hasData: data.some(v => v != null) });
+  }
+  for (const mk of BAR_MARGIN_ITEMS) {
+    const data = qs.map(qv => { const m = rawMetrics(qv); return m && m.revenue && m[mk] != null ? m[mk] / m.revenue * 100 : null; });
+    out.push({ id: 'margin:' + mk, mk, label: t('margins')[mk], group: 'margins', kind: 'margin', color: MARGIN_COLOR, data, hasData: data.some(v => v != null) });
+  }
+  return out;
+}
+
+/* dropdown in the header: grouped 利润科目/分部/利润率; no-data items disabled + tagged */
+function renderBarSelect() {
+  const sel = document.getElementById('barSelect');
+  const items = buildBarItems(state.company);
+  if (!items.some(i => i.id === state.barItem)) state.barItem = 'revenue'; // new company may lack the old pick
+  sel.innerHTML = ['items', 'segments', 'margins'].map(g => {
+    const gi = items.filter(i => i.group === g);
+    if (!gi.length) return '';
+    return `<optgroup label="${t('barGroups')[g]}">` + gi.map(i =>
+      `<option value="${i.id}"${i.id === state.barItem ? ' selected' : ''}${i.hasData ? '' : ' disabled'}>${i.label}${i.hasData ? '' : ' (' + t('barNoDataTag') + ')'}</option>`
+    ).join('') + '</optgroup>';
+  }).join('');
+  sel.style.display = state.view === 'bar' ? '' : 'none';
+  sel.onchange = () => { state.barItem = sel.value; renderChart(); };
+}
+
+/* full echarts bar option: x = all quarters (no holes), y = selected item.
+   pct/qoq modes annotate the tooltip (bar height always stays the raw amount —
+   a 64-bar % -of-revenue chart would flatten the scale and lose the trend). */
+function renderBarChart() {
+  const qs = DATA.companies[state.company].quarters;
+  const items = buildBarItems(state.company);
+  const item = items.find(i => i.id === state.barItem) || items[0];
+  const labels = qs.map(qv => {
+    const qn = Math.floor((Number(qv.end.slice(5, 7)) - 1) / 3) + 1;
+    return `Q${qn}'${qv.end.slice(2, 4)}`;
+  });
+  const hasAny = item.data.some(v => v != null);
+  const isMargin = item.kind === 'margin';
+  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : '$' + v.toFixed(1) + 'B';
+  document.getElementById('chartTitle').textContent =
+    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t('barFullHistory') : ''}`;
+
+  const opt = {
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis', confine: true,
+      formatter: params => {
+        const p = Array.isArray(params) ? params[0] : params;
+        const i = p.dataIndex, qv = qs[i], val = item.data[i];
+        const lines = [`<b>${quarterLabel(qv.end)}</b> <span style="color:#94a3b8">${qv.end}</span>`];
+        if (val == null) {
+          lines.push('—');
+        } else {
+          lines.push(`<b>${fmtVal(val)}</b>`);
+          if (state.mode.pct && !isMargin) { // share of that quarter's revenue
+            const m = rawMetrics(qv);
+            if (m && m.revenue) lines.push(`${t('ofRev')} ${fmtPct(val * MB / m.revenue)}`);
+          }
+        }
+        if (state.mode.qoq && i > 0) { // margins → pp, amounts → % change
+          const pv = item.data[i - 1];
+          const d = (val != null && pv != null) ? (isMargin ? (val - pv) : (val - pv) / Math.abs(pv)) : null;
+          lines.push(`${t('qoqSuffix')} ${isMargin ? fmtPP(d) : fmtDelta(d)}`);
+        }
+        return lines.join('<br/>');
+      },
+    },
+    grid: { left: 64, right: 24, top: 48, bottom: 68 },
+    xAxis: {
+      type: 'category', data: labels,
+      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b' },
+      axisLine: { lineStyle: { color: '#cbd5e1' } }, axisTick: { alignWithLabel: true },
+    },
+    yAxis: {
+      type: 'value', name: isMargin ? '%' : '$B', nameTextStyle: { color: '#64748b' },
+      axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
+    },
+    graphic: hasAny ? [] : [{ type: 'text', left: 'center', top: 'middle',
+      style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#94a3b8' } }],
+    series: [{
+      name: item.label, type: 'bar', data: item.data, barMaxWidth: 16,
+      itemStyle: { color: item.color, borderRadius: [2, 2, 0, 0] },
+    }],
+  };
+  chart.setOption(opt, true); // notMerge: full replacement every time (pitfall #1)
+  window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length };
+  window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
+}
+
+
 /* ---- left logo rail ---- */
 const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d','#15803d','#a16207','#1e40af','#4d7c0f'];
 function renderLogoRail() {
@@ -490,6 +623,14 @@ function render() {
   document.getElementById('btnPct').classList.toggle('active', state.mode.pct);
   document.getElementById('btnQoQ').classList.toggle('active', state.mode.qoq);
 
+  // view switcher: bridge (sankey + timeline) vs bar (full-history time series)
+  document.getElementById('lblViewBridge').textContent = t('viewBridge');
+  document.getElementById('lblViewBar').textContent = t('viewBar');
+  document.getElementById('btnViewBridge').classList.toggle('active', state.view === 'bridge');
+  document.getElementById('btnViewBar').classList.toggle('active', state.view === 'bar');
+  document.getElementById('timeline').style.display = state.view === 'bar' ? 'none' : '';
+  renderBarSelect(); // must run before renderChart — it fixes state.barItem for the new company
+
   renderLogoRail();
   renderTimeline();
   renderChart();
@@ -527,7 +668,7 @@ function exportPNG() {
   const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: 1600, height: 900 });
   off.setOption(opt);
   const a = document.createElement('a');
-  a.download = `profit_bridge_${state.company}_${q().end}.png`;
+  a.download = `${state.view === 'bar' ? 'bar_' + state.barItem.slice(4) : 'profit_bridge'}_${state.company}_${q().end}.png`;
   a.href = off.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#f2efe9' });
   document.body.appendChild(a); a.click(); a.remove();
   off.dispose();
@@ -538,7 +679,7 @@ function exportSVG() {
   const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.download = `profit_bridge_${state.company}_${q().end}.svg`;
+  a.download = `${state.view === 'bar' ? 'bar_' + state.barItem.slice(4) : 'profit_bridge'}_${state.company}_${q().end}.svg`;
   a.href = url; document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
 }
@@ -550,6 +691,8 @@ function initControls() {
   document.getElementById('btnExportSVG').addEventListener('click', exportSVG);
   document.getElementById('btnPct').addEventListener('click', () => { state.mode.pct = !state.mode.pct; render(); });
   document.getElementById('btnQoQ').addEventListener('click', () => { state.mode.qoq = !state.mode.qoq; render(); });
+  document.getElementById('btnViewBridge').addEventListener('click', () => { if (state.view !== 'bridge') { state.view = 'bridge'; render(); } });
+  document.getElementById('btnViewBar').addEventListener('click', () => { if (state.view !== 'bar') { state.view = 'bar'; render(); } });
 }
 
 (async function main() {
