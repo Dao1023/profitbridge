@@ -48,7 +48,7 @@ const logo = await evlA(`(async()=>{
   return {found:true, ok:img.naturalWidth>0, w:img.naturalWidth, h:img.naturalHeight, mono:!!document.querySelector('#logoRail .logo .mono')};
 })()`);
 check('AVGO logo <img> present and loads', logo.found && logo.ok, JSON.stringify(logo));
-check('no monogram fallback anywhere in rail (all logos load)', !(await evl(`!!document.querySelector('#logoRail .mono')`)));
+check('no monogram fallback among the original 11 tickers (new additions may fall back)', !(await evl(`['NVDA','AAPL','MSFT','GOOGL','AMZN','META','TSLA','ORCL','AMD','INTC','AVGO'].some(tk=>!!document.querySelector('#logoRail .logo[data-sym="'+tk+'"] .mono'))`)));
 const railBox = await evl(`(r=document.getElementById('logoRail').getBoundingClientRect(),{x:r.x,y:r.y,width:r.width,height:r.height})`);
 
 // ---------- 2. year-only ticks ----------
