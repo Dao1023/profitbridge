@@ -76,11 +76,15 @@ let DATA = null;      // profit.json (values in $M)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
 let chart = null;     // echarts instance
 /* ---- industry filter: mapping table lives here (data/ untouched) ----
-   7 groups designed from the actual 79-company composition; unknown tickers → 'other' */
+   A company may span MULTIPLE industries (e.g. Google = internet + AI):
+   INDUSTRY_OF[tk] is an array; filtering is multi-select union. */
 const INDUSTRY_GROUPS = [
   { id: 'semi', zh: '半导体', en: 'Semiconductors', tickers: [
     'NVDA','AMD','INTC','AVGO','MU','QCOM','NXPI','ARM','STM','TSM','ASML',
-    '00981.HK','688981.SS','688825.SS','688256.SS','688795.SS','2454.TW','2330.TW','000660.KS'] },
+    '00981.HK','688981.SS','688825.SS','688256.SS','688795.SS','2454.TW','2330.TW','000660.KS','005930.KS'] },
+  { id: 'ai', zh: 'AI', en: 'AI', tickers: [
+    'NVDA','AMD','GOOGL','MSFT','META','AVGO','BIDU','CRWV','PLTR','TSLA',
+    '688256.SS','688795.SS'] },
   { id: 'soft', zh: '软件/互联网', en: 'Software / Internet', tickers: [
     'MSFT','GOOGL','AMZN','META','ORCL','PLTR','NFLX','ADBE','IBM','U','DUOL','SPOT','CRWV',
     'BABA','BIDU','TCOM','JD','PDD','BILI','WB','ZH','XNET','TME','DIDIY',
@@ -89,16 +93,18 @@ const INDUSTRY_GROUPS = [
     'AAPL','DELL','HPQ','CSCO','MSI','SONY','005930.KS','066570.KS','00992.HK',
     '002415.SZ','000333.SZ','000100.SZ'] },
   { id: 'auto', zh: '汽车/新能源', en: 'Auto / Energy', tickers: ['TSLA','LI','300750.SZ','002594.SZ'] },
+  { id: 'space', zh: '航天', en: 'Aerospace', tickers: ['SPCX'] },
   { id: 'cons', zh: '消费', en: 'Consumer', tickers: [
-    'KO','MCD','SBUX','LKNCY','02097.HK','00151.HK','600519.SS','600887.SS','NESN.SW','MC.PA'] },
+    'KO','MCD','SBUX','LKNCY','02097.HK','00151.HK','600519.SS','600887.SS','NESN.SW','MC.PA',
+    'AAPL','SONY'] },
   { id: 'fin', zh: '金融', en: 'Financials', tickers: ['V','01398.HK','03968.HK'] },
   { id: 'tele', zh: '通信', en: 'Telecom', tickers: ['00941.HK','00728.HK','00762.HK','000063.SZ'] },
 ];
 const INDUSTRY_OF = {};
-for (const g of INDUSTRY_GROUPS) g.tickers.forEach(tk => { INDUSTRY_OF[tk] = g.id; });
-const industryOf = tk => INDUSTRY_OF[tk] || 'other';
+for (const g of INDUSTRY_GROUPS) g.tickers.forEach(tk => { (INDUSTRY_OF[tk] ||= []).push(g.id); });
+const industriesOf = tk => INDUSTRY_OF[tk] || [];
 
-let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue', curMode: 'native', industry: 'all' }; // qIndex null = latest; curMode: CNY companies 'native' ¥ | 'usd'
+let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue', curMode: 'native', industries: [] }; // qIndex null = latest; curMode: CNY companies 'native' ¥ | 'usd'
 
 const MB = 1e3; // millions → billions display factor (all data is in millions of the reporting currency)
 /* reporting-currency symbol per company (currency field = <ISO>-M; foreign filers like
@@ -623,32 +629,43 @@ function renderLogoRail() {
   rail.querySelectorAll('.logo').forEach(el => {
     const tk = el.dataset.sym;
     el.classList.toggle('active', tk === state.company);
-    el.classList.toggle('hidden', state.industry !== 'all' && industryOf(tk) !== state.industry);
+    // union of selected industries; empty selection = all
+    el.classList.toggle('hidden',
+      state.industries.length > 0 && !industriesOf(tk).some(id => state.industries.includes(id)));
   });
 }
 
-/* ---- industry filter bar (top of page, above the logo rail) ---- */
+/* ---- industry filter bar (top of page, above the logo rail) ----
+   multi-select: clicking a category toggles it; visible logos = union of all
+   selected categories; 全部/All resets to no selection */
 function renderIndustryBar() {
   const bar = document.getElementById('industryBar');
   if (bar.dataset.built !== '1' || bar.dataset.lang !== lang) {
     const counts = {};
-    Object.keys(DATA.companies).forEach(tk => { const id = industryOf(tk); counts[id] = (counts[id] || 0) + 1; });
+    Object.keys(DATA.companies).forEach(tk => industriesOf(tk).forEach(id => { counts[id] = (counts[id] || 0) + 1; }));
     const btn = (id, label, cnt) => `<button class="indBtn" data-ind="${id}">${label}<span class="cnt">${cnt}</span></button>`;
-    const all = lang === 'zh' ? '全部' : 'All', other = lang === 'zh' ? '其他' : 'Other';
+    const all = lang === 'zh' ? '全部' : 'All';
     bar.innerHTML = `<span class="lbl">${lang === 'zh' ? '行业' : 'Industry'}</span>`
       + btn('all', all, Object.keys(DATA.companies).length)
-      + INDUSTRY_GROUPS.map(g => btn(g.id, lang === 'zh' ? g.zh : g.en, counts[g.id] || 0)).join('')
-      + btn('other', other, counts.other || 0);
+      + INDUSTRY_GROUPS.map(g => btn(g.id, lang === 'zh' ? g.zh : g.en, counts[g.id] || 0)).join('');
     bar.querySelectorAll('.indBtn').forEach(el => el.addEventListener('click', () => {
-      state.industry = el.dataset.ind;
-      // URL hash sync (replaceState: no history spam); 'all' clears the hash
-      const url = state.industry === 'all' ? location.pathname + location.search : '#ind=' + state.industry;
+      const id = el.dataset.ind;
+      if (id === 'all') state.industries = [];
+      else {
+        const i = state.industries.indexOf(id);
+        if (i >= 0) state.industries.splice(i, 1); else state.industries.push(id);
+      }
+      // URL hash sync (replaceState: no history spam); empty selection clears the hash
+      const url = state.industries.length
+        ? '#ind=' + state.industries.join(',')
+        : location.pathname + location.search;
       history.replaceState ? history.replaceState(null, '', url) : (location.hash = url);
       render();
     }));
     bar.dataset.built = '1'; bar.dataset.lang = lang;
   }
-  bar.querySelectorAll('.indBtn').forEach(el => el.classList.toggle('active', el.dataset.ind === state.industry));
+  bar.querySelectorAll('.indBtn').forEach(el => el.classList.toggle('active',
+    el.dataset.ind === 'all' ? state.industries.length === 0 : state.industries.includes(el.dataset.ind)));
 }
 
 /* ---- bottom timeline ---- */
@@ -839,13 +856,14 @@ function initControls() {
   if (!loaded && window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
   if (!loaded) { document.getElementById('title').textContent = 'data/profit.json not found'; return; }
   DATA = loaded;
-  // profitPreview (e.g. SPCX): injected as an isolated entry so the rail/bridge can
-  // render it, but it is NOT part of the main comparison series (marked preview).
+  // profitPreview (e.g. SPCX): injected as a NORMAL entry so the rail/bridge can
+  // render it alongside the main series — no Preview special-casing in the UI
+  // (data agent will move it into the main sequence; until then nothing breaks).
   if (DATA.profitPreview && !DATA.companies[DATA.profitPreview.ticker]) {
     const pv = DATA.profitPreview;
     DATA.companies[pv.ticker] = {
       name: pv.name, currency: pv.currency || 'USD-M', frequency: pv.frequency || 'q',
-      quarters: pv.quarters, preview: true, notes: pv.status || 'preview',
+      quarters: pv.quarters,
     };
   }
   try {
@@ -858,9 +876,9 @@ function initControls() {
   } catch (e) { /* registry optional — built-in fallbacks cover the 10 dashboard companies */ }
 
   chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
-  // industry filter deep-link: #ind=<groupId>
-  const m = location.hash.match(/^#ind=([\w-]+)$/);
-  if (m) state.industry = m[1];
+  // industry filter deep-link: #ind=<id>[,<id>...] (multi-select union)
+  const m = location.hash.match(/^#ind=([\w-]+(?:,[\w-]+)*)$/);
+  if (m) state.industries = m[1].split(',').filter(id => INDUSTRY_GROUPS.some(g => g.id === id));
   window.addEventListener('resize', () => { chart.resize(); renderChart(); });
   initControls();
   render();

@@ -6,8 +6,8 @@ let fails = 0;
 const ok = (cond, msg) => { if (!cond) { console.error('FAIL', msg); fails++; } else console.log('ok  ', msg); };
 const approx = (a, b, tol) => Math.abs(a - b) <= Math.abs(b) * tol;
 
-// 1) scale: 79 companies incl. HK/A-share/KR/TW/EU entries
-ok(Object.keys(P.companies).length === 79, `79 companies (got ${Object.keys(P.companies).length})`);
+// 1) scale: 79+ companies incl. HK/A-share/KR/TW/EU entries (data agent may add more)
+ok(Object.keys(P.companies).length >= 79, `>=79 companies (got ${Object.keys(P.companies).length})`);
 ok(P.companies['00700.HK'] && P.companies['600519.SS'] && P.companies['005930.KS'] && P.companies['2330.TW'] && P.companies['NESN.SW'], 'HK/A-share/KR/TW/EU entries present');
 
 // 2) Tencent FY2024: four single quarters sum to 660,257 CNY-M; USD-converted ≈ $90,455M (±3%, avg-rate convention)
@@ -55,7 +55,10 @@ ok(P.companies['03690.HK'].quarters.every(q => q.periodType !== 'annual'), 'Meit
 
 // 9) skipped + preview
 for (const t of ['TCEHY', 'XIACF', '02513.HK', '00100.HK']) ok(P.skipped.some(s => s.ticker === t), `skipped has ${t}`);
-ok(P.profitPreview && P.profitPreview.ticker === 'SPCX' && P.profitPreview.quarters.length === 2, 'SPCX profitPreview 2q isolated');
+// SPCX: no longer a Preview special case — must exist with real quarters, either
+// already migrated into the main series or still arriving via profitPreview (UI injects it as normal)
+const spcx = P.companies.SPCX || (P.profitPreview && P.profitPreview.ticker === 'SPCX' ? P.profitPreview : null);
+ok(spcx && spcx.quarters.length === 2 && spcx.quarters[1].end === '2026-09-30' && spcx.quarters[1].revenue === 14575 && spcx.quarters[1].netInc === 4404, `SPCX 2q, Q3 2026-09-30 rev=14575 NI=4404 (${P.companies.SPCX ? 'main series' : 'profitPreview'})`);
 
 // 10) batch5: NESN/MC 5 annual quarters each, no TTM rows
 ok(P.companies['NESN.SW'].quarters.length === 5 && P.companies['MC.PA'].quarters.length === 5, 'NESN/MC 5FY each');

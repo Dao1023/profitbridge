@@ -43,32 +43,37 @@ const totalLogos = await evl(`document.querySelectorAll('#logoRail .logo').lengt
 const allVisible = await evl(`[...document.querySelectorAll('#logoRail .logo')].filter(l => !l.classList.contains('hidden')).length`);
 check('all logos visible initially', totalLogos === allVisible, `${allVisible}/${totalLogos}`);
 
-// ---------- filter: semiconductors ----------
+// ---------- multi-select: semi + ai union ----------
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="semi"]').click()`);
+await evl(`document.querySelector('#industryBar .indBtn[data-ind="ai"]').click()`);
 await new Promise(r => setTimeout(r, 300));
 const semi = await evl(`(() => ({
   visible: [...document.querySelectorAll('#logoRail .logo:not(.hidden)')].length,
   hash: location.hash,
-  active: document.querySelector('#industryBar .indBtn.active')?.dataset.ind,
+  active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).sort().join(','),
   nvdaVisible: !document.querySelector('#logoRail .logo[data-sym="NVDA"]')?.classList.contains('hidden'),
+  googlVisible: !document.querySelector('#logoRail .logo[data-sym="GOOGL"]')?.classList.contains('hidden'),
+  tslaVisible: !document.querySelector('#logoRail .logo[data-sym="TSLA"]')?.classList.contains('hidden'),
   koHidden: document.querySelector('#logoRail .logo[data-sym="KO"]')?.classList.contains('hidden'),
 }))()`);
-check('semi filter shows only semis', semi.visible === 19 && semi.nvdaVisible && semi.koHidden, `visible=${semi.visible}`);
-check('URL hash synced #ind=semi', semi.hash === '#ind=semi' && semi.active === 'semi');
+check('semi+ai union shows members of both', semi.googlVisible && semi.tslaVisible && semi.koHidden, `visible=${semi.visible}`);
+check('multi URL hash synced #ind=semi,ai', semi.hash === '#ind=semi,ai' && semi.active === 'ai,semi');
 
-// deep-link: fresh load (via about:blank so the hash change is not a same-document nav)
+// deep-link: fresh load with multi-value hash (via about:blank so the hash change is not a same-document nav)
 await send('Page.navigate', { url: 'about:blank' });
 await new Promise(r => setTimeout(r, 500));
-await send('Page.navigate', { url: BASE + '/index.html#ind=cons' });
+await send('Page.navigate', { url: BASE + '/index.html#ind=cons,space' });
 await new Promise(r => setTimeout(r, 3000));
 const deeplink = await evl(`(() => ({
-  active: document.querySelector('#industryBar .indBtn.active')?.dataset.ind,
+  active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).sort().join(','),
   visible: [...document.querySelectorAll('#logoRail .logo:not(.hidden)')].length,
   koVisible: !document.querySelector('#logoRail .logo[data-sym="KO"]')?.classList.contains('hidden'),
-  consBtnCnt: Number(document.querySelector('#industryBar .indBtn[data-ind="cons"] .cnt').textContent),
+  spcxVisible: !!document.querySelector('#logoRail .logo[data-sym="SPCX"]') && !document.querySelector('#logoRail .logo[data-sym="SPCX"]')?.classList.contains('hidden'),
+  spcxPreviewBadge: !!document.querySelector('#logoRail .logo[data-sym="SPCX"] .pvBadge'),
 }))()`);
-check('hash deep-link applies filter on load', deeplink.active === 'cons' && deeplink.visible === deeplink.consBtnCnt && deeplink.koVisible, JSON.stringify(deeplink));
-await shot('filter-cons.png');
+check('multi-value hash deep-link applies union on load', deeplink.active === 'cons,space' && deeplink.koVisible && deeplink.spcxVisible, JSON.stringify(deeplink));
+check('SPCX shown as normal company (no Preview badge)', !deeplink.spcxPreviewBadge);
+await shot('filter-cons-space.png');
 
 // ---------- reset: 全部 ----------
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="all"]').click()`);
