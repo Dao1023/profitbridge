@@ -3,6 +3,10 @@
 // Note: FMP serves some tickers as white-on-transparent PNGs (IBM, V, LI were affected)
 // which vanish on the app's light background. WHITE_LOGOS lists manual replacements
 // (rasterized from Wikimedia via Special:FilePath) that must not be re-overwritten.
+// HK/KS/SS/SZ/TW/SW/PA tickers are NOT fetched from FMP (it 404s on them); their logos
+// were manually sourced (Wikimedia Commons / zh·en Wikipedia local files / icon.horse
+// brand favicons), square-padded to 1:1, and committed as data/logos/<ticker>.png —
+// same naming convention, so the existsSync guard below skips them.
 import fs from 'node:fs';
 import path from 'node:path';
 const REGISTRY = JSON.parse(fs.readFileSync('data/companies.json', 'utf8'));
