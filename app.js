@@ -592,7 +592,7 @@ function renderBarChart() {
   const opt = {
     backgroundColor: 'transparent',
     legend: lineSeries.length ? {
-      top: 4, right: 8, itemWidth: 14, itemHeight: 8,
+      top: 42, right: 254, itemWidth: 14, itemHeight: 8, // left of the barSelect overlay, below the meta line
       textStyle: { color: '#475569', fontSize: 12 },
     } : undefined,
     tooltip: {
@@ -626,7 +626,21 @@ function renderBarChart() {
         return lines.join('<br/>');
       },
     },
-    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 48, bottom: 68 },
+    /* time-window slider (e.g. 2020–2023): drag/hover the bottom slider or
+       scroll-zoom inside the chart; bars + lines rescale together */
+    dataZoom: [
+      {
+        type: 'slider', xAxisIndex: 0, height: 20, bottom: 10, brushSelect: false,
+        borderColor: '#d8dee9', backgroundColor: '#ffffff',
+        fillerColor: 'rgba(37,99,235,.14)', handleStyle: { color: '#2563eb' },
+        moveHandleStyle: { color: '#2563eb' }, emphasis: { handleStyle: { borderColor: '#2563eb' } },
+        dataBackground: { lineStyle: { color: '#94a3b8' }, areaStyle: { color: 'rgba(148,163,184,.18)' } },
+        selectedDataBackground: { lineStyle: { color: '#2563eb' }, areaStyle: { color: 'rgba(37,99,235,.15)' } },
+        textStyle: { color: '#64748b', fontSize: 10 },
+      },
+      { type: 'inside', xAxisIndex: 0 },
+    ],
+    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 48, bottom: 92 },
     xAxis: {
       type: 'category', data: labels,
       axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },
@@ -797,8 +811,17 @@ function initTimelineDrag() {
 function render() {
   const c = DATA.companies[state.company];
   const qv = q();
-  document.getElementById('title').innerHTML =
-    `${t('appTitle')}&nbsp;<span class="sub">${c.name} · ${qv.end}${isAnnual() ? (lang === 'zh' ? ' 财年末' : ' (fiscal year end)') : (lang === 'zh' ? ' 季度末' : ' (quarter end)')}${c.currency && c.currency !== 'USD-M' ? ' · ' + c.currency.replace('-M', '') : ''}${dispInUsd() && c.currency !== 'USD-M' ? ' ≈US$' : ''}${c.preview ? (lang === 'zh' ? ' · Preview（未上市，预览数据）' : ' · Preview (private)') : ''}</span>`;
+  document.getElementById('brand').textContent = t('appTitle');
+  // company/period meta + source + updated merged into one small top-right line
+  // (replaces the old h1 subtitle and the bottom footer/covLine rows)
+  {
+    const bits = [c.name, qv.end + (isAnnual() ? (lang === 'zh' ? ' 财年末' : ' (fiscal year end)') : (lang === 'zh' ? ' 季度末' : ' (quarter end)'))];
+    if (c.currency && c.currency !== 'USD-M') bits.push(c.currency.replace('-M', ''));
+    if (dispInUsd() && c.currency !== 'USD-M') bits.push('≈US$');
+    if (c.preview) bits.push(lang === 'zh' ? 'Preview（未上市，预览数据）' : 'Preview (private)');
+    document.getElementById('metaLine').innerHTML =
+      `${bits.join(' · ')}<br/>${t('updated')} ${DATA.updated} · ${t('source')} <a href="${DATA.sourceUrl}" target="_blank">SEC EDGAR XBRL</a>`;
+  }
   document.getElementById('btnExportPNG').querySelector('span').textContent = t('exportPNG');
   document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
   document.getElementById('btnLang').textContent = t('langBtn');
@@ -830,27 +853,6 @@ function render() {
   renderTimeline();
   renderChart();
 
-  document.getElementById('srcLine').innerHTML =
-    `${t('source')} <a href="${DATA.sourceUrl}" target="_blank">SEC EDGAR XBRL</a> · HKEX/东财 (HK·A股) · KR/TW/EU disclosures`;
-  document.getElementById('updLine').textContent = `${t('updated')} ${DATA.updated}`;
-
-  // coverage footnote: which companies have an input side, and segment sourceUrl
-  const cov = document.getElementById('covLine');
-  if (SEG && SEG.companies) {
-    const withSeg = Object.keys(DATA.companies).filter(tk => {
-      const s = SEG.companies[tk];
-      return s && s.quarters && Object.keys(s.quarters).length > 0;
-    });
-    const detail = withSeg.map(tk => {
-      const n = Object.keys(SEG.companies[tk].quarters).length;
-      return `${tk} (${n}${lang === 'zh' ? '' : ''}/${DATA.companies[tk].quarters.length})`;
-    }).join(' · ');
-    cov.innerHTML = lang === 'zh'
-      ? `${t('coverage')} ${detail}（括号内为有分部数据的季节数/总季节数；缺失季度仅绘制利润瀑布）　${t('segSource')} <a href="${SEG.sourceUrl}" target="_blank">SEC EDGAR XBRL segment R files</a>`
-      : `${t('coverage')} ${detail} — quarters with segments vs total (quarters without segments render waterfall only). ${t('segSource')} <a href="${SEG.sourceUrl}" target="_blank">SEC EDGAR XBRL segment R files</a>`;
-  } else {
-    cov.textContent = t('coverageNone');
-  }
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
 }
 
@@ -909,7 +911,7 @@ function initControls() {
     if (res.ok) loaded = await res.json();
   } catch (e) { /* file:// or offline */ }
   if (!loaded && window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
-  if (!loaded) { document.getElementById('title').textContent = 'data/profit.json not found'; return; }
+  if (!loaded) { document.getElementById('brand').textContent = 'data/profit.json not found'; return; }
   DATA = loaded;
   // profitPreview (e.g. SPCX): injected as a NORMAL entry so the rail/bridge can
   // render it alongside the main series — no Preview special-casing in the UI

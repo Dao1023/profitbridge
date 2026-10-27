@@ -35,12 +35,15 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .logo .mono { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center;
   font-weight:800; font-size:18px; color:#fff; border-radius:6px; }
 
-/* ---- main column ---- */
+/* ---- row 2: logo rail (left) + chart (right) ---- */
 .main { flex:1; min-width:0; }
-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
-h1 { font-size:28px; color:var(--title-blue); }
-h1 .sub { color:var(--muted); font-size:15px; font-weight:normal; margin-left:10px; }
-.controls { display:flex; gap:10px; align-items:center; }
+/* ---- row 1: industry filter (left) + controls (right); fixed-height toolbar ---- */
+.toolbar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+.toolbar .left { display:flex; align-items:center; gap:14px; min-width:0; }
+#brand { font-size:20px; font-weight:800; color:var(--title-blue); white-space:nowrap; }
+.controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.meta { position:absolute; top:8px; right:12px; font-size:11px; color:var(--muted); text-align:right; line-height:1.5; z-index:7; pointer-events:none; }
+.meta a { color:var(--blue); pointer-events:auto; }
 #btnLang, #btnCur { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; }
 #btnLang:hover, #btnCur:hover { border-color:var(--blue); }
 #btnCur.active { border-color:var(--blue); color:var(--blue); background:#e8effc; }
@@ -53,14 +56,16 @@ h1 .sub { color:var(--muted); font-size:15px; font-weight:normal; margin-left:10
 .exportGroup svg { width:15px; height:15px; }
 .exportGroup button.active { background:#dbe7fa; color:var(--title-blue); }
 .exportGroup button.active:hover { background:#cfe0f8; }
-#barSelect { appearance:auto; background:var(--card); color:var(--text); border:1px solid #d8dee9; border-radius:10px;
-  padding:8px 12px; font-size:13.5px; font-weight:600; cursor:pointer; box-shadow:0 1px 3px rgba(30,41,59,.06); max-width:230px; }
 #barSelect:hover { border-color:var(--blue); }
 #barSelect option:disabled { color:#b6bfcc; }
 
 #chartPanel { background:var(--cream); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
 #chartPanel .in-title { text-align:center; padding-top:20px; font-size:32px; font-weight:800; color:var(--title-blue); }
 #sankey { width:100%; height:660px; display:block; }
+/* metric dropdown: absolute overlay top-right of the chart — appearing/disappearing
+   never shifts the toolbar row (fixes the whole-row button jump) */
+#barSelect { position:absolute; top:30px; right:12px; z-index:6; appearance:auto; background:var(--card); color:var(--text); border:1px solid #d8dee9; border-radius:10px;
+  padding:8px 12px; font-size:13.5px; font-weight:600; cursor:pointer; box-shadow:0 1px 3px rgba(30,41,59,.06); max-width:230px; }
 
 /* ---- bottom timeline ---- */
 #timeline { padding:10px 26px 16px; }
@@ -87,13 +92,10 @@ h1 .sub { color:var(--muted); font-size:15px; font-weight:normal; margin-left:10
 .tl-dot.near, #timeline.dragging .tl-dot.near, #timeline.hover .tl-dot.near { background:var(--blue); width:4px; height:20px; }
 #timeline.hover .tl-thumb { box-shadow:0 0 0 6px rgba(37,99,235,.12), 0 1px 4px rgba(30,41,59,.25); }
 
-footer { margin-top:14px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
-footer a { color:var(--blue); }
-#covLine { margin-top:8px; color:var(--muted); font-size:12px; }
-#covLine a { color:var(--blue); }
+/* bottom meta row removed: source/updated moved to .meta overlay top-right */
 
 /* ---- industry filter bar ---- */
-#industryBar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px; }
+#industryBar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; min-width:0; }
 #industryBar .lbl { font-size:12.5px; color:var(--muted); font-weight:600; margin-right:2px; }
 .indBtn { appearance:none; border:1px solid #d8dee9; background:var(--card); color:var(--text);
   border-radius:999px; padding:5px 13px; font-size:12.5px; font-weight:600; cursor:pointer;
@@ -110,43 +112,41 @@ footer a { color:var(--blue); }
 </style>
 </head>
 <body>
-<div id="industryBar"><span class="lbl">行业</span></div>
+<div class="toolbar">
+  <div class="left">
+    <span id="brand"></span>
+    <div id="industryBar"><span class="lbl">行业</span></div>
+  </div>
+  <div class="controls">
+    <div class="exportGroup" id="viewGroup">
+      <button id="btnViewBridge"><span id="lblViewBridge"></span></button>
+      <button id="btnViewBar"><span id="lblViewBar"></span></button>
+    </div>
+    <div class="exportGroup" id="modeGroup">
+      <button id="btnPct"><span id="lblPct"></span></button>
+      <button id="btnQoQ"><span id="lblQoQ"></span></button>
+    </div>
+    <div class="exportGroup">
+      <button id="btnExportPNG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportPNG"></span></button>
+      <button id="btnExportSVG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportSVG"></span></button>
+    </div>
+    <button id="btnCur" style="display:none"></button>
+    <button id="btnLang"></button>
+  </div>
+</div>
 <div class="layout">
   <div id="logoRail"></div>
   <div class="main">
-    <header>
-      <h1 id="title"></h1>
-      <div class="controls">
-        <div class="exportGroup" id="viewGroup">
-          <button id="btnViewBridge"><span id="lblViewBridge"></span></button>
-          <button id="btnViewBar"><span id="lblViewBar"></span></button>
-        </div>
-        <div class="exportGroup" id="modeGroup">
-          <button id="btnPct"><span id="lblPct"></span></button>
-          <button id="btnQoQ"><span id="lblQoQ"></span></button>
-        </div>
-        <select id="barSelect" style="display:none"></select>
-        <div class="exportGroup">
-          <button id="btnExportPNG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportPNG"></span></button>
-          <button id="btnExportSVG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportSVG"></span></button>
-        </div>
-        <button id="btnCur" style="display:none"></button>
-        <button id="btnLang"></button>
-      </div>
-    </header>
     <div id="chartPanel">
+      <div class="meta" id="metaLine"></div>
       <div class="in-title" id="chartTitle"></div>
+      <select id="barSelect" style="display:none"></select>
       <div id="sankey"></div>
       <div id="timeline">
         <div class="tl-track"><div class="tl-fill" id="tlFill"></div><div class="tl-thumb" id="tlThumb"></div></div>
         <div class="tl-ticks" id="tlTicks"></div>
       </div>
     </div>
-    <footer>
-      <span id="srcLine"></span>
-      <span id="updLine"></span>
-    </footer>
-    <div id="covLine"></div>
   </div>
 </div>
 <script src="vendor/echarts.min.js"></script>
