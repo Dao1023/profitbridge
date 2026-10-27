@@ -100,6 +100,30 @@ check('thumb/fill position matches index', await evl(`(() => {
   return Math.abs(pct - want) < 0.5;
 })()`));
 
+// ---------- 4. whole track is clickable: arbitrary (non-tick) positions ----------
+// click at fractional positions on the track (incl. between two ticks) ->
+// nearest quarter wins
+const trackClick = async frac => {
+  const p = await evl(`(() => {
+    const r = document.querySelector('.tl-track').getBoundingClientRect();
+    return { x: r.left + ${frac} * r.width, y: r.y + r.height / 2 };
+  })()`);
+  await click(Math.round(p.x), Math.round(p.y));
+  await sleep(800);
+  return snap();
+};
+for (const frac of [0.333, 0.507, 0.72, 0.97]) {
+  const s2 = await trackClick(frac);
+  const want = await evl(`Math.round(${frac} * (DATA.companies[state.company].quarters.length - 1))`);
+  check(`track click @${frac} -> nearest quarter`, s2.idx === want, `idx=${s2.idx} want=${want}`);
+}
+const mid = await trackClick(0.5);
+const midIdx = await evl(`Math.round(0.5 * (DATA.companies[state.company].quarters.length - 1))`);
+check('midway track click rounds to nearest quarter', mid.idx === midIdx, `idx=${mid.idx} want=${midIdx}`);
+const far = await trackClick(0.02);
+check('near-left track click -> early quarter', far.idx <= 2, `idx=${far.idx}`);
+await shot('timeline-track-click.png');
+
 const fails = results.filter(r => !r.ok);
 console.log(`\n${results.length - fails.length}/${results.length} checks passed`);
 process.exit(fails.length ? 1 : 0);

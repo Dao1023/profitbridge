@@ -78,6 +78,9 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 /* ---- bottom timeline ---- */
 #timeline { padding:10px 26px 16px; }
 .tl-track { position:relative; height:6px; background:#dfe3ec; border-radius:3px; margin:0 30px; }
+/* invisible vertical extension — a 6px track is hard to hit; a pointerdown
+   anywhere in this band jumps to the nearest quarter */
+.tl-track::before { content:''; position:absolute; left:0; right:0; top:-14px; bottom:-14px; }
 .tl-fill { position:absolute; left:0; top:0; bottom:0; background:var(--blue); border-radius:3px; }
 .tl-thumb { position:absolute; top:50%; width:20px; height:20px; border-radius:50%; background:#fff;
   border:3px solid var(--blue); box-shadow:0 1px 4px rgba(30,41,59,.25); transform:translate(-50%,-50%); cursor:grab; }

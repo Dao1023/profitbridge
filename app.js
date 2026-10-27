@@ -884,6 +884,18 @@ function initTimelineDrag() {
   const endDrag = () => { dragging = false; tl.classList.remove('dragging', 'hover'); markNearDot(-1); };
   thumb.addEventListener('pointerup', endDrag);
   thumb.addEventListener('pointercancel', endDrag);
+  // whole track is clickable: pointerdown anywhere on it jumps to the nearest
+  // quarter at that fraction (round → midway points take the closer quarter).
+  // The thumb sits inside the track, so its own pointerdown bubbles here too —
+  // same computation, harmless duplicate setQuarter on the same index.
+  const track = thumb.parentElement;
+  track.addEventListener('pointerdown', e => {
+    const i = qIndexAt(e);
+    setQuarter(i);
+    markNearDot(i);
+    tl.classList.add('hover');
+    setTimeout(() => tl.classList.remove('hover'), 400);
+  });
 }
 
 function render() {
