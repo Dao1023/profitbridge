@@ -83,7 +83,10 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
   border:3px solid var(--blue); box-shadow:0 1px 4px rgba(30,41,59,.25); transform:translate(-50%,-50%); cursor:grab; }
 .tl-thumb:active { cursor:grabbing; }
 .tl-ticks { display:flex; justify-content:space-between; margin:10px 30px 0; }
-.tl-tick { flex:0 0 auto; text-align:center; cursor:pointer; color:var(--muted); font-size:12.5px; line-height:1.35; user-select:none; }
+.tl-tick { flex:0 0 auto; text-align:center; cursor:pointer; color:var(--muted); font-size:12.5px; line-height:1.35; user-select:none; position:relative; }
+/* generous invisible hit area around each tick label — easy to hit without
+   changing the visible layout */
+.tl-tick::before { content:''; position:absolute; inset:-10px -18px; }
 .tl-tick .q { font-weight:600; }
 .tl-tick:hover .q { color:var(--blue); }
 .tl-tick.active .q { color:var(--blue); font-weight:800; }
