@@ -174,6 +174,7 @@ await evl(`document.getElementById('btnViewBar').click()`);
 await new Promise(r => setTimeout(r, 700));
 const hBar = await heights();
 check('bar view: rail and chart equal height (<1px)', Math.abs(hBar.rail - hBar.panel) < 1, JSON.stringify(hBar));
+check('chart panel height identical across views (<1px)', Math.abs(hBridge.panel - hBar.panel) < 1, `bridge=${hBridge.panel} bar=${hBar.panel}`);
 // window resize keeps alignment
 await send('Emulation.setDeviceMetricsOverride', { width: 1366, height: 800, deviceScaleFactor: 1, mobile: false });
 await new Promise(r => setTimeout(r, 700));

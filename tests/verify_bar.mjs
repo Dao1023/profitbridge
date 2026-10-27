@@ -54,12 +54,12 @@ const shot = async name => {
 
 // ---------- 1. default bridge; switch to bar ----------
 check('default view is bridge (sankey)', await evl(`state.view==='bridge' && chart.getOption().series[0].type==='sankey'`));
-check('timeline visible in bridge mode', await evl(`document.getElementById('timeline').style.display!=='' ? false : getComputedStyle(document.getElementById('timeline')).display!=='none'`));
+check('timeline visible in bridge mode', await evl(`getComputedStyle(document.getElementById('timeline')).visibility!=='hidden'`));
 await evl(`document.getElementById('btnViewBar').click(); true`);
 await sleep(400);
 const bm = await evl(`window.__barMeta`);
 check('bar view active after switch', await evl(`state.view==='bar' && chart.getOption().series[0].type==='bar'`));
-check('timeline hidden in bar mode', await evl(`getComputedStyle(document.getElementById('timeline')).display==='none'`));
+check('timeline hidden in bar mode (visibility, slot reserved)', await evl(`getComputedStyle(document.getElementById('timeline')).visibility==='hidden' && getComputedStyle(document.getElementById('timeline')).display!=='none'`));
 check('barSelect visible in bar mode, hidden item groups present', await evl(`document.getElementById('barSelect').style.display!=='' ? false : document.getElementById('barSelect').querySelectorAll('optgroup').length===3`), `optgroups=${await evl(`document.getElementById('barSelect').querySelectorAll('optgroup').length`)}`);
 check('revenue default item, bar count = quarter count', bm.item === 'revenue' && bm.data.length === bm.quarterCount && bm.quarterCount === 65, JSON.stringify({ item: bm.item, n: bm.data.length, q: bm.quarterCount }));
 check('revenue: no holes (all non-null)', bm.data.every(v => v != null));
@@ -121,7 +121,7 @@ await evl(`document.getElementById('btnViewBridge').click(); true`);
 await sleep(400);
 const back = await evl(`({view:state.view, idx:state.qIndex, type:chart.getOption().series[0].type, tl:getComputedStyle(document.getElementById('timeline')).display, sel:getComputedStyle(document.getElementById('barSelect')).display, net:+window.__bridgeCheck.waterfall.net, meta:window.__sankeyMeta.quarter})`);
 check('back to sankey series', back.view === 'bridge' && back.type === 'sankey');
-check('timeline restored', back.tl !== 'none');
+check('timeline restored', back.tl !== 'none' && (await evl(`getComputedStyle(document.getElementById('timeline')).visibility!=='hidden'`)));
 check('barSelect hidden again', back.sel === 'none');
 check('original quarter selection preserved (idx5 = 2012-01-29)', back.idx === 5 && back.meta === '2011-10-30', JSON.stringify(back));
 check('sankey waterfall consistent (netEq + ok-vs-quarter net)', await evl(`window.__bridgeCheck.waterfall.netEq===true && Math.abs(window.__bridgeCheck.waterfall.net - DATA.companies.NVDA.quarters[5].netInc/1000)<0.005`), JSON.stringify(back));

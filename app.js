@@ -7,7 +7,7 @@
 
 const I18N = {
   en: {
-    appTitle: 'Profit Bridge', langBtn: '中文',
+    appTitle: 'Financial Reports', langBtn: '中文',
     reset: '', exportPNG: 'Export PNG', exportSVG: 'Export SVG',
     nodes: {
       revenue: 'Revenue', cogs: 'Cost of revenue', gross: 'Gross profit', opex: 'Operating expenses',
@@ -29,7 +29,7 @@ const I18N = {
     barNoDataTag: 'no data',
   },
   zh: {
-    appTitle: '利润析视', langBtn: 'English',
+    appTitle: '财报可视化', langBtn: 'English',
     reset: '', exportPNG: '导出 PNG', exportSVG: '导出 SVG',
     nodes: {
       revenue: '营收', cogs: '营收成本', gross: '毛利润', opex: '营业费用',
@@ -712,8 +712,7 @@ function renderIndustryBar() {
     Object.keys(DATA.companies).forEach(tk => industriesOf(tk).forEach(id => { counts[id] = (counts[id] || 0) + 1; }));
     const btn = (id, label, cnt) => `<button class="indBtn" data-ind="${id}">${label}<span class="cnt">${cnt}</span></button>`;
     const all = lang === 'zh' ? '全部' : 'All';
-    bar.innerHTML = `<span class="lbl">${lang === 'zh' ? '行业' : 'Industry'}</span>`
-      + btn('all', all, Object.keys(DATA.companies).length)
+    bar.innerHTML = btn('all', all, Object.keys(DATA.companies).length)
       + INDUSTRY_GROUPS.map(g => btn(g.id, lang === 'zh' ? g.zh : g.en, counts[g.id] || 0)).join('');
     bar.querySelectorAll('.indBtn').forEach(el => el.addEventListener('click', () => {
       const id = el.dataset.ind;
@@ -924,7 +923,9 @@ function render() {
   document.getElementById('lblViewBar').textContent = t('viewBar');
   document.getElementById('btnViewBridge').classList.toggle('active', state.view === 'bridge');
   document.getElementById('btnViewBar').classList.toggle('active', state.view === 'bar');
-  document.getElementById('timeline').style.display = state.view === 'bar' ? 'none' : '';
+  // visibility (not display) — the timeline slot keeps its height in bar view so
+  // #chartPanel's outer box never changes when switching views
+  document.getElementById('timeline').style.visibility = state.view === 'bar' ? 'hidden' : '';
   renderBarSelect(); // must run before renderChart — it fixes state.barItem for the new company
 
   renderIndustryBar();
