@@ -640,7 +640,7 @@ function renderBarChart() {
       },
       { type: 'inside', xAxisIndex: 0 },
     ],
-    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 48, bottom: 92 },
+    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 56, bottom: 92 }, // top:56 keeps y-axis name clear of the meta overlay
     xAxis: {
       type: 'category', data: labels,
       axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },

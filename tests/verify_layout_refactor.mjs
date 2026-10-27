@@ -60,14 +60,14 @@ check('row1 toolbar holds industry bar (left) + controls (right)', layout.hasToo
 check('row2 layout holds logo rail (left) + chart (right)', layout.railInLayout && layout.chartInLayout);
 check('brand title present', !!layout.brand, layout.brand);
 
-// ---------- ②③ footer/covLine gone; meta top-right ----------
+// ---------- ②③ footer/covLine gone; meta top-LEFT (clear of legend/select on the right) ----------
 const meta = await evl(`(() => {
   const m = document.getElementById('metaLine');
   const cs = m && getComputedStyle(m);
   return {
     exists: !!m,
     inPanel: !!(m && document.getElementById('chartPanel').contains(m)),
-    pos: cs && cs.position, right: cs && cs.right, small: cs && cs.fontSize,
+    pos: cs && cs.position, left: cs && cs.left, small: cs && cs.fontSize,
     hasUpdated: m && m.textContent.includes(DATA.updated),
     hasSource: !!m.querySelector('a'),
     hasCompany: m && m.textContent.length > 10,
@@ -78,8 +78,17 @@ const meta = await evl(`(() => {
 })()`);
 check('footer/covLine/srcLine/updLine removed', meta.gone);
 check('no h1 + old subtitle gone', meta.noH1 && meta.oldSubGone);
-check('meta line: absolute top-right in chart panel, small', meta.exists && meta.inPanel && meta.pos === 'absolute' && meta.exists && parseFloat(meta.small) <= 12, `pos=${meta.pos} fs=${meta.small}`);
+check('meta line: absolute top-LEFT in chart panel, small', meta.exists && meta.inPanel && meta.pos === 'absolute' && meta.exists && parseFloat(meta.small) <= 12 && parseFloat(meta.left) < 30, `pos=${meta.pos} left=${meta.left} fs=${meta.small}`);
 check('meta line has updated date + source link + company', meta.hasUpdated && meta.hasSource && meta.hasCompany);
+
+// meta must not overlap chart content: it sits above the plot area (sankey canvas
+// top) in bridge view, and left of the barSelect overlay in bar view
+const overlapBridge = await evl(`(() => {
+  const m = document.getElementById('metaLine').getBoundingClientRect();
+  const cv = document.getElementById('sankey').getBoundingClientRect();
+  return { abovePlot: m.bottom <= cv.top + 50, inLeftHalf: (m.right - cv.left) < cv.width * 0.6 };
+})()`);
+check('bridge view: meta sits above plot area, in left half', overlapBridge.abovePlot && overlapBridge.inLeftHalf, JSON.stringify(overlapBridge));
 
 // ---------- ④ barSelect overlay: toolbar must not shift on view switch ----------
 await evl(`window.__tb = document.querySelector('.toolbar').getBoundingClientRect().toJSON();
@@ -101,6 +110,12 @@ const overlay = await evl(`(() => {
   };
 })()`);
 check('barSelect is absolute overlay inside chart panel', overlay.visible && overlay.pos === 'absolute' && overlay.parentIsPanel && overlay.insidePanel, JSON.stringify(overlay));
+const noSelOverlap = await evl(`(() => {
+  const a = document.getElementById('metaLine').getBoundingClientRect();
+  const b = document.getElementById('barSelect').getBoundingClientRect();
+  return !(a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom);
+})()`);
+check('meta does not overlap barSelect overlay', noSelOverlap);
 check('toolbar row did NOT shift when bar view opened', overlay.tbStable && overlay.langBtnStable);
 check('chart panel box unchanged by select appearing', overlay.panelStable);
 await shot('layout-bar-overlay.png');
