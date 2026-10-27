@@ -13,10 +13,14 @@
 body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif; padding:20px 28px; }
 .layout { display:flex; gap:18px; align-items:stretch; }
 
-/* ---- left logo rail ---- */
-#logoRail { width:132px; flex:0 0 132px; display:grid; grid-template-columns:1fr 1fr; gap:10px;
+/* ---- left logo rail ----
+   absolutely sized to the main column's height (chart panel height), so rail +
+   chart share one top/bottom edge at any viewport width; the rail's own logo
+   grid scrolls internally and never drives the row height */
+.layout { position:relative; }
+#logoRail { position:absolute; top:0; bottom:0; left:0; width:132px; display:grid; grid-template-columns:1fr 1fr; gap:10px;
   align-content:start; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px;
-  max-height:calc(100vh - 40px); overflow-y:auto;
+  overflow-y:auto;
   scrollbar-width:none; -ms-overflow-style:none; /* scrollable, scrollbar hidden */ }
 #logoRail::-webkit-scrollbar { display:none; }
 /* white cell + hairline ring via inset box-shadow (zero layout impact, unlike a
@@ -36,7 +40,7 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
   font-weight:800; font-size:18px; color:#fff; border-radius:6px; }
 
 /* ---- row 2: logo rail (left) + chart (right) ---- */
-.main { flex:1; min-width:0; }
+.main { flex:1; min-width:0; margin-left:150px; } /* 132px rail + 18px gap */
 /* ---- row 1: industry filter (left) + controls (right); fixed-height toolbar ---- */
 .toolbar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
 .toolbar .left { display:flex; align-items:center; gap:14px; min-width:0; }
@@ -111,7 +115,8 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 
 @media (max-width: 900px) {
   .layout { flex-direction:column; }
-  #logoRail { width:100%; flex:none; grid-template-columns:repeat(10,1fr); }
+  #logoRail { position:static; width:100%; grid-template-columns:repeat(10,1fr); }
+  .main { margin-left:0; }
 }
 </style>
 </head>

@@ -159,6 +159,30 @@ const bridge = await evl(`({ tlVisible: getComputedStyle(document.getElementById
   selHidden: getComputedStyle(document.getElementById('barSelect')).display === 'none',
   metaStill: !!document.getElementById('metaLine').textContent })`);
 check('bridge view: timeline visible, select hidden, meta persists', bridge.tlVisible && bridge.selHidden && bridge.metaStill);
+
+// ---------- height alignment: rail == chart panel (bottom edges flush) ----------
+const heights = () => evl(`(() => {
+  const r = document.getElementById('logoRail').getBoundingClientRect();
+  const p = document.getElementById('chartPanel').getBoundingClientRect();
+  const s = document.getElementById('sankey').getBoundingClientRect();
+  return { rail: r.height, panel: p.height, railBottom: r.bottom, panelBottom: p.bottom, sankeyH: s.height };
+})()`);
+const hBridge = await heights();
+check('bridge view: rail and chart equal height (<1px)', Math.abs(hBridge.rail - hBridge.panel) < 1, JSON.stringify(hBridge));
+check('bridge view: bottom edges aligned (<1px)', Math.abs(hBridge.railBottom - hBridge.panelBottom) < 1);
+await evl(`document.getElementById('btnViewBar').click()`);
+await new Promise(r => setTimeout(r, 700));
+const hBar = await heights();
+check('bar view: rail and chart equal height (<1px)', Math.abs(hBar.rail - hBar.panel) < 1, JSON.stringify(hBar));
+// window resize keeps alignment
+await send('Emulation.setDeviceMetricsOverride', { width: 1366, height: 800, deviceScaleFactor: 1, mobile: false });
+await new Promise(r => setTimeout(r, 700));
+const hSmall = await heights();
+await send('Emulation.clearDeviceMetricsOverride');
+await new Promise(r => setTimeout(r, 500));
+check('after viewport resize: rail and chart still equal height (<1px)', Math.abs(hSmall.rail - hSmall.panel) < 1, JSON.stringify(hSmall));
+await evl(`document.getElementById('btnViewBridge').click()`);
+await new Promise(r => setTimeout(r, 700));
 await shot('layout-bridge-final.png');
 
 const fails = results.filter(r => !r.ok);
