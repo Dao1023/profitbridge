@@ -105,6 +105,8 @@ for (const g of INDUSTRY_GROUPS) g.tickers.forEach(tk => { (INDUSTRY_OF[tk] ||= 
 const industriesOf = tk => INDUSTRY_OF[tk] || [];
 
 let state = { company: 'NVDA', qIndex: null, mode: { pct: false, qoq: false }, view: 'bridge', barItem: 'revenue', curMode: 'native', industries: [] }; // qIndex null = latest; curMode: CNY companies 'native' ¥ | 'usd'
+/* bar-view overlay lines (占比/环比 buttons control these in bar view; sankey keeps state.mode) */
+const barLines = { pct: true, qoq: true };
 
 const MB = 1e3; // millions → billions display factor (all data is in millions of the reporting currency)
 /* reporting-currency symbol per company (currency field = <ISO>-M; foreign filers like
@@ -557,12 +559,47 @@ function renderBarChart() {
   document.getElementById('chartTitle').textContent =
     `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : 'barFullHistory') : ''}`;
 
+  /* overlay lines follow the SELECTED item (占比/环比 buttons toggle each line):
+     ① share-of-revenue % line (margin items are already % → line = the value itself)
+     ② QoQ/YoY growth line (annual series → 同比; margin items → pp change)
+     null (missing data / no prior period) breaks the line — no fake points. */
+  const pctLine = item.data.map((v, i) => {
+    if (v == null) return null;
+    if (isMargin) return +v.toFixed(2);
+    const m = rawMetrics(qs[i]);
+    return (m && m.revenue) ? +(v / m.revenue * 100).toFixed(2) : null;
+  });
+  const growthLine = item.data.map((v, i) => {
+    const pv = item.data[i - 1];
+    if (v == null || i === 0 || pv == null) return null; // 占位季度断线
+    return +(isMargin ? (v - pv) : (v - pv) / Math.abs(pv) * 100).toFixed(2);
+  });
+  const pctName = `${item.label} · ${t('ofRev')}${isMargin ? '' : ' %'}`;
+  const growthName = `${item.label} · ${qoqSuffix()}${isMargin ? ' (pp)' : ' %'}`;
+  const lineSeries = [
+    ...(barLines.pct ? [{
+      name: pctName, type: 'line', yAxisIndex: 1, data: pctLine,
+      symbol: 'circle', symbolSize: 5, connectNulls: false,
+      lineStyle: { color: '#b91c1c', width: 2 }, itemStyle: { color: '#b91c1c' },
+    }] : []),
+    ...(barLines.qoq ? [{
+      name: growthName, type: 'line', yAxisIndex: 1, data: growthLine,
+      symbol: 'circle', symbolSize: 5, connectNulls: false,
+      lineStyle: { color: '#0f766e', width: 2 }, itemStyle: { color: '#0f766e' },
+    }] : []),
+  ];
+
   const opt = {
     backgroundColor: 'transparent',
+    legend: lineSeries.length ? {
+      top: 4, right: 8, itemWidth: 14, itemHeight: 8,
+      textStyle: { color: '#475569', fontSize: 12 },
+    } : undefined,
     tooltip: {
       trigger: 'axis', confine: true,
       formatter: params => {
-        const p = Array.isArray(params) ? params[0] : params;
+        const arr = Array.isArray(params) ? params : [params];
+        const p = arr[0];
         const i = p.dataIndex, qv = qs[i], val = item.data[i];
         const lines = [`<b>${quarterLabel(qv.end)}</b> <span style="color:#94a3b8">${qv.end}</span>`];
         if (val == null) {
@@ -579,28 +616,43 @@ function renderBarChart() {
           const d = (val != null && pv != null) ? (isMargin ? (val - pv) : (val - pv) / Math.abs(pv)) : null;
           lines.push(`${qoqSuffix()} ${isMargin ? fmtPP(d) : fmtDelta(d)}`);
         }
+        for (const s of arr) { // overlay lines
+          if (s.seriesName === pctName) {
+            lines.push(`${pctName}: ${s.value == null ? '—' : s.value.toFixed(1) + (isMargin ? '%' : '%')}`);
+          } else if (s.seriesName === growthName) {
+            lines.push(`${growthName}: ${s.value == null ? '—' : (s.value > 0 ? '+' : '') + s.value.toFixed(1) + (isMargin ? 'pp' : '%')}`);
+          }
+        }
         return lines.join('<br/>');
       },
     },
-    grid: { left: 64, right: 24, top: 48, bottom: 68 },
+    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 48, bottom: 68 },
     xAxis: {
       type: 'category', data: labels,
       axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },
       axisLine: { lineStyle: { color: '#cbd5e1' } }, axisTick: { alignWithLabel: true },
     },
-    yAxis: {
-      type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#64748b' },
-      axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
-    },
+    yAxis: [
+      {
+        type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#64748b' },
+        axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
+      },
+      ...(lineSeries.length ? [{
+        type: 'value', name: '%', position: 'right', nameTextStyle: { color: '#64748b' },
+        axisLabel: { color: '#64748b', formatter: '{value}%' }, splitLine: { show: false },
+      }] : []),
+    ],
     graphic: hasAny ? [] : [{ type: 'text', left: 'center', top: 'middle',
       style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#94a3b8' } }],
-    series: [{
-      name: item.label, type: 'bar', data: item.data, barMaxWidth: 16,
-      itemStyle: { color: item.color, borderRadius: [2, 2, 0, 0] },
-    }],
+    series: [
+      { name: item.label, type: 'bar', data: item.data, barMaxWidth: 16,
+        itemStyle: { color: item.color, borderRadius: [2, 2, 0, 0] } },
+      ...lineSeries,
+    ],
   };
   chart.setOption(opt, true); // notMerge: full replacement every time (pitfall #1)
-  window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length };
+  window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length,
+    pctLine, growthLine, linesShown: lineSeries.map(s => s.name) };
   window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
 }
 
@@ -636,8 +688,8 @@ function renderLogoRail() {
 }
 
 /* ---- industry filter bar (top of page, above the logo rail) ----
-   multi-select: clicking a category toggles it; visible logos = union of all
-   selected categories; 全部/All resets to no selection */
+   single-select: clicking a category selects it; clicking it again (or 全部/All)
+   deselects → all logos visible */
 function renderIndustryBar() {
   const bar = document.getElementById('industryBar');
   if (bar.dataset.built !== '1' || bar.dataset.lang !== lang) {
@@ -651,13 +703,10 @@ function renderIndustryBar() {
     bar.querySelectorAll('.indBtn').forEach(el => el.addEventListener('click', () => {
       const id = el.dataset.ind;
       if (id === 'all') state.industries = [];
-      else {
-        const i = state.industries.indexOf(id);
-        if (i >= 0) state.industries.splice(i, 1); else state.industries.push(id);
-      }
+      else state.industries = (state.industries[0] === id) ? [] : [id]; // single-select, click again to clear
       // URL hash sync (replaceState: no history spam); empty selection clears the hash
       const url = state.industries.length
-        ? '#ind=' + state.industries.join(',')
+        ? '#ind=' + state.industries[0]
         : location.pathname + location.search;
       history.replaceState ? history.replaceState(null, '', url) : (location.hash = url);
       render();
@@ -765,8 +814,8 @@ function render() {
   // label-mode buttons: text + active state (stackable pct/qoq; annual series → 同比/YoY)
   document.getElementById('lblPct').textContent = t('pctBtn');
   document.getElementById('lblQoQ').textContent = isAnnual() ? (lang === 'zh' ? '同比' : 'YoY') : t('qoqBtn');
-  document.getElementById('btnPct').classList.toggle('active', state.mode.pct);
-  document.getElementById('btnQoQ').classList.toggle('active', state.mode.qoq);
+  document.getElementById('btnPct').classList.toggle('active', state.view === 'bar' ? barLines.pct : state.mode.pct);
+  document.getElementById('btnQoQ').classList.toggle('active', state.view === 'bar' ? barLines.qoq : state.mode.qoq);
 
   // view switcher: bridge (sankey + timeline) vs bar (full-history time series)
   document.getElementById('lblViewBridge').textContent = t('viewBridge');
@@ -835,8 +884,14 @@ function initControls() {
   document.getElementById('btnLang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; render(); });
   document.getElementById('btnExportPNG').addEventListener('click', exportPNG);
   document.getElementById('btnExportSVG').addEventListener('click', exportSVG);
-  document.getElementById('btnPct').addEventListener('click', () => { state.mode.pct = !state.mode.pct; render(); });
-  document.getElementById('btnQoQ').addEventListener('click', () => { state.mode.qoq = !state.mode.qoq; render(); });
+  document.getElementById('btnPct').addEventListener('click', () => {
+    if (state.view === 'bar') { barLines.pct = !barLines.pct; render(); } // bar view: toggle 占比 line
+    else { state.mode.pct = !state.mode.pct; render(); }
+  });
+  document.getElementById('btnQoQ').addEventListener('click', () => {
+    if (state.view === 'bar') { barLines.qoq = !barLines.qoq; render(); } // bar view: toggle 环比 line
+    else { state.mode.qoq = !state.mode.qoq; render(); }
+  });
   document.getElementById('btnViewBridge').addEventListener('click', () => { if (state.view !== 'bridge') { state.view = 'bridge'; render(); } });
   document.getElementById('btnViewBar').addEventListener('click', () => { if (state.view !== 'bar') { state.view = 'bar'; render(); } });
   document.getElementById('btnCur').addEventListener('click', () => {
@@ -876,9 +931,9 @@ function initControls() {
   } catch (e) { /* registry optional — built-in fallbacks cover the 10 dashboard companies */ }
 
   chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
-  // industry filter deep-link: #ind=<id>[,<id>...] (multi-select union)
+  // industry filter deep-link: #ind=<id> (single-select; legacy comma lists → first value)
   const m = location.hash.match(/^#ind=([\w-]+(?:,[\w-]+)*)$/);
-  if (m) state.industries = m[1].split(',').filter(id => INDUSTRY_GROUPS.some(g => g.id === id));
+  if (m) state.industries = [m[1].split(',')[0]].filter(id => INDUSTRY_GROUPS.some(g => g.id === id));
   window.addEventListener('resize', () => { chart.resize(); renderChart(); });
   initControls();
   render();

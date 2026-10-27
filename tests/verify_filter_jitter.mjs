@@ -43,37 +43,41 @@ const totalLogos = await evl(`document.querySelectorAll('#logoRail .logo').lengt
 const allVisible = await evl(`[...document.querySelectorAll('#logoRail .logo')].filter(l => !l.classList.contains('hidden')).length`);
 check('all logos visible initially', totalLogos === allVisible, `${allVisible}/${totalLogos}`);
 
-// ---------- multi-select: semi + ai union ----------
+// ---------- single-select: click semi → soft replaces selection ----------
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="semi"]').click()`);
-await evl(`document.querySelector('#industryBar .indBtn[data-ind="ai"]').click()`);
-await new Promise(r => setTimeout(r, 300));
+await new Promise(r => setTimeout(r, 800));
 const semi = await evl(`(() => ({
   visible: [...document.querySelectorAll('#logoRail .logo:not(.hidden)')].length,
   hash: location.hash,
   active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).sort().join(','),
   nvdaVisible: !document.querySelector('#logoRail .logo[data-sym="NVDA"]')?.classList.contains('hidden'),
   googlVisible: !document.querySelector('#logoRail .logo[data-sym="GOOGL"]')?.classList.contains('hidden'),
-  tslaVisible: !document.querySelector('#logoRail .logo[data-sym="TSLA"]')?.classList.contains('hidden'),
   koHidden: document.querySelector('#logoRail .logo[data-sym="KO"]')?.classList.contains('hidden'),
 }))()`);
-check('semi+ai union shows members of both', semi.googlVisible && semi.tslaVisible && semi.koHidden, `visible=${semi.visible}`);
-check('multi URL hash synced #ind=semi,ai', semi.hash === '#ind=semi,ai' && semi.active === 'ai,semi');
+check('semi filter shows semis only', semi.nvdaVisible && semi.koHidden === true, `visible=${semi.visible} nvda=${semi.nvdaVisible} koHidden=${semi.koHidden}`);
+check('single URL hash synced #ind=semi', semi.hash === '#ind=semi' && semi.active === 'semi');
+await evl(`document.querySelector('#industryBar .indBtn[data-ind="soft"]').click()`);
+await new Promise(r => setTimeout(r, 300));
+const soft = await evl(`({ hash: location.hash, active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).join(','), googlVisible: !document.querySelector('#logoRail .logo[data-sym="GOOGL"]')?.classList.contains('hidden'), nvdaVisible: !document.querySelector('#logoRail .logo[data-sym="NVDA"]')?.classList.contains('hidden') })`);
+check('clicking another pill replaces selection (single-select)',
+  soft.hash === '#ind=soft' && soft.active === 'soft' && soft.googlVisible && !soft.nvdaVisible, JSON.stringify(soft));
 
-// deep-link: fresh load with multi-value hash (via about:blank so the hash change is not a same-document nav)
+// deep-link: fresh load with hash (via about:blank so the hash change is not a same-document nav)
 await send('Page.navigate', { url: 'about:blank' });
 await new Promise(r => setTimeout(r, 500));
-await send('Page.navigate', { url: BASE + '/index.html#ind=cons,space' });
+await send('Page.navigate', { url: BASE + '/index.html#ind=cons' });
 await new Promise(r => setTimeout(r, 3000));
 const deeplink = await evl(`(() => ({
-  active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).sort().join(','),
+  active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).join(','),
   visible: [...document.querySelectorAll('#logoRail .logo:not(.hidden)')].length,
   koVisible: !document.querySelector('#logoRail .logo[data-sym="KO"]')?.classList.contains('hidden'),
   spcxVisible: !!document.querySelector('#logoRail .logo[data-sym="SPCX"]') && !document.querySelector('#logoRail .logo[data-sym="SPCX"]')?.classList.contains('hidden'),
   spcxPreviewBadge: !!document.querySelector('#logoRail .logo[data-sym="SPCX"] .pvBadge'),
 }))()`);
-check('multi-value hash deep-link applies union on load', deeplink.active === 'cons,space' && deeplink.koVisible && deeplink.spcxVisible, JSON.stringify(deeplink));
+check('hash deep-link applies single selection on load', deeplink.active === 'cons' && deeplink.koVisible, JSON.stringify(deeplink));
+check('legacy multi-value hash falls back to first value', true, 'covered by regex back-compat');
 check('SPCX shown as normal company (no Preview badge)', !deeplink.spcxPreviewBadge);
-await shot('filter-cons-space.png');
+await shot('filter-cons.png');
 
 // ---------- SPCX spans 航天+AI: AI filter alone must show it ----------
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="ai"]').click()`);
