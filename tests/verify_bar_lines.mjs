@@ -55,12 +55,13 @@ const single1 = await evl(`({ hash: location.hash, vis: [...document.querySelect
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="soft"]').click()`);
 await new Promise(r => setTimeout(r, 300));
 const single2 = await evl(`({ hash: location.hash, act: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind) })`);
+const hp1 = new URLSearchParams(single1.hash.slice(1)), hp2 = new URLSearchParams(single2.hash.slice(1));
 check('filter is single-select: switching pill replaces selection',
-  single1.hash === '#ind=semi' && single2.hash === '#ind=soft' && single2.act.join() === 'soft', JSON.stringify({ single1, single2 }));
+  hp1.get('ind') === 'semi' && hp2.get('ind') === 'soft' && single2.act.join() === 'soft', JSON.stringify({ single1, single2 }));
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="soft"]').click()`);
 await new Promise(r => setTimeout(r, 300));
 const cleared = await evl(`({ hash: location.hash, act: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind) })`);
-check('clicking selected pill clears filter', cleared.hash === '' && cleared.act.join() === 'all', JSON.stringify(cleared));
+check('clicking selected pill clears filter', !new URLSearchParams(cleared.hash.slice(1)).has('ind') && cleared.act.join() === 'all', JSON.stringify(cleared));
 
 // ---------- bar view: lines follow selected item ----------
 await evl(`document.getElementById('btnViewBar').click()`);

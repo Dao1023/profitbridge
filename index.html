@@ -44,6 +44,10 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 .meta { position:absolute; top:8px; left:14px; font-size:11px; color:var(--muted); text-align:left; line-height:1.5; z-index:7; pointer-events:none; }
 .meta a { color:var(--blue); pointer-events:auto; }
+/* transient toast: quarter realignment notices on company switch */
+#hintToast { position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(8px); background:#1e293b; color:#fff;
+  font-size:12.5px; padding:8px 16px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:50; box-shadow:0 4px 14px rgba(30,41,59,.25); }
+#hintToast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 #btnLang, #btnCur { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; }
 #btnLang:hover, #btnCur:hover { border-color:var(--blue); }
 #btnCur.active { border-color:var(--blue); color:var(--blue); background:#e8effc; }

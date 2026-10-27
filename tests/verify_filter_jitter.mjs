@@ -55,12 +55,12 @@ const semi = await evl(`(() => ({
   koHidden: document.querySelector('#logoRail .logo[data-sym="KO"]')?.classList.contains('hidden'),
 }))()`);
 check('semi filter shows semis only', semi.nvdaVisible && semi.koHidden === true, `visible=${semi.visible} nvda=${semi.nvdaVisible} koHidden=${semi.koHidden}`);
-check('single URL hash synced #ind=semi', semi.hash === '#ind=semi' && semi.active === 'semi');
+check('semi filter: hash ind=semi synced', new URLSearchParams(semi.hash.slice(1)).get('ind') === 'semi' && semi.active === 'semi', semi.hash);
 await evl(`document.querySelector('#industryBar .indBtn[data-ind="soft"]').click()`);
 await new Promise(r => setTimeout(r, 300));
 const soft = await evl(`({ hash: location.hash, active: [...document.querySelectorAll('#industryBar .indBtn.active')].map(b => b.dataset.ind).join(','), googlVisible: !document.querySelector('#logoRail .logo[data-sym="GOOGL"]')?.classList.contains('hidden'), nvdaVisible: !document.querySelector('#logoRail .logo[data-sym="NVDA"]')?.classList.contains('hidden') })`);
 check('clicking another pill replaces selection (single-select)',
-  soft.hash === '#ind=soft' && soft.active === 'soft' && soft.googlVisible && !soft.nvdaVisible, JSON.stringify(soft));
+  new URLSearchParams(soft.hash.slice(1)).get('ind') === 'soft' && soft.active === 'soft' && soft.googlVisible && !soft.nvdaVisible, JSON.stringify(soft));
 
 // deep-link: fresh load with hash (via about:blank so the hash change is not a same-document nav)
 await send('Page.navigate', { url: 'about:blank' });
@@ -92,7 +92,7 @@ const allBack = await evl(`(() => ({
   visible: [...document.querySelectorAll('#logoRail .logo:not(.hidden)')].length,
   hash: location.hash, url: location.pathname,
 }))()`);
-check('全部 resets filter + clears hash', allBack.visible === totalLogos && allBack.hash === '' , `visible=${allBack.visible} hash='${allBack.hash}'`);
+check('全部 resets filter + clears ind from hash', allBack.visible === totalLogos && !new URLSearchParams(allBack.hash.slice(1)).has('ind'), `visible=${allBack.visible} hash='${allBack.hash}'`);
 await shot('filter-all.png');
 
 // ---------- annual private companies (HUAWEI/LEGO): mapping + annual rendering ----------

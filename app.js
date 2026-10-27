@@ -665,6 +665,9 @@ function renderBarChart() {
     ],
   };
   chart.setOption(opt, true); // notMerge: full replacement every time (pitfall #1)
+  // re-apply the remembered time window (company switch / re-render must not
+  // reset the user's zoom — see switchCompany state-memory)
+  if (window.__barZoom) chart.dispatchAction({ type: 'dataZoom', xAxisIndex: 0, start: window.__barZoom.start, end: window.__barZoom.end });
   window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length,
     pctLine, growthLine, linesShown: lineSeries.map(s => s.name) };
   window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
@@ -686,9 +689,7 @@ function renderLogoRail() {
          ${c.preview ? '<span class="pvBadge">Preview</span>' : ''}
        </div>`;
     }).join('');
-    rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => {
-      state.company = el.dataset.sym; state.qIndex = null; state.curMode = 'native'; render();
-    }));
+    rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => switchCompany(el.dataset.sym)));
     rail.dataset.built = '1'; rail.dataset.lang = lang;
   }
   /* incremental update: active highlight + industry visibility, no DOM rebuild */
@@ -718,17 +719,95 @@ function renderIndustryBar() {
       const id = el.dataset.ind;
       if (id === 'all') state.industries = [];
       else state.industries = (state.industries[0] === id) ? [] : [id]; // single-select, click again to clear
-      // URL hash sync (replaceState: no history spam); empty selection clears the hash
-      const url = state.industries.length
-        ? '#ind=' + state.industries[0]
-        : location.pathname + location.search;
-      history.replaceState ? history.replaceState(null, '', url) : (location.hash = url);
+      syncHash(); // URL hash sync (replaceState: no history spam)
       render();
     }));
     bar.dataset.built = '1'; bar.dataset.lang = lang;
   }
   bar.querySelectorAll('.indBtn').forEach(el => el.classList.toggle('active',
     el.dataset.ind === 'all' ? state.industries.length === 0 : state.industries.includes(el.dataset.ind)));
+}
+
+/* ---- company switch with view-state memory ----
+   Keep everything the user has dialed in (view mode, pct/qoq toggles, bar item,
+   dataZoom window, selected reporting date, currency) — only the date is
+   re-aligned when the new company lacks that exact period (nearest quarter,
+   with a soft hint). Never resets to defaults on switch. */
+function switchCompany(tk) {
+  if (!DATA.companies[tk] || tk === state.company) return;
+  const prevEnd = curQIndex() != null ? DATA.companies[state.company].quarters[curQIndex()]?.end : null;
+  state.company = tk;
+  const qs = DATA.companies[tk].quarters;
+  if (prevEnd && qs.length) {
+    let best = -1, bestD = Infinity;
+    qs.forEach((qv, i) => {
+      const d = Math.abs(new Date(qv.end + 'T00:00:00Z') - new Date(prevEnd + 'T00:00:00Z'));
+      if (d < bestD) { bestD = d; best = i; }
+    });
+    state.qIndex = best;
+    if (qs[best].end !== prevEnd) // exact period missing → nearest, with a soft hint
+      showHint(lang === 'zh' ? `该公司无 ${prevEnd} 期，已对齐至最近可用期 ${qs[best].end}` : `No ${prevEnd} period for this company — aligned to nearest: ${qs[best].end}`);
+  } else state.qIndex = null; // "latest" stays latest
+  if (!canToggleCur()) state.curMode = 'native'; // currency toggle only exists for CNY reporters
+  render();
+}
+
+/* transient toast (bottom center): used for quarter realignment notices */
+let hintTimer = null;
+function showHint(msg) {
+  let el = document.getElementById('hintToast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'hintToast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+/* ---- URL hash: full view state (shareable / refresh-stable) ----
+   #c=<ticker>&q=<period-end>&v=bar&m=<barItem>&z=<start>-<end>&ind=<industryId> */
+function syncHash() {
+  const p = new URLSearchParams();
+  if (state.company !== 'NVDA') p.set('c', state.company);
+  const ci = curQIndex();
+  if (ci != null) p.set('q', DATA.companies[state.company].quarters[ci].end);
+  if (state.view !== 'bridge') p.set('v', state.view);
+  if (state.view === 'bar' && state.barItem !== 'revenue') p.set('m', state.barItem);
+  if (window.__barZoom) p.set('z', `${Math.round(window.__barZoom.start)}-${Math.round(window.__barZoom.end)}`);
+  if (state.industries.length) p.set('ind', state.industries[0]);
+  const h = p.toString();
+  const url = location.pathname + location.search + (h ? '#' + h : '');
+  history.replaceState ? history.replaceState(null, '', url) : (location.hash = h);
+}
+function applyHash() {
+  const hp = new URLSearchParams(location.hash.slice(1));
+  const tk = hp.get('c');
+  if (tk && DATA.companies[tk]) state.company = tk;
+  const v = hp.get('v');
+  if (v === 'bar' || v === 'bridge') state.view = v;
+  const mi = hp.get('m');
+  if (mi) state.barItem = mi; // renderBarSelect falls back to 'revenue' if missing
+  const q = hp.get('q');
+  if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) {
+    const qs = DATA.companies[state.company].quarters;
+    let best = -1, bestD = Infinity;
+    qs.forEach((qv, i) => {
+      const d = Math.abs(new Date(qv.end + 'T00:00:00Z') - new Date(q + 'T00:00:00Z'));
+      if (d < bestD) { bestD = d; best = i; }
+    });
+    state.qIndex = best >= 0 && bestD < 100 * 864e5 ? best : null; // >100d off → ignore, use latest
+  }
+  const z = hp.get('z');
+  if (z && /^\d{1,3}-\d{1,3}$/.test(z)) {
+    const [a, b] = z.split('-').map(Number);
+    if (a < b) window.__barZoom = { start: Math.max(0, a), end: Math.min(100, b) };
+  }
+  // industry deep-link: #ind=<id> (single-select; legacy comma lists → first value)
+  const ind = hp.get('ind');
+  if (ind) state.industries = [ind.split(',')[0]].filter(id => INDUSTRY_GROUPS.some(g => g.id === id));
 }
 
 /* ---- bottom timeline ---- */
@@ -854,6 +933,7 @@ function render() {
   renderChart();
 
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  syncHash(); // keep the shareable view-state hash in step with every render
 }
 
 function exportPNG() {
@@ -933,9 +1013,14 @@ function initControls() {
   } catch (e) { /* registry optional — built-in fallbacks cover the 10 dashboard companies */ }
 
   chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
-  // industry filter deep-link: #ind=<id> (single-select; legacy comma lists → first value)
-  const m = location.hash.match(/^#ind=([\w-]+(?:,[\w-]+)*)$/);
-  if (m) state.industries = [m[1].split(',')[0]].filter(id => INDUSTRY_GROUPS.some(g => g.id === id));
+  chart.on('datazoom', () => { // remember the user's time window (also synced to hash)
+    const dz = (chart.getOption().dataZoom || [])[0];
+    if (dz && dz.start != null && dz.end != null) {
+      window.__barZoom = { start: dz.start, end: dz.end };
+      syncHash();
+    }
+  });
+  applyHash(); // deep-link: #c=&q=&v=&m=&z=&ind= (legacy #ind= still accepted)
   window.addEventListener('resize', () => { chart.resize(); renderChart(); });
   initControls();
   render();
