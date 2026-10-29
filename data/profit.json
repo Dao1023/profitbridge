@@ -24608,76 +24608,6 @@
       "frequency": "hk-mixed",
       "quarters": [
         {
-          "end": "2006-09-30",
-          "revenue": 23460.054,
-          "netInc": 1389.486,
-          "periodType": "q3",
-          "fxToUsd": 0.12652
-        },
-        {
-          "end": "2006-12-31",
-          "revenue": 25113.242,
-          "netInc": -387.964,
-          "periodType": "q4",
-          "fxToUsd": 0.12812
-        },
-        {
-          "end": "2007-03-31",
-          "revenue": 24125.605,
-          "netInc": 1990.788,
-          "periodType": "q1",
-          "fxToUsd": 0.12936
-        },
-        {
-          "end": "2007-06-30",
-          "revenue": 9648.194,
-          "netInc": 186.503,
-          "periodType": "q2",
-          "fxToUsd": 0.13135
-        },
-        {
-          "end": "2007-09-30",
-          "revenue": 17159.345,
-          "netInc": 3005.736,
-          "periodType": "q3",
-          "fxToUsd": 0.13322
-        },
-        {
-          "end": "2007-12-31",
-          "revenue": 99753.856,
-          "netInc": 16253.973,
-          "periodType": "q4",
-          "fxToUsd": 0.13691
-        },
-        {
-          "end": "2008-03-31",
-          "revenue": 25489.493,
-          "netInc": 2022.25,
-          "periodType": "q1",
-          "fxToUsd": 0.14261
-        },
-        {
-          "end": "2008-06-30",
-          "revenue": 55969.507,
-          "netInc": 10067.75,
-          "periodType": "q2",
-          "fxToUsd": 0.14589
-        },
-        {
-          "end": "2008-09-30",
-          "revenue": null,
-          "netInc": null,
-          "periodType": "q3",
-          "fxToUsd": 0.14602
-        },
-        {
-          "end": "2008-12-31",
-          "revenue": 107313.463,
-          "netInc": 28409.041,
-          "periodType": "q4",
-          "fxToUsd": 0.14656
-        },
-        {
           "end": "2009-03-31",
           "revenue": 37917,
           "netInc": 3566,
@@ -25168,7 +25098,7 @@
           "fxToUsd": 0.14737
         }
       ],
-      "notes": "single-quarter series trimmed to continuous run from 2006-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods. 2008-09-30 口径断裂（未填，revenue=null/netInc=null）：eastmoney RPT_HKF10_FN_MAININDICATOR 显示「2008年中报」累计营收 81,459.000M 大于「2008年三季报」累计营收 52,478.537M（累计值非单调，疑 2008 中国联通/中国网通重组期间东财中报与三季报数据错位或互换），三季报单季营收无法由差分可靠还原，且该期净利同为 null，故不臆造数据；同源异常累计值亦影响相邻 2008-06-30、2008-12-31 已存差分值，属既存问题、超出本次 4 行修复范围，如需彻底订正须取港交所 2008 中期及三季报原文核实。"
+      "notes": "single-quarter series trimmed to continuous run from 2009-03-31; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods. 2008-09-30 口径断裂（未填，revenue=null/netInc=null）：eastmoney RPT_HKF10_FN_MAININDICATOR 显示「2008年中报」累计营收 81,459.000M 大于「2008年三季报」累计营收 52,478.537M（累计值非单调，疑 2008 中国联通/中国网通重组期间东财中报与三季报数据错位或互换），三季报单季营收无法由差分可靠还原，且该期净利同为 null，故不臆造数据；同源异常累计值亦影响相邻 2008-06-30、2008-12-31 已存差分值，属既存问题、超出本次 4 行修复范围，如需彻底订正须取港交所 2008 中期及三季报原文核实。 History truncated to 2009-03-31: 2007–2008 HKEX cumulative series was broken by the 2008 China Unicom/Netcom restructuring (cumulative non-monotonic), single-quarter differencing invalid."
     },
     "01024.HK": {
       "name": "Kuaishou",
@@ -30087,198 +30017,6 @@
       "frequency": "q",
       "quarters": [
         {
-          "end": "2011-03-31",
-          "revenue": 232.24,
-          "netInc": 11.69,
-          "periodType": "q",
-          "fxToUsd": 0.15270439,
-          "derivation": "direct"
-        },
-        {
-          "end": "2011-06-30",
-          "revenue": 448.02,
-          "netInc": 42.87,
-          "periodType": "q",
-          "fxToUsd": 0.15471733,
-          "derivation": "diff"
-        },
-        {
-          "end": "2011-09-30",
-          "revenue": 469.88,
-          "netInc": 28.18,
-          "periodType": "q",
-          "fxToUsd": 0.15663424,
-          "derivation": "diff"
-        },
-        {
-          "end": "2011-12-31",
-          "revenue": 517.38,
-          "netInc": 47.94,
-          "periodType": "q",
-          "fxToUsd": 0.15858919,
-          "derivation": "diff"
-        },
-        {
-          "end": "2012-03-31",
-          "revenue": 293.13,
-          "netInc": 20.34,
-          "periodType": "q",
-          "fxToUsd": 0.158831,
-          "derivation": "direct"
-        },
-        {
-          "end": "2012-06-30",
-          "revenue": 499.31,
-          "netInc": 34.84,
-          "periodType": "q",
-          "fxToUsd": 0.15735394,
-          "derivation": "diff"
-        },
-        {
-          "end": "2012-09-30",
-          "revenue": 614.22,
-          "netInc": 39.83,
-          "periodType": "q",
-          "fxToUsd": 0.15911658,
-          "derivation": "diff"
-        },
-        {
-          "end": "2012-12-31",
-          "revenue": 585.48,
-          "netInc": 49.95,
-          "periodType": "q",
-          "fxToUsd": 0.16049819,
-          "derivation": "diff"
-        },
-        {
-          "end": "2013-03-31",
-          "revenue": 367.81,
-          "netInc": 26.06,
-          "periodType": "q",
-          "fxToUsd": 0.1608674,
-          "derivation": "direct"
-        },
-        {
-          "end": "2013-06-30",
-          "revenue": 679.28,
-          "netInc": 45.61,
-          "periodType": "q",
-          "fxToUsd": 0.16293014,
-          "derivation": "diff"
-        },
-        {
-          "end": "2013-09-30",
-          "revenue": 741.34,
-          "netInc": 78.11,
-          "periodType": "q",
-          "fxToUsd": 0.16340937,
-          "derivation": "diff"
-        },
-        {
-          "end": "2013-12-31",
-          "revenue": 634.58,
-          "netInc": 30.82,
-          "periodType": "q",
-          "fxToUsd": 0.16518005,
-          "derivation": "diff"
-        },
-        {
-          "end": "2014-03-31",
-          "revenue": 433.5,
-          "netInc": 32.25,
-          "periodType": "q",
-          "fxToUsd": 0.16078463,
-          "derivation": "direct"
-        },
-        {
-          "end": "2014-06-30",
-          "revenue": 746.03,
-          "netInc": 55.75,
-          "periodType": "q",
-          "fxToUsd": 0.16120972,
-          "derivation": "diff"
-        },
-        {
-          "end": "2014-09-30",
-          "revenue": 782.4,
-          "netInc": 75.09,
-          "periodType": "q",
-          "fxToUsd": 0.16286114,
-          "derivation": "diff"
-        },
-        {
-          "end": "2014-12-31",
-          "revenue": 772,
-          "netInc": 70.47,
-          "periodType": "q",
-          "fxToUsd": 0.16111102,
-          "derivation": "diff"
-        },
-        {
-          "end": "2015-03-31",
-          "revenue": 555.9,
-          "netInc": 36.53,
-          "periodType": "q",
-          "fxToUsd": 0.16127992,
-          "derivation": "direct"
-        },
-        {
-          "end": "2015-06-30",
-          "revenue": 760,
-          "netInc": 62.19,
-          "periodType": "q",
-          "fxToUsd": 0.16130333,
-          "derivation": "diff"
-        },
-        {
-          "end": "2015-09-30",
-          "revenue": 699.13,
-          "netInc": 65.65,
-          "periodType": "q",
-          "fxToUsd": 0.15733166,
-          "derivation": "diff"
-        },
-        {
-          "end": "2015-12-31",
-          "revenue": 646.24,
-          "netInc": 61.11,
-          "periodType": "q",
-          "fxToUsd": 0.15419012,
-          "derivation": "diff"
-        },
-        {
-          "end": "2016-03-31",
-          "revenue": 496.73,
-          "netInc": 37.57,
-          "periodType": "q",
-          "fxToUsd": 0.15486828,
-          "derivation": "direct"
-        },
-        {
-          "end": "2016-06-30",
-          "revenue": 636.08,
-          "netInc": 51.16,
-          "periodType": "q",
-          "fxToUsd": 0.15052533,
-          "derivation": "diff"
-        },
-        {
-          "end": "2016-09-30",
-          "revenue": 658,
-          "netInc": 41.55,
-          "periodType": "q",
-          "fxToUsd": 0.14988684,
-          "derivation": "diff"
-        },
-        {
-          "end": "2016-12-31",
-          "revenue": 8113.53,
-          "netInc": 1741.51,
-          "periodType": "q",
-          "fxToUsd": 0.14399885,
-          "derivation": "diff"
-        },
-        {
           "end": "2017-03-31",
           "revenue": 2438.43,
           "netInc": 659.87,
@@ -30583,7 +30321,7 @@
           "derivation": "diff"
         }
       ],
-      "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
+      "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd). Pre-2017 rows removed: 601360 backdoor listing completed 2017; earlier periods belong to 江南嘉捷 (different entity), and 2016-12-31 revenue was a cross-entity splice."
     },
     "688825.SS": {
       "name": "长鑫存储",
