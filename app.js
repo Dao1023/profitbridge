@@ -514,7 +514,11 @@ function renderChart() {
     const parts = [];
     if (state.mode.pct) {
       if (isMargin) {
-        const mg = rawMetrics(qv)[p.name] / qv.revenue;
+        // BUG-B: numerator (rawMetrics) is in the DISPLAY currency (already ×dispFactor);
+        // the denominator must be the same display-currency revenue, NOT the native
+        // qv.revenue — otherwise EUR/JPY/KRW/TWD/CHF/DKK filers are off by fxToUsd.
+        const rm = rawMetrics(qv);
+        const mg = (rm && rm[p.name] != null && rm.revenue) ? rm[p.name] / rm.revenue : null;
         parts.push(`{m|${t('margins')[p.name]} ${fmtPct(mg)}}`);
       } else if (p.name === 'revenue') {
         parts.push('{p|100%}');
@@ -599,13 +603,17 @@ const BAR_PROFIT_ITEMS = ['revenue', 'gross', 'op', 'net', 'cogs', 'rd', 'sga', 
 const BAR_MARGIN_ITEMS = ['gross', 'op', 'net'];
 const MARGIN_COLOR = '#1d55a5';
 
-/* top-level OR child segment value for name in a given quarter; null when absent */
+/* top-level OR child segment value for name in a given quarter; null when absent.
+   BUG-C: merge duplicate sibling names first (mergeSegs) so the bar value matches the
+   sankey's merged node — e.g. 600887.SS/688981.SS file two "其他" lines that must be
+   summed (previously `find` returned only the first, understating the bar and its share). */
 function segValueFor(ticker, qEnd, name) {
   const list = segmentsFor(ticker, qEnd);
   if (!list) return null;
-  const top = list.find(s => s.name === name);
+  const merged = mergeSegs(list);
+  const top = merged.find(s => s.name === name);
   if (top) return top.value;
-  for (const s of list) { const ch = (s.children || []).find(c => c.name === name); if (ch) return ch.value; }
+  for (const s of merged) { const ch = (s.children || []).find(c => c.name === name); if (ch) return ch.value; }
   return null;
 }
 
@@ -678,8 +686,13 @@ function renderBarChart() {
   const hasAny = item.data.some(v => v != null);
   const isMargin = item.kind === 'margin';
   const fmtVal = v => isMargin ? v.toFixed(1) + '%' : dispSym() + v.toFixed(1) + 'B';
+  // BUG-D: segment bars for half/FY periods carry cumulative values (as disclosed), so
+  // cumulativeView() tells us the matching YTD revenue + a '上半年累计 / FY全年累计' label.
+  const cumFor = qv => (item.kind === 'segment' ? cumulativeView(state.company, qv) : null);
+  const hasCumSeg = item.kind === 'segment' && qs.some(qv => cumFor(qv));
   document.getElementById('chartTitle').textContent =
-    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : 'barFullHistory') : ''}`;
+    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : 'barFullHistory') : ''}`
+    + (hasCumSeg ? ' · ' + (lang === 'zh' ? '分部为半年/FY累计口径' : 'segments on half/FY cumulative basis') : '');
 
   /* overlay lines follow the SELECTED item (占比/环比 buttons toggle each line):
      ① share-of-revenue % line (margin items are already % → line = the value itself)
@@ -688,8 +701,21 @@ function renderBarChart() {
   const pctLine = item.data.map((v, i) => {
     if (v == null) return null;
     if (isMargin) return +v.toFixed(2);
-    const m = rawMetrics(qs[i]);
-    return (m && m.revenue) ? +(v / m.revenue * 100).toFixed(2) : null;
+    const qv = qs[i];
+    // BUG-A: bar values are $B but rawMetrics().revenue is $M → ×MB before dividing
+    //        (previously omitted, shrinking every amount share 1000×).
+    // BUG-D: a cumulative segment bar must divide by the same YTD cumulative revenue
+    //        the sankey uses, not by the single quarter's revenue.
+    let revDisp;
+    if (item.kind === 'segment') {
+      const cum = cumFor(qv);
+      revDisp = (cum && cum.values && cum.values.revenue != null)
+        ? cum.values.revenue * dispFactor(qv)
+        : (rawMetrics(qv) || {}).revenue;
+    } else {
+      revDisp = (rawMetrics(qv) || {}).revenue;
+    }
+    return revDisp ? +(v * MB / revDisp * 100).toFixed(2) : null;
   });
   const growthLine = item.data.map((v, i) => {
     const pv = item.data[i - 1];
@@ -723,14 +749,17 @@ function renderBarChart() {
         const arr = Array.isArray(params) ? params : [params];
         const p = arr[0];
         const i = p.dataIndex, qv = qs[i], val = item.data[i];
-        const lines = [`<b>${quarterLabel(qv.end)}</b> <span style="color:#94a3b8">${qv.end}</span>`];
+        const cum = cumFor(qv); // cumulative-basis label for half/FY segment points
+        const lines = [`<b>${quarterLabel(qv.end)}</b> <span style="color:#94a3b8">${qv.end}</span>${cum ? ' · ' + cum.label : ''}`];
         if (val == null) {
           lines.push('—');
         } else {
           lines.push(`<b>${fmtVal(val)}</b>`);
-          if (state.mode.pct && !isMargin) { // share of that quarter's revenue
-            const m = rawMetrics(qv);
-            if (m && m.revenue) lines.push(`${t('ofRev')} ${fmtPct(val * MB / m.revenue)}`);
+          // P2: share comes from the SAME pctLine series as the overlay line — single
+          // source of truth, so the tooltip can no longer show a correct % and a bogus
+          // 0.0% side by side. barLines.pct is the bar-view 占比 button.
+          if (barLines.pct && !isMargin && pctLine[i] != null) {
+            lines.push(`${t('ofRev')} ${pctLine[i].toFixed(1)}%`);
           }
         }
         if (state.mode.qoq && i > 0) { // margins → pp, amounts → % change
@@ -740,7 +769,8 @@ function renderBarChart() {
         }
         for (const s of arr) { // overlay lines
           if (s.seriesName === pctName) {
-            lines.push(`${pctName}: ${s.value == null ? '—' : s.value.toFixed(1) + (isMargin ? '%' : '%')}`);
+            if (!isMargin) continue; // amount shares already rendered above from pctLine
+            lines.push(`${pctName}: ${s.value == null ? '—' : s.value.toFixed(1) + '%'}`);
           } else if (s.seriesName === growthName) {
             lines.push(`${growthName}: ${s.value == null ? '—' : (s.value > 0 ? '+' : '') + s.value.toFixed(1) + (isMargin ? 'pp' : '%')}`);
           }

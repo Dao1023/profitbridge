@@ -71,17 +71,27 @@ let meta = await evl(`window.__barMeta`);
 check('bar view (revenue): both lines shown, names carry item label',
   meta.linesShown.length === 2 && meta.linesShown[0].includes('营收') && meta.linesShown[1].includes('QoQ'), JSON.stringify(meta.linesShown));
 check('share line: values 0-100, enough points',
-  meta.pctLine.filter(v => v != null).length >= 5 && meta.pctLine.every(v => v == null || (v > 0 && v < 100)),
+  meta.pctLine.filter(v => v != null).length >= 5 && meta.pctLine.every(v => v == null || (v > 0 && v <= 101)),
   `n=${meta.pctLine.filter(v => v != null).length} first=${meta.pctLine[0]}`);
 check('growth line: first quarter broken (null), rest numeric',
   meta.growthLine[0] === null && meta.growthLine.slice(1).filter(v => v != null).length >= 5,
   `growth[1]=${meta.growthLine[1]}`);
+// OLD golden standard below copied the BUG-A formula (data[i]/m.revenue*100, $B÷$M),
+// so it could never catch the 1000× shrink. Correct share uses data[i]*MB/m.revenue*100
+// (same as verify_bar.mjs / the tooltip). revenue bar share must be ≈100%.
 const cross = await evl(`(() => {
   const i = 3, qv = DATA.companies[state.company].quarters[i];
   const m = rawMetrics(qv);
-  return Math.abs(window.__barMeta.pctLine[i] - __barMeta.data[i] / m.revenue * 100) < 3;
+  return Math.abs(window.__barMeta.pctLine[i] - __barMeta.data[i] * MB / m.revenue * 100) < 3;
 })()`);
-check('share line ≈ item/revenue (spot check q3)', cross === true, `cross=${cross}`);
+check('share line ≈ item×MB/revenue (spot check q3)', cross === true, `cross=${cross}`);
+const revShare = await evl(`(() => {
+  const n = window.__barMeta.data.length - 1, qv = DATA.companies[state.company].quarters[n];
+  const m = rawMetrics(qv);
+  return { pct: window.__barMeta.pctLine[n], truth: __barMeta.data[n] * MB / m.revenue * 100 };
+})()`);
+check('revenue bar share ≈100% (±0.5) — catches the ÷1000 regression',
+  Math.abs(revShare.pct - 100) <= 0.5, JSON.stringify(revShare));
 const opt1 = await evl(`(() => { const o = chart.getOption(); return { nSeries: o.series.length, types: o.series.map(s=>s.type), yAxes: o.yAxis.length, legend: !!o.legend }; })()`);
 check('echarts option: bar + 2 lines, dual yAxis, legend',
   opt1.nSeries === 3 && opt1.types.join() === 'bar,line,line' && opt1.yAxes === 2 && opt1.legend, JSON.stringify(opt1));
