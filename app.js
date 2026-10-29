@@ -95,7 +95,7 @@ const INDUSTRY_GROUPS = [
   { id: 'auto', zh: '汽车/新能源', en: 'Auto / Energy', tickers: ['TSLA','LI','300750.SZ','002594.SZ'] },
   { id: 'space', zh: '航天', en: 'Aerospace', tickers: ['SPCX'] },
   { id: 'cons', zh: '消费', en: 'Consumer', tickers: [
-    'KO','MCD','SBUX','LKNCY','02097.HK','00151.HK','600519.SS','600887.SS','NESN.SW','MC.PA',
+    'KO','MCD','SBUX','LKNCY','02097.HK','00151.HK','600519.SS','600887.SS','603866.SH','NESN.SW','MC.PA',
     'AAPL','SONY','LEGO'] },
   { id: 'fin', zh: '金融', en: 'Financials', tickers: ['V','01398.HK','03968.HK'] },
   { id: 'tele', zh: '通信', en: 'Telecom', tickers: ['00941.HK','00728.HK','00762.HK','000063.SZ','HUAWEI'] },

@@ -12,6 +12,7 @@ const registry = R('data/companies.json');
 const b2 = R('data/staging/batch2.json');
 const b3 = R('data/staging/batch3.json');
 const b4 = R('data/staging/batch4.json');
+const b6 = R('data/staging/batch6.json');
 const b5 = R('data/staging/batch5.json');
 const b1 = R('data/staging/batch1.json');
 
@@ -259,6 +260,20 @@ for (const r of b4.results) {
   report.added.push({ ticker: r.ticker, n: qs.length, market: 'A-share' });
 }
 
+// ---------- batch6: 桃李面包 (603866.SH) ----------
+{
+  const r = b6.results[0];
+  const qs = r.profit.quarters.map(q => ({
+    end: q.reportDate, revenue: q.revenue_cny_m, netInc: q.netprofit_parent_cny_m,
+    periodType: 'q', fxToUsd: Math.round((1 / q.fx_cny_per_usd) * 1e8) / 1e8, derivation: q.derivation
+  }));
+  profit.companies[r.ticker] = {
+    name: r.name, currency: 'CNY-M', frequency: 'q',
+    quarters: qs, notes: '东财 A股真实单季 (direct/diff only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd). 2014Q4=FY−9M; 上市前 2011–2015Q3 报告期为招股书回填, 仅 2014Q4 起连续单季入池 (2014Q1 孤立/2014Q3 跨两季不入).'
+  };
+  report.added.push({ ticker: r.ticker, n: qs.length, market: 'A-share' });
+}
+
 // ---------- batch5 ----------
 for (const key of ['NESN.SW', 'MC.PA']) {
   const r = b5.results.find(x => x.ticker === key);
@@ -333,6 +348,7 @@ reg('NESN.SW', { nameZh: '雀巢', nameEn: 'Nestlé', color: '#6a4fa3' });
 reg('MC.PA', { nameZh: 'LVMH', nameEn: 'LVMH', color: '#1a1a1a' });
 reg('2454.TW', { nameZh: '联发科', nameEn: 'MediaTek', color: '#f0a000' });
 reg('2330.TW', { nameZh: '台积电', nameEn: 'TSMC (TWSE)', color: '#c8102e' });
+reg('603866.SH', { nameZh: '桃李面包', nameEn: 'Toly Bread', color: '#8d6e63' });
 
 // ---------- skipped list ----------
 profit.skipped = [

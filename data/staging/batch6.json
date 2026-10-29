@@ -1,0 +1,523 @@
+{
+ "batch": 6,
+ "fx_source": "frankfurter.app (ECB reference rates); CNY per USD at each quarter end",
+ "results": [
+  {
+   "ticker": "603866.SH",
+   "name": "桃李面包",
+   "class": "A-share",
+   "lookup": {
+    "eastmoney_code": "603866",
+    "earliest_report_available": "2011-12-31",
+    "total_reports_on_em": 53,
+    "excluded_reports": "2011-2013 annual-only (pre-IPO, no single quarters); 2014Q1 isolated (275d to next); 2014Q3 spans H1+Q3 (183d diff_multi_period); 2014-06-30 absent from EM"
+   },
+   "profit": {
+    "quarters": [
+     {
+      "reportDate": "2014-12-31",
+      "quarter": "2014Q4",
+      "revenue_cny_m": 594.49,
+      "netprofit_parent_cny_m": 79.54,
+      "revenue_usd_m": 95.78,
+      "netprofit_parent_usd_m": 12.81,
+      "fx_cny_per_usd": 6.2069,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2015-03-31",
+      "quarter": "2015Q1",
+      "revenue_cny_m": 504.07,
+      "netprofit_parent_cny_m": 57.28,
+      "revenue_usd_m": 81.3,
+      "netprofit_parent_usd_m": 9.24,
+      "fx_cny_per_usd": 6.2004,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2015-06-30",
+      "quarter": "2015Q2",
+      "revenue_cny_m": 631.63,
+      "netprofit_parent_cny_m": 87.5,
+      "revenue_usd_m": 101.88,
+      "netprofit_parent_usd_m": 14.11,
+      "fx_cny_per_usd": 6.1995,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2015-09-30",
+      "quarter": "2015Q3",
+      "revenue_cny_m": 708.07,
+      "netprofit_parent_cny_m": 104.68,
+      "revenue_usd_m": 111.4,
+      "netprofit_parent_usd_m": 16.47,
+      "fx_cny_per_usd": 6.356,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2015-12-31",
+      "quarter": "2015Q4",
+      "revenue_cny_m": 719.56,
+      "netprofit_parent_cny_m": 97.51,
+      "revenue_usd_m": 110.95,
+      "netprofit_parent_usd_m": 15.03,
+      "fx_cny_per_usd": 6.4855,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2016-03-31",
+      "quarter": "2016Q1",
+      "revenue_cny_m": 662.04,
+      "netprofit_parent_cny_m": 82.72,
+      "revenue_usd_m": 102.53,
+      "netprofit_parent_usd_m": 12.81,
+      "fx_cny_per_usd": 6.4571,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2016-06-30",
+      "quarter": "2016Q2",
+      "revenue_cny_m": 797.66,
+      "netprofit_parent_cny_m": 106.54,
+      "revenue_usd_m": 120.07,
+      "netprofit_parent_usd_m": 16.04,
+      "fx_cny_per_usd": 6.6434,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2016-09-30",
+      "quarter": "2016Q3",
+      "revenue_cny_m": 917.5,
+      "netprofit_parent_cny_m": 135.87,
+      "revenue_usd_m": 137.52,
+      "netprofit_parent_usd_m": 20.37,
+      "fx_cny_per_usd": 6.6717,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2016-12-31",
+      "quarter": "2016Q4",
+      "revenue_cny_m": 928.29,
+      "netprofit_parent_cny_m": 110.41,
+      "revenue_usd_m": 133.67,
+      "netprofit_parent_usd_m": 15.9,
+      "fx_cny_per_usd": 6.9445,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2017-03-31",
+      "quarter": "2017Q1",
+      "revenue_cny_m": 820.16,
+      "netprofit_parent_cny_m": 71.28,
+      "revenue_usd_m": 119.07,
+      "netprofit_parent_usd_m": 10.35,
+      "fx_cny_per_usd": 6.8882,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2017-06-30",
+      "quarter": "2017Q2",
+      "revenue_cny_m": 995.59,
+      "netprofit_parent_cny_m": 111.87,
+      "revenue_usd_m": 146.82,
+      "netprofit_parent_usd_m": 16.5,
+      "fx_cny_per_usd": 6.781,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2017-09-30",
+      "quarter": "2017Q3",
+      "revenue_cny_m": 1139.56,
+      "netprofit_parent_cny_m": 174.84,
+      "revenue_usd_m": 171.31,
+      "netprofit_parent_usd_m": 26.28,
+      "fx_cny_per_usd": 6.652,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2017-12-31",
+      "quarter": "2017Q4",
+      "revenue_cny_m": 1124.39,
+      "netprofit_parent_cny_m": 155.29,
+      "revenue_usd_m": 172.78,
+      "netprofit_parent_usd_m": 23.86,
+      "fx_cny_per_usd": 6.5075,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2018-03-31",
+      "quarter": "2018Q1",
+      "revenue_cny_m": 988.9,
+      "netprofit_parent_cny_m": 108.06,
+      "revenue_usd_m": 157.28,
+      "netprofit_parent_usd_m": 17.19,
+      "fx_cny_per_usd": 6.2875,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2018-06-30",
+      "quarter": "2018Q2",
+      "revenue_cny_m": 1177.76,
+      "netprofit_parent_cny_m": 154.83,
+      "revenue_usd_m": 177.92,
+      "netprofit_parent_usd_m": 23.39,
+      "fx_cny_per_usd": 6.6195,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2018-09-30",
+      "quarter": "2018Q3",
+      "revenue_cny_m": 1357.77,
+      "netprofit_parent_cny_m": 199.87,
+      "revenue_usd_m": 197.3,
+      "netprofit_parent_usd_m": 29.04,
+      "fx_cny_per_usd": 6.8817,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2018-12-31",
+      "quarter": "2018Q4",
+      "revenue_cny_m": 1308.8,
+      "netprofit_parent_cny_m": 179.39,
+      "revenue_usd_m": 190.29,
+      "netprofit_parent_usd_m": 26.08,
+      "fx_cny_per_usd": 6.8778,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2019-03-31",
+      "quarter": "2019Q1",
+      "revenue_cny_m": 1142.35,
+      "netprofit_parent_cny_m": 121.15,
+      "revenue_usd_m": 170.22,
+      "netprofit_parent_usd_m": 18.05,
+      "fx_cny_per_usd": 6.7109,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2019-06-30",
+      "quarter": "2019Q2",
+      "revenue_cny_m": 1415.55,
+      "netprofit_parent_cny_m": 182.52,
+      "revenue_usd_m": 206.04,
+      "netprofit_parent_usd_m": 26.57,
+      "fx_cny_per_usd": 6.8704,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2019-09-30",
+      "quarter": "2019Q3",
+      "revenue_cny_m": 1563.85,
+      "netprofit_parent_cny_m": 199.4,
+      "revenue_usd_m": 218.92,
+      "netprofit_parent_usd_m": 27.91,
+      "fx_cny_per_usd": 7.1434,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2019-12-31",
+      "quarter": "2019Q4",
+      "revenue_cny_m": 1521.96,
+      "netprofit_parent_cny_m": 180.29,
+      "revenue_usd_m": 218.63,
+      "netprofit_parent_usd_m": 25.9,
+      "fx_cny_per_usd": 6.9615,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2020-03-31",
+      "quarter": "2020Q1",
+      "revenue_cny_m": 1322.68,
+      "netprofit_parent_cny_m": 194.41,
+      "revenue_usd_m": 186.3,
+      "netprofit_parent_usd_m": 27.38,
+      "fx_cny_per_usd": 7.0997,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2020-06-30",
+      "quarter": "2020Q2",
+      "revenue_cny_m": 1416.2,
+      "netprofit_parent_cny_m": 223.27,
+      "revenue_usd_m": 200.19,
+      "netprofit_parent_usd_m": 31.56,
+      "fx_cny_per_usd": 7.0744,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2020-09-30",
+      "quarter": "2020Q3",
+      "revenue_cny_m": 1633.09,
+      "netprofit_parent_cny_m": 268.35,
+      "revenue_usd_m": 239.84,
+      "netprofit_parent_usd_m": 39.41,
+      "fx_cny_per_usd": 6.809,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2020-12-31",
+      "quarter": "2020Q4",
+      "revenue_cny_m": 1591.03,
+      "netprofit_parent_cny_m": 196.81,
+      "revenue_usd_m": 243.36,
+      "netprofit_parent_usd_m": 30.1,
+      "fx_cny_per_usd": 6.5378,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2021-03-31",
+      "quarter": "2021Q1",
+      "revenue_cny_m": 1326.82,
+      "netprofit_parent_cny_m": 162.48,
+      "revenue_usd_m": 202.53,
+      "netprofit_parent_usd_m": 24.8,
+      "fx_cny_per_usd": 6.5511,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2021-06-30",
+      "quarter": "2021Q2",
+      "revenue_cny_m": 1612.57,
+      "netprofit_parent_cny_m": 205.91,
+      "revenue_usd_m": 249.72,
+      "netprofit_parent_usd_m": 31.89,
+      "fx_cny_per_usd": 6.4576,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2021-09-30",
+      "quarter": "2021Q3",
+      "revenue_cny_m": 1724.08,
+      "netprofit_parent_cny_m": 199.93,
+      "revenue_usd_m": 266.72,
+      "netprofit_parent_usd_m": 30.93,
+      "fx_cny_per_usd": 6.464,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2021-12-31",
+      "quarter": "2021Q4",
+      "revenue_cny_m": 1671.91,
+      "netprofit_parent_cny_m": 194.94,
+      "revenue_usd_m": 263.19,
+      "netprofit_parent_usd_m": 30.69,
+      "fx_cny_per_usd": 6.3524,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2022-03-31",
+      "quarter": "2022Q1",
+      "revenue_cny_m": 1451.99,
+      "netprofit_parent_cny_m": 157.94,
+      "revenue_usd_m": 228.95,
+      "netprofit_parent_usd_m": 24.9,
+      "fx_cny_per_usd": 6.342,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2022-06-30",
+      "quarter": "2022Q2",
+      "revenue_cny_m": 1753.69,
+      "netprofit_parent_cny_m": 199.77,
+      "revenue_usd_m": 261.63,
+      "netprofit_parent_usd_m": 29.8,
+      "fx_cny_per_usd": 6.703,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2022-09-30",
+      "quarter": "2022Q3",
+      "revenue_cny_m": 1821.89,
+      "netprofit_parent_cny_m": 132.19,
+      "revenue_usd_m": 256.02,
+      "netprofit_parent_usd_m": 18.58,
+      "fx_cny_per_usd": 7.1161,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2022-12-31",
+      "quarter": "2022Q4",
+      "revenue_cny_m": 1658.7,
+      "netprofit_parent_cny_m": 149.99,
+      "revenue_usd_m": 240.44,
+      "netprofit_parent_usd_m": 21.74,
+      "fx_cny_per_usd": 6.8987,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2023-03-31",
+      "quarter": "2023Q1",
+      "revenue_cny_m": 1476.03,
+      "netprofit_parent_cny_m": 138.74,
+      "revenue_usd_m": 214.7,
+      "netprofit_parent_usd_m": 20.18,
+      "fx_cny_per_usd": 6.8748,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2023-06-30",
+      "quarter": "2023Q2",
+      "revenue_cny_m": 1730.49,
+      "netprofit_parent_cny_m": 152.94,
+      "revenue_usd_m": 238.07,
+      "netprofit_parent_usd_m": 21.04,
+      "fx_cny_per_usd": 7.2688,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2023-09-30",
+      "quarter": "2023Q3",
+      "revenue_cny_m": 1859.71,
+      "netprofit_parent_cny_m": 167.62,
+      "revenue_usd_m": 254.7,
+      "netprofit_parent_usd_m": 22.96,
+      "fx_cny_per_usd": 7.3015,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2023-12-31",
+      "quarter": "2023Q4",
+      "revenue_cny_m": 1692.34,
+      "netprofit_parent_cny_m": 114.74,
+      "revenue_usd_m": 238.19,
+      "netprofit_parent_usd_m": 16.15,
+      "fx_cny_per_usd": 7.1049,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2024-03-31",
+      "quarter": "2024Q1",
+      "revenue_cny_m": 1400.0,
+      "netprofit_parent_cny_m": 115.23,
+      "revenue_usd_m": 193.69,
+      "netprofit_parent_usd_m": 15.94,
+      "fx_cny_per_usd": 7.2282,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2024-06-30",
+      "quarter": "2024Q2",
+      "revenue_cny_m": 1620.89,
+      "netprofit_parent_cny_m": 174.71,
+      "revenue_usd_m": 223.18,
+      "netprofit_parent_usd_m": 24.06,
+      "fx_cny_per_usd": 7.2628,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2024-09-30",
+      "quarter": "2024Q3",
+      "revenue_cny_m": 1626.61,
+      "netprofit_parent_cny_m": 145.11,
+      "revenue_usd_m": 231.96,
+      "netprofit_parent_usd_m": 20.69,
+      "fx_cny_per_usd": 7.0124,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2024-12-31",
+      "quarter": "2024Q4",
+      "revenue_cny_m": 1439.66,
+      "netprofit_parent_cny_m": 87.03,
+      "revenue_usd_m": 197.23,
+      "netprofit_parent_usd_m": 11.92,
+      "fx_cny_per_usd": 7.2994,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2025-03-31",
+      "quarter": "2025Q1",
+      "revenue_cny_m": 1201.17,
+      "netprofit_parent_cny_m": 84.04,
+      "revenue_usd_m": 165.61,
+      "netprofit_parent_usd_m": 11.59,
+      "fx_cny_per_usd": 7.2531,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2025-06-30",
+      "quarter": "2025Q2",
+      "revenue_cny_m": 1410.25,
+      "netprofit_parent_cny_m": 119.79,
+      "revenue_usd_m": 196.83,
+      "netprofit_parent_usd_m": 16.72,
+      "fx_cny_per_usd": 7.1647,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2025-09-30",
+      "quarter": "2025Q3",
+      "revenue_cny_m": 1437.28,
+      "netprofit_parent_cny_m": 94.25,
+      "revenue_usd_m": 201.88,
+      "netprofit_parent_usd_m": 13.24,
+      "fx_cny_per_usd": 7.1196,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2025-12-31",
+      "quarter": "2025Q4",
+      "revenue_cny_m": 1399.44,
+      "netprofit_parent_cny_m": -14.22,
+      "revenue_usd_m": 199.89,
+      "netprofit_parent_usd_m": -2.03,
+      "fx_cny_per_usd": 7.001,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2026-03-31",
+      "quarter": "2026Q1",
+      "revenue_cny_m": 1169.47,
+      "netprofit_parent_cny_m": 51.84,
+      "revenue_usd_m": 169.48,
+      "netprofit_parent_usd_m": 7.51,
+      "fx_cny_per_usd": 6.9004,
+      "derivation": "direct"
+     },
+     {
+      "reportDate": "2026-06-30",
+      "quarter": "2026Q2",
+      "revenue_cny_m": 1390.13,
+      "netprofit_parent_cny_m": 93.4,
+      "revenue_usd_m": 204.87,
+      "netprofit_parent_usd_m": 13.76,
+      "fx_cny_per_usd": 6.7855,
+      "derivation": "diff"
+     },
+     {
+      "reportDate": "2026-09-30",
+      "quarter": "2026Q3",
+      "revenue_cny_m": 1400.4,
+      "netprofit_parent_cny_m": 58.73,
+      "revenue_usd_m": 208.87,
+      "netprofit_parent_usd_m": 8.76,
+      "fx_cny_per_usd": 6.7045,
+      "derivation": "diff"
+     }
+    ],
+    "coverage": "2014Q4..2026Q3",
+    "n_quarters": 48
+   },
+   "source": {
+    "primary": "Eastmoney datacenter-web API reportName=RPT_LICO_FN_CPD (cumulative per report date; differenced to single quarter)",
+    "crossCheck": {
+     "source": "Sina Finance ProfitStatement (万元, cumulative)",
+     "checked": [
+      "2014-12-31",
+      "2015-03-31",
+      "2016-06-30",
+      "2020-03-31",
+      "2025-12-31",
+      "2026-06-30"
+     ],
+     "max_dev_pct": 6e-05,
+     "note": "2026-09-30 not yet on Sina"
+    }
+   },
+   "notes": [
+    "listed 2015-12-22; pre-IPO report dates on EM come from prospectus backfill",
+    "netprofit = 归母净利润 (PARENT_NETPROFIT)"
+   ]
+  }
+ ]
+}

@@ -1533,5 +1533,11 @@
     "nameEn": "Zhihu Inc.",
     "color": "#0084ff",
     "frequency": "mixed"
+  },
+  {
+    "ticker": "603866.SH",
+    "nameZh": "桃李面包",
+    "nameEn": "Toly Bread",
+    "color": "#8d6e63"
   }
 ]

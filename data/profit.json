@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T16:49:55.664Z",
+  "updated": "2026-10-29",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -33717,6 +33717,398 @@
         }
       ],
       "notes": "HKEX filer 小米集团 Xiaomi Corporation (watchlist ticker XIACF = OTC ADR, absent from EDGAR with no financial filings — data via HK listing): full quarterly cumulative disclosure chain from 2017-03-31, differenced to single quarters (q1..q4, same convention as other hk-mixed entries); 2015/2016 annual-only disclosures kept as-disclosed cumulative annual periods. Latest 2026-06-30. Source: eastmoney RPT_HKF10_FN_MAININDICATOR (fetched 2026-10-27). fx: frankfurter CNY→USD per period end, peg fallback 1/8.2765."
+    },
+    "603866.SH": {
+      "name": "桃李面包",
+      "currency": "CNY-M",
+      "frequency": "q",
+      "quarters": [
+        {
+          "end": "2014-12-31",
+          "revenue": 594.49,
+          "netInc": 79.54,
+          "periodType": "q",
+          "fxToUsd": 0.16111102,
+          "derivation": "diff"
+        },
+        {
+          "end": "2015-03-31",
+          "revenue": 504.07,
+          "netInc": 57.28,
+          "periodType": "q",
+          "fxToUsd": 0.16127992,
+          "derivation": "direct"
+        },
+        {
+          "end": "2015-06-30",
+          "revenue": 631.63,
+          "netInc": 87.5,
+          "periodType": "q",
+          "fxToUsd": 0.16130333,
+          "derivation": "diff"
+        },
+        {
+          "end": "2015-09-30",
+          "revenue": 708.07,
+          "netInc": 104.68,
+          "periodType": "q",
+          "fxToUsd": 0.15733166,
+          "derivation": "diff"
+        },
+        {
+          "end": "2015-12-31",
+          "revenue": 719.56,
+          "netInc": 97.51,
+          "periodType": "q",
+          "fxToUsd": 0.15419012,
+          "derivation": "diff"
+        },
+        {
+          "end": "2016-03-31",
+          "revenue": 662.04,
+          "netInc": 82.72,
+          "periodType": "q",
+          "fxToUsd": 0.15486828,
+          "derivation": "direct"
+        },
+        {
+          "end": "2016-06-30",
+          "revenue": 797.66,
+          "netInc": 106.54,
+          "periodType": "q",
+          "fxToUsd": 0.15052533,
+          "derivation": "diff"
+        },
+        {
+          "end": "2016-09-30",
+          "revenue": 917.5,
+          "netInc": 135.87,
+          "periodType": "q",
+          "fxToUsd": 0.14988684,
+          "derivation": "diff"
+        },
+        {
+          "end": "2016-12-31",
+          "revenue": 928.29,
+          "netInc": 110.41,
+          "periodType": "q",
+          "fxToUsd": 0.14399885,
+          "derivation": "diff"
+        },
+        {
+          "end": "2017-03-31",
+          "revenue": 820.16,
+          "netInc": 71.28,
+          "periodType": "q",
+          "fxToUsd": 0.14517581,
+          "derivation": "direct"
+        },
+        {
+          "end": "2017-06-30",
+          "revenue": 995.59,
+          "netInc": 111.87,
+          "periodType": "q",
+          "fxToUsd": 0.14747087,
+          "derivation": "diff"
+        },
+        {
+          "end": "2017-09-30",
+          "revenue": 1139.56,
+          "netInc": 174.84,
+          "periodType": "q",
+          "fxToUsd": 0.15033073,
+          "derivation": "diff"
+        },
+        {
+          "end": "2017-12-31",
+          "revenue": 1124.39,
+          "netInc": 155.29,
+          "periodType": "q",
+          "fxToUsd": 0.15366884,
+          "derivation": "diff"
+        },
+        {
+          "end": "2018-03-31",
+          "revenue": 988.9,
+          "netInc": 108.06,
+          "periodType": "q",
+          "fxToUsd": 0.15904573,
+          "derivation": "direct"
+        },
+        {
+          "end": "2018-06-30",
+          "revenue": 1177.76,
+          "netInc": 154.83,
+          "periodType": "q",
+          "fxToUsd": 0.15106881,
+          "derivation": "diff"
+        },
+        {
+          "end": "2018-09-30",
+          "revenue": 1357.77,
+          "netInc": 199.87,
+          "periodType": "q",
+          "fxToUsd": 0.14531293,
+          "derivation": "diff"
+        },
+        {
+          "end": "2018-12-31",
+          "revenue": 1308.8,
+          "netInc": 179.39,
+          "periodType": "q",
+          "fxToUsd": 0.14539533,
+          "derivation": "diff"
+        },
+        {
+          "end": "2019-03-31",
+          "revenue": 1142.35,
+          "netInc": 121.15,
+          "periodType": "q",
+          "fxToUsd": 0.14901131,
+          "derivation": "direct"
+        },
+        {
+          "end": "2019-06-30",
+          "revenue": 1415.55,
+          "netInc": 182.52,
+          "periodType": "q",
+          "fxToUsd": 0.14555193,
+          "derivation": "diff"
+        },
+        {
+          "end": "2019-09-30",
+          "revenue": 1563.85,
+          "netInc": 199.4,
+          "periodType": "q",
+          "fxToUsd": 0.13998936,
+          "derivation": "diff"
+        },
+        {
+          "end": "2019-12-31",
+          "revenue": 1521.96,
+          "netInc": 180.29,
+          "periodType": "q",
+          "fxToUsd": 0.1436472,
+          "derivation": "diff"
+        },
+        {
+          "end": "2020-03-31",
+          "revenue": 1322.68,
+          "netInc": 194.41,
+          "periodType": "q",
+          "fxToUsd": 0.14085102,
+          "derivation": "direct"
+        },
+        {
+          "end": "2020-06-30",
+          "revenue": 1416.2,
+          "netInc": 223.27,
+          "periodType": "q",
+          "fxToUsd": 0.14135474,
+          "derivation": "diff"
+        },
+        {
+          "end": "2020-09-30",
+          "revenue": 1633.09,
+          "netInc": 268.35,
+          "periodType": "q",
+          "fxToUsd": 0.14686444,
+          "derivation": "diff"
+        },
+        {
+          "end": "2020-12-31",
+          "revenue": 1591.03,
+          "netInc": 196.81,
+          "periodType": "q",
+          "fxToUsd": 0.15295665,
+          "derivation": "diff"
+        },
+        {
+          "end": "2021-03-31",
+          "revenue": 1326.82,
+          "netInc": 162.48,
+          "periodType": "q",
+          "fxToUsd": 0.15264612,
+          "derivation": "direct"
+        },
+        {
+          "end": "2021-06-30",
+          "revenue": 1612.57,
+          "netInc": 205.91,
+          "periodType": "q",
+          "fxToUsd": 0.15485629,
+          "derivation": "diff"
+        },
+        {
+          "end": "2021-09-30",
+          "revenue": 1724.08,
+          "netInc": 199.93,
+          "periodType": "q",
+          "fxToUsd": 0.15470297,
+          "derivation": "diff"
+        },
+        {
+          "end": "2021-12-31",
+          "revenue": 1671.91,
+          "netInc": 194.94,
+          "periodType": "q",
+          "fxToUsd": 0.15742082,
+          "derivation": "diff"
+        },
+        {
+          "end": "2022-03-31",
+          "revenue": 1451.99,
+          "netInc": 157.94,
+          "periodType": "q",
+          "fxToUsd": 0.15767897,
+          "derivation": "direct"
+        },
+        {
+          "end": "2022-06-30",
+          "revenue": 1753.69,
+          "netInc": 199.77,
+          "periodType": "q",
+          "fxToUsd": 0.14918693,
+          "derivation": "diff"
+        },
+        {
+          "end": "2022-09-30",
+          "revenue": 1821.89,
+          "netInc": 132.19,
+          "periodType": "q",
+          "fxToUsd": 0.14052641,
+          "derivation": "diff"
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 1658.7,
+          "netInc": 149.99,
+          "periodType": "q",
+          "fxToUsd": 0.14495485,
+          "derivation": "diff"
+        },
+        {
+          "end": "2023-03-31",
+          "revenue": 1476.03,
+          "netInc": 138.74,
+          "periodType": "q",
+          "fxToUsd": 0.14545878,
+          "derivation": "direct"
+        },
+        {
+          "end": "2023-06-30",
+          "revenue": 1730.49,
+          "netInc": 152.94,
+          "periodType": "q",
+          "fxToUsd": 0.13757429,
+          "derivation": "diff"
+        },
+        {
+          "end": "2023-09-30",
+          "revenue": 1859.71,
+          "netInc": 167.62,
+          "periodType": "q",
+          "fxToUsd": 0.13695816,
+          "derivation": "diff"
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 1692.34,
+          "netInc": 114.74,
+          "periodType": "q",
+          "fxToUsd": 0.14074793,
+          "derivation": "diff"
+        },
+        {
+          "end": "2024-03-31",
+          "revenue": 1400,
+          "netInc": 115.23,
+          "periodType": "q",
+          "fxToUsd": 0.13834703,
+          "derivation": "direct"
+        },
+        {
+          "end": "2024-06-30",
+          "revenue": 1620.89,
+          "netInc": 174.71,
+          "periodType": "q",
+          "fxToUsd": 0.13768794,
+          "derivation": "diff"
+        },
+        {
+          "end": "2024-09-30",
+          "revenue": 1626.61,
+          "netInc": 145.11,
+          "periodType": "q",
+          "fxToUsd": 0.14260453,
+          "derivation": "diff"
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 1439.66,
+          "netInc": 87.03,
+          "periodType": "q",
+          "fxToUsd": 0.13699756,
+          "derivation": "diff"
+        },
+        {
+          "end": "2025-03-31",
+          "revenue": 1201.17,
+          "netInc": 84.04,
+          "periodType": "q",
+          "fxToUsd": 0.13787208,
+          "derivation": "direct"
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 1410.25,
+          "netInc": 119.79,
+          "periodType": "q",
+          "fxToUsd": 0.13957319,
+          "derivation": "diff"
+        },
+        {
+          "end": "2025-09-30",
+          "revenue": 1437.28,
+          "netInc": 94.25,
+          "periodType": "q",
+          "fxToUsd": 0.14045733,
+          "derivation": "diff"
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 1399.44,
+          "netInc": -14.22,
+          "periodType": "q",
+          "fxToUsd": 0.14283674,
+          "derivation": "diff"
+        },
+        {
+          "end": "2026-03-31",
+          "revenue": 1169.47,
+          "netInc": 51.84,
+          "periodType": "q",
+          "fxToUsd": 0.14491914,
+          "derivation": "direct"
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 1390.13,
+          "netInc": 93.4,
+          "periodType": "q",
+          "fxToUsd": 0.14737307,
+          "derivation": "diff"
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 1400.4,
+          "netInc": 58.73,
+          "periodType": "q",
+          "fxToUsd": 0.14915355,
+          "derivation": "diff"
+        }
+      ],
+      "notes": "东财 A股真实单季 (direct/diff only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd). 2014Q4=FY−9M; 上市前 2011–2015Q3 报告期为招股书回填, 仅 2014Q4 起连续单季入池 (2014Q1 孤立/2014Q3 跨两季不入). 新浪交叉验证 max dev 0.00006%."
     }
   },
   "skipped": [
