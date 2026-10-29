@@ -459,8 +459,8 @@ const displayName = n => n.name.startsWith('seg:') ? n.name.slice(4) : tn(n.name
 
 /* self-consistency check: input-side leaf inflows must equal revenue */
 function checkConsistency(qv, g) {
-  const f = dispFactor(qv);
-  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue * f / MB, ok: null, waterfall: {} };
+  const f = dispFactor(qv), B = MB;
+  const out = { quarter: qv.end, inputSum: null, revenue: qv.revenue * f / B, ok: null, waterfall: {} };
   const leafLinks = g.links.filter(l => l.source.startsWith('seg:') &&
     !g.nodes.some(n => n.name === l.source && n.depth === 1)); // leaves, not aggregate parents
   const inputSum = leafLinks.reduce((a, l) => a + l.value, 0);
@@ -470,8 +470,8 @@ function checkConsistency(qv, g) {
   out.waterfall = {
     gross: byName.gross, cogs: byName.cogs, op: byName.op, net: byName.net,
     grossEq: byName.gross == null || Math.abs(byName.gross + (byName.cogs || 0) - out.revenue) < 0.005,
-    opEq: byName.op == null || qv.gross == null || Math.abs(byName.op + (byName.rd || 0) * f / MB + (byName.sga || 0) * f / MB + (byName.opex || 0) - byName.gross) < 0.01,
-    netEq: byName.net == null || Math.abs(byName.net - qv.netInc * f / MB) < 0.005,
+    opEq: byName.op == null || qv.gross == null || Math.abs(byName.op + (byName.rd || 0) + (byName.sga || 0) + (byName.opex || 0) - byName.gross) < 0.01,
+    netEq: byName.net == null || Math.abs(byName.net - qv.netInc * f / B) < 0.005,
   };
   return out;
 }
