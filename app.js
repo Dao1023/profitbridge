@@ -21,6 +21,7 @@ const I18N = {
     pctBtn: '% of revenue', qoqBtn: 'QoQ',
     pctNote: 'Shares are relative to this quarter\'s revenue; expense lines shown as % of revenue.',
     qoqNote: 'QoQ: flows/amounts = % change vs prior quarter; margins = percentage points (pp). “—” = no prior-quarter data.',
+    qoqNA: 'n/a (cumulative period)',
     margins: { gross: 'Gross margin', op: 'Operating margin', net: 'Net margin' },
     ofRev: '% of rev', qoqSuffix: 'QoQ',
     viewBridge: 'Sankey', viewBar: 'Bar chart',
@@ -43,6 +44,7 @@ const I18N = {
     pctBtn: '占比', qoqBtn: '环比',
     pctNote: '占比口径：均相对本季营收；费用项显示占营收比。',
     qoqNote: '环比口径：金额/流量为环比 % 变化；利润率为百分点（pp）。“—”表示上季无数据。',
+    qoqNA: '累计期不可比',
     margins: { gross: '毛利率', op: '营业利润率', net: '净利率' },
     ofRev: '占营收', qoqSuffix: 'QoQ',
     viewBridge: '桑基图', viewBar: '柱状图',
@@ -203,6 +205,10 @@ function qoqMarginPP(key) {
 
 /* QoQ line for a node label: flows/amounts → fmtDelta %, margins (only when pct mode shows them as ratios) → pp */
 function qoqText(name) {
+  // In a cumulative (YTD) segment period the nodes show YTD sums, so a single-quarter
+  // QoQ comparison (this YTD vs last single quarter) is not meaningful — mark it n/a
+  // instead of showing a misleading percentage. `__qvEff` is set by renderChart().
+  if (window.__qvEff) return t('qoqNA');
   if (state.mode.pct && MARGIN_KEYS.includes(name)) return fmtPP(qoqMarginPP(name));
   const v = name.startsWith('seg:') ? qoqSegment(name) : qoqAmount(name);
   return fmtDelta(v); // '—' when no prior data
@@ -240,10 +246,120 @@ function segmentsFor(ticker, qEnd) {
   return (c && c.quarters && c.quarters[qEnd]) || null;
 }
 
+/* ---- cumulative-period reconciliation (A 股/HK 半年报/年报分部) ----
+   CN filer segments are half-year/FY cumulative while the profit series holds
+   single quarters. When the segment period for the selected end date is
+   cumulative but the profit row is a single quarter, the sankey is rebuilt on
+   fiscal-year-to-date sums of the profit quarters (CN fiscal year = calendar
+   year) so the input side matches the revenue node instead of overstating it. */
+const CUM_SEG_TYPES = new Set(['half', 'FY', 'annual', 'mixed']);
+function profitRowIsCumulative(tk, qv) {
+  const e = DATA.companies[tk];
+  if (e.frequency === 'annual') return true; // 20-F rows are FY cumulative
+  if ((e.frequency === 'hk-mixed' || e.frequency === 'mixed') &&
+      (qv.periodType === 'annual' || qv.periodType === 'interim')) return true;
+  return false;
+}
+function ytdSum(tk, qEnd, key) {
+  // fiscal-year-to-date native sum (CN fiscal year = calendar year).
+  // Preserve null semantics: a metric that no quarter in the window reports must
+  // stay null (returning 0 would fabricate a bogus gross/cogs branch in buildGraph,
+  // e.g. 桃李面包 reports revenue+netInc only, no gross/op/rd/sga).
+  let any = false, sum = 0;
+  for (const o of DATA.companies[tk].quarters) {
+    if (o.end.slice(0, 4) === qEnd.slice(0, 4) && o.end <= qEnd && o[key] != null) { any = true; sum += o[key]; }
+  }
+  return any ? sum : null;
+}
+/* Fiscal-year-end month for a ticker. The YTD sum above slices by calendar year, which
+   is only valid for December fiscal-year-end filers. For non-December FY companies
+   (e.g. SONY/BABA/ARM Mar-FY, 00992/00151.HK) a calendar slice would mix two fiscal
+   years, so cumulativeView() skips the correction entirely — keep the original numbers
+   rather than compute a wrong total. */
+function fiscalYearEndMonth(tk) {
+  const e = DATA.companies[tk] || {};
+  const annual = (e.quarters || []).filter(o => o.periodType === 'annual');
+  if (annual.length) return Number(annual[annual.length - 1].end.slice(5, 7));
+  const s = SEG && SEG.companies[tk];
+  if (s && s.periodTypes) {
+    const cnt = {};
+    for (const k in s.periodTypes) {
+      const tp = s.periodTypes[k];
+      if (tp === 'annual' || tp === 'FY') { const mm = Number(k.slice(5, 7)); cnt[mm] = (cnt[mm] || 0) + 1; }
+    }
+    const best = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0];
+    if (best) return Number(best[0]);
+  }
+  // fallback: most common month among recent quarter ends, December wins ties
+  const cnt = {};
+  (e.quarters || []).slice(-8).forEach(o => { const mm = Number(o.end.slice(5, 7)); cnt[mm] = (cnt[mm] || 0) + 1; });
+  const entries = Object.entries(cnt).sort((a, b) => b[1] - a[1]);
+  if (entries.length) {
+    const top = entries[0][1], tied = entries.filter(x => x[1] === top).map(x => Number(x[0]));
+    return tied.includes(12) ? 12 : tied[0];
+  }
+  return 12;
+}
+function cumulativeView(tk, qv) {
+  const s = SEG && SEG.companies[tk];
+  if (!s) return null;
+  // Only reconcile when THIS period actually has a segment breakdown; otherwise the
+  // correction would rewrite the profit waterfall with no input side to match (e.g.
+  // Tencent/A-share quarters that only file annual/half-year segments).
+  if (!s.quarters || !s.quarters[qv.end]) return null;
+  const pt = (s.periodTypes && s.periodTypes[qv.end]) || s.periodType;
+  if (!CUM_SEG_TYPES.has(pt)) return null;       // segment is single-quarter → nothing to fix
+  if (profitRowIsCumulative(tk, qv)) return null; // profit row already cumulative
+  if (fiscalYearEndMonth(tk) !== 12) return null; // non-calendar FY → calendar YTD slice unsafe, skip
+  if (ytdQuartersCount(tk, qv.end) < 2) return null; // YTD window == the row itself
+  const sum = key => ytdSum(tk, qv.end, key);
+  // Distinguish H1 from full-year by the period-end month (CN data labels BOTH the
+  // 06-30 half and the 12-31 full year as periodType 'half'). 'annual'/'FY' are always FY.
+  const isFY = pt === 'FY' || pt === 'annual' || Number(qv.end.slice(5, 7)) === 12;
+  const label = isFY
+    ? (lang === 'zh' ? `FY${qv.end.slice(0, 4)} 全年累计` : `FY${qv.end.slice(0, 4)} cumulative`)
+    : (lang === 'zh' ? `${qv.end.slice(0, 4)} 上半年累计` : `H1 ${qv.end.slice(0, 4)} cumulative`);
+  return {
+    kind: isFY ? 'FY' : 'half', label,
+    values: { revenue: sum('revenue'), gross: sum('gross'), opInc: sum('opInc'),
+      netInc: sum('netInc'), rd: sum('rd'), sga: sum('sga') },
+  };
+}
+function ytdQuartersCount(tk, qEnd) {
+  return DATA.companies[tk].quarters.filter(o => o.end.slice(0, 4) === qEnd.slice(0, 4) && o.end <= qEnd).length;
+}
+
+/* Merge sibling segments that share a name (some CN filers file two "其他" lines, e.g.
+   600887.SS 2026-06-30 / 688981.SS). Duplicate sankey node names break ECharts'
+   topological sort ("Cannot set properties of undefined"), and two identically labelled
+   nodes are meaningless to the reader — so their values are summed into one node. */
+function mergeSegs(list) {
+  const out = [], byName = new Map();
+  for (const s of list) {
+    let m = byName.get(s.name);
+    if (!m) {
+      m = { name: s.name, value: s.value != null ? s.value : 0,
+            children: s.children && s.children.length ? mergeSegs(s.children) : undefined };
+      byName.set(s.name, m); out.push(m);
+    } else {
+      if (s.value != null) m.value = (m.value || 0) + s.value;
+      if (s.children && s.children.length) {
+        if (!m.children) m.children = [];
+        for (const c of mergeSegs(s.children)) {
+          const ex = m.children.find(x => x.name === c.name);
+          if (ex) ex.value = (ex.value || 0) + (c.value || 0); else m.children.push(c);
+        }
+      }
+    }
+  }
+  return out;
+}
+
 /* Build the full echarts sankey graph ($B units) for the selected quarter.
    Columns: [segments(+children) 0] [aggregate parents 1] [revenue] [gross/cogs] [rd/sga/other/op] [net/tax].
    All values non-negative; out-slots of every node sum to its value. */
 function buildGraph(qv, segList) {
+  if (segList && segList.length) segList = mergeSegs(segList); // dedupe duplicate sibling names
   const B = MB, M = 1, f = dispFactor(qv), sf = segFactor(qv);
   const rev = qv.revenue * f / B, gross = qv.gross != null ? qv.gross * f / B : null,
         op = qv.opInc != null ? qv.opInc * f / B : null, net = qv.netInc != null ? qv.netInc * f / B : null;
@@ -361,8 +477,12 @@ function checkConsistency(qv, g) {
 }
 
 function renderChart() {
-  if (state.view === 'bar') { renderBarChart(); return; }
-  const qv = q();
+  if (state.view === 'bar') { window.__qvEff = null; renderBarChart(); return; }
+  const qvRaw = q();
+  // cumulative-period reconciliation: A 股半年/全年分部 vs 单季 profit 行
+  const cum = cumulativeView(state.company, qvRaw);
+  const qv = cum ? { ...qvRaw, ...cum.values, __cum: cum } : qvRaw;
+  window.__qvEff = cum ? qv : null; // qoq helpers read the effective (cumulative) period
   const segList = segmentsFor(state.company, qv.end);
   const g = buildGraph(qv, segList);
   window.__bridgeCheck = checkConsistency(qv, g);
@@ -372,7 +492,8 @@ function renderChart() {
     links: g.links.map(l => ({ source: displayName({ name: l.source }), target: displayName({ name: l.target }), value: +l.value.toFixed(4) })),
   };
 
-  document.getElementById('chartTitle').textContent = `${shortName(state.company)} ${quarterLabel(qv.end)}`;
+  document.getElementById('chartTitle').textContent =
+    `${shortName(state.company)} ${quarterLabel(qv.end)}${cum ? ` · ${cum.label}` : ''}`;
 
   const labelRich = {
     n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21 },
@@ -408,6 +529,7 @@ function renderChart() {
     if (state.mode.qoq) {
       const qt = qoqText(p.name);
       if (qt === '—') body += `\n{flat|— QoQ}`;
+      else if (qt === t('qoqNA')) body += `\n{flat|${qt}}`; // cumulative period → QoQ not meaningful
       else {
         const neg = qt.startsWith('-');
         body += `\n{${neg ? 'down' : 'up'}|${qt} ${qoqSuffix()}}`;
