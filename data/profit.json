@@ -7199,12 +7199,12 @@
         },
         {
           "end": "2020-12-31",
-          "revenue": 1925,
-          "gross": 5813,
+          "revenue": 20366,
+          "gross": 10523,
           "netInc": 1356,
-          "rd": 1540,
-          "sga": 4711,
-          "tax": -471
+          "rd": 1611,
+          "sga": 7232,
+          "tax": 25
         },
         {
           "end": "2021-03-31",
@@ -25168,7 +25168,7 @@
           "fxToUsd": 0.14737
         }
       ],
-      "notes": "single-quarter series trimmed to continuous run from 2006-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
+      "notes": "single-quarter series trimmed to continuous run from 2006-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods. 2008-09-30 口径断裂（未填，revenue=null/netInc=null）：eastmoney RPT_HKF10_FN_MAININDICATOR 显示「2008年中报」累计营收 81,459.000M 大于「2008年三季报」累计营收 52,478.537M（累计值非单调，疑 2008 中国联通/中国网通重组期间东财中报与三季报数据错位或互换），三季报单季营收无法由差分可靠还原，且该期净利同为 null，故不臆造数据；同源异常累计值亦影响相邻 2008-06-30、2008-12-31 已存差分值，属既存问题、超出本次 4 行修复范围，如需彻底订正须取港交所 2008 中期及三季报原文核实。"
     },
     "01024.HK": {
       "name": "Kuaishou",
@@ -31823,6 +31823,7 @@
       "quarters": [
         {
           "end": "2008-12-31",
+          "revenue": 3084.6,
           "gross": 2505.9,
           "opInc": 1914.6,
           "netInc": 1596.7,
@@ -34527,7 +34528,7 @@
     "NFLX: consistency — 2022-12-31: netInc chain resid 510.5 (opInc 549.9 − tax -15.9 − netInc 55.3)",
     "NFLX: consistency — 2023-12-31: netInc chain resid 348.0 (opInc 1496.1 − tax 210.3 − netInc 937.8)",
     "NFLX: consistency — 2026-03-31: netInc chain resid -2590.1 (opInc 3957 − tax 1264.3 − netInc 5282.8)",
-    "IBM: consistency — 2020-12-31: gross 5813 > revenue 1925",
+    "IBM: consistency — 2020-12-31 gross>revenue 已修复: revenue 1925→20366, gross 5813→10523（取 2020 10-K 原始口径 FY2020 revenue 73620 / gross 35575 减去 Q1–Q3 合计 53254 / 25052）；rd 1540→1611, sga 4711→7232, tax -471→25 同源订正；gross + 派生 cogs(rev−gross) = revenue 恒等成立",
     "QCOM: consistency — 2008-12-28: netInc chain resid 294.0 (opInc 745 − tax 110 − netInc 341)",
     "QCOM: consistency — 2009-03-29: netInc chain resid 91.0 (opInc -10 − tax 188 − netInc -289)",
     "QCOM: consistency — 2009-09-27: netInc chain resid -272.0 (opInc 597 − tax 66 − netInc 803)",
