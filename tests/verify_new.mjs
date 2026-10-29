@@ -37,7 +37,9 @@ ok(approx(as.netInc * as.fxToUsd, 7571.6 * 1.0389, 0.001), `ASML FY2024 USD disp
 
 // 6) TSM mixed (11FY annual + 15q backfill) TWD-M entry + per-period fx; separate from 2330.TW
 ok(P.companies.TSM.frequency === 'mixed' && P.companies.TSM.quarters.length === 26 && P.companies.TSM.currency === 'TWD-M', 'TSM mixed 11FY+15q TWD-M');
-ok(P.companies['2330.TW'].frequency === 'q' && P.companies['2330.TW'].currency === 'TWD-M', '2330.TW separate quarterly entry');
+ok(P.companies['2330.TW'].frequency === 'q' && P.companies['2330.TW'].currency === 'USD-M', '2330.TW separate quarterly entry (USD-M: values already USD $M)');
+ok(P.companies['2454.TW'].frequency === 'q' && P.companies['2454.TW'].currency === 'USD-M', '2454.TW quarterly entry (USD-M: values already USD $M)');
+ok([...P.companies['2330.TW'].quarters, ...P.companies['2454.TW'].quarters].every(q => q.fxToUsd == null), '2330.TW/2454.TW USD-M rows carry no fxToUsd (would double-convert)');
 ok(P.companies.TSM.quarters.every(q => q.fxToUsd > 0.02 && q.fxToUsd < 0.04), 'TSM per-period fx present (approx marked)');
 
 // 7) guards: no negative revenue anywhere; gross<=revenue except known IBM anomaly

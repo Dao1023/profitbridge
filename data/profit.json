@@ -31541,7 +31541,7 @@
     },
     "2454.TW": {
       "name": "MediaTek Inc.",
-      "currency": "TWD-M",
+      "currency": "USD-M",
       "frequency": "q",
       "quarters": [
         {
@@ -31550,8 +31550,7 @@
           "gross": 1409,
           "opInc": 441,
           "netInc": 518,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2023-06-30",
@@ -31559,8 +31558,7 @@
           "gross": 1431,
           "opInc": 453,
           "netInc": 490,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2023-09-30",
@@ -31568,8 +31566,7 @@
           "gross": 1601,
           "opInc": 550,
           "netInc": 567,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2023-12-31",
@@ -31577,8 +31574,7 @@
           "gross": 1921,
           "opInc": 759,
           "netInc": 787,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-03-31",
@@ -31586,8 +31582,7 @@
           "gross": 2144,
           "opInc": 987,
           "netInc": 967,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-06-30",
@@ -31595,8 +31590,7 @@
           "gross": 1906,
           "opInc": 766,
           "netInc": 789,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-09-30",
@@ -31604,8 +31598,7 @@
           "gross": 1974,
           "opInc": 732,
           "netInc": 778,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-12-31",
@@ -31613,8 +31606,7 @@
           "gross": 2055,
           "opInc": 657,
           "netInc": 730,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-03-31",
@@ -31622,8 +31614,7 @@
           "gross": 2264,
           "opInc": 922,
           "netInc": 900,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-06-30",
@@ -31631,8 +31622,7 @@
           "gross": 2266,
           "opInc": 901,
           "netInc": 854,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-09-30",
@@ -31640,8 +31630,7 @@
           "gross": 2028,
           "opInc": 681,
           "netInc": 774,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-12-31",
@@ -31649,8 +31638,7 @@
           "gross": 2125,
           "opInc": 670,
           "netInc": 703,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2026-03-31",
@@ -31658,8 +31646,7 @@
           "gross": 2119,
           "opInc": 702,
           "netInc": 741,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2026-06-30",
@@ -31667,15 +31654,14 @@
           "gross": 2157,
           "opInc": 702,
           "netInc": 747,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         }
       ],
-      "notes": "TWSE quarterly; native TWD-M; fxToUsd from staging snapshot USD/TWD 32.596145 (open.er-api.com 2026-10-26, single rate)."
+      "notes": "TWSE quarterly; USD $M（TWSE/MOPS 报表以 TWD 列示，入池按 USD/TWD 32.596145 折算；2026-10-29 更正 currency TWD-M→USD-M，删除逐期 fxToUsd）。"
     },
     "2330.TW": {
       "name": "Taiwan Semiconductor Manufacturing Company",
-      "currency": "TWD-M",
+      "currency": "USD-M",
       "frequency": "q",
       "quarters": [
         {
@@ -31684,8 +31670,7 @@
           "gross": 8789,
           "opInc": 7094,
           "netInc": 6350,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2023-06-30",
@@ -31693,8 +31678,7 @@
           "gross": 7983,
           "opInc": 6196,
           "netInc": 5577,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2023-09-30",
@@ -31702,8 +31686,7 @@
           "gross": 9101,
           "opInc": 6997,
           "netInc": 6473,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2023-12-31",
@@ -31711,8 +31694,7 @@
           "gross": 10178,
           "opInc": 7983,
           "netInc": 7730,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-03-31",
@@ -31720,8 +31702,7 @@
           "gross": 9649,
           "opInc": 7639,
           "netInc": 6918,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-06-30",
@@ -31729,8 +31710,7 @@
           "gross": 10987,
           "opInc": 8791,
           "netInc": 7604,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-09-30",
@@ -31738,8 +31718,7 @@
           "gross": 13478,
           "opInc": 11068,
           "netInc": 9978,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2024-12-31",
@@ -31747,8 +31726,7 @@
           "gross": 15719,
           "opInc": 13060,
           "netInc": 11038,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-03-31",
@@ -31756,8 +31734,7 @@
           "gross": 15137,
           "opInc": 12528,
           "netInc": 11092,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-06-30",
@@ -31765,8 +31742,7 @@
           "gross": 16792,
           "opInc": 14217,
           "netInc": 12218,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-09-30",
@@ -31774,8 +31750,7 @@
           "gross": 18056,
           "opInc": 15360,
           "netInc": 13876,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2025-12-31",
@@ -31783,8 +31758,7 @@
           "gross": 20002,
           "opInc": 17303,
           "netInc": 14893,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2026-03-31",
@@ -31792,8 +31766,7 @@
           "gross": 23049,
           "opInc": 20216,
           "netInc": 17563,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2026-06-30",
@@ -31801,8 +31774,7 @@
           "gross": 26393,
           "opInc": 23518,
           "netInc": 21676,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         },
         {
           "end": "2026-09-30",
@@ -31810,11 +31782,10 @@
           "gross": 30445,
           "opInc": 26888,
           "netInc": 23410,
-          "periodType": "q",
-          "fxToUsd": 0.03067847
+          "periodType": "q"
         }
       ],
-      "notes": "TWSE quarterly; native TWD-M; fxToUsd from staging snapshot USD/TWD 32.596145 (open.er-api.com 2026-10-26, single rate). 独立于 TSM 20-F TWD-M 年度条目（口径互见，禁跨条目环比）。"
+      "notes": "TWSE quarterly; USD $M（TWSE/MOPS 报表以 TWD 列示，入池按 USD/TWD 32.596145 折算；2026-10-29 更正 currency TWD-M→USD-M，删除逐期 fxToUsd）。独立于 TSM 20-F TWD-M 年度条目（口径互见，禁跨条目环比）。"
     },
     "SPCX": {
       "name": "Space Exploration Technologies Corp. (SpaceX)",
@@ -34408,7 +34379,7 @@
     "TSM: 20-F 10FY TWD-M supersedes legacy 8FY USD-M; Taiwan-listed 2330.TW quarterly kept as a separate entry (口径互见, 禁跨条目环比).",
     "DIDIY: new entry; now 20-F as-reported CNY-M (6 FY, 2019-12-31..2024-12-31)",
     "SPCX: private-company preview kept in profitPreview (logo rail shows badge), excluded from main series.",
-    "Integration 2026-10-26: batch1-5 merged. Non-USD display conversion uses per-period fxToUsd (frankfurter.app ECB reference, period-end business day) except snapshot-fx entries (NESN.SW/MC.PA/2454.TW/2330.TW) and KRW/HK row-level fx from staging.",
+    "Integration 2026-10-26: batch1-5 merged. Non-USD display conversion uses per-period fxToUsd (frankfurter.app ECB reference, period-end business day) except snapshot-fx entries (NESN.SW/MC.PA) and KRW/HK row-level fx from staging. 2454.TW/2330.TW 为 USD-M（TWSE 报表以 TWD 列示，入池已按 USD/TWD 32.596145 折算，无 fxToUsd；2026-10-29 更正 currency 标记）。",
     "2330.TW (TWSE quarterly) and TSM (20-F annual TWD-M) are separate entries by design — 禁止跨条目环比.",
     "BABA: replaced prior entry (CNY-M, 14 periods); now 20-F as-reported CNY-M (14 FY, 2013-03-31..2026-03-31)",
     "BIDU: replaced prior entry (CNY-M, 19 periods); now 20-F as-reported CNY-M (19 FY, 2007-12-31..2025-12-31)",

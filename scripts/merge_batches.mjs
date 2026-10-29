@@ -319,16 +319,15 @@ for (const key of ['NESN.SW', 'MC.PA']) {
 }
 for (const key of ['2454.TW', '2330.TW']) {
   const r = b5.results.find(x => x.ticker === key);
-  const p = r.profit;
-  const fxToUsd = Math.round((1 / 32.596145) * 1e8) / 1e8;
+  const p = r.profit; // staging profit.unit = "USD $M": TWSE TWD figures were already converted at USD/TWD 32.596145
   const qEnd = (per) => {
     const [y, q] = per.match(/(\d{4})Q(\d)/).slice(1).map(Number);
     return `${y}-${['03-31', '06-30', '09-30', '12-31'][q - 1]}`;
   };
   profit.companies[key] = {
-    name: r.name, currency: 'TWD-M', frequency: 'q',
-    quarters: p.quarterly.map(a => ({ end: qEnd(a.period), revenue: a.revenue, gross: a.grossProfit, opInc: a.operatingIncome, netInc: a.netIncome, periodType: 'q', fxToUsd })).sort((a, b) => a.end < b.end ? -1 : 1),
-    notes: `TWSE quarterly; native TWD-M; fxToUsd from staging snapshot USD/TWD 32.596145 (open.er-api.com 2026-10-26, single rate).` + (key === '2330.TW' ? ' 独立于 TSM 20-F TWD-M 年度条目（口径互见，禁跨条目环比）。' : '')
+    name: r.name, currency: 'USD-M', frequency: 'q',
+    quarters: p.quarterly.map(a => ({ end: qEnd(a.period), revenue: a.revenue, gross: a.grossProfit, opInc: a.operatingIncome, netInc: a.netIncome, periodType: 'q' })).sort((a, b) => a.end < b.end ? -1 : 1),
+    notes: `TWSE quarterly; USD $M（TWSE/MOPS 报表以 TWD 列示，入池按 USD/TWD 32.596145 折算）.` + (key === '2330.TW' ? ' 独立于 TSM 20-F TWD-M 年度条目（口径互见，禁跨条目环比）。' : '')
   };
   report.added.push({ ticker: key, n: p.quarterly.length, market: 'TW' });
 }
@@ -401,7 +400,7 @@ profit.skipped = [
 
 // ---------- cleanup / meta ----------
 profit.units = 'mixed by entry (see entry.currency); USD-converted display via per-period fxToUsd';
-notesNew.push('Integration 2026-10-26: batch1-5 merged. Non-USD display conversion uses per-period fxToUsd (frankfurter.app ECB reference, period-end business day) except snapshot-fx entries (NESN.SW/MC.PA/2454.TW/2330.TW) and KRW/HK row-level fx from staging.');
+notesNew.push('Integration 2026-10-26: batch1-5 merged. Non-USD display conversion uses per-period fxToUsd (frankfurter.app ECB reference, period-end business day) except snapshot-fx entries (NESN.SW/MC.PA) and KRW/HK row-level fx from staging. 2454.TW/2330.TW 为 USD-M（TWSE 报表以 TWD 列示，入池已按 USD/TWD 32.596145 折算，无 fxToUsd；2026-10-29 更正 currency 标记）。');
 notesNew.push('2330.TW (TWSE quarterly) and TSM (20-F annual TWD-M) are separate entries by design — 禁止跨条目环比.');
 profit.notes = [...new Set([...(profit.notes || []), ...notesNew])];
 profit.updated = new Date().toISOString().slice(0, 10);
