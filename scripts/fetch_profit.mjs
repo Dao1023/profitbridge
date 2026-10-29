@@ -50,6 +50,8 @@ const IFRS_TAGS = {
   tax: ['IncomeTaxExpense'],
 };
 const DERIVED_KEYS = ['revenue', 'gross', 'cost', 'opInc', 'netInc', 'rd', 'sga', 'tax'];
+// 真实毛亏公司白名单（源头即负毛利，非脏数据）：存储半导体下行 / Model S 爬坡 / 早期平台补贴。
+const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD']);
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function getJSON(url) {
@@ -119,9 +121,12 @@ function collectMetric(facts, tagList, cur) {
 }
 
 // Derive the fiscal Q4 (annual period minus the 3 quarters inside it) for one metric.
-// Returns { end, val } for annual ends that have no quarterly fact but do have the three
-// intra-year quarterly ends (within 290 days before the FY end).
-function deriveQ4(metric) {
+// Returns { end, val, derived:true } for annual ends that have no quarterly fact but do have the
+// three intra-year quarterly ends (within 290 days before the FY end). Value gates (REPORT §四 A1):
+//   * revenue 派生值 <=0 -> 记为 failure 并丢弃（负/零季度不可能是真实收入）；
+//   * revenue/gross 派生值 > 3× 该年最大季度 -> 记为 failure（疑「年度值被当季度」/基准混用）；
+//   * 其余 metric(netInc/opInc 等可为负) 只做量级护栏，不做 v<=0 硬约束。
+function deriveQ4(metric, ticker, failures, key) {
   if (!metric) return [];
   const out = [];
   for (const [fyEnd, aval] of metric.a) {
@@ -133,7 +138,16 @@ function deriveQ4(metric) {
     if (intra.length !== 3) continue;
     const sum = intra.reduce((s, e) => s + metric.q.get(e), 0);
     const v = aval - sum;
-    if (Number.isFinite(v)) out.push({ end: fyEnd, val: v });
+    if (!Number.isFinite(v)) continue;
+    if (key === 'revenue' && v <= 0) {
+      failures.push({ ticker, kind: 'derivedQ4<=0', end: fyEnd, key, val: v });
+      continue;
+    }
+    const mx = Math.max(...intra.map(e => metric.q.get(e)));
+    if ((key === 'revenue' || key === 'gross') && mx > 0 && v > mx * 3) {
+      failures.push({ ticker, kind: 'derivedQ4>3xMaxQuarter', end: fyEnd, key, val: v, maxQuarter: mx });
+    }
+    out.push({ end: fyEnd, val: v, derived: true });
   }
   return out;
 }
@@ -153,10 +167,14 @@ async function fetchCompany(c) {
   }
   if (!picked.revenue || !picked.netInc) return { ticker: c.ticker, cik: c.cik, name: entityName, status: 'skipped', reason: 'missing revenue/net income XBRL data', failures };
 
+  const derivedEnds = new Set(); // revenue 为派生 Q4 的财年末（打 derived 标记 + derived gross>revenue 断言）
   if (freq === 'q') {
     // merge derived Q4s into the quarterly maps
     for (const key of DERIVED_KEYS) {
-      for (const { end, val } of deriveQ4(picked[key])) picked[key].q.set(end, val);
+      for (const { end, val } of deriveQ4(picked[key], c.ticker, failures, key)) {
+        picked[key].q.set(end, val);
+        if (key === 'revenue') derivedEnds.add(end);
+      }
     }
   }
   // gross fallback: revenue − cost where GrossProfit absent (both cadences)
@@ -180,6 +198,7 @@ async function fetchCompany(c) {
     }
     delete q.cost;
     if (q.revenue == null || q.netInc == null) continue;
+    if (derivedEnds.has(end)) q.derived = true; // 标记派生 Q4（REPORT §四 A1/A2）
     quarters.push(q);
   }
   // full continuous history: keep the longest consecutive run whose period ends are all
@@ -202,6 +221,12 @@ async function fetchCompany(c) {
 function checkCompany(tk, quarters) {
   const issues = [];
   for (const q of quarters) {
+    // ---- value gates (REPORT §四 A2) ----
+    if (q.revenue == null) issues.push(`${q.end}: revenue null`);
+    else if (q.revenue <= 0) issues.push(`${q.end}: revenue<=0 (${q.revenue})`);
+    if (q.gross != null && q.gross < 0 && !NEG_GROSS_OK.has(tk)) issues.push(`${q.end}: gross<0 (${q.gross})`);
+    if (q.revenue != null && q.netInc != null && q.revenue > 0 && Math.abs(q.netInc) > q.revenue * 3) issues.push(`${q.end}: |netInc| ${q.netInc} > 3×revenue ${q.revenue}`);
+    if (q.derived && q.gross != null && q.revenue != null && q.gross > q.revenue) issues.push(`${q.end}: derived Q4 gross ${q.gross} > revenue ${q.revenue} (基准混用!)`);
     if (q.gross != null && q.gross > q.revenue * 1.005) issues.push(`${q.end}: gross ${q.gross} > revenue ${q.revenue}`);
     if (q.gross != null && q.opInc != null && q.opInc > q.gross * 1.005) issues.push(`${q.end}: opInc ${q.opInc} > gross ${q.gross}`);
     if (q.opInc != null && q.netInc != null && q.tax != null) {
@@ -264,6 +289,16 @@ function guard(prev, companies, failures, validateTks = null) {
       if (d < loD || d > hiD) {
         throw new Error(`write guard: ${tk} calendar gap ${c.quarters[i - 1].end} → ${c.quarters[i].end} (${d}d, allowed ${loD}–${hiD}) — refusing to write a holed file.`);
       }
+    }
+  }
+  // ---- value gate (REPORT §四 A3): 写盘前拒绝脏核心值 ----
+  for (const [tk, c] of Object.entries(companies)) {
+    if (validateTks && !validateTks.has(tk)) continue;
+    if (c.frequency === 'hk-mixed' || c.frequency === 'mixed') continue; // 交给 merge_batches 的 additivity 校验
+    for (const q of c.quarters) {
+      if (q.revenue == null) throw new Error(`value guard: ${tk} ${q.end} revenue missing/null — refusing to write.`);
+      if (q.revenue <= 0) throw new Error(`value guard: ${tk} ${q.end} revenue<=0 (${q.revenue}) — refusing to write.`);
+      if (q.gross != null && q.gross > q.revenue * 1.005) throw new Error(`value guard: ${tk} ${q.end} gross ${q.gross} > revenue ${q.revenue} — refusing to write.`);
     }
   }
   if (failures.length && process.env.ALLOW_FAILURES !== '1') {

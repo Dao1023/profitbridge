@@ -173,7 +173,7 @@ function diffHK(rows, tk) {
   const pushQ = (end, pt, rev, niV, fx) => {
     if (rev == null || niV == null) return;
     rev /= M; niV /= M;
-    if (rev < 0) { negRev.push(end + ' ' + pt + ' rev=' + rev); out.push({ end, revenue: null, netInc: null, periodType: pt, fxToUsd: fx }); return; }
+    if (rev < 0) { negRev.push(end + ' ' + pt + ' rev=' + rev); return; } // 负派生值直接丢弃，不再写 null 行（REPORT §四 B4）
     out.push({ end, revenue: rev, netInc: niV, periodType: pt, fxToUsd: fx });
   };
   for (const r of clean) {
@@ -187,7 +187,15 @@ function diffHK(rows, tk) {
       if (it) pushQ(r.periodEnd, 'q3', r.revenueLocal - it.revenueLocal, ni(r) - ni(it), fx);
     } else if (r.periodType === 'annual') {
       const q3 = findPrev(r, 'q3');
-      if (q3) pushQ(r.periodEnd, 'q4', r.revenueLocal - q3.revenueLocal, ni(r) - ni(q3), fx);
+      if (q3) {
+        const rev = r.revenueLocal - q3.revenueLocal;
+        // Q4 派生护栏（REPORT §四 B4）：须为正且不超过 q3 的 2.5 倍，否则疑累计/基准混用 -> 丢弃并告警
+        if (rev <= 0 || rev > q3.revenueLocal * 2.5) {
+          warn.push(`${tk} ${r.periodEnd} Q4 派生异常 rev=${rev} (annual ${r.revenueLocal} − q3 ${q3.revenueLocal}) -> 丢弃`);
+        } else {
+          pushQ(r.periodEnd, 'q4', rev, ni(r) - ni(q3), fx);
+        }
+      }
     }
   }
   for (const r of clean) {
@@ -411,37 +419,94 @@ if (FIXUPS.meta) {
   if (!('profitPreview' in FIXUPS.meta)) delete profit.profitPreview; // SPCX preview 已在后续修复中移除, 以磁盘为准
 }
 
+// ---------- integrity whitelists (documented benign cases, see tmp-integrity/REPORT.md) ----------
+// 真实毛亏公司：源头即负毛利（存储半导体下行 / Model S 爬坡 / 早期平台补贴），数据真实，非脏数据。
+const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD']);
+// 源确未披露 revenue 的已记录 null 行（REPORT §一 P1）：保留 null + notes，不当作门禁失败。
+const MISSING_REV_OK = new Set(['00762.HK|2008-09-30', '00100.HK|2022-12-31']);
+
+// ---------- additivity / annual-as-quarter gate（含 annual 行的条目） ----------
+// 算法对齐 tmp-integrity/audit.mjs：按会计年度 [max(上一FY末, A.end−300d), A.end] 聚合「单季」行，
+// 与 annual 行做 Σ4 校验。仅 3 个单季时用 impliedQ4 = FY − Σ3 放行（CHA 霸王茶姬型「3单季+annual」，
+// Q4 由年度承载），只有 impliedQ4<=0 或量级异常(>3×最大单季)才判错；4 个单季要求 Σ≈FY(容差1%)；
+// 并单独抓「某个单季≈年度总额」（ORCL/00762 型：年度值被当季度存入）。窗口下界取上一 FY 末防跨年误并。
+function additivityErrs(tk, e) {
+  const errs = [];
+  const DAYms = 864e5;
+  const qs = e.quarters.slice().sort((a, b) => a.end < b.end ? -1 : 1);
+  const isSQ = (q) => q.cumulative !== true && (q.periodType == null || ['q', 'q1', 'q2', 'q3', 'q4'].includes(q.periodType));
+  const anns = qs.filter(q => q.periodType === 'annual').sort((a, b) => a.end < b.end ? -1 : 1);
+  for (let i = 0; i < anns.length; i++) {
+    const A = anns[i];
+    if (A.revenue == null) continue;
+    const backstop = new Date(new Date(A.end).getTime() - 300 * DAYms).toISOString().slice(0, 10);
+    const lo = i > 0 && anns[i - 1].end > backstop ? anns[i - 1].end : backstop;
+    const within = qs.filter(q => isSQ(q) && q.revenue != null && q.end > lo && q.end <= A.end);
+    if (!within.length) continue;
+    // (i) 单季≈年度总额（年度值被当季度存入）
+    for (const q of within) {
+      if (Math.abs(q.revenue - A.revenue) / Math.abs(A.revenue) < 0.02)
+        errs.push(`${tk} ${q.end}: single-quarter≈annual ${A.end} (${Math.round(q.revenue)} vs FY ${Math.round(A.revenue)})`);
+    }
+    const sum = within.reduce((s, q) => s + q.revenue, 0);
+    const tolAbs = Math.abs(A.revenue) * 0.01;
+    // (ii) Σ单季 > 年度（重度重复计入）
+    if (sum > A.revenue + tolAbs) { errs.push(`${tk} ${A.end}: Σ${within.length}单季=${Math.round(sum)} > FY=${Math.round(A.revenue)}`); continue; }
+    // (iii) 4 个单季：Σ≈FY
+    if (within.length === 4) {
+      if (Math.abs(sum - A.revenue) > tolAbs) errs.push(`${tk} ${A.end}: Σ4单季=${Math.round(sum)} vs FY=${Math.round(A.revenue)} (差>1%)`);
+    } else if (within.length === 3) {
+      // (iv) 3 个单季：impliedQ4 放行（CHA/中概股型），仅 impliedQ4<=0 或 >3×最大单季 才判错
+      const imp = A.revenue - sum;
+      const mx = Math.max(...within.map(q => Math.abs(q.revenue)));
+      if (imp <= 0) errs.push(`${tk} ${A.end}: impliedQ4=${Math.round(imp)} <= 0 (FY−Σ3单季)`);
+      else if (mx > 0 && imp > mx * 3) errs.push(`${tk} ${A.end}: impliedQ4=${Math.round(imp)} > 3×max单季=${Math.round(mx)} (疑年度/季度基准混用)`);
+    } else if (within.length === 2) {
+      const imp = A.revenue - sum;
+      if (imp <= 0) errs.push(`${tk} ${A.end}: FY−Σ2单季=${Math.round(imp)} <= 0`);
+    }
+  }
+  return errs;
+}
+
 // ---------- guards (frequency-class aware) ----------
+// 结构连续性(gap)只作 warning(不阻断)：历史 staging 的 single-quarter 混用 'q'/'qN' 会产生大量
+// 91-182d 的良性"gap"假阳性，阻断会误伤正常合并。真正阻断写盘的只有「值门禁」+「additivity」。
+const gapIssues = {};
 function guard(tk, e) {
   const errs = [];
+  const gapWarns = [];
   const qs = e.quarters;
   const freq = e.frequency || (e.quarters[0] && (e.quarters[0].end || '').endsWith('-12-31') && qs.every(q => (q.end || '').endsWith('-12-31')) ? 'annual' : 'q');
-  if (e.frequency === 'hk-mixed' || e.frequency === 'mixed') {
-    const groups = {};
-    for (const q of qs) (groups[q.periodType] ||= []).push(q);
-    for (const [pt, g] of Object.entries(groups)) {
-      const real = g.filter(q => q.revenue != null).sort((a, b) => a.end < b.end ? -1 : 1);
-      for (let i = 1; i < real.length; i++) {
-        const d = days(real[i - 1].end, real[i].end);
-        const ok = pt === 'annual' ? d >= 300 && d <= 400 : (pt === 'interim' ? d >= 150 && d <= 400 : d >= 300 && d <= 400);
-        if (!ok) errs.push(`${pt} gap ${d}d ${real[i - 1].end}->${real[i].end}`);
-      }
-    }
-  } else if (freq === 'annual') {
+  if (freq === 'annual') {
     for (let i = 1; i < qs.length; i++) {
       const d = days(qs[i - 1].end, qs[i].end);
-      if (d < 300 || d > 400) errs.push(`gap ${d}d ${qs[i - 1].end}->${qs[i].end}`);
+      if (d < 300 || d > 400) gapWarns.push(`${qs[i - 1].end}->${qs[i].end} ${d}d`);
     }
   } else {
-    for (let i = 1; i < qs.length; i++) {
-      const d = days(qs[i - 1].end, qs[i].end);
-      if (d < 80 || d > 105) errs.push(`gap ${d}d ${qs[i - 1].end}->${qs[i].end}`);
+    // 只检查单季序列的 ~90d 连续性；annual 承载行与 single-quarter 不同节奏，跳过
+    const sq = qs.filter(q => q.periodType !== 'annual' && q.revenue != null).sort((a, b) => a.end < b.end ? -1 : 1);
+    for (let i = 1; i < sq.length; i++) {
+      const d = days(sq[i - 1].end, sq[i].end);
+      if (d < 80 || d > 105) gapWarns.push(`${sq[i - 1].end}->${sq[i].end} ${d}d`);
     }
   }
+  if (gapWarns.length) gapIssues[tk] = gapWarns;
+
+  // ---- 值门禁（阻断） ----
   for (const q of qs) {
-    if (q.revenue != null && q.revenue < 0) errs.push(`negative revenue ${q.end}`);
-    if (q.gross != null && q.revenue != null && q.gross > q.revenue) errs.push(`gross>revenue ${q.end}`);
+    if (q.revenue == null) {
+      if (!MISSING_REV_OK.has(`${tk}|${q.end}`)) errs.push(`${q.end}: revenue missing/null`);
+    } else if (q.revenue <= 0) {
+      errs.push(`${q.end}: revenue<=0 (${q.revenue})`);
+    }
+    if (q.gross != null && q.gross < 0 && !NEG_GROSS_OK.has(tk))
+      errs.push(`${q.end}: gross<0 (${q.gross}) — 若为真实毛亏请加入 NEG_GROSS_OK 白名单`);
+    if (q.gross != null && q.revenue != null && q.gross > q.revenue)
+      errs.push(`${q.end}: gross>revenue (${q.gross}>${q.revenue})`);
   }
+  // ---- 可加性 / 年度当季度（阻断） ----
+  errs.push(...additivityErrs(tk, e));
   return errs;
 }
 const guardFails = {};
@@ -464,6 +529,7 @@ for (const [tk, e] of Object.entries(profit.companies)) {
 
 fs.writeFileSync(fxCachePath, JSON.stringify(fxCache, null, 1));
 report.guardFails = guardFails;
+report.gapWarnings = gapIssues;
 report.stats = stats;
 report.totalCompanies = Object.keys(profit.companies).length;
 report.totalQuarters = totalQ;
@@ -474,6 +540,16 @@ if (process.env.DRY || process.argv.includes('--dry')) {
 } else {
   // ---------- pre-write regression guard (disk-safe merge) ----------
   const FORCE = process.argv.includes('--force') || process.env.FORCE === '1';
+  // ---------- integrity gate: 写盘前拒绝脏数据（值门禁 + 可加性） ----------
+  // guardFails 为空才允许写；否则 print 明细 + 退出码 1（不写 data/）。--force 可显式覆盖（慎用）。
+  if (Object.keys(guardFails).length && !FORCE) {
+    console.error(`REFUSING TO WRITE: ${Object.keys(guardFails).length} entr(ies) failed the integrity gate ` +
+      `(missing/≤0 revenue, gross>revenue, or non-additive Q4/annual). Fix staging, or add a documented ` +
+      `whitelist; re-run with --force to override deliberately.`);
+    console.error(JSON.stringify(guardFails, null, 1).slice(0, 6000));
+    fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'merge_report.json'), JSON.stringify(report, null, 2) + '\n');
+    process.exit(1);
+  }
   const norm = (v) => typeof v === 'number' ? Math.round(v * 1e6) / 1e6 : v;
   const regressions = [];
   for (const [tk, old] of Object.entries(diskSnapshot)) {
