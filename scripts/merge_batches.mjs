@@ -1,4 +1,18 @@
-// Integration-layer merge: staging batch1-5 -> data/profit.json + data/companies.json
+// Integration-layer merge: staging batch1-6 -> data/profit.json + data/companies.json
+//
+// 使用边界 (READ BEFORE RUNNING):
+//   * 本脚本**不是**全量重建: 它加载磁盘上现有的 data/profit.json, 仅覆写 staging batch 覆盖到的
+//     ticker, 其余条目(含所有事后手工修复)原样保留。因此磁盘上的手工修复只要未被 staging 反噬就是安全的。
+//   * 安全护栏(2026-10-29 加入): 写盘前会把合并结果与磁盘原版做逐条目语义对比(公司数/期数/币种/
+//     期型/逐期数值), 任何"回滚"(丢条目、丢期、币种或期型变更、已有期数值变化)都会导致 **exit 1 且不写盘**,
+//     并打印差异摘要。确属有意的重新刷数时用 `--force`(或 FORCE=1)显式放行。
+//   * 用法: `node scripts/merge_batches.mjs --dry` 先看报告(DRY=1 等价), 确认无误后再不带参数运行。
+//   * 只写 data/profit.json / data/companies.json / tmp-merge/merge_report.json; **从不修改 data/staging/**。
+//   * 历史: batch5 时代曾为纯重建脚本, 后来全部手工修复(IBM/ARM/SONY 币种与期型、ADR +15q、
+//     mixed 合并、桃李面包 batch6 等)已反写进 data/staging/(batch*.json 更新 + 新增
+//     data/staging/fixups.json 权威修复层), 经逐条目 diff 验证重跑结果与磁盘修复版零差异。
+//     若未来再出现差异, 以磁盘版本为准、把修复反写进 staging/fixups.json, 而不是用 --force 硬压。
+//
 // Does NOT modify data/staging/* originals. Idempotent: rebuilds merged entries from staging each run.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -8,6 +22,22 @@ const R = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const W = (p, o) => { const s = JSON.stringify(o, null, 2) + '\n'; fs.writeFileSync(path.join(ROOT, p), s); };
 
 const profit = R('data/profit.json');
+// safety net: snapshot of the on-disk state BEFORE any mutation, for the pre-write regression guard
+const diskSnapshot = JSON.parse(JSON.stringify(profit.companies));
+const diskRegistryCount = R('data/companies.json').length;
+// stale-disk detector: 本脚本以磁盘 profit.json 为基准, 无法自救一个已经回滚的工作副本。
+// 这里额外对照 git HEAD 的总期数, 若磁盘比 HEAD 少则大声告警(先 git checkout 恢复, 再跑合并)。
+try {
+  const { execSync } = await import('node:child_process');
+  const headP = JSON.parse(execSync('git show HEAD:data/profit.json', { cwd: ROOT, maxBuffer: 1 << 28 }).toString());
+  const tq = (p) => Object.values(p.companies || {}).reduce((s, e) => s + (e.quarters || []).length, 0);
+  if (tq(headP) > tq(profit)) {
+    const msg = `DISK STALE vs git HEAD: on-disk profit.json has ${tq(profit)} periods but git HEAD has ${tq(headP)}. The working copy looks rolled back — run \`git checkout -- data/profit.json data/companies.json\` BEFORE merging.`;
+    console.error('WARNING: ' + msg); warn.push(msg);
+  }
+} catch { /* git unavailable or no HEAD yet: skip */ }
+// authoritative fixup layer (entries + top-level meta snapshot), see data/staging/fixups.json
+const FIXUPS = R('data/staging/fixups.json');
 const registry = R('data/companies.json');
 const b2 = R('data/staging/batch2.json');
 const b3 = R('data/staging/batch3.json');
@@ -303,6 +333,17 @@ for (const key of ['2454.TW', '2330.TW']) {
   report.added.push({ ticker: key, n: p.quarterly.length, market: 'TW' });
 }
 
+// ---------- fixups: authoritative post-merge manual fixes (backported 2026-10-29) ----------
+// data/staging/fixups.json 快照了 batch 整合之后直接修进 profit.json 的 mixed 季度回填
+// (BABA/BIDU/DIDIY/JD/LKNCY/PDD/TCOM/TSM, 见文件内 sourceCommit)。此层在所有 batch 之后应用、
+// 优先级最高, 使「staging → profit.json」全量重跑结果与磁盘修复版逐字节一致。
+{
+  for (const f of FIXUPS.fixups) {
+    profit.companies[f.ticker] = JSON.parse(JSON.stringify(f.entry));
+    report.replacements.push({ ticker: f.ticker, action: 'fixup-applied', n: f.entry.quarters.length, src: f.sourceCommit });
+  }
+}
+
 // ---------- existing non-USD entries: attach frankfurter fx ----------
 for (const [tk, e] of Object.entries(profit.companies)) {
   const cur = (e.currency || 'USD-M').replace('-M', '');
@@ -365,6 +406,11 @@ notesNew.push('2330.TW (TWSE quarterly) and TSM (20-F annual TWD-M) are separate
 profit.notes = [...new Set([...(profit.notes || []), ...notesNew])];
 profit.updated = new Date().toISOString().slice(0, 10);
 profit.source = 'SEC EDGAR + HKEX (东财) + KR/TW/EU disclosures; integration merge of staging batches 1-5';
+// top-level meta snapshot (fixups.meta): 事后手工修订的 source/units/skipped[]/notes 以磁盘为准
+if (FIXUPS.meta) {
+  for (const [k, v] of Object.entries(FIXUPS.meta)) if (k !== 'updated') profit[k] = JSON.parse(JSON.stringify(v));
+  if (!('profitPreview' in FIXUPS.meta)) delete profit.profitPreview; // SPCX preview 已在后续修复中移除, 以磁盘为准
+}
 
 // ---------- guards (frequency-class aware) ----------
 function guard(tk, e) {
@@ -424,9 +470,46 @@ report.totalCompanies = Object.keys(profit.companies).length;
 report.totalQuarters = totalQ;
 report.registryCount = registry.length;
 
-if (process.env.DRY) {
+if (process.env.DRY || process.argv.includes('--dry')) {
   console.log(JSON.stringify(report, null, 1).slice(0, 8000));
 } else {
+  // ---------- pre-write regression guard (disk-safe merge) ----------
+  const FORCE = process.argv.includes('--force') || process.env.FORCE === '1';
+  const norm = (v) => typeof v === 'number' ? Math.round(v * 1e6) / 1e6 : v;
+  const regressions = [];
+  for (const [tk, old] of Object.entries(diskSnapshot)) {
+    const neu = profit.companies[tk];
+    if (!neu) { regressions.push(`${tk}: entry would be DELETED`); continue; }
+    if ((neu.quarters || []).length < (old.quarters || []).length)
+      regressions.push(`${tk}: periods ${old.quarters.length} -> ${neu.quarters.length} (shrunk)`);
+    if ((old.currency || 'USD-M') !== (neu.currency || 'USD-M'))
+      regressions.push(`${tk}: currency ${old.currency} -> ${neu.currency}`);
+    if (old.frequency && old.frequency !== neu.frequency)
+      regressions.push(`${tk}: frequency ${old.frequency} -> ${neu.frequency}`);
+    const oldMap = new Map((old.quarters || []).map(q => [q.end + '|' + (q.periodType || ''), q]));
+    for (const q of (neu.quarters || [])) {
+      const o = oldMap.get(q.end + '|' + (q.periodType || ''));
+      if (!o) continue; // new period: additive, fine
+      for (const f of ['revenue', 'netInc', 'gross', 'opInc', 'fxToUsd', 'periodType']) {
+        const a = norm(o[f]), b = norm(q[f]);
+        const bothNull = a == null && b == null;
+        if (!bothNull && JSON.stringify(a) !== JSON.stringify(b))
+          regressions.push(`${tk} ${q.end}${q.periodType ? '/' + q.periodType : ''}: ${f} ${o[f]} -> ${q[f]}`);
+      }
+    }
+  }
+  if (Object.keys(profit.companies).length < Object.keys(diskSnapshot).length)
+    regressions.push(`company count ${Object.keys(diskSnapshot).length} -> ${Object.keys(profit.companies).length} (shrunk)`);
+  if (registry.length < diskRegistryCount)
+    regressions.push(`registry count ${diskRegistryCount} -> ${registry.length} (shrunk)`);
+  report.regressions = regressions;
+  if (regressions.length && !FORCE) {
+    console.error(`REFUSING TO WRITE: ${regressions.length} semantic regression(s) vs on-disk data/profit.json. This merge would roll back existing data (手工修复被 staging 旧数据覆盖). Fix staging to match disk, or re-run with --force to override deliberately.`);
+    console.error(regressions.slice(0, 40).join('\n') + (regressions.length > 40 ? `\n... and ${regressions.length - 40} more` : ''));
+    fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'merge_report.json'), JSON.stringify(report, null, 2) + '\n');
+    process.exit(1);
+  }
+  if (regressions.length) console.error(`WARNING: --force given; writing despite ${regressions.length} regression(s).`);
   W('data/profit.json', profit);
   W('data/companies.json', registry);
   W('tmp-merge/merge_report.json', report);
