@@ -8,6 +8,8 @@
 //     并打印差异摘要。确属有意的重新刷数时用 `--force`(或 FORCE=1)显式放行。
 //   * 用法: `node scripts/merge_batches.mjs --dry` 先看报告(DRY=1 等价), 确认无误后再不带参数运行。
 //   * 只写 data/profit.json / data/companies.json / tmp-merge/merge_report.json; **从不修改 data/staging/**。
+//   * 截断规则(2026-10-29 加入): data/staging/truncations.json 显式声明各 ticker 的最早可信期 minEnd; 合并时先丢弃
+//     end < minEnd 的期(输出 report.truncated), 且 regression guard 会拦截「合并结果比磁盘多了更早的期」(复活已删期)。
 //   * 历史: batch5 时代曾为纯重建脚本, 后来全部手工修复(IBM/ARM/SONY 币种与期型、ADR +15q、
 //     mixed 合并、桃李面包 batch6 等)已反写进 data/staging/(batch*.json 更新 + 新增
 //     data/staging/fixups.json 权威修复层), 经逐条目 diff 验证重跑结果与磁盘修复版零差异。
@@ -38,6 +40,11 @@ try {
 } catch { /* git unavailable or no HEAD yet: skip */ }
 // authoritative fixup layer (entries + top-level meta snapshot), see data/staging/fixups.json
 const FIXUPS = R('data/staging/fixups.json');
+// documented period truncations (data side, human-readable): { truncations: { TICKER: { minEnd, reason } } }
+// Staging batches/fixups still carry full history; this layer drops end < minEnd so merging cannot
+// resurrect periods that were deliberately deleted from data/profit.json (see commit bf2581c).
+const TRUNC = R('data/staging/truncations.json');
+const truncations = TRUNC.truncations || TRUNC;
 const registry = R('data/companies.json');
 const b2 = R('data/staging/batch2.json');
 const b3 = R('data/staging/batch3.json');
@@ -351,6 +358,24 @@ for (const key of ['2454.TW', '2330.TW']) {
   }
 }
 
+// ---------- documented period truncations (apply BEFORE guards/stats) ----------
+// 对 truncations.json 列出的 ticker, 丢弃所有 end < minEnd 的期; 记录 report.truncated 便于审计。
+{
+  const truncated = {};
+  for (const [tk, spec] of Object.entries(truncations)) {
+    const e = profit.companies[tk];
+    if (!e || !Array.isArray(e.quarters) || !spec || !spec.minEnd) continue;
+    const before = e.quarters.length;
+    e.quarters = e.quarters.filter(q => (q.end || '') >= spec.minEnd);
+    const removed = before - e.quarters.length;
+    if (removed > 0) {
+      truncated[tk] = { removed };
+      log.push(`${tk}: truncated ${removed} period(s) with end < ${spec.minEnd} (${before} -> ${e.quarters.length})`);
+    }
+  }
+  report.truncated = truncated;
+}
+
 // ---------- existing non-USD entries: attach frankfurter fx ----------
 for (const [tk, e] of Object.entries(profit.companies)) {
   const cur = (e.currency || 'USD-M').replace('-M', '');
@@ -561,6 +586,12 @@ if (process.env.DRY || process.argv.includes('--dry')) {
       regressions.push(`${tk}: currency ${old.currency} -> ${neu.currency}`);
     if (old.frequency && old.frequency !== neu.frequency)
       regressions.push(`${tk}: frequency ${old.frequency} -> ${neu.frequency}`);
+    // 新增了比磁盘更早的期 = 复活已删期 (除非该 ticker 已在 truncations.json 显式声明)
+    const oldSorted = (old.quarters || []).slice().sort((a, b) => a.end < b.end ? -1 : 1);
+    const neuSorted = (neu.quarters || []).slice().sort((a, b) => a.end < b.end ? -1 : 1);
+    if (oldSorted.length && neuSorted.length && neuSorted[0].end < oldSorted[0].end &&
+        !Object.prototype.hasOwnProperty.call(truncations, tk))
+      regressions.push(`${tk}: earliest period ${neuSorted[0].end} is EARLIER than on-disk ${oldSorted[0].end} (would resurrect deleted periods)`);
     const oldMap = new Map((old.quarters || []).map(q => [q.end + '|' + (q.periodType || ''), q]));
     for (const q of (neu.quarters || [])) {
       const o = oldMap.get(q.end + '|' + (q.periodType || ''));

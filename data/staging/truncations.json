@@ -1,0 +1,13 @@
+{
+  "_meta": "Documented period truncations applied by scripts/merge_batches.mjs at merge time. Rationale: staging batches (data/staging/batch*.json) and fixups.json still carry full historical rows, so merging them without this layer would silently resurrect periods that were deliberately deleted from data/profit.json (commit bf2581c). For every listed ticker the merge drops all periods with end < minEnd BEFORE the pre-write regression guard runs, and records report.truncated[ticker].removed for auditing. Keep reasons factual and auditable.",
+  "truncations": {
+    "00762.HK": {
+      "minEnd": "2009-03-31",
+      "reason": "China Unicom (中国联通). Under HKEX / company disclosure scope the pre-2009 series is incomplete: the 2008-09-30 row has revenue = null, and earlier quarters predate the restated comparable basis. Data older than 2009-03-31 is therefore not trustworthy/comparable and was deleted in commit bf2581c (10 periods, leaving 70 from 2009-03-31 onward)."
+    },
+    "601360.SS": {
+      "minEnd": "2017-03-31",
+      "reason": "360 Security Technology (三六零). In 2017 360 was listed via a reverse merger into the shell 江南嘉捷 (SJJC); all pre-2017 periods belong to the prior legal entity (江南嘉捷) and are NOT comparable with the current listed主体. Those 24 periods were deleted in commit bf2581c (leaving 38 from 2017-03-31 onward)."
+    }
+  }
+}
