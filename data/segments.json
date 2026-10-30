@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T12:55:54.951Z",
+  "updated": "2026-10-30",
   "source": "SEC EDGAR segment R files (FilingSummary.xml → R*.htm) + 东方财富 F10 分产品/分行业 + 港交所年报 PDF (HKEXnews) + 公司 IR/年报 PDF（多源合并；各批次来源与推导说明见 notes/failures）",
   "sourceUrl": "https://www.sec.gov/Archives/edgar/data/ | https://datacenter-web.eastmoney.com/ | https://www.hkexnews.hk/ | 公司投资者关系页",
   "companies": {
@@ -1963,6 +1963,16 @@
             "name": "More Personal Computing",
             "value": 13192
           }
+        ],
+        "2026-09-30": [
+          {
+            "name": "Agents and Infra",
+            "value": 76795
+          },
+          {
+            "name": "Devices and Consumer",
+            "value": 15484
+          }
         ]
       },
       "periodTypes": {
@@ -2004,7 +2014,8 @@
         "2025-06-30": "quarter",
         "2025-09-30": "quarter",
         "2025-12-31": "quarter",
-        "2026-03-31": "quarter"
+        "2026-03-31": "quarter",
+        "2026-09-30": "quarter"
       },
       "periodType": "quarter"
     },
@@ -2659,6 +2670,38 @@
             "name": "Other Bets",
             "value": 382
           }
+        ],
+        "2026-09-30": [
+          {
+            "name": "Google Services",
+            "value": 96302,
+            "children": [
+              {
+                "name": "Google Search & other",
+                "value": 63350
+              },
+              {
+                "name": "YouTube ads",
+                "value": 11207
+              },
+              {
+                "name": "Google Network",
+                "value": 7455
+              },
+              {
+                "name": "Google subscriptions, platforms, and devices",
+                "value": 14290
+              }
+            ]
+          },
+          {
+            "name": "Google Cloud",
+            "value": 30709
+          },
+          {
+            "name": "Other Bets",
+            "value": 372
+          }
         ]
       },
       "periodTypes": {
@@ -2686,7 +2729,8 @@
         "2025-06-30": "quarter",
         "2025-09-30": "quarter",
         "2026-03-31": "quarter",
-        "2026-06-30": "quarter"
+        "2026-06-30": "quarter",
+        "2026-09-30": "quarter"
       },
       "periodType": "quarter"
     },
@@ -3321,6 +3365,20 @@
             "name": "International",
             "value": 42197
           }
+        ],
+        "2026-09-30": [
+          {
+            "name": "North America",
+            "value": 112852
+          },
+          {
+            "name": "International",
+            "value": 43108
+          },
+          {
+            "name": "AWS",
+            "value": 45984
+          }
         ]
       },
       "periodTypes": {
@@ -3370,7 +3428,8 @@
         "2025-09-30": "quarter",
         "2025-12-31": "quarter",
         "2026-03-31": "quarter",
-        "2026-06-30": "quarter"
+        "2026-06-30": "quarter",
+        "2026-09-30": "quarter"
       },
       "periodType": "quarter"
     },
@@ -4653,7 +4712,40 @@
       "periodType": "quarter"
     },
     "INTC": {
-      "degraded": "segment revenues include intersegment sales (Intel Foundry model); no clean external-revenue split"
+      "quarters": {
+        "2026-09-26": [
+          {
+            "name": "Intel Products",
+            "value": 15415,
+            "children": [
+              {
+                "name": "CCPG",
+                "value": 8097
+              },
+              {
+                "name": "DCAI",
+                "value": 7318
+              }
+            ]
+          },
+          {
+            "name": "Intel Foundry",
+            "value": 6697
+          },
+          {
+            "name": "All Other",
+            "value": 692
+          },
+          {
+            "name": "Intersegment Eliminations",
+            "value": -6291
+          }
+        ]
+      },
+      "periodTypes": {
+        "2026-09-26": "quarter"
+      },
+      "periodType": "quarter"
     },
     "AVGO": {
       "degraded": "only 2 quarters with segment data"
@@ -4947,7 +5039,34 @@
       "periodType": "quarter"
     },
     "KO": {
-      "degraded": "could not reconcile segment units with revenue"
+      "quarters": {
+        "2026-10-02": [
+          {
+            "name": "EMEA",
+            "value": 3104
+          },
+          {
+            "name": "Latin America",
+            "value": 1958
+          },
+          {
+            "name": "North America",
+            "value": 5386
+          },
+          {
+            "name": "Asia Pacific",
+            "value": 1563
+          },
+          {
+            "name": "Bottling Investments",
+            "value": 1523
+          }
+        ]
+      },
+      "periodTypes": {
+        "2026-10-02": "quarter"
+      },
+      "periodType": "quarter"
     },
     "DELL": {
       "degraded": "could not reconcile segment units with revenue"

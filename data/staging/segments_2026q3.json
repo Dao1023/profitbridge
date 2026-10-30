@@ -1,0 +1,1976 @@
+{
+  "_meta": {
+    "source": "tmp-season-seg/staging_seg.json",
+    "updated": "2026-10-30",
+    "staged": [
+      "MSFT",
+      "AMZN",
+      "INTC",
+      "KO",
+      "GOOGL"
+    ],
+    "units": "USD-M (segment revenue, company reporting currency)",
+    "mergeContract": "Append-only: historical quarters copied verbatim from data/segments.json; only new <end> keys are added by scripts/merge_segments.mjs. Same end with different values is an error (no silent overwrite).",
+    "notes": {
+      "basis": "Staging only — historical quarters copied verbatim from data/segments.json; only new <end> key appended.",
+      "MSFT": "FY27 Q1 (end 2026-09-30): reportable segments reorganized to TWO (\"Agents and Infra\", \"Devices and Consumer\"); previous 3-segment basis (PBP/Intelligent Cloud/MPC) superseded. Historical quarters kept on old basis.",
+      "INTC": "New hierarchy introduced: Intel Products (CCPG 8097 + DCAI 7318 = 15415) with Intel Foundry 6697, All Other 692, Intersegment Eliminations -6291 → net revenue 16513. Replaces prior degraded flag.",
+      "KO": "5 geographic operating segments (Net Operating Revenues basis, incl intersegment) sum 13534 vs consolidated 13380 (+1.15%); see NOTES.md for R9 US/Intl×category alternative (exact 13380).",
+      "GOOGL": "Google Services (parent) + 4 children re-established as hierarchy; Google Cloud & Other Bets peers; hedging and Google advertising subtotal suppressed."
+    }
+  },
+  "companies": {
+    "MSFT": {
+      "quarters": {
+        "2014-09-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 11236
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 6490
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 5475
+          }
+        ],
+        "2014-12-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 13282
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 6822
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 6041
+          }
+        ],
+        "2015-03-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 9369
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 6457
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 5903
+          }
+        ],
+        "2015-06-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 9548
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 6661
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 6296
+          }
+        ],
+        "2016-09-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 9395
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 6436
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 6097
+          }
+        ],
+        "2016-12-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 11889
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 7179
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 6758
+          }
+        ],
+        "2017-03-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 8775
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 7707
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 6730
+          }
+        ],
+        "2017-06-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 9235
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 8548
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 7822
+          }
+        ],
+        "2017-09-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 9378
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 8238
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 6922
+          }
+        ],
+        "2017-12-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 12170
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 8953
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 7795
+          }
+        ],
+        "2018-03-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 9917
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 9006
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 7896
+          }
+        ],
+        "2018-09-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 10746
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 9771
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 8567
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 12993
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 10100
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 9378
+          }
+        ],
+        "2019-03-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 10680
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 10242
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 9649
+          }
+        ],
+        "2019-06-30": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 11391
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 11279
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 11047
+          }
+        ],
+        "2019-09-30": [
+          {
+            "name": "More Personal Computing",
+            "value": 11133
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 11077
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 10845
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 13211
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 11869
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 11826
+          }
+        ],
+        "2020-03-31": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 12281
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 11743
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 10997
+          }
+        ],
+        "2020-09-30": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 12986
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 12319
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 11849
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "More Personal Computing",
+            "value": 15122
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 14601
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 13353
+          }
+        ],
+        "2021-03-31": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 15118
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 13552
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13036
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 17023
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 14691
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 14438
+          }
+        ],
+        "2021-09-30": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 16912
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 15039
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13366
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 18262
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 17530
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 15936
+          }
+        ],
+        "2022-03-31": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 18987
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 15789
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 14584
+          }
+        ],
+        "2022-09-30": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 20325
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 16465
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13332
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 21508
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 17002
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 14237
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "Intelligent Cloud",
+            "value": 22081
+          },
+          {
+            "name": "Productivity and Business Processes",
+            "value": 17516
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13260
+          }
+        ],
+        "2023-06-30": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 43168
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 9030
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 3991
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 25226
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 20013
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 11278
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 25854
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 21525
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 14641
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 27113
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 22141
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 12604
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 28317
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 24092
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13176
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 29437
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 25544
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 14651
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 29944
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 26751
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13371
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 33112
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 29878
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13451
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 33020
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 30897
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13756
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 34116
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 32907
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 14250
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "Productivity and Business Processes",
+            "value": 35013
+          },
+          {
+            "name": "Intelligent Cloud",
+            "value": 34681
+          },
+          {
+            "name": "More Personal Computing",
+            "value": 13192
+          }
+        ],
+        "2026-09-30": [
+          {
+            "name": "Agents and Infra",
+            "value": 76795
+          },
+          {
+            "name": "Devices and Consumer",
+            "value": 15484
+          }
+        ]
+      }
+    },
+    "AMZN": {
+      "quarters": {
+        "2011-03-31": [
+          {
+            "name": "North America",
+            "value": 5465
+          },
+          {
+            "name": "International",
+            "value": 4392
+          }
+        ],
+        "2011-06-30": [
+          {
+            "name": "North America",
+            "value": 5406
+          },
+          {
+            "name": "International",
+            "value": 4507
+          }
+        ],
+        "2011-09-30": [
+          {
+            "name": "North America",
+            "value": 5932
+          },
+          {
+            "name": "International",
+            "value": 4944
+          }
+        ],
+        "2012-03-31": [
+          {
+            "name": "North America",
+            "value": 7427
+          },
+          {
+            "name": "International",
+            "value": 5758
+          }
+        ],
+        "2012-06-30": [
+          {
+            "name": "North America",
+            "value": 7326
+          },
+          {
+            "name": "International",
+            "value": 5508
+          }
+        ],
+        "2012-09-30": [
+          {
+            "name": "North America",
+            "value": 7884
+          },
+          {
+            "name": "International",
+            "value": 5922
+          }
+        ],
+        "2013-03-31": [
+          {
+            "name": "North America",
+            "value": 9391
+          },
+          {
+            "name": "International",
+            "value": 6679
+          }
+        ],
+        "2015-06-30": [
+          {
+            "name": "North America",
+            "value": 13796
+          },
+          {
+            "name": "International",
+            "value": 7565
+          },
+          {
+            "name": "AWS",
+            "value": 1824
+          }
+        ],
+        "2015-09-30": [
+          {
+            "name": "North America",
+            "value": 15006
+          },
+          {
+            "name": "International",
+            "value": 8267
+          },
+          {
+            "name": "AWS",
+            "value": 2085
+          }
+        ],
+        "2015-12-31": [
+          {
+            "name": "North America",
+            "value": 21500
+          },
+          {
+            "name": "International",
+            "value": 11841
+          },
+          {
+            "name": "AWS",
+            "value": 839
+          }
+        ],
+        "2016-03-31": [
+          {
+            "name": "North America",
+            "value": 16996
+          },
+          {
+            "name": "International",
+            "value": 9566
+          },
+          {
+            "name": "AWS",
+            "value": 2566
+          }
+        ],
+        "2016-06-30": [
+          {
+            "name": "North America",
+            "value": 17674
+          },
+          {
+            "name": "International",
+            "value": 9844
+          },
+          {
+            "name": "AWS",
+            "value": 2886
+          }
+        ],
+        "2016-09-30": [
+          {
+            "name": "North America",
+            "value": 18874
+          },
+          {
+            "name": "International",
+            "value": 10609
+          },
+          {
+            "name": "AWS",
+            "value": 3231
+          }
+        ],
+        "2017-03-31": [
+          {
+            "name": "North America",
+            "value": 20992
+          },
+          {
+            "name": "International",
+            "value": 11061
+          },
+          {
+            "name": "AWS",
+            "value": 3661
+          }
+        ],
+        "2017-06-30": [
+          {
+            "name": "North America",
+            "value": 22370
+          },
+          {
+            "name": "International",
+            "value": 11485
+          },
+          {
+            "name": "AWS",
+            "value": 4100
+          }
+        ],
+        "2017-09-30": [
+          {
+            "name": "North America",
+            "value": 25446
+          },
+          {
+            "name": "International",
+            "value": 13714
+          },
+          {
+            "name": "AWS",
+            "value": 4584
+          }
+        ],
+        "2017-12-31": [
+          {
+            "name": "North America",
+            "value": 37302
+          },
+          {
+            "name": "International",
+            "value": 18037
+          },
+          {
+            "name": "AWS",
+            "value": 5114
+          }
+        ],
+        "2018-03-31": [
+          {
+            "name": "North America",
+            "value": 30725
+          },
+          {
+            "name": "International",
+            "value": 14875
+          },
+          {
+            "name": "AWS",
+            "value": 5442
+          }
+        ],
+        "2018-06-30": [
+          {
+            "name": "North America",
+            "value": 32169
+          },
+          {
+            "name": "International",
+            "value": 14612
+          },
+          {
+            "name": "AWS",
+            "value": 6105
+          }
+        ],
+        "2018-09-30": [
+          {
+            "name": "North America",
+            "value": 34348
+          },
+          {
+            "name": "International",
+            "value": 15549
+          },
+          {
+            "name": "AWS",
+            "value": 6679
+          }
+        ],
+        "2019-03-31": [
+          {
+            "name": "North America",
+            "value": 35812
+          },
+          {
+            "name": "International",
+            "value": 16192
+          },
+          {
+            "name": "AWS",
+            "value": 7696
+          }
+        ],
+        "2019-06-30": [
+          {
+            "name": "North America",
+            "value": 38653
+          },
+          {
+            "name": "International",
+            "value": 16370
+          },
+          {
+            "name": "AWS",
+            "value": 8381
+          }
+        ],
+        "2019-09-30": [
+          {
+            "name": "North America",
+            "value": 42638
+          },
+          {
+            "name": "International",
+            "value": 18348
+          },
+          {
+            "name": "AWS",
+            "value": 8995
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "North America",
+            "value": 53670
+          },
+          {
+            "name": "International",
+            "value": 23813
+          },
+          {
+            "name": "AWS",
+            "value": 9954
+          }
+        ],
+        "2020-03-31": [
+          {
+            "name": "North America",
+            "value": 46127
+          },
+          {
+            "name": "International",
+            "value": 19106
+          },
+          {
+            "name": "AWS",
+            "value": 10219
+          }
+        ],
+        "2020-06-30": [
+          {
+            "name": "North America",
+            "value": 55436
+          },
+          {
+            "name": "International",
+            "value": 22668
+          },
+          {
+            "name": "AWS",
+            "value": 10808
+          }
+        ],
+        "2020-09-30": [
+          {
+            "name": "North America",
+            "value": 59373
+          },
+          {
+            "name": "International",
+            "value": 25171
+          },
+          {
+            "name": "AWS",
+            "value": 11601
+          }
+        ],
+        "2021-03-31": [
+          {
+            "name": "North America",
+            "value": 64366
+          },
+          {
+            "name": "International",
+            "value": 30649
+          },
+          {
+            "name": "AWS",
+            "value": 13503
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "North America",
+            "value": 67550
+          },
+          {
+            "name": "International",
+            "value": 30721
+          },
+          {
+            "name": "AWS",
+            "value": 14809
+          }
+        ],
+        "2021-09-30": [
+          {
+            "name": "North America",
+            "value": 65557
+          },
+          {
+            "name": "International",
+            "value": 29145
+          },
+          {
+            "name": "AWS",
+            "value": 16110
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "North America",
+            "value": 82360
+          },
+          {
+            "name": "International",
+            "value": 37272
+          },
+          {
+            "name": "AWS",
+            "value": 17780
+          }
+        ],
+        "2022-03-31": [
+          {
+            "name": "North America",
+            "value": 69244
+          },
+          {
+            "name": "International",
+            "value": 28759
+          },
+          {
+            "name": "AWS",
+            "value": 18441
+          }
+        ],
+        "2022-06-30": [
+          {
+            "name": "North America",
+            "value": 74430
+          },
+          {
+            "name": "International",
+            "value": 27065
+          },
+          {
+            "name": "AWS",
+            "value": 19739
+          }
+        ],
+        "2022-09-30": [
+          {
+            "name": "North America",
+            "value": 78843
+          },
+          {
+            "name": "International",
+            "value": 27720
+          },
+          {
+            "name": "AWS",
+            "value": 20538
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "North America",
+            "value": 76881
+          },
+          {
+            "name": "International",
+            "value": 29123
+          },
+          {
+            "name": "AWS",
+            "value": 21354
+          }
+        ],
+        "2023-06-30": [
+          {
+            "name": "North America",
+            "value": 82546
+          },
+          {
+            "name": "International",
+            "value": 29697
+          },
+          {
+            "name": "AWS",
+            "value": 22140
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "North America",
+            "value": 87887
+          },
+          {
+            "name": "International",
+            "value": 32137
+          },
+          {
+            "name": "AWS",
+            "value": 23059
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "North America",
+            "value": 105514
+          },
+          {
+            "name": "International",
+            "value": 40243
+          },
+          {
+            "name": "AWS",
+            "value": 24204
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "North America",
+            "value": 86341
+          },
+          {
+            "name": "International",
+            "value": 31935
+          },
+          {
+            "name": "AWS",
+            "value": 25037
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "North America",
+            "value": 90033
+          },
+          {
+            "name": "International",
+            "value": 31663
+          },
+          {
+            "name": "AWS",
+            "value": 26281
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "North America",
+            "value": 95537
+          },
+          {
+            "name": "International",
+            "value": 35888
+          },
+          {
+            "name": "AWS",
+            "value": 27452
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "North America",
+            "value": 92887
+          },
+          {
+            "name": "International",
+            "value": 33513
+          },
+          {
+            "name": "AWS",
+            "value": 29267
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "North America",
+            "value": 100068
+          },
+          {
+            "name": "International",
+            "value": 36761
+          },
+          {
+            "name": "AWS",
+            "value": 30873
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "North America",
+            "value": 106267
+          },
+          {
+            "name": "International",
+            "value": 40896
+          },
+          {
+            "name": "AWS",
+            "value": 33006
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "North America",
+            "value": 127083
+          },
+          {
+            "name": "International",
+            "value": 50724
+          },
+          {
+            "name": "AWS",
+            "value": 35579
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "North America",
+            "value": 104143
+          },
+          {
+            "name": "International",
+            "value": 39789
+          },
+          {
+            "name": "AWS",
+            "value": 37587
+          }
+        ],
+        "2026-06-30": [
+          {
+            "name": "North America",
+            "value": 116177
+          },
+          {
+            "name": "AWS",
+            "value": 42232
+          },
+          {
+            "name": "International",
+            "value": 42197
+          }
+        ],
+        "2026-09-30": [
+          {
+            "name": "North America",
+            "value": 112852
+          },
+          {
+            "name": "International",
+            "value": 43108
+          },
+          {
+            "name": "AWS",
+            "value": 45984
+          }
+        ]
+      }
+    },
+    "INTC": {
+      "quarters": {
+        "2026-09-26": [
+          {
+            "name": "Intel Products",
+            "value": 15415,
+            "children": [
+              {
+                "name": "CCPG",
+                "value": 8097
+              },
+              {
+                "name": "DCAI",
+                "value": 7318
+              }
+            ]
+          },
+          {
+            "name": "Intel Foundry",
+            "value": 6697
+          },
+          {
+            "name": "All Other",
+            "value": 692
+          },
+          {
+            "name": "Intersegment Eliminations",
+            "value": -6291
+          }
+        ]
+      }
+    },
+    "KO": {
+      "quarters": {
+        "2026-10-02": [
+          {
+            "name": "EMEA",
+            "value": 3104
+          },
+          {
+            "name": "Latin America",
+            "value": 1958
+          },
+          {
+            "name": "North America",
+            "value": 5386
+          },
+          {
+            "name": "Asia Pacific",
+            "value": 1563
+          },
+          {
+            "name": "Bottling Investments",
+            "value": 1523
+          }
+        ]
+      }
+    },
+    "GOOGL": {
+      "quarters": {
+        "2019-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 22547
+          },
+          {
+            "name": "Google Network",
+            "value": 5015
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 3620
+          },
+          {
+            "name": "YouTube ads",
+            "value": 3025
+          },
+          {
+            "name": "Google Cloud",
+            "value": 1825
+          },
+          {
+            "name": "Other Bets",
+            "value": 170
+          }
+        ],
+        "2019-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 23642
+          },
+          {
+            "name": "Google Network",
+            "value": 5249
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 4080
+          },
+          {
+            "name": "YouTube ads",
+            "value": 3603
+          },
+          {
+            "name": "Google Cloud",
+            "value": 2100
+          },
+          {
+            "name": "Other Bets",
+            "value": 162
+          }
+        ],
+        "2019-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 24741
+          },
+          {
+            "name": "Google Network",
+            "value": 5251
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 4050
+          },
+          {
+            "name": "YouTube ads",
+            "value": 3804
+          },
+          {
+            "name": "Google Cloud",
+            "value": 2379
+          },
+          {
+            "name": "Other Bets",
+            "value": 155
+          }
+        ],
+        "2020-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 24502
+          },
+          {
+            "name": "Google Network",
+            "value": 5223
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 4435
+          },
+          {
+            "name": "YouTube ads",
+            "value": 4038
+          },
+          {
+            "name": "Google Cloud",
+            "value": 2777
+          },
+          {
+            "name": "Other Bets",
+            "value": 135
+          }
+        ],
+        "2020-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 21319
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 5124
+          },
+          {
+            "name": "Google Network",
+            "value": 4736
+          },
+          {
+            "name": "YouTube ads",
+            "value": 3812
+          },
+          {
+            "name": "Google Cloud",
+            "value": 3007
+          },
+          {
+            "name": "Other Bets",
+            "value": 148
+          }
+        ],
+        "2020-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 26338
+          },
+          {
+            "name": "Google Network",
+            "value": 5720
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 5478
+          },
+          {
+            "name": "YouTube ads",
+            "value": 5037
+          },
+          {
+            "name": "Google Cloud",
+            "value": 3444
+          },
+          {
+            "name": "Other Bets",
+            "value": 178
+          }
+        ],
+        "2021-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 31879
+          },
+          {
+            "name": "Google Network",
+            "value": 6800
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6494
+          },
+          {
+            "name": "YouTube ads",
+            "value": 6005
+          },
+          {
+            "name": "Google Cloud",
+            "value": 4047
+          },
+          {
+            "name": "Other Bets",
+            "value": 198
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 35845
+          },
+          {
+            "name": "Google Network",
+            "value": 7597
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7002
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6623
+          },
+          {
+            "name": "Google Cloud",
+            "value": 4628
+          },
+          {
+            "name": "Other Bets",
+            "value": 192
+          }
+        ],
+        "2021-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 37926
+          },
+          {
+            "name": "Google Network",
+            "value": 7999
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7205
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6754
+          },
+          {
+            "name": "Google Cloud",
+            "value": 4990
+          },
+          {
+            "name": "Other Bets",
+            "value": 182
+          }
+        ],
+        "2022-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 39618
+          },
+          {
+            "name": "Google Network",
+            "value": 8174
+          },
+          {
+            "name": "YouTube ads",
+            "value": 6869
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6811
+          },
+          {
+            "name": "Google Cloud",
+            "value": 5821
+          },
+          {
+            "name": "Other Bets",
+            "value": 440
+          }
+        ],
+        "2022-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 40689
+          },
+          {
+            "name": "Google Network",
+            "value": 8259
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7340
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6553
+          },
+          {
+            "name": "Google Cloud",
+            "value": 6276
+          },
+          {
+            "name": "Other Bets",
+            "value": 193
+          }
+        ],
+        "2022-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 39539
+          },
+          {
+            "name": "Google Network",
+            "value": 7872
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7071
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 6895
+          },
+          {
+            "name": "Google Cloud",
+            "value": 6868
+          },
+          {
+            "name": "Other Bets",
+            "value": 209
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "Google Search & other",
+            "value": 42604
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 8796
+          },
+          {
+            "name": "Google Network",
+            "value": 8475
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7963
+          },
+          {
+            "name": "Google Cloud",
+            "value": 7315
+          },
+          {
+            "name": "Other Bets",
+            "value": 226
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 40359
+          },
+          {
+            "name": "Google Network",
+            "value": 7496
+          },
+          {
+            "name": "Google Cloud",
+            "value": 7454
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 7413
+          },
+          {
+            "name": "YouTube ads",
+            "value": 6693
+          },
+          {
+            "name": "Other Bets",
+            "value": 288
+          }
+        ],
+        "2023-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 42628
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 8142
+          },
+          {
+            "name": "Google Cloud",
+            "value": 8031
+          },
+          {
+            "name": "Google Network",
+            "value": 7850
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7665
+          },
+          {
+            "name": "Other Bets",
+            "value": 285
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 44026
+          },
+          {
+            "name": "Google Cloud",
+            "value": 8411
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 8339
+          },
+          {
+            "name": "YouTube ads",
+            "value": 7952
+          },
+          {
+            "name": "Google Network",
+            "value": 7669
+          },
+          {
+            "name": "Other Bets",
+            "value": 297
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 46156
+          },
+          {
+            "name": "Google Cloud",
+            "value": 9574
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 8739
+          },
+          {
+            "name": "YouTube ads",
+            "value": 8090
+          },
+          {
+            "name": "Google Network",
+            "value": 7413
+          },
+          {
+            "name": "Other Bets",
+            "value": 495
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 48509
+          },
+          {
+            "name": "Google Cloud",
+            "value": 10347
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 9312
+          },
+          {
+            "name": "YouTube ads",
+            "value": 8663
+          },
+          {
+            "name": "Google Network",
+            "value": 7444
+          },
+          {
+            "name": "Other Bets",
+            "value": 365
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 49385
+          },
+          {
+            "name": "Google Cloud",
+            "value": 11353
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 10656
+          },
+          {
+            "name": "YouTube ads",
+            "value": 8921
+          },
+          {
+            "name": "Google Network",
+            "value": 7548
+          },
+          {
+            "name": "Other Bets",
+            "value": 388
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "Google Search & other",
+            "value": 54034
+          },
+          {
+            "name": "Google Cloud",
+            "value": 11955
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 11633
+          },
+          {
+            "name": "YouTube ads",
+            "value": 10473
+          },
+          {
+            "name": "Google Network",
+            "value": 7954
+          },
+          {
+            "name": "Other Bets",
+            "value": 400
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 50702
+          },
+          {
+            "name": "Google Cloud",
+            "value": 12260
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 10379
+          },
+          {
+            "name": "YouTube ads",
+            "value": 8927
+          },
+          {
+            "name": "Google Network",
+            "value": 7256
+          },
+          {
+            "name": "Other Bets",
+            "value": 450
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 54190
+          },
+          {
+            "name": "Google Cloud",
+            "value": 13624
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 11203
+          },
+          {
+            "name": "YouTube ads",
+            "value": 9796
+          },
+          {
+            "name": "Google Network",
+            "value": 7354
+          },
+          {
+            "name": "Other Bets",
+            "value": 373
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "Google Search & other",
+            "value": 56567
+          },
+          {
+            "name": "Google Cloud",
+            "value": 15157
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 12870
+          },
+          {
+            "name": "YouTube ads",
+            "value": 10261
+          },
+          {
+            "name": "Google Network",
+            "value": 7354
+          },
+          {
+            "name": "Other Bets",
+            "value": 344
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "Google Search & other",
+            "value": 60399
+          },
+          {
+            "name": "Google Cloud",
+            "value": 20028
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 12384
+          },
+          {
+            "name": "YouTube ads",
+            "value": 9883
+          },
+          {
+            "name": "Google Network",
+            "value": 6971
+          },
+          {
+            "name": "Other Bets",
+            "value": 411
+          }
+        ],
+        "2026-06-30": [
+          {
+            "name": "Google Search & other",
+            "value": 63271
+          },
+          {
+            "name": "Google Cloud",
+            "value": 24768
+          },
+          {
+            "name": "Google subscriptions, platforms, and devices",
+            "value": 12911
+          },
+          {
+            "name": "YouTube ads",
+            "value": 11055
+          },
+          {
+            "name": "Google Network",
+            "value": 7303
+          },
+          {
+            "name": "Other Bets",
+            "value": 382
+          }
+        ],
+        "2026-09-30": [
+          {
+            "name": "Google Services",
+            "value": 96302,
+            "children": [
+              {
+                "name": "Google Search & other",
+                "value": 63350
+              },
+              {
+                "name": "YouTube ads",
+                "value": 11207
+              },
+              {
+                "name": "Google Network",
+                "value": 7455
+              },
+              {
+                "name": "Google subscriptions, platforms, and devices",
+                "value": 14290
+              }
+            ]
+          },
+          {
+            "name": "Google Cloud",
+            "value": 30709
+          },
+          {
+            "name": "Other Bets",
+            "value": 372
+          }
+        ]
+      }
+    }
+  }
+}

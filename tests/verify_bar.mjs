@@ -136,7 +136,7 @@ await evlA(`state.company='AAPL'; render(); true`);
 await sleep(300);
 check('company switch resets unavailable item to revenue', await evl(`state.barItem==='revenue' && window.__barMeta.company==='AAPL'`), await evl(`state.barItem`));
 check('AAPL selector has segment optgroup (31q disclosed)', await evl(`document.querySelectorAll('#barSelect optgroup')[1].querySelectorAll('option').length>0`));
-check('INTC would have empty segment group (no quarters key)', await evl(`(SEG.companies.INTC||{}).quarters===undefined`));
+check('INTC now has exactly one real segment quarter (2026-09-26, 4 segments) replacing degraded flag', await evl(`(()=>{const q=(SEG.companies.INTC||{}).quarters||{};return Object.keys(q).length===1 && Array.isArray(q['2026-09-26']) && q['2026-09-26'].length===4;})()`));
 
 check('no console/exception errors during run', errors.length === 0, JSON.stringify(errors).slice(0, 300));
 
