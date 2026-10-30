@@ -2432,116 +2432,135 @@
     },
     {
       "ticker": "MC.PA",
-      "sourceCommit": "manual-fix (audit notes / naming), pre-dating 2026-10-29",
+      "sourceCommit": "manual-fix 2026-10-30: restore local EUR-M (÷snapshot fx 1.12091287), per-period ECB period-end fx, add H1-2026 interim, frequency annual→mixed",
       "entry": {
         "name": "LVMH Moët Hennessy Louis Vuitton SE",
         "currency": "EUR-M",
-        "frequency": "annual",
+        "frequency": "mixed",
         "quarters": [
           {
             "end": "2021-12-31",
-            "revenue": 71979,
-            "gross": 49163,
-            "opInc": 19210,
-            "netInc": 13491,
+            "revenue": 64214.6,
+            "gross": 43859.8,
+            "opInc": 17137.8,
+            "netInc": 12035.7,
             "periodType": "annual",
-            "fxToUsd": 1.12091287
+            "fxToUsd": 1.1326
           },
           {
             "end": "2022-12-31",
-            "revenue": 88758,
-            "gross": 60749,
-            "opInc": 23555,
-            "netInc": 15787,
+            "revenue": 79183.7,
+            "gross": 54196,
+            "opInc": 21014.1,
+            "netInc": 14084.1,
             "periodType": "annual",
-            "fxToUsd": 1.12091287
+            "fxToUsd": 1.0666
           },
           {
             "end": "2023-12-31",
-            "revenue": 96570,
-            "gross": 66444,
-            "opInc": 25536,
-            "netInc": 17009,
+            "revenue": 86153,
+            "gross": 59276.7,
+            "opInc": 22781.4,
+            "netInc": 15174.2,
             "periodType": "annual",
-            "fxToUsd": 1.12091287
+            "fxToUsd": 1.105
           },
           {
             "end": "2024-12-31",
-            "revenue": 94922,
-            "gross": 63629,
-            "opInc": 21945,
-            "netInc": 14067,
+            "revenue": 84682.8,
+            "gross": 56765.3,
+            "opInc": 19577.8,
+            "netInc": 12549.6,
             "periodType": "annual",
-            "fxToUsd": 1.12091287
+            "fxToUsd": 1.0389
           },
           {
             "end": "2025-12-31",
-            "revenue": 90578,
-            "gross": 60000,
-            "opInc": 19804,
-            "netInc": 12193,
+            "revenue": 80807.4,
+            "gross": 53527.8,
+            "opInc": 17667.7,
+            "netInc": 10877.7,
             "periodType": "annual",
-            "fxToUsd": 1.12091287
+            "fxToUsd": 1.175
+          },
+          {
+            "end": "2026-06-30",
+            "revenue": 38644,
+            "gross": 25936,
+            "opInc": 8691,
+            "netInc": 5697,
+            "periodType": "interim",
+            "fxToUsd": 1.1394
           }
         ],
-        "notes": "FY Dec; staging snapshot fx USD/EUR 0.89213 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule. 审计结论：法国 AMF 半年报制度（annual + half-year），不做季度硬掰；stockanalysis quarterly 为派生口径不入库，期望口径保持年度."
+        "notes": "FY Dec; 半年报(Swiss/French semi-annual)制度, 现为 annual+H1 interim (frequency=mixed). 历史 5 个年度期原以固定快照 fx (1.12091287) 折算成 USD 却标为 EUR-M, 已按快照 fx 还原为本位币百万; 逐期 fxToUsd 改为 ECB/frankfurter 期末真实汇率 (USD per 1 EUR). 2026-06-30 H1 为半年累计口径, 与年度期不可直接比较."
       }
     },
     {
       "ticker": "NESN.SW",
-      "sourceCommit": "manual-fix (audit notes / naming), pre-dating 2026-10-29",
+      "sourceCommit": "manual-fix 2026-10-30: restore local CHF-M (÷snapshot fx 1.21274155), per-period ECB period-end fx, add H1-2026 interim, frequency annual→mixed",
       "entry": {
         "name": "Nestlé S.A.",
         "currency": "CHF-M",
-        "frequency": "annual",
+        "frequency": "mixed",
         "quarters": [
           {
             "end": "2021-12-31",
-            "revenue": 106079,
-            "gross": 50938,
-            "opInc": 17755,
-            "netInc": 20501,
+            "revenue": 87470.4,
+            "gross": 42002.4,
+            "opInc": 14640.4,
+            "netInc": 16904.7,
             "periodType": "annual",
-            "fxToUsd": 1.21274155
+            "fxToUsd": 1.0963
           },
           {
             "end": "2022-12-31",
-            "revenue": 114944,
-            "gross": 52190,
-            "opInc": 18977,
-            "netInc": 11242,
+            "revenue": 94780.3,
+            "gross": 43034.7,
+            "opInc": 15648,
+            "netInc": 9269.9,
             "periodType": "annual",
-            "fxToUsd": 1.21274155
+            "fxToUsd": 1.0832
           },
           {
             "end": "2023-12-31",
-            "revenue": 113211,
-            "gross": 52176,
-            "opInc": 18989,
-            "netInc": 13594,
+            "revenue": 93351.3,
+            "gross": 43023.2,
+            "opInc": 15657.9,
+            "netInc": 11209.3,
             "periodType": "annual",
-            "fxToUsd": 1.21274155
+            "fxToUsd": 1.1933
           },
           {
             "end": "2024-12-31",
-            "revenue": 111233,
-            "gross": 52209,
-            "opInc": 18865,
-            "netInc": 13199,
+            "revenue": 91720.3,
+            "gross": 43050.4,
+            "opInc": 15555.7,
+            "netInc": 10883.6,
             "periodType": "annual",
-            "fxToUsd": 1.21274155
+            "fxToUsd": 1.1038
           },
           {
             "end": "2025-12-31",
-            "revenue": 109007,
-            "gross": 49954,
-            "opInc": 16864,
-            "netInc": 10955,
+            "revenue": 89884.8,
+            "gross": 41191,
+            "opInc": 13905.7,
+            "netInc": 9033.3,
             "periodType": "annual",
-            "fxToUsd": 1.21274155
+            "fxToUsd": 1.2615
+          },
+          {
+            "end": "2026-06-30",
+            "revenue": 43109,
+            "gross": 19991,
+            "opInc": 6247,
+            "netInc": 3472,
+            "rd": 773,
+            "periodType": "interim",
+            "fxToUsd": 1.2353
           }
         ],
-        "notes": "FY Dec; staging snapshot fx USD/CHF 0.824578 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule. 审计结论：实际披露制度为半年报（Swiss semi-annual reporting），不做季度硬掰；stockanalysis 的\"quarterly\"页面为派生口径不入库，期望口径保持年度."
+        "notes": "FY Dec; 半年报(Swiss/French semi-annual)制度, 现为 annual+H1 interim (frequency=mixed). 历史 5 个年度期原以固定快照 fx (1.21274155) 折算成 USD 却标为 CHF-M, 已按快照 fx 还原为本位币百万; 逐期 fxToUsd 改为 ECB/frankfurter 期末真实汇率 (USD per 1 CHF). 2026-06-30 H1 为半年累计口径, 与年度期不可直接比较."
       }
     },
     {
@@ -3609,6 +3628,436 @@
           }
         ],
         "notes": "TSM: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported TWD-M, fetched 2026-10-26, window 2021-12-31..2026-09-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end; TWD 无 ECB/frankfurter 覆盖，季度行 fxToUsd 采用 open.er-api.com 最新快照单汇率（与 2330.TW 条目同惯例），fxDate 为快照日期——季度行为单汇率口径."
+      }
+    },
+    {
+      "ticker": "00151.HK",
+      "sourceCommit": "manual-fix 2026-10-30: fxToUsd only — replace stale 0.120824 with per-period ECB period-end USD/CNY (values untouched)",
+      "entry": {
+        "name": "Want Want China",
+        "currency": "CNY-M",
+        "frequency": "hk-mixed",
+        "quarters": [
+          {
+            "end": "2004-12-31",
+            "revenue": 4291.605,
+            "netInc": 601.081,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.12082
+          },
+          {
+            "end": "2005-12-31",
+            "revenue": 5502.714,
+            "netInc": 893.968,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.12391
+          },
+          {
+            "end": "2006-09-30",
+            "revenue": 4767.871,
+            "netInc": 678.495,
+            "periodType": "q3",
+            "cumulative": true,
+            "fxToUsd": 0.12652
+          },
+          {
+            "end": "2006-12-31",
+            "revenue": 6636.989,
+            "netInc": 990.346,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.12812
+          },
+          {
+            "end": "2007-06-30",
+            "revenue": 3809.555,
+            "netInc": 573.782,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.13135
+          },
+          {
+            "end": "2007-09-30",
+            "revenue": 5749.345,
+            "netInc": 932.879,
+            "periodType": "q3",
+            "cumulative": true,
+            "fxToUsd": 0.13322
+          },
+          {
+            "end": "2007-12-31",
+            "revenue": 7995.177,
+            "netInc": 1291.073,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.13691
+          },
+          {
+            "end": "2008-06-30",
+            "revenue": 4866.092,
+            "netInc": 884.707,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14589
+          },
+          {
+            "end": "2008-12-31",
+            "revenue": 10620.066,
+            "netInc": 1795.149,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.14656
+          },
+          {
+            "end": "2009-06-30",
+            "revenue": 5452.744,
+            "netInc": 825.143,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.1464
+          },
+          {
+            "end": "2009-12-31",
+            "revenue": 11682.053,
+            "netInc": 2134.687,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.14648
+          },
+          {
+            "end": "2010-06-30",
+            "revenue": 6807.144,
+            "netInc": 1095.094,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14746
+          },
+          {
+            "end": "2010-12-31",
+            "revenue": 14862.074,
+            "netInc": 2373.761,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.15146
+          },
+          {
+            "end": "2011-06-30",
+            "revenue": 8280.115,
+            "netInc": 1080.874,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.15472
+          },
+          {
+            "end": "2011-12-31",
+            "revenue": 18565.602,
+            "netInc": 2642.963,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.15859
+          },
+          {
+            "end": "2012-06-30",
+            "revenue": 9661.373,
+            "netInc": 1460.293,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.15735
+          },
+          {
+            "end": "2012-12-31",
+            "revenue": 21110.813,
+            "netInc": 3481.023,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.1605
+          },
+          {
+            "end": "2013-06-30",
+            "revenue": 10840.226,
+            "netInc": 1900.63,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.16293
+          },
+          {
+            "end": "2013-12-31",
+            "revenue": 23276.202,
+            "netInc": 4190.497,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.16518
+          },
+          {
+            "end": "2014-06-30",
+            "revenue": 11398.683,
+            "netInc": 1959.359,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.16121
+          },
+          {
+            "end": "2014-12-31",
+            "revenue": 23101.293,
+            "netInc": 3796.87,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.16111
+          },
+          {
+            "end": "2015-06-30",
+            "revenue": 11137.915,
+            "netInc": 1749.939,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.1613,
+            "gross": 4728.96,
+            "opInc": 2273.5,
+            "sga": 2767.89
+          },
+          {
+            "end": "2015-12-31",
+            "revenue": 21389.32,
+            "netInc": 3382.526,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.15419,
+            "gross": 9386.72,
+            "opInc": 4548.12,
+            "sga": 5366.79
+          },
+          {
+            "end": "2016-06-30",
+            "revenue": 9709.476,
+            "netInc": 1756.442,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.15053,
+            "gross": 4640.46,
+            "opInc": 2375.73,
+            "sga": 2537.65
+          },
+          {
+            "end": "2016-09-30",
+            "revenue": 13741.517,
+            "netInc": 2343.48,
+            "periodType": "q3",
+            "cumulative": true,
+            "fxToUsd": 0.14989,
+            "gross": 6560.14,
+            "opInc": 3220.25,
+            "sga": 3691.62
+          },
+          {
+            "end": "2016-12-31",
+            "revenue": 19710.128,
+            "netInc": 3519.168,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.144,
+            "gross": 9424.17,
+            "opInc": 4811.23,
+            "sga": 5128.71
+          },
+          {
+            "end": "2017-06-30",
+            "revenue": 8959.785,
+            "netInc": 1274.1,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14747
+          },
+          {
+            "end": "2017-09-30",
+            "revenue": 13585.43,
+            "netInc": 2020.869,
+            "periodType": "q3",
+            "cumulative": true,
+            "fxToUsd": 0.15033,
+            "gross": 5985.41,
+            "opInc": 2754.95,
+            "sga": 3682.11
+          },
+          {
+            "end": "2018-09-30",
+            "revenue": 9248.125,
+            "netInc": 1364.413,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14531,
+            "gross": 4116.94,
+            "opInc": 1772.35,
+            "sga": 2554.25
+          },
+          {
+            "end": "2019-03-31",
+            "revenue": 20712.027,
+            "netInc": 3476.599,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.14901,
+            "gross": 9400.17,
+            "opInc": 4586.48,
+            "sga": 5322.76
+          },
+          {
+            "end": "2019-09-30",
+            "revenue": 9304.071,
+            "netInc": 1614.913,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.13999,
+            "gross": 4550.05,
+            "opInc": 2053.77,
+            "sga": 2655.59
+          },
+          {
+            "end": "2020-03-31",
+            "revenue": 20094.531,
+            "netInc": 3649.215,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.14085,
+            "gross": 9655.03,
+            "opInc": 4805.93,
+            "sga": 5276.48
+          },
+          {
+            "end": "2020-09-30",
+            "revenue": 10299.247,
+            "netInc": 1952.396,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14686,
+            "gross": 4963.65,
+            "opInc": 2534.88,
+            "sga": 2553.94
+          },
+          {
+            "end": "2021-03-31",
+            "revenue": 21998.4,
+            "netInc": 4157.809,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.15265,
+            "gross": 10605.52,
+            "opInc": 5736.18,
+            "sga": 5479.05
+          },
+          {
+            "end": "2021-09-30",
+            "revenue": 11382.567,
+            "netInc": 2090.045,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.1547,
+            "gross": 5323.42,
+            "opInc": 2780.64,
+            "sga": 2787.1
+          },
+          {
+            "end": "2022-03-31",
+            "revenue": 23984.891,
+            "netInc": 4202.655,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.15768,
+            "gross": 10747.39,
+            "opInc": 5456.81,
+            "sga": 5867.94
+          },
+          {
+            "end": "2022-09-30",
+            "revenue": 10832.945,
+            "netInc": 1596.054,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14053,
+            "gross": 4638.43,
+            "opInc": 2072.09,
+            "sga": 2869.71
+          },
+          {
+            "end": "2023-03-31",
+            "revenue": 22928.219,
+            "netInc": 3371.584,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.14546,
+            "gross": 10071.03,
+            "opInc": 4846.71,
+            "sga": 5867.32
+          },
+          {
+            "end": "2023-09-30",
+            "revenue": 11274.818,
+            "netInc": 1732.245,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.13696,
+            "gross": 5100.69,
+            "opInc": 2475.56,
+            "sga": 2958.03
+          },
+          {
+            "end": "2024-03-31",
+            "revenue": 23586.327,
+            "netInc": 3990.474,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.13835,
+            "gross": 10990.92,
+            "opInc": 5609.83,
+            "sga": 6064.36
+          },
+          {
+            "end": "2024-09-30",
+            "revenue": 10876.637,
+            "netInc": 1863.371,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.1426,
+            "gross": 5141.31,
+            "opInc": 2540.71,
+            "sga": 2894.18
+          },
+          {
+            "end": "2025-03-31",
+            "revenue": 23510.737,
+            "netInc": 4335.565,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.13787,
+            "gross": 11189.2,
+            "opInc": 5837.44,
+            "sga": 6034.98
+          },
+          {
+            "end": "2025-09-30",
+            "revenue": 11107.792,
+            "netInc": 1717.427,
+            "periodType": "interim",
+            "cumulative": true,
+            "fxToUsd": 0.14046,
+            "gross": 5131.75,
+            "opInc": 2260.71,
+            "sga": 3202.27
+          },
+          {
+            "end": "2026-03-31",
+            "revenue": 24400.665,
+            "netInc": 3837.07,
+            "periodType": "annual",
+            "cumulative": true,
+            "fxToUsd": 0.14492,
+            "gross": 11297.85,
+            "opInc": 5020.6,
+            "sga": 6891.35
+          }
+        ],
+        "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, included as-disclosed cumulative series, NOT differenced. FISCAL-YEAR CHANGE: FYE moved from 12-31 to 3-31; FY2017/18 is a 15-month transition period (2017-01-01..2018-03-31, revenue 24,854.462M RMB per HKEX announcement ltn20180605212_c.pdf) — not included as a separate row (NP attributable not machine-extractable; CY2017 annual absent from eastmoney rows). Period ends corrected to eastmoney REPORT_DATE (STD_REPORT_DATE is one quarter early for this issuer). Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging + HKEX PDF. Watchlist ticker 0151.HK. fxToUsd(2026-10-30 修复): 原近端多期误用 0.120824(2005 年 8.28 倒数), 已改为各期期末 ECB/frankfurter 真实 USD/CNY 汇率; 数值本身未改动."
       }
     }
   ],

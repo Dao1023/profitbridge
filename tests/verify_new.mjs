@@ -68,9 +68,16 @@ ok(mmn && mmn.quarters.length === 8 && mmn.quarters.at(-1).end === '2026-06-30' 
 const spcx = P.companies.SPCX || (P.profitPreview && P.profitPreview.ticker === 'SPCX' ? P.profitPreview : null);
 ok(spcx && spcx.quarters.length === 2 && spcx.quarters[1].end === '2026-09-30' && spcx.quarters[1].revenue === 14575 && spcx.quarters[1].netInc === 4404, `SPCX 2q, Q3 2026-09-30 rev=14575 NI=4404 (${P.companies.SPCX ? 'main series' : 'profitPreview'})`);
 
-// 10) batch5: NESN/MC 5 annual quarters each, no TTM rows
-ok(P.companies['NESN.SW'].quarters.length === 5 && P.companies['MC.PA'].quarters.length === 5, 'NESN/MC 5FY each');
+// 10) batch5 + H1-2026: NESN/MC 6 periods (5 FY + 1 H1 interim), no TTM rows
+ok(P.companies['NESN.SW'].quarters.length === 6 && P.companies['MC.PA'].quarters.length === 6, 'NESN/MC 6 periods each (5FY + H1-2026)');
 ok(!JSON.stringify(P.companies['NESN.SW']).includes('ttm'), 'NESN has no TTM rows');
+// NESN/MC 现为半年报公司：最新期是 2026-06-30 interim；逐期 fxToUsd 必须互不相同（防被改回单一快照）
+for (const tk of ['NESN.SW', 'MC.PA']) {
+  const q = P.companies[tk].quarters.at(-1);
+  ok(q.end === '2026-06-30' && q.periodType === 'interim', `${tk} latest 2026-06-30 interim (got ${q.end}/${q.periodType})`);
+  const fx = P.companies[tk].quarters.map(x => x.fxToUsd);
+  ok(new Set(fx).size === fx.length, `${tk} per-period fxToUsd all distinct (no single snapshot)`);
+}
 
 // 11) Lenovo 17q USD standalone run
 ok(P.companies['00992.HK'].quarters.length === 17, `Lenovo 17 quarters (got ${P.companies['00992.HK'].quarters.length})`);
@@ -114,8 +121,11 @@ ok(P.companies.BILI.currency === 'CNY-M' && P.companies.LI.currency === 'CNY-M' 
 ok(P.companies.TSM.currency === 'TWD-M' && P.companies.SONY.currency === 'JPY-M' && P.companies.SPOT.currency === 'EUR-M', 'TSM/SONY/SPOT 本位币');
 ok(/Financial Services/.test(P.companies.SONY.notes), 'SONY q-vs-FY scope gap documented');
 ok(/460\.428/.test(P.companies.XNET.notes), 'XNET SEC 20-F verification documented');
-ok(P.companies['NESN.SW'].frequency === 'annual' && /半年报/.test(P.companies['NESN.SW'].notes), 'NESN.SW stays annual (半年报制度 noted)');
-ok(P.companies['MC.PA'].frequency === 'annual' && P.companies.HUAWEI.frequency === 'annual' && P.companies.LEGO.frequency === 'annual', 'MC.PA/HUAWEI/LEGO stay annual');
+// NESN/MC 现在是半年报公司：frequency 由 annual→mixed 是**有意的语义变化**（本任务：补入 H1-2026 interim）。
+// annual 序列不再独占；旧断言「stays annual」已过期。HUAWEI/LEGO 未受影响仍 annual。
+ok(P.companies['NESN.SW'].frequency === 'mixed' && /半年报/.test(P.companies['NESN.SW'].notes), 'NESN.SW now mixed (半年报公司: annual+H1, intentional change from annual)');
+ok(P.companies['MC.PA'].frequency === 'mixed' && /半年报/.test(P.companies['MC.PA'].notes), 'MC.PA now mixed (半年报公司: annual+H1, intentional change from annual)');
+ok(P.companies.HUAWEI.frequency === 'annual' && P.companies.LEGO.frequency === 'annual', 'HUAWEI/LEGO stay annual (unchanged)');
 
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nALL PASS');
 process.exit(fails ? 1 : 0);

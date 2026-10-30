@@ -7,7 +7,9 @@
 //    and a q3 point right after an interim is broken (null) due to base-period mismatch
 //  - 600519.SS (single-quarter 'q') stays QoQ -31.31 (no collateral damage)
 //  - 00700.HK / BABA (quarterly) untouched
-//  - NESN.SW (frequency 'annual') keeps its existing YoY behaviour
+//  - NESN.SW / MC.PA are now half-year reporters (frequency 'mixed', annual + H1-2026 interim):
+//    annual rows are stripped from the bar series, the lone H1-2026 interim point is a cumulative
+//    period (YoY basis, no bogus QoQ) — this is the intended semantic change from 'annual'.
 import fs from 'fs';
 import { execFile } from 'child_process';
 const BASE = 'http://127.0.0.1:8440';
@@ -64,11 +66,13 @@ async function barSample(tk) {
     const lines=o.series.filter(s=>s.type==='line');
     const g=lines[lines.length-1]||{name:'',data:[]};
     return { ends:qs.map(q=>q.end), rev:qs.map(q=>q.revenue), ptype:qs.map(q=>q.periodType),
-             growth:g.data, growthName:g.name, basis:window.__barMeta.growthBasis, freq:c.frequency };
+             growth:g.data, growthName:g.name, basis:window.__barMeta.growthBasis, freq:c.frequency,
+             hasCumPoint:window.__barMeta.hasCumPoint };
   })()`);
 }
 const idxOf = (s, end) => s.ends.indexOf(end);
 const yoyAt = (s, idx) => { // same MM-DD, prior year, among the bar points (mirrors app yoyBaseIndex)
+  if (idx < 0 || !s.ends[idx]) return null;
   const md = s.ends[idx].slice(5), y = String(Number(s.ends[idx].slice(0, 4)) - 1);
   let b = -1; for (let j = idx - 1; j >= 0; j--) if (s.ends[j].slice(5) === md && s.ends[j].slice(0, 4) === y) { b = j; break; }
   return b < 0 ? null : (s.rev[idx] - s.rev[b]) / Math.abs(s.rev[b]) * 100;
@@ -132,13 +136,18 @@ i = s.ends.length - 1;
 check('BABA last point unaffected (== hand QoQ)', near(s.growth[i], qoqAt(s, i)), `got=${s.growth[i]} qoq=${qoqAt(s, i)?.toFixed(2)}`);
 check('BABA basis qoq', s.basis[i] === 'qoq');
 
-// ---------- NESN.SW: frequency 'annual' — existing YoY behaviour preserved ----------
-s = await barSample('NESN.SW');
-i = idxOf(s, '2025-12-31');
-check('NESN.SW is annual series', s.freq === 'annual' && s.ends.every(e => e.slice(5) === '12-31'), s.freq);
-check('NESN.SW FY2025 growth == hand YoY (vs FY2024), unchanged', near(s.growth[i], yoyAt(s, i)), `got=${s.growth[i]} yoy=${yoyAt(s, i)?.toFixed(2)}`);
-check('NESN.SW basis yoy', s.basis[i] === 'yoy');
-check('NESN.SW legend suffix is 同比/YoY', /同比|YoY/.test(s.growthName) && !/累计期用同比|YoY on cumulative/.test(s.growthName), s.growthName);
+// ---------- NESN.SW / MC.PA: 半年报(mixed)公司 — annual 行不再进柱状图，H1-2026 为累计 interim ----------
+// 有意语义变化：这两家此前是纯 annual，现改为 mixed（5 个年度期 + H1-2026 interim）。
+// 柱状图对 mixed 会剔除 annual 行，因此只剩 H1-2026 这一根累计柱（必须带累计标记，不能当单季）。
+for (const tk of ['NESN.SW', 'MC.PA']) {
+  s = await barSample(tk);
+  i = idxOf(s, '2026-06-30');
+  check(`${tk} is mixed series; annual 12-31 rows stripped from bars`, s.freq === 'mixed' && s.ends.every(e => e.slice(5) !== '12-31'), `freq=${s.freq} ends=${JSON.stringify(s.ends)}`);
+  check(`${tk} last bar is the H1-2026 interim point`, i >= 0 && s.ptype[i] === 'interim', `idx=${i} ptype=${s.ptype[i]}`);
+  // 只有一根累计柱、无上年同期基数 → growth 为 null；但必须被识别为累计柱（hasCumPoint 由 data-item decal 推导），不能当单季常规柱。
+  check(`${tk} H1-2026 interim bar carries the cumulative marker (decal / hasCumPoint)`, s.hasCumPoint === true, `hasCum=${s.hasCumPoint}`);
+  check(`${tk} single cumulative bar has no spurious growth (no prior-year base)`, s.growth[i] == null, `growth=${s.growth[i]}`);
+}
 
 // ---------- console clean ----------
 check('no console errors', errors.length === 0, errors.slice(0, 3).join(' | '));

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -34704,108 +34704,127 @@
     "NESN.SW": {
       "name": "Nestlé S.A.",
       "currency": "CHF-M",
-      "frequency": "annual",
+      "frequency": "mixed",
       "quarters": [
         {
           "end": "2021-12-31",
-          "revenue": 106079,
-          "gross": 50938,
-          "opInc": 17755,
-          "netInc": 20501,
+          "revenue": 87470.4,
+          "gross": 42002.4,
+          "opInc": 14640.4,
+          "netInc": 16904.7,
           "periodType": "annual",
-          "fxToUsd": 1.21274155
+          "fxToUsd": 1.0963
         },
         {
           "end": "2022-12-31",
-          "revenue": 114944,
-          "gross": 52190,
-          "opInc": 18977,
-          "netInc": 11242,
+          "revenue": 94780.3,
+          "gross": 43034.7,
+          "opInc": 15648,
+          "netInc": 9269.9,
           "periodType": "annual",
-          "fxToUsd": 1.21274155
+          "fxToUsd": 1.0832
         },
         {
           "end": "2023-12-31",
-          "revenue": 113211,
-          "gross": 52176,
-          "opInc": 18989,
-          "netInc": 13594,
+          "revenue": 93351.3,
+          "gross": 43023.2,
+          "opInc": 15657.9,
+          "netInc": 11209.3,
           "periodType": "annual",
-          "fxToUsd": 1.21274155
+          "fxToUsd": 1.1933
         },
         {
           "end": "2024-12-31",
-          "revenue": 111233,
-          "gross": 52209,
-          "opInc": 18865,
-          "netInc": 13199,
+          "revenue": 91720.3,
+          "gross": 43050.4,
+          "opInc": 15555.7,
+          "netInc": 10883.6,
           "periodType": "annual",
-          "fxToUsd": 1.21274155
+          "fxToUsd": 1.1038
         },
         {
           "end": "2025-12-31",
-          "revenue": 109007,
-          "gross": 49954,
-          "opInc": 16864,
-          "netInc": 10955,
+          "revenue": 89884.8,
+          "gross": 41191,
+          "opInc": 13905.7,
+          "netInc": 9033.3,
           "periodType": "annual",
-          "fxToUsd": 1.21274155
+          "fxToUsd": 1.2615
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 43109,
+          "gross": 19991,
+          "opInc": 6247,
+          "netInc": 3472,
+          "rd": 773,
+          "periodType": "interim",
+          "fxToUsd": 1.2353
         }
       ],
-      "notes": "FY Dec; staging snapshot fx USD/CHF 0.824578 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule. 审计结论：实际披露制度为半年报（Swiss semi-annual reporting），不做季度硬掰；stockanalysis 的\"quarterly\"页面为派生口径不入库，期望口径保持年度."
+      "notes": "FY Dec; 半年报(Swiss/French semi-annual)制度, 现为 annual+H1 interim (frequency=mixed). 历史 5 个年度期原以固定快照 fx (1.21274155) 折算成 USD 却标为 CHF-M, 已按快照 fx 还原为本位币百万; 逐期 fxToUsd 改为 ECB/frankfurter 期末真实汇率 (USD per 1 CHF). 2026-06-30 H1 为半年累计口径, 与年度期不可直接比较."
     },
     "MC.PA": {
       "name": "LVMH Moët Hennessy Louis Vuitton SE",
       "currency": "EUR-M",
-      "frequency": "annual",
+      "frequency": "mixed",
       "quarters": [
         {
           "end": "2021-12-31",
-          "revenue": 71979,
-          "gross": 49163,
-          "opInc": 19210,
-          "netInc": 13491,
+          "revenue": 64214.6,
+          "gross": 43859.8,
+          "opInc": 17137.8,
+          "netInc": 12035.7,
           "periodType": "annual",
-          "fxToUsd": 1.12091287
+          "fxToUsd": 1.1326
         },
         {
           "end": "2022-12-31",
-          "revenue": 88758,
-          "gross": 60749,
-          "opInc": 23555,
-          "netInc": 15787,
+          "revenue": 79183.7,
+          "gross": 54196,
+          "opInc": 21014.1,
+          "netInc": 14084.1,
           "periodType": "annual",
-          "fxToUsd": 1.12091287
+          "fxToUsd": 1.0666
         },
         {
           "end": "2023-12-31",
-          "revenue": 96570,
-          "gross": 66444,
-          "opInc": 25536,
-          "netInc": 17009,
+          "revenue": 86153,
+          "gross": 59276.7,
+          "opInc": 22781.4,
+          "netInc": 15174.2,
           "periodType": "annual",
-          "fxToUsd": 1.12091287
+          "fxToUsd": 1.105
         },
         {
           "end": "2024-12-31",
-          "revenue": 94922,
-          "gross": 63629,
-          "opInc": 21945,
-          "netInc": 14067,
+          "revenue": 84682.8,
+          "gross": 56765.3,
+          "opInc": 19577.8,
+          "netInc": 12549.6,
           "periodType": "annual",
-          "fxToUsd": 1.12091287
+          "fxToUsd": 1.0389
         },
         {
           "end": "2025-12-31",
-          "revenue": 90578,
-          "gross": 60000,
-          "opInc": 19804,
-          "netInc": 12193,
+          "revenue": 80807.4,
+          "gross": 53527.8,
+          "opInc": 17667.7,
+          "netInc": 10877.7,
           "periodType": "annual",
-          "fxToUsd": 1.12091287
+          "fxToUsd": 1.175
+        },
+        {
+          "end": "2026-06-30",
+          "revenue": 38644,
+          "gross": 25936,
+          "opInc": 8691,
+          "netInc": 5697,
+          "periodType": "interim",
+          "fxToUsd": 1.1394
         }
       ],
-      "notes": "FY Dec; staging snapshot fx USD/EUR 0.89213 (open.er-api.com 2026-10-26, single rate applied to all FYs); TTM row excluded by integration rule. 审计结论：法国 AMF 半年报制度（annual + half-year），不做季度硬掰；stockanalysis quarterly 为派生口径不入库，期望口径保持年度."
+      "notes": "FY Dec; 半年报(Swiss/French semi-annual)制度, 现为 annual+H1 interim (frequency=mixed). 历史 5 个年度期原以固定快照 fx (1.12091287) 折算成 USD 却标为 EUR-M, 已按快照 fx 还原为本位币百万; 逐期 fxToUsd 改为 ECB/frankfurter 期末真实汇率 (USD per 1 EUR). 2026-06-30 H1 为半年累计口径, 与年度期不可直接比较."
     },
     "2454.TW": {
       "name": "MediaTek Inc.",
@@ -36490,7 +36509,7 @@
           "netInc": 1364.413,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14531,
           "gross": 4116.94,
           "opInc": 1772.35,
           "sga": 2554.25
@@ -36501,7 +36520,7 @@
           "netInc": 3476.599,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14901,
           "gross": 9400.17,
           "opInc": 4586.48,
           "sga": 5322.76
@@ -36512,7 +36531,7 @@
           "netInc": 1614.913,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.13999,
           "gross": 4550.05,
           "opInc": 2053.77,
           "sga": 2655.59
@@ -36523,7 +36542,7 @@
           "netInc": 3649.215,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14085,
           "gross": 9655.03,
           "opInc": 4805.93,
           "sga": 5276.48
@@ -36534,7 +36553,7 @@
           "netInc": 1952.396,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14686,
           "gross": 4963.65,
           "opInc": 2534.88,
           "sga": 2553.94
@@ -36545,7 +36564,7 @@
           "netInc": 4157.809,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.15265,
           "gross": 10605.52,
           "opInc": 5736.18,
           "sga": 5479.05
@@ -36556,7 +36575,7 @@
           "netInc": 2090.045,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.1547,
           "gross": 5323.42,
           "opInc": 2780.64,
           "sga": 2787.1
@@ -36567,7 +36586,7 @@
           "netInc": 4202.655,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.15768,
           "gross": 10747.39,
           "opInc": 5456.81,
           "sga": 5867.94
@@ -36578,7 +36597,7 @@
           "netInc": 1596.054,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14053,
           "gross": 4638.43,
           "opInc": 2072.09,
           "sga": 2869.71
@@ -36589,7 +36608,7 @@
           "netInc": 3371.584,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14546,
           "gross": 10071.03,
           "opInc": 4846.71,
           "sga": 5867.32
@@ -36600,7 +36619,7 @@
           "netInc": 1732.245,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.13696,
           "gross": 5100.69,
           "opInc": 2475.56,
           "sga": 2958.03
@@ -36611,7 +36630,7 @@
           "netInc": 3990.474,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.13835,
           "gross": 10990.92,
           "opInc": 5609.83,
           "sga": 6064.36
@@ -36622,7 +36641,7 @@
           "netInc": 1863.371,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.1426,
           "gross": 5141.31,
           "opInc": 2540.71,
           "sga": 2894.18
@@ -36633,7 +36652,7 @@
           "netInc": 4335.565,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.13787,
           "gross": 11189.2,
           "opInc": 5837.44,
           "sga": 6034.98
@@ -36644,7 +36663,7 @@
           "netInc": 1717.427,
           "periodType": "interim",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14046,
           "gross": 5131.75,
           "opInc": 2260.71,
           "sga": 3202.27
@@ -36655,13 +36674,13 @@
           "netInc": 3837.07,
           "periodType": "annual",
           "cumulative": true,
-          "fxToUsd": 0.120824,
+          "fxToUsd": 0.14492,
           "gross": 11297.85,
           "opInc": 5020.6,
           "sga": 6891.35
         }
       ],
-      "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, included as-disclosed cumulative series, NOT differenced. FISCAL-YEAR CHANGE: FYE moved from 12-31 to 3-31; FY2017/18 is a 15-month transition period (2017-01-01..2018-03-31, revenue 24,854.462M RMB per HKEX announcement ltn20180605212_c.pdf) — not included as a separate row (NP attributable not machine-extractable; CY2017 annual absent from eastmoney rows). Period ends corrected to eastmoney REPORT_DATE (STD_REPORT_DATE is one quarter early for this issuer). Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging + HKEX PDF. Watchlist ticker 0151.HK."
+      "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, included as-disclosed cumulative series, NOT differenced. FISCAL-YEAR CHANGE: FYE moved from 12-31 to 3-31; FY2017/18 is a 15-month transition period (2017-01-01..2018-03-31, revenue 24,854.462M RMB per HKEX announcement ltn20180605212_c.pdf) — not included as a separate row (NP attributable not machine-extractable; CY2017 annual absent from eastmoney rows). Period ends corrected to eastmoney REPORT_DATE (STD_REPORT_DATE is one quarter early for this issuer). Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging + HKEX PDF. Watchlist ticker 0151.HK. fxToUsd(2026-10-30 修复): 原近端多期误用 0.120824(2005 年 8.28 倒数), 已改为各期期末 ECB/frankfurter 真实 USD/CNY 汇率; 数值本身未改动."
     },
     "09633.HK": {
       "name": "Nongfu Spring",

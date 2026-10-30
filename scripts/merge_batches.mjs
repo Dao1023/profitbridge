@@ -446,7 +446,8 @@ if (FIXUPS.meta) {
 
 // ---------- integrity whitelists (documented benign cases, see tmp-integrity/REPORT.md) ----------
 // 真实毛亏公司：源头即负毛利（存储半导体下行 / Model S 爬坡 / 早期平台补贴），数据真实，非脏数据。
-const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD']);
+// 00100.HK (MiniMax)：2023-12-31 早期 AI 平台毛利率为负 (gross -6.05 / revenue 24.5, 算力成本高于收入), 源头真实, 非脏数据。
+const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD', '00100.HK']);
 // 源确未披露 revenue 的已记录 null 行（REPORT §一 P1）：保留 null + notes，不当作门禁失败。
 const MISSING_REV_OK = new Set(['00762.HK|2008-09-30', '00100.HK|2022-12-31']);
 
