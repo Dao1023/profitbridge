@@ -382,6 +382,63 @@ function fiscalYearEndMonth(tk) {
   }
   return 12;
 }
+/* ---- bar x-axis period-basis labelling (半年/9M/FY 累计 vs 真单季) ----
+   The bar x-axis must say what each period point ACTUALLY covers, not merely map its
+   month to a calendar quarter. A 09633.HK H1 revenue point ends 06-30 but covers six
+   months, so "Q2" wrongly implies a single quarter and makes its bar look equivalent
+   to a quarterly bar. Derive the coverage from the fiscal-year-end month so
+   non-December FYE filers are labelled correctly: 00151.HK (FYE = 3) files an 09-30
+   interim that spans Apr–Sep = 6 months, i.e. H1 — not 9M as a naive month map implies. */
+function periodCoveredMonths(tk, qv) {
+  const endMonth = Number(qv.end.slice(5, 7));
+  const fye = fiscalYearEndMonth(tk);        // M, 1–12
+  const startMonth = (fye % 12) + 1;         // fiscal-year start month = M+1 (12 → 1)
+  return ((endMonth - startMonth + 12) % 12) + 1;
+}
+/* x-axis label for one bar point — single quarters keep Qn'yy; cumulative interims/full
+   years get H1'yy / 9M'yy / FY yyyy so the axis never misrepresents an accumulated total
+   as one quarter. Annual rows / annual-only series are unchanged (FY yyyy). */
+function barPeriodLabel(tk, qv) {
+  const mm = Number(qv.end.slice(5, 7));
+  const yy = qv.end.slice(2, 4), yr = qv.end.slice(0, 4);
+  const qn = Math.floor((mm - 1) / 3) + 1;
+  if (qv.periodType === 'annual' || isAnnual(tk)) return 'FY ' + yr; // annual row / series: unchanged
+  if (!profitRowIsCumulative(tk, qv)) return `Q${qn}'${yy}`;         // true single quarter: unchanged
+  const cm = periodCoveredMonths(tk, qv);
+  if (cm <= 3) return `Q${qn}'${yy}`;
+  if (cm <= 6) return `H1'${yy}`;
+  if (cm <= 9) return `9M'${yy}`;
+  return 'FY ' + yr;                                                // >=10 months → full-year cumulative
+}
+/* Per-point basis descriptor for the bar view:
+     annualRow  — annual row / annual-only series (label already FY, keep plain)
+     cumulative — multi-quarter disclosure (tooltip writes the basis)
+     decal      — the H1 (4–6m) / 9M (7–9m) bars that get the hatched itemStyle
+     months     — covered months of the fiscal period ending at qv.end */
+function barBasisInfo(tk, qv) {
+  const annualRow = qv.periodType === 'annual' || isAnnual(tk);
+  const months = periodCoveredMonths(tk, qv);
+  const cumulative = !annualRow && profitRowIsCumulative(tk, qv) && months > 3;
+  return { annualRow, months, cumulative, decal: cumulative && months <= 9 };
+}
+/* shortest basis word for tooltips ('' = single quarter, no note) */
+function barBasisTag(tk, qv) {
+  const cm = periodCoveredMonths(tk, qv);
+  if (cm <= 3) return '';
+  if (cm <= 6) return 'H1';
+  if (cm <= 9) return '9M';
+  return 'FY';
+}
+function lighten(hex, amt) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+  if (!m) return hex;
+  const n = parseInt(m[1], 16);
+  const mix = c => Math.round(c + (255 - c) * amt).toString(16).padStart(2, '0');
+  return '#' + mix((n >> 16) & 255) + mix((n >> 8) & 255) + mix(n & 255);
+}
+const CUM_DECAL = { symbol: 'rect', symbolSize: 1, color: 'rgba(15,23,42,0.32)',
+  dashArrayX: [1, 0], dashArrayY: [2, 4], rotation: -Math.PI / 4 };
+
 function cumulativeView(tk, qv) {
   const s = SEG && SEG.companies[tk];
   if (!s) return null;
@@ -870,10 +927,12 @@ function renderBarChart() {
   const qs = barQuarters(state.company);
   const items = buildBarItems(state.company);
   const item = items.find(i => i.id === state.barItem) || items[0];
-  const perRowLabel = qv => (qv.periodType === 'annual' || isAnnual())
-    ? 'FY ' + qv.end.slice(0, 4)
-    : `Q${Math.floor((Number(qv.end.slice(5, 7)) - 1) / 3) + 1}'${qv.end.slice(2, 4)}`;
+  // period-basis aware axis: cumulative interims/full-years → H1'yy / 9M'yy / FY, so a
+  // six-month total never masquerades as a single "Q2" bar (see barPeriodLabel)
+  const perRowLabel = qv => barPeriodLabel(state.company, qv);
   const labels = qs.map(perRowLabel);
+  const bases = qs.map(qv => barBasisInfo(state.company, qv));
+  const hasCumPoint = bases.some(b => b.decal); // series contains H1/9M cumulative bars
   const hasAny = item.data.some(v => v != null);
   const isMargin = item.kind === 'margin';
   const fmtVal = v => isMargin ? v.toFixed(1) + '%' : dispSym() + v.toFixed(1) + 'B';
@@ -881,6 +940,17 @@ function renderBarChart() {
   // cumulativeView() tells us the matching YTD revenue + a '上半年累计 / FY全年累计' label.
   const cumFor = qv => (item.kind === 'segment' ? cumulativeView(state.company, qv) : null);
   const hasCumSeg = item.kind === 'segment' && qs.some(qv => cumFor(qv));
+  // legend/notice: a fixed-height, absolutely-positioned chip → toggling it never shifts
+  // the chart or the timeline (no layout jump); hidden entirely when no cumulative bars.
+  {
+    const note = document.getElementById('barBasisNote');
+    if (note) {
+      note.textContent = lang === 'zh'
+        ? '斜纹柱 = 半年/9M 累计，与单季柱不可直接相比'
+        : 'Hatched bars = H1/9M cumulative, not comparable to single quarters';
+      note.classList.toggle('show', hasCumPoint);
+    }
+  }
   document.getElementById('chartTitle').textContent =
     `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : 'barFullHistory') : ''}`
     + (hasCumSeg ? ' · ' + (lang === 'zh' ? '分部为半年/FY累计口径' : 'segments on half/FY cumulative basis') : '');
@@ -958,6 +1028,12 @@ function renderBarChart() {
       lineStyle: { color: '#0f766e', width: 2 }, itemStyle: { color: '#0f766e' },
     }] : []),
   ];
+  // per-point bar styling: H1/9M cumulative bars get a lighter same-hue fill + a hatched
+  // decal (ECharts 5 itemStyle.decal — renders in both SVG and canvas/PNG exports) so
+  // they are visually distinct from single-quarter bars; every other point stays plain.
+  const barSeriesData = item.data.map((v, i) => (bases[i] && bases[i].decal && v != null)
+    ? { value: v, itemStyle: { color: lighten(item.color, 0.34), decal: CUM_DECAL } }
+    : v);
 
   const opt = {
     backgroundColor: 'transparent',
@@ -972,7 +1048,13 @@ function renderBarChart() {
         const p = arr[0];
         const i = p.dataIndex, qv = qs[i], val = item.data[i];
         const cum = cumFor(qv); // cumulative-basis label for half/FY segment points
-        const lines = [`<b>${quarterLabel(qv.end)}</b> <span style="color:#94a3b8">${qv.end}</span>${cum ? ' · ' + cum.label : ''}`];
+        const b = bases[i];
+        // cumulative bar point → state the coverage basis explicitly (H1/9M/FY 累计),
+        // so the tooltip cannot imply a single quarter; single quarters keep existing form.
+        const head = (b && b.cumulative)
+          ? `${barBasisTag(state.company, qv)} ${lang === 'zh' ? '累计' : 'cumulative'}`
+          : quarterLabel(qv.end);
+        const lines = [`<b>${head}</b> <span style="color:#94a3b8">${qv.end}</span>${cum && !(b && b.cumulative) ? ' · ' + cum.label : ''}`];
         if (val == null) {
           lines.push('—');
         } else {
@@ -1031,7 +1113,7 @@ function renderBarChart() {
     graphic: hasAny ? [] : [{ type: 'text', left: 'center', top: 'middle',
       style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#94a3b8' } }],
     series: [
-      { name: item.label, type: 'bar', data: item.data, barMaxWidth: 16,
+      { name: item.label, type: 'bar', data: barSeriesData, barMaxWidth: 16,
         itemStyle: { color: item.color, borderRadius: [2, 2, 0, 0] } },
       ...lineSeries,
     ],
@@ -1041,7 +1123,7 @@ function renderBarChart() {
   // reset the user's zoom — see switchCompany state-memory)
   if (window.__barZoom) chart.dispatchAction({ type: 'dataZoom', xAxisIndex: 0, start: window.__barZoom.start, end: window.__barZoom.end });
   window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length,
-    pctLine, growthLine, growthBasis, linesShown: lineSeries.map(s => s.name) };
+    bases, hasCumPoint, pctLine, growthLine, growthBasis, linesShown: lineSeries.map(s => s.name) };
   window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
 }
 
@@ -1310,6 +1392,8 @@ function render() {
   // visibility (not display) — the timeline slot keeps its height in bar view so
   // #chartPanel's outer box never changes when switching views
   document.getElementById('timeline').style.visibility = state.view === 'bar' ? 'hidden' : '';
+  // bridge view has no bar chart → make sure the cumulative-bar note never lingers
+  if (state.view !== 'bar') { const bn = document.getElementById('barBasisNote'); if (bn) bn.classList.remove('show'); }
   renderBarSelect(); // must run before renderChart — it fixes state.barItem for the new company
 
   renderIndustryBar();
@@ -1325,8 +1409,9 @@ function exportPNG() {
   if (!chart) return;
   // SVG renderer's getDataURL cannot rasterize; re-render into an offscreen
   // canvas instance at 2x and export a real PNG from there.
-  const opt = window.__lastOption || chart.getOption(); // full option incl. label formatters → current mode WYSIWYG
-  opt.backgroundColor = '#f2efe9';
+  // copy + animation:false so getDataURL captures the settled frame (default
+  // animation would snapshot t=0 with zero-height bars → blank PNG).
+  const opt = Object.assign({}, window.__lastOption || chart.getOption(), { backgroundColor: '#f2efe9', animation: false }); // full option incl. label formatters → current mode WYSIWYG
   const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: 1600, height: 900 });
   off.setOption(opt);
   const a = document.createElement('a');

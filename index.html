@@ -66,6 +66,16 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .exportGroup button.active:hover { background:#cfe0f8; }
 #barSelect:hover { border-color:var(--blue); }
 #barSelect option:disabled { color:#b6bfcc; }
+/* bar-view cumulative-basis note: fixed-height chip, absolutely positioned so showing/
+   hiding it (visibility only) never shifts the chart plot or the timeline → no layout jump.
+   Hidden entirely — taking no layout space — when a series has no H1/9M cumulative bars. */
+.barBasisNote { position:absolute; left:50%; top:62px; transform:translateX(-50%); z-index:6;
+  height:20px; display:flex; align-items:center; gap:7px; padding:0 12px; border-radius:10px;
+  font-size:12px; color:#475569; background:rgba(255,255,255,.85); border:1px solid #e2e8f0;
+  box-shadow:0 1px 3px rgba(30,41,59,.06); white-space:nowrap; pointer-events:none; visibility:hidden; }
+.barBasisNote.show { visibility:visible; }
+.barBasisNote::before { content:''; width:14px; height:11px; border-radius:2px; border:1px solid #cbd5e1;
+  background:repeating-linear-gradient(-45deg,#94a3b8 0 2px,transparent 2px 5px); }
 
 #chartPanel { background:var(--cream); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
 #chartPanel .in-title { text-align:center; padding-top:20px; font-size:32px; font-weight:800; color:var(--title-blue); }
@@ -157,6 +167,7 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
       <div class="in-title" id="chartTitle"></div>
       <select id="barSelect" style="display:none"></select>
       <div id="sankey"></div>
+      <div id="barBasisNote" class="barBasisNote"></div>
       <div id="timeline">
         <div class="tl-track"><div class="tl-fill" id="tlFill"></div><div class="tl-thumb" id="tlThumb"></div></div>
         <div class="tl-ticks" id="tlTicks"></div>
