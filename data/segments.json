@@ -18202,7 +18202,14 @@
       "periodType": "annual"
     },
     "00992.HK": {
-      "quarters": {
+      "quarters": {},
+      "periodTypes": {
+        "2023-03-31": "annual",
+        "2024-03-31": "annual",
+        "2025-03-31": "annual"
+      },
+      "periodType": "annual",
+      "annualQuarters": {
         "2023-03-31": [
           {
             "name": "智能設備業務集團 (IDG)",
@@ -18258,12 +18265,10 @@
           }
         ]
       },
-      "periodTypes": {
-        "2023-03-31": "annual",
-        "2024-03-31": "annual",
-        "2025-03-31": "annual"
-      },
-      "periodType": "annual"
+      "annualOnly": true,
+      "degraded": true,
+      "reason": "该期仅有年度分部数据（FY 累计），季度视图不可用。/ Annual-only segment data; quarterly view unavailable.",
+      "notes": "联想(Lenovo)按财年披露分部（IDG/ISG/SSG/抵销，USD $M），仅 03-31 全年值，无季度/半年累计分部点，无法用差分反推单季；原始财年分部值完整保留于 annualQuarters，未删除。"
     },
     "01024.HK": {
       "quarters": {
