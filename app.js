@@ -16,8 +16,13 @@ const I18N = {
       loss: 'Operating loss', netLoss: 'Net loss',
     },
     source: 'Data source:', updated: 'Data updated:', asof: 'As of',
-    coverage: 'Segment inflow (input side) available:', coverageNone: 'No segment data loaded — output waterfall only.',
+    coverage: 'Segment inflow (input side) available:', coverageNone: 'Segment data unavailable for this company — showing the profit waterfall only.',
     quartersWith: 'quarters with segments', ofQ: 'of', segSource: 'segments:',
+    segUnavailableTitle: 'No public segment disclosure',
+    segNoDataTitle: 'Segment data unavailable',
+    segNoDataHint: 'The data source provides no segment breakdown for this company, so only the profit waterfall is shown.',
+    segQuarterTitle: 'No segment disclosure this quarter',
+    segQuarterHint: 'Segments are disclosed only in annual / interim reports, not quarterly filings. Open an annual or interim quarter to see segment inflows.',
     pctBtn: '% of revenue', qoqBtn: 'QoQ',
     pctNote: 'Shares are relative to this quarter\'s revenue; expense lines shown as % of revenue.',
     qoqNote: 'QoQ: flows/amounts = % change vs prior quarter; margins = percentage points (pp). “—” = no prior-quarter data.',
@@ -39,8 +44,13 @@ const I18N = {
       loss: '经营亏损', netLoss: '净亏损',
     },
     source: '数据来源：', updated: '数据更新：', asof: '截至',
-    coverage: '分部流入（input 侧）可用：', coverageNone: '未加载分部数据 —— 仅绘制利润瀑布。',
+    coverage: '分部流入（input 侧）可用：', coverageNone: '该公司暂无可用分部数据 —— 仅绘制利润瀑布。',
     quartersWith: '个季度有分部数据', ofQ: '/', segSource: '分部数据：',
+    segUnavailableTitle: '该公司未公开分部数据',
+    segNoDataTitle: '暂无可用分部数据',
+    segNoDataHint: '数据源未提供该公司的分部拆分，当前仅展示利润瀑布。',
+    segQuarterTitle: '当前季度无分部披露',
+    segQuarterHint: '该公司仅在年报/半年报披露分部，季报不披露；可在年报/半年报季度查看分部流入。',
     pctBtn: '占比', qoqBtn: '环比',
     pctNote: '占比口径：均相对本季营收；费用项显示占营收比。',
     qoqNote: '环比口径：金额/流量为环比 % 变化；利润率为百分点（pp）。“—”表示上季无数据。',
@@ -244,6 +254,48 @@ const FLOW_OPACITY = 0.55;
 function segmentsFor(ticker, qEnd) {
   const c = SEG && SEG.companies && SEG.companies[ticker];
   return (c && c.quarters && c.quarters[qEnd]) || null;
+}
+
+/* Why does a company+quarter have no segment inflow? Distinguishes three cases so the
+   sankey can explain itself instead of looking broken:
+     - 'unavailable' : company genuinely does not publish segment breakdowns
+                       (new schema: degraded:true + reason). E.g. SPCX/CBRS/LEGO/02513.HK/00100.HK.
+     - 'thisQuarter' : company DOES file segments, but not for THIS quarter
+                       (A-share/HK quarterly reports omit segments; only annual/interim carry them).
+     - 'noData'      : ticker absent from segments.json, or a legacy `degraded` note string
+                       recording that no usable segment split could be collected.
+   'ok' means a segment list exists for this quarter (no notice needed). */
+function segmentStatus(ticker, qEnd) {
+  const c = SEG && SEG.companies && SEG.companies[ticker];
+  if (!c) return { kind: 'noData' };
+  if (c.quarters && c.quarters[qEnd]) return { kind: 'ok' };
+  if (c.degraded === true) return { kind: 'unavailable', reason: c.reason || '' };
+  if (c.quarters && Object.keys(c.quarters).length > 0) return { kind: 'thisQuarter' };
+  return { kind: 'noData' }; // legacy degraded note string, or empty quarters
+}
+
+/* ECharts graphic notice shown in the empty input-side band of the sankey when a
+   company+quarter has no segment inflow. Placed left of the revenue column so it
+   never overlaps or squeezes the waterfall. */
+function segmentNoticeGraphic() {
+  if (state.view === 'bar') return [];
+  const st = segmentStatus(state.company, q().end);
+  if (st.kind === 'ok') return [];
+  let title, hint;
+  if (st.kind === 'unavailable') {
+    title = t('segUnavailableTitle'); hint = st.reason || t('segNoDataHint');
+  } else if (st.kind === 'thisQuarter') {
+    title = t('segQuarterTitle'); hint = t('segQuarterHint');
+  } else {
+    title = t('segNoDataTitle'); hint = t('segNoDataHint');
+  }
+  return [{
+    type: 'text', left: 16, top: 'middle', z: 10, silent: true,
+    style: {
+      width: 140, overflow: 'break', lineHeight: 19, fill: '#94a3b8',
+      fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
+    },
+  }];
 }
 
 /* ---- cumulative-period reconciliation (A 股/HK 半年报/年报分部) ----
@@ -484,10 +536,12 @@ function renderChart() {
   const qv = cum ? { ...qvRaw, ...cum.values, __cum: cum } : qvRaw;
   window.__qvEff = cum ? qv : null; // qoq helpers read the effective (cumulative) period
   const segList = segmentsFor(state.company, qv.end);
+  const segStatus = segmentStatus(state.company, qv.end);
+  const segGraphic = segmentNoticeGraphic();
   const g = buildGraph(qv, segList);
   window.__bridgeCheck = checkConsistency(qv, g);
   window.__sankeyMeta = {
-    company: state.company, quarter: qv.end,
+    company: state.company, quarter: qv.end, segmentStatus: segStatus.kind,
     nodes: g.nodes.map(n => ({ name: displayName(n), value: +n.value.toFixed(4), depth: n.depth })),
     links: g.links.map(l => ({ source: displayName({ name: l.source }), target: displayName({ name: l.target }), value: +l.value.toFixed(4) })),
   };
@@ -560,6 +614,7 @@ function renderChart() {
 
   chart.setOption({
     backgroundColor: 'transparent',
+    graphic: segGraphic,
     tooltip: {
       trigger: 'item', confine: true,
       formatter: p => {
@@ -588,6 +643,7 @@ function renderChart() {
   window.__lastOption = {
     backgroundColor: '#f2efe9',
     tooltip: undefined,
+    graphic: segGraphic,
     series: [{
       type: 'sankey', layout: 'none', nodeAlign: 'justify',
       nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: 60, bottom: 40,
@@ -1156,7 +1212,7 @@ function initControls() {
     if (res.ok) loaded = await res.json();
   } catch (e) { /* file:// or offline */ }
   if (!loaded && window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
-  if (!loaded) { document.getElementById('brand').textContent = 'data/profit.json not found'; return; }
+  if (!loaded) { document.getElementById('brand').textContent = lang === 'zh' ? '未找到数据文件 data/profit.json' : 'data/profit.json not found'; return; }
   DATA = loaded;
   // profitPreview (e.g. SPCX): injected as a NORMAL entry so the rail/bridge can
   // render it alongside the main series — no Preview special-casing in the UI

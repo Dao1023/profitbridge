@@ -20762,6 +20762,31 @@
     },
     "000660.KS": {
       "degraded": "SK hynix: earnings-release PDFs exist only via SK hynix board API (homeapi.skhynix.com/board/list?bcode=105, 52 items FY2013-Q3FY2026) but the file CDN (mis-prod-koce-homepage-cdn-01-blob-ep.azureedge.net/web + /attach/*.pdf) returns HTTP 403 AuthorizationFailure; newsroom press releases report only total revenue/OP (no DRAM/NAND/Others split); no DART API key. 0 periods collected."
+    },
+    "SPCX": {
+      "degraded": true,
+      "reason": "SpaceX 为私有公司，不披露经审计的合并分部数据",
+      "quarters": {}
+    },
+    "CBRS": {
+      "degraded": true,
+      "reason": "Cerebras 仅有 S-1 招股书一次性收入拆分，上市后无常规分部披露",
+      "quarters": {}
+    },
+    "LEGO": {
+      "degraded": true,
+      "reason": "乐高集团年报仅披露集团整体与极少地区粒度，无产品/业务分部",
+      "quarters": {}
+    },
+    "02513.HK": {
+      "degraded": true,
+      "reason": "智谱 2025 年港股上市，定期报告未披露收入分部",
+      "quarters": {}
+    },
+    "00100.HK": {
+      "degraded": true,
+      "reason": "MiniMax 港股上市，定期报告未披露收入分部",
+      "quarters": {}
     }
   },
   "notes": [
