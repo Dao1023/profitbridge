@@ -14,7 +14,9 @@ const I18N = {
       rd: 'R&D expenses', sga: 'Selling, general & admin',
       op: 'Operating income', taxOther: 'Tax & other', net: 'Net income', nonop: 'Non-operating income',
       loss: 'Operating loss', netLoss: 'Net loss',
+      undisclosedCost: 'Undisclosed costs & taxes (gross / op income not disclosed)',
     },
+    degradedNotice: 'Gross profit & operating income not disclosed — showing revenue → net income only',
     source: 'Data source:', updated: 'Data updated:', asof: 'As of',
     coverage: 'Segment inflow (input side) available:', coverageNone: 'Segment data unavailable for this company — showing the profit waterfall only.',
     quartersWith: 'quarters with segments', ofQ: 'of', segSource: 'segments:',
@@ -42,7 +44,9 @@ const I18N = {
       rd: '研发费用', sga: '销售与管理费用',
       op: '营业利润', taxOther: '税费及其他', net: '净利润', nonop: '非经营性收益',
       loss: '经营亏损', netLoss: '净亏损',
+      undisclosedCost: '未披露的成本费用及税项（毛利/营业利润缺失）',
     },
+    degradedNotice: '毛利与营业利润未披露，仅显示营收 → 净利润',
     source: '数据来源：', updated: '数据更新：', asof: '截至',
     coverage: '分部流入（input 侧）可用：', coverageNone: '该公司暂无可用分部数据 —— 仅绘制利润瀑布。',
     quartersWith: '个季度有分部数据', ofQ: '/', segSource: '分部数据：',
@@ -247,7 +251,11 @@ function prev(offset) {
 /* ---- palette (no gradients anywhere; ribbons are solid per-link colors) ---- */
 const BLUE = '#3b82c4', GRAY = '#4b5563', GREEN = '#16a34a', RED = '#dc2626', GOLD = '#d4a017';
 const NODE_COLORS = { revenue: GRAY, gross: GREEN, cogs: RED, opex: RED, rd: RED, sga: RED,
-  op: GREEN, taxOther: RED, net: GREEN, nonop: GOLD, netLoss: RED };
+  op: GREEN, taxOther: RED, undisclosedCost: RED, net: GREEN, nonop: GOLD, netLoss: RED };
+/* Node id for the residual branch of the DEGRADED waterfall (revenue → net only, no gross/opInc).
+   It is deliberately distinct from 'taxOther': the normal op→net 'taxOther' really is tax & other,
+   while this residual lumps cost-of-revenue + opex + tax + everything undisclosed together. */
+const DEGRADED_RESIDUAL = 'undisclosedCost';
 const FLOW_OPACITY = 0.55;
 
 /* segment inflow availability for a company+quarter (segments are $M) */
@@ -298,6 +306,24 @@ function segmentNoticeGraphic(plan) {
     style: {
       width: 176, overflow: 'break', lineHeight: 19, fill: '#94a3b8',
       fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
+    },
+  }];
+}
+
+/* Degraded-waterfall badge: when a company discloses only revenue + net income (no gross profit,
+   no operating income) the sankey is a revenue→net shortcut whose residual block means "all
+   undisclosed costs + expenses + tax", NOT tax. A prominent in-chart banner makes the degraded
+   nature obvious (and is injected into the exported option too, unlike an HTML-only hint). */
+function degradedWaterfallGraphic(qv) {
+  if (state.view === 'bar') return [];
+  if (!qv || qv.gross != null || qv.opInc != null || qv.netInc == null) return [];
+  return [{
+    type: 'text', left: 16, top: 10, z: 10, silent: true,
+    style: {
+      width: 560, overflow: 'break', lineHeight: 18,
+      fill: '#92400e', backgroundColor: 'rgba(251,191,36,0.16)',
+      borderColor: '#f59e0b', borderWidth: 1, borderRadius: 4, padding: [5, 9],
+      fontSize: 12.5, fontWeight: 700, text: `⚠ ${t('degradedNotice')}`,
     },
   }];
 }
@@ -540,12 +566,12 @@ function buildGraph(qv, segList) {
     if (net >= 0) {
       nodes.push({ name: 'net', value: net, depth: revDepth + 1, itemStyle: { color: GREEN } });
       links.push({ source: 'revenue', target: 'net', value: Math.min(net, rev) });
-      if (rev - net > 0) { nodes.push({ name: 'taxOther', value: rev - net, depth: revDepth + 1, itemStyle: { color: RED } }); links.push({ source: 'revenue', target: 'taxOther', value: rev - net }); }
+      if (rev - net > 0) { nodes.push({ name: DEGRADED_RESIDUAL, value: rev - net, depth: revDepth + 1, itemStyle: { color: RED } }); links.push({ source: 'revenue', target: DEGRADED_RESIDUAL, value: rev - net }); }
     } else {
       nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 1, itemStyle: { color: RED } });
-      nodes.push({ name: 'taxOther', value: rev, depth: revDepth + 1, itemStyle: { color: RED } });
-      links.push({ source: 'revenue', target: 'taxOther', value: rev });
-      links.push({ source: 'taxOther', target: 'netLoss', value: -net });
+      nodes.push({ name: DEGRADED_RESIDUAL, value: rev, depth: revDepth + 1, itemStyle: { color: RED } });
+      links.push({ source: 'revenue', target: DEGRADED_RESIDUAL, value: rev });
+      links.push({ source: DEGRADED_RESIDUAL, target: 'netLoss', value: -net });
     }
   }
   if (op != null && op > 0 && net != null) {
@@ -608,6 +634,8 @@ function renderChart() {
   const segList = plan.segList;
   const segStatus = plan.status;
   const segGraphic = segmentNoticeGraphic(plan);
+  const degradedGraphic = degradedWaterfallGraphic(qv);
+  const graphicAll = [...segGraphic, ...degradedGraphic];
   const g = buildGraph(qv, segList);
   window.__bridgeCheck = checkConsistency(qv, g);
   // signed sum of the input-side segment values (display $B); for 00992 this includes
@@ -671,10 +699,39 @@ function renderChart() {
     return body;
   }
 
+  /* The degraded residual block is huge and its honest name is long; anchor it to the RIGHT of
+     the (last-column) block and re-wrap the name onto short lines so it fits the right margin
+     instead of colliding with the tiny 'net' label stacked at the top of the same column. */
+  function residualLabel(p) {
+    const revB = qv.revenue * dispFactor(qv) / MB;
+    const name = displayName(p);
+    const maxChars = lang === 'zh' ? 9 : 17;
+    const lines = [];
+    let line = '';
+    for (const ch of name) {
+      line += ch;
+      if (line.length >= maxChars) { lines.push(line); line = ''; }
+    }
+    if (line) lines.push(line);
+    let out = lines.map(l => `{n|${l}}`).join('\n');
+    const parts = [];
+    if (state.mode.pct) parts.push(`{p|${fmtPct(p.value / revB)}}`);
+    parts.push(`{v|${dispSym()}${p.value.toFixed(1)}B}`);
+    out += '\n' + parts.join(' · ');
+    return out;
+  }
+
+  const degraded = qv.gross == null && qv.opInc == null && qv.netInc != null;
   const data = g.nodes.map(n => {
     const d = { name: n.name, value: n.value, depth: n.depth, itemStyle: n.itemStyle };
     // per-node label placement to avoid overlaps (pitfall #3)
-    if (n.name === 'revenue') {
+    if (n.name === DEGRADED_RESIDUAL) {
+      // huge residual: label to its right (into the right margin), wrapped onto short lines
+      d.label = { position: 'right', distance: 8, formatter: residualLabel };
+    } else if (degraded && n.name === 'net') {
+      // tiny net node: keep its label above the block, clear of the residual label at mid-right
+      d.label = { position: 'top', distance: 6, formatter: nodeLabel };
+    } else if (n.name === 'revenue') {
       d.label = { position: 'top', distance: 6, formatter: nodeLabel };
     } else if (n.depth === 0 && (!segList || !segList.some(s => s.children && s.children.length))) {
       d.label = { position: 'right', distance: 6 };   // no aggregate column: safe right of node
@@ -686,10 +743,13 @@ function renderChart() {
     return d;
   });
   const hasAgg = segList && segList.some(s => s.children && s.children.length);
+  // Degraded views carry an amber banner in the top margin; bump the plot's top inset so the
+  // banner never sits on top of the revenue label (which is drawn just above the revenue node).
+  const sankeyTop = degraded ? 96 : 60;
 
   chart.setOption({
     backgroundColor: 'transparent',
-    graphic: segGraphic,
+    graphic: graphicAll,
     tooltip: {
       trigger: 'item', confine: true,
       formatter: p => {
@@ -704,7 +764,7 @@ function renderChart() {
       layout: 'none',               // manual depth layout (pitfall #5)
       nodeAlign: 'justify',
       nodeWidth: 30, nodeGap: 22,
-      left: hasAgg ? 210 : 170, right: 170, top: 60, bottom: 40,
+      left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
       label: {
         fontSize: 15,
@@ -718,10 +778,10 @@ function renderChart() {
   window.__lastOption = {
     backgroundColor: '#f2efe9',
     tooltip: undefined,
-    graphic: segGraphic,
+    graphic: graphicAll,
     series: [{
       type: 'sankey', layout: 'none', nodeAlign: 'justify',
-      nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: 60, bottom: 40,
+      nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
       label: { fontSize: 15, formatter: nodeLabel, rich: labelRich },
       data, links: g.links,
