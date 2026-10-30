@@ -2053,6 +2053,16 @@
           "netInc": 35766,
           "rd": 9997,
           "tax": 8281
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 92279,
+          "gross": 62559,
+          "opInc": 45915,
+          "netInc": 36629,
+          "rd": 9047,
+          "tax": 9324
         }
       ]
     },
@@ -2620,6 +2630,15 @@
           "opInc": 27461,
           "netInc": 62647,
           "tax": 18199
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 201944,
+          "gross": 107371,
+          "opInc": 28076,
+          "netInc": 20685,
+          "tax": 6180
         }
       ]
     },
@@ -3981,6 +4000,17 @@
           "rd": 3368,
           "sga": 1175,
           "tax": 29
+        },
+        {
+          "end": "2026-09-26",
+          "periodType": "q",
+          "revenue": 16513,
+          "gross": 7096,
+          "opInc": 2522,
+          "netInc": 3320,
+          "rd": 3490,
+          "sga": 1030,
+          "tax": 462
         }
       ]
     },
@@ -5172,6 +5202,14 @@
           "opInc": 6877,
           "netInc": 5628,
           "tax": 1205
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 12139,
+          "opInc": 7262,
+          "netInc": 6002,
+          "tax": 1358
         }
       ]
     },
@@ -6120,6 +6158,16 @@
           "netInc": 4425,
           "sga": 3720,
           "tax": 1037
+        },
+        {
+          "end": "2026-10-02",
+          "periodType": "q",
+          "revenue": 13380,
+          "gross": 8450,
+          "opInc": 4465,
+          "netInc": 4009,
+          "sga": 3975,
+          "tax": 777
         }
       ]
     },
@@ -9255,6 +9303,14 @@
           "opInc": 980.4,
           "netInc": 1045.3,
           "tax": 374.4
+        },
+        {
+          "end": "2026-09-27",
+          "periodType": "q",
+          "revenue": 9141.2,
+          "opInc": 991.8,
+          "netInc": 677.2,
+          "tax": 251.7
         }
       ]
     },
@@ -10784,6 +10840,17 @@
           "rd": 604,
           "sga": 291,
           "tax": 189
+        },
+        {
+          "end": "2026-09-27",
+          "periodType": "q",
+          "revenue": 3786,
+          "gross": 2189,
+          "opInc": 1228,
+          "netInc": 884,
+          "rd": 615,
+          "sga": 313,
+          "tax": 228
         }
       ]
     },
@@ -11205,6 +11272,16 @@
           "netInc": 112193,
           "rd": 18219,
           "tax": 26560
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 127577,
+          "gross": 76158,
+          "opInc": 40576,
+          "netInc": 26468,
+          "rd": 20640,
+          "tax": 5887
         }
       ]
     },
@@ -15852,6 +15929,19 @@
           "tax": 30,
           "fxToUsd": 1,
           "fxDate": "2026-06-27"
+        },
+        {
+          "end": "2026-09-26",
+          "periodType": "q",
+          "revenue": 3757,
+          "gross": 1401,
+          "opInc": 367,
+          "netInc": 291,
+          "rd": 545,
+          "sga": 448,
+          "tax": 66,
+          "fxToUsd": 1,
+          "fxDate": "2026-09-26"
         }
       ],
       "frequency": "mixed",
@@ -23334,6 +23424,14 @@
           "periodType": "q2",
           "fxToUsd": 0.14737,
           "opInc": 106781
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 220974,
+          "netInc": 111958,
+          "periodType": "q3",
+          "fxToUsd": 0.14915,
+          "opInc": 132246
         }
       ],
       "notes": "single-quarter series trimmed to continuous run from 2006-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
@@ -23789,6 +23887,14 @@
           "periodType": "q2",
           "fxToUsd": 0.14737,
           "opInc": 43434
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 83817,
+          "netInc": 40031,
+          "periodType": "q3",
+          "fxToUsd": 0.14915,
+          "opInc": 43840
         }
       ],
       "notes": "single-quarter series trimmed to continuous run from 2012-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
@@ -26175,6 +26281,15 @@
           "fxToUsd": 0.14737,
           "gross": 68266,
           "opInc": 3789
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 93283,
+          "netInc": 3812,
+          "periodType": "q3",
+          "fxToUsd": 0.14915,
+          "opInc": 3713,
+          "gross": 64090
         }
       ],
       "notes": "single-quarter series trimmed to continuous run from 2009-03-31; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods. 2008-09-30 口径断裂（未填，revenue=null/netInc=null）：eastmoney RPT_HKF10_FN_MAININDICATOR 显示「2008年中报」累计营收 81,459.000M 大于「2008年三季报」累计营收 52,478.537M（累计值非单调，疑 2008 中国联通/中国网通重组期间东财中报与三季报数据错位或互换），三季报单季营收无法由差分可靠还原，且该期净利同为 null，故不臆造数据；同源异常累计值亦影响相邻 2008-06-30、2008-12-31 已存差分值，属既存问题、超出本次 4 行修复范围，如需彻底订正须取港交所 2008 中期及三季报原文核实。 History truncated to 2009-03-31: 2007–2008 HKEX cumulative series was broken by the 2008 China Unicom/Netcom restructuring (cumulative non-monotonic), single-quarter differencing invalid."
@@ -29447,6 +29562,18 @@
           "opInc": 10047.69,
           "rd": 11963.59,
           "sga": 11978.79
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 221488.25,
+          "netInc": 10019.57,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 39886.54,
+          "opInc": 12268.16,
+          "rd": 12969.99,
+          "sga": 12686.03
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -29885,6 +30012,18 @@
           "opInc": -44.21,
           "rd": 400.12,
           "sga": 159.61
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 1552.31,
+          "netInc": 49.26,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 777.6,
+          "opInc": 62.8,
+          "rd": 571.11,
+          "sga": 145.48
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -32252,6 +32391,18 @@
           "opInc": 16633,
           "rd": 4301.68,
           "sga": 14124.16
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 108034.65,
+          "netInc": 14947.33,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 28584.85,
+          "opInc": 19030.56,
+          "rd": 4045.46,
+          "sga": 12549.22
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -33481,6 +33632,18 @@
           "opInc": 132.45,
           "rd": 776.23,
           "sga": 762.96
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 2152.64,
+          "netInc": 108.4,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 1479.28,
+          "opInc": 177.54,
+          "rd": 777.34,
+          "sga": 758.43
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd). Pre-2017 rows removed: 601360 backdoor listing completed 2017; earlier periods belong to 江南嘉捷 (different entity), and 2016-12-31 revenue was a cross-entity splice."
@@ -34329,6 +34492,18 @@
           "opInc": 1086.21,
           "rd": 227.33,
           "sga": 6805.48
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 29323.6,
+          "netInc": 3045.14,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 10146.78,
+          "opInc": 3763.88,
+          "rd": 234.77,
+          "sga": 6468.03
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."

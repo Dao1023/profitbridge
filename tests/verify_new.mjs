@@ -24,11 +24,12 @@ const mt = P.companies['600519.SS'].quarters.at(-1);
 ok(mt.end === '2026-06-30' && approx(mt.revenue, 37575.16, 0.001) && approx(mt.netInc, 17274.37, 0.001), `茅台 latest ${mt.end} rev=${mt.revenue} ni=${mt.netInc}`);
 ok(mt.fxToUsd > 0.13 && mt.fxToUsd < 0.16, `茅台 fxToUsd sane (${mt.fxToUsd})`);
 
-// 4) NXPI first/last of the 30 EDGAR quarters (incl. 2026-06-28 from iXBRL backfill)
+// 4) NXPI EDGAR quarters: 30 historical (incl. 2026-06-28 from iXBRL backfill) + 1 new 2026Q3 (2026-09-27)
 const nx = P.companies.NXPI.quarters;
-ok(nx.length === 30, `NXPI 30 quarters (got ${nx.length})`);
+ok(nx.length === 31, `NXPI 31 quarters (got ${nx.length})`);
 ok(nx[0].end === '2019-03-31' && nx[0].revenue === 2094 && nx[0].netInc === -21, `NXPI first ${nx[0].end} rev=2094 netInc=-21`);
-ok(nx.at(-1).end === '2026-06-28' && nx.at(-1).revenue === 3496 && nx.at(-1).netInc === 767, `NXPI last ${nx.at(-1).end} rev=3496 netInc=767`);
+ok(nx.at(-1).end === '2026-09-27' && nx.at(-1).revenue === 3786 && nx.at(-1).netInc === 884, `NXPI last (new 2026Q3) ${nx.at(-1).end} rev=3786 netInc=884`);
+ok(nx.at(-2).end === '2026-06-28' && nx.at(-2).revenue === 3496 && nx.at(-2).netInc === 767, `NXPI prior last ${nx.at(-2).end} rev=3496 netInc=767`);
 
 // 5) ASML FY2024: 7571.6 EUR-M netInc → USD display ≈ ×1.0389
 const as = P.companies.ASML.quarters.find(q => q.end === '2024-12-31');

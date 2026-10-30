@@ -52,6 +52,7 @@ const b4 = R('data/staging/batch4.json');
 const b6 = R('data/staging/batch6.json');
 const b5 = R('data/staging/batch5.json');
 const b1 = R('data/staging/batch1.json');
+const b7 = R('data/staging/batch7.json');
 
 const log = [], warn = [];
 const notesNew = [];
@@ -356,6 +357,39 @@ for (const key of ['2454.TW', '2330.TW']) {
     profit.companies[f.ticker] = JSON.parse(JSON.stringify(f.entry));
     report.replacements.push({ ticker: f.ticker, action: 'fixup-applied', n: f.entry.quarters.length, src: f.sourceCommit });
   }
+}
+
+// ---------- batch7: 2026 Q3 profit new periods (append-only, idempotent) ----------
+// data/staging/batch7.json 承载 A股/港股 2026-09-30 三季报 + SEC 2026 Q3 的新期（已是最终 quarter 元素形状）。
+// 契约：只「追加」期末点，绝不改写任何既有期点。已存在同 end 且值全等 → 跳过（幂等）；
+// 同 end 但任一字段不同 → 报错退出，禁止静默覆盖。注意本段在任何 fixups（整 ticker 替换）之后运行，
+// 因此即使某 ticker 被 fixups 重置，其新期仍能可靠追加。stage1 既有 batch 段仍只写 revenue/netInc。
+{
+  for (const r of b7.results) {
+    const co = profit.companies[r.ticker];
+    if (!co) {
+      console.error(`batch7: company ${r.ticker} not found in profit.json`);
+      process.exit(1);
+    }
+    if (!Array.isArray(co.quarters)) co.quarters = [];
+    for (const nq of r.newQuarters) {
+      if (!nq || !nq.end) { console.error(`batch7: ${r.ticker} has newQuarter without end`); process.exit(1); }
+      const existing = co.quarters.find(q => q.end === nq.end);
+      if (existing) {
+        for (const k of new Set([...Object.keys(existing), ...Object.keys(nq)])) {
+          if (JSON.stringify(existing[k]) !== JSON.stringify(nq[k])) {
+            console.error(`batch7 CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(existing[k])} new=${JSON.stringify(nq[k])}`);
+            process.exit(1);
+          }
+        }
+        continue; // identical period already present -> idempotent skip
+      }
+      co.quarters.push(JSON.parse(JSON.stringify(nq)));
+      report.added.push({ ticker: r.ticker, end: nq.end, market: 'batch7-newperiod' });
+    }
+    co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
+  }
+  log.push(`batch7: appended 2026Q3 new periods for ${b7.results.length} tickers`);
 }
 
 // ---------- documented period truncations (apply BEFORE guards/stats) ----------

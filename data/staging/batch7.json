@@ -1,0 +1,313 @@
+{
+  "_meta": {
+    "batch": 7,
+    "description": "2026 Q3 profit new periods (append-only). A-share/HK 2026-09-30 三季报 + SEC 2026 Q3. Values copied verbatim from real-scrape staging; no numbers altered.",
+    "generatedAt": "2026-10-30",
+    "sources": [
+      "tmp-season-cn/staging.json",
+      "tmp-season-sec/staging_income.json"
+    ],
+    "shape": "{ results: [ { ticker, newQuarters: [ quarter, ... ] } ] }",
+    "fxNote": "fxToUsd taken verbatim from staging (USD per local-currency unit; 0.14915 USD/CNY @2026-09-30). Not recomputed.",
+    "currencyNote": "01398.HK / 03968.HK / 00762.HK source site mislabelled HKD; staging already treats them as CNY-M (fxToUsd≈0.14915), adopted as-is.",
+    "periodTypeNote": "A-share 9M differenced to single quarter => q; HK => q3; SEC => q.",
+    "tickers": [
+      "002594.SZ",
+      "000333.SZ",
+      "600887.SS",
+      "601360.SS",
+      "688795.SS",
+      "01398.HK",
+      "03968.HK",
+      "00762.HK",
+      "MSFT",
+      "AMZN",
+      "INTC",
+      "KO",
+      "NXPI",
+      "GOOGL",
+      "STM",
+      "V",
+      "SBUX"
+    ]
+  },
+  "results": [
+    {
+      "ticker": "002594.SZ",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 221488.25,
+          "netInc": 10019.57,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 39886.54,
+          "opInc": 12268.16,
+          "rd": 12969.99,
+          "sga": 12686.03
+        }
+      ]
+    },
+    {
+      "ticker": "000333.SZ",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 108034.65,
+          "netInc": 14947.33,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 28584.85,
+          "opInc": 19030.56,
+          "rd": 4045.46,
+          "sga": 12549.22
+        }
+      ]
+    },
+    {
+      "ticker": "600887.SS",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 29323.6,
+          "netInc": 3045.14,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 10146.78,
+          "opInc": 3763.88,
+          "rd": 234.77,
+          "sga": 6468.03
+        }
+      ]
+    },
+    {
+      "ticker": "601360.SS",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 2152.64,
+          "netInc": 108.4,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 1479.28,
+          "opInc": 177.54,
+          "rd": 777.34,
+          "sga": 758.43
+        }
+      ]
+    },
+    {
+      "ticker": "688795.SS",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 1552.31,
+          "netInc": 49.26,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 777.6,
+          "opInc": 62.8,
+          "rd": 571.11,
+          "sga": 145.48
+        }
+      ]
+    },
+    {
+      "ticker": "01398.HK",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 220974,
+          "netInc": 111958,
+          "periodType": "q3",
+          "fxToUsd": 0.14915,
+          "opInc": 132246
+        }
+      ]
+    },
+    {
+      "ticker": "03968.HK",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 83817,
+          "netInc": 40031,
+          "periodType": "q3",
+          "fxToUsd": 0.14915,
+          "opInc": 43840
+        }
+      ]
+    },
+    {
+      "ticker": "00762.HK",
+      "source": "tmp-season-cn/staging.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 93283,
+          "netInc": 3812,
+          "periodType": "q3",
+          "fxToUsd": 0.14915,
+          "opInc": 3713,
+          "gross": 64090
+        }
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 92279,
+          "gross": 62559,
+          "opInc": 45915,
+          "netInc": 36629,
+          "rd": 9047,
+          "tax": 9324
+        }
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 201944,
+          "gross": 107371,
+          "opInc": 28076,
+          "netInc": 20685,
+          "tax": 6180
+        }
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-26",
+          "periodType": "q",
+          "revenue": 16513,
+          "gross": 7096,
+          "opInc": 2522,
+          "netInc": 3320,
+          "rd": 3490,
+          "sga": 1030,
+          "tax": 462
+        }
+      ]
+    },
+    {
+      "ticker": "KO",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-10-02",
+          "periodType": "q",
+          "revenue": 13380,
+          "gross": 8450,
+          "opInc": 4465,
+          "netInc": 4009,
+          "sga": 3975,
+          "tax": 777
+        }
+      ]
+    },
+    {
+      "ticker": "NXPI",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-27",
+          "periodType": "q",
+          "revenue": 3786,
+          "gross": 2189,
+          "opInc": 1228,
+          "netInc": 884,
+          "rd": 615,
+          "sga": 313,
+          "tax": 228
+        }
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 127577,
+          "gross": 76158,
+          "opInc": 40576,
+          "netInc": 26468,
+          "rd": 20640,
+          "tax": 5887
+        }
+      ]
+    },
+    {
+      "ticker": "STM",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-26",
+          "periodType": "q",
+          "revenue": 3757,
+          "gross": 1401,
+          "opInc": 367,
+          "netInc": 291,
+          "rd": 545,
+          "sga": 448,
+          "tax": 66,
+          "fxToUsd": 1,
+          "fxDate": "2026-09-26"
+        }
+      ]
+    },
+    {
+      "ticker": "V",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 12139,
+          "opInc": 7262,
+          "netInc": 6002,
+          "tax": 1358
+        }
+      ]
+    },
+    {
+      "ticker": "SBUX",
+      "source": "tmp-season-sec/staging_income.json",
+      "newQuarters": [
+        {
+          "end": "2026-09-27",
+          "periodType": "q",
+          "revenue": 9141.2,
+          "opInc": 991.8,
+          "netInc": 677.2,
+          "tax": 251.7
+        }
+      ]
+    }
+  ]
+}
