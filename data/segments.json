@@ -20387,91 +20387,112 @@
         "2023-12-31": [
           {
             "name": "Powdered and Liquid Beverages",
-            "value": 30059.01
+            "value": 36453.8,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Water",
-            "value": 4026.3
+            "value": 4882.9,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Milk products and Ice cream",
-            "value": 13317.11
+            "value": 16150.2,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Nutrition and Health Science",
-            "value": 18528.27
+            "value": 22470,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Prepared dishes and cooking aids",
-            "value": 14147.84
+            "value": 17157.7,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Confectionery",
-            "value": 9831.7
+            "value": 11923.3,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "PetCare",
-            "value": 22872.31
+            "value": 27738.2,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           }
         ],
         "2024-12-31": [
           {
             "name": "Powdered and Liquid Beverages",
-            "value": 29831.02
+            "value": 36177.3,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Water",
-            "value": 3856.52
+            "value": 4677,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Milk products and Ice cream",
-            "value": 12608.87
+            "value": 15291.3,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Nutrition and Health Science",
-            "value": 18357.27
+            "value": 22262.6,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Prepared dishes and cooking aids",
-            "value": 12989.67
+            "value": 15753.1,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Confectionery",
-            "value": 10246.45
+            "value": 12426.3,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "PetCare",
-            "value": 22898.99
+            "value": 27770.6,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           }
         ],
         "2025-12-31": [
           {
             "name": "Powdered and Liquid Beverages",
-            "value": 30493.17
+            "value": 36980.3,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Water",
-            "value": 3793.46
+            "value": 4600.5,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Milk products and Ice cream",
-            "value": 11761.17
+            "value": 14263.3,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Nutrition and Health Science",
-            "value": 17347.06
+            "value": 21037.5,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Prepared dishes and cooking aids",
-            "value": 12265.67
+            "value": 14875.1,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "Confectionery",
-            "value": 10546
+            "value": 12789.6,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           },
           {
             "name": "PetCare",
-            "value": 22321.72
+            "value": 27070.5,
+            "currencyNote": "converted from CHF at period-end ECB fxToUsd 1.21274155"
           }
         ]
       },
@@ -20487,105 +20508,129 @@
         "2022-12-31": [
           {
             "name": "Wines and Spirits",
-            "value": 7957.36
+            "value": 8919.5,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Fashion and Leather Goods",
-            "value": 43321.04
+            "value": 48559.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Perfumes and Cosmetics",
-            "value": 8655.69
+            "value": 9702.3,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Watches and Jewelry",
-            "value": 11860.38
+            "value": 13294.5,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Selective Retailing",
-            "value": 16647.8
+            "value": 18660.7,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Other activities and eliminations",
-            "value": 316.1
+            "value": 354.3,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           }
         ],
         "2023-12-31": [
           {
             "name": "Wines and Spirits",
-            "value": 7400.27
+            "value": 8295.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Fashion and Leather Goods",
-            "value": 47267.77
+            "value": 52983.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Perfumes and Cosmetics",
-            "value": 9271.07
+            "value": 10392.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Watches and Jewelry",
-            "value": 12220.19
+            "value": 13697.8,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Selective Retailing",
-            "value": 20047.53
+            "value": 22471.5,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Other activities and eliminations",
-            "value": 363.18
+            "value": 407.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           }
         ],
         "2024-12-31": [
           {
             "name": "Wines and Spirits",
-            "value": 6570.79
+            "value": 7365.3,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Fashion and Leather Goods",
-            "value": 46024.68
+            "value": 51589.7,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Perfumes and Cosmetics",
-            "value": 9435.84
+            "value": 10576.8,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Watches and Jewelry",
-            "value": 11855.9
+            "value": 13289.4,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Selective Retailing",
-            "value": 20470.11
+            "value": 22945.2,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Other activities and eliminations",
-            "value": 564.94
+            "value": 633.2,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           }
         ],
         "2025-12-31": [
           {
             "name": "Wines and Spirits",
-            "value": 6005.85
+            "value": 6732,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Fashion and Leather Goods",
-            "value": 42336.88
+            "value": 47456,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Perfumes and Cosmetics",
-            "value": 9162.34
+            "value": 10270.2,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Watches and Jewelry",
-            "value": 11753.89
+            "value": 13175.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Selective Retailing",
-            "value": 20566.51
+            "value": 23053.3,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           },
           {
             "name": "Other activities and eliminations",
-            "value": 752.13
+            "value": 843.1,
+            "currencyNote": "converted from EUR at period-end ECB fxToUsd 1.12091287"
           }
         ]
       },
