@@ -33,7 +33,7 @@ const I18N = {
     ofRev: '% of rev', qoqSuffix: 'QoQ',
     viewBridge: 'Sankey', viewBar: 'Bar chart',
     barGroups: { items: 'Income statement', segments: 'Segments', margins: 'Margins' },
-    barNoData: 'No disclosed data for this item', barFullHistory: 'full history', barFullHistoryAnnual: 'full history (annual)',
+    barNoData: 'No disclosed data for this item', barFullHistory: 'full history', barFullHistoryAnnual: 'full history (annual)', barFullHistorySemiannual: 'full history (semiannual)',
     barNoDataTag: 'no data',
   },
   zh: {
@@ -63,7 +63,7 @@ const I18N = {
     ofRev: '占营收', qoqSuffix: 'QoQ',
     viewBridge: '桑基图', viewBar: '柱状图',
     barGroups: { items: '利润科目', segments: '分部', margins: '利润率' },
-    barNoData: '该子项无披露数据', barFullHistory: '全历史季度', barFullHistoryAnnual: '全历史年度',
+    barNoData: '该子项无披露数据', barFullHistory: '全历史季度', barFullHistoryAnnual: '全历史年度', barFullHistorySemiannual: '全历史半年度',
     barNoDataTag: '无数据',
   },
 };
@@ -75,8 +75,9 @@ const ZH_NAMES_FALLBACK = {
 };
 let REGISTRY = []; // data/companies.json — single source of company truth (see P4 governance)
 const regOf = tk => REGISTRY.find(c => c.ticker === tk) || null;
-function quarterLabel(end) {
+function quarterLabel(end, periodType) {
   const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
+  if (periodType === 'interim') return `H1 ${y}`;
   return isAnnual() ? `FY ${y}` : `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
 }
 function shortName(ticker) {
@@ -707,7 +708,7 @@ function renderChart() {
   };
 
   document.getElementById('chartTitle').textContent =
-    `${shortName(state.company)} ${quarterLabel(qv.end)}${cum ? ` · ${cum.label}` : ''}`;
+    `${shortName(state.company)} ${quarterLabel(qv.end, qv.periodType)}${cum ? ` · ${cum.label}` : ''}`;
 
   const labelRich = {
     n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21 },
@@ -951,8 +952,9 @@ function renderBarChart() {
       note.classList.toggle('show', hasCumPoint);
     }
   }
+  const allInterim = qs.length > 0 && qs.every(qv => qv.periodType === 'interim');
   document.getElementById('chartTitle').textContent =
-    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : 'barFullHistory') : ''}`
+    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : (allInterim ? 'barFullHistorySemiannual' : 'barFullHistory')) : ''}`
     + (hasCumSeg ? ' · ' + (lang === 'zh' ? '分部为半年/FY累计口径' : 'segments on half/FY cumulative basis') : '');
 
   /* overlay lines follow the SELECTED item (占比/环比 buttons toggle each line):
@@ -1053,7 +1055,7 @@ function renderBarChart() {
         // so the tooltip cannot imply a single quarter; single quarters keep existing form.
         const head = (b && b.cumulative)
           ? `${barBasisTag(state.company, qv)} ${lang === 'zh' ? '累计' : 'cumulative'}`
-          : quarterLabel(qv.end);
+          : quarterLabel(qv.end, qv.periodType);
         const lines = [`<b>${head}</b> <span style="color:#94a3b8">${qv.end}</span>${cum && !(b && b.cumulative) ? ' · ' + cum.label : ''}`];
         if (val == null) {
           lines.push('—');
