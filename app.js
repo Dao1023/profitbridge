@@ -908,13 +908,44 @@ function renderBarChart() {
     }
     return revDisp ? +(v * MB / revDisp * 100).toFixed(2) : null;
   });
+  /* Cumulative-period guard: an interim/annual (半年报/FY累计) point is NOT comparable to the
+     preceding bar — that mixes e.g. an H1 total with a single quarter and yields a bogus "QoQ".
+     For such a point compute YoY against the SAME MM-DD one year earlier (located by date, never
+     a fixed i-2/i-4 offset); if there is no such base → null (break the line). If the *previous*
+     point is cumulative (base period inconsistent) we also refuse a QoQ. */
+  const yoyBaseIndex = i => {
+    const cur = qs[i]; if (!cur) return -1;
+    const md = cur.end.slice(5), yoy = String(Number(cur.end.slice(0, 4)) - 1);
+    for (let j = i - 1; j >= 0; j--) if (qs[j].end.slice(5) === md && qs[j].end.slice(0, 4) === yoy) return j;
+    return -1;
+  };
+  // per-point basis: 'qoq' | 'yoy' | null (null = no valid comparable base → line breaks)
+  const growthBasis = [];
   const growthLine = item.data.map((v, i) => {
-    const pv = item.data[i - 1];
-    if (v == null || i === 0 || pv == null) return null; // 占位季度断线
-    return +(isMargin ? (v - pv) : (v - pv) / Math.abs(pv) * 100).toFixed(2);
+    const pv0 = item.data[i - 1];
+    if (isMargin) { // margin items are ratios → keep the pp change (unchanged behaviour)
+      growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'qoq';
+      return (v == null || i === 0 || pv0 == null) ? null : +(v - pv0).toFixed(2);
+    }
+    if (isAnnual()) { // annual series: every bar is an FY → prior FY is already YoY (keep as-is)
+      growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'yoy';
+      return (v == null || i === 0 || pv0 == null) ? null : +((v - pv0) / Math.abs(pv0) * 100).toFixed(2);
+    }
+    const cumCur = profitRowIsCumulative(state.company, qs[i]);
+    const cumPrev = i > 0 && profitRowIsCumulative(state.company, qs[i - 1]);
+    if (cumCur) { // cumulative point → YoY vs same MM-DD last year
+      const b = yoyBaseIndex(i), pv = b >= 0 ? item.data[b] : null;
+      growthBasis[i] = (v == null || pv == null) ? null : 'yoy';
+      return (v == null || pv == null) ? null : +((v - pv) / Math.abs(pv) * 100).toFixed(2);
+    }
+    if (cumPrev) { growthBasis[i] = null; return null; } // QoQ base is cumulative → inconsistent, break
+    growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'qoq';
+    return (v == null || i === 0 || pv0 == null) ? null : +((v - pv0) / Math.abs(pv0) * 100).toFixed(2);
   });
+  // legend suffix: any cumulative-period YoY point on the line → flag the mixed basis
+  const hasCumYoY = !isAnnual() && growthBasis.includes('yoy');
   const pctName = `${item.label} · ${t('ofRev')}${isMargin ? '' : ' %'}`;
-  const growthName = `${item.label} · ${qoqSuffix()}${isMargin ? ' (pp)' : ' %'}`;
+  const growthName = `${item.label} · ${hasCumYoY ? (lang === 'zh' ? '环比（累计期用同比）' : 'QoQ (YoY on cumulative)') : qoqSuffix()}${isMargin ? ' (pp)' : ' %'}`;
   const lineSeries = [
     ...(barLines.pct ? [{
       name: pctName, type: 'line', yAxisIndex: 1, data: pctLine,
@@ -953,17 +984,15 @@ function renderBarChart() {
             lines.push(`${t('ofRev')} ${pctLine[i].toFixed(1)}%`);
           }
         }
-        if (state.mode.qoq && i > 0) { // margins → pp, amounts → % change
-          const pv = item.data[i - 1];
-          const d = (val != null && pv != null) ? (isMargin ? (val - pv) : (val - pv) / Math.abs(pv)) : null;
-          lines.push(`${qoqSuffix()} ${isMargin ? fmtPP(d) : fmtDelta(d)}`);
-        }
         for (const s of arr) { // overlay lines
           if (s.seriesName === pctName) {
             if (!isMargin) continue; // amount shares already rendered above from pctLine
             lines.push(`${pctName}: ${s.value == null ? '—' : s.value.toFixed(1) + '%'}`);
           } else if (s.seriesName === growthName) {
-            lines.push(`${growthName}: ${s.value == null ? '—' : (s.value > 0 ? '+' : '') + s.value.toFixed(1) + (isMargin ? 'pp' : '%')}`);
+            if (s.value == null) { lines.push(`${item.label} · —`); continue; }
+            // mark the basis per point: cumulative periods use YoY, never pretend it is QoQ
+            const basisLbl = growthBasis[i] === 'yoy' ? (lang === 'zh' ? '同比' : 'YoY') : qoqSuffix();
+            lines.push(`${item.label} · ${basisLbl}: ${(s.value > 0 ? '+' : '') + s.value.toFixed(1) + (isMargin ? 'pp' : '%')}`);
           }
         }
         return lines.join('<br/>');
@@ -1012,7 +1041,7 @@ function renderBarChart() {
   // reset the user's zoom — see switchCompany state-memory)
   if (window.__barZoom) chart.dispatchAction({ type: 'dataZoom', xAxisIndex: 0, start: window.__barZoom.start, end: window.__barZoom.end });
   window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length,
-    pctLine, growthLine, linesShown: lineSeries.map(s => s.name) };
+    pctLine, growthLine, growthBasis, linesShown: lineSeries.map(s => s.name) };
   window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
 }
 
