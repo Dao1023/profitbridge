@@ -96,17 +96,19 @@ const rel = (a, b) => Math.abs(a - b) / Math.abs(b);
   check('A: BILI Advertising 占比 not the old ÷1000 value (<1)', d.pct != null && d.pct > 5, `pct=${d.pct}`);
   await shot('bili-advertising.png');
 
+  // BUG-E: selecting revenue no longer draws a "占营收 %" line (it would be identically
+  // 100%), so the old "≈100%" assertion is replaced by an explicit "line absent" check.
   const rv = await bar('BILI', 'revenue', null);
-  check('A: BILI revenue bar share ≈100% (±0.5)', rv.pct != null && Math.abs(rv.pct - 100) <= 0.5, `pct=${rv.pct}`);
+  check('A: BILI revenue → 占营收 line suppressed (identity 100% carries no info)', rv.ok && rv.val != null && rv.pct == null, `pct=${JSON.stringify(rv.pct)} val=${rv.val}`);
 }
 
-// ================= multi-currency revenue share ≈100% =================
+// ================= multi-currency revenue: redundant 占营收 line is suppressed =================
 {
   const cos = ['SPOT', 'ASML', 'SONY', '005930.KS', 'TSM', 'NESN.SW', 'LEGO', '00700.HK', '600887.SS'];
   for (const tk of cos) {
     const d = await bar(tk, 'revenue', null);
     const cur = (P.companies[tk].currency || 'USD-M');
-    check(`A/multi: ${tk} (${cur}) revenue share ≈100% (±0.5)`, d.ok && d.pct != null && Math.abs(d.pct - 100) <= 0.5, `pct=${d.pct} end=${d.endIdx}`);
+    check(`A/multi: ${tk} (${cur}) revenue → 占营收 line suppressed, bar present`, d.ok && d.val != null && d.pct == null, `pct=${JSON.stringify(d.pct)} val=${d.val} end=${d.endIdx}`);
   }
 }
 

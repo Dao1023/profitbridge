@@ -67,33 +67,43 @@ check('clicking selected pill clears filter', !new URLSearchParams(cleared.hash.
 await evl(`document.getElementById('btnViewBar').click()`);
 await new Promise(r => setTimeout(r, 1200));
 
+// BUG-E: with revenue selected the share-of-revenue overlay is suppressed (营收/营收 is
+// identically 100% — no info, and it pinned the right axis to 100% flattening the growth
+// line). So revenue must show ONLY the growth line. The share-line behaviour is still
+// covered below on a non-revenue amount item (毛利/gross), where it remains meaningful.
 let meta = await evl(`window.__barMeta`);
-check('bar view (revenue): both lines shown, names carry item label',
-  meta.linesShown.length === 2 && meta.linesShown[0].includes('营收') && meta.linesShown[1].includes('QoQ'), JSON.stringify(meta.linesShown));
-check('share line: values 0-100, enough points',
-  meta.pctLine.filter(v => v != null).length >= 5 && meta.pctLine.every(v => v == null || (v > 0 && v <= 101)),
-  `n=${meta.pctLine.filter(v => v != null).length} first=${meta.pctLine[0]}`);
+check('bar view (revenue): 占营收 line suppressed, only growth line remains',
+  meta.item === 'revenue' && meta.linesShown.length === 1 && meta.linesShown[0].includes('QoQ') && !meta.linesShown.some(n => n.includes('占营收')),
+  JSON.stringify(meta.linesShown));
+check('revenue: pctLine empty (no 100% series to squash the axis)',
+  Array.isArray(meta.pctLine) && meta.pctLine.length === 0, `pctLine=${JSON.stringify(meta.pctLine)}`);
 check('growth line: first quarter broken (null), rest numeric',
   meta.growthLine[0] === null && meta.growthLine.slice(1).filter(v => v != null).length >= 5,
   `growth[1]=${meta.growthLine[1]}`);
-// OLD golden standard below copied the BUG-A formula (data[i]/m.revenue*100, $B÷$M),
-// so it could never catch the 1000× shrink. Correct share uses data[i]*MB/m.revenue*100
-// (same as verify_bar.mjs / the tooltip). revenue bar share must be ≈100%.
+const optR = await evl(`(() => { const o = chart.getOption(); return { nSeries: o.series.length, types: o.series.map(s=>s.type), yAxes: o.yAxis.length, legend: !!o.legend }; })()`);
+check('revenue echarts option: bar + 1 growth line, dual yAxis, legend',
+  optR.nSeries === 2 && optR.types.join() === 'bar,line' && optR.yAxes === 2 && optR.legend, JSON.stringify(optR));
+await shot('bar-lines-revenue.png');
+
+// non-revenue amount item (毛利/gross): BOTH overlay lines still follow the item; share math intact
+await evl(`(() => { const sel = document.getElementById('barSelect'); sel.value = 'gross'; sel.dispatchEvent(new Event('change')); })()`);
+await new Promise(r => setTimeout(r, 800));
+meta = await evl(`window.__barMeta`);
+check('amount item (毛利): both lines shown, share line present, names carry item label',
+  meta.item === 'gross' && meta.linesShown.length === 2 && meta.linesShown[0].includes('占营收') && meta.linesShown[1].includes('QoQ'),
+  JSON.stringify(meta.linesShown));
+check('share line: values 0-100, enough points',
+  meta.pctLine.filter(v => v != null).length >= 5 && meta.pctLine.every(v => v == null || (v > 0 && v <= 101)),
+  `n=${meta.pctLine.filter(v => v != null).length} first=${meta.pctLine[0]}`);
+// same formula as verify_bar.mjs / the tooltip: share uses data[i]*MB/m.revenue*100 ($B vs $M).
 const cross = await evl(`(() => {
   const i = 3, qv = DATA.companies[state.company].quarters[i];
   const m = rawMetrics(qv);
   return Math.abs(window.__barMeta.pctLine[i] - __barMeta.data[i] * MB / m.revenue * 100) < 3;
 })()`);
-check('share line ≈ item×MB/revenue (spot check q3)', cross === true, `cross=${cross}`);
-const revShare = await evl(`(() => {
-  const n = window.__barMeta.data.length - 1, qv = DATA.companies[state.company].quarters[n];
-  const m = rawMetrics(qv);
-  return { pct: window.__barMeta.pctLine[n], truth: __barMeta.data[n] * MB / m.revenue * 100 };
-})()`);
-check('revenue bar share ≈100% (±0.5) — catches the ÷1000 regression',
-  Math.abs(revShare.pct - 100) <= 0.5, JSON.stringify(revShare));
+check('share line ≈ item×MB/revenue (spot check q3, 毛利)', cross === true, `cross=${cross}`);
 const opt1 = await evl(`(() => { const o = chart.getOption(); return { nSeries: o.series.length, types: o.series.map(s=>s.type), yAxes: o.yAxis.length, legend: !!o.legend }; })()`);
-check('echarts option: bar + 2 lines, dual yAxis, legend',
+check('echarts option (毛利): bar + 2 lines, dual yAxis, legend',
   opt1.nSeries === 3 && opt1.types.join() === 'bar,line,line' && opt1.yAxes === 2 && opt1.legend, JSON.stringify(opt1));
 await shot('bar-lines-both.png');
 

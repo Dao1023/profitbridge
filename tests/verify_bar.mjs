@@ -104,7 +104,9 @@ check('qoq mode: latest QoQ matches raw quarters', link.qoqOk);
 // tooltip actually renders the linkage (dispatch showTip on last bar and read DOM)
 const tip = await evlA(`(async()=>{ chart.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:64}); await new Promise(r=>setTimeout(r,300));
   const el=document.querySelector('#sankey div[style*=\"position: absolute\"]'); return el?el.textContent:''; })()`);
-check('tooltip contains $96.2B + 占营收 100.0% + QoQ', typeof tip === 'string' && tip.includes('96.2') && tip.includes('100.0%') && tip.includes('QoQ'), JSON.stringify(tip?.slice(0, 120)));
+// BUG-E: revenue no longer prints a meaningless "占营收 100.0%" line — tooltip keeps the
+// value and the QoQ change but drops the redundant share.
+check('tooltip contains $96.2B + QoQ, omits redundant 占营收', typeof tip === 'string' && tip.includes('96.2') && tip.includes('QoQ') && !tip.includes('占营收'), JSON.stringify(tip?.slice(0, 140)));
 
 // ---------- 5. no-data item: AMZN rd → empty chart + notice ----------
 await evlA(`state.company='AMZN'; state.barItem='rd'; state.mode.pct=false; state.mode.qoq=false; render(); true`);

@@ -711,13 +711,13 @@ function renderChart() {
     `${shortName(state.company)} ${quarterLabel(qv.end, qv.periodType)}${cum ? ` · ${cum.label}` : ''}`;
 
   const labelRich = {
-    n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21 },
-    v: { fontSize: 14, fontWeight: 600, color: '#64748b', lineHeight: 18 },
-    p: { fontSize: 14, fontWeight: 700, color: '#2563eb', lineHeight: 18 },   // share of revenue
-    m: { fontSize: 14, fontWeight: 700, color: '#1d55a5', lineHeight: 18 },   // margin ratios
-    up: { fontSize: 13, fontWeight: 700, color: '#16a34a', lineHeight: 17 },
-    down: { fontSize: 13, fontWeight: 700, color: '#dc2626', lineHeight: 17 },
-    flat: { fontSize: 13, fontWeight: 600, color: '#94a3b8', lineHeight: 17 }, // '—' no prior data
+    n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    v: { fontSize: 14, fontWeight: 600, color: '#64748b', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    p: { fontSize: 14, fontWeight: 700, color: '#2563eb', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // share of revenue
+    m: { fontSize: 14, fontWeight: 700, color: '#1d55a5', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // margin ratios
+    up: { fontSize: 13, fontWeight: 700, color: '#16a34a', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    down: { fontSize: 13, fontWeight: 700, color: '#dc2626', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    flat: { fontSize: 13, fontWeight: 600, color: '#94a3b8', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
   };
 
   /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
@@ -828,6 +828,7 @@ function renderChart() {
         fontSize: 15,
         formatter: nodeLabel,
         rich: labelRich,
+        textBorderColor: '#fff', textBorderWidth: 2.5, // white halo keeps labels legible over colored flow bands
       },
       data,                          // FULL data + links every time (pitfall #1)
       links: g.links,
@@ -841,7 +842,7 @@ function renderChart() {
       type: 'sankey', layout: 'none', nodeAlign: 'justify',
       nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
-      label: { fontSize: 15, formatter: nodeLabel, rich: labelRich },
+      label: { fontSize: 15, formatter: nodeLabel, rich: labelRich, textBorderColor: '#fff', textBorderWidth: 2.5 },
       data, links: g.links,
     }],
   };
@@ -961,7 +962,12 @@ function renderBarChart() {
      ① share-of-revenue % line (margin items are already % → line = the value itself)
      ② QoQ/YoY growth line (annual series → 同比; margin items → pp change)
      null (missing data / no prior period) breaks the line — no fake points. */
-  const pctLine = item.data.map((v, i) => {
+  // BUG-E: when the selected item IS revenue, "营收 / 营收" is identically 100% — a flat,
+  // information-free line that also pins the right % axis to 100 and flattens the growth line.
+  // Skip the share line entirely for revenue (every other item keeps it unchanged).
+  const isRevenue = item.id === 'revenue';
+  const showPct = barLines.pct && !isRevenue;
+  const pctLine = isRevenue ? [] : item.data.map((v, i) => {
     if (v == null) return null;
     if (isMargin) return +v.toFixed(2);
     const qv = qs[i];
@@ -1019,7 +1025,7 @@ function renderBarChart() {
   const pctName = `${item.label} · ${t('ofRev')}${isMargin ? '' : ' %'}`;
   const growthName = `${item.label} · ${hasCumYoY ? (lang === 'zh' ? '环比（累计期用同比）' : 'QoQ (YoY on cumulative)') : qoqSuffix()}${isMargin ? ' (pp)' : ' %'}`;
   const lineSeries = [
-    ...(barLines.pct ? [{
+    ...(showPct ? [{
       name: pctName, type: 'line', yAxisIndex: 1, data: pctLine,
       symbol: 'circle', symbolSize: 5, connectNulls: false,
       lineStyle: { color: '#b91c1c', width: 2 }, itemStyle: { color: '#b91c1c' },
@@ -1039,9 +1045,14 @@ function renderBarChart() {
 
   const opt = {
     backgroundColor: 'transparent',
+    // BUG-F: legend lives in its OWN band above the plot (grid.top raised to leave room)
+    // and is 'scroll' with a bounded width, so long cumulative-period names can never
+    // overlap each other at any chart width and never sit on a data line / the % axis line.
     legend: lineSeries.length ? {
-      top: 42, right: 254, itemWidth: 14, itemHeight: 8, // left of the barSelect overlay, below the meta line
+      type: 'scroll', top: 30, left: 'center', width: '72%',
+      itemWidth: 14, itemHeight: 8, itemGap: 16,
       textStyle: { color: '#475569', fontSize: 12 },
+      pageIconColor: '#475569', pageIconSize: 10,
     } : undefined,
     tooltip: {
       trigger: 'axis', confine: true,
@@ -1064,7 +1075,7 @@ function renderBarChart() {
           // P2: share comes from the SAME pctLine series as the overlay line — single
           // source of truth, so the tooltip can no longer show a correct % and a bogus
           // 0.0% side by side. barLines.pct is the bar-view 占比 button.
-          if (barLines.pct && !isMargin && pctLine[i] != null) {
+          if (showPct && !isMargin && pctLine[i] != null) {
             lines.push(`${t('ofRev')} ${pctLine[i].toFixed(1)}%`);
           }
         }
@@ -1096,7 +1107,7 @@ function renderBarChart() {
       },
       { type: 'inside', xAxisIndex: 0 },
     ],
-    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 56, bottom: 92 }, // top:56 keeps y-axis name clear of the meta overlay
+    grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 66, bottom: 92 }, // top:66 leaves a clear band above the % axis line for the legend
     xAxis: {
       type: 'category', data: labels,
       axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },
@@ -1125,7 +1136,7 @@ function renderBarChart() {
   // reset the user's zoom — see switchCompany state-memory)
   if (window.__barZoom) chart.dispatchAction({ type: 'dataZoom', xAxisIndex: 0, start: window.__barZoom.start, end: window.__barZoom.end });
   window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length,
-    bases, hasCumPoint, pctLine, growthLine, growthBasis, linesShown: lineSeries.map(s => s.name) };
+    bases, hasCumPoint, pctLine, growthLine, growthBasis, showPct, linesShown: lineSeries.map(s => s.name) };
   window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
 }
 
