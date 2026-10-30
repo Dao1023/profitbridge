@@ -12,12 +12,15 @@
  *     fxToUsd/derivation/name/notes。
  *   - 只对 profit.json 中已存在的期点写字段；staging 有而 profit.json 没有的期点跳过并计数。
  *   - 值为 null 的字段不写入。
- *   - 护栏：gross 与 revenue 同号且 gross<=revenue*1.001（负 gross 仅 MU/TSLA/PDD 允许）；
- *     |opInc|<=revenue*2；rd>=0、sga>=0；当期 rd+sga<=gross*1.05（超限只弃 rd/sga，保留 gross/opInc）。
+ *   - 护栏：gross 与 revenue 同号且 gross<=revenue*1.001（负 gross 仅白名单 MU/TSLA/PDD/00981.HK/00100.HK 允许）；
+ *     |opInc|<=max(revenue*20, 500)（500M 绝对值兜底，覆盖极小营收期的真实大额亏损）；
+ *     rd>=0、sga>=0；荒谬值检测：仅当 rd>gross*2 或 sga>gross*2 时跳过该单字段。
+ *   - rd+sga>gross*1.05 依旧写入（真实披露值），仅在 stat.structTight 中登记「结构偏紧清单」供人工知情。
  *   - 幂等：旧值存在且不同则记冲突并保留旧值（--force 除外）。
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import assert from 'node:assert';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -29,10 +32,12 @@ const FORCE = ARGS.has('--force');
 const PROFIT = path.join(ROOT, 'data', 'profit.json');
 const MIRROR = path.join(ROOT, 'data', 'profit.json.js');
 const FIELDS = ['gross', 'opInc', 'rd', 'sga'];
-const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD']);
-const RD_SGA_RATIO = 1.05;
+const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD', '00981.HK', '00100.HK']);
+const RD_SGA_RATIO = 1.05;   // 结构偏紧告警阈值（> 则登记，不跳过）
 const GROSS_REV_RATIO = 1.001;
-const OPINC_REV_MULT = 2;
+const OPINC_REV_MULT = 20;   // |opInc| <= max(revenue*20, 500)
+const OPINC_ABS_FLOOR = 500; // 绝对值兜底（百万）
+const ABSURD_MULT = 2;       // rd/sga > gross*2 视为荒谬值，跳单字段
 
 const readJson = p => JSON.parse(fs.readFileSync(p, 'utf8'));
 const isNum = v => typeof v === 'number' && Number.isFinite(v);
@@ -97,6 +102,7 @@ const stat = {
   periodsTouched: 0,             // 匹配到的期数
   conflicts: [],                 // {ticker,end,field,old,new,action}
   guardrailSkips: [],            // {ticker,end,field,reason,value,revenue}
+  structTight: [],               // {ticker,end,rd,sga,sum,gross,ratio}  rd+sga>gross*1.05（仍写入，仅报告）
   opIncGtGross: [],              // {ticker,end,opInc,gross}
   perCompany: {},                // ticker -> {name, patched, writtenPeriods, fields, skipped, conflicts}
 };
@@ -145,7 +151,7 @@ for (const p of patches) {
       }
     } else if (f === 'opInc') {
       if (revenue == null) skipReason = 'no-revenue';
-      else if (!(Math.abs(v) <= Math.abs(revenue) * OPINC_REV_MULT)) skipReason = 'opInc-out-of-range';
+      else if (!(Math.abs(v) <= Math.max(Math.abs(revenue) * OPINC_REV_MULT, OPINC_ABS_FLOOR))) skipReason = 'opInc-out-of-range';
     } else if (f === 'rd') {
       if (!(v >= 0)) skipReason = 'rd-negative';
     } else if (f === 'sga') {
@@ -180,21 +186,30 @@ for (const p of patches) {
     }
   }
 
-  // --- 组合护栏：rd + sga <= gross*1.05（仅当 gross 存在） ---
+  // --- 组合护栏：荒谬值检测（rd/sga 远超 gross 时跳单字段）+ 结构偏紧登记 ---
   // 有效 gross = 本期最终会有的 gross（写入值或已有旧值）
   const effGross = (cand.gross && cand.gross.write) ? cand.gross.value
     : (isNum(q.gross) ? q.gross : null);
-  const rdWill = cand.rd && cand.rd.write ? cand.rd.value : null;
-  const sgaWill = cand.sga && cand.sga.write ? cand.sga.value : null;
-  if (effGross != null && (rdWill != null || sgaWill != null)) {
-    const sum = (rdWill || 0) + (sgaWill || 0);
-    if (!(sum <= effGross * RD_SGA_RATIO)) {
-      for (const f of ['rd', 'sga']) {
-        if (cand[f] && cand[f].write) {
-          stat.fields[f].skippedGuard++; ci.guardSkips++;
-          stat.guardrailSkips.push({ ticker: p.ticker, end: p.end, field: f, reason: 'rd+sga>gross*1.05', value: cand[f].value, revenue, gross: effGross });
-          cand[f] = { write: false, guardSkipped: true, eff: null };
-        }
+  // 荒谬值：仅当 gross>0 时可判定；rd 或 sga 超过 gross*2 视为明显错误，跳该单字段
+  if (effGross != null && effGross > 0) {
+    for (const f of ['rd', 'sga']) {
+      if (!(cand[f] && cand[f].write)) continue;
+      const v = cand[f].value;
+      if (v > effGross * ABSURD_MULT) {
+        stat.fields[f].skippedGuard++; ci.guardSkips++;
+        stat.guardrailSkips.push({ ticker: p.ticker, end: p.end, field: f, reason: f + '>gross*2', value: v, revenue, gross: effGross });
+        cand[f] = { write: false, guardSkipped: true, eff: null };
+      }
+    }
+  }
+  // 结构偏紧清单：最终 rd+sga > gross*1.05 —— 真实披露值仍写入，仅登记供人工知情
+  {
+    const rdF = (cand.rd && cand.rd.write) ? cand.rd.value : (isNum(q.rd) ? q.rd : null);
+    const sgaF = (cand.sga && cand.sga.write) ? cand.sga.value : (isNum(q.sga) ? q.sga : null);
+    if (effGross != null && effGross > 0 && (rdF != null || sgaF != null)) {
+      const sum = (rdF || 0) + (sgaF || 0);
+      if (sum > effGross * RD_SGA_RATIO) {
+        stat.structTight.push({ ticker: p.ticker, end: p.end, rd: rdF, sga: sgaF, sum, gross: effGross, ratio: +(sum / effGross).toFixed(4) });
       }
     }
   }
@@ -230,6 +245,7 @@ stat.totals = {
   fieldsSkippedConflict: FIELDS.reduce((s, f) => s + stat.fields[f].skippedConflict, 0),
   conflicts: stat.conflicts.length,
   opIncGtGross: stat.opIncGtGross.length,
+  structTightPeriods: stat.structTight.length,
 };
 
 // ---------- 写盘 + 镜像 ----------
@@ -243,6 +259,7 @@ if (!CHECK) {
   const m = mirrorRaw.match(/^window\.__PROFIT_DATA\s*=\s*([\s\S]*);\s*$/);
   if (!m) throw new Error('mirror payload shape mismatch');
   const b = JSON.parse(m[1]);
+  assert.deepStrictEqual(b, a, 'MIRROR MISMATCH: data/profit.json.js != data/profit.json');
   const eq = JSON.stringify(a) === JSON.stringify(b);
   if (!eq) throw new Error('MIRROR MISMATCH: data/profit.json.js != data/profit.json');
   stat.mirror = { written: MIRROR, deepEqual: true, bytes: mirrorRaw.length };
@@ -268,5 +285,6 @@ fmt('missing companies:', stat.totals.companyMissing);
 fmt('conflicts:', stat.totals.conflicts);
 fmt('guardrail skips:', stat.totals.fieldsSkippedGuard);
 fmt('opInc>gross (suspect):', stat.totals.opIncGtGross);
+fmt('rd+sga>gross*1.05 (struct-tight periods):', stat.totals.structTightPeriods);
 if (stat.mirror) console.log('mirror:', stat.mirror.written, 'deepEqual=' + stat.mirror.deepEqual, 'bytes=' + stat.mirror.bytes);
 console.log('\nstats -> tmp-merge/merge_stats.json');

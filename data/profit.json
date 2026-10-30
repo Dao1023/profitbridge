@@ -23999,7 +23999,9 @@
           "periodType": "q1",
           "fxToUsd": 0.15905,
           "gross": 3211.97,
-          "opInc": -1048.42
+          "opInc": -1048.42,
+          "rd": 1382.74,
+          "sga": 3513.63
         },
         {
           "end": "2018-06-30",
@@ -24008,7 +24010,9 @@
           "periodType": "q2",
           "fxToUsd": 0.15107,
           "gross": 2840.75,
-          "opInc": -2851.42
+          "opInc": -2851.42,
+          "rd": 1703.84,
+          "sga": 4783.66
         },
         {
           "end": "2018-09-30",
@@ -24031,7 +24035,9 @@
           "periodType": "q1",
           "fxToUsd": 0.14901,
           "gross": 5069.34,
-          "opInc": -1303.64
+          "opInc": -1303.64,
+          "rd": 2036.1,
+          "sga": 4718.33
         },
         {
           "end": "2019-06-30",
@@ -24065,7 +24071,9 @@
           "periodType": "q1",
           "fxToUsd": 0.14085,
           "gross": 5196.47,
-          "opInc": -1715.53
+          "opInc": -1715.53,
+          "rd": 2296.46,
+          "sga": 4269.18
         },
         {
           "end": "2020-06-30",
@@ -24099,7 +24107,9 @@
           "periodType": "q1",
           "fxToUsd": 0.15265,
           "gross": 7200.17,
-          "opInc": -4767.01
+          "opInc": -4767.01,
+          "rd": 3477.29,
+          "sga": 8943.81
         },
         {
           "end": "2021-06-30",
@@ -24108,7 +24118,9 @@
           "periodType": "q2",
           "fxToUsd": 0.15486,
           "gross": 12513.37,
-          "opInc": -3251.7
+          "opInc": -3251.7,
+          "rd": 3900.79,
+          "sga": 12901.65
         },
         {
           "end": "2021-09-30",
@@ -24131,7 +24143,9 @@
           "periodType": "q1",
           "fxToUsd": 0.15768,
           "gross": 10740.29,
-          "opInc": -5584.24
+          "opInc": -5584.24,
+          "rd": 4879.03,
+          "sga": 11418.02
         },
         {
           "end": "2022-06-30",
@@ -24140,7 +24154,9 @@
           "periodType": "q2",
           "fxToUsd": 0.14919,
           "gross": 15574.43,
-          "opInc": -492.84
+          "opInc": -492.84,
+          "rd": 5203.53,
+          "sga": 11489.59
         },
         {
           "end": "2022-09-30",
@@ -24271,7 +24287,9 @@
           "periodType": "q1",
           "fxToUsd": 0.14492,
           "gross": 25970.07,
-          "opInc": -6469.81
+          "opInc": -6469.81,
+          "rd": 7043.1,
+          "sga": 25906.91
         },
         {
           "end": "2026-06-30",
@@ -24813,7 +24831,9 @@
           "periodType": "q1",
           "fxToUsd": 0.12936,
           "gross": 285.7,
-          "opInc": 117.7
+          "opInc": 117.7,
+          "rd": 168.09,
+          "sga": 162.27
         },
         {
           "end": "2007-06-30",
@@ -24822,7 +24842,9 @@
           "periodType": "q2",
           "fxToUsd": 0.13135,
           "gross": 288.4,
-          "opInc": -64.6
+          "opInc": -64.6,
+          "rd": 173.78,
+          "sga": 142.21
         },
         {
           "end": "2007-09-30",
@@ -24846,7 +24868,8 @@
           "fxToUsd": 0.14261,
           "opInc": -1422.9,
           "rd": 240.28,
-          "sga": 164.87
+          "sga": 164.87,
+          "gross": -228.62
         },
         {
           "end": "2008-06-30",
@@ -24855,7 +24878,9 @@
           "periodType": "q2",
           "fxToUsd": 0.14589,
           "gross": 139.44,
-          "opInc": -266.99
+          "opInc": -266.99,
+          "rd": 252.11,
+          "sga": 118.31
         },
         {
           "end": "2008-09-30",
@@ -24879,7 +24904,8 @@
           "fxToUsd": 0.14634,
           "opInc": -1203.54,
           "rd": 126.43,
-          "sga": 130.81
+          "sga": 130.81,
+          "gross": -884.44
         },
         {
           "end": "2009-06-30",
@@ -24889,7 +24915,8 @@
           "fxToUsd": 0.1464,
           "opInc": -645.42,
           "rd": 330.9,
-          "sga": 164.59
+          "sga": 164.59,
+          "gross": -88.08
         },
         {
           "end": "2009-09-30",
@@ -24912,7 +24939,9 @@
           "periodType": "q1",
           "fxToUsd": 0.1465,
           "gross": 351.24,
-          "opInc": -191.42
+          "opInc": -191.42,
+          "rd": 297.57,
+          "sga": 161.42
         },
         {
           "end": "2010-06-30",
@@ -24921,7 +24950,9 @@
           "periodType": "q2",
           "fxToUsd": 0.14746,
           "gross": 388.12,
-          "opInc": -46.24
+          "opInc": -46.24,
+          "rd": 345.9,
+          "sga": 138.12
         },
         {
           "end": "2010-09-30",
@@ -24944,7 +24975,9 @@
           "periodType": "q1",
           "fxToUsd": 0.1527,
           "gross": 450.93,
-          "opInc": -51.44
+          "opInc": -51.44,
+          "rd": 325.02,
+          "sga": 178.1
         },
         {
           "end": "2011-06-30",
@@ -24977,7 +25010,9 @@
           "periodType": "q1",
           "fxToUsd": 0.15883,
           "gross": 250.79,
-          "opInc": -316.5
+          "opInc": -316.5,
+          "rd": 373.32,
+          "sga": 193.97
         },
         {
           "end": "2012-06-30",
@@ -25238,7 +25273,9 @@
           "periodType": "q2",
           "fxToUsd": 0.14555,
           "gross": 1057.22,
-          "opInc": -299.56
+          "opInc": -299.56,
+          "rd": 1785.63,
+          "sga": 513.58
         },
         {
           "end": "2019-09-30",
@@ -25261,7 +25298,9 @@
           "periodType": "q1",
           "fxToUsd": 0.14085,
           "gross": 1654.97,
-          "opInc": 335.42
+          "opInc": 335.42,
+          "rd": 1179.57,
+          "sga": 567.32
         },
         {
           "end": "2020-06-30",
@@ -25403,7 +25442,9 @@
           "periodType": "q1",
           "fxToUsd": 0.13835,
           "gross": 1700.7,
-          "opInc": 17.07
+          "opInc": 17.07,
+          "rd": 1334.64,
+          "sga": 889.86
         },
         {
           "end": "2024-06-30",
@@ -25412,7 +25453,9 @@
           "periodType": "q2",
           "fxToUsd": 0.13769,
           "gross": 1897.02,
-          "opInc": 623.58
+          "opInc": 623.58,
+          "rd": 1293.45,
+          "sga": 1219.16
         },
         {
           "end": "2024-09-30",
@@ -26160,7 +26203,9 @@
           "periodType": "q4",
           "fxToUsd": 0.14365,
           "gross": 4633.74,
-          "opInc": -974.62
+          "opInc": -974.62,
+          "rd": 894.71,
+          "sga": 4579.12
         },
         {
           "end": "2020-03-31",
@@ -26169,7 +26214,9 @@
           "periodType": "q1",
           "fxToUsd": 0.14085,
           "gross": 4258.45,
-          "opInc": -5025.8
+          "opInc": -5025.8,
+          "rd": 939.46,
+          "sga": 8404.43
         },
         {
           "end": "2020-06-30",
@@ -26178,7 +26225,9 @@
           "periodType": "q2",
           "fxToUsd": 0.14135,
           "gross": 4436.01,
-          "opInc": -2540.09
+          "opInc": -2540.09,
+          "rd": 1312.27,
+          "sga": 5959.27
         },
         {
           "end": "2020-09-30",
@@ -26187,7 +26236,9 @@
           "periodType": "q3",
           "fxToUsd": 0.14686,
           "gross": 6616.35,
-          "opInc": -1376.53
+          "opInc": -1376.53,
+          "rd": 1866.18,
+          "sga": 6550.91
         },
         {
           "end": "2020-12-31",
@@ -26196,7 +26247,9 @@
           "periodType": "q4",
           "fxToUsd": 0.15296,
           "gross": 8503.83,
-          "opInc": -1377.52
+          "opInc": -1377.52,
+          "rd": 2429.67,
+          "sga": 7376.87
         },
         {
           "end": "2021-03-31",
@@ -26205,7 +26258,9 @@
           "periodType": "q1",
           "fxToUsd": 0.15265,
           "gross": 6987.8,
-          "opInc": -7292.14
+          "opInc": -7292.14,
+          "rd": 2811.15,
+          "sga": 12362.94
         },
         {
           "end": "2021-06-30",
@@ -26214,7 +26269,9 @@
           "periodType": "q2",
           "fxToUsd": 0.15486,
           "gross": 8384.75,
-          "opInc": -7215.38
+          "opInc": -7215.38,
+          "rd": 3911.34,
+          "sga": 12133.96
         },
         {
           "end": "2021-09-30",
@@ -26223,7 +26280,9 @@
           "periodType": "q3",
           "fxToUsd": 0.1547,
           "gross": 8508.6,
-          "opInc": -7403.59
+          "opInc": -7403.59,
+          "rd": 4217.7,
+          "sga": 11929.97
         },
         {
           "end": "2021-12-31",
@@ -26232,7 +26291,9 @@
           "periodType": "q4",
           "fxToUsd": 0.15742,
           "gross": 10148.56,
-          "opInc": -5790.15
+          "opInc": -5790.15,
+          "rd": 4016.06,
+          "sga": 11149.34
         },
         {
           "end": "2022-03-31",
@@ -26241,7 +26302,9 @@
           "periodType": "q1",
           "fxToUsd": 0.15768,
           "gross": 8782,
-          "opInc": -5643
+          "opInc": -5643,
+          "rd": 3523,
+          "sga": 10359
         },
         {
           "end": "2022-06-30",
@@ -26250,7 +26313,9 @@
           "periodType": "q2",
           "fxToUsd": 0.14919,
           "gross": 9770,
-          "opInc": -3059
+          "opInc": -3059,
+          "rd": 3282,
+          "sga": 9719
         },
         {
           "end": "2022-09-30",
@@ -26259,7 +26324,9 @@
           "periodType": "q3",
           "fxToUsd": 0.14053,
           "gross": 10703,
-          "opInc": -2613
+          "opInc": -2613,
+          "rd": 3533,
+          "sga": 10190
         },
         {
           "end": "2022-12-31",
@@ -26268,7 +26335,9 @@
           "periodType": "q4",
           "fxToUsd": 0.14495,
           "gross": 12876,
-          "opInc": -1243
+          "opInc": -1243,
+          "rd": 3446,
+          "sga": 10774
         },
         {
           "end": "2023-03-31",
@@ -26277,7 +26346,9 @@
           "periodType": "q1",
           "fxToUsd": 0.14546,
           "gross": 11712,
-          "opInc": -698
+          "opInc": -698,
+          "rd": 2920,
+          "sga": 9642
         },
         {
           "end": "2023-06-30",
@@ -28152,7 +28223,8 @@
           "fxToUsd": 0.14517581,
           "derivation": "direct",
           "gross": 549.13,
-          "opInc": -12.74
+          "opInc": -12.74,
+          "sga": 613.07
         },
         {
           "end": "2017-06-30",
@@ -29392,7 +29464,8 @@
           "fxToUsd": 0.14901131,
           "derivation": "direct",
           "gross": 13.94,
-          "opInc": -22.71
+          "opInc": -22.71,
+          "sga": 17.7
         },
         {
           "end": "2019-06-30",
@@ -29402,7 +29475,9 @@
           "fxToUsd": 0.14555193,
           "derivation": "diff",
           "gross": 70.45,
-          "opInc": -8.09
+          "opInc": -8.09,
+          "rd": 85.77,
+          "sga": 25.59
         },
         {
           "end": "2019-09-30",
@@ -29421,7 +29496,8 @@
           "fxToUsd": 0.1436472,
           "derivation": "diff",
           "gross": 207.59,
-          "opInc": -593.13
+          "opInc": -593.13,
+          "rd": 216.82
         },
         {
           "end": "2020-03-31",
@@ -29430,7 +29506,8 @@
           "periodType": "q",
           "fxToUsd": 0.14085102,
           "derivation": "direct",
-          "gross": 8.01
+          "gross": 8.01,
+          "opInc": -108.36
         },
         {
           "end": "2020-06-30",
@@ -29440,7 +29517,8 @@
           "fxToUsd": 0.14135474,
           "derivation": "diff",
           "gross": 59.69,
-          "opInc": -93.5
+          "opInc": -93.5,
+          "sga": 41.31
         },
         {
           "end": "2020-09-30",
@@ -29450,7 +29528,8 @@
           "fxToUsd": 0.14686444,
           "derivation": "diff",
           "gross": 34.24,
-          "opInc": -107.65
+          "opInc": -107.65,
+          "sga": 48.31
         },
         {
           "end": "2020-12-31",
@@ -29460,7 +29539,9 @@
           "fxToUsd": 0.15295665,
           "derivation": "diff",
           "gross": 198.12,
-          "opInc": -124.95
+          "opInc": -124.95,
+          "rd": 335.1,
+          "sga": 85.12
         },
         {
           "end": "2021-03-31",
@@ -29469,7 +29550,8 @@
           "periodType": "q",
           "fxToUsd": 0.15264612,
           "derivation": "direct",
-          "gross": 15.94
+          "gross": 15.94,
+          "opInc": -205.56
         },
         {
           "end": "2021-06-30",
@@ -29479,7 +29561,8 @@
           "fxToUsd": 0.15485629,
           "derivation": "diff",
           "gross": 57.09,
-          "opInc": -185.99
+          "opInc": -185.99,
+          "sga": 96.38
         },
         {
           "end": "2021-09-30",
@@ -29488,7 +29571,8 @@
           "periodType": "q",
           "fxToUsd": 0.15470297,
           "derivation": "diff",
-          "gross": 39.85
+          "gross": 39.85,
+          "opInc": -237.96
         },
         {
           "end": "2021-12-31",
@@ -29498,7 +29582,9 @@
           "fxToUsd": 0.15742082,
           "derivation": "diff",
           "gross": 337.01,
-          "opInc": -194.7
+          "opInc": -194.7,
+          "rd": 431.3,
+          "sga": 166.74
         },
         {
           "end": "2022-03-31",
@@ -29507,7 +29593,8 @@
           "periodType": "q",
           "fxToUsd": 0.15767897,
           "derivation": "direct",
-          "gross": 35.64
+          "gross": 35.64,
+          "opInc": -298.78
         },
         {
           "end": "2022-06-30",
@@ -29516,7 +29603,9 @@
           "periodType": "q",
           "fxToUsd": 0.14918693,
           "derivation": "diff",
-          "gross": 58.72
+          "gross": 58.72,
+          "opInc": -344.31,
+          "sga": 108.13
         },
         {
           "end": "2022-09-30",
@@ -29525,7 +29614,9 @@
           "periodType": "q",
           "fxToUsd": 0.14052641,
           "derivation": "diff",
-          "gross": 59.4
+          "gross": 59.4,
+          "opInc": -341.42,
+          "sga": 112.71
         },
         {
           "end": "2022-12-31",
@@ -29535,7 +29626,9 @@
           "fxToUsd": 0.14495485,
           "derivation": "diff",
           "gross": 325.65,
-          "opInc": -339.75
+          "opInc": -339.75,
+          "rd": 574.01,
+          "sga": 47.21
         },
         {
           "end": "2023-03-31",
@@ -29544,7 +29637,9 @@
           "periodType": "q",
           "fxToUsd": 0.14545878,
           "derivation": "direct",
-          "gross": 57.82
+          "gross": 57.82,
+          "opInc": -262.79,
+          "sga": 77.04
         },
         {
           "end": "2023-06-30",
@@ -29553,7 +29648,8 @@
           "periodType": "q",
           "fxToUsd": 0.13757429,
           "derivation": "diff",
-          "gross": 23.29
+          "gross": 23.29,
+          "opInc": -297.36
         },
         {
           "end": "2023-09-30",
@@ -29562,7 +29658,8 @@
           "periodType": "q",
           "fxToUsd": 0.13695816,
           "derivation": "diff",
-          "gross": 20.72
+          "gross": 20.72,
+          "opInc": -270.89
         },
         {
           "end": "2023-12-31",
@@ -29582,7 +29679,8 @@
           "periodType": "q",
           "fxToUsd": 0.13834703,
           "derivation": "direct",
-          "gross": 14.79
+          "gross": 14.79,
+          "opInc": -228.45
         },
         {
           "end": "2024-06-30",
@@ -29591,7 +29689,8 @@
           "periodType": "q",
           "fxToUsd": 0.13768794,
           "derivation": "diff",
-          "gross": 25.83
+          "gross": 25.83,
+          "opInc": -304.31
         },
         {
           "end": "2024-09-30",
@@ -29601,7 +29700,8 @@
           "fxToUsd": 0.14260453,
           "derivation": "diff",
           "gross": 61.72,
-          "opInc": -195.15
+          "opInc": -195.15,
+          "sga": 102.88
         },
         {
           "end": "2024-12-31",
@@ -29713,7 +29813,8 @@
           "periodType": "q",
           "fxToUsd": 0.13699756,
           "derivation": "diff",
-          "gross": 126.44
+          "gross": 126.44,
+          "opInc": -727.93
         },
         {
           "end": "2025-03-31",
@@ -29723,7 +29824,9 @@
           "fxToUsd": 0.13787208,
           "derivation": "direct",
           "gross": 224.26,
-          "opInc": -112.44
+          "opInc": -112.44,
+          "rd": 246.1,
+          "sga": 106.33
         },
         {
           "end": "2025-06-30",
@@ -29733,7 +29836,9 @@
           "fxToUsd": 0.13957319,
           "derivation": "diff",
           "gross": 260.96,
-          "opInc": -158.63
+          "opInc": -158.63,
+          "rd": 310.63,
+          "sga": 117.8
         },
         {
           "end": "2025-09-30",
@@ -29742,7 +29847,8 @@
           "periodType": "q",
           "fxToUsd": 0.14045733,
           "derivation": "diff",
-          "gross": 0.21
+          "gross": 0.21,
+          "opInc": -452.51
         },
         {
           "end": "2025-12-31",
@@ -29752,7 +29858,9 @@
           "fxToUsd": 0.14283674,
           "derivation": "diff",
           "gross": 501.76,
-          "opInc": -284.33
+          "opInc": -284.33,
+          "rd": 444.34,
+          "sga": 256.66
         },
         {
           "end": "2026-03-31",
@@ -29774,7 +29882,9 @@
           "fxToUsd": 0.14737307,
           "derivation": "diff",
           "gross": 491.98,
-          "opInc": -44.21
+          "opInc": -44.21,
+          "rd": 400.12,
+          "sga": 159.61
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -30693,7 +30803,9 @@
           "fxToUsd": 0.15911658,
           "derivation": "diff",
           "gross": 3285.91,
-          "opInc": -2619.67
+          "opInc": -2619.67,
+          "rd": 2632.51,
+          "sga": 3329.85
         },
         {
           "end": "2012-12-31",
@@ -30703,7 +30815,9 @@
           "fxToUsd": 0.16049819,
           "derivation": "diff",
           "gross": 5377.52,
-          "opInc": -1519.15
+          "opInc": -1519.15,
+          "rd": 2171.25,
+          "sga": 3770.66
         },
         {
           "end": "2013-03-31",
@@ -30965,7 +31079,9 @@
           "fxToUsd": 0.15106881,
           "derivation": "diff",
           "gross": 4215.23,
-          "opInc": -2901.61
+          "opInc": -2901.61,
+          "rd": 2356.91,
+          "sga": 2920.21
         },
         {
           "end": "2018-09-30",
@@ -32164,7 +32280,8 @@
           "fxToUsd": 0.14746218,
           "derivation": "diff",
           "gross": 1476.41,
-          "opInc": -216.11
+          "opInc": -216.11,
+          "sga": 1676
         },
         {
           "end": "2010-09-30",
@@ -32174,7 +32291,8 @@
           "fxToUsd": 0.14945002,
           "derivation": "diff",
           "gross": 1586.3,
-          "opInc": -401.62
+          "opInc": -401.62,
+          "sga": 1975.76
         },
         {
           "end": "2010-12-31",
@@ -32588,7 +32706,9 @@
           "fxToUsd": 0.1436472,
           "derivation": "diff",
           "gross": 1053.09,
-          "opInc": 269.19
+          "opInc": 269.19,
+          "rd": 793.68,
+          "sga": 610.36
         },
         {
           "end": "2020-03-31",
@@ -32598,7 +32718,9 @@
           "fxToUsd": 0.14085102,
           "derivation": "direct",
           "gross": 1045.79,
-          "opInc": 165.21
+          "opInc": 165.21,
+          "rd": 837.45,
+          "sga": 481.38
         },
         {
           "end": "2020-06-30",
@@ -32704,7 +32826,9 @@
           "fxToUsd": 0.14918693,
           "derivation": "diff",
           "gross": 3035.03,
-          "opInc": -568.87
+          "opInc": -568.87,
+          "rd": 2409.01,
+          "sga": 1540.95
         },
         {
           "end": "2022-09-30",
@@ -32714,7 +32838,9 @@
           "fxToUsd": 0.14052641,
           "derivation": "diff",
           "gross": 3587.2,
-          "opInc": -197.17
+          "opInc": -197.17,
+          "rd": 2410.29,
+          "sga": 1426.72
         },
         {
           "end": "2022-12-31",
@@ -33160,7 +33286,9 @@
           "fxToUsd": 0.14918693,
           "derivation": "diff",
           "gross": 1375.62,
-          "opInc": -527.6
+          "opInc": -527.6,
+          "rd": 913.03,
+          "sga": 650.99
         },
         {
           "end": "2022-09-30",
@@ -33170,7 +33298,9 @@
           "fxToUsd": 0.14052641,
           "derivation": "diff",
           "gross": 1290.83,
-          "opInc": -1499.14
+          "opInc": -1499.14,
+          "rd": 909.5,
+          "sga": 708.46
         },
         {
           "end": "2022-12-31",
@@ -33180,7 +33310,9 @@
           "fxToUsd": 0.14495485,
           "derivation": "diff",
           "gross": 1446.67,
-          "opInc": -200.07
+          "opInc": -200.07,
+          "rd": 791.84,
+          "sga": 811.43
         },
         {
           "end": "2023-03-31",
@@ -33190,7 +33322,9 @@
           "fxToUsd": 0.14545878,
           "derivation": "direct",
           "gross": 1192.27,
-          "opInc": -105.92
+          "opInc": -105.92,
+          "rd": 747.3,
+          "sga": 612.48
         },
         {
           "end": "2023-06-30",
@@ -33224,7 +33358,9 @@
           "fxToUsd": 0.14074793,
           "derivation": "diff",
           "gross": 1358.7,
-          "opInc": -262.05
+          "opInc": -262.05,
+          "rd": 790.4,
+          "sga": 720.11
         },
         {
           "end": "2024-03-31",
@@ -33234,7 +33370,9 @@
           "fxToUsd": 0.13834703,
           "derivation": "direct",
           "gross": 1071.16,
-          "opInc": -56.13
+          "opInc": -56.13,
+          "rd": 748.68,
+          "sga": 627.44
         },
         {
           "end": "2024-06-30",
@@ -33244,7 +33382,9 @@
           "fxToUsd": 0.13768794,
           "derivation": "diff",
           "gross": 1258.31,
-          "opInc": -165.83
+          "opInc": -165.83,
+          "rd": 766.8,
+          "sga": 658.05
         },
         {
           "end": "2024-09-30",
@@ -33254,7 +33394,9 @@
           "fxToUsd": 0.14260453,
           "derivation": "diff",
           "gross": 1286.14,
-          "opInc": -222.56
+          "opInc": -222.56,
+          "rd": 857.94,
+          "sga": 790.55
         },
         {
           "end": "2024-12-31",
@@ -33276,7 +33418,9 @@
           "fxToUsd": 0.13787208,
           "derivation": "direct",
           "gross": 1338,
-          "opInc": -228.8
+          "opInc": -228.8,
+          "rd": 884.53,
+          "sga": 967.26
         },
         {
           "end": "2025-06-30",
@@ -33286,7 +33430,9 @@
           "fxToUsd": 0.13957319,
           "derivation": "diff",
           "gross": 1208.79,
-          "opInc": 28.71
+          "opInc": 28.71,
+          "rd": 680.36,
+          "sga": 626.75
         },
         {
           "end": "2025-09-30",
@@ -33320,7 +33466,9 @@
           "fxToUsd": 0.14491914,
           "derivation": "direct",
           "gross": 1421.73,
-          "opInc": 167.29
+          "opInc": 167.29,
+          "rd": 801.36,
+          "sga": 729.11
         },
         {
           "end": "2026-06-30",
@@ -33358,7 +33506,8 @@
           "fxToUsd": 0.13787208,
           "derivation": "direct",
           "gross": 814.81,
-          "opInc": -2830.61
+          "opInc": -2830.61,
+          "sga": 562.9
         },
         {
           "end": "2025-06-30",
@@ -33368,7 +33517,9 @@
           "fxToUsd": 0.13957319,
           "derivation": "diff",
           "gross": 1192.24,
-          "opInc": -1263.09
+          "opInc": -1263.09,
+          "rd": 1925.08,
+          "sga": 559.04
         },
         {
           "end": "2025-09-30",
@@ -34195,7 +34346,9 @@
           "fxToUsd": 0.14901131,
           "derivation": "direct",
           "gross": 868.15,
-          "opInc": 333.01
+          "opInc": 333.01,
+          "rd": 1014.5,
+          "sga": 294.12
         },
         {
           "end": "2019-06-30",
@@ -34205,7 +34358,9 @@
           "fxToUsd": 0.14555193,
           "derivation": "diff",
           "gross": 1267.45,
-          "opInc": -185.92
+          "opInc": -185.92,
+          "rd": 1242.06,
+          "sga": 462.06
         },
         {
           "end": "2019-09-30",
@@ -34215,7 +34370,9 @@
           "fxToUsd": 0.13998936,
           "derivation": "diff",
           "gross": 1161.67,
-          "opInc": 640.93
+          "opInc": 640.93,
+          "rd": 1291.88,
+          "sga": 457.04
         },
         {
           "end": "2019-12-31",
@@ -34225,7 +34382,9 @@
           "fxToUsd": 0.1436472,
           "derivation": "diff",
           "gross": 1289.84,
-          "opInc": 644.16
+          "opInc": 644.16,
+          "rd": 1196.02,
+          "sga": 486.83
         },
         {
           "end": "2020-03-31",
@@ -34235,7 +34394,9 @@
           "fxToUsd": 0.14085102,
           "derivation": "direct",
           "gross": 1381.33,
-          "opInc": 448.71
+          "opInc": 448.71,
+          "rd": 1159.28,
+          "sga": 478.69
         },
         {
           "end": "2020-06-30",
@@ -34269,7 +34430,9 @@
           "fxToUsd": 0.15295665,
           "derivation": "diff",
           "gross": 1431.78,
-          "opInc": 1172.66
+          "opInc": 1172.66,
+          "rd": 1292.15,
+          "sga": 484.43
         },
         {
           "end": "2021-03-31",
@@ -34411,7 +34574,9 @@
           "fxToUsd": 0.14074793,
           "derivation": "diff",
           "gross": 2287.83,
-          "opInc": 1740.42
+          "opInc": 1740.42,
+          "rd": 1350.34,
+          "sga": 1054.59
         },
         {
           "end": "2024-03-31",
@@ -34421,7 +34586,9 @@
           "fxToUsd": 0.13834703,
           "derivation": "direct",
           "gross": 1786.5,
-          "opInc": 528.11
+          "opInc": 528.11,
+          "rd": 1335.71,
+          "sga": 830.16
         },
         {
           "end": "2024-06-30",
@@ -34431,7 +34598,9 @@
           "fxToUsd": 0.13768794,
           "derivation": "diff",
           "gross": 1866.65,
-          "opInc": 1295.55
+          "opInc": 1295.55,
+          "rd": 1285.14,
+          "sga": 1141.18
         },
         {
           "end": "2024-09-30",
@@ -35776,7 +35945,8 @@
           "cumulative": true,
           "fxToUsd": 0.14495,
           "gross": 31.36,
-          "opInc": -98.72
+          "opInc": -98.72,
+          "sga": 47.46
         },
         {
           "end": "2023-12-31",
@@ -35785,7 +35955,8 @@
           "periodType": "annual",
           "cumulative": true,
           "fxToUsd": 0.14075,
-          "gross": 80.48
+          "gross": 80.48,
+          "opInc": -625.72
         },
         {
           "end": "2024-06-30",
@@ -35803,7 +35974,8 @@
           "periodType": "annual",
           "cumulative": true,
           "fxToUsd": 0.137,
-          "gross": 175.89
+          "gross": 175.89,
+          "opInc": -2538.35
         },
         {
           "end": "2025-06-30",
@@ -35812,7 +35984,8 @@
           "periodType": "interim",
           "cumulative": true,
           "fxToUsd": 0.13957,
-          "gross": 95.42
+          "gross": 95.42,
+          "opInc": -1899.22
         },
         {
           "end": "2025-12-31",
@@ -35821,7 +35994,8 @@
           "periodType": "annual",
           "cumulative": true,
           "fxToUsd": 0.14284,
-          "gross": 296.66
+          "gross": 296.66,
+          "opInc": -3786.75
         },
         {
           "end": "2026-06-30",
@@ -35830,7 +36004,9 @@
           "periodType": "interim",
           "cumulative": true,
           "fxToUsd": 0.14737,
-          "gross": 251.61
+          "gross": 251.61,
+          "opInc": -2146.55,
+          "sga": 281.01
         }
       ],
       "notes": "HKEX filer, IPO 2026-03 (上市时间短): only annual + interim (H1) cumulative disclosures available, 0 single quarters derivable — included as-disclosed cumulative series per short-history rule (SPCX 2-period exemption precedent), periodType interim/annual, NOT differenced. 7 periods 2022-12-31..2026-06-30. Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging (data/staging/batch3.json). Watchlist ticker 2513.HK."
@@ -35856,7 +36032,8 @@
           "cumulative": true,
           "fxToUsd": 0.14075,
           "rd": 495.8,
-          "sga": 215.61
+          "sga": 215.61,
+          "gross": -6.05
         },
         {
           "end": "2024-09-30",
@@ -35865,7 +36042,8 @@
           "periodType": "q3",
           "cumulative": true,
           "fxToUsd": 0.1426,
-          "gross": 3.57
+          "gross": 3.57,
+          "opInc": -2130.43
         },
         {
           "end": "2024-12-31",
@@ -35874,7 +36052,8 @@
           "periodType": "annual",
           "cumulative": true,
           "fxToUsd": 0.137,
-          "gross": 26.87
+          "gross": 26.87,
+          "opInc": -3340.67
         },
         {
           "end": "2025-06-30",
@@ -35883,7 +36062,8 @@
           "periodType": "interim",
           "cumulative": true,
           "fxToUsd": 0.13957,
-          "gross": 26.38
+          "gross": 26.38,
+          "opInc": -2876.78
         },
         {
           "end": "2025-09-30",
@@ -35892,7 +36072,8 @@
           "periodType": "q3",
           "cumulative": true,
           "fxToUsd": 0.14046,
-          "gross": 88.65
+          "gross": 88.65,
+          "opInc": -3634.48
         },
         {
           "end": "2025-12-31",
@@ -35910,7 +36091,8 @@
           "periodType": "interim",
           "cumulative": true,
           "fxToUsd": 0.14737,
-          "gross": 141.76
+          "gross": 141.76,
+          "opInc": -2433.87
         }
       ],
       "notes": "HKEX filer MINIMAX-W, IPO 2026-01 (上市时间短): annual + interim + Q3 cumulative disclosures, 8 periods 2022-12-31..2026-06-30 included as-disclosed cumulative series per short-history rule (no minKeep guardrail), NOT differenced. 2022-12-31 revenue not disclosed (null). Source: eastmoney RPT_HKF10_FN_MAININDICATOR (code normalization 0100→00100) via batch3 staging. Watchlist ticker 0100.HK."
@@ -36689,7 +36871,9 @@
           "cumulative": true,
           "fxToUsd": 0.15419,
           "gross": 2699.93,
-          "opInc": 1372.67
+          "opInc": 1372.67,
+          "rd": 1511.82,
+          "sga": 2679.02
         },
         {
           "end": "2016-12-31",
@@ -36765,7 +36949,8 @@
           "periodType": "q2",
           "fxToUsd": 0.15107,
           "gross": 5651.81,
-          "opInc": -7591.96
+          "opInc": -7591.96,
+          "rd": 1363.62
         },
         {
           "end": "2018-09-30",
