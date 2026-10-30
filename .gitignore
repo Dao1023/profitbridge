@@ -20,3 +20,6 @@
 Thumbs.db
 *.log
 fetch_log.txt
+
+# test residue output dir
+/tests/out/
