@@ -90,7 +90,8 @@
     "ticker": "00992.HK",
     "nameZh": "联想集团",
     "nameEn": "Lenovo",
-    "color": "#e2231a"
+    "color": "#e2231a",
+    "notes": "口径特殊：三月财年(3-31)，分部为全年累计、利润为单季Q4，分部合计约为营收4倍；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "01024.HK",
@@ -369,7 +370,8 @@
     "nameZh": "安谋",
     "nameEn": "Arm Holdings plc",
     "color": "#0091bd",
-    "frequency": "mixed"
+    "frequency": "mixed",
+    "notes": "口径差异：部分年度营业利润含研发/销售管理之外的其他经营费用（股份支付、一次性费用），毛利-研发-销售管理偏差≤约1.8%；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "ASML",
@@ -377,7 +379,8 @@
     "nameZh": "阿斯麦",
     "nameEn": "ASML Holding N.V.",
     "color": "#0d1e8c",
-    "frequency": "mixed"
+    "frequency": "mixed",
+    "notes": "口径差异：少数年度毛利与营业利润之间存在其他经营收益（参股/汇兑等），偏差约2%~3%；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "AVGO",
@@ -475,7 +478,8 @@
     "nameZh": "哔哩哔哩",
     "nameEn": "Bilibili Inc.",
     "color": "#fb7299",
-    "frequency": "mixed"
+    "frequency": "mixed",
+    "notes": "勾稽核对：分季度营业利润=毛利-研发-销售管理实测一致（残差≈0），本条为历史标记；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "CBRS",
@@ -785,7 +789,8 @@
     "nameZh": "京东",
     "nameEn": "JD.com, Inc.",
     "color": "#e1251b",
-    "frequency": "mixed"
+    "frequency": "mixed",
+    "notes": "口径差异：分部营收含内部/关联交易未抵销，合计比合并营收高约 5%~6%（2025 为 +6.4%），详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "KO",
@@ -868,7 +873,8 @@
     "ticker": "MC.PA",
     "nameZh": "LVMH",
     "nameEn": "LVMH",
-    "color": "#1a1a1a"
+    "color": "#1a1a1a",
+    "notes": "口径差异：分部数据以本位币EUR存储、前端按USD折算，图中分部合计比营收低约10.8%（纯币种口径）；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "MCD",
@@ -1018,7 +1024,8 @@
     "ticker": "NESN.SW",
     "nameZh": "雀巢",
     "nameEn": "Nestlé",
-    "color": "#6a4fa3"
+    "color": "#6a4fa3",
+    "notes": "口径差异：分部数据以本位币CHF存储、前端按USD折算，图中分部合计比营收低约17.9%（纯币种口径，非分部缺项）；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "NFLX",
@@ -1060,7 +1067,8 @@
     "nameZh": "网易",
     "nameEn": "NetEase, Inc.",
     "color": "#d43c33",
-    "frequency": "mixed"
+    "frequency": "mixed",
+    "notes": "口径差异：年度行只披露研发、未单列销售及管理费用(sga)，营业利润无法按毛利-研发-销售管理逐项勾稽；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "NVDA",
@@ -1322,7 +1330,8 @@
     "nameZh": "意法半导体",
     "nameEn": "STMicroelectronics N.V.",
     "color": "#03234b",
-    "frequency": "mixed"
+    "frequency": "mixed",
+    "notes": "口径差异：营业利润含研发/销售管理之外的其他经营费用（重组、减值等），毛利-研发-销售管理会高估营业利润（中位偏差约2.6%）；详见 docs/KNOWN_CAVEATS.md。"
   },
   {
     "ticker": "TCOM",
