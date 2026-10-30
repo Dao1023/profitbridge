@@ -34882,6 +34882,16 @@
       "frequency": "mixed",
       "quarters": [
         {
+          "end": "2021-06-30",
+          "revenue": 41755,
+          "gross": 20356,
+          "opInc": 6987,
+          "netInc": 5945,
+          "rd": 793,
+          "periodType": "interim",
+          "fxToUsd": 1.0823
+        },
+        {
           "end": "2021-12-31",
           "revenue": 87470.4,
           "gross": 42002.4,
@@ -34889,6 +34899,16 @@
           "netInc": 16904.7,
           "periodType": "annual",
           "fxToUsd": 1.0963
+        },
+        {
+          "end": "2022-06-30",
+          "revenue": 45580,
+          "gross": 20947,
+          "opInc": 6684,
+          "netInc": 5247,
+          "rd": 808,
+          "periodType": "interim",
+          "fxToUsd": 1.0429
         },
         {
           "end": "2022-12-31",
@@ -34900,6 +34920,16 @@
           "fxToUsd": 1.0832
         },
         {
+          "end": "2023-06-30",
+          "revenue": 46293,
+          "gross": 21121,
+          "opInc": 7351,
+          "netInc": 5649,
+          "rd": 810,
+          "periodType": "interim",
+          "fxToUsd": 1.1101
+        },
+        {
           "end": "2023-12-31",
           "revenue": 93351.3,
           "gross": 43023.2,
@@ -34909,6 +34939,16 @@
           "fxToUsd": 1.1933
         },
         {
+          "end": "2024-06-30",
+          "revenue": 45045,
+          "gross": 21255,
+          "opInc": 7398,
+          "netInc": 5644,
+          "rd": 830,
+          "periodType": "interim",
+          "fxToUsd": 1.1112
+        },
+        {
           "end": "2024-12-31",
           "revenue": 91720.3,
           "gross": 43050.4,
@@ -34916,6 +34956,16 @@
           "netInc": 10883.6,
           "periodType": "annual",
           "fxToUsd": 1.1038
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 44228,
+          "gross": 20619,
+          "opInc": 6885,
+          "netInc": 5065,
+          "rd": 786,
+          "periodType": "interim",
+          "fxToUsd": 1.2539
         },
         {
           "end": "2025-12-31",
@@ -34945,6 +34995,15 @@
       "frequency": "mixed",
       "quarters": [
         {
+          "end": "2021-06-30",
+          "revenue": 28665,
+          "gross": 19556,
+          "opInc": 7632,
+          "netInc": 5289,
+          "periodType": "interim",
+          "fxToUsd": 1.1884
+        },
+        {
           "end": "2021-12-31",
           "revenue": 64214.6,
           "gross": 43859.8,
@@ -34952,6 +35011,15 @@
           "netInc": 12035.7,
           "periodType": "annual",
           "fxToUsd": 1.1326
+        },
+        {
+          "end": "2022-06-30",
+          "revenue": 36729,
+          "gross": 25311,
+          "opInc": 10235,
+          "netInc": 6532,
+          "periodType": "interim",
+          "fxToUsd": 1.0387
         },
         {
           "end": "2022-12-31",
@@ -34963,6 +35031,15 @@
           "fxToUsd": 1.0666
         },
         {
+          "end": "2023-06-30",
+          "revenue": 42240,
+          "gross": 29317,
+          "opInc": 11574,
+          "netInc": 8481,
+          "periodType": "interim",
+          "fxToUsd": 1.0866
+        },
+        {
           "end": "2023-12-31",
           "revenue": 86153,
           "gross": 59276.7,
@@ -34972,6 +35049,15 @@
           "fxToUsd": 1.105
         },
         {
+          "end": "2024-06-30",
+          "revenue": 41677,
+          "gross": 28693,
+          "opInc": 10653,
+          "netInc": 7267,
+          "periodType": "interim",
+          "fxToUsd": 1.0705
+        },
+        {
           "end": "2024-12-31",
           "revenue": 84682.8,
           "gross": 56765.3,
@@ -34979,6 +35065,15 @@
           "netInc": 12549.6,
           "periodType": "annual",
           "fxToUsd": 1.0389
+        },
+        {
+          "end": "2025-06-30",
+          "revenue": 39810,
+          "gross": 26610,
+          "opInc": 9012,
+          "netInc": 5698,
+          "periodType": "interim",
+          "fxToUsd": 1.172
         },
         {
           "end": "2025-12-31",

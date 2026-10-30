@@ -69,8 +69,8 @@ ok(mmn && mmn.quarters.length === 8 && mmn.quarters.at(-1).end === '2026-06-30' 
 const spcx = P.companies.SPCX || (P.profitPreview && P.profitPreview.ticker === 'SPCX' ? P.profitPreview : null);
 ok(spcx && spcx.quarters.length === 2 && spcx.quarters[1].end === '2026-09-30' && spcx.quarters[1].revenue === 14575 && spcx.quarters[1].netInc === 4404, `SPCX 2q, Q3 2026-09-30 rev=14575 NI=4404 (${P.companies.SPCX ? 'main series' : 'profitPreview'})`);
 
-// 10) batch5 + H1-2026: NESN/MC 6 periods (5 FY + 1 H1 interim), no TTM rows
-ok(P.companies['NESN.SW'].quarters.length === 6 && P.companies['MC.PA'].quarters.length === 6, 'NESN/MC 6 periods each (5FY + H1-2026)');
+// 10) batch5 + H1-2026 + 2021-2025 H1 backfill: NESN/MC 11 periods (5 FY + 5 H1 interim + H1-2026), no TTM rows
+ok(P.companies['NESN.SW'].quarters.length === 11 && P.companies['MC.PA'].quarters.length === 11, 'NESN/MC 11 periods each (5FY + 5 H1 + H1-2026)');
 ok(!JSON.stringify(P.companies['NESN.SW']).includes('ttm'), 'NESN has no TTM rows');
 // NESN/MC 现为半年报公司：最新期是 2026-06-30 interim；逐期 fxToUsd 必须互不相同（防被改回单一快照）
 for (const tk of ['NESN.SW', 'MC.PA']) {

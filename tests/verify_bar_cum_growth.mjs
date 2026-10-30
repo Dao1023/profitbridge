@@ -7,9 +7,9 @@
 //    and a q3 point right after an interim is broken (null) due to base-period mismatch
 //  - 600519.SS (single-quarter 'q') stays QoQ -31.31 (no collateral damage)
 //  - 00700.HK / BABA (quarterly) untouched
-//  - NESN.SW / MC.PA are now half-year reporters (frequency 'mixed', annual + H1-2026 interim):
-//    annual rows are stripped from the bar series, the lone H1-2026 interim point is a cumulative
-//    period (YoY basis, no bogus QoQ) — this is the intended semantic change from 'annual'.
+//  - NESN.SW / MC.PA are now half-year reporters (frequency 'mixed', 5 annual + 5 H1 interim
+//    2021-2025 + H1-2026): annual rows are stripped from the bar series, leaving 6 H1 cumulative
+//    points (YoY basis, no bogus QoQ) — the intended semantic change from 'annual'.
 import fs from 'fs';
 import { execFile } from 'child_process';
 const BASE = 'http://127.0.0.1:8440';
@@ -65,7 +65,7 @@ async function barSample(tk) {
     const o=chart.getOption();
     const lines=o.series.filter(s=>s.type==='line');
     const g=lines[lines.length-1]||{name:'',data:[]};
-    return { ends:qs.map(q=>q.end), rev:qs.map(q=>q.revenue), ptype:qs.map(q=>q.periodType),
+    return { ends:qs.map(q=>q.end), rev:qs.map(q=>q.revenue), fx:qs.map(q=>q.fxToUsd), ptype:qs.map(q=>q.periodType),
              growth:g.data, growthName:g.name, basis:window.__barMeta.growthBasis, freq:c.frequency,
              hasCumPoint:window.__barMeta.hasCumPoint };
   })()`);
@@ -136,17 +136,24 @@ i = s.ends.length - 1;
 check('BABA last point unaffected (== hand QoQ)', near(s.growth[i], qoqAt(s, i)), `got=${s.growth[i]} qoq=${qoqAt(s, i)?.toFixed(2)}`);
 check('BABA basis qoq', s.basis[i] === 'qoq');
 
-// ---------- NESN.SW / MC.PA: 半年报(mixed)公司 — annual 行不再进柱状图，H1-2026 为累计 interim ----------
-// 有意语义变化：这两家此前是纯 annual，现改为 mixed（5 个年度期 + H1-2026 interim）。
-// 柱状图对 mixed 会剔除 annual 行，因此只剩 H1-2026 这一根累计柱（必须带累计标记，不能当单季）。
+// ---------- NESN.SW / MC.PA: 半年报(mixed)公司 — annual 行不进柱状图，条形为 2021-2025 H1 + H1-2026 共 6 根累计柱 ----------
+// 有意语义变化：两家为 mixed（5 个年度期 + 5 个 H1 interim 2021-2025 + H1-2026 interim）。
+// 柱状图对 mixed 剔除 annual 行，只剩 6 根 H1 累计柱；每根都必须带累计标记。
 for (const tk of ['NESN.SW', 'MC.PA']) {
   s = await barSample(tk);
   i = idxOf(s, '2026-06-30');
   check(`${tk} is mixed series; annual 12-31 rows stripped from bars`, s.freq === 'mixed' && s.ends.every(e => e.slice(5) !== '12-31'), `freq=${s.freq} ends=${JSON.stringify(s.ends)}`);
+  check(`${tk} bar series has 6 H1 points (2021-2025 + 2026)`, s.ends.length === 6 && s.ends.every(e => e.slice(5) === '06-30'), JSON.stringify(s.ends));
   check(`${tk} last bar is the H1-2026 interim point`, i >= 0 && s.ptype[i] === 'interim', `idx=${i} ptype=${s.ptype[i]}`);
-  // 只有一根累计柱、无上年同期基数 → growth 为 null；但必须被识别为累计柱（hasCumPoint 由 data-item decal 推导），不能当单季常规柱。
-  check(`${tk} H1-2026 interim bar carries the cumulative marker (decal / hasCumPoint)`, s.hasCumPoint === true, `hasCum=${s.hasCumPoint}`);
-  check(`${tk} single cumulative bar has no spurious growth (no prior-year base)`, s.growth[i] == null, `growth=${s.growth[i]}`);
+  check(`${tk} every H1 bar carries the cumulative marker (decal / hasCumPoint)`, s.hasCumPoint === true, `hasCum=${s.hasCumPoint}`);
+  // 柱状图 growth 线用「展示口径」数值（已按 fxToUsd 折算的 USD 值）计算同比 → 用折算后数值核对
+  const yoyDisp = (() => {
+    const md = s.ends[i].slice(5), y = String(Number(s.ends[i].slice(0, 4)) - 1);
+    let b = -1; for (let j = i - 1; j >= 0; j--) if (s.ends[j].slice(5) === md && s.ends[j].slice(0, 4) === y) { b = j; break; }
+    if (b < 0) return null;
+    return (s.rev[i] * s.fx[i] - s.rev[b] * s.fx[b]) / Math.abs(s.rev[b] * s.fx[b]) * 100;
+  })();
+  check(`${tk} H1-2026 growth == hand-computed YoY on displayed (USD) values, not null/QoQ`, near(s.growth[i], yoyDisp) && s.growth[i] != null, `got=${s.growth[i]} yoyDisp=${yoyDisp?.toFixed(2)}`);
 }
 
 // ---------- console clean ----------
