@@ -277,9 +277,11 @@ function segmentStatus(ticker, qEnd) {
 /* ECharts graphic notice shown in the empty input-side band of the sankey when a
    company+quarter has no segment inflow. Placed left of the revenue column so it
    never overlaps or squeezes the waterfall. */
-function segmentNoticeGraphic() {
+function segmentNoticeGraphic(plan) {
   if (state.view === 'bar') return [];
-  const st = segmentStatus(state.company, q().end);
+  // `plan` is the sankey segment plan (see sankeySegPlan); when omitted (e.g. cached
+  // __lastOption paths) recompute it so a fiscal-cumulative render still reports 'ok'.
+  const st = (plan || sankeySegPlan(state.company, q())).status;
   if (st.kind === 'ok') return [];
   let title, hint;
   if (st.kind === 'unavailable') {
@@ -291,8 +293,10 @@ function segmentNoticeGraphic() {
   }
   return [{
     type: 'text', left: 16, top: 'middle', z: 10, silent: true,
+    // width 176: 140 was too narrow — Chinese hints broke mid-word (e.g. "披露经审计的合并分部数
+    // 据" split across lines); 176 keeps the hint tidy inside the empty input band.
     style: {
-      width: 140, overflow: 'break', lineHeight: 19, fill: '#94a3b8',
+      width: 176, overflow: 'break', lineHeight: 19, fill: '#94a3b8',
       fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
     },
   }];
@@ -379,6 +383,70 @@ function cumulativeView(tk, qv) {
 }
 function ytdQuartersCount(tk, qEnd) {
   return DATA.companies[tk].quarters.filter(o => o.end.slice(0, 4) === qEnd.slice(0, 4) && o.end <= qEnd).length;
+}
+
+/* ---- fiscal-year cumulative view for annual-only, non-December FY filers ----
+   Some HK filers (00992.HK Lenovo, FYE 31 Mar) publish segment splits ONLY as a
+   full-fiscal-year total, stored in segments.json under `annualQuarters` (the
+   quarterly `quarters` map is empty). profit.json still holds single-quarter rows.
+   cumulativeView() above cannot help: it slices by calendar year (only valid for a
+   December FYE) and requires a `quarters[end]` segment row.
+   So when the selected quarter IS the fiscal-year-end month and an `annualQuarters`
+   split exists for it, rebuild the sankey on the FY window: segment input side =
+   annualQuarters[end] (FY cumulative $M), profit side = the sum of every single
+   quarter inside [end − 12 months + 1 day, end] (for 00992 that is exactly the four
+   rows 06-30 / 09-30 / 12-31 / 03-31). Returns the SAME shape as cumulativeView()
+   ({kind,label,values}) so the render path is shared. Non-FY-end quarters (interim)
+   return null → the existing "no segment data + notice" behaviour is preserved. */
+function fiscalCumulativeView(tk, qv) {
+  const s = SEG && SEG.companies && SEG.companies[tk];
+  if (!s || !s.annualQuarters || !qv || !qv.end) return null;
+  const fye = fiscalYearEndMonth(tk);
+  if (fye === 12) return null;                               // calendar FY handled by cumulativeView
+  if (Number(qv.end.slice(5, 7)) !== fye) return null;       // only the FY-end quarter
+  const segs = s.annualQuarters[qv.end];
+  if (!segs || !segs.length) return null;
+  // FY window [end − 12 months + 1 day, end] — the +1 day excludes the prior FY-end
+  // quarter that a naive −12-month subtraction would wrongly include.
+  const endD = new Date(qv.end + 'T00:00:00Z');
+  const startD = new Date(qv.end + 'T00:00:00Z');
+  startD.setUTCFullYear(startD.getUTCFullYear() - 1);
+  startD.setUTCDate(startD.getUTCDate() + 1);
+  const startStr = startD.toISOString().slice(0, 10);
+  const rows = DATA.companies[tk].quarters.filter(
+    o => o.periodType !== 'annual' && o.end >= startStr && o.end <= qv.end);
+  if (rows.length < 4) return null;                          // not a full FY of single quarters
+  const sum = key => {
+    let any = false, acc = 0;
+    for (const o of rows) if (o[key] != null) { any = true; acc += o[key]; }
+    return any ? acc : null;                                 // preserve null (no fabricated branch)
+  };
+  const label = lang === 'zh'
+    ? `FY${qv.end.slice(0, 4)} 全年累计`
+    : `FY${qv.end.slice(0, 4)} cumulative`;
+  return {
+    kind: 'FY', label,
+    values: { revenue: sum('revenue'), gross: sum('gross'), opInc: sum('opInc'),
+      netInc: sum('netInc'), rd: sum('rd'), sga: sum('sga') },
+  };
+}
+
+/* Unified sankey segment plan for one raw quarter. Prefers the annual-only fiscal
+   cumulative view, then the existing calendar cumulative reconciliation, else draws
+   whatever single-quarter segment list exists. `status` is forced to 'ok' on the
+   fiscal path so segmentNoticeGraphic() does not paint a "no segment data" notice
+   over a view that DOES render segments. */
+function sankeySegPlan(ticker, qvRaw) {
+  const fyCum = fiscalCumulativeView(ticker, qvRaw);
+  if (fyCum) {
+    const c = SEG.companies[ticker];
+    return { cum: fyCum, segList: (c.annualQuarters && c.annualQuarters[qvRaw.end]) || null, status: { kind: 'ok' } };
+  }
+  return {
+    cum: cumulativeView(ticker, qvRaw),
+    segList: segmentsFor(ticker, qvRaw.end),
+    status: segmentStatus(ticker, qvRaw.end),
+  };
 }
 
 /* Merge sibling segments that share a name (some CN filers file two "其他" lines, e.g.
@@ -531,17 +599,24 @@ function checkConsistency(qv, g) {
 function renderChart() {
   if (state.view === 'bar') { window.__qvEff = null; renderBarChart(); return; }
   const qvRaw = q();
-  // cumulative-period reconciliation: A 股半年/全年分部 vs 单季 profit 行
-  const cum = cumulativeView(state.company, qvRaw);
+  // cumulative-period reconciliation: A 股半年/全年分部 vs 单季 profit 行, plus the
+  // annual-only non-Dec-FY path (e.g. 00992.HK) resolved through the same plan helper.
+  const plan = sankeySegPlan(state.company, qvRaw);
+  const cum = plan.cum;
   const qv = cum ? { ...qvRaw, ...cum.values, __cum: cum } : qvRaw;
   window.__qvEff = cum ? qv : null; // qoq helpers read the effective (cumulative) period
-  const segList = segmentsFor(state.company, qv.end);
-  const segStatus = segmentStatus(state.company, qv.end);
-  const segGraphic = segmentNoticeGraphic();
+  const segList = plan.segList;
+  const segStatus = plan.status;
+  const segGraphic = segmentNoticeGraphic(plan);
   const g = buildGraph(qv, segList);
   window.__bridgeCheck = checkConsistency(qv, g);
+  // signed sum of the input-side segment values (display $B); for 00992 this includes
+  // the negative 抵銷/elimination line so it reconciles to consolidated revenue.
+  const segSumB = (plan.segList || []).reduce((a, s) => a + (s.value || 0), 0) * segFactor(qv) / MB;
   window.__sankeyMeta = {
     company: state.company, quarter: qv.end, segmentStatus: segStatus.kind,
+    cumulative: cum ? { kind: cum.kind, label: cum.label } : null,
+    segmentSum: +segSumB.toFixed(4), revenue: +(qv.revenue * dispFactor(qv) / MB).toFixed(4),
     nodes: g.nodes.map(n => ({ name: displayName(n), value: +n.value.toFixed(4), depth: n.depth })),
     links: g.links.map(l => ({ source: displayName({ name: l.source }), target: displayName({ name: l.target }), value: +l.value.toFixed(4) })),
   };
