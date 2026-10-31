@@ -20,8 +20,9 @@ ok(approx(sumCNY, 660257, 0.005), `Tencent FY2024 rev sum = ${Math.round(sumCNY)
 ok(approx(sumUSD, 90455, 0.03), `Tencent FY2024 USD display = ${Math.round(sumUSD)} (expect ≈90455 ±3%)`);
 
 // 3) 茅台 latest single quarter (CNY-M, fx present)
+// 2026-10-31 更新：补入 2026Q3（end=2026-09-30 单季）后最新期前移，断言随数据前移（同 NESN/MC 旧断言过期之先例）。
 const mt = P.companies['600519.SS'].quarters.at(-1);
-ok(mt.end === '2026-06-30' && approx(mt.revenue, 37575.16, 0.001) && approx(mt.netInc, 17274.37, 0.001), `茅台 latest ${mt.end} rev=${mt.revenue} ni=${mt.netInc}`);
+ok(mt.end === '2026-09-30' && approx(mt.revenue, 41005.58, 0.001) && approx(mt.netInc, 19950.55, 0.001), `茅台 latest ${mt.end} rev=${mt.revenue} ni=${mt.netInc}`);
 ok(mt.fxToUsd > 0.13 && mt.fxToUsd < 0.16, `茅台 fxToUsd sane (${mt.fxToUsd})`);
 
 // 4) NXPI EDGAR quarters: 30 historical (incl. 2026-06-28 from iXBRL backfill) + 1 new 2026Q3 (2026-09-27)

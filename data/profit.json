@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -28321,6 +28321,18 @@
           "opInc": 23874.28,
           "rd": 55.62,
           "sga": 3382.13
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 41005.58,
+          "netInc": 19950.55,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 36833.62,
+          "opInc": 27568.55,
+          "rd": 32.73,
+          "sga": 3311.59
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -33172,6 +33184,18 @@
           "opInc": 1837.29,
           "rd": 2329.92,
           "sga": 1836.1
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 50069.57,
+          "netInc": 1312.17,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 5592.55,
+          "opInc": 209.23,
+          "rd": 2392.29,
+          "sga": 1586.14
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -33690,7 +33714,11 @@
           "netInc": -2947.92,
           "periodType": "q",
           "fxToUsd": 0.14045733,
-          "derivation": "diff"
+          "derivation": "diff",
+          "gross": 5825.68,
+          "opInc": -1874.93,
+          "rd": 2737.72,
+          "sga": 5031.81
         },
         {
           "end": "2025-12-31",
@@ -33698,7 +33726,11 @@
           "netInc": 7154.83,
           "periodType": "q",
           "fxToUsd": 0.14283674,
-          "derivation": "diff"
+          "derivation": "diff",
+          "gross": 17501.19,
+          "opInc": 13689.34,
+          "rd": 3194.81,
+          "sga": 814.29
         },
         {
           "end": "2026-03-31",
@@ -33723,6 +33755,18 @@
           "opInc": 81711.41,
           "rd": 3383.44,
           "sga": 1024.66
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 118714.03,
+          "netInc": 54434.83,
+          "periodType": "q",
+          "fxToUsd": 0.14915,
+          "derivation": "diff",
+          "gross": 106279.02,
+          "opInc": 99039.47,
+          "rd": 3193.32,
+          "sga": 969.45
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."

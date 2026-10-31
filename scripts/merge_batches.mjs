@@ -53,6 +53,91 @@ const b6 = R('data/staging/batch6.json');
 const b5 = R('data/staging/batch5.json');
 const b1 = R('data/staging/batch1.json');
 const b7 = R('data/staging/batch7.json');
+const b8 = R('data/staging/batch8.json');
+// --b8-only: 以磁盘 profit.json 为基准，仅应用 batch8（append + fill-missing），跳过 batch1-7/fixups/
+// trauncations/fx/meta 等重建段，从而对非目标公司/期点零改动。用于向已 enrich 的磁盘增量补数。
+const B8_ONLY = process.argv.includes('--b8-only') || process.env.B8_ONLY === '1';
+
+// ================= batch8-only PATCH MODE (non-destructive) =================
+// 当以 --b8-only 运行时：以磁盘 data/profit.json 为基准，仅应用 data/staging/batch8.json 的
+//   (1) results[].newQuarters 追加 与 (2) enrich[] 补空(仅当前为 null/undefined, 且 revenue 对账≤0.5%)。
+// 跳过 batch1-7/fixups/truncations/fx/registry/meta 重建段，因此对非目标公司/期点零改动（notes/source 原样保留）。
+// 语义与主流程 batch8 段一致；额外做值门禁(revenue>0, gross≥0 白名单, gross≤revenue) + additivity。任一门禁失败 exit 1。
+if (B8_ONLY) {
+  const FIELDS8 = ['gross', 'opInc', 'rd', 'sga'];
+  const report8 = { mode: 'b8-only', added: [], skipped: [], guardFails: {}, note: 'non-destructive: only batch8 applied onto on-disk profit.json; other batches/fixups/meta NOT re-run' };
+  for (const r of b8.results) {
+    const co = profit.companies[r.ticker];
+    if (!co) { console.error(`batch8: company ${r.ticker} not found in profit.json`); process.exit(1); }
+    if (!Array.isArray(co.quarters)) co.quarters = [];
+    for (const nq of r.newQuarters) {
+      if (!nq || !nq.end) { console.error(`batch8: ${r.ticker} newQuarter without end`); process.exit(1); }
+      const ex = co.quarters.find(q => q.end === nq.end);
+      if (ex) {
+        for (const k of new Set([...Object.keys(ex), ...Object.keys(nq)])) {
+          if (JSON.stringify(ex[k]) !== JSON.stringify(nq[k])) {
+            console.error(`batch8 CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(ex[k])} new=${JSON.stringify(nq[k])}`);
+            process.exit(1);
+          }
+        }
+        continue;
+      }
+      co.quarters.push(JSON.parse(JSON.stringify(nq)));
+      report8.added.push({ ticker: r.ticker, end: nq.end, market: 'batch8-newperiod' });
+    }
+    co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
+  }
+  for (const en of (b8.enrich || [])) {
+    const co = profit.companies[en.ticker];
+    if (!co) { console.error(`batch8: enrich company ${en.ticker} not found`); process.exit(1); }
+    const q = (co.quarters || []).find(x => x.end === en.end);
+    if (!q) { report8.skipped.push({ ticker: en.ticker, end: en.end, reason: 'period-not-found' }); continue; }
+    if (q.revenue == null || Math.abs(q.revenue - en.expectRevenue) / Math.abs(en.expectRevenue) > 0.005) {
+      report8.skipped.push({ ticker: en.ticker, end: en.end, reason: 'revenue-mismatch', onDisk: q.revenue, expect: en.expectRevenue });
+      continue;
+    }
+    const did = [];
+    for (const f of FIELDS8) {
+      if (en.set[f] == null) continue;
+      if (q[f] == null) { q[f] = en.set[f]; did.push(f); }
+      else if (JSON.stringify(q[f]) !== JSON.stringify(en.set[f])) {
+        console.error(`batch8 ENRICH CONFLICT ${en.ticker} ${en.end} field '${f}': existing=${JSON.stringify(q[f])} new=${JSON.stringify(en.set[f])}`);
+        process.exit(1);
+      }
+    }
+    if (did.length) report8.added.push({ ticker: en.ticker, end: en.end, market: 'batch8-enrich', fields: did });
+  }
+  // value gate on target tickers only
+  const NEG_GROSS_OK8 = new Set(['MU', 'TSLA', 'PDD', '00100.HK']);
+  const gf = {};
+  for (const tk of new Set([...b8.results.map(r => r.ticker), ...(b8.enrich || []).map(e => e.ticker)])) {
+    const co = profit.companies[tk]; const errs = [];
+    for (const q of co.quarters) {
+      if (q.revenue == null) errs.push(`${q.end}: revenue missing/null`);
+      else if (q.revenue <= 0) errs.push(`${q.end}: revenue<=0 (${q.revenue})`);
+      if (q.gross != null && q.gross < 0 && !NEG_GROSS_OK8.has(tk)) errs.push(`${q.end}: gross<0 (${q.gross})`);
+      if (q.gross != null && q.revenue != null && q.gross > q.revenue) errs.push(`${q.end}: gross>revenue (${q.gross}>${q.revenue})`);
+    }
+    if (typeof additivityErrs === 'function') errs.push(...additivityErrs(tk, co));
+    if (errs.length) gf[tk] = errs;
+  }
+  report8.guardFails = gf;
+  if (Object.keys(gf).length) {
+    console.error('REFUSING b8-only write, integrity gate failed: ' + JSON.stringify(gf));
+    process.exit(1);
+  }
+  profit.updated = new Date().toISOString().slice(0, 10);
+  fs.mkdirSync(path.join(ROOT, 'tmp-merge'), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, 'data/profit.json'), JSON.stringify(profit, null, 2) + '\n');
+  fs.writeFileSync(path.join(ROOT, 'data/profit.json.js'), 'window.__PROFIT_DATA = ' + JSON.stringify(profit) + ';\n');
+  fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'merge_report.json'), JSON.stringify(report8, null, 2) + '\n');
+  console.log('B8-ONLY WROTE profit.json; totalCompanies=' + Object.keys(profit.companies).length +
+    ' totalQuarters=' + Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0) +
+    ' added=' + report8.added.length + ' guardFails=' + JSON.stringify(gf) + ' skipped=' + JSON.stringify(report8.skipped));
+  console.log(JSON.stringify(report8, null, 1));
+  process.exit(0);
+}
+
 
 const log = [], warn = [];
 const notesNew = [];
@@ -390,6 +475,65 @@ for (const key of ['2454.TW', '2330.TW']) {
     co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
   }
   log.push(`batch7: appended 2026Q3 new periods for ${b7.results.length} tickers`);
+}
+
+// ---------- batch8: A股 2026 Q3 三季报追加 + 长鑫存储历史字段补齐（append / fill-missing, 幂等） ----------
+// data/staging/batch8.json 承载三只 A 股 (600519.SS/000100.SZ/688825.SS) 的 2026-09-30 单季新期
+// （已是最终 quarter 元素形状），外加 688825.SS 的 2025-09-30/2025-12-31 两期历史的 gross/opInc/rd/sga 补齐。
+// 契约：① results[].newQuarters 只「追加」期末点，已存在同 end 且值全等→跳过，不同→exit 1；
+//       ② enrich[] 只对既有期点「补空」gross/opInc/rd/sga（仅当当前为 null/undefined），
+//         且必须先验证该期 revenue 与 expectRevenue 偏差≤0.5%，否则跳过并记录，绝不覆盖既有非空值。
+// 本段在 batch4(整 ticker 重建，只含 revenue/netInc) 与 fixups 之后运行，故可安全补回被 stage1 丢弃的字段。
+{
+  const before = report.added.length;
+  for (const r of b8.results) {
+    const co = profit.companies[r.ticker];
+    if (!co) { console.error(`batch8: company ${r.ticker} not found in profit.json`); process.exit(1); }
+    if (!Array.isArray(co.quarters)) co.quarters = [];
+    for (const nq of r.newQuarters) {
+      if (!nq || !nq.end) { console.error(`batch8: ${r.ticker} has newQuarter without end`); process.exit(1); }
+      const existing = co.quarters.find(q => q.end === nq.end);
+      if (existing) {
+        for (const k of new Set([...Object.keys(existing), ...Object.keys(nq)])) {
+          if (JSON.stringify(existing[k]) !== JSON.stringify(nq[k])) {
+            console.error(`batch8 CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(existing[k])} new=${JSON.stringify(nq[k])}`);
+            process.exit(1);
+          }
+        }
+        continue; // identical period already present -> idempotent skip
+      }
+      co.quarters.push(JSON.parse(JSON.stringify(nq)));
+      report.added.push({ ticker: r.ticker, end: nq.end, market: 'batch8-newperiod' });
+    }
+    co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
+  }
+  const addedN = report.added.length - before;
+
+  const FIELDS = ['gross', 'opInc', 'rd', 'sga'];
+  const enrichedN = [];
+  for (const en of (b8.enrich || [])) {
+    const co = profit.companies[en.ticker];
+    if (!co) { console.error(`batch8: enrich company ${en.ticker} not found`); process.exit(1); }
+    const q = (co.quarters || []).find(x => x.end === en.end);
+    if (!q) { console.error(`batch8 ENRICH SKIP ${en.ticker} ${en.end}: period not found`); report.skipped.push({ ticker: en.ticker, end: en.end, reason: 'period-not-found' }); continue; }
+    const rev = q.revenue, exp = en.expectRevenue;
+    if (rev == null || Math.abs(rev - exp) / Math.abs(exp) > 0.005) {
+      console.error(`batch8 ENRICH SKIP ${en.ticker} ${en.end}: revenue mismatch on-disk=${rev} expect=${exp} (>0.5%)`);
+      report.skipped.push({ ticker: en.ticker, end: en.end, reason: 'revenue-mismatch', onDisk: rev, expect: exp });
+      continue;
+    }
+    const did = [];
+    for (const f of FIELDS) {
+      if (en.set[f] == null) continue;
+      if (q[f] == null) { q[f] = en.set[f]; did.push(f); }
+      else if (JSON.stringify(q[f]) !== JSON.stringify(en.set[f])) {
+        console.error(`batch8 ENRICH CONFLICT ${en.ticker} ${en.end} field '${f}': existing=${JSON.stringify(q[f])} new=${JSON.stringify(en.set[f])}`);
+        process.exit(1);
+      }
+    }
+    if (did.length) { enrichedN.push({ ticker: en.ticker, end: en.end, filled: did }); report.added.push({ ticker: en.ticker, end: en.end, market: 'batch8-enrich', fields: did }); }
+  }
+  log.push(`batch8: appended ${addedN} new period(s) for ${b8.results.length} tickers; enriched ${enrichedN.length} period(s)`);
 }
 
 // ---------- documented period truncations (apply BEFORE guards/stats) ----------
