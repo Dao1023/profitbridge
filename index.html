@@ -48,6 +48,9 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 .meta { position:absolute; top:8px; left:14px; font-size:11px; color:var(--muted); text-align:left; line-height:1.5; z-index:7; pointer-events:none; }
 .meta a { color:var(--blue); pointer-events:auto; }
+/* derived/estimated period badge (C1 honesty: rows reconstructed by differencing) */
+.estBadge { display:inline-block; font-size:9.5px; font-weight:700; color:#b45309; background:#fef3c7;
+  border:1px solid #fcd34d; border-radius:4px; padding:0 4px; margin-left:5px; vertical-align:1px; }
 /* transient toast: quarter realignment notices on company switch */
 #hintToast { position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(8px); background:#1e293b; color:#fff;
   font-size:12.5px; padding:8px 16px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:50; box-shadow:0 4px 14px rgba(30,41,59,.25); }
@@ -176,7 +179,9 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
   </div>
 </div>
 <script src="vendor/echarts.min.js"></script>
-<script src="data/profit.json.js"></script>
+<!-- data/profit.json.js (566KB inline payload) is NOT loaded here: app.js fetches
+     data/profit.json normally and only injects this file on demand when fetch fails
+     (file:// double-click / offline), so HTTP visitors no longer download it eagerly. -->
 <script src="app.js"></script>
 </body>
 </html>

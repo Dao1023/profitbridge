@@ -5,7 +5,7 @@
 //  - every segment sub-item of the 28 annual-only-segment companies is selectable (no 无数据)
 import fs from 'node:fs';
 import { execFile } from 'node:child_process';
-const BASE = 'http://127.0.0.1:8440';
+const BASE = process.env.BASE || 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9341;
 const WIN = p => p.pathname.replace(/^\/([A-Za-z]:)/, '$1');
