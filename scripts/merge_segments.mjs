@@ -43,7 +43,7 @@ for (const [ticker, sc] of Object.entries(STAGING.companies || {})) {
   }
   // degraded 占位（无 quarters）-> 升级为真实 quarters 结构
   if (!co.quarters) {
-    co = SEG.companies[ticker] = { quarters: {}, periodTypes: {}, periodType: 'quarter' };
+    co = SEG.companies[ticker] = { quarters: {}, periodTypes: {}, periodType: sc.periodType || 'quarter' };
     report.initialized.push(ticker);
   }
   if (!co.quarters) co.quarters = {};
@@ -61,11 +61,24 @@ for (const [ticker, sc] of Object.entries(STAGING.companies || {})) {
         fatal = true;
       }
     } else {
+      // periodType 优先取 staging 该项自带口径（annual/half/quarter），缺省才回退 quarter。
+      // 原因：港股/年度-only 公司的年度期若被硬编码成 quarter，前端柱轴会按季度展开，
+      // 把年度柱误当季度柱渲染（同时公司级 periodType 也会错标）。故按 staging 声明口径写入。
+      const pt = (sc.periodTypes && sc.periodTypes[end]) || sc.periodType || 'quarter';
       co.quarters[end] = clone(incoming);
-      co.periodTypes[end] = 'quarter';
-      if (!co.periodType) co.periodType = 'quarter';
+      co.periodTypes[end] = pt;
       report.added.push({ ticker, end });
     }
+  }
+
+  // 公司级 periodType：以该公司各期口径的多数为准（annual 为主时同步为 'annual'）。
+  // 避免年度-only 公司公司级 periodType 仍停留在 'quarter'，导致轴/视图口径与期级 periodTypes 不一致。
+  {
+    const vals = Object.values(co.periodTypes || {});
+    const nAnnual = vals.filter(v => v === 'annual').length;
+    const nQuarter = vals.filter(v => v === 'quarter').length;
+    if (nAnnual > nQuarter) co.periodType = 'annual';
+    else if (!co.periodType) co.periodType = 'quarter';
   }
 }
 

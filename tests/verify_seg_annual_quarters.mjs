@@ -39,7 +39,7 @@ const results = [];
 const check = (name, ok, detail) => { results.push({ name, ok }); console.log(ok ? 'PASS' : 'FAIL', name, detail ?? ''); };
 const shot = async name => { const m = await send('Page.captureScreenshot', { format: 'png' }); if (m.result?.data) fs.writeFileSync(`${SHOTS}/${name}`, Buffer.from(m.result.data, 'base64')); };
 
-// ---- 00992.HK: four annual segment items, each with 3 FY points ----
+// ---- 00992.HK: four annual segment items, each with 4 FY points (FY2023–FY2026) ----
 const aq = await evl(`(()=>{
   const items = buildBarItems('00992.HK').filter(i=>i.group==='segments');
   return items.map(i=>({ id:i.id, label:i.label, ends:i.periods.map(p=>p.end),
@@ -51,13 +51,13 @@ const names = (aq || []).map(x => x.label);
 for (const need of ['IDG', 'ISG', 'SSG', '抵销']) {
   check(`00992 has a segment item containing "${need}"`, names.some(n => n.includes(need)), names.join(' | '));
 }
-check('00992 every segment item has 3 period points', (aq || []).every(x => x.ends.length === 3), JSON.stringify((aq || []).map(x => x.ends.length)));
-check('00992 every segment item labels are FY 2023 / FY 2024 / FY 2025',
-  (aq || []).every(x => x.labels.length === 3 && x.labels[0] === 'FY 2023' && x.labels[1] === 'FY 2024' && x.labels[2] === 'FY 2025'),
+check('00992 every segment item has 4 period points', (aq || []).every(x => x.ends.length === 4), JSON.stringify((aq || []).map(x => x.ends.length)));
+check('00992 every segment item labels are FY 2023 / FY 2024 / FY 2025 / FY 2026',
+  (aq || []).every(x => x.labels.length === 4 && x.labels[0] === 'FY 2023' && x.labels[1] === 'FY 2024' && x.labels[2] === 'FY 2025' && x.labels[3] === 'FY 2026'),
   JSON.stringify((aq || [])[0] && aq[0].labels));
 check('00992 every segment item has data', (aq || []).every(x => x.hasData));
 
-// render the first 00992 segment and confirm 3 bars actually draw with FY labels
+// render the first 00992 segment and confirm 4 bars actually draw with FY labels
 const render0 = await evl(`(()=>{
   const it = buildBarItems('00992.HK').filter(i=>i.group==='segments')[0];
   state.company='00992.HK'; state.view='bar'; state.barItem=it.id; state.mode.pct=false; state.mode.qoq=false; render();
@@ -65,8 +65,8 @@ const render0 = await evl(`(()=>{
   return { id: it.id, xlabels: o.xAxis[0].data, bars: d.map(v=>(v&&typeof v==='object')?v.value:v), n: d.length };
 })()`);
 console.log('00992 render:', JSON.stringify(render0));
-check('00992 segment bar renders exactly 3 bars', render0 && render0.n === 3 && render0.bars.filter(v => v != null).length === 3, `n=${render0 && render0.n} bars=${JSON.stringify(render0 && render0.bars)}`);
-check('00992 x-axis shows FY 2023/2024/2025', render0 && JSON.stringify(render0.xlabels) === JSON.stringify(['FY 2023', 'FY 2024', 'FY 2025']), JSON.stringify(render0 && render0.xlabels));
+check('00992 segment bar renders exactly 4 bars', render0 && render0.n === 4 && render0.bars.filter(v => v != null).length === 4, `n=${render0 && render0.n} bars=${JSON.stringify(render0 && render0.bars)}`);
+check('00992 x-axis shows FY 2023/2024/2025/2026', render0 && JSON.stringify(render0.xlabels) === JSON.stringify(['FY 2023', 'FY 2024', 'FY 2025', 'FY 2026']), JSON.stringify(render0 && render0.xlabels));
 // bar values must be the real annual magnitudes (~$49B IDG), not zero
 check('00992 segment bars carry real FY magnitudes (>=10 $B)',
   render0 && render0.bars.every(v => v != null && Math.abs(v) >= 10), JSON.stringify(render0 && render0.bars));

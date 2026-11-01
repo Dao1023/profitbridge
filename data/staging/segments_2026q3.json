@@ -1,1976 +1,5613 @@
 {
   "_meta": {
-    "source": "tmp-season-seg/staging_seg.json",
-    "updated": "2026-10-30",
+    "source": "tmp-integrate/assemble_staging.js — 本批次合成: 9 家 unitfail(seg_final) + BABA + 港股A(7) + 港股B(5)",
+    "updated": "2026-11-01",
     "staged": [
-      "MSFT",
-      "AMZN",
-      "INTC",
-      "KO",
-      "GOOGL"
+      "MU",
+      "V",
+      "IBM",
+      "MCD",
+      "SBUX",
+      "ADBE",
+      "PLTR",
+      "DELL",
+      "HPQ",
+      "BABA",
+      "00700.HK",
+      "03690.HK",
+      "09633.HK",
+      "02097.HK",
+      "01398.HK",
+      "03968.HK",
+      "00981.HK",
+      "01024.HK",
+      "03888.HK",
+      "00941.HK",
+      "00728.HK",
+      "01810.HK",
+      "00151.HK"
     ],
     "units": "USD-M (segment revenue, company reporting currency)",
     "mergeContract": "Append-only: historical quarters copied verbatim from data/segments.json; only new <end> keys are added by scripts/merge_segments.mjs. Same end with different values is an error (no silent overwrite).",
+    "dropped": [
+      {
+        "ticker": "HPQ",
+        "end": "2015-01-31",
+        "ratio": 1.0216481454755375,
+        "segSum": 14158,
+        "rev": 13858,
+        "fx": 1
+      },
+      {
+        "ticker": "HPQ",
+        "end": "2015-04-30",
+        "ratio": 1.0223472297141096,
+        "segSum": 13267,
+        "rev": 12977,
+        "fx": 1
+      },
+      {
+        "ticker": "HPQ",
+        "end": "2015-07-31",
+        "ratio": 1.0247532761689047,
+        "segSum": 12668,
+        "rev": 12362,
+        "fx": 1
+      },
+      {
+        "ticker": "HPQ",
+        "end": "2015-10-31",
+        "ratio": 1.0320397847709115,
+        "segSum": 12659,
+        "rev": 12266,
+        "fx": 1
+      }
+    ],
     "notes": {
-      "basis": "Staging only — historical quarters copied verbatim from data/segments.json; only new <end> key appended.",
-      "MSFT": "FY27 Q1 (end 2026-09-30): reportable segments reorganized to TWO (\"Agents and Infra\", \"Devices and Consumer\"); previous 3-segment basis (PBP/Intelligent Cloud/MPC) superseded. Historical quarters kept on old basis.",
-      "INTC": "New hierarchy introduced: Intel Products (CCPG 8097 + DCAI 7318 = 15415) with Intel Foundry 6697, All Other 692, Intersegment Eliminations -6291 → net revenue 16513. Replaces prior degraded flag.",
-      "KO": "5 geographic operating segments (Net Operating Revenues basis, incl intersegment) sum 13534 vs consolidated 13380 (+1.15%); see NOTES.md for R9 US/Intl×category alternative (exact 13380).",
-      "GOOGL": "Google Services (parent) + 4 children re-established as hierarchy; Google Cloud & Other Bets peers; hedging and Google advertising subtotal suppressed."
+      "BABA": "FY2023 旧 7 部口径；FY2024 六部+All others；FY2026 四部+All others（含 Unallocated 与负 Inter-segment elimination）。全部 annual。",
+      "00941.HK": "FY2025 起按客群披露（公众/政企/国际/其他），此前为 CHBN 四市场口径。",
+      "00151.HK": "仅暂存新期端 2026-03-31（历史期汇率错误由独立 fixup 显式修正，不把修复前历史值放入 staging）。",
+      "00992.HK": "EXCLUDED from merge staging：annualOnly，写入 annualQuarters（quarters 保持 {}），由独立幂等 fixup 处理。"
     }
   },
   "companies": {
-    "MSFT": {
+    "MU": {
       "quarters": {
-        "2014-09-30": [
+        "2024-11-28": [
           {
-            "name": "More Personal Computing",
-            "value": 11236
+            "name": "CMBU",
+            "value": 2648
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 6490
+            "name": "MCBU",
+            "value": 2608
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 5475
+            "name": "CDBU",
+            "value": 2292
+          },
+          {
+            "name": "AEBU",
+            "value": 1158
+          },
+          {
+            "name": "All other",
+            "value": 3
           }
         ],
-        "2014-12-31": [
+        "2025-02-27": [
           {
-            "name": "More Personal Computing",
-            "value": 13282
+            "name": "CMBU",
+            "value": 2947
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 6822
+            "name": "MCBU",
+            "value": 2236
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 6041
+            "name": "CDBU",
+            "value": 1830
+          },
+          {
+            "name": "AEBU",
+            "value": 1034
+          },
+          {
+            "name": "All other",
+            "value": 6
           }
         ],
-        "2015-03-31": [
+        "2025-05-29": [
           {
-            "name": "More Personal Computing",
-            "value": 9369
+            "name": "CMBU",
+            "value": 3386
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 6457
+            "name": "MCBU",
+            "value": 3255
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 5903
+            "name": "CDBU",
+            "value": 1530
+          },
+          {
+            "name": "AEBU",
+            "value": 1127
+          },
+          {
+            "name": "All other",
+            "value": 3
           }
         ],
-        "2015-06-30": [
+        "2025-08-28": [
           {
-            "name": "More Personal Computing",
-            "value": 9548
+            "name": "CMBU",
+            "value": 4543
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 6661
+            "name": "MCBU",
+            "value": 3760
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 6296
+            "name": "CDBU",
+            "value": 1577
+          },
+          {
+            "name": "AEBU",
+            "value": 1434
+          },
+          {
+            "name": "All other",
+            "value": 1
           }
         ],
-        "2016-09-30": [
+        "2025-11-27": [
           {
-            "name": "More Personal Computing",
-            "value": 9395
+            "name": "CMBU",
+            "value": 5284
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 6436
+            "name": "MCBU",
+            "value": 4255
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 6097
+            "name": "CDBU",
+            "value": 2379
+          },
+          {
+            "name": "AEBU",
+            "value": 1720
+          },
+          {
+            "name": "All other",
+            "value": 5
           }
         ],
-        "2016-12-31": [
+        "2026-02-26": [
           {
-            "name": "More Personal Computing",
-            "value": 11889
+            "name": "CMBU",
+            "value": 7749
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 7179
+            "name": "MCBU",
+            "value": 7711
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 6758
+            "name": "CDBU",
+            "value": 5687
+          },
+          {
+            "name": "AEBU",
+            "value": 2708
+          },
+          {
+            "name": "All other",
+            "value": 5
           }
         ],
-        "2017-03-31": [
+        "2026-05-28": [
           {
-            "name": "More Personal Computing",
-            "value": 8775
+            "name": "CMBU",
+            "value": 13769
           },
           {
-            "name": "Productivity and Business Processes",
-            "value": 7707
+            "name": "CDBU",
+            "value": 11524
           },
           {
-            "name": "Intelligent Cloud",
-            "value": 6730
-          }
-        ],
-        "2017-06-30": [
-          {
-            "name": "More Personal Computing",
-            "value": 9235
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 8548
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 7822
-          }
-        ],
-        "2017-09-30": [
-          {
-            "name": "More Personal Computing",
-            "value": 9378
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 8238
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 6922
-          }
-        ],
-        "2017-12-31": [
-          {
-            "name": "More Personal Computing",
-            "value": 12170
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 8953
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 7795
-          }
-        ],
-        "2018-03-31": [
-          {
-            "name": "More Personal Computing",
-            "value": 9917
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 9006
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 7896
-          }
-        ],
-        "2018-09-30": [
-          {
-            "name": "More Personal Computing",
-            "value": 10746
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 9771
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 8567
-          }
-        ],
-        "2018-12-31": [
-          {
-            "name": "More Personal Computing",
-            "value": 12993
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 10100
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 9378
-          }
-        ],
-        "2019-03-31": [
-          {
-            "name": "More Personal Computing",
-            "value": 10680
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 10242
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 9649
-          }
-        ],
-        "2019-06-30": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 11391
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 11279
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 11047
-          }
-        ],
-        "2019-09-30": [
-          {
-            "name": "More Personal Computing",
-            "value": 11133
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 11077
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 10845
-          }
-        ],
-        "2019-12-31": [
-          {
-            "name": "More Personal Computing",
-            "value": 13211
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 11869
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 11826
-          }
-        ],
-        "2020-03-31": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 12281
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 11743
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 10997
-          }
-        ],
-        "2020-09-30": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 12986
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 12319
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 11849
-          }
-        ],
-        "2020-12-31": [
-          {
-            "name": "More Personal Computing",
-            "value": 15122
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 14601
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 13353
-          }
-        ],
-        "2021-03-31": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 15118
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 13552
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13036
-          }
-        ],
-        "2021-06-30": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 17023
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 14691
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 14438
-          }
-        ],
-        "2021-09-30": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 16912
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 15039
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13366
-          }
-        ],
-        "2021-12-31": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 18262
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 17530
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 15936
-          }
-        ],
-        "2022-03-31": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 18987
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 15789
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 14584
-          }
-        ],
-        "2022-09-30": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 20325
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 16465
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13332
-          }
-        ],
-        "2022-12-31": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 21508
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 17002
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 14237
-          }
-        ],
-        "2023-03-31": [
-          {
-            "name": "Intelligent Cloud",
-            "value": 22081
-          },
-          {
-            "name": "Productivity and Business Processes",
-            "value": 17516
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13260
-          }
-        ],
-        "2023-06-30": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 43168
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 9030
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 3991
-          }
-        ],
-        "2023-09-30": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 25226
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 20013
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 11278
-          }
-        ],
-        "2023-12-31": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 25854
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 21525
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 14641
-          }
-        ],
-        "2024-03-31": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 27113
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 22141
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 12604
-          }
-        ],
-        "2024-09-30": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 28317
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 24092
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13176
-          }
-        ],
-        "2024-12-31": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 29437
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 25544
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 14651
-          }
-        ],
-        "2025-03-31": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 29944
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 26751
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13371
-          }
-        ],
-        "2025-06-30": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 33112
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 29878
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13451
-          }
-        ],
-        "2025-09-30": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 33020
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 30897
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13756
-          }
-        ],
-        "2025-12-31": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 34116
-          },
-          {
-            "name": "Intelligent Cloud",
-            "value": 32907
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 14250
-          }
-        ],
-        "2026-03-31": [
-          {
-            "name": "Productivity and Business Processes",
-            "value": 35013
+            "name": "MCBU",
+            "value": 11521
           },
-          {
-            "name": "Intelligent Cloud",
-            "value": 34681
-          },
-          {
-            "name": "More Personal Computing",
-            "value": 13192
-          }
-        ],
-        "2026-09-30": [
           {
-            "name": "Agents and Infra",
-            "value": 76795
+            "name": "AEBU",
+            "value": 4634
           },
           {
-            "name": "Devices and Consumer",
-            "value": 15484
+            "name": "All other",
+            "value": 8
           }
         ]
-      }
+      },
+      "periodTypes": {
+        "2024-11-28": "quarter",
+        "2025-02-27": "quarter",
+        "2025-05-29": "quarter",
+        "2025-08-28": "quarter",
+        "2025-11-27": "quarter",
+        "2026-02-26": "quarter",
+        "2026-05-28": "quarter"
+      },
+      "periodType": "quarter"
     },
-    "AMZN": {
+    "V": {
       "quarters": {
-        "2011-03-31": [
-          {
-            "name": "North America",
-            "value": 5465
-          },
-          {
-            "name": "International",
-            "value": 4392
-          }
-        ],
-        "2011-06-30": [
-          {
-            "name": "North America",
-            "value": 5406
-          },
-          {
-            "name": "International",
-            "value": 4507
-          }
-        ],
-        "2011-09-30": [
-          {
-            "name": "North America",
-            "value": 5932
-          },
-          {
-            "name": "International",
-            "value": 4944
-          }
-        ],
-        "2012-03-31": [
-          {
-            "name": "North America",
-            "value": 7427
-          },
-          {
-            "name": "International",
-            "value": 5758
-          }
-        ],
-        "2012-06-30": [
-          {
-            "name": "North America",
-            "value": 7326
-          },
-          {
-            "name": "International",
-            "value": 5508
-          }
-        ],
-        "2012-09-30": [
-          {
-            "name": "North America",
-            "value": 7884
-          },
-          {
-            "name": "International",
-            "value": 5922
-          }
-        ],
-        "2013-03-31": [
-          {
-            "name": "North America",
-            "value": 9391
-          },
-          {
-            "name": "International",
-            "value": 6679
-          }
-        ],
-        "2015-06-30": [
-          {
-            "name": "North America",
-            "value": 13796
-          },
-          {
-            "name": "International",
-            "value": 7565
-          },
-          {
-            "name": "AWS",
-            "value": 1824
-          }
-        ],
-        "2015-09-30": [
-          {
-            "name": "North America",
-            "value": 15006
-          },
-          {
-            "name": "International",
-            "value": 8267
-          },
-          {
-            "name": "AWS",
-            "value": 2085
-          }
-        ],
-        "2015-12-31": [
-          {
-            "name": "North America",
-            "value": 21500
-          },
-          {
-            "name": "International",
-            "value": 11841
-          },
-          {
-            "name": "AWS",
-            "value": 839
-          }
-        ],
-        "2016-03-31": [
-          {
-            "name": "North America",
-            "value": 16996
-          },
-          {
-            "name": "International",
-            "value": 9566
-          },
-          {
-            "name": "AWS",
-            "value": 2566
-          }
-        ],
-        "2016-06-30": [
-          {
-            "name": "North America",
-            "value": 17674
-          },
-          {
-            "name": "International",
-            "value": 9844
-          },
-          {
-            "name": "AWS",
-            "value": 2886
-          }
-        ],
-        "2016-09-30": [
-          {
-            "name": "North America",
-            "value": 18874
-          },
-          {
-            "name": "International",
-            "value": 10609
-          },
-          {
-            "name": "AWS",
-            "value": 3231
-          }
-        ],
-        "2017-03-31": [
-          {
-            "name": "North America",
-            "value": 20992
-          },
-          {
-            "name": "International",
-            "value": 11061
-          },
-          {
-            "name": "AWS",
-            "value": 3661
-          }
-        ],
-        "2017-06-30": [
-          {
-            "name": "North America",
-            "value": 22370
-          },
-          {
-            "name": "International",
-            "value": 11485
-          },
-          {
-            "name": "AWS",
-            "value": 4100
-          }
-        ],
-        "2017-09-30": [
-          {
-            "name": "North America",
-            "value": 25446
-          },
-          {
-            "name": "International",
-            "value": 13714
-          },
-          {
-            "name": "AWS",
-            "value": 4584
-          }
-        ],
         "2017-12-31": [
           {
-            "name": "North America",
-            "value": 37302
+            "name": "Data processing revenue",
+            "value": 2147
           },
           {
-            "name": "International",
-            "value": 18037
+            "name": "Service revenue",
+            "value": 2146
           },
           {
-            "name": "AWS",
-            "value": 5114
+            "name": "International transaction revenue",
+            "value": 1666
+          },
+          {
+            "name": "Other revenue",
+            "value": 229
+          },
+          {
+            "name": "Client incentives",
+            "value": -1326
           }
         ],
         "2018-03-31": [
           {
-            "name": "North America",
-            "value": 30725
+            "name": "Service revenue",
+            "value": 2253
           },
           {
-            "name": "International",
-            "value": 14875
+            "name": "Data processing revenue",
+            "value": 2127
           },
           {
-            "name": "AWS",
-            "value": 5442
+            "name": "International transaction revenue",
+            "value": 1752
+          },
+          {
+            "name": "Other revenue",
+            "value": 230
+          },
+          {
+            "name": "Client incentives",
+            "value": -1289
           }
         ],
         "2018-06-30": [
           {
-            "name": "North America",
-            "value": 32169
+            "name": "Data processing revenue",
+            "value": 2359
           },
           {
-            "name": "International",
-            "value": 14612
+            "name": "Service revenue",
+            "value": 2196
           },
           {
-            "name": "AWS",
-            "value": 6105
+            "name": "International transaction revenue",
+            "value": 1830
+          },
+          {
+            "name": "Other revenue",
+            "value": 229
+          },
+          {
+            "name": "Client incentives",
+            "value": -1374
           }
         ],
         "2018-09-30": [
           {
-            "name": "North America",
-            "value": 34348
+            "name": "Data processing revenue",
+            "value": 2394
           },
           {
-            "name": "International",
-            "value": 15549
+            "name": "Service revenue",
+            "value": 2323
           },
           {
-            "name": "AWS",
-            "value": 6679
+            "name": "International transaction revenue",
+            "value": 1963
+          },
+          {
+            "name": "Other revenue",
+            "value": 256
+          },
+          {
+            "name": "Client incentives",
+            "value": -1502
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "Data processing revenue",
+            "value": 2470
+          },
+          {
+            "name": "Service revenue",
+            "value": 2342
+          },
+          {
+            "name": "International transaction revenue",
+            "value": 1851
+          },
+          {
+            "name": "Other revenue",
+            "value": 299
+          },
+          {
+            "name": "Client incentives",
+            "value": -1456
           }
         ],
         "2019-03-31": [
           {
-            "name": "North America",
-            "value": 35812
+            "name": "Data processing revenue",
+            "value": 2432
           },
           {
-            "name": "International",
-            "value": 16192
+            "name": "Service revenue",
+            "value": 2417
           },
           {
-            "name": "AWS",
-            "value": 7696
+            "name": "International transaction revenue",
+            "value": 1796
+          },
+          {
+            "name": "Other revenue",
+            "value": 327
+          },
+          {
+            "name": "Client incentives",
+            "value": -1478
           }
         ],
         "2019-06-30": [
           {
-            "name": "North America",
-            "value": 38653
+            "name": "Data processing revenue",
+            "value": 2662
           },
           {
-            "name": "International",
-            "value": 16370
+            "name": "Service revenue",
+            "value": 2405
           },
           {
-            "name": "AWS",
-            "value": 8381
-          }
-        ],
-        "2019-09-30": [
-          {
-            "name": "North America",
-            "value": 42638
+            "name": "International transaction revenue",
+            "value": 1977
           },
           {
-            "name": "International",
-            "value": 18348
+            "name": "Other revenue",
+            "value": 342
           },
           {
-            "name": "AWS",
-            "value": 8995
+            "name": "Client incentives",
+            "value": -1546
           }
         ],
         "2019-12-31": [
           {
-            "name": "North America",
-            "value": 53670
+            "name": "Data processing revenue",
+            "value": 2864
           },
           {
-            "name": "International",
-            "value": 23813
+            "name": "Service revenue",
+            "value": 2555
           },
           {
-            "name": "AWS",
-            "value": 9954
+            "name": "International transaction revenue",
+            "value": 2018
+          },
+          {
+            "name": "Other revenue",
+            "value": 365
+          },
+          {
+            "name": "Client incentives",
+            "value": -1748
           }
         ],
         "2020-03-31": [
           {
-            "name": "North America",
-            "value": 46127
+            "name": "Data processing revenue",
+            "value": 2711
           },
           {
-            "name": "International",
-            "value": 19106
+            "name": "Service revenue",
+            "value": 2623
           },
           {
-            "name": "AWS",
-            "value": 10219
+            "name": "International transaction revenue",
+            "value": 1833
+          },
+          {
+            "name": "Other revenue",
+            "value": 392
+          },
+          {
+            "name": "Client incentives",
+            "value": -1705
           }
         ],
         "2020-06-30": [
           {
-            "name": "North America",
-            "value": 55436
+            "name": "Data processing revenue",
+            "value": 2525
           },
           {
-            "name": "International",
-            "value": 22668
+            "name": "Service revenue",
+            "value": 2409
           },
           {
-            "name": "AWS",
-            "value": 10808
+            "name": "International transaction revenue",
+            "value": 1102
+          },
+          {
+            "name": "Other revenue",
+            "value": 314
+          },
+          {
+            "name": "Client incentives",
+            "value": -1513
           }
         ],
         "2020-09-30": [
           {
-            "name": "North America",
-            "value": 59373
+            "name": "Data processing revenue",
+            "value": 2875
           },
           {
-            "name": "International",
-            "value": 25171
+            "name": "Service revenue",
+            "value": 2217
           },
           {
-            "name": "AWS",
-            "value": 11601
+            "name": "International transaction revenue",
+            "value": 1346
+          },
+          {
+            "name": "Other revenue",
+            "value": 361
+          },
+          {
+            "name": "Client incentives",
+            "value": -1698
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "Data processing revenue",
+            "value": 3033
+          },
+          {
+            "name": "Service revenue",
+            "value": 2677
+          },
+          {
+            "name": "International transaction revenue",
+            "value": 1451
+          },
+          {
+            "name": "Other revenue",
+            "value": 384
+          },
+          {
+            "name": "Client incentives",
+            "value": -1858
           }
         ],
         "2021-03-31": [
           {
-            "name": "North America",
-            "value": 64366
+            "name": "Data processing revenue",
+            "value": 2996
           },
           {
-            "name": "International",
-            "value": 30649
+            "name": "Service revenue",
+            "value": 2845
           },
           {
-            "name": "AWS",
-            "value": 13503
+            "name": "International transaction revenue",
+            "value": 1488
+          },
+          {
+            "name": "Other revenue",
+            "value": 392
+          },
+          {
+            "name": "Client incentives",
+            "value": -1992
           }
         ],
         "2021-06-30": [
           {
-            "name": "North America",
-            "value": 67550
+            "name": "Data processing revenue",
+            "value": 3327
           },
           {
-            "name": "International",
-            "value": 30721
+            "name": "Service revenue",
+            "value": 2828
           },
           {
-            "name": "AWS",
-            "value": 14809
-          }
-        ],
-        "2021-09-30": [
-          {
-            "name": "North America",
-            "value": 65557
+            "name": "International transaction revenue",
+            "value": 1696
           },
           {
-            "name": "International",
-            "value": 29145
+            "name": "Other revenue",
+            "value": 409
           },
           {
-            "name": "AWS",
-            "value": 16110
+            "name": "Client incentives",
+            "value": -2130
           }
         ],
         "2021-12-31": [
           {
-            "name": "North America",
-            "value": 82360
+            "name": "Data processing revenue",
+            "value": 3614
           },
           {
-            "name": "International",
-            "value": 37272
+            "name": "Service revenue",
+            "value": 3193
           },
           {
-            "name": "AWS",
-            "value": 17780
+            "name": "International transaction revenue",
+            "value": 2174
+          },
+          {
+            "name": "Other revenue",
+            "value": 449
+          },
+          {
+            "name": "Client incentives",
+            "value": -2371
           }
         ],
         "2022-03-31": [
           {
-            "name": "North America",
-            "value": 69244
+            "name": "Service revenue",
+            "value": 3521
           },
           {
-            "name": "International",
-            "value": 28759
+            "name": "Data processing revenue",
+            "value": 3480
           },
           {
-            "name": "AWS",
-            "value": 18441
+            "name": "International transaction revenue",
+            "value": 2208
+          },
+          {
+            "name": "Other revenue",
+            "value": 474
+          },
+          {
+            "name": "Client incentives",
+            "value": -2494
           }
         ],
         "2022-06-30": [
           {
-            "name": "North America",
-            "value": 74430
+            "name": "Data processing revenue",
+            "value": 3579
           },
           {
-            "name": "International",
-            "value": 27065
+            "name": "Service revenue",
+            "value": 3189
           },
           {
-            "name": "AWS",
-            "value": 19739
+            "name": "International transaction revenue",
+            "value": 2560
+          },
+          {
+            "name": "Other revenue",
+            "value": 517
+          },
+          {
+            "name": "Client incentives",
+            "value": -2570
           }
         ],
         "2022-09-30": [
           {
-            "name": "North America",
-            "value": 78843
+            "name": "Data processing revenue",
+            "value": 3765
           },
           {
-            "name": "International",
-            "value": 27720
+            "name": "Service revenue",
+            "value": 3458
           },
           {
-            "name": "AWS",
-            "value": 20538
-          }
-        ],
-        "2023-03-31": [
-          {
-            "name": "North America",
-            "value": 76881
-          },
-          {
-            "name": "International",
-            "value": 29123
-          },
-          {
-            "name": "AWS",
-            "value": 21354
-          }
-        ],
-        "2023-06-30": [
-          {
-            "name": "North America",
-            "value": 82546
-          },
-          {
-            "name": "International",
-            "value": 29697
-          },
-          {
-            "name": "AWS",
-            "value": 22140
-          }
-        ],
-        "2023-09-30": [
-          {
-            "name": "North America",
-            "value": 87887
-          },
-          {
-            "name": "International",
-            "value": 32137
-          },
-          {
-            "name": "AWS",
-            "value": 23059
-          }
-        ],
-        "2023-12-31": [
-          {
-            "name": "North America",
-            "value": 105514
-          },
-          {
-            "name": "International",
-            "value": 40243
-          },
-          {
-            "name": "AWS",
-            "value": 24204
-          }
-        ],
-        "2024-03-31": [
-          {
-            "name": "North America",
-            "value": 86341
-          },
-          {
-            "name": "International",
-            "value": 31935
-          },
-          {
-            "name": "AWS",
-            "value": 25037
-          }
-        ],
-        "2024-06-30": [
-          {
-            "name": "North America",
-            "value": 90033
-          },
-          {
-            "name": "International",
-            "value": 31663
-          },
-          {
-            "name": "AWS",
-            "value": 26281
-          }
-        ],
-        "2024-09-30": [
-          {
-            "name": "North America",
-            "value": 95537
-          },
-          {
-            "name": "International",
-            "value": 35888
-          },
-          {
-            "name": "AWS",
-            "value": 27452
-          }
-        ],
-        "2025-03-31": [
-          {
-            "name": "North America",
-            "value": 92887
-          },
-          {
-            "name": "International",
-            "value": 33513
-          },
-          {
-            "name": "AWS",
-            "value": 29267
-          }
-        ],
-        "2025-06-30": [
-          {
-            "name": "North America",
-            "value": 100068
-          },
-          {
-            "name": "International",
-            "value": 36761
-          },
-          {
-            "name": "AWS",
-            "value": 30873
-          }
-        ],
-        "2025-09-30": [
-          {
-            "name": "North America",
-            "value": 106267
-          },
-          {
-            "name": "International",
-            "value": 40896
-          },
-          {
-            "name": "AWS",
-            "value": 33006
-          }
-        ],
-        "2025-12-31": [
-          {
-            "name": "North America",
-            "value": 127083
-          },
-          {
-            "name": "International",
-            "value": 50724
-          },
-          {
-            "name": "AWS",
-            "value": 35579
-          }
-        ],
-        "2026-03-31": [
-          {
-            "name": "North America",
-            "value": 104143
-          },
-          {
-            "name": "International",
-            "value": 39789
-          },
-          {
-            "name": "AWS",
-            "value": 37587
-          }
-        ],
-        "2026-06-30": [
-          {
-            "name": "North America",
-            "value": 116177
-          },
-          {
-            "name": "AWS",
-            "value": 42232
-          },
-          {
-            "name": "International",
-            "value": 42197
-          }
-        ],
-        "2026-09-30": [
-          {
-            "name": "North America",
-            "value": 112852
-          },
-          {
-            "name": "International",
-            "value": 43108
-          },
-          {
-            "name": "AWS",
-            "value": 45984
-          }
-        ]
-      }
-    },
-    "INTC": {
-      "quarters": {
-        "2026-09-26": [
-          {
-            "name": "Intel Products",
-            "value": 15415,
-            "children": [
-              {
-                "name": "CCPG",
-                "value": 8097
-              },
-              {
-                "name": "DCAI",
-                "value": 7318
-              }
-            ]
-          },
-          {
-            "name": "Intel Foundry",
-            "value": 6697
-          },
-          {
-            "name": "All Other",
-            "value": 692
-          },
-          {
-            "name": "Intersegment Eliminations",
-            "value": -6291
-          }
-        ]
-      }
-    },
-    "KO": {
-      "quarters": {
-        "2026-10-02": [
-          {
-            "name": "EMEA",
-            "value": 3104
-          },
-          {
-            "name": "Latin America",
-            "value": 1958
-          },
-          {
-            "name": "North America",
-            "value": 5386
-          },
-          {
-            "name": "Asia Pacific",
-            "value": 1563
-          },
-          {
-            "name": "Bottling Investments",
-            "value": 1523
-          }
-        ]
-      }
-    },
-    "GOOGL": {
-      "quarters": {
-        "2019-03-31": [
-          {
-            "name": "Google Search & other",
-            "value": 22547
-          },
-          {
-            "name": "Google Network",
-            "value": 5015
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 3620
-          },
-          {
-            "name": "YouTube ads",
-            "value": 3025
-          },
-          {
-            "name": "Google Cloud",
-            "value": 1825
-          },
-          {
-            "name": "Other Bets",
-            "value": 170
-          }
-        ],
-        "2019-06-30": [
-          {
-            "name": "Google Search & other",
-            "value": 23642
-          },
-          {
-            "name": "Google Network",
-            "value": 5249
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 4080
-          },
-          {
-            "name": "YouTube ads",
-            "value": 3603
-          },
-          {
-            "name": "Google Cloud",
-            "value": 2100
-          },
-          {
-            "name": "Other Bets",
-            "value": 162
-          }
-        ],
-        "2019-09-30": [
-          {
-            "name": "Google Search & other",
-            "value": 24741
-          },
-          {
-            "name": "Google Network",
-            "value": 5251
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 4050
-          },
-          {
-            "name": "YouTube ads",
-            "value": 3804
-          },
-          {
-            "name": "Google Cloud",
-            "value": 2379
-          },
-          {
-            "name": "Other Bets",
-            "value": 155
-          }
-        ],
-        "2020-03-31": [
-          {
-            "name": "Google Search & other",
-            "value": 24502
-          },
-          {
-            "name": "Google Network",
-            "value": 5223
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 4435
-          },
-          {
-            "name": "YouTube ads",
-            "value": 4038
-          },
-          {
-            "name": "Google Cloud",
-            "value": 2777
-          },
-          {
-            "name": "Other Bets",
-            "value": 135
-          }
-        ],
-        "2020-06-30": [
-          {
-            "name": "Google Search & other",
-            "value": 21319
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 5124
-          },
-          {
-            "name": "Google Network",
-            "value": 4736
-          },
-          {
-            "name": "YouTube ads",
-            "value": 3812
-          },
-          {
-            "name": "Google Cloud",
-            "value": 3007
-          },
-          {
-            "name": "Other Bets",
-            "value": 148
-          }
-        ],
-        "2020-09-30": [
-          {
-            "name": "Google Search & other",
-            "value": 26338
-          },
-          {
-            "name": "Google Network",
-            "value": 5720
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 5478
-          },
-          {
-            "name": "YouTube ads",
-            "value": 5037
-          },
-          {
-            "name": "Google Cloud",
-            "value": 3444
-          },
-          {
-            "name": "Other Bets",
-            "value": 178
-          }
-        ],
-        "2021-03-31": [
-          {
-            "name": "Google Search & other",
-            "value": 31879
-          },
-          {
-            "name": "Google Network",
-            "value": 6800
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 6494
-          },
-          {
-            "name": "YouTube ads",
-            "value": 6005
-          },
-          {
-            "name": "Google Cloud",
-            "value": 4047
-          },
-          {
-            "name": "Other Bets",
-            "value": 198
-          }
-        ],
-        "2021-06-30": [
-          {
-            "name": "Google Search & other",
-            "value": 35845
-          },
-          {
-            "name": "Google Network",
-            "value": 7597
-          },
-          {
-            "name": "YouTube ads",
-            "value": 7002
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 6623
-          },
-          {
-            "name": "Google Cloud",
-            "value": 4628
-          },
-          {
-            "name": "Other Bets",
-            "value": 192
-          }
-        ],
-        "2021-09-30": [
-          {
-            "name": "Google Search & other",
-            "value": 37926
-          },
-          {
-            "name": "Google Network",
-            "value": 7999
-          },
-          {
-            "name": "YouTube ads",
-            "value": 7205
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 6754
-          },
-          {
-            "name": "Google Cloud",
-            "value": 4990
-          },
-          {
-            "name": "Other Bets",
-            "value": 182
-          }
-        ],
-        "2022-03-31": [
-          {
-            "name": "Google Search & other",
-            "value": 39618
-          },
-          {
-            "name": "Google Network",
-            "value": 8174
-          },
-          {
-            "name": "YouTube ads",
-            "value": 6869
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 6811
-          },
-          {
-            "name": "Google Cloud",
-            "value": 5821
-          },
-          {
-            "name": "Other Bets",
-            "value": 440
-          }
-        ],
-        "2022-06-30": [
-          {
-            "name": "Google Search & other",
-            "value": 40689
-          },
-          {
-            "name": "Google Network",
-            "value": 8259
-          },
-          {
-            "name": "YouTube ads",
-            "value": 7340
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 6553
-          },
-          {
-            "name": "Google Cloud",
-            "value": 6276
-          },
-          {
-            "name": "Other Bets",
-            "value": 193
-          }
-        ],
-        "2022-09-30": [
-          {
-            "name": "Google Search & other",
-            "value": 39539
-          },
-          {
-            "name": "Google Network",
-            "value": 7872
-          },
-          {
-            "name": "YouTube ads",
-            "value": 7071
-          },
-          {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 6895
+            "name": "International transaction revenue",
+            "value": 2873
           },
           {
-            "name": "Google Cloud",
-            "value": 6868
+            "name": "Other revenue",
+            "value": 551
           },
           {
-            "name": "Other Bets",
-            "value": 209
+            "name": "Client incentives",
+            "value": -2860
           }
         ],
         "2022-12-31": [
           {
-            "name": "Google Search & other",
-            "value": 42604
+            "name": "Data processing revenue",
+            "value": 3827
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 8796
+            "name": "Service revenue",
+            "value": 3511
           },
           {
-            "name": "Google Network",
-            "value": 8475
+            "name": "International transaction revenue",
+            "value": 2797
           },
           {
-            "name": "YouTube ads",
-            "value": 7963
+            "name": "Other revenue",
+            "value": 587
           },
           {
-            "name": "Google Cloud",
-            "value": 7315
-          },
-          {
-            "name": "Other Bets",
-            "value": 226
+            "name": "Client incentives",
+            "value": -2786
           }
         ],
         "2023-03-31": [
           {
-            "name": "Google Search & other",
-            "value": 40359
+            "name": "Data processing revenue",
+            "value": 3819
           },
           {
-            "name": "Google Network",
-            "value": 7496
+            "name": "Service revenue",
+            "value": 3771
           },
           {
-            "name": "Google Cloud",
-            "value": 7454
+            "name": "International transaction revenue",
+            "value": 2749
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 7413
+            "name": "Other revenue",
+            "value": 551
           },
           {
-            "name": "YouTube ads",
-            "value": 6693
-          },
-          {
-            "name": "Other Bets",
-            "value": 288
+            "name": "Client incentives",
+            "value": -2905
           }
         ],
         "2023-06-30": [
           {
-            "name": "Google Search & other",
-            "value": 42628
+            "name": "Data processing revenue",
+            "value": 4105
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 8142
+            "name": "Service revenue",
+            "value": 3668
           },
           {
-            "name": "Google Cloud",
-            "value": 8031
+            "name": "International transaction revenue",
+            "value": 2920
           },
           {
-            "name": "Google Network",
-            "value": 7850
+            "name": "Other revenue",
+            "value": 597
           },
           {
-            "name": "YouTube ads",
-            "value": 7665
-          },
-          {
-            "name": "Other Bets",
-            "value": 285
+            "name": "Client incentives",
+            "value": -3167
           }
         ],
-        "2023-09-30": [
+        "2023-12-31": [
           {
-            "name": "Google Search & other",
-            "value": 44026
+            "name": "Data processing revenue",
+            "value": 4356
           },
           {
-            "name": "Google Cloud",
-            "value": 8411
+            "name": "Service revenue",
+            "value": 3915
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 8339
+            "name": "International transaction revenue",
+            "value": 3019
           },
           {
-            "name": "YouTube ads",
-            "value": 7952
+            "name": "Other revenue",
+            "value": 692
           },
           {
-            "name": "Google Network",
-            "value": 7669
-          },
-          {
-            "name": "Other Bets",
-            "value": 297
+            "name": "Client incentives",
+            "value": -3348
           }
         ],
         "2024-03-31": [
           {
-            "name": "Google Search & other",
-            "value": 46156
+            "name": "Data processing revenue",
+            "value": 4259
           },
           {
-            "name": "Google Cloud",
-            "value": 9574
+            "name": "Service revenue",
+            "value": 4033
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 8739
+            "name": "International transaction revenue",
+            "value": 2984
           },
           {
-            "name": "YouTube ads",
-            "value": 8090
+            "name": "Other revenue",
+            "value": 756
           },
           {
-            "name": "Google Network",
-            "value": 7413
-          },
-          {
-            "name": "Other Bets",
-            "value": 495
+            "name": "Client incentives",
+            "value": -3257
           }
         ],
         "2024-06-30": [
           {
-            "name": "Google Search & other",
-            "value": 48509
+            "name": "Data processing revenue",
+            "value": 4489
           },
           {
-            "name": "Google Cloud",
-            "value": 10347
+            "name": "Service revenue",
+            "value": 3967
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 9312
+            "name": "International transaction revenue",
+            "value": 3194
           },
           {
-            "name": "YouTube ads",
-            "value": 8663
+            "name": "Other revenue",
+            "value": 780
           },
           {
-            "name": "Google Network",
-            "value": 7444
-          },
-          {
-            "name": "Other Bets",
-            "value": 365
+            "name": "Client incentives",
+            "value": -3530
           }
         ],
         "2024-09-30": [
           {
-            "name": "Google Search & other",
-            "value": 49385
+            "name": "Data processing revenue",
+            "value": 4610
           },
           {
-            "name": "Google Cloud",
-            "value": 11353
+            "name": "Service revenue",
+            "value": 4199
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 10656
+            "name": "International transaction revenue",
+            "value": 3468
           },
           {
-            "name": "YouTube ads",
-            "value": 8921
+            "name": "Other revenue",
+            "value": 969
           },
           {
-            "name": "Google Network",
-            "value": 7548
-          },
-          {
-            "name": "Other Bets",
-            "value": 388
+            "name": "Client incentives",
+            "value": -3629
           }
         ],
         "2024-12-31": [
           {
-            "name": "Google Search & other",
-            "value": 54034
+            "name": "Data processing revenue",
+            "value": 4745
           },
           {
-            "name": "Google Cloud",
-            "value": 11955
+            "name": "Service revenue",
+            "value": 4208
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 11633
+            "name": "International transaction revenue",
+            "value": 3442
           },
           {
-            "name": "YouTube ads",
-            "value": 10473
+            "name": "Other revenue",
+            "value": 912
           },
           {
-            "name": "Google Network",
-            "value": 7954
-          },
-          {
-            "name": "Other Bets",
-            "value": 400
+            "name": "Client incentives",
+            "value": -3797
           }
         ],
         "2025-03-31": [
           {
-            "name": "Google Search & other",
-            "value": 50702
+            "name": "Data processing revenue",
+            "value": 4701
           },
           {
-            "name": "Google Cloud",
-            "value": 12260
+            "name": "Service revenue",
+            "value": 4399
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 10379
+            "name": "International transaction revenue",
+            "value": 3291
           },
           {
-            "name": "YouTube ads",
-            "value": 8927
+            "name": "Other revenue",
+            "value": 937
           },
           {
-            "name": "Google Network",
-            "value": 7256
-          },
-          {
-            "name": "Other Bets",
-            "value": 450
+            "name": "Client incentives",
+            "value": -3734
           }
         ],
         "2025-06-30": [
           {
-            "name": "Google Search & other",
-            "value": 54190
+            "name": "Data processing revenue",
+            "value": 5153
           },
           {
-            "name": "Google Cloud",
-            "value": 13624
+            "name": "Service revenue",
+            "value": 4330
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 11203
+            "name": "International transaction revenue",
+            "value": 3633
           },
           {
-            "name": "YouTube ads",
-            "value": 9796
+            "name": "Other revenue",
+            "value": 1028
           },
           {
-            "name": "Google Network",
-            "value": 7354
-          },
-          {
-            "name": "Other Bets",
-            "value": 373
+            "name": "Client incentives",
+            "value": -3972
           }
         ],
-        "2025-09-30": [
+        "2025-12-31": [
           {
-            "name": "Google Search & other",
-            "value": 56567
+            "name": "Data processing revenue",
+            "value": 5544
           },
           {
-            "name": "Google Cloud",
-            "value": 15157
+            "name": "Service revenue",
+            "value": 4760
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 12870
+            "name": "International transaction revenue",
+            "value": 3652
           },
           {
-            "name": "YouTube ads",
-            "value": 10261
+            "name": "Other revenue",
+            "value": 1214
           },
           {
-            "name": "Google Network",
-            "value": 7354
-          },
-          {
-            "name": "Other Bets",
-            "value": 344
+            "name": "Client incentives",
+            "value": -4269
           }
         ],
         "2026-03-31": [
           {
-            "name": "Google Search & other",
-            "value": 60399
+            "name": "Data processing revenue",
+            "value": 5543
           },
           {
-            "name": "Google Cloud",
-            "value": 20028
+            "name": "Service revenue",
+            "value": 4981
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 12384
+            "name": "International transaction revenue",
+            "value": 3631
           },
           {
-            "name": "YouTube ads",
-            "value": 9883
+            "name": "Other revenue",
+            "value": 1320
           },
           {
-            "name": "Google Network",
-            "value": 6971
-          },
-          {
-            "name": "Other Bets",
-            "value": 411
+            "name": "Client incentives",
+            "value": -4245
           }
         ],
         "2026-06-30": [
           {
-            "name": "Google Search & other",
-            "value": 63271
+            "name": "Data processing revenue",
+            "value": 6042
           },
           {
-            "name": "Google Cloud",
-            "value": 24768
+            "name": "Service revenue",
+            "value": 4922
           },
           {
-            "name": "Google subscriptions, platforms, and devices",
-            "value": 12911
+            "name": "International transaction revenue",
+            "value": 3853
           },
           {
-            "name": "YouTube ads",
-            "value": 11055
+            "name": "Other revenue",
+            "value": 1496
           },
           {
-            "name": "Google Network",
-            "value": 7303
+            "name": "Client incentives",
+            "value": -4680
+          }
+        ]
+      },
+      "periodTypes": {
+        "2017-12-31": "quarter",
+        "2018-03-31": "quarter",
+        "2018-06-30": "quarter",
+        "2018-09-30": "quarter",
+        "2018-12-31": "quarter",
+        "2019-03-31": "quarter",
+        "2019-06-30": "quarter",
+        "2019-12-31": "quarter",
+        "2020-03-31": "quarter",
+        "2020-06-30": "quarter",
+        "2020-09-30": "quarter",
+        "2020-12-31": "quarter",
+        "2021-03-31": "quarter",
+        "2021-06-30": "quarter",
+        "2021-12-31": "quarter",
+        "2022-03-31": "quarter",
+        "2022-06-30": "quarter",
+        "2022-09-30": "quarter",
+        "2022-12-31": "quarter",
+        "2023-03-31": "quarter",
+        "2023-06-30": "quarter",
+        "2023-12-31": "quarter",
+        "2024-03-31": "quarter",
+        "2024-06-30": "quarter",
+        "2024-09-30": "quarter",
+        "2024-12-31": "quarter",
+        "2025-03-31": "quarter",
+        "2025-06-30": "quarter",
+        "2025-12-31": "quarter",
+        "2026-03-31": "quarter",
+        "2026-06-30": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "IBM": {
+      "quarters": {
+        "2021-03-31": [
+          {
+            "name": "Software",
+            "value": 5138
           },
           {
-            "name": "Other Bets",
-            "value": 382
+            "name": "Consulting",
+            "value": 4262
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3293
+          },
+          {
+            "name": "Other",
+            "value": 284
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "Software",
+            "value": 5795
+          },
+          {
+            "name": "Consulting",
+            "value": 4378
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3560
+          },
+          {
+            "name": "Other",
+            "value": 277
+          },
+          {
+            "name": "Financing",
+            "value": 209
+          }
+        ],
+        "2021-09-30": [
+          {
+            "name": "Software",
+            "value": 5406
+          },
+          {
+            "name": "Consulting",
+            "value": 4457
+          },
+          {
+            "name": "Infrastructure",
+            "value": 2921
+          },
+          {
+            "name": "Other",
+            "value": 282
+          },
+          {
+            "name": "Financing",
+            "value": 184
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "Software",
+            "value": 7087
+          },
+          {
+            "name": "Consulting",
+            "value": 4747
+          },
+          {
+            "name": "Infrastructure",
+            "value": 4414
+          },
+          {
+            "name": "Financing",
+            "value": 381
+          }
+        ],
+        "2022-03-31": [
+          {
+            "name": "Software",
+            "value": 5772
+          },
+          {
+            "name": "Consulting",
+            "value": 4829
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3219
+          },
+          {
+            "name": "Other",
+            "value": 224
+          }
+        ],
+        "2022-06-30": [
+          {
+            "name": "Software",
+            "value": 6166
+          },
+          {
+            "name": "Consulting",
+            "value": 4809
+          },
+          {
+            "name": "Infrastructure",
+            "value": 4235
+          },
+          {
+            "name": "Other",
+            "value": 180
+          },
+          {
+            "name": "Financing",
+            "value": 146
+          }
+        ],
+        "2022-09-30": [
+          {
+            "name": "Software",
+            "value": 5811
+          },
+          {
+            "name": "Consulting",
+            "value": 4700
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3352
+          },
+          {
+            "name": "Financing",
+            "value": 174
+          },
+          {
+            "name": "Other",
+            "value": 70
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "Software",
+            "value": 5591
+          },
+          {
+            "name": "Consulting",
+            "value": 5197
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3098
+          },
+          {
+            "name": "Financing",
+            "value": 196
+          },
+          {
+            "name": "Other",
+            "value": 169
+          }
+        ],
+        "2023-06-30": [
+          {
+            "name": "Software",
+            "value": 6294
+          },
+          {
+            "name": "Consulting",
+            "value": 5226
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3618
+          },
+          {
+            "name": "Financing",
+            "value": 185
+          },
+          {
+            "name": "Other",
+            "value": 152
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "Software",
+            "value": 5947
+          },
+          {
+            "name": "Consulting",
+            "value": 5178
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3272
+          },
+          {
+            "name": "Financing",
+            "value": 186
+          },
+          {
+            "name": "Other",
+            "value": 170
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "Software",
+            "value": 7179
+          },
+          {
+            "name": "Consulting",
+            "value": 5283
+          },
+          {
+            "name": "Infrastructure",
+            "value": 4605
+          },
+          {
+            "name": "Financing",
+            "value": 174
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "Software",
+            "value": 5899
+          },
+          {
+            "name": "Consulting",
+            "value": 5186
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3076
+          },
+          {
+            "name": "Financing",
+            "value": 193
+          },
+          {
+            "name": "Other",
+            "value": 108
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "Software",
+            "value": 6739
+          },
+          {
+            "name": "Consulting",
+            "value": 5179
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3645
+          },
+          {
+            "name": "Financing",
+            "value": 169
+          },
+          {
+            "name": "Other",
+            "value": 38
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "Software",
+            "value": 6524
+          },
+          {
+            "name": "Consulting",
+            "value": 5152
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3042
+          },
+          {
+            "name": "Financing",
+            "value": 181
+          },
+          {
+            "name": "Other",
+            "value": 68
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "Software",
+            "value": 6336
+          },
+          {
+            "name": "Consulting",
+            "value": 5068
+          },
+          {
+            "name": "Infrastructure",
+            "value": 2886
+          },
+          {
+            "name": "Financing",
+            "value": 191
+          },
+          {
+            "name": "Other",
+            "value": 61
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "Software",
+            "value": 7387
+          },
+          {
+            "name": "Consulting",
+            "value": 5314
+          },
+          {
+            "name": "Infrastructure",
+            "value": 4142
+          },
+          {
+            "name": "Financing",
+            "value": 166
+          },
+          {
+            "name": "Other",
+            "value": -31
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "Software",
+            "value": 7209
+          },
+          {
+            "name": "Consulting",
+            "value": 5324
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3559
+          },
+          {
+            "name": "Financing",
+            "value": 200
+          },
+          {
+            "name": "Other",
+            "value": 38
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "Software",
+            "value": 9030
+          },
+          {
+            "name": "Consulting",
+            "value": 5349
+          },
+          {
+            "name": "Infrastructure",
+            "value": 5131
+          },
+          {
+            "name": "Financing",
+            "value": 180
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "Software",
+            "value": 7052
+          },
+          {
+            "name": "Consulting",
+            "value": 5272
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3326
+          },
+          {
+            "name": "Financing",
+            "value": 220
+          },
+          {
+            "name": "Other",
+            "value": 48
+          }
+        ],
+        "2026-06-30": [
+          {
+            "name": "Software",
+            "value": 7761
+          },
+          {
+            "name": "Consulting",
+            "value": 5327
+          },
+          {
+            "name": "Infrastructure",
+            "value": 3835
+          },
+          {
+            "name": "Financing",
+            "value": 186
+          },
+          {
+            "name": "Other",
+            "value": 52
           }
         ],
         "2026-09-30": [
           {
-            "name": "Google Services",
-            "value": 96302,
-            "children": [
-              {
-                "name": "Google Search & other",
-                "value": 63350
-              },
-              {
-                "name": "YouTube ads",
-                "value": 11207
-              },
-              {
-                "name": "Google Network",
-                "value": 7455
-              },
-              {
-                "name": "Google subscriptions, platforms, and devices",
-                "value": 14290
-              }
-            ]
+            "name": "Software",
+            "value": 7804
           },
           {
-            "name": "Google Cloud",
-            "value": 30709
+            "name": "Consulting",
+            "value": 5335
           },
           {
-            "name": "Other Bets",
-            "value": 372
+            "name": "Infrastructure",
+            "value": 3707
+          },
+          {
+            "name": "Financing",
+            "value": 192
+          },
+          {
+            "name": "Other",
+            "value": 66
           }
         ]
-      }
+      },
+      "periodTypes": {
+        "2021-03-31": "quarter",
+        "2021-06-30": "quarter",
+        "2021-09-30": "quarter",
+        "2021-12-31": "quarter",
+        "2022-03-31": "quarter",
+        "2022-06-30": "quarter",
+        "2022-09-30": "quarter",
+        "2023-03-31": "quarter",
+        "2023-06-30": "quarter",
+        "2023-09-30": "quarter",
+        "2023-12-31": "quarter",
+        "2024-03-31": "quarter",
+        "2024-06-30": "quarter",
+        "2024-09-30": "quarter",
+        "2025-03-31": "quarter",
+        "2025-06-30": "quarter",
+        "2025-09-30": "quarter",
+        "2025-12-31": "quarter",
+        "2026-03-31": "quarter",
+        "2026-06-30": "quarter",
+        "2026-09-30": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "MCD": {
+      "quarters": {
+        "2021-03-31": [
+          {
+            "name": "International Operated Markets",
+            "value": 2556.2
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2075.5
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 492.9
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3078.7
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2278.8
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 530.4
+          }
+        ],
+        "2021-09-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3372.7
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2260.7
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 567.9
+          }
+        ],
+        "2022-03-31": [
+          {
+            "name": "International Operated Markets",
+            "value": 2922.1
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2175.6
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 567.9
+          }
+        ],
+        "2022-06-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 2747.5
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2410
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 560.9
+          }
+        ],
+        "2022-09-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 2817.8
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2456.6
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 597.7
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "International Operated Markets",
+            "value": 2795
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2488
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 615
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3300
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2704
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 688
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "International Operated Markets",
+            "value": 2987
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2560
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 621
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3147
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2698
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 645
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3309
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2739
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 825
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "International Operated Markets",
+            "value": 2916
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2494
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 546
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3462
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2781
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 600
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3658
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2772
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 648
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "International Operated Markets",
+            "value": 3325
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2583
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 610
+          }
+        ],
+        "2026-06-30": [
+          {
+            "name": "International Operated Markets",
+            "value": 3603
+          },
+          {
+            "name": "U.S. Market",
+            "value": 2827
+          },
+          {
+            "name": "International Developmental Licensed Markets and Corporate",
+            "value": 669
+          }
+        ]
+      },
+      "periodTypes": {
+        "2021-03-31": "quarter",
+        "2021-06-30": "quarter",
+        "2021-09-30": "quarter",
+        "2022-03-31": "quarter",
+        "2022-06-30": "quarter",
+        "2022-09-30": "quarter",
+        "2023-03-31": "quarter",
+        "2023-09-30": "quarter",
+        "2024-03-31": "quarter",
+        "2024-06-30": "quarter",
+        "2024-09-30": "quarter",
+        "2025-03-31": "quarter",
+        "2025-06-30": "quarter",
+        "2025-09-30": "quarter",
+        "2026-03-31": "quarter",
+        "2026-06-30": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "SBUX": {
+      "quarters": {
+        "2017-12-31": [
+          {
+            "name": "Beverage",
+            "value": 3418
+          },
+          {
+            "name": "Other",
+            "value": 1612
+          },
+          {
+            "name": "Food",
+            "value": 1043.7
+          }
+        ],
+        "2018-04-01": [
+          {
+            "name": "Beverage",
+            "value": 3519.8
+          },
+          {
+            "name": "Other",
+            "value": 1444.9
+          },
+          {
+            "name": "Food",
+            "value": 1067.1
+          }
+        ],
+        "2018-07-01": [
+          {
+            "name": "Beverage",
+            "value": 3766.2
+          },
+          {
+            "name": "Other",
+            "value": 1411.5
+          },
+          {
+            "name": "Food",
+            "value": 1132.6
+          }
+        ],
+        "2018-09-30": [
+          {
+            "name": "Beverage",
+            "value": 3759.1
+          },
+          {
+            "name": "Other",
+            "value": 1801.5
+          },
+          {
+            "name": "Food",
+            "value": 743.1
+          }
+        ],
+        "2018-12-30": [
+          {
+            "name": "Beverage",
+            "value": 3926
+          },
+          {
+            "name": "Other",
+            "value": 1517.8
+          },
+          {
+            "name": "Food",
+            "value": 1188.9
+          }
+        ],
+        "2019-03-31": [
+          {
+            "name": "Beverage",
+            "value": 3760.4
+          },
+          {
+            "name": "Other",
+            "value": 1387.6
+          },
+          {
+            "name": "Food",
+            "value": 1157.9
+          }
+        ],
+        "2019-06-30": [
+          {
+            "name": "Beverage",
+            "value": 4122.1
+          },
+          {
+            "name": "Other",
+            "value": 1480.6
+          },
+          {
+            "name": "Food",
+            "value": 1220.3
+          }
+        ],
+        "2019-12-29": [
+          {
+            "name": "Beverage",
+            "value": 4260.9
+          },
+          {
+            "name": "Other",
+            "value": 1674.1
+          },
+          {
+            "name": "Food",
+            "value": 1162.1
+          }
+        ],
+        "2020-03-29": [
+          {
+            "name": "Beverage",
+            "value": 3530.9
+          },
+          {
+            "name": "Other",
+            "value": 1496.1
+          },
+          {
+            "name": "Food",
+            "value": 968.7
+          }
+        ],
+        "2020-06-28": [
+          {
+            "name": "Beverage",
+            "value": 2628.8
+          },
+          {
+            "name": "Other",
+            "value": 964.1
+          },
+          {
+            "name": "Food",
+            "value": 629.2
+          }
+        ],
+        "2020-09-27": [
+          {
+            "name": "Beverage",
+            "value": 3916.9
+          },
+          {
+            "name": "Other",
+            "value": 1247
+          },
+          {
+            "name": "Food",
+            "value": 1039.2
+          }
+        ],
+        "2020-12-27": [
+          {
+            "name": "Beverage",
+            "value": 4251.9
+          },
+          {
+            "name": "Other",
+            "value": 1356.7
+          },
+          {
+            "name": "Food",
+            "value": 1140.8
+          }
+        ],
+        "2021-03-28": [
+          {
+            "name": "Beverage",
+            "value": 4212.8
+          },
+          {
+            "name": "Other",
+            "value": 1323.8
+          },
+          {
+            "name": "Food",
+            "value": 1131.4
+          }
+        ],
+        "2021-06-27": [
+          {
+            "name": "Beverage",
+            "value": 4753.1
+          },
+          {
+            "name": "Other",
+            "value": 1432.2
+          },
+          {
+            "name": "Food",
+            "value": 1311.2
+          }
+        ],
+        "2022-01-02": [
+          {
+            "name": "Beverage",
+            "value": 4898.4
+          },
+          {
+            "name": "Other",
+            "value": 1717.4
+          },
+          {
+            "name": "Food",
+            "value": 1434.6
+          }
+        ],
+        "2022-04-03": [
+          {
+            "name": "Beverage",
+            "value": 4599
+          },
+          {
+            "name": "Other",
+            "value": 1672.3
+          },
+          {
+            "name": "Food",
+            "value": 1364.3
+          }
+        ],
+        "2022-07-03": [
+          {
+            "name": "Beverage",
+            "value": 4944.6
+          },
+          {
+            "name": "Other",
+            "value": 1733.5
+          },
+          {
+            "name": "Food",
+            "value": 1472
+          }
+        ],
+        "2022-10-02": [
+          {
+            "name": "Beverage",
+            "value": 5113.3
+          },
+          {
+            "name": "Other",
+            "value": 1767.6
+          },
+          {
+            "name": "Food",
+            "value": 1533.3
+          }
+        ],
+        "2023-01-01": [
+          {
+            "name": "Beverage",
+            "value": 5173
+          },
+          {
+            "name": "Other",
+            "value": 1975
+          },
+          {
+            "name": "Food",
+            "value": 1565.9
+          }
+        ],
+        "2023-04-02": [
+          {
+            "name": "Beverage",
+            "value": 5226.9
+          },
+          {
+            "name": "Other",
+            "value": 1902
+          },
+          {
+            "name": "Food",
+            "value": 1590.9
+          }
+        ],
+        "2023-07-02": [
+          {
+            "name": "Beverage",
+            "value": 5587.9
+          },
+          {
+            "name": "Other",
+            "value": 1875.9
+          },
+          {
+            "name": "Food",
+            "value": 1704.5
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "Beverage",
+            "value": 5695.9
+          },
+          {
+            "name": "Other",
+            "value": 1972.3
+          },
+          {
+            "name": "Food",
+            "value": 1757.1
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "Beverage",
+            "value": 5160.6
+          },
+          {
+            "name": "Other",
+            "value": 1819.4
+          },
+          {
+            "name": "Food",
+            "value": 1583
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "Beverage",
+            "value": 5528
+          },
+          {
+            "name": "Other",
+            "value": 1841.4
+          },
+          {
+            "name": "Food",
+            "value": 1744.5
+          }
+        ],
+        "2024-09-29": [
+          {
+            "name": "Beverage",
+            "value": 5499.4
+          },
+          {
+            "name": "Other",
+            "value": 1910
+          },
+          {
+            "name": "Food",
+            "value": 1664.6
+          }
+        ],
+        "2024-12-29": [
+          {
+            "name": "Beverage",
+            "value": 5678
+          },
+          {
+            "name": "Other",
+            "value": 1929.4
+          },
+          {
+            "name": "Food",
+            "value": 1790.4
+          }
+        ],
+        "2025-03-30": [
+          {
+            "name": "Beverage",
+            "value": 5293.6
+          },
+          {
+            "name": "Other",
+            "value": 1776.1
+          },
+          {
+            "name": "Food",
+            "value": 1691.9
+          }
+        ],
+        "2025-06-29": [
+          {
+            "name": "Beverage",
+            "value": 5752
+          },
+          {
+            "name": "Other",
+            "value": 1916.5
+          },
+          {
+            "name": "Food",
+            "value": 1787.5
+          }
+        ],
+        "2025-12-28": [
+          {
+            "name": "Beverage",
+            "value": 5944.2
+          },
+          {
+            "name": "Other",
+            "value": 2089.7
+          },
+          {
+            "name": "Food",
+            "value": 1881.2
+          }
+        ],
+        "2026-03-29": [
+          {
+            "name": "Beverage",
+            "value": 5659
+          },
+          {
+            "name": "Other",
+            "value": 2041.9
+          },
+          {
+            "name": "Food",
+            "value": 1830.6
+          }
+        ],
+        "2026-06-28": [
+          {
+            "name": "Beverage",
+            "value": 5444
+          },
+          {
+            "name": "Other",
+            "value": 2015.4
+          },
+          {
+            "name": "Food",
+            "value": 1863.3
+          }
+        ]
+      },
+      "periodTypes": {
+        "2017-12-31": "quarter",
+        "2018-04-01": "quarter",
+        "2018-07-01": "quarter",
+        "2018-09-30": "quarter",
+        "2018-12-30": "quarter",
+        "2019-03-31": "quarter",
+        "2019-06-30": "quarter",
+        "2019-12-29": "quarter",
+        "2020-03-29": "quarter",
+        "2020-06-28": "quarter",
+        "2020-09-27": "quarter",
+        "2020-12-27": "quarter",
+        "2021-03-28": "quarter",
+        "2021-06-27": "quarter",
+        "2022-01-02": "quarter",
+        "2022-04-03": "quarter",
+        "2022-07-03": "quarter",
+        "2022-10-02": "quarter",
+        "2023-01-01": "quarter",
+        "2023-04-02": "quarter",
+        "2023-07-02": "quarter",
+        "2023-12-31": "quarter",
+        "2024-03-31": "quarter",
+        "2024-06-30": "quarter",
+        "2024-09-29": "quarter",
+        "2024-12-29": "quarter",
+        "2025-03-30": "quarter",
+        "2025-06-29": "quarter",
+        "2025-12-28": "quarter",
+        "2026-03-29": "quarter",
+        "2026-06-28": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "ADBE": {
+      "quarters": {
+        "2022-03-04": [
+          {
+            "name": "Americas",
+            "value": 2446
+          },
+          {
+            "name": "EMEA",
+            "value": 1136
+          },
+          {
+            "name": "APAC",
+            "value": 680
+          }
+        ],
+        "2022-06-03": [
+          {
+            "name": "Americas",
+            "value": 2524
+          },
+          {
+            "name": "EMEA",
+            "value": 1157
+          },
+          {
+            "name": "APAC",
+            "value": 705
+          }
+        ],
+        "2022-09-02": [
+          {
+            "name": "Americas",
+            "value": 2600
+          },
+          {
+            "name": "EMEA",
+            "value": 1143
+          },
+          {
+            "name": "APAC",
+            "value": 690
+          }
+        ],
+        "2023-03-03": [
+          {
+            "name": "Americas",
+            "value": 2779
+          },
+          {
+            "name": "EMEA",
+            "value": 1173
+          },
+          {
+            "name": "APAC",
+            "value": 703
+          }
+        ],
+        "2023-06-02": [
+          {
+            "name": "Americas",
+            "value": 2879
+          },
+          {
+            "name": "EMEA",
+            "value": 1213
+          },
+          {
+            "name": "APAC",
+            "value": 724
+          }
+        ],
+        "2023-09-01": [
+          {
+            "name": "Americas",
+            "value": 2943
+          },
+          {
+            "name": "EMEA",
+            "value": 1229
+          },
+          {
+            "name": "APAC",
+            "value": 718
+          }
+        ],
+        "2024-03-01": [
+          {
+            "name": "Americas",
+            "value": 3110
+          },
+          {
+            "name": "EMEA",
+            "value": 1319
+          },
+          {
+            "name": "APAC",
+            "value": 753
+          }
+        ],
+        "2024-05-31": [
+          {
+            "name": "Americas",
+            "value": 3188
+          },
+          {
+            "name": "EMEA",
+            "value": 1361
+          },
+          {
+            "name": "APAC",
+            "value": 760
+          }
+        ],
+        "2024-08-30": [
+          {
+            "name": "Americas",
+            "value": 3241
+          },
+          {
+            "name": "EMEA",
+            "value": 1405
+          },
+          {
+            "name": "APAC",
+            "value": 762
+          }
+        ],
+        "2025-02-28": [
+          {
+            "name": "Americas",
+            "value": 3405
+          },
+          {
+            "name": "EMEA",
+            "value": 1502
+          },
+          {
+            "name": "APAC",
+            "value": 807
+          }
+        ],
+        "2025-05-30": [
+          {
+            "name": "Americas",
+            "value": 3500
+          },
+          {
+            "name": "EMEA",
+            "value": 1541
+          },
+          {
+            "name": "APAC",
+            "value": 832
+          }
+        ],
+        "2025-08-29": [
+          {
+            "name": "Americas",
+            "value": 3555
+          },
+          {
+            "name": "EMEA",
+            "value": 1586
+          },
+          {
+            "name": "APAC",
+            "value": 847
+          }
+        ],
+        "2026-02-27": [
+          {
+            "name": "Americas",
+            "value": 3755
+          },
+          {
+            "name": "EMEA",
+            "value": 1739
+          },
+          {
+            "name": "APAC",
+            "value": 904
+          }
+        ],
+        "2026-05-29": [
+          {
+            "name": "Americas",
+            "value": 3872
+          },
+          {
+            "name": "EMEA",
+            "value": 1809
+          },
+          {
+            "name": "APAC",
+            "value": 937
+          }
+        ],
+        "2026-08-28": [
+          {
+            "name": "Americas",
+            "value": 3974
+          },
+          {
+            "name": "EMEA",
+            "value": 1852
+          },
+          {
+            "name": "APAC",
+            "value": 934
+          }
+        ]
+      },
+      "periodTypes": {
+        "2022-03-04": "quarter",
+        "2022-06-03": "quarter",
+        "2022-09-02": "quarter",
+        "2023-03-03": "quarter",
+        "2023-06-02": "quarter",
+        "2023-09-01": "quarter",
+        "2024-03-01": "quarter",
+        "2024-05-31": "quarter",
+        "2024-08-30": "quarter",
+        "2025-02-28": "quarter",
+        "2025-05-30": "quarter",
+        "2025-08-29": "quarter",
+        "2026-02-27": "quarter",
+        "2026-05-29": "quarter",
+        "2026-08-28": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "PLTR": {
+      "quarters": {
+        "2020-03-31": [
+          {
+            "name": "Government",
+            "value": 118.1
+          },
+          {
+            "name": "Commercial",
+            "value": 111.2
+          }
+        ],
+        "2020-06-30": [
+          {
+            "name": "Government",
+            "value": 139.6
+          },
+          {
+            "name": "Commercial",
+            "value": 112.3
+          }
+        ],
+        "2020-09-30": [
+          {
+            "name": "Government",
+            "value": 162.6
+          },
+          {
+            "name": "Commercial",
+            "value": 126.8
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "Government",
+            "value": 189.9
+          },
+          {
+            "name": "Commercial",
+            "value": 132.2
+          }
+        ],
+        "2021-03-31": [
+          {
+            "name": "Government",
+            "value": 208.4
+          },
+          {
+            "name": "Commercial",
+            "value": 132.8
+          }
+        ],
+        "2021-06-30": [
+          {
+            "name": "Government",
+            "value": 232.1
+          },
+          {
+            "name": "Commercial",
+            "value": 143.5
+          }
+        ],
+        "2021-09-30": [
+          {
+            "name": "Government",
+            "value": 217.8
+          },
+          {
+            "name": "Commercial",
+            "value": 174.3
+          }
+        ],
+        "2022-03-31": [
+          {
+            "name": "Government",
+            "value": 241.8
+          },
+          {
+            "name": "Commercial",
+            "value": 204.6
+          }
+        ],
+        "2022-06-30": [
+          {
+            "name": "Government",
+            "value": 263
+          },
+          {
+            "name": "Commercial",
+            "value": 210
+          }
+        ],
+        "2022-09-30": [
+          {
+            "name": "Government",
+            "value": 273.8
+          },
+          {
+            "name": "Commercial",
+            "value": 204
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "Government",
+            "value": 293.2
+          },
+          {
+            "name": "Commercial",
+            "value": 215.5
+          }
+        ],
+        "2023-03-31": [
+          {
+            "name": "Government",
+            "value": 289.1
+          },
+          {
+            "name": "Commercial",
+            "value": 236.1
+          }
+        ],
+        "2023-06-30": [
+          {
+            "name": "Government",
+            "value": 301.5
+          },
+          {
+            "name": "Commercial",
+            "value": 231.8
+          }
+        ],
+        "2023-09-30": [
+          {
+            "name": "Government",
+            "value": 307.6
+          },
+          {
+            "name": "Commercial",
+            "value": 250.6
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "Government",
+            "value": 335.4
+          },
+          {
+            "name": "Commercial",
+            "value": 299
+          }
+        ],
+        "2024-06-30": [
+          {
+            "name": "Government",
+            "value": 370.8
+          },
+          {
+            "name": "Commercial",
+            "value": 307.4
+          }
+        ],
+        "2024-09-30": [
+          {
+            "name": "Government",
+            "value": 408.3
+          },
+          {
+            "name": "Commercial",
+            "value": 317.2
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "Government",
+            "value": 455.1
+          },
+          {
+            "name": "Commercial",
+            "value": 372.4
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "Government",
+            "value": 487
+          },
+          {
+            "name": "Commercial",
+            "value": 396.9
+          }
+        ],
+        "2025-06-30": [
+          {
+            "name": "Government",
+            "value": 553
+          },
+          {
+            "name": "Commercial",
+            "value": 450.7
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "Government",
+            "value": 632.7
+          },
+          {
+            "name": "Commercial",
+            "value": 548.4
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "Government",
+            "value": 858.4
+          },
+          {
+            "name": "Commercial",
+            "value": 774.2
+          }
+        ],
+        "2026-06-30": [
+          {
+            "name": "Government",
+            "value": 990
+          },
+          {
+            "name": "Commercial",
+            "value": 945.4
+          }
+        ]
+      },
+      "periodTypes": {
+        "2020-03-31": "quarter",
+        "2020-06-30": "quarter",
+        "2020-09-30": "quarter",
+        "2020-12-31": "quarter",
+        "2021-03-31": "quarter",
+        "2021-06-30": "quarter",
+        "2021-09-30": "quarter",
+        "2022-03-31": "quarter",
+        "2022-06-30": "quarter",
+        "2022-09-30": "quarter",
+        "2022-12-31": "quarter",
+        "2023-03-31": "quarter",
+        "2023-06-30": "quarter",
+        "2023-09-30": "quarter",
+        "2024-03-31": "quarter",
+        "2024-06-30": "quarter",
+        "2024-09-30": "quarter",
+        "2024-12-31": "quarter",
+        "2025-03-31": "quarter",
+        "2025-06-30": "quarter",
+        "2025-09-30": "quarter",
+        "2026-03-31": "quarter",
+        "2026-06-30": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "DELL": {
+      "quarters": {
+        "2020-01-31": [
+          {
+            "name": "CSG",
+            "value": 11787
+          },
+          {
+            "name": "ISG",
+            "value": 9154
+          },
+          {
+            "name": "Corporate and other",
+            "value": 2964
+          }
+        ],
+        "2021-04-30": [
+          {
+            "name": "CSG",
+            "value": 13311
+          },
+          {
+            "name": "ISG",
+            "value": 8033
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1252
+          }
+        ],
+        "2021-07-30": [
+          {
+            "name": "CSG",
+            "value": 14268
+          },
+          {
+            "name": "ISG",
+            "value": 8550
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1378
+          }
+        ],
+        "2021-10-29": [
+          {
+            "name": "CSG",
+            "value": 16556
+          },
+          {
+            "name": "ISG",
+            "value": 8564
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1310
+          }
+        ],
+        "2022-01-28": [
+          {
+            "name": "CSG",
+            "value": 17329
+          },
+          {
+            "name": "ISG",
+            "value": 9219
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1448
+          }
+        ],
+        "2022-04-29": [
+          {
+            "name": "CSG",
+            "value": 15587
+          },
+          {
+            "name": "ISG",
+            "value": 9285
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1239
+          }
+        ],
+        "2022-07-29": [
+          {
+            "name": "CSG",
+            "value": 15490
+          },
+          {
+            "name": "ISG",
+            "value": 9536
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1399
+          }
+        ],
+        "2022-10-28": [
+          {
+            "name": "CSG",
+            "value": 13775
+          },
+          {
+            "name": "ISG",
+            "value": 9630
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1313
+          }
+        ],
+        "2023-05-05": [
+          {
+            "name": "CSG",
+            "value": 11983
+          },
+          {
+            "name": "ISG",
+            "value": 7593
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1343
+          }
+        ],
+        "2023-08-04": [
+          {
+            "name": "CSG",
+            "value": 12942
+          },
+          {
+            "name": "ISG",
+            "value": 8461
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1528
+          }
+        ],
+        "2023-11-03": [
+          {
+            "name": "CSG",
+            "value": 12276
+          },
+          {
+            "name": "ISG",
+            "value": 8499
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1474
+          }
+        ],
+        "2024-02-02": [
+          {
+            "name": "CSG",
+            "value": 11715
+          },
+          {
+            "name": "ISG",
+            "value": 9332
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1279
+          }
+        ],
+        "2024-05-03": [
+          {
+            "name": "CSG",
+            "value": 11967
+          },
+          {
+            "name": "ISG",
+            "value": 9227
+          },
+          {
+            "name": "Corporate and other",
+            "value": 1050
+          }
+        ],
+        "2024-08-02": [
+          {
+            "name": "CSG",
+            "value": 12414
+          },
+          {
+            "name": "ISG",
+            "value": 11646
+          },
+          {
+            "name": "Corporate and other",
+            "value": 966
+          }
+        ],
+        "2024-11-01": [
+          {
+            "name": "CSG",
+            "value": 12131
+          },
+          {
+            "name": "ISG",
+            "value": 11368
+          },
+          {
+            "name": "Corporate and other",
+            "value": 867
+          }
+        ],
+        "2025-05-02": [
+          {
+            "name": "CSG",
+            "value": 12509
+          },
+          {
+            "name": "ISG",
+            "value": 10317
+          },
+          {
+            "name": "Corporate and other",
+            "value": 552
+          }
+        ],
+        "2025-08-01": [
+          {
+            "name": "ISG",
+            "value": 16800
+          },
+          {
+            "name": "CSG",
+            "value": 12503
+          },
+          {
+            "name": "Corporate and other",
+            "value": 473
+          }
+        ],
+        "2025-10-31": [
+          {
+            "name": "ISG",
+            "value": 14107
+          },
+          {
+            "name": "CSG",
+            "value": 12478
+          },
+          {
+            "name": "Corporate and other",
+            "value": 420
+          }
+        ],
+        "2026-01-30": [
+          {
+            "name": "ISG",
+            "value": 19602
+          },
+          {
+            "name": "CSG",
+            "value": 13494
+          },
+          {
+            "name": "Corporate and other",
+            "value": 283
+          }
+        ],
+        "2026-05-01": [
+          {
+            "name": "ISG",
+            "value": 29009
+          },
+          {
+            "name": "CSG",
+            "value": 14609
+          },
+          {
+            "name": "Corporate and other",
+            "value": 224
+          }
+        ],
+        "2026-07-31": [
+          {
+            "name": "ISG",
+            "value": 31782
+          },
+          {
+            "name": "CSG",
+            "value": 15034
+          },
+          {
+            "name": "Corporate and other",
+            "value": 155
+          }
+        ]
+      },
+      "periodTypes": {
+        "2020-01-31": "quarter",
+        "2021-04-30": "quarter",
+        "2021-07-30": "quarter",
+        "2021-10-29": "quarter",
+        "2022-01-28": "quarter",
+        "2022-04-29": "quarter",
+        "2022-07-29": "quarter",
+        "2022-10-28": "quarter",
+        "2023-05-05": "quarter",
+        "2023-08-04": "quarter",
+        "2023-11-03": "quarter",
+        "2024-02-02": "quarter",
+        "2024-05-03": "quarter",
+        "2024-08-02": "quarter",
+        "2024-11-01": "quarter",
+        "2025-05-02": "quarter",
+        "2025-08-01": "quarter",
+        "2025-10-31": "quarter",
+        "2026-01-30": "quarter",
+        "2026-05-01": "quarter",
+        "2026-07-31": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "HPQ": {
+      "quarters": {
+        "2016-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 7467
+          },
+          {
+            "name": "Printing",
+            "value": 4642
+          }
+        ],
+        "2016-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 6990
+          },
+          {
+            "name": "Printing",
+            "value": 4637
+          }
+        ],
+        "2016-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 7512
+          },
+          {
+            "name": "Printing",
+            "value": 4423
+          }
+        ],
+        "2017-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 8216
+          },
+          {
+            "name": "Printing",
+            "value": 4464
+          }
+        ],
+        "2017-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 7653
+          },
+          {
+            "name": "Printing",
+            "value": 4728
+          }
+        ],
+        "2017-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 8385
+          },
+          {
+            "name": "Printing",
+            "value": 4677
+          }
+        ],
+        "2017-10-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9067
+          },
+          {
+            "name": "Printing",
+            "value": 4859
+          }
+        ],
+        "2018-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9440
+          },
+          {
+            "name": "Printing",
+            "value": 5076
+          }
+        ],
+        "2018-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 8762
+          },
+          {
+            "name": "Printing",
+            "value": 5241
+          }
+        ],
+        "2018-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9395
+          },
+          {
+            "name": "Printing",
+            "value": 5188
+          }
+        ],
+        "2019-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9657
+          },
+          {
+            "name": "Printing",
+            "value": 5056
+          }
+        ],
+        "2019-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 8921
+          },
+          {
+            "name": "Printing",
+            "value": 5116
+          }
+        ],
+        "2019-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9690
+          },
+          {
+            "name": "Printing",
+            "value": 4912
+          }
+        ],
+        "2019-10-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10426
+          },
+          {
+            "name": "Printing",
+            "value": 4982
+          }
+        ],
+        "2020-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9892
+          },
+          {
+            "name": "Printing",
+            "value": 4724
+          }
+        ],
+        "2020-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 8313
+          },
+          {
+            "name": "Printing",
+            "value": 4158
+          }
+        ],
+        "2020-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10360
+          },
+          {
+            "name": "Printing",
+            "value": 3933
+          }
+        ],
+        "2021-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10603
+          },
+          {
+            "name": "Printing",
+            "value": 5044
+          }
+        ],
+        "2021-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 10555
+          },
+          {
+            "name": "Printing",
+            "value": 5323
+          }
+        ],
+        "2021-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10406
+          },
+          {
+            "name": "Printing",
+            "value": 4882
+          }
+        ],
+        "2021-10-31": [
+          {
+            "name": "Personal Systems",
+            "value": 11768
+          },
+          {
+            "name": "Printing",
+            "value": 4879
+          }
+        ],
+        "2022-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 12196
+          },
+          {
+            "name": "Printing",
+            "value": 4831
+          }
+        ],
+        "2022-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 11532
+          },
+          {
+            "name": "Printing",
+            "value": 4963
+          }
+        ],
+        "2022-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10073
+          },
+          {
+            "name": "Printing",
+            "value": 4575
+          }
+        ],
+        "2023-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9185
+          },
+          {
+            "name": "Printing",
+            "value": 4612
+          }
+        ],
+        "2023-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 8169
+          },
+          {
+            "name": "Printing",
+            "value": 4736
+          }
+        ],
+        "2023-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 8932
+          },
+          {
+            "name": "Printing",
+            "value": 4263
+          }
+        ],
+        "2023-10-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9398
+          },
+          {
+            "name": "Printing",
+            "value": 4418
+          }
+        ],
+        "2024-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 8809
+          },
+          {
+            "name": "Printing",
+            "value": 4375
+          }
+        ],
+        "2024-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 8426
+          },
+          {
+            "name": "Printing",
+            "value": 4368
+          }
+        ],
+        "2024-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9369
+          },
+          {
+            "name": "Printing",
+            "value": 4143
+          }
+        ],
+        "2025-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9224
+          },
+          {
+            "name": "Printing",
+            "value": 4280
+          }
+        ],
+        "2025-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 9024
+          },
+          {
+            "name": "Printing",
+            "value": 4197
+          }
+        ],
+        "2025-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 9931
+          },
+          {
+            "name": "Printing",
+            "value": 4002
+          }
+        ],
+        "2025-10-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10353
+          },
+          {
+            "name": "Printing",
+            "value": 4223
+          }
+        ],
+        "2026-01-31": [
+          {
+            "name": "Personal Systems",
+            "value": 10251
+          },
+          {
+            "name": "Printing",
+            "value": 4187
+          }
+        ],
+        "2026-04-30": [
+          {
+            "name": "Personal Systems",
+            "value": 10213
+          },
+          {
+            "name": "Printing",
+            "value": 4195
+          }
+        ],
+        "2026-07-31": [
+          {
+            "name": "Personal Systems",
+            "value": 11767
+          },
+          {
+            "name": "Printing",
+            "value": 3912
+          }
+        ]
+      },
+      "periodTypes": {
+        "2016-01-31": "quarter",
+        "2016-04-30": "quarter",
+        "2016-07-31": "quarter",
+        "2017-01-31": "quarter",
+        "2017-04-30": "quarter",
+        "2017-07-31": "quarter",
+        "2017-10-31": "quarter",
+        "2018-01-31": "quarter",
+        "2018-04-30": "quarter",
+        "2018-07-31": "quarter",
+        "2019-01-31": "quarter",
+        "2019-04-30": "quarter",
+        "2019-07-31": "quarter",
+        "2019-10-31": "quarter",
+        "2020-01-31": "quarter",
+        "2020-04-30": "quarter",
+        "2020-07-31": "quarter",
+        "2021-01-31": "quarter",
+        "2021-04-30": "quarter",
+        "2021-07-31": "quarter",
+        "2021-10-31": "quarter",
+        "2022-01-31": "quarter",
+        "2022-04-30": "quarter",
+        "2022-07-31": "quarter",
+        "2023-01-31": "quarter",
+        "2023-04-30": "quarter",
+        "2023-07-31": "quarter",
+        "2023-10-31": "quarter",
+        "2024-01-31": "quarter",
+        "2024-04-30": "quarter",
+        "2024-07-31": "quarter",
+        "2025-01-31": "quarter",
+        "2025-04-30": "quarter",
+        "2025-07-31": "quarter",
+        "2025-10-31": "quarter",
+        "2026-01-31": "quarter",
+        "2026-04-30": "quarter",
+        "2026-07-31": "quarter"
+      },
+      "periodType": "quarter"
+    },
+    "BABA": {
+      "quarters": {
+        "2023-03-31": [
+          {
+            "name": "China Commerce",
+            "value": 84764.051
+          },
+          {
+            "name": "Cloud",
+            "value": 11229.948
+          },
+          {
+            "name": "International Commerce",
+            "value": 10066.414
+          },
+          {
+            "name": "Cainiao Smart Logistics",
+            "value": 8099.358
+          },
+          {
+            "name": "Local Consumer Services",
+            "value": 7289.292
+          },
+          {
+            "name": "Digital Media & Entertainment",
+            "value": 4579.372
+          },
+          {
+            "name": "Innovation initiatives and others",
+            "value": 330.776
+          }
+        ],
+        "2024-03-31": [
+          {
+            "name": "Taobao and Tmall Group",
+            "value": 60167.447
+          },
+          {
+            "name": "Cloud Intelligence Group",
+            "value": 14716.843
+          },
+          {
+            "name": "International Digital Commerce Group",
+            "value": 14194.433
+          },
+          {
+            "name": "Cainiao Smart Logistics Network Limited",
+            "value": 13699.417
+          },
+          {
+            "name": "Local Services Group",
+            "value": 8273.607
+          },
+          {
+            "name": "Digital Media and Entertainment Group",
+            "value": 2925.411
+          },
+          {
+            "name": "All others",
+            "value": 26608.994
+          },
+          {
+            "name": "Unallocated",
+            "value": 179.44
+          },
+          {
+            "name": "Inter-segment elimination",
+            "value": -10554.998
+          }
+        ],
+        "2025-03-31": [
+          {
+            "name": "Taobao and Tmall Group",
+            "value": 62017.648
+          },
+          {
+            "name": "International Digital Commerce Group",
+            "value": 18240.201
+          },
+          {
+            "name": "Cloud Intelligence Group",
+            "value": 16272.52
+          },
+          {
+            "name": "Cainiao Smart Logistics Network Limited",
+            "value": 13962.371
+          },
+          {
+            "name": "Local Services Group",
+            "value": 9247.768
+          },
+          {
+            "name": "Digital Media and Entertainment Group",
+            "value": 3069.951
+          },
+          {
+            "name": "All others",
+            "value": 28438.307
+          },
+          {
+            "name": "Unallocated",
+            "value": 265.262
+          },
+          {
+            "name": "Inter-segment elimination",
+            "value": -14147.668
+          }
+        ],
+        "2026-03-31": [
+          {
+            "name": "Alibaba China E-commerce Group",
+            "value": 80317.128
+          },
+          {
+            "name": "International Digital Commerce Group",
+            "value": 20893.116
+          },
+          {
+            "name": "Cloud Intelligence Group",
+            "value": 22916.489
+          },
+          {
+            "name": "All others",
+            "value": 36862.866
+          },
+          {
+            "name": "Unallocated",
+            "value": 339.113
+          },
+          {
+            "name": "Inter-segment elimination",
+            "value": -12978.456
+          }
+        ]
+      },
+      "periodTypes": {
+        "2023-03-31": "annual",
+        "2024-03-31": "annual",
+        "2025-03-31": "annual",
+        "2026-03-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "00700.HK": {
+      "quarters": {
+        "2007-12-31": [
+          {
+            "name": "互联网增值服务",
+            "value": 344.155
+          },
+          {
+            "name": "移动及电信增值服务",
+            "value": 110.575
+          },
+          {
+            "name": "网络广告",
+            "value": 67.499
+          },
+          {
+            "name": "其他",
+            "value": 0.894
+          }
+        ],
+        "2008-12-31": [
+          {
+            "name": "互联网增值服务",
+            "value": 720.339
+          },
+          {
+            "name": "移动及电信增值服务",
+            "value": 205.035
+          },
+          {
+            "name": "网络广告",
+            "value": 121.066
+          },
+          {
+            "name": "其他",
+            "value": 2.131
+          }
+        ],
+        "2009-12-31": [
+          {
+            "name": "互联网增值服务",
+            "value": 1396.059
+          },
+          {
+            "name": "移动及电信增值服务",
+            "value": 279.132
+          },
+          {
+            "name": "网络广告",
+            "value": 140.939
+          },
+          {
+            "name": "其他",
+            "value": 6.076
+          }
+        ],
+        "2010-12-31": [
+          {
+            "name": "互联网增值服务",
+            "value": 2344.949
+          },
+          {
+            "name": "移动及电信增值服务",
+            "value": 411.355
+          },
+          {
+            "name": "网络广告",
+            "value": 207.882
+          },
+          {
+            "name": "其他",
+            "value": 11.401
+          }
+        ],
+        "2011-12-31": [
+          {
+            "name": "互联网增值服务",
+            "value": 3654.351
+          },
+          {
+            "name": "移动及电信增值服务",
+            "value": 518.723
+          },
+          {
+            "name": "网络广告",
+            "value": 315.946
+          },
+          {
+            "name": "其他",
+            "value": 30.173
+          }
+        ],
+        "2012-12-31": [
+          {
+            "name": "互联网增值服务",
+            "value": 5135.227
+          },
+          {
+            "name": "移动及电信增值服务",
+            "value": 597.536
+          },
+          {
+            "name": "网络广告",
+            "value": 542.864
+          },
+          {
+            "name": "电子商务交易",
+            "value": 710.663
+          },
+          {
+            "name": "其他",
+            "value": 58.651
+          }
+        ],
+        "2013-12-31": [
+          {
+            "name": "增值服务",
+            "value": 7430.622
+          },
+          {
+            "name": "网络广告",
+            "value": 831.516
+          },
+          {
+            "name": "电子商务交易",
+            "value": 1618.103
+          },
+          {
+            "name": "其他",
+            "value": 102.742
+          }
+        ],
+        "2014-12-31": [
+          {
+            "name": "增值服务",
+            "value": 10199.874
+          },
+          {
+            "name": "网络广告",
+            "value": 1338.502
+          },
+          {
+            "name": "电子商务交易",
+            "value": 765.756
+          },
+          {
+            "name": "其他",
+            "value": 412.603
+          }
+        ],
+        "2015-12-31": [
+          {
+            "name": "增值服务",
+            "value": 12438.353
+          },
+          {
+            "name": "网络广告",
+            "value": 2693.391
+          },
+          {
+            "name": "其他",
+            "value": 728.702
+          }
+        ],
+        "2016-12-31": [
+          {
+            "name": "增值服务",
+            "value": 15524.64
+          },
+          {
+            "name": "网络广告",
+            "value": 3883.68
+          },
+          {
+            "name": "其他",
+            "value": 2470.752
+          }
+        ],
+        "2017-12-31": [
+          {
+            "name": "增值服务",
+            "value": 23662.568
+          },
+          {
+            "name": "网络广告",
+            "value": 6214.261
+          },
+          {
+            "name": "其他",
+            "value": 6659.75
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "增值服务",
+            "value": 25682.562
+          },
+          {
+            "name": "网络广告",
+            "value": 8444.106
+          },
+          {
+            "name": "其他",
+            "value": 11335.913
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "增值服务",
+            "value": 28728.707
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 14559.646
+          },
+          {
+            "name": "网络广告",
+            "value": 9822.356
+          },
+          {
+            "name": "其他",
+            "value": 1086.856
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "增值服务",
+            "value": 40413.868
+          },
+          {
+            "name": "网络广告",
+            "value": 12584.172
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 19592.035
+          },
+          {
+            "name": "其他",
+            "value": 1146.435
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "增值服务",
+            "value": 45899.264
+          },
+          {
+            "name": "网络广告",
+            "value": 13957.802
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 27106.937
+          },
+          {
+            "name": "其他",
+            "value": 1209.773
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "增值服务",
+            "value": 41682.547
+          },
+          {
+            "name": "网络广告",
+            "value": 11991.569
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 25665.427
+          },
+          {
+            "name": "其他",
+            "value": 1042.77
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "增值服务",
+            "value": 41996.281
+          },
+          {
+            "name": "网络广告",
+            "value": 14283.591
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 28679.642
+          },
+          {
+            "name": "其他",
+            "value": 759.346
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "增值服务",
+            "value": 43726.016
+          },
+          {
+            "name": "营销服务",
+            "value": 16628.238
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 29037.972
+          },
+          {
+            "name": "其他",
+            "value": 1062.983
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "增值服务",
+            "value": 52748.098
+          },
+          {
+            "name": "营销服务",
+            "value": 20707.943
+          },
+          {
+            "name": "金融科技及企业服务",
+            "value": 32772.495
+          },
+          {
+            "name": "其他",
+            "value": 1153.719
+          }
+        ]
+      },
+      "periodTypes": {
+        "2007-12-31": "annual",
+        "2008-12-31": "annual",
+        "2009-12-31": "annual",
+        "2010-12-31": "annual",
+        "2011-12-31": "annual",
+        "2012-12-31": "annual",
+        "2013-12-31": "annual",
+        "2014-12-31": "annual",
+        "2015-12-31": "annual",
+        "2016-12-31": "annual",
+        "2017-12-31": "annual",
+        "2018-12-31": "annual",
+        "2019-12-31": "annual",
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "03690.HK": {
+      "quarters": {
+        "2018-12-31": [
+          {
+            "name": "餐饮外卖",
+            "value": 5545.623
+          },
+          {
+            "name": "到店、酒店及旅游",
+            "value": 2303.03
+          },
+          {
+            "name": "新业务及其他",
+            "value": 1634.741
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "餐饮外卖",
+            "value": 7878.226
+          },
+          {
+            "name": "到店、酒店及旅游",
+            "value": 3199.872
+          },
+          {
+            "name": "新业务及其他",
+            "value": 2931.876
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "餐饮外卖",
+            "value": 10135.943
+          },
+          {
+            "name": "到店、酒店及旅游",
+            "value": 3250.767
+          },
+          {
+            "name": "新业务及其他",
+            "value": 4172.258
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "餐饮外卖",
+            "value": 15161.4
+          },
+          {
+            "name": "到店、酒店及旅游",
+            "value": 5120.924
+          },
+          {
+            "name": "新业务及其他",
+            "value": 7916.005
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "核心本地商业",
+            "value": 23302.02
+          },
+          {
+            "name": "新业务",
+            "value": 8580.449
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "核心本地商业",
+            "value": 29122.151
+          },
+          {
+            "name": "新业务",
+            "value": 9829.702
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "核心本地商业",
+            "value": 34283.907
+          },
+          {
+            "name": "新业务",
+            "value": 11966.139
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "核心本地商业",
+            "value": 37256.399
+          },
+          {
+            "name": "新业务",
+            "value": 14859.453
+          }
+        ]
+      },
+      "periodTypes": {
+        "2018-12-31": "annual",
+        "2019-12-31": "annual",
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "09633.HK": {
+      "quarters": {
+        "2020-12-31": [
+          {
+            "name": "水类产品",
+            "value": 2136.26
+          },
+          {
+            "name": "功能饮料产品",
+            "value": 427.037
+          },
+          {
+            "name": "即饮茶类产品",
+            "value": 472.284
+          },
+          {
+            "name": "果汁饮料产品",
+            "value": 302.437
+          },
+          {
+            "name": "其他产品",
+            "value": 161.294
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "水类产品",
+            "value": 2685.346
+          },
+          {
+            "name": "即饮茶类产品",
+            "value": 720.818
+          },
+          {
+            "name": "功能饮料产品",
+            "value": 581.662
+          },
+          {
+            "name": "果汁饮料产品",
+            "value": 411.428
+          },
+          {
+            "name": "其他产品",
+            "value": 275.553
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "水类产品",
+            "value": 2647.166
+          },
+          {
+            "name": "即饮茶类产品",
+            "value": 1001.023
+          },
+          {
+            "name": "功能饮料产品",
+            "value": 556.261
+          },
+          {
+            "name": "果汁饮料产品",
+            "value": 417.286
+          },
+          {
+            "name": "其他产品",
+            "value": 196.284
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "水类产品",
+            "value": 2851.913
+          },
+          {
+            "name": "即饮茶类产品",
+            "value": 1781.738
+          },
+          {
+            "name": "功能饮料产品",
+            "value": 689.894
+          },
+          {
+            "name": "果汁饮料产品",
+            "value": 497.356
+          },
+          {
+            "name": "其他产品",
+            "value": 184.511
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "水类产品",
+            "value": 2185.472
+          },
+          {
+            "name": "即饮茶类产品",
+            "value": 2294.002
+          },
+          {
+            "name": "功能饮料产品",
+            "value": 675.699
+          },
+          {
+            "name": "果汁饮料产品",
+            "value": 559.625
+          },
+          {
+            "name": "其他产品",
+            "value": 161.952
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "水类产品",
+            "value": 2672.387
+          },
+          {
+            "name": "即饮茶类产品",
+            "value": 3084.758
+          },
+          {
+            "name": "功能饮料产品",
+            "value": 823.083
+          },
+          {
+            "name": "果汁饮料产品",
+            "value": 739.383
+          },
+          {
+            "name": "其他产品",
+            "value": 187.046
+          }
+        ]
+      },
+      "periodTypes": {
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "02097.HK": {
+      "quarters": {
+        "2023-12-31": [
+          {
+            "name": "商品销售",
+            "value": 2696.8
+          },
+          {
+            "name": "设备销售",
+            "value": 103.668
+          },
+          {
+            "name": "加盟和相关服务",
+            "value": 57.105
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "商品销售",
+            "value": 3212.987
+          },
+          {
+            "name": "设备销售",
+            "value": 103.623
+          },
+          {
+            "name": "加盟和相关服务",
+            "value": 84.946
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "商品销售",
+            "value": 4490.814
+          },
+          {
+            "name": "设备销售",
+            "value": 189.486
+          },
+          {
+            "name": "加盟和相关服务",
+            "value": 113.399
+          }
+        ]
+      },
+      "periodTypes": {
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "01398.HK": {
+      "quarters": {
+        "2007-12-31": [
+          {
+            "name": "公司银行业务",
+            "value": 17283.108
+          },
+          {
+            "name": "个人银行业务",
+            "value": 11798.082
+          },
+          {
+            "name": "资金业务",
+            "value": 5672.455
+          },
+          {
+            "name": "其他",
+            "value": 299.285
+          }
+        ],
+        "2008-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 22433.646
+          },
+          {
+            "name": "个人金融业务",
+            "value": 15579.475
+          },
+          {
+            "name": "资金营运业务",
+            "value": 7317.301
+          },
+          {
+            "name": "其他",
+            "value": 131.757
+          }
+        ],
+        "2009-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 24338.677
+          },
+          {
+            "name": "个人金融业务",
+            "value": 13639.339
+          },
+          {
+            "name": "资金业务",
+            "value": 7137.531
+          },
+          {
+            "name": "其他",
+            "value": 206.976
+          }
+        ],
+        "2010-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 31013.101
+          },
+          {
+            "name": "个人金融业务",
+            "value": 16905.965
+          },
+          {
+            "name": "资金业务",
+            "value": 9254.66
+          },
+          {
+            "name": "其他",
+            "value": 494.365
+          }
+        ],
+        "2011-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 39597.386
+          },
+          {
+            "name": "个人金融业务",
+            "value": 22804.29
+          },
+          {
+            "name": "资金业务",
+            "value": 11463.044
+          },
+          {
+            "name": "其他",
+            "value": 767.893
+          }
+        ],
+        "2012-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 45865.283
+          },
+          {
+            "name": "个人金融业务",
+            "value": 24725.988
+          },
+          {
+            "name": "资金业务",
+            "value": 13801.877
+          },
+          {
+            "name": "其他",
+            "value": 626.913
+          }
+        ],
+        "2013-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 46545.081
+          },
+          {
+            "name": "个人金融业务",
+            "value": 33040.625
+          },
+          {
+            "name": "资金业务",
+            "value": 14752.226
+          },
+          {
+            "name": "其他",
+            "value": 1284.935
+          }
+        ],
+        "2014-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 48876.263
+          },
+          {
+            "name": "个人金融业务",
+            "value": 38268.781
+          },
+          {
+            "name": "资金业务",
+            "value": 13802.938
+          },
+          {
+            "name": "其他",
+            "value": 1333.991
+          }
+        ],
+        "2015-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 50252.68
+          },
+          {
+            "name": "个人金融业务",
+            "value": 37771.77
+          },
+          {
+            "name": "资金业务",
+            "value": 14279.844
+          },
+          {
+            "name": "其他",
+            "value": 807.647
+          }
+        ],
+        "2016-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 45273.312
+          },
+          {
+            "name": "个人金融业务",
+            "value": 34291.152
+          },
+          {
+            "name": "资金业务",
+            "value": 12166.272
+          },
+          {
+            "name": "其他",
+            "value": 671.328
+          }
+        ],
+        "2017-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 51059.009
+          },
+          {
+            "name": "个人金融业务",
+            "value": 38097.713
+          },
+          {
+            "name": "资金业务",
+            "value": 13922.348
+          },
+          {
+            "name": "其他",
+            "value": 748.68
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 51447.56
+          },
+          {
+            "name": "个人金融业务",
+            "value": 39762.711
+          },
+          {
+            "name": "资金业务",
+            "value": 13446.249
+          },
+          {
+            "name": "其他",
+            "value": 768.822
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 55794.809
+          },
+          {
+            "name": "个人金融业务",
+            "value": 41165.637
+          },
+          {
+            "name": "资金业务",
+            "value": 13851.02
+          },
+          {
+            "name": "其他",
+            "value": 661.221
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 60214.387
+          },
+          {
+            "name": "个人金融业务",
+            "value": 48650.152
+          },
+          {
+            "name": "资金业务",
+            "value": 12838.086
+          },
+          {
+            "name": "其他",
+            "value": 676.848
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 62711.878
+          },
+          {
+            "name": "个人金融业务",
+            "value": 54494.396
+          },
+          {
+            "name": "资金业务",
+            "value": 17517.383
+          },
+          {
+            "name": "其他",
+            "value": 796.073
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 56373.229
+          },
+          {
+            "name": "个人金融业务",
+            "value": 50167.63
+          },
+          {
+            "name": "资金业务",
+            "value": 14549.211
+          },
+          {
+            "name": "其他",
+            "value": 876.803
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 53754.395
+          },
+          {
+            "name": "个人金融业务",
+            "value": 44738.232
+          },
+          {
+            "name": "资金业务",
+            "value": 14274.865
+          },
+          {
+            "name": "其他",
+            "value": 741.471
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 52379.073
+          },
+          {
+            "name": "个人金融业务",
+            "value": 42488.906
+          },
+          {
+            "name": "资金业务",
+            "value": 12285.475
+          },
+          {
+            "name": "其他",
+            "value": 545.808
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 57112.574
+          },
+          {
+            "name": "个人金融业务",
+            "value": 44503.23
+          },
+          {
+            "name": "资金业务",
+            "value": 12554.636
+          },
+          {
+            "name": "其他",
+            "value": 300.821
+          }
+        ]
+      },
+      "periodTypes": {
+        "2007-12-31": "annual",
+        "2008-12-31": "annual",
+        "2009-12-31": "annual",
+        "2010-12-31": "annual",
+        "2011-12-31": "annual",
+        "2012-12-31": "annual",
+        "2013-12-31": "annual",
+        "2014-12-31": "annual",
+        "2015-12-31": "annual",
+        "2016-12-31": "annual",
+        "2017-12-31": "annual",
+        "2018-12-31": "annual",
+        "2019-12-31": "annual",
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "03968.HK": {
+      "quarters": {
+        "2012-12-31": [
+          {
+            "name": "批发银行业务",
+            "value": 10940.162
+          },
+          {
+            "name": "零售银行业务",
+            "value": 7621.664
+          },
+          {
+            "name": "金融市场业务",
+            "value": -338.655
+          },
+          {
+            "name": "其他业务",
+            "value": 34.347
+          }
+        ],
+        "2013-12-31": [
+          {
+            "name": "批发银行业务",
+            "value": 13131.149
+          },
+          {
+            "name": "零售银行业务",
+            "value": 9364.55
+          },
+          {
+            "name": "金融市场业务",
+            "value": -486.62
+          },
+          {
+            "name": "其他业务",
+            "value": -35.183
+          }
+        ],
+        "2014-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 12473.297
+          },
+          {
+            "name": "零售金融业务",
+            "value": 11049.568
+          },
+          {
+            "name": "同业金融业务",
+            "value": 3037.407
+          },
+          {
+            "name": "其他业务",
+            "value": 243.115
+          }
+        ],
+        "2015-12-31": [
+          {
+            "name": "公司金融业务",
+            "value": 11485.767
+          },
+          {
+            "name": "零售金融业务",
+            "value": 13751.589
+          },
+          {
+            "name": "同业金融业务",
+            "value": 4078.017
+          },
+          {
+            "name": "其他业务",
+            "value": 1856.602
+          }
+        ],
+        "2016-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 14700.96
+          },
+          {
+            "name": "零售金融业务",
+            "value": 14427.36
+          },
+          {
+            "name": "其他业务",
+            "value": 1104.336
+          }
+        ],
+        "2017-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 15830.315
+          },
+          {
+            "name": "零售金融业务",
+            "value": 16655.216
+          },
+          {
+            "name": "其他业务",
+            "value": 1327.862
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 15890.4
+          },
+          {
+            "name": "零售金融业务",
+            "value": 18296.314
+          },
+          {
+            "name": "其他业务",
+            "value": 1744.244
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 16064.667
+          },
+          {
+            "name": "零售金融业务",
+            "value": 20788.453
+          },
+          {
+            "name": "其他业务",
+            "value": 1654.417
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 18665.556
+          },
+          {
+            "name": "零售金融业务",
+            "value": 23905.812
+          },
+          {
+            "name": "其他业务",
+            "value": 1389.03
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 21077.751
+          },
+          {
+            "name": "零售金融业务",
+            "value": 28180.384
+          },
+          {
+            "name": "其他业务",
+            "value": 2277.553
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 20596.525
+          },
+          {
+            "name": "零售金融业务",
+            "value": 27745.604
+          },
+          {
+            "name": "其他业务",
+            "value": 1261.935
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 18948.469
+          },
+          {
+            "name": "零售金融业务",
+            "value": 27349.836
+          },
+          {
+            "name": "其他业务",
+            "value": 1078.426
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 18548.841
+          },
+          {
+            "name": "零售金融业务",
+            "value": 26959.408
+          },
+          {
+            "name": "其他业务",
+            "value": 316.744
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "批发金融业务",
+            "value": 19703.207
+          },
+          {
+            "name": "零售金融业务",
+            "value": 27280.726
+          },
+          {
+            "name": "其他业务",
+            "value": 410.379
+          }
+        ]
+      },
+      "periodTypes": {
+        "2012-12-31": "annual",
+        "2013-12-31": "annual",
+        "2014-12-31": "annual",
+        "2015-12-31": "annual",
+        "2016-12-31": "annual",
+        "2017-12-31": "annual",
+        "2018-12-31": "annual",
+        "2019-12-31": "annual",
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "00981.HK": {
+      "quarters": {
+        "2007-12-31": [
+          {
+            "name": "美国",
+            "value": 657.603
+          },
+          {
+            "name": "欧洲",
+            "value": 328.71
+          },
+          {
+            "name": "亚太区（不包括日本及台湾）",
+            "value": 227.974
+          },
+          {
+            "name": "台湾",
+            "value": 183.114
+          },
+          {
+            "name": "日本",
+            "value": 152.364
+          }
+        ],
+        "2008-12-31": [
+          {
+            "name": "美国",
+            "value": 767.967
+          },
+          {
+            "name": "欧洲",
+            "value": 92.573
+          },
+          {
+            "name": "亚太区（不包括日本及台湾）",
+            "value": 269.616
+          },
+          {
+            "name": "台湾",
+            "value": 185.849
+          },
+          {
+            "name": "日本",
+            "value": 37.707
+          }
+        ],
+        "2014-12-31": [
+          {
+            "name": "美国",
+            "value": 855.792
+          },
+          {
+            "name": "中国内地及香港",
+            "value": 852.204
+          },
+          {
+            "name": "欧亚大陆",
+            "value": 261.97
+          }
+        ],
+        "2016-12-31": [
+          {
+            "name": "美国",
+            "value": 858.858
+          },
+          {
+            "name": "中国内地及香港",
+            "value": 1447.427
+          },
+          {
+            "name": "欧亚大陆",
+            "value": 607.895
+          }
+        ],
+        "2017-12-31": [
+          {
+            "name": "美国",
+            "value": 1240.906
+          },
+          {
+            "name": "中国内地及香港",
+            "value": 1465.553
+          },
+          {
+            "name": "欧亚大陆",
+            "value": 394.716
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "美国",
+            "value": 1062.134
+          },
+          {
+            "name": "中国内地及香港",
+            "value": 1985.292
+          },
+          {
+            "name": "欧亚大陆",
+            "value": 312.558
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "北美洲",
+            "value": 821.136
+          },
+          {
+            "name": "中国内地及香港",
+            "value": 1850.516
+          },
+          {
+            "name": "欧亚大陆",
+            "value": 444.02
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "北美洲",
+            "value": 906.493
+          },
+          {
+            "name": "中国大陆及香港",
+            "value": 2482.18
+          },
+          {
+            "name": "欧亚大陆",
+            "value": 518.302
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "中国内地及香港",
+            "value": 3481.734
+          },
+          {
+            "name": "北美洲",
+            "value": 1215.545
+          },
+          {
+            "name": "欧洲及亚洲",
+            "value": 745.833
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "中国区",
+            "value": 5400.629
+          },
+          {
+            "name": "美国区",
+            "value": 1510.291
+          },
+          {
+            "name": "欧亚区",
+            "value": 362.364
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "中国区",
+            "value": 5062.085
+          },
+          {
+            "name": "美国区",
+            "value": 1034.382
+          },
+          {
+            "name": "欧亚区",
+            "value": 225.093
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "中国区",
+            "value": 6797.714
+          },
+          {
+            "name": "美国区",
+            "value": 992.527
+          },
+          {
+            "name": "欧亚区",
+            "value": 239.68
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "中国区",
+            "value": 7987.219
+          },
+          {
+            "name": "美国区",
+            "value": 1079.205
+          },
+          {
+            "name": "欧亚区",
+            "value": 260.375
+          }
+        ]
+      },
+      "periodTypes": {
+        "2007-12-31": "annual",
+        "2008-12-31": "annual",
+        "2014-12-31": "annual",
+        "2016-12-31": "annual",
+        "2017-12-31": "annual",
+        "2018-12-31": "annual",
+        "2019-12-31": "annual",
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "01024.HK": {
+      "quarters": {
+        "2021-12-31": [
+          {
+            "name": "线上营销服务",
+            "value": 6716.4
+          },
+          {
+            "name": "直播",
+            "value": 4879.257
+          },
+          {
+            "name": "其他服务",
+            "value": 1168.195
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "线上营销服务",
+            "value": 7108.573
+          },
+          {
+            "name": "直播",
+            "value": 5129.484
+          },
+          {
+            "name": "其他服务",
+            "value": 1413.7
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "线上营销服务",
+            "value": 8487.788
+          },
+          {
+            "name": "直播",
+            "value": 5496.85
+          },
+          {
+            "name": "其他服务",
+            "value": 1986.264
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "线上营销服务",
+            "value": 9921.403
+          },
+          {
+            "name": "直播",
+            "value": 5077.357
+          },
+          {
+            "name": "其他服务",
+            "value": 2386.266
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "线上营销服务",
+            "value": 11636.032
+          },
+          {
+            "name": "直播",
+            "value": 5583.187
+          },
+          {
+            "name": "其他服务",
+            "value": 3174.905
+          }
+        ]
+      },
+      "periodTypes": {
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "03888.HK": {
+      "quarters": {
+        "2021-12-31": [
+          {
+            "name": "办公软件及服务",
+            "value": 513.944
+          },
+          {
+            "name": "娱乐软件及其他",
+            "value": 489.043
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "办公软件及服务",
+            "value": 563.941
+          },
+          {
+            "name": "娱乐软件及其他",
+            "value": 543.005
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "办公软件及服务",
+            "value": 641.329
+          },
+          {
+            "name": "娱乐软件及其他",
+            "value": 559.777
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "办公软件及服务",
+            "value": 701.587
+          },
+          {
+            "name": "娱乐软件及其他",
+            "value": 711.966
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "办公软件及服务",
+            "value": 846.862
+          },
+          {
+            "name": "娱乐软件及其他",
+            "value": 536.241
+          }
+        ]
+      },
+      "periodTypes": {
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "00941.HK": {
+      "quarters": {
+        "2021-12-31": [
+          {
+            "name": "个人市场",
+            "value": 76096.828
+          },
+          {
+            "name": "家庭市场",
+            "value": 15820.71
+          },
+          {
+            "name": "政企市场",
+            "value": 21582.282
+          },
+          {
+            "name": "新兴市场",
+            "value": 4769.826
+          },
+          {
+            "name": "其他（销售产品收入及其他）",
+            "value": 15263.128
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "个人市场",
+            "value": 70851.56
+          },
+          {
+            "name": "家庭市场",
+            "value": 16901.17
+          },
+          {
+            "name": "政企市场",
+            "value": 24380.59
+          },
+          {
+            "name": "新兴市场",
+            "value": 5580.575
+          },
+          {
+            "name": "其他（销售产品收入及其他）",
+            "value": 18141.797
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "个人市场",
+            "value": 68995.65
+          },
+          {
+            "name": "家庭市场",
+            "value": 18564.925
+          },
+          {
+            "name": "政企市场",
+            "value": 27038.075
+          },
+          {
+            "name": "新兴市场",
+            "value": 6938.975
+          },
+          {
+            "name": "其他（销售产品收入及其他）",
+            "value": 20522.617
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "个人市场",
+            "value": 66266.9
+          },
+          {
+            "name": "家庭市场",
+            "value": 19604.7
+          },
+          {
+            "name": "政企市场",
+            "value": 28646.7
+          },
+          {
+            "name": "新兴市场",
+            "value": 7343.2
+          },
+          {
+            "name": "其他（销售产品收入及其他）",
+            "value": 20722.483
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "公众客群",
+            "value": 93574.484
+          },
+          {
+            "name": "政企客群",
+            "value": 34338.736
+          },
+          {
+            "name": "国际市场",
+            "value": 4185.212
+          },
+          {
+            "name": "其他（销售产品收入及其他）",
+            "value": 17910.279
+          }
+        ]
+      },
+      "periodTypes": {
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "00728.HK": {
+      "quarters": {
+        "2021-12-31": [
+          {
+            "name": "移动通信服务",
+            "value": 28990.152
+          },
+          {
+            "name": "固网及智慧家庭服务",
+            "value": 17870.633
+          },
+          {
+            "name": "产业数字化服务",
+            "value": 15575.922
+          },
+          {
+            "name": "其他服务",
+            "value": 976.476
+          },
+          {
+            "name": "出售商品收入及其他",
+            "value": 5781.249
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "移动通信服务",
+            "value": 27689.219
+          },
+          {
+            "name": "固网及智慧家庭服务",
+            "value": 17181.503
+          },
+          {
+            "name": "产业数字化服务",
+            "value": 17068.732
+          },
+          {
+            "name": "其他服务",
+            "value": 1103.359
+          },
+          {
+            "name": "出售商品收入及其他",
+            "value": 6743.074
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "移动通信服务",
+            "value": 27539.145
+          },
+          {
+            "name": "固网及智慧家庭服务",
+            "value": 17321.117
+          },
+          {
+            "name": "产业数字化服务",
+            "value": 19548.767
+          },
+          {
+            "name": "其他服务",
+            "value": 1034.794
+          },
+          {
+            "name": "出售商品收入及其他",
+            "value": 6838.479
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "移动通信服务",
+            "value": 27745.788
+          },
+          {
+            "name": "固网及智慧家庭服务",
+            "value": 17218.16
+          },
+          {
+            "name": "产业数字化服务",
+            "value": 20082.556
+          },
+          {
+            "name": "其他服务",
+            "value": 992.017
+          },
+          {
+            "name": "出售商品收入及其他",
+            "value": 6491.608
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "移动通信服务",
+            "value": 29214.78
+          },
+          {
+            "name": "固网及智慧家庭服务",
+            "value": 17994.84
+          },
+          {
+            "name": "产业数字化服务",
+            "value": 21041.332
+          },
+          {
+            "name": "其他服务",
+            "value": 1087.012
+          },
+          {
+            "name": "出售商品收入及其他",
+            "value": 6304.243
+          }
+        ]
+      },
+      "periodTypes": {
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "01810.HK": {
+      "quarters": {
+        "2017-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 12380.2
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 3603.2
+          },
+          {
+            "name": "Internet services",
+            "value": 1520.8
+          },
+          {
+            "name": "Others",
+            "value": 110.2
+          }
+        ],
+        "2018-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 16545.4
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 6370.5
+          },
+          {
+            "name": "Internet services",
+            "value": 2319.8
+          },
+          {
+            "name": "Others",
+            "value": 195.2
+          }
+        ],
+        "2019-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 17538.9
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 8918.9
+          },
+          {
+            "name": "Internet services",
+            "value": 2850.2
+          },
+          {
+            "name": "Others",
+            "value": 260.6
+          }
+        ],
+        "2020-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 23279.1
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 10311.1
+          },
+          {
+            "name": "Internet services",
+            "value": 3633.6
+          },
+          {
+            "name": "Others",
+            "value": 383.8
+          }
+        ],
+        "2021-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 32880.1
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 13377.6
+          },
+          {
+            "name": "Internet services",
+            "value": 4441.1
+          },
+          {
+            "name": "Others",
+            "value": 983.6
+          }
+        ],
+        "2022-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 24238.1
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 11566.3
+          },
+          {
+            "name": "Internet services",
+            "value": 4105.2
+          },
+          {
+            "name": "Others",
+            "value": 682.8
+          }
+        ],
+        "2023-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 22162.7
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 11275.2
+          },
+          {
+            "name": "Internet services",
+            "value": 4237.6
+          },
+          {
+            "name": "Others",
+            "value": 463.6
+          }
+        ],
+        "2024-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 26271
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 14262.2
+          },
+          {
+            "name": "Internet services",
+            "value": 4673.8
+          },
+          {
+            "name": "Others",
+            "value": 434.9
+          },
+          {
+            "name": "Smart EV and other new initiatives",
+            "value": 4487.2
+          }
+        ],
+        "2025-12-31": [
+          {
+            "name": "Smartphones",
+            "value": 26631.061
+          },
+          {
+            "name": "IoT and lifestyle products",
+            "value": 17597.917
+          },
+          {
+            "name": "Internet services",
+            "value": 5347.972
+          },
+          {
+            "name": "Others",
+            "value": 590.915
+          },
+          {
+            "name": "Smart EV and other new initiatives",
+            "value": 15150.967
+          }
+        ]
+      },
+      "periodTypes": {
+        "2017-12-31": "annual",
+        "2018-12-31": "annual",
+        "2019-12-31": "annual",
+        "2020-12-31": "annual",
+        "2021-12-31": "annual",
+        "2022-12-31": "annual",
+        "2023-12-31": "annual",
+        "2024-12-31": "annual",
+        "2025-12-31": "annual"
+      },
+      "periodType": "annual"
+    },
+    "00151.HK": {
+      "quarters": {
+        "2026-03-31": [
+          {
+            "name": "米果",
+            "value": 860.288
+          },
+          {
+            "name": "乳品及饮料",
+            "value": 1788.668
+          },
+          {
+            "name": "休闲食品",
+            "value": 857.202
+          },
+          {
+            "name": "其他产品",
+            "value": 29.986
+          }
+        ]
+      },
+      "periodTypes": {
+        "2026-03-31": "annual"
+      },
+      "periodType": "annual"
     }
   }
 }
