@@ -1813,15 +1813,15 @@
         "2023-06-30": [
           {
             "name": "Productivity and Business Processes",
-            "value": 43168
+            "value": 18291
           },
           {
             "name": "Intelligent Cloud",
-            "value": 9030
+            "value": 23993
           },
           {
             "name": "More Personal Computing",
-            "value": 3991
+            "value": 13905
           }
         ],
         "2023-09-30": [
@@ -3786,11 +3786,11 @@
         "2022-03-31": [
           {
             "name": "Energy generation and storage",
-            "value": 18140
+            "value": 616
           },
           {
             "name": "Automotive",
-            "value": 616
+            "value": 18140
           }
         ],
         "2022-06-30": [
@@ -6200,159 +6200,159 @@
         "2019-12-31": [
           {
             "name": "Carrier Business",
-            "value": 44431.5
+            "value": 42619.37
           },
           {
             "name": "Enterprise Business",
-            "value": 13434.8
+            "value": 12886.86
           },
           {
             "name": "Consumer Business",
-            "value": 69982.4
+            "value": 67128.17
           },
           {
             "name": "Other",
-            "value": 768.3
+            "value": 736.96
           }
         ],
         "2020-12-31": [
           {
             "name": "Carrier Business",
-            "value": 45319.9
+            "value": 46288.94
           },
           {
             "name": "Enterprise Business",
-            "value": 15026.6
+            "value": 15347.9
           },
           {
             "name": "Consumer Business",
-            "value": 72320.5
+            "value": 73866.87
           },
           {
             "name": "Other",
-            "value": 822.5
+            "value": 840.09
           }
         ],
         "2021-12-31": [
           {
             "name": "Carrier Business",
-            "value": 42152.2
+            "value": 44308.86
           },
           {
             "name": "Enterprise Business",
-            "value": 15341.8
+            "value": 16126.74
           },
           {
             "name": "Consumer Business",
-            "value": 36455.7
+            "value": 38320.9
           },
           {
             "name": "Other",
-            "value": 1417.2
+            "value": 1489.71
           }
         ],
         "2022-12-31": [
           {
             "name": "ICT Infrastructure",
-            "value": 53011
+            "value": 51309.12
           },
           {
             "name": "Consumer",
-            "value": 32117.5
+            "value": 31086.39
           },
           {
             "name": "Cloud Computing",
-            "value": 6790.3
+            "value": 6572.3
           },
           {
             "name": "Digital Power",
-            "value": 7608.6
+            "value": 7364.33
           },
           {
             "name": "Intelligent Automotive Solutions",
-            "value": 311
+            "value": 301.02
           },
           {
             "name": "Other",
-            "value": 595.7
+            "value": 576.58
           }
         ],
         "2023-12-31": [
           {
             "name": "ICT Infrastructure",
-            "value": 54211.9
+            "value": 50951.08
           },
           {
             "name": "Consumer",
-            "value": 37663.5
+            "value": 35398.06
           },
           {
             "name": "Cloud Computing",
-            "value": 8279.7
+            "value": 7781.68
           },
           {
             "name": "Digital Power",
-            "value": 7878.3
+            "value": 7404.42
           },
           {
             "name": "Intelligent Automotive Solutions",
-            "value": 709.4
+            "value": 666.73
           },
           {
             "name": "Other",
-            "value": 1291.5
+            "value": 1213.82
           }
         ],
         "2024-12-31": [
           {
             "name": "ICT Infrastructure",
-            "value": 55395.9
+            "value": 50676.73
           },
           {
             "name": "Consumer",
-            "value": 50768.8
+            "value": 46443.81
           },
           {
             "name": "Cloud Computing",
-            "value": 5769.1
+            "value": 5277.63
           },
           {
             "name": "Digital Power",
-            "value": 10285.1
+            "value": 9408.91
           },
           {
             "name": "Intelligent Automotive Solution",
-            "value": 3946.6
+            "value": 3610.39
           },
           {
             "name": "Other",
-            "value": 2936.6
+            "value": 2686.43
           }
         ],
         "2025-12-31": [
           {
             "name": "ICT Infrastructure",
-            "value": 56161.3
+            "value": 53567.01
           },
           {
             "name": "Consumer",
-            "value": 51587.5
+            "value": 49204.49
           },
           {
             "name": "Cloud Computing",
-            "value": 4816.4
+            "value": 4593.91
           },
           {
             "name": "Digital Power",
-            "value": 11578.1
+            "value": 11043.27
           },
           {
             "name": "Intelligent Automotive Solution",
-            "value": 6741.8
+            "value": 6430.37
           },
           {
             "name": "Other",
-            "value": 1042.8
+            "value": 994.63
           }
         ]
       },

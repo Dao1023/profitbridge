@@ -4154,6 +4154,110 @@
         ],
         "notes": "HKEX filer 中国旺旺 Want Want China (TW-origin, reports in RMB): annual + interim + sparse Q3 cumulative disclosures, included as-disclosed cumulative series, NOT differenced. FISCAL-YEAR CHANGE: FYE moved from 12-31 to 3-31; FY2017/18 is a 15-month transition period (2017-01-01..2018-03-31, revenue 24,854.462M RMB per HKEX announcement ltn20180605212_c.pdf) — not included as a separate row (NP attributable not machine-extractable; CY2017 annual absent from eastmoney rows). Period ends corrected to eastmoney REPORT_DATE (STD_REPORT_DATE is one quarter early for this issuer). Q3 (9M cumulative) discontinued after 2017-09-30. Early fiscal years originally reported in USD (originalCurrency flag). Source: eastmoney RPT_HKF10_FN_MAININDICATOR via batch3 staging + HKEX PDF. Watchlist ticker 0151.HK. fxToUsd(2026-10-30 修复): 原近端多期误用 0.120824(2005 年 8.28 倒数), 已改为各期期末 ECB/frankfurter 真实 USD/CNY 汇率; 数值本身未改动."
       }
+    },
+    {
+      "ticker": "HUAWEI",
+      "sourceCommit": "manual-fix 2026-11-01: HUAWEI per-period real ECB period-end mid-rate fxToUsd + fxDate (SEC/ECB verified); local-currency revenue/gross/opInc/netInc unchanged",
+      "entry": {
+        "name": "Huawei Technologies Co., Ltd.",
+        "currency": "CNY-M",
+        "frequency": "annual",
+        "companyType": "private",
+        "quarters": [
+          {
+            "end": "2019-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.14365,
+            "revenue": 858800,
+            "gross": null,
+            "opInc": null,
+            "netInc": 62700,
+            "rd": 131700,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2019-12-31"
+          },
+          {
+            "end": "2020-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.15296,
+            "revenue": 891400,
+            "gross": null,
+            "opInc": null,
+            "netInc": 64600,
+            "rd": 141900,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2020-12-31"
+          },
+          {
+            "end": "2021-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.15742,
+            "revenue": 636807,
+            "gross": null,
+            "opInc": 121412,
+            "netInc": 113718,
+            "rd": 142700,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2021-12-31"
+          },
+          {
+            "end": "2022-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.14495,
+            "revenue": 642338,
+            "gross": null,
+            "opInc": 42216,
+            "netInc": 35562,
+            "rd": 161500,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2022-12-31"
+          },
+          {
+            "end": "2023-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.14075,
+            "revenue": 704174,
+            "gross": null,
+            "opInc": 104401,
+            "netInc": 86950,
+            "rd": 164700,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2023-12-31"
+          },
+          {
+            "end": "2024-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.137,
+            "revenue": 862072,
+            "gross": null,
+            "opInc": 79361,
+            "netInc": 62574,
+            "rd": 179700,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2024-12-31"
+          },
+          {
+            "end": "2025-12-31",
+            "periodType": "annual",
+            "fxToUsd": 0.14284,
+            "revenue": 880941,
+            "gross": null,
+            "opInc": 96937,
+            "netInc": 68036,
+            "rd": 192300,
+            "sga": null,
+            "tax": null,
+            "fxDate": "2025-12-31"
+          }
+        ],
+        "notes": "Private filer (unlisted; publishes audited annual reports): companyType=private, synthetic ticker HUAWEI (no real listing). FY=calendar year, IFRS consolidated, audited by KPMG. CNY-M as-reported; opInc/null rd null before FY2021 (2019-2020 operating profit not in official highlights table). R&D 2019/2020/2023/2024/2025 from official annual-report news releases (131.7/141.9/164.7/179.7/192.3 Bn CNY); 2021 142.7 & 2022 161.5 Bn CNY per FY2022 report (bjnews cross-check). FY2021-2025 rev/op/NI from huawei.com bond-investor-relations Financial Highlights five-year table (https://www.huawei.com/en/bond-investor-relations/financial-highlights); FY2019 https://www.huawei.com/en/news/2020/3/Huawei-2019-annual-report; FY2020 https://www.huawei.com/de/news/2021/huawei-schliesst-geschaeftsjahr-2020-mit-umsatz-und-gewinnwachstum-ab. fxToUsd snapshot 1/USD-CNY 6.677446 (open.er-api.com 2026-10-27, single rate). 审计结论：非上市无公开季度披露，保持年度期望."
+      }
     }
   ],
   "meta": {

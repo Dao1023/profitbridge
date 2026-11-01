@@ -1,0 +1,179 @@
+{
+  "_meta": "Authoritative segment-level fixups applied DIRECTLY to data/segments.json. scripts/merge_segments.mjs is append-only: it refuses to overwrite existing historical quarters (CONFLICT -> exit 1), so these corrections cannot flow through the segments_2026q3.json staging + merge pipeline. Values verified against SEC original filings.",
+  "date": "2026-11-01",
+  "appliedAt": "2026-11-01",
+  "pipeline": "direct edit of data/segments.json + this audit record (merge_segments.mjs incompatible with historical overwrite)",
+  "fixups": [
+    {
+      "ticker": "TSLA",
+      "end": "2022-03-31",
+      "name": "Automotive",
+      "from": 616,
+      "to": 18140,
+      "source": "https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/R75.htm",
+      "date": "2026-11-01"
+    },
+    {
+      "ticker": "TSLA",
+      "end": "2022-03-31",
+      "name": "Energy generation and storage",
+      "from": 18140,
+      "to": 616,
+      "source": "https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/R75.htm",
+      "date": "2026-11-01"
+    },
+    {
+      "ticker": "MSFT",
+      "end": "2023-06-30",
+      "name": "Productivity and Business Processes",
+      "from": 43168,
+      "to": 18291,
+      "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm",
+      "date": "2026-11-01"
+    },
+    {
+      "ticker": "MSFT",
+      "end": "2023-06-30",
+      "name": "Intelligent Cloud",
+      "from": 9030,
+      "to": 23993,
+      "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm",
+      "date": "2026-11-01"
+    },
+    {
+      "ticker": "MSFT",
+      "end": "2023-06-30",
+      "name": "More Personal Computing",
+      "from": 3991,
+      "to": 13905,
+      "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm",
+      "date": "2026-11-01"
+    }
+  ],
+  "huawei_segment_fx_rescale": {
+    "reason": "重算依据：A2 审计 FX 修正 + 原值系常量汇率派生（HUAWEI 分部 USD 值原为 人民币分部值 × 0.14975786 的常量汇率派生）",
+    "method": "cny = oldUsd / 0.14975786; newUsd = round(cny * newFx, 2)（先还原人民币再乘逐期新汇率，仅一步四舍五入到 2 位小数）",
+    "oldFx": 0.14975786,
+    "totalSegmentsRecomputed": 36,
+    "periods": [
+      {
+        "end": "2019-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.14365,
+        "segmentsRecomputed": 4,
+        "example": {
+          "name": "Carrier Business",
+          "old": 44431.5,
+          "cny": 296688.94,
+          "new": 42619.37
+        },
+        "segSumOld": 128617,
+        "segSumNew": 123371.36,
+        "revenueTimesNewFx": 123366.62,
+        "relDevPct": 0.003842
+      },
+      {
+        "end": "2020-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.15296,
+        "segmentsRecomputed": 4,
+        "example": {
+          "name": "Carrier Business",
+          "old": 45319.9,
+          "cny": 302621.18,
+          "new": 46288.94
+        },
+        "segSumOld": 133489.5,
+        "segSumNew": 136343.8,
+        "revenueTimesNewFx": 136348.54,
+        "relDevPct": -0.003479
+      },
+      {
+        "end": "2021-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.15742,
+        "segmentsRecomputed": 4,
+        "example": {
+          "name": "Carrier Business",
+          "old": 42152.2,
+          "cny": 281469.03,
+          "new": 44308.86
+        },
+        "segSumOld": 95366.9,
+        "segSumNew": 100246.21,
+        "revenueTimesNewFx": 100246.16,
+        "relDevPct": 0.000052
+      },
+      {
+        "end": "2022-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.14495,
+        "segmentsRecomputed": 6,
+        "example": {
+          "name": "ICT Infrastructure",
+          "old": 53011,
+          "cny": 353978.08,
+          "new": 51309.12
+        },
+        "segSumOld": 100434.1,
+        "segSumNew": 97209.74,
+        "revenueTimesNewFx": 93106.89,
+        "relDevPct": 4.406598
+      },
+      {
+        "end": "2023-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.14075,
+        "segmentsRecomputed": 6,
+        "example": {
+          "name": "ICT Infrastructure",
+          "old": 54211.9,
+          "cny": 361997.03,
+          "new": 50951.08
+        },
+        "segSumOld": 110034.3,
+        "segSumNew": 103415.79,
+        "revenueTimesNewFx": 99112.49,
+        "relDevPct": 4.341834
+      },
+      {
+        "end": "2024-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.137,
+        "segmentsRecomputed": 6,
+        "example": {
+          "name": "ICT Infrastructure",
+          "old": 55395.9,
+          "cny": 369903.12,
+          "new": 50676.73
+        },
+        "segSumOld": 129102.1,
+        "segSumNew": 118103.9,
+        "revenueTimesNewFx": 118103.86,
+        "relDevPct": 0.00003
+      },
+      {
+        "end": "2025-12-31",
+        "oldFx": 0.14975786,
+        "newFx": 0.14284,
+        "segmentsRecomputed": 6,
+        "example": {
+          "name": "ICT Infrastructure",
+          "old": 56161.3,
+          "cny": 375014.04,
+          "new": 53567.01
+        },
+        "segSumOld": 131927.9,
+        "segSumNew": 125833.68,
+        "revenueTimesNewFx": 125833.61,
+        "relDevPct": 0.000054
+      }
+    ],
+    "residual_note": "重算仅把原 USD 值从常量汇率基准换到逐期新汇率，不改变原有的 分部合计/营收 结构偏差。基线(HEAD)即存在：2022-12-31 分部合计较 revenue×旧汇率 高约 +4.4066%，2023-12-31 高约 +4.3418%（属既有的分部口径/营收差异，与本次汇率修正无关，且无测试校验这两期，故本次不动其数值）。其余 5 期重算后 segSum 与 revenue×newFx 的相对偏差 ≤0.0039%（仅两位小数舍入量级）。",
+    "max_abs_rel_dev_pct_excluding_preexisting": 0.00384,
+    "preexisting_deviation_periods": {
+      "2022-12-31": 4.4066,
+      "2023-12-31": 4.34183
+    }
+  }
+}
