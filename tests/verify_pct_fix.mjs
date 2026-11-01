@@ -67,10 +67,11 @@ async function bar(tk, itemId, end) {
     state.company=${JSON.stringify(tk)}; state.view='bar'; state.curMode='native'; state.barItem=${JSON.stringify(itemId)}; state.qIndex=null;
     render();
     const meta=window.__barMeta, qs=barQuarters(${JSON.stringify(tk)});
-    let idx = ${end ? `qs.findIndex(q=>q.end===${JSON.stringify(end)})` : 'meta.data.map((v,i)=>i).filter(i=>meta.data[i]!=null).pop()'};
-    return { ok:true, idx, endIdx: idx<0?null:qs[idx].end, val: idx<0?null:meta.data[idx], pct: idx<0?null:meta.pctLine[idx],
+    const ends=(meta && meta.ends) ? meta.ends : qs.map(q=>q.end);
+    let idx = ${end ? `ends.indexOf(${JSON.stringify(end)})` : 'meta.data.map((v,i)=>i).filter(i=>meta.data[i]!=null).pop()'};
+    return { ok:true, idx, endIdx: idx<0?null:ends[idx], val: idx<0?null:meta.data[idx], pct: idx<0?null:meta.pctLine[idx],
       n: meta.data.length, title: document.getElementById('chartTitle').textContent,
-      has: qs.some(q=>q.end===${JSON.stringify(end || '')}) };
+      has: ends.includes(${JSON.stringify(end || '')}) };
   } catch(e){ return { ok:false, err:String(e&&e.message||e) }; } })()`;
   return await evl(expr);
 }

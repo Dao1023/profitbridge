@@ -75,8 +75,8 @@ await evlA(`(s=document.getElementById('barSelect'),s.value='seg:Data Center',s.
 await sleep(300);
 const dc = await evl(`window.__barMeta`);
 check('Data Center selected, label kept', dc.item === 'seg:Data Center');
-check('DC bars only in 30 disclosed quarters (35 null gaps)', dc.data.filter(v => v != null).length === 30 && dc.data.filter(v => v == null).length === 35, `nonNull=${dc.data.filter(v => v != null).length}`);
-check('DC latest bar = 89.023 ($89.0B)', Math.abs(dc.data[64] - 89.023) < 1e-6, `value=${dc.data[64]}`);
+check('DC segment axis = only its 30 disclosed quarters (own axis, no null gaps)', dc.data.length === 30 && dc.data.every(v => v != null), `n=${dc.data.length}`);
+check('DC latest bar = 89.023 ($89.0B)', Math.abs(dc.data[dc.data.length - 1] - 89.023) < 1e-6, `value=${dc.data[dc.data.length - 1]}`);
 check('title shows segment name + full-history tag', await evl(`document.getElementById('chartTitle').textContent.includes('Data Center')`));
 await shot('bar_segment_dc.png');
 

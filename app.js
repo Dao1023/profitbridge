@@ -877,6 +877,56 @@ function barQuarters(ticker) {
     : e.quarters;
 }
 
+/* ---- segment bar item: x-axis = the sub-item's OWN disclosed period ends ----
+   Segments are reported annually (BIDU/JD/…), semi-annually (A-share) or quarterly
+   (NVDA/MSFT/…). Plotting a segment on the profit-quarter axis leaves most cells empty
+   (annual-only filers → every quarter misses). For a segment sub-item we instead plot
+   exactly the ends where that name HAS a value, preserving its own granularity, and reuse
+   the real profit row at each end so basis label / per-period fx / share-denominator logic
+   stay identical to the profit-item path. */
+function segPeriodType(ticker, end) {
+  const s = SEG && SEG.companies[ticker];
+  const pt = s && s.periodTypes && s.periodTypes[end];
+  if (pt === 'annual' || pt === 'FY') return 'annual';
+  if (pt === 'half' || pt === 'H1' || pt === 'semiannual') return 'half';
+  return 'quarter';
+}
+function segPeriods(ticker, name) {
+  const s = SEG && SEG.companies[ticker];
+  if (!s || !s.quarters) return [];
+  const byEnd = new Map();
+  for (const qv of (DATA.companies[ticker] ? DATA.companies[ticker].quarters : [])) byEnd.set(qv.end, qv);
+  const ends = Object.keys(s.quarters).filter(en => segValueFor(ticker, en, name) != null).sort();
+  return ends.map(en => {
+    const base = byEnd.get(en);
+    const pt = segPeriodType(ticker, en);
+    const row = base ? { ...base } : { end: en, periodType: pt === 'annual' ? 'annual' : (pt === 'half' ? 'interim' : 'q') };
+    row.end = en;
+    row.__segPT = pt;
+    return row;
+  });
+}
+/* x-axis label for a segment period, keyed off its OWN granularity (not the profit row's) */
+function segPeriodLabel(ticker, qv) {
+  const pt = qv.__segPT || 'quarter';
+  const yr = qv.end.slice(0, 4), yy = qv.end.slice(2, 4), mm = Number(qv.end.slice(5, 7));
+  if (pt === 'annual') return 'FY ' + yr;
+  if (pt === 'quarter') return `Q${Math.floor((mm - 1) / 3) + 1}'${yy}`;
+  const cm = periodCoveredMonths(ticker, qv);
+  if (cm <= 6) return `H1'${yy}`;
+  if (cm <= 9) return `9M'${yy}`;
+  return 'FY ' + yr;
+}
+/* disclosure-granularity word for the chart title; null = pure quarterly (keep original copy) */
+function segGranularityLabel(periods) {
+  const pts = new Set((periods || []).map(p => p.__segPT || 'quarter'));
+  if (pts.size === 1 && pts.has('quarter')) return null; // quarterly → leave the original wording alone
+  const order = [['annual', lang === 'zh' ? '年度' : 'annual'], ['half', lang === 'zh' ? '半年' : 'half-year'], ['quarter', lang === 'zh' ? '季度' : 'quarterly']];
+  const names = order.filter(([k]) => pts.has(k)).map(([, v]) => v);
+  if (pts.size === 1) return lang === 'zh' ? '仅' + names[0] + '披露' : names[0] + ' only';
+  return lang === 'zh' ? names.join('+') + '披露' : names.join(' + ') + ' disclosure';
+}
+
 /* Every selectable bar item for a company, with its full-history series precomputed.
    groups: items (income-statement lines, $B) / segments (from segments.json, $B) / margins (%). */
 function buildBarItems(ticker) {
@@ -896,8 +946,10 @@ function buildBarItems(ticker) {
           if (!seen.has(nm)) { seen.add(nm); segNames.push(nm); }
   }
   for (const nm of segNames) {
-    const data = qs.map(qv => { const v = segValueFor(ticker, qv.end, nm); return v != null ? v * segFactor(qv, ticker) / MB : null; });
-    out.push({ id: 'seg:' + nm, segName: nm, label: nm, group: 'segments', kind: 'segment', color: BLUE, data, hasData: data.some(v => v != null) });
+    // per-item axis: only the ends where this sub-item actually has a value (own granularity)
+    const periods = segPeriods(ticker, nm);
+    const data = periods.map(qv => { const v = segValueFor(ticker, qv.end, nm); return v != null ? v * segFactor(qv, ticker) / MB : null; });
+    out.push({ id: 'seg:' + nm, segName: nm, label: nm, group: 'segments', kind: 'segment', color: BLUE, data, periods, hasData: data.some(v => v != null) });
   }
   for (const mk of BAR_MARGIN_ITEMS) {
     const data = qs.map(qv => { const m = rawMetrics(qv); return m && m.revenue && m[mk] != null ? m[mk] / m.revenue * 100 : null; });
@@ -929,11 +981,14 @@ function renderBarChart() {
   const qs = barQuarters(state.company);
   const items = buildBarItems(state.company);
   const item = items.find(i => i.id === state.barItem) || items[0];
+  // axis rows: segment items carry their OWN disclosed period ends (item.periods);
+  // every other item keeps the profit-quarter axis (qs) byte-for-byte.
+  const rows = item.kind === 'segment' ? (item.periods || []) : qs;
   // period-basis aware axis: cumulative interims/full-years → H1'yy / 9M'yy / FY, so a
   // six-month total never masquerades as a single "Q2" bar (see barPeriodLabel)
-  const perRowLabel = qv => barPeriodLabel(state.company, qv);
-  const labels = qs.map(perRowLabel);
-  const bases = qs.map(qv => barBasisInfo(state.company, qv));
+  const perRowLabel = qv => (item.kind === 'segment' ? segPeriodLabel(state.company, qv) : barPeriodLabel(state.company, qv));
+  const labels = rows.map(perRowLabel);
+  const bases = rows.map(qv => barBasisInfo(state.company, qv));
   const hasCumPoint = bases.some(b => b.decal); // series contains H1/9M cumulative bars
   const hasAny = item.data.some(v => v != null);
   const isMargin = item.kind === 'margin';
@@ -941,7 +996,7 @@ function renderBarChart() {
   // BUG-D: segment bars for half/FY periods carry cumulative values (as disclosed), so
   // cumulativeView() tells us the matching YTD revenue + a '上半年累计 / FY全年累计' label.
   const cumFor = qv => (item.kind === 'segment' ? cumulativeView(state.company, qv) : null);
-  const hasCumSeg = item.kind === 'segment' && qs.some(qv => cumFor(qv));
+  const hasCumSeg = item.kind === 'segment' && rows.some(qv => cumFor(qv));
   // legend/notice: a fixed-height, absolutely-positioned chip → toggling it never shifts
   // the chart or the timeline (no layout jump); hidden entirely when no cumulative bars.
   {
@@ -953,9 +1008,21 @@ function renderBarChart() {
       note.classList.toggle('show', hasCumPoint);
     }
   }
-  const allInterim = qs.length > 0 && qs.every(qv => qv.periodType === 'interim');
+  const allInterim = rows.length > 0 && rows.every(qv => qv.periodType === 'interim');
+  // segment items whose disclosure is NOT purely quarterly get an explicit granularity +
+  // year range in the title (e.g. 百度 · Search Services · 仅年度披露 2013–2025); purely
+  // quarterly segments keep the original wording.
+  const segGran = item.kind === 'segment' ? segGranularityLabel(rows) : null;
+  let titleBasis;
+  if (item.kind === 'segment' && segGran) {
+    const yrs = rows.map(qv => qv.end.slice(0, 4));
+    const range = yrs.length ? (yrs[0] === yrs[yrs.length - 1] ? yrs[0] : yrs[0] + '–' + yrs[yrs.length - 1]) : '';
+    titleBasis = ' · ' + segGran + (range ? ' ' + range : '');
+  } else {
+    titleBasis = hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : (allInterim ? 'barFullHistorySemiannual' : 'barFullHistory')) : '';
+  }
   document.getElementById('chartTitle').textContent =
-    `${shortName(state.company)} · ${item.label}${hasAny ? ' · ' + t(isAnnual() ? 'barFullHistoryAnnual' : (allInterim ? 'barFullHistorySemiannual' : 'barFullHistory')) : ''}`
+    `${shortName(state.company)} · ${item.label}${titleBasis}`
     + (hasCumSeg ? ' · ' + (lang === 'zh' ? '分部为半年/FY累计口径' : 'segments on half/FY cumulative basis') : '');
 
   /* overlay lines follow the SELECTED item (占比/环比 buttons toggle each line):
@@ -970,7 +1037,7 @@ function renderBarChart() {
   const pctLine = isRevenue ? [] : item.data.map((v, i) => {
     if (v == null) return null;
     if (isMargin) return +v.toFixed(2);
-    const qv = qs[i];
+    const qv = rows[i];
     // BUG-A: bar values are $B but rawMetrics().revenue is $M → ×MB before dividing
     //        (previously omitted, shrinking every amount share 1000×).
     // BUG-D: a cumulative segment bar must divide by the same YTD cumulative revenue
@@ -992,9 +1059,9 @@ function renderBarChart() {
      a fixed i-2/i-4 offset); if there is no such base → null (break the line). If the *previous*
      point is cumulative (base period inconsistent) we also refuse a QoQ. */
   const yoyBaseIndex = i => {
-    const cur = qs[i]; if (!cur) return -1;
+    const cur = rows[i]; if (!cur) return -1;
     const md = cur.end.slice(5), yoy = String(Number(cur.end.slice(0, 4)) - 1);
-    for (let j = i - 1; j >= 0; j--) if (qs[j].end.slice(5) === md && qs[j].end.slice(0, 4) === yoy) return j;
+    for (let j = i - 1; j >= 0; j--) if (rows[j].end.slice(5) === md && rows[j].end.slice(0, 4) === yoy) return j;
     return -1;
   };
   // per-point basis: 'qoq' | 'yoy' | null (null = no valid comparable base → line breaks)
@@ -1009,8 +1076,8 @@ function renderBarChart() {
       growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'yoy';
       return (v == null || i === 0 || pv0 == null) ? null : +((v - pv0) / Math.abs(pv0) * 100).toFixed(2);
     }
-    const cumCur = profitRowIsCumulative(state.company, qs[i]);
-    const cumPrev = i > 0 && profitRowIsCumulative(state.company, qs[i - 1]);
+    const cumCur = profitRowIsCumulative(state.company, rows[i]);
+    const cumPrev = i > 0 && profitRowIsCumulative(state.company, rows[i - 1]);
     if (cumCur) { // cumulative point → YoY vs same MM-DD last year
       const b = yoyBaseIndex(i), pv = b >= 0 ? item.data[b] : null;
       growthBasis[i] = (v == null || pv == null) ? null : 'yoy';
@@ -1059,7 +1126,7 @@ function renderBarChart() {
       formatter: params => {
         const arr = Array.isArray(params) ? params : [params];
         const p = arr[0];
-        const i = p.dataIndex, qv = qs[i], val = item.data[i];
+        const i = p.dataIndex, qv = rows[i], val = item.data[i];
         const cum = cumFor(qv); // cumulative-basis label for half/FY segment points
         const b = bases[i];
         // cumulative bar point → state the coverage basis explicitly (H1/9M/FY 累计),
@@ -1135,7 +1202,7 @@ function renderBarChart() {
   // re-apply the remembered time window (company switch / re-render must not
   // reset the user's zoom — see switchCompany state-memory)
   if (window.__barZoom) chart.dispatchAction({ type: 'dataZoom', xAxisIndex: 0, start: window.__barZoom.start, end: window.__barZoom.end });
-  window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, quarterCount: qs.length,
+  window.__barMeta = { company: state.company, item: item.id, kind: item.kind, labels, data: item.data, ends: rows.map(qv => qv.end), quarterCount: rows.length,
     bases, hasCumPoint, pctLine, growthLine, growthBasis, showPct, linesShown: lineSeries.map(s => s.name) };
   window.__lastOption = { ...opt, backgroundColor: '#f2efe9', tooltip: undefined }; // WYSIWYG PNG export
 }
