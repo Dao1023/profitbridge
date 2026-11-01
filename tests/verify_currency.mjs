@@ -1,6 +1,6 @@
 // verify_currency.mjs — the ¥ / US$ display toggle must rescale values by the period's
 // fxToUsd (not merely relabel the axis). HUAWEI (CNY reporter, annual): revenue 2025-12-31
-// is 880941 (¥M) → ¥880.941B native, ×0.14975786 = $131.928B in USD; ratio 0.14976.
+// is 880941 (¥M) → ¥880.941B native; USD value = revenue × 该期 fxToUsd / 1e3, 故 ratio ≡ 该期 fxToUsd（动态取数，勿写死汇率）。
 import fs from 'fs';
 import { execFile } from 'child_process';
 
@@ -10,8 +10,8 @@ const PORT = 9362;
 const D = JSON.parse(fs.readFileSync(new URL('../data/profit.json', import.meta.url), 'utf8'));
 const c = D.companies['HUAWEI'];
 const last = c.quarters[c.quarters.length - 1];
-const nativeB = last.revenue / 1e3;             // 880.941
-const usdB = last.revenue * last.fxToUsd / 1e3; // 131.928…
+const nativeB = last.revenue / 1e3;             // 880.941（动态）
+const usdB = last.revenue * last.fxToUsd / 1e3; // 动态：revenue × 该期 fxToUsd
 
 const chrome = execFile(CHROME, [
   `--remote-debugging-port=${PORT}`, '--headless=new', '--no-first-run', '--window-size=1680,1050',
@@ -50,9 +50,9 @@ const nat = await barVal('native');
 const usd = await barVal('usd');
 check('HUAWEI native ¥ value == 880.941B (revenue/1e3)', near(nat.v, nativeB), `got=${nat.v} exp=${nativeB}`);
 check("HUAWEI native symbol is ¥", nat.sym === '¥', nat.sym);
-check('HUAWEI USD $ value == 131.928B (revenue×fx/1e3)', near(usd.v, usdB), `got=${usd.v} exp=${usdB}`);
+check('HUAWEI USD $ value == revenue×fx/1e3（动态）', near(usd.v, usdB), `got=${usd.v} exp=${usdB}`);
 check("HUAWEI USD symbol is $", usd.sym === '$', usd.sym);
-check('USD/native ratio == fxToUsd 0.14976', near(usd.v / nat.v, last.fxToUsd, 1e-4) && near(usd.v / nat.v, 0.14976, 1e-4), `ratio=${(usd.v / nat.v).toFixed(6)} fx=${last.fxToUsd}`);
+check('USD/native ratio == 该期 fxToUsd（动态，容差 1e-6）', near(usd.v / nat.v, last.fxToUsd, 1e-6), `ratio=${(usd.v / nat.v).toFixed(8)} fx=${last.fxToUsd}`);
 
 check('no console errors', errors.length === 0, errors.slice(0, 3).join(' | '));
 const pass = results.filter(r => r.ok).length;
