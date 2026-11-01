@@ -1068,6 +1068,12 @@ function renderBarChart() {
   document.getElementById('chartTitle').textContent =
     `${shortName(state.company)} · ${item.label}${titleBasis}`
     + (hasCumSeg ? ' · ' + (lang === 'zh' ? '分部为半年/FY累计口径' : 'segments on half/FY cumulative basis') : '');
+  // keep the cumulative-basis chip below the (possibly multi-line) title now that the header
+  // is a flow stack — the title can wrap to several lines, so anchor the chip to its box edge.
+  {
+    const ttl = document.getElementById('chartTitle'), note = document.getElementById('barBasisNote');
+    if (ttl && note) note.style.top = (ttl.offsetTop + ttl.offsetHeight + 4) + 'px';
+  }
 
   /* overlay lines follow the SELECTED item (占比/环比 buttons toggle each line):
      ① share-of-revenue % line (margin items are already % → line = the value itself)
@@ -1607,6 +1613,24 @@ function exportHeaderData() {
     ? (dispInUsd() ? '≈US$ · ' : c.currency.replace('-M', '') + ' · ') : '';
   return { title, line: `${c.name} (${state.company}) · ${period} · ${view} · ${cur}${unit}` };
 }
+/* Build the ECharts option used for BOTH exports. Two guarantees the on-screen
+   chart can't give us for free:
+   - the dataZoom SLIDER (the strip near the bottom that looks like a timeline) must not be
+     baked into the exported image/SVG — the export should be title + chart + watermark only;
+     we keep the user's zoom window by re-expressing it as an invisible `inside` zoom.
+   - no tooltip / animation in a static export. */
+function exportOption() {
+  const live = chart ? chart.getOption() : {};
+  const base = Object.assign({}, window.__lastOption || live,
+    { backgroundColor: '#f2efe9', animation: false, tooltip: undefined });
+  const dz = (live.dataZoom || [])[0] || {};
+  const start = dz.start != null ? dz.start : 0;
+  const end = dz.end != null ? dz.end : 100;
+  if (Array.isArray(base.dataZoom) && base.dataZoom.length) {
+    base.dataZoom = [{ type: 'inside', xAxisIndex: 0, start, end }]; // drop the slider UI, keep the window
+  }
+  return base;
+}
 function exportWatermark() {
   return `profitbridge · ${lang === 'zh' ? '数据更新' : 'data updated'} ${DATA.updated} · ${lang === 'zh' ? '单位' : 'unit'} ${dispSym()}${lang === 'zh' ? '十亿 (B)' : 'B'}`;
 }
@@ -1638,7 +1662,7 @@ async function exportPNG() {
   const W = 1600, H = 900, headH = 96, wmH = 40, ratio = 2;
   // SVG renderer can't rasterize → re-render into an offscreen CANVAS echarts instance at
   // 2x, then compose it under a header band drawn with the 2D context (title + meta + wm).
-  const opt = Object.assign({}, window.__lastOption || chart.getOption(), { backgroundColor: '#f2efe9', animation: false });
+  const opt = exportOption();
   const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: W, height: H });
   off.setOption(opt);
   const chartUrl = off.getDataURL({ type: 'png', pixelRatio: ratio, backgroundColor: '#f2efe9' });
@@ -1667,7 +1691,13 @@ async function exportPNG() {
 }
 function exportSVG() {
   if (!chart) return;
-  const svg = svgWithHeader(chart.renderToSVGString());
+  // Render from the export option (no dataZoom slider / timeline strip) into an offscreen
+  // SVG instance, then wrap with the same header + watermark the PNG carries.
+  const off = echarts.init(document.createElement('div'), null, { renderer: 'svg', width: 1600, height: 900 });
+  off.setOption(exportOption());
+  const raw = off.renderToSVGString();
+  off.dispose();
+  const svg = svgWithHeader(raw);
   const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
