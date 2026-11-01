@@ -77,8 +77,17 @@ let REGISTRY = []; // data/companies.json — single source of company truth (se
 const regOf = tk => REGISTRY.find(c => c.ticker === tk) || null;
 function quarterLabel(end, periodType) {
   const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
-  if (periodType === 'interim') return `H1 ${y}`;
-  return isAnnual() ? `FY ${y}` : `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
+  if (periodType === 'annual' || isAnnual()) return `FY ${fiscalYearOf(end)}`;
+  if (periodType === 'interim') return `H1 ${fiscalYearOf(end)}`;
+  return `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
+}
+/* Fiscal year that a period END belongs to. Calendar-FYE filers: the calendar year.
+   Non-December FYE (e.g. 00151.HK FYE=3): a period ending AFTER the FYE month belongs to
+   the NEXT fiscal year — 00151 2025-09-30 covers Apr–Sep 2025 = FY2026 H1, not FY2025.
+   fiscalYearEndMonth() is defined further down (hoisted) so this is safe to call. */
+function fiscalYearOf(end, tk = state.company) {
+  const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
+  return m > fiscalYearEndMonth(tk) ? y + 1 : y;
 }
 function shortName(ticker) {
   const c = DATA.companies[ticker];
@@ -259,10 +268,14 @@ const NODE_COLORS = { revenue: GRAY, gross: GREEN, cogs: RED, opex: RED, rd: RED
 const DEGRADED_RESIDUAL = 'undisclosedCost';
 const FLOW_OPACITY = 0.55;
 
-/* segment inflow availability for a company+quarter (segments are $M) */
+/* segment inflow availability for a company+quarter (segments are $M).
+   annualQuarters-only filers (e.g. 00992.HK Lenovo) keep their annual segment rows in
+   `annualQuarters` with an EMPTY `quarters` map — fall back to it so their sub-items are
+   visible at all (the sankey already has a dedicated annualQuarters path). */
 function segmentsFor(ticker, qEnd) {
   const c = SEG && SEG.companies && SEG.companies[ticker];
-  return (c && c.quarters && c.quarters[qEnd]) || null;
+  if (!c) return null;
+  return (c.quarters && c.quarters[qEnd]) || (c.annualQuarters && c.annualQuarters[qEnd]) || null;
 }
 
 /* Why does a company+quarter have no segment inflow? Distinguishes three cases so the
@@ -343,6 +356,17 @@ function profitRowIsCumulative(tk, qv) {
       (qv.periodType === 'annual' || qv.periodType === 'interim')) return true;
   return false;
 }
+/* UNIFIED cumulative-period test — the single source of truth for "is this period an
+   accumulated total?". A segment point carries its OWN granularity in __segPT (half /
+   annual / quarter); a plain profit point falls back to profitRowIsCumulative. Every
+   label / decal / growth / legend decision routes through THIS, so an A-share half-year
+   segment point can never be treated as a single quarter just because its base profit row
+   happens to be periodType 'q' (fixes A1 growth + A3 hatching + A4 label). */
+function periodIsCumulative(tk, qv) {
+  if (!qv) return false;
+  if (qv.__segPT != null) return qv.__segPT !== 'quarter';
+  return profitRowIsCumulative(tk, qv);
+}
 function ytdSum(tk, qEnd, key) {
   // fiscal-year-to-date native sum (CN fiscal year = calendar year).
   // Preserve null semantics: a metric that no quarter in the window reports must
@@ -401,15 +425,16 @@ function periodCoveredMonths(tk, qv) {
    as one quarter. Annual rows / annual-only series are unchanged (FY yyyy). */
 function barPeriodLabel(tk, qv) {
   const mm = Number(qv.end.slice(5, 7));
-  const yy = qv.end.slice(2, 4), yr = qv.end.slice(0, 4);
+  const fyr = fiscalYearOf(qv.end, tk);                 // fiscal year the point belongs to
+  const yy = String(fyr).slice(2, 4);
   const qn = Math.floor((mm - 1) / 3) + 1;
-  if (qv.periodType === 'annual' || isAnnual(tk)) return 'FY ' + yr; // annual row / series: unchanged
-  if (!profitRowIsCumulative(tk, qv)) return `Q${qn}'${yy}`;         // true single quarter: unchanged
+  if (qv.periodType === 'annual' || isAnnual(tk)) return 'FY ' + fyr; // annual row / series
+  if (!periodIsCumulative(tk, qv)) return `Q${qn}'${qv.end.slice(2, 4)}`; // true single quarter: calendar quarter
   const cm = periodCoveredMonths(tk, qv);
-  if (cm <= 3) return `Q${qn}'${yy}`;
+  if (cm <= 3) return `Q${qn}'${qv.end.slice(2, 4)}`;
   if (cm <= 6) return `H1'${yy}`;
   if (cm <= 9) return `9M'${yy}`;
-  return 'FY ' + yr;                                                // >=10 months → full-year cumulative
+  return 'FY ' + fyr;                                   // >=10 months → full-year cumulative
 }
 /* Per-point basis descriptor for the bar view:
      annualRow  — annual row / annual-only series (label already FY, keep plain)
@@ -419,7 +444,7 @@ function barPeriodLabel(tk, qv) {
 function barBasisInfo(tk, qv) {
   const annualRow = qv.periodType === 'annual' || isAnnual(tk);
   const months = periodCoveredMonths(tk, qv);
-  const cumulative = !annualRow && profitRowIsCumulative(tk, qv) && months > 3;
+  const cumulative = !annualRow && periodIsCumulative(tk, qv) && months > 3;
   return { annualRow, months, cumulative, decal: cumulative && months <= 9 };
 }
 /* shortest basis word for tooltips ('' = single quarter, no note) */
@@ -707,8 +732,11 @@ function renderChart() {
     links: g.links.map(l => ({ source: displayName({ name: l.source }), target: displayName({ name: l.target }), value: +l.value.toFixed(4) })),
   };
 
+  // A7: when the sankey is rebuilt on a cumulative basis, the title must speak in
+  // fiscal-period terms ("2026 上半年累计"), not bolt a contradictory "Q2 2026" in front.
   document.getElementById('chartTitle').textContent =
-    `${shortName(state.company)} ${quarterLabel(qv.end, qv.periodType)}${cum ? ` · ${cum.label}` : ''}`;
+    cum ? `${shortName(state.company)} · ${cum.label}`
+        : `${shortName(state.company)} ${quarterLabel(qv.end, qv.periodType)}`;
 
   const labelRich = {
     n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
@@ -888,15 +916,25 @@ function segPeriodType(ticker, end) {
   const s = SEG && SEG.companies[ticker];
   const pt = s && s.periodTypes && s.periodTypes[end];
   if (pt === 'annual' || pt === 'FY') return 'annual';
+  // A5: some filers (Samsung 005930.KS / LG 066570.KS) tag the 12-31 segment point as
+  // 'quarter' in segments.json periodTypes, but its value IS the full fiscal year (it
+  // matches the profit row's annual 12-31 row — ~4× a normal quarter). Trust the profit
+  // row: an annual profit row at this end means the segment value is annual too. The
+  // share denominator already uses full-year revenue, so only the axis/label change here.
+  const qrow = DATA.companies[ticker] && DATA.companies[ticker].quarters.find(o => o.end === end);
+  if (qrow && qrow.periodType === 'annual') return 'annual';
   if (pt === 'half' || pt === 'H1' || pt === 'semiannual') return 'half';
   return 'quarter';
 }
 function segPeriods(ticker, name) {
   const s = SEG && SEG.companies[ticker];
-  if (!s || !s.quarters) return [];
+  if (!s) return [];
+  const keys = new Set();
+  if (s.quarters) for (const en of Object.keys(s.quarters)) keys.add(en);
+  if (s.annualQuarters) for (const en of Object.keys(s.annualQuarters)) keys.add(en); // annualQuarters-only filers
   const byEnd = new Map();
   for (const qv of (DATA.companies[ticker] ? DATA.companies[ticker].quarters : [])) byEnd.set(qv.end, qv);
-  const ends = Object.keys(s.quarters).filter(en => segValueFor(ticker, en, name) != null).sort();
+  const ends = [...keys].filter(en => segValueFor(ticker, en, name) != null).sort();
   return ends.map(en => {
     const base = byEnd.get(en);
     const pt = segPeriodType(ticker, en);
@@ -909,13 +947,14 @@ function segPeriods(ticker, name) {
 /* x-axis label for a segment period, keyed off its OWN granularity (not the profit row's) */
 function segPeriodLabel(ticker, qv) {
   const pt = qv.__segPT || 'quarter';
-  const yr = qv.end.slice(0, 4), yy = qv.end.slice(2, 4), mm = Number(qv.end.slice(5, 7));
-  if (pt === 'annual') return 'FY ' + yr;
-  if (pt === 'quarter') return `Q${Math.floor((mm - 1) / 3) + 1}'${yy}`;
+  const yr = qv.end.slice(0, 4), mm = Number(qv.end.slice(5, 7));
+  const fyr = fiscalYearOf(qv.end, ticker), yy = String(fyr).slice(2, 4);
+  if (pt === 'annual') return 'FY ' + fyr;
+  if (pt === 'quarter') return `Q${Math.floor((mm - 1) / 3) + 1}'${qv.end.slice(2, 4)}`;
   const cm = periodCoveredMonths(ticker, qv);
   if (cm <= 6) return `H1'${yy}`;
   if (cm <= 9) return `9M'${yy}`;
-  return 'FY ' + yr;
+  return 'FY ' + fyr;
 }
 /* disclosure-granularity word for the chart title; null = pure quarterly (keep original copy) */
 function segGranularityLabel(periods) {
@@ -938,9 +977,14 @@ function buildBarItems(ticker) {
     out.push({ id, label: tn(id), group: 'items', kind: 'amount', color: NODE_COLORS[id], data, hasData: data.some(v => v != null) });
   }
   const segNames = [];
-  if (SEG && SEG.companies[ticker] && SEG.companies[ticker].quarters) {
+  if (SEG && SEG.companies[ticker]) {
+    const co = SEG.companies[ticker];
     const seen = new Set();
-    for (const list of Object.values(SEG.companies[ticker].quarters))
+    const lists = [].concat(
+      co.quarters ? Object.values(co.quarters) : [],
+      co.annualQuarters ? Object.values(co.annualQuarters) : [], // annualQuarters-only filers (00992.HK)
+    );
+    for (const list of lists)
       for (const s of list)
         for (const nm of [s.name, ...(s.children || []).map(c => c.name)])
           if (!seen.has(nm)) { seen.add(nm); segNames.push(nm); }
@@ -1024,6 +1068,12 @@ function renderBarChart() {
   document.getElementById('chartTitle').textContent =
     `${shortName(state.company)} · ${item.label}${titleBasis}`
     + (hasCumSeg ? ' · ' + (lang === 'zh' ? '分部为半年/FY累计口径' : 'segments on half/FY cumulative basis') : '');
+  // keep the cumulative-basis chip below the (possibly multi-line) title now that the header
+  // is a flow stack — the title can wrap to several lines, so anchor the chip to its box edge.
+  {
+    const ttl = document.getElementById('chartTitle'), note = document.getElementById('barBasisNote');
+    if (ttl && note) note.style.top = (ttl.offsetTop + ttl.offsetHeight + 4) + 'px';
+  }
 
   /* overlay lines follow the SELECTED item (占比/环比 buttons toggle each line):
      ① share-of-revenue % line (margin items are already % → line = the value itself)
@@ -1065,32 +1115,49 @@ function renderBarChart() {
     return -1;
   };
   // per-point basis: 'qoq' | 'yoy' | null (null = no valid comparable base → line breaks)
+  // Growth must be computed on the RAW reported series, not the display-scaled one: a CNY
+  // segment bar is multiplied by a PER-PERIOD fx factor (segFactor uses qv.fxToUsd), so a
+  // YoY computed on displayed values carries the fx drift of the two periods and misstates
+  // the real growth (e.g. 600887 奶粉 H1'25 true +15.8% but showed +14.3%). Compare raw.
+  const growthSrc = item.kind === 'segment'
+    ? item.periods.map(p => { const v = segValueFor(state.company, p.end, item.segName); return v == null ? null : v; })
+    : item.data;
   const growthBasis = [];
-  const growthLine = item.data.map((v, i) => {
-    const pv0 = item.data[i - 1];
+  const growthLine = growthSrc.map((gv, i) => {
+    const pd0 = item.data[i - 1]; // display value only used for the margin (pp) branch below
     if (isMargin) { // margin items are ratios → keep the pp change (unchanged behaviour)
-      growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'qoq';
-      return (v == null || i === 0 || pv0 == null) ? null : +(v - pv0).toFixed(2);
+      growthBasis[i] = (gv == null || i === 0 || pd0 == null) ? null : 'qoq';
+      return (gv == null || i === 0 || pd0 == null) ? null : +(gv - pd0).toFixed(2);
     }
     if (isAnnual()) { // annual series: every bar is an FY → prior FY is already YoY (keep as-is)
-      growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'yoy';
-      return (v == null || i === 0 || pv0 == null) ? null : +((v - pv0) / Math.abs(pv0) * 100).toFixed(2);
+      growthBasis[i] = (gv == null || i === 0 || growthSrc[i - 1] == null) ? null : 'yoy';
+      return (gv == null || i === 0 || growthSrc[i - 1] == null) ? null : +((gv - growthSrc[i - 1]) / Math.abs(growthSrc[i - 1]) * 100).toFixed(2);
     }
-    const cumCur = profitRowIsCumulative(state.company, rows[i]);
-    const cumPrev = i > 0 && profitRowIsCumulative(state.company, rows[i - 1]);
+    const cumCur = periodIsCumulative(state.company, rows[i]);
+    const cumPrev = i > 0 && periodIsCumulative(state.company, rows[i - 1]);
     if (cumCur) { // cumulative point → YoY vs same MM-DD last year
-      const b = yoyBaseIndex(i), pv = b >= 0 ? item.data[b] : null;
-      growthBasis[i] = (v == null || pv == null) ? null : 'yoy';
-      return (v == null || pv == null) ? null : +((v - pv) / Math.abs(pv) * 100).toFixed(2);
+      const b = yoyBaseIndex(i), pv = b >= 0 ? growthSrc[b] : null;
+      growthBasis[i] = (gv == null || pv == null) ? null : 'yoy';
+      return (gv == null || pv == null) ? null : +((gv - pv) / Math.abs(pv) * 100).toFixed(2);
     }
     if (cumPrev) { growthBasis[i] = null; return null; } // QoQ base is cumulative → inconsistent, break
-    growthBasis[i] = (v == null || i === 0 || pv0 == null) ? null : 'qoq';
-    return (v == null || i === 0 || pv0 == null) ? null : +((v - pv0) / Math.abs(pv0) * 100).toFixed(2);
+    growthBasis[i] = (gv == null || i === 0 || growthSrc[i - 1] == null) ? null : 'qoq';
+    return (gv == null || i === 0 || growthSrc[i - 1] == null) ? null : +((gv - growthSrc[i - 1]) / Math.abs(growthSrc[i - 1]) * 100).toFixed(2);
   });
-  // legend suffix: any cumulative-period YoY point on the line → flag the mixed basis
-  const hasCumYoY = !isAnnual() && growthBasis.includes('yoy');
+  // legend suffix from the actual basis mix of the line (single source of truth = growthBasis):
+  //   all-YoY (every comparable point cumulative: A股 半年/年度分部, annual segment filers)
+  //     → plain 同比/YoY — never mislabel a cumulative series as "环比" (A1/A4)
+  //   YoY + QoQ mix (quarterly series containing cumulative interim points)
+  //     → "环比（累计期用同比）" so neither basis is hidden
+  //   pure quarterly → qoqSuffix()
+  const basisSet = new Set(growthBasis.filter(Boolean));
+  const growthSuffix = basisSet.has('yoy') && !basisSet.has('qoq')
+    ? (lang === 'zh' ? '同比' : 'YoY')
+    : (basisSet.has('yoy') && basisSet.has('qoq')
+        ? (lang === 'zh' ? '环比（累计期用同比）' : 'QoQ (YoY on cumulative)')
+        : qoqSuffix());
   const pctName = `${item.label} · ${t('ofRev')}${isMargin ? '' : ' %'}`;
-  const growthName = `${item.label} · ${hasCumYoY ? (lang === 'zh' ? '环比（累计期用同比）' : 'QoQ (YoY on cumulative)') : qoqSuffix()}${isMargin ? ' (pp)' : ' %'}`;
+  const growthName = `${item.label} · ${growthSuffix}${isMargin ? ' (pp)' : ' %'}`;
   const lineSeries = [
     ...(showPct ? [{
       name: pctName, type: 'line', yAxisIndex: 1, data: pctLine,
@@ -1432,6 +1499,33 @@ function initTimelineDrag() {
   });
 }
 
+/* ---- C1 honesty: per-company data source + real segment cutoff + derived-period badge ----
+   The source line used to hardcode "SEC EDGAR XBRL" for all 92 companies, which is false
+   for HK/CN/KR/CH/EU filers. Map by ticker suffix to their true disclosure venue. */
+function dataSourceLabel(tk) {
+  const sfx = (tk.match(/\.[A-Za-z]+$/) || [''])[0].toUpperCase();
+  if (sfx === '.HK') return lang === 'zh' ? '香港交易所披露易（HKEX）' : 'HKEX (HKEXnews)';
+  if (sfx === '.SS' || sfx === '.SZ' || sfx === '.SH') return lang === 'zh' ? '东方财富（Eastmoney）' : 'Eastmoney';
+  if (sfx === '.KS') return lang === 'zh' ? '公司年报（无免费结构化源）' : 'Company annual report (no free structured source)';
+  if (sfx === '.SW' || sfx === '.PA' || sfx === '.TW') return lang === 'zh' ? '公司年报' : 'Company annual report';
+  if (tk === 'HUAWEI' || tk === 'LEGO') return lang === 'zh' ? '公司年报' : 'Company annual report';
+  return 'SEC EDGAR XBRL';
+}
+function isSecSource(tk) {
+  const sfx = (tk.match(/\.[A-Za-z]+$/) || [''])[0];
+  return !sfx && tk !== 'HUAWEI' && tk !== 'LEGO';
+}
+/* latest period end that actually has a segment split (max key across quarters / annualQuarters) */
+function segCutoffEnd(tk) {
+  const s = SEG && SEG.companies && SEG.companies[tk];
+  if (!s) return null;
+  const ends = [];
+  if (s.quarters) ends.push(...Object.keys(s.quarters));
+  if (s.annualQuarters) ends.push(...Object.keys(s.annualQuarters));
+  if (!ends.length) return null;
+  return ends.sort()[ends.length - 1];
+}
+
 function render() {
   const c = DATA.companies[state.company];
   const qv = q();
@@ -1443,8 +1537,25 @@ function render() {
     if (c.currency && c.currency !== 'USD-M') bits.push(c.currency.replace('-M', ''));
     if (dispInUsd() && c.currency !== 'USD-M') bits.push('≈US$');
     if (c.preview) bits.push(lang === 'zh' ? 'Preview（未上市，预览数据）' : 'Preview (private)');
+    // C1: real per-company source venue (never a blanket "SEC EDGAR XBRL" for HK/CN/KR/CH/EU)
+    const srcLabel = dataSourceLabel(state.company);
+    const srcHtml = isSecSource(state.company)
+      ? `<a href="${DATA.sourceUrl}" target="_blank">${srcLabel}</a>` : srcLabel;
+    // C1: real segment cutoff (max end in segments, else the latest income-statement period)
+    const latestProfitEnd = c.quarters.length ? c.quarters[c.quarters.length - 1].end : qv.end;
+    const segEnd = segCutoffEnd(state.company);
+    const cutoff = segEnd || latestProfitEnd;
+    const stale = segEnd && (new Date(latestProfitEnd) - new Date(segEnd)) / 864e5 > 200;
+    const cutoffTag = segEnd
+      ? (lang === 'zh' ? '分部截至' : 'segments as of')
+      : (lang === 'zh' ? '利润表截至' : 'income stmt as of');
+    const staleTag = stale ? (lang === 'zh' ? ' ⚠ 分部数据陈旧' : ' ⚠ segment data stale') : '';
+    // C1: derived / estimated CURRENT period (differenced CN rows, or HK-mixed single quarters)
+    const hkDerived = (c.frequency === 'hk-mixed') && /^q[1-4]$/.test(qv.periodType || '');
+    const estTag = (qv.derivation === 'diff' || hkDerived)
+      ? `<span class="estBadge">${lang === 'zh' ? '推算' : 'derived'}</span>` : '';
     document.getElementById('metaLine').innerHTML =
-      `${bits.join(' · ')}<br/>${t('updated')} ${DATA.updated} · ${t('source')} <a href="${DATA.sourceUrl}" target="_blank">SEC EDGAR XBRL</a>`;
+      `${bits.join(' · ')}${estTag}<br/>${t('updated')} ${DATA.updated} · ${t('source')} ${srcHtml} · ${cutoffTag} ${cutoff}${staleTag}`;
   }
   document.getElementById('btnExportPNG').querySelector('span').textContent = t('exportPNG');
   document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
@@ -1485,30 +1596,115 @@ function render() {
   syncHash(); // keep the shareable view-state hash in step with every render
 }
 
-function exportPNG() {
+/* B1: the exported image is rendered from the ECharts option only, while the on-screen
+   title / company / period live in HTML (#chartTitle/#metaLine). Build a header block from
+   the CURRENT state and paint it into the export so the PNG/SVG carries the same title,
+   company, view and period the user sees — plus a small provenance watermark. */
+function exportHeaderData() {
+  const c = DATA.companies[state.company];
+  const qv = q();
+  const title = (document.getElementById('chartTitle').textContent || '').trim();
+  const view = state.view === 'bar' ? t('viewBar') : t('viewBridge');
+  const period = state.view === 'bar'
+    ? (lang === 'zh' ? `全历史至 ${qv.end}` : `full history to ${qv.end}`)
+    : quarterLabel(qv.end, qv.periodType);
+  const unit = lang === 'zh' ? `单位 ${dispSym()}十亿 (B)` : `unit ${dispSym()}B`;
+  const cur = (c.currency && c.currency !== 'USD-M')
+    ? (dispInUsd() ? '≈US$ · ' : c.currency.replace('-M', '') + ' · ') : '';
+  return { title, line: `${c.name} (${state.company}) · ${period} · ${view} · ${cur}${unit}` };
+}
+/* Build the ECharts option used for BOTH exports. Two guarantees the on-screen
+   chart can't give us for free:
+   - the dataZoom SLIDER (the strip near the bottom that looks like a timeline) must not be
+     baked into the exported image/SVG — the export should be title + chart + watermark only;
+     we keep the user's zoom window by re-expressing it as an invisible `inside` zoom.
+   - no tooltip / animation in a static export. */
+function exportOption() {
+  const live = chart ? chart.getOption() : {};
+  const base = Object.assign({}, window.__lastOption || live,
+    { backgroundColor: '#f2efe9', animation: false, tooltip: undefined });
+  const dz = (live.dataZoom || [])[0] || {};
+  const start = dz.start != null ? dz.start : 0;
+  const end = dz.end != null ? dz.end : 100;
+  if (Array.isArray(base.dataZoom) && base.dataZoom.length) {
+    base.dataZoom = [{ type: 'inside', xAxisIndex: 0, start, end }]; // drop the slider UI, keep the window
+  }
+  return base;
+}
+function exportWatermark() {
+  return `profitbridge · ${lang === 'zh' ? '数据更新' : 'data updated'} ${DATA.updated} · ${lang === 'zh' ? '单位' : 'unit'} ${dispSym()}${lang === 'zh' ? '十亿 (B)' : 'B'}`;
+}
+function exportFileName(ext) {
+  return `${state.view === 'bar' ? 'bar_' + state.barItem.replace(/^seg:/, 'seg_') : 'profit_bridge'}_${state.company}_${q().end}.${ext}`;
+}
+const _svgEsc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function svgWithHeader(rawSvg) {
+  const h = exportHeaderData(), wm = exportWatermark();
+  const openM = rawSvg.match(/^<svg[^>]*>/i);
+  const openTag = openM ? openM[0] : '<svg>';
+  const width = (openTag.match(/width="([\d.]+)"/i) || [])[1] || '1200';
+  const height = (openTag.match(/height="([\d.]+)"/i) || [])[1] || '900';
+  const inner = rawSvg.replace(/^<svg[^>]*>/i, '').replace(/<\/svg>\s*$/i, '');
+  const headH = 96, wmH = 40;
+  const W = Number(width), H = Number(height) + headH + wmH;
+  const fam = "'Segoe UI','Microsoft YaHei',sans-serif";
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+<rect x="0" y="0" width="${W}" height="${H}" fill="#f2efe9"/>
+<text x="${W / 2}" y="40" text-anchor="middle" font-family="${fam}" font-size="30" font-weight="800" fill="#1d55a5">${_svgEsc(h.title)}</text>
+<text x="${W / 2}" y="72" text-anchor="middle" font-family="${fam}" font-size="15" fill="#475569">${_svgEsc(h.line)}</text>
+<g transform="translate(0,${headH})">${inner}</g>
+<text x="${W / 2}" y="${H - 14}" text-anchor="middle" font-family="${fam}" font-size="11" fill="#94a3b8">${_svgEsc(wm)}</text>
+</svg>`;
+}
+async function exportPNG() {
   if (!chart) return;
-  // SVG renderer's getDataURL cannot rasterize; re-render into an offscreen
-  // canvas instance at 2x and export a real PNG from there.
-  // copy + animation:false so getDataURL captures the settled frame (default
-  // animation would snapshot t=0 with zero-height bars → blank PNG).
-  const opt = Object.assign({}, window.__lastOption || chart.getOption(), { backgroundColor: '#f2efe9', animation: false }); // full option incl. label formatters → current mode WYSIWYG
-  const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: 1600, height: 900 });
+  const h = exportHeaderData(), wm = exportWatermark();
+  const W = 1600, H = 900, headH = 96, wmH = 40, ratio = 2;
+  // SVG renderer can't rasterize → re-render into an offscreen CANVAS echarts instance at
+  // 2x, then compose it under a header band drawn with the 2D context (title + meta + wm).
+  const opt = exportOption();
+  const off = echarts.init(document.createElement('div'), null, { renderer: 'canvas', width: W, height: H });
   off.setOption(opt);
-  const a = document.createElement('a');
-  a.download = `${state.view === 'bar' ? 'bar_' + state.barItem.slice(4) : 'profit_bridge'}_${state.company}_${q().end}.png`;
-  a.href = off.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#f2efe9' });
-  document.body.appendChild(a); a.click(); a.remove();
+  const chartUrl = off.getDataURL({ type: 'png', pixelRatio: ratio, backgroundColor: '#f2efe9' });
   off.dispose();
+  const img = new Image();
+  await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = chartUrl; });
+  const canvas = document.createElement('canvas');
+  canvas.width = W * ratio; canvas.height = (H + headH + wmH) * ratio;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#f2efe9'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, headH * ratio, W * ratio, H * ratio);
+  const fam = "'Segoe UI','Microsoft YaHei',sans-serif";
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#1d55a5'; ctx.font = `800 ${30 * ratio}px ${fam}`;
+  ctx.fillText(h.title, canvas.width / 2, 40 * ratio);
+  ctx.fillStyle = '#475569'; ctx.font = `${15 * ratio}px ${fam}`;
+  ctx.fillText(h.line, canvas.width / 2, 74 * ratio);
+  ctx.fillStyle = '#94a3b8'; ctx.font = `${11 * ratio}px ${fam}`;
+  ctx.fillText(wm, canvas.width / 2, (H + headH + wmH / 2) * ratio);
+  const dataUrl = canvas.toDataURL('image/png');
+  const a = document.createElement('a');
+  a.download = exportFileName('png');
+  a.href = dataUrl;
+  document.body.appendChild(a); a.click(); a.remove();
+  return dataUrl; // tests (verify_export) read this to prove the composed image is non-empty
 }
 function exportSVG() {
   if (!chart) return;
-  const svg = chart.renderToSVGString();
+  // Render from the export option (no dataZoom slider / timeline strip) into an offscreen
+  // SVG instance, then wrap with the same header + watermark the PNG carries.
+  const off = echarts.init(document.createElement('div'), null, { renderer: 'svg', width: 1600, height: 900 });
+  off.setOption(exportOption());
+  const raw = off.renderToSVGString();
+  off.dispose();
+  const svg = svgWithHeader(raw);
   const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.download = `${state.view === 'bar' ? 'bar_' + state.barItem.slice(4) : 'profit_bridge'}_${state.company}_${q().end}.svg`;
+  a.download = exportFileName('svg');
   a.href = url; document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
+  return svg; // tests read this to assert company/period text is present in the export
 }
 
 function initControls() {
@@ -1540,7 +1736,21 @@ function initControls() {
     const res = await fetch('data/profit.json');
     if (res.ok) loaded = await res.json();
   } catch (e) { /* file:// or offline */ }
-  if (!loaded && window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
+  if (!loaded) {
+    // D1: index.html no longer eagerly loads the 566KB data/profit.json.js (the JSON fetch
+    // above is the normal path). When that fetch fails — file:// double-click or offline —
+    // inject the inline payload on demand. This is the ONLY reason the .json.js file exists,
+    // so file:// keeps working without every HTTP visitor paying for the 566KB up front.
+    if (!window.__PROFIT_DATA) {
+      await new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = 'data/profit.json.js';
+        s.onload = resolve; s.onerror = resolve; // resolve either way; missing data handled below
+        document.head.appendChild(s);
+      });
+    }
+    if (window.__PROFIT_DATA) loaded = window.__PROFIT_DATA;
+  }
   if (!loaded) { document.getElementById('brand').textContent = lang === 'zh' ? '未找到数据文件 data/profit.json' : 'data/profit.json not found'; return; }
   DATA = loaded;
   // profitPreview (e.g. SPCX): injected as a NORMAL entry so the rail/bridge can

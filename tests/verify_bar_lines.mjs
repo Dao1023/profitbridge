@@ -6,7 +6,7 @@ import fs from 'node:fs';
 
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9364;
-const BASE = 'http://127.0.0.1:8440/index.html';
+const BASE = (process.env.BASE || 'http://127.0.0.1:8440') + '/index.html';
 const OUT = 'tests/out';
 fs.mkdirSync(OUT, { recursive: true });
 

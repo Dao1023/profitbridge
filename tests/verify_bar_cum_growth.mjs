@@ -12,7 +12,7 @@
 //    points (YoY basis, no bogus QoQ) — the intended semantic change from 'annual'.
 import fs from 'fs';
 import { execFile } from 'child_process';
-const BASE = 'http://127.0.0.1:8440';
+const BASE = process.env.BASE || 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9352;
 const SHOTS = new URL('./.shots/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
@@ -87,8 +87,8 @@ let expY = yoyAt(s, i);
 check('09633 bar quarters are all interims (hk-mixed strips annual 12-31)', s.ends.every(e => e.slice(5) === '06-30'), JSON.stringify(s.ends));
 check('09633 2026-06-30 growth == hand-computed YoY (vs 2025-06-30), not a raw QoQ', near(s.growth[i], expY), `got=${s.growth[i]} yoy=${expY?.toFixed(2)}`);
 check('09633 2026-06-30 basis tagged yoy', s.basis[i] === 'yoy', `basis=${s.basis[i]}`);
-check("09633 legend suffix flags cumulative-YoY (环比（累计期用同比）), not plain QoQ",
-  /累计期用同比|YoY on cumulative/.test(s.growthName) && s.growthName !== '营收 · QoQ %', s.growthName);
+check("09633 legend flags YoY (all-interim series → plain 同比/YoY, never QoQ)",
+  /同比|YoY/.test(s.growthName) && !/累计期用同比|YoY on cumulative/.test(s.growthName) && !/QoQ|环比/.test(s.growthName), s.growthName);
 // note: with annual points stripped, the prior bar already equals the same period last year,
 // so here the *number* legitimately equals the old value — the defect was the label/basis.
 check('09633 2026-06-30 number coincides with old 15.99 (label-only defect here)', near(s.growth[i], 15.99), `got=${s.growth[i]}`);
@@ -104,7 +104,8 @@ i = idxOf(s, '2025-09-30');
 expY = yoyAt(s, i);
 check('00151 2025-09-30 growth == hand-computed YoY (vs 2024-09-30)', near(s.growth[i], expY), `got=${s.growth[i]} yoy=${expY?.toFixed(2)}`);
 check('00151 2025-09-30 basis tagged yoy', s.basis[i] === 'yoy');
-check('00151 legend suffix flags cumulative-YoY', /累计期用同比|YoY on cumulative/.test(s.growthName), s.growthName);
+check('00151 legend flags YoY (cumulative interim/q3 series → 同比/YoY, never 环比/QoQ)',
+  /同比|YoY/.test(s.growthName) && !/QoQ|环比/.test(s.growthName), s.growthName);
 check('00151 2025-09-30 number == old 2.13 (label-only defect here)', near(s.growth[i], 2.13), `got=${s.growth[i]}`);
 // a point whose OLD QoQ was a fake number: 2017-06-30 vs prior bar was -34.8, real YoY = -7.72
 let j = idxOf(s, '2017-06-30');

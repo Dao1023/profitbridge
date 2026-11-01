@@ -17,7 +17,7 @@
 import fs from 'fs';
 import { execFile } from 'child_process';
 
-const BASE = 'http://127.0.0.1:8440';
+const BASE = process.env.BASE || 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9356;
 const SHOTS = new URL('./.shots/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
@@ -47,16 +47,21 @@ function coveredMonths(tk, qv) {
   const startMonth = (fye(tk) % 12) + 1;            // fiscal-year start = M+1 (12→1)
   return ((endMonth - startMonth + 12) % 12) + 1;
 }
+function fiscalYearOf(tk, end) {
+  const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
+  return m > fye(tk) ? y + 1 : y;           // e.g. 00151 (FYE=3) 2025-09-30 → FY2026
+}
 function expectedLabel(tk, qv) {
-  const mm = Number(qv.end.slice(5, 7)), yy = qv.end.slice(2, 4), yr = qv.end.slice(0, 4);
+  const mm = Number(qv.end.slice(5, 7)), yr = qv.end.slice(0, 4);
+  const fyr = fiscalYearOf(tk, qv.end), fyy = String(fyr).slice(2, 4);
   const qn = Math.floor((mm - 1) / 3) + 1;
-  if (qv.periodType === 'annual' || D.companies[tk].frequency === 'annual') return 'FY ' + yr;
-  if (!isCumulative(tk, qv)) return `Q${qn}'${yy}`;
+  if (qv.periodType === 'annual' || D.companies[tk].frequency === 'annual') return 'FY ' + fyr;
+  if (!isCumulative(tk, qv)) return `Q${qn}'${qv.end.slice(2, 4)}`; // true single quarter: calendar
   const cm = coveredMonths(tk, qv);
-  if (cm <= 3) return `Q${qn}'${yy}`;
-  if (cm <= 6) return `H1'${yy}`;
-  if (cm <= 9) return `9M'${yy}`;
-  return 'FY ' + yr;
+  if (cm <= 3) return `Q${qn}'${qv.end.slice(2, 4)}`;
+  if (cm <= 6) return `H1'${fyy}`;          // H1/9M carry the FISCAL year, not the calendar year
+  if (cm <= 9) return `9M'${fyy}`;
+  return 'FY ' + fyr;
 }
 // a bar should be hatched iff it's an H1/9M cumulative point (4..9 months, non-annual)
 function expectedDecal(tk, qv) {

@@ -33,11 +33,22 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      # Publish ONLY the runtime subset — the whole-repo upload used to expose /tests/*.mjs
+      # and /scripts/*.mjs on Pages. Copy just what the app loads at runtime into dist/:
+      # index.html, app.js, vendor/, data/ (minus staging/ scratch and *.bak backups, but
+      # including data/logos/ that the logo rail fetches and the data/*.json.js fallbacks).
+      - name: Prepare runtime subset
+        run: |
+          set -euo pipefail
+          rm -rf dist && mkdir -p dist dist/data
+          cp index.html app.js dist/
+          cp -r vendor dist/vendor
+          rsync -a --exclude 'staging/' --exclude '*.bak' data/ dist/data/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          # upload the prepared runtime subset, never the whole repository
+          path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5

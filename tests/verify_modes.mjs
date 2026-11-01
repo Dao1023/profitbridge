@@ -1,7 +1,7 @@
 // Headless verify: % of revenue + QoQ label modes, screenshots, numeric assertions.
 import fs from 'fs';
 import { execFile } from 'child_process';
-const BASE = 'http://127.0.0.1:8440';
+const BASE = process.env.BASE || 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9333;
 const SHOTS = new URL('./.shots/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');

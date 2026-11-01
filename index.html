@@ -46,8 +46,16 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .toolbar .left { display:flex; align-items:center; gap:14px; min-width:0; }
 #brand { font-size:20px; font-weight:800; color:var(--title-blue); white-space:nowrap; }
 .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-.meta { position:absolute; top:8px; left:14px; font-size:11px; color:var(--muted); text-align:left; line-height:1.5; z-index:7; pointer-events:none; }
+/* Header is a normal FLOW stack inside #chartPanel: meta on its own row, the 32px title
+   on the next row. Previously .meta was absolutely overlaid at top:8px and .in-title used a
+   fixed padding-top, so long company/segment titles ran straight through the meta text.
+   padding-right on .meta reserves the dropdown's lane (#barSelect) so the two never collide. */
+.meta { position:static; font-size:11px; color:var(--muted); text-align:left; line-height:1.5;
+  padding:8px 250px 0 14px; min-height:36px; }
 .meta a { color:var(--blue); pointer-events:auto; }
+/* derived/estimated period badge (C1 honesty: rows reconstructed by differencing) */
+.estBadge { display:inline-block; font-size:9.5px; font-weight:700; color:#b45309; background:#fef3c7;
+  border:1px solid #fcd34d; border-radius:4px; padding:0 4px; margin-left:5px; vertical-align:1px; }
 /* transient toast: quarter realignment notices on company switch */
 #hintToast { position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(8px); background:#1e293b; color:#fff;
   font-size:12.5px; padding:8px 16px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:50; box-shadow:0 4px 14px rgba(30,41,59,.25); }
@@ -78,11 +86,11 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
   background:repeating-linear-gradient(-45deg,#94a3b8 0 2px,transparent 2px 5px); }
 
 #chartPanel { background:var(--cream); border:1px solid var(--border); border-radius:10px; position:relative; overflow:hidden; }
-#chartPanel .in-title { text-align:center; padding-top:20px; font-size:32px; font-weight:800; color:var(--title-blue); }
+#chartPanel .in-title { text-align:center; padding:4px 16px 8px; font-size:clamp(20px, 2.05vw, 30px); line-height:1.2; font-weight:800; color:var(--title-blue); overflow-wrap:anywhere; }
 #sankey { width:100%; height:660px; display:block; }
 /* metric dropdown: absolute overlay top-right of the chart — appearing/disappearing
    never shifts the toolbar row (fixes the whole-row button jump) */
-#barSelect { position:absolute; top:30px; right:12px; z-index:6; appearance:auto; background:var(--card); color:var(--text); border:1px solid #d8dee9; border-radius:10px;
+#barSelect { position:absolute; top:6px; right:12px; z-index:6; appearance:auto; background:var(--card); color:var(--text); border:1px solid #d8dee9; border-radius:10px;
   padding:8px 12px; font-size:13.5px; font-weight:600; cursor:pointer; box-shadow:0 1px 3px rgba(30,41,59,.06); max-width:230px; }
 
 /* ---- bottom timeline ---- */
@@ -176,7 +184,9 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
   </div>
 </div>
 <script src="vendor/echarts.min.js"></script>
-<script src="data/profit.json.js"></script>
+<!-- data/profit.json.js (566KB inline payload) is NOT loaded here: app.js fetches
+     data/profit.json normally and only injects this file on demand when fetch fails
+     (file:// double-click / offline), so HTTP visitors no longer download it eagerly. -->
 <script src="app.js"></script>
 </body>
 </html>

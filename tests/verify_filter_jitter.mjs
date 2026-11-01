@@ -2,7 +2,7 @@
 // Asserts: same <img> element reference before/after click; rail rect unchanged.
 import fs from 'fs';
 import { execFile } from 'child_process';
-const BASE = 'http://127.0.0.1:8440';
+const BASE = process.env.BASE || 'http://127.0.0.1:8440';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const PORT = 9340;
 const SHOTS = new URL('./.shots/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
