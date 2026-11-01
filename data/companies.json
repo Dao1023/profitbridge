@@ -274,18 +274,18 @@
     ],
     "segmentMap": [
       [
-        "^digital media",
-        "Digital Media",
+        "^americas",
+        "Americas",
         null
       ],
       [
-        "^digital experience",
-        "Digital Experience",
+        "^emea",
+        "EMEA",
         null
       ],
       [
-        "^publishing",
-        "Publishing and Advertising",
+        "^apac",
+        "APAC",
         null
       ]
     ]
@@ -567,8 +567,13 @@
         null
       ],
       [
+        "^corporate and other",
+        "Corporate and other",
+        null
+      ],
+      [
         "^other businesses",
-        "Other businesses",
+        "Corporate and other",
         null
       ],
       [
@@ -730,8 +735,8 @@
         null
       ],
       [
-        "^other$",
-        null,
+        "^other",
+        "Other",
         null
       ]
     ]
@@ -888,18 +893,18 @@
     ],
     "segmentMap": [
       [
-        "^us$",
-        "U.S.",
+        "^u\\.?s\\.?",
+        "U.S. Market",
         null
       ],
       [
         "^international operated markets",
-        "IOM",
+        "International Operated Markets",
         null
       ],
       [
         "^international developmental licensed",
-        "IDL",
+        "International Developmental Licensed Markets and Corporate",
         null
       ],
       [
@@ -994,28 +999,28 @@
     ],
     "segmentMap": [
       [
-        "^compute and networking$|^compute$",
-        "Compute and networking",
+        "^cmbu",
+        "CMBU",
         null
       ],
       [
-        "^mobile$",
-        "Mobile",
+        "^cdbu",
+        "CDBU",
         null
       ],
       [
-        "^automotive$",
-        "Automotive",
+        "^mcbu",
+        "MCBU",
         null
       ],
       [
-        "^embedded$",
-        "Embedded",
+        "^aebu",
+        "AEBU",
         null
       ],
       [
-        "^consumer$",
-        "Consumer",
+        "^all other",
+        "All other",
         null
       ]
     ]
@@ -1203,7 +1208,7 @@
     "nameEn": "Palantir Technologies Inc.",
     "color": "#1f1f1f",
     "reports": [
-      "segment.*details",
+      "segment.*detail",
       "revenue.*disaggregat"
     ],
     "segmentMap": [
@@ -1264,23 +1269,18 @@
     ],
     "segmentMap": [
       [
-        "^north america",
-        "North America",
+        "^beverage",
+        "Beverage",
         null
       ],
       [
-        "^international",
-        "International",
+        "^food",
+        "Food",
         null
       ],
       [
-        "^channel development",
-        "Channel Development",
-        null
-      ],
-      [
-        "^corporate",
-        null,
+        "^other(?!\\s+countries)",
+        "Other",
         null
       ]
     ]
@@ -1494,12 +1494,12 @@
       ],
       [
         "^data processing",
-        "Data processing",
+        "Data processing revenue",
         null
       ],
       [
         "^international transaction",
-        "International transaction",
+        "International transaction revenue",
         null
       ],
       [
@@ -1514,7 +1514,7 @@
       ],
       [
         "^other revenue",
-        "Other",
+        "Other revenue",
         null
       ]
     ]

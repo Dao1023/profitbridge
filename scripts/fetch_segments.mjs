@@ -99,7 +99,16 @@ function parseRTable(tbl) {
   const dateCells = rowCells(trs[durIdx + 1]);
   // duration header row includes the table-title cell; date row starts directly at the first
   // value column → shift dates by (durCells.length - dateCells.length)
-  const off = Math.max(0, durCells.length - dateCells.length);
+  let off = Math.max(0, durCells.length - dateCells.length);
+  // HPQ-style tables: the "N Months Ended" row has a leading caption cell ("Segment
+  // Information - Schedule of ...") before the period columns, but the date row below starts
+  // straight at the first date (cell0 is itself a period end). Then the length-based shift is
+  // 0 yet the true shift equals the number of caption cells (durStart) — without this the
+  // period ends are mislabelled (a 3-month figure gets attributed to the adjacent quarter).
+  // Guarded to fire only when the caption offset exceeds the length-based shift and the date
+  // row's first cell is a real date, so tables without a leading caption are unaffected.
+  const durStart = durCells.findIndex(c => /months?\s+ended/i.test(c));
+  if (durStart > off && parseDate(dateCells[0] || '')) off = durStart;
   const periods = [];
   for (let i = 0; i < durCells.length; i++) {
     const dm = durCells[i].match(/(\d+)\s+months?\s+ended/i);
@@ -108,7 +117,14 @@ function parseRTable(tbl) {
   }
   if (!periods.length) return null;
   const rows = [];
-  let pending = null;
+  // Name-only rows between two value rows are candidate segment identities. Some filings
+  // insert a structural header ("Segment reporting information", "Segment Information",
+  // "Net revenue") directly above the revenue row, which used to clobber the true identity
+  // held by the preceding "Operating segments | CMBU"-style row. Keep them all and let
+  // resolveName try the most recent one first, so a table whose identity is the last
+  // name-only row (every healthy company) resolves exactly as before, and only a row whose
+  // last candidate fails to map falls back to an earlier one.
+  let pendCands = [];
   for (const tr of trs.slice(durIdx + 2)) {
     const cells = rowCells(tr);
     if (!cells.length) continue;
@@ -117,12 +133,13 @@ function parseRTable(tbl) {
     const vals = periods.map(p => parseNum(cells[p.idx] ?? ''));
     const hasVal = vals.some(v => v != null);
     if (!hasVal) {
-      if (label && !/\[line items\]/i.test(label)) pending = label; // [Member]/[Axis] rows still carry the segment name
+      if (label && !/\[line items\]/i.test(label)) pendCands.push(label); // [Member]/[Axis] rows still carry the segment name
       continue;
     }
     const own = label && !BOILER.test(label) && !/^revenues?$/i.test(label) ? label : null;
-    rows.push({ own, pending, member: member ? humanize(member) : null, vals });
-    pending = null;
+    const pends = pendCands.slice().reverse(); // most-recent-first candidate identities
+    rows.push({ own, pending: pends[0] || null, pends, member: member ? humanize(member) : null, vals });
+    pendCands = [];
   }
   if (!rows.length) return null;
   return { periods, rows };
@@ -149,7 +166,15 @@ async function filingRFiles(cik10, accn) {
 // pending (dimension-member) row above. Prefer the row's own label only when it is
 // non-generic (or already map-matched); otherwise let the pending segment name take over,
 // so income-statement rows (Operating income, Costs and Expenses) can't swallow the pending.
-const GENERIC = /^(net sales|total net revenue|total revenues?|revenue|revenues? from contract with customers|total|segment revenues?):?$/i;
+// 2026-11 fix: several issuers label the per-segment revenue row with a *total-style* caption
+// ("Net revenue", "Total consolidated net revenue", "Products net revenue", bare "Revenues") whose
+// own text carries NO segment identity; the identity is in the pending dimension-member row above.
+// These were previously treated as non-generic, so resolveName() kept the caption, discarded the
+// pending segment name → mappedN=0 → whole table skipped (V/DELL/HPQ/…). Adding them here lets the
+// pending segment name take over. This cannot swallow expense/profit rows because (a) NONREV
+// (below) drops those first, and (b) a caption is only replaced when a pending row actually
+// map-matches a real segment; otherwise resolveName() falls back to the caption (unmapped → skipped).
+const GENERIC = /^(net sales|net revenues?|total net revenues?|total consolidated net revenue|products net revenue|total revenues?|revenues?|revenue|revenues? from contract with customers|total|segment revenues?):?$/i;
 // expense/profit rows are never segment revenue — drop them before any mapping
 const NONREV = /expenses?|operating income|cost of (sales|revenues)|gross profit|margin|depreciation|share-based/i;
 function cleanPending(p) {
@@ -164,17 +189,27 @@ function labelCands(s) {
 }
 function resolveName(row, mapCfg) {
   const matchMap = (s) => labelCands(s).some(x => mapCfg.some(([re, name]) => name != null && re.test(x)));
-  const pend = cleanPending(row.pending);
+  const pends = (row.pends && row.pends.length ? row.pends : (row.pending ? [row.pending] : []))
+    .map(cleanPending).filter(Boolean);
   if (row.own && matchMap(row.own)) return row.own;
   const ownGeneric = !row.own || GENERIC.test(row.own);
-  if (ownGeneric && pend && matchMap(pend)) return pend;
-  return row.own || pend || row.member || 'Total Revenue';
+  if (ownGeneric) {
+    for (const p of pends) if (matchMap(p)) return p; // recent→old: fall back past a structural header
+  }
+  return row.own || pends[0] || row.member || 'Total Revenue';
 }
 
 function mapRows(parsed, mapCfg) {
   // returns { [canonicalName]: {value, children: Map(parent→{value})} } for one column index
   return (colIdx) => {
     const tops = new Map(), childAgg = new Map(); // parent -> Map(child -> value)
+    // Same canonical segment may appear as BOTH a parent total and its sub-business rollups in
+    // one table (e.g. HPQ "Personal Systems | Total segment net revenue" = 11,767 alongside
+    // "Commercial PS | Personal Systems …" = 8,579 and "Consumer PS | Personal Systems …" =
+    // 3,188). All three match ^personal systems; naively summing them doubles the segment.
+    // Record member-path depth (number of '|'-separated tokens) so the shallowest — the segment
+    // total — wins and deeper rollups are dropped. Rows at a single depth still sum as before.
+    const topRows = new Map(); // name -> [{value, depth}]
     for (const row of parsed.rows) {
       const v = row.vals[colIdx];
       if (v == null) continue;
@@ -191,8 +226,15 @@ function mapRows(parsed, mapCfg) {
         const cm = childAgg.get(hit.parent);
         cm.set(hit.name, (cm.get(hit.name) || 0) + v);
       } else {
-        tops.set(hit.name, (tops.get(hit.name) || 0) + v);
+        const depth = label ? label.split('|').length : 1;
+        if (!topRows.has(hit.name)) topRows.set(hit.name, []);
+        topRows.get(hit.name).push({ value: v, depth });
       }
+    }
+    for (const [name, arr] of topRows) {
+      const minD = Math.min(...arr.map(e => e.depth));
+      const kept = arr.filter(e => e.depth === minD);
+      tops.set(name, kept.reduce((s, e) => s + e.value, 0));
     }
     // parents with their own top row keep it (children attach to it); parents that appear
     // only as child containers get a synthesized top whose value is the children sum
@@ -298,7 +340,7 @@ async function fetchTicker(tk, failures) {
         // geographic-only / narrative tables regardless of raw row count
         const mappedN = parsed.rows.filter(r => {
           const n = resolveName(r, cfg.map);
-          return n && n !== 'Total Revenue' && cfg.map.some(([re, name]) => name != null && re.test(n));
+          return n && n !== 'Total Revenue' && cfg.map.some(([re, name]) => name != null && labelCands(n).some(x => re.test(x)));
         }).length;
         if (!mappedN) continue;
         const mapper = mapRows(parsed, cfg.map);
@@ -376,6 +418,11 @@ async function fetchTicker(tk, failures) {
   }
 
   const quarters = {}, warnings = [], noDisclosure = [];
+  // A NEGATIVE value on a segment the company config explicitly declares (e.g. IBM's "Other" = −32M
+  // divested-business revenue) is genuine negative segment revenue, not a data error — keep it so the
+  // period reconciles. Negatives on unconfigured/noise rows are still dropped below. Scoped to
+  // configured names so healthy companies' segment sets are unchanged.
+  const configuredNames = new Set(cfg.map.map(([, nm]) => nm).filter(Boolean));
   for (const te of targetEnds) {
     const c = chosen.get(te);
     // quarters with no segment column found in ANY fetched filing = the source itself has no
@@ -386,7 +433,13 @@ async function fetchTicker(tk, failures) {
     let sum = 0;
     for (const [name, v0] of c.tops) {
       const value = v0 * factor; // $M
-      if (value <= 0) continue;
+      // 2026-11 fix: keep legitimate NEGATIVE revenue rows (contra-revenue / eliminations /
+      // intersegment / client incentives) so segment sum still ties net revenue. Previously every
+      // value<=0 row was dropped, which inflated the sum (V's Client incentives −4,680 → 1.40×
+      // revenue) and killed the whole company. Non-legit negatives (data errors) are still dropped,
+      // as are exact zeros (unused). Mirrors the existing INTC "Intersegment Eliminations" precedent.
+      if (value === 0) continue;
+      if (value < 0 && !/client incentives|eliminat|contra|intersegment/i.test(name) && !configuredNames.has(name)) continue;
       sum += value;
       const seg = { name, value: Math.round(value * 10) / 10 };
       const cm = c.childAgg.get(name);
@@ -404,7 +457,11 @@ async function fetchTicker(tk, failures) {
     if (diff > 0.005) warnings.push(`${te}: segment sum off revenue by ${(diff * 100).toFixed(2)}%`);
   }
   const n = Object.keys(quarters).length;
-  if (n < 4) return { ticker: tk, degraded: `only ${n} quarters with segment data` };
+  // 2026-11 fix: per-quarter best effort instead of all-or-nothing. A single bad quarter no longer
+  // drags the whole company to degraded; each quarter that reconciles is written, failing quarters
+  // are dropped individually (see the >5% gate above). Only a company with ZERO usable quarters is
+  // degraded. (Was `n < 4`, which discarded e.g. a 3-quarter history wholesale.)
+  if (n < 1) return { ticker: tk, degraded: `no quarters with segment data` };
   return { ticker: tk, quarters, warnings, noDisclosure };
 }
 
