@@ -3410,6 +3410,17 @@
      "fxLocalToUsd": 0.15735
     },
     {
+     "periodEnd": "2012-03-31",
+     "label": "2012年一季报",
+     "periodType": "q1",
+     "cumulative": true,
+     "revenueLocal": 28385000000,
+     "netProfitLocal": 11643000000,
+     "revenueUsdM": 4508.1,
+     "netProfitUsdM": 1849.3,
+     "fxLocalToUsd": 0.15883
+    },
+    {
      "periodEnd": "2011-12-31",
      "label": "2011年年报",
      "periodType": "annual",

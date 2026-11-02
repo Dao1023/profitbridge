@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31",
+  "updated": "2026-11-02",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -23443,6 +23443,20 @@
       "frequency": "hk-mixed",
       "quarters": [
         {
+          "end": "2012-03-31",
+          "revenue": 28385,
+          "netInc": 11643,
+          "periodType": "q1",
+          "fxToUsd": 0.15883
+        },
+        {
+          "end": "2012-06-30",
+          "revenue": 28849,
+          "netInc": 11731,
+          "periodType": "q2",
+          "fxToUsd": 0.15735
+        },
+        {
           "end": "2012-09-30",
           "revenue": 28235,
           "netInc": 11412,
@@ -23897,7 +23911,7 @@
           "opInc": 43840
         }
       ],
-      "notes": "single-quarter series trimmed to continuous run from 2012-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
+      "notes": "single-quarter series trimmed to continuous run from 2012-03-31; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
     },
     "00992.HK": {
       "name": "Lenovo",
