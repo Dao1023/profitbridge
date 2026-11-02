@@ -35,6 +35,7 @@ const I18N = {
     barGroups: { items: 'Income statement', segments: 'Segments', margins: 'Margins' },
     barNoData: 'No disclosed data for this item', barFullHistory: 'full history', barFullHistoryAnnual: 'full history (annual)', barFullHistorySemiannual: 'full history (semiannual)',
     barNoDataTag: 'no data',
+    segNotes: 'Segment notes',
   },
   zh: {
     appTitle: '财报可视化', langBtn: 'English',
@@ -65,6 +66,7 @@ const I18N = {
     barGroups: { items: '利润科目', segments: '分部', margins: '利润率' },
     barNoData: '该子项无披露数据', barFullHistory: '全历史季度', barFullHistoryAnnual: '全历史年度', barFullHistorySemiannual: '全历史半年度',
     barNoDataTag: '无数据',
+    segNotes: '口径备注',
   },
 };
 
@@ -1526,6 +1528,80 @@ function segCutoffEnd(tk) {
   return ends.sort()[ends.length - 1];
 }
 
+/* ---- segment-disclosure notes («口径备注») --------------------------------
+   Two curated sources carry the *disclosure-basis* commentary we want to show:
+     1) SEG.notes — a flat array of "TICKER: text" strings (shared bucket);
+     2) SEG.companies[ticker].notes — a per-company string / array / object.
+   SEG.failures is a 386-entry scrape-failure log (ticker/end/kind/reason/src);
+   it is NOT disclosure-basis commentary and must never be rendered.
+
+   Most top-level notes are noise: batch "N 季无分部披露" rows that only list
+   dates, and "warning — <date>: segment sum off revenue by X%" deviation alerts.
+   Showing those would bury the handful of real basis-change remarks, so we drop
+   them and keep only notes that speak to disclosure basis / derivation. */
+const SEG_NOTE_DROP_PATTERNS = [
+  /* batch rows: "33 季无分部披露（源上无分部表，非抓取失败）: 2010-01-31, ..." */
+  /\d+\s*季无分部披露（源上无分部表，非抓取失败）\s*[:：]/,
+  /* deviation alerts: "warning — 2014-12-31: segment sum off revenue by 1.23%" */
+  /warning\s*[—–-]\s*\d{4}-\d{2}-\d{2}:\s*segment sum off revenue by/i,
+  /* any remaining bare "N 季无分部披露" variant */
+  /\d+\s*季无分部披露/,
+];
+const SEG_NOTE_KEEP_HINTS = [
+  '口径变更', '披露口径', '口径', '按客群', '客群', 'CHBN', '推导', '抵销',
+  'elimination', '不可得', '无法获取', '仅年度', '仅半年', '汇率', '历史汇率',
+  '无法反推', '重分类',
+];
+function isUsefulSegNote(s) {
+  if (!s || typeof s !== 'string') return false;
+  for (const re of SEG_NOTE_DROP_PATTERNS) if (re.test(s)) return false;
+  const lower = s.toLowerCase();
+  return SEG_NOTE_KEEP_HINTS.some(k => s.includes(k) || lower.includes(k.toLowerCase()));
+}
+/* all display-worthy notes for one ticker, de-duped, in source order */
+function segNotesFor(tk) {
+  const out = [];
+  const push = s => { if (typeof s === 'string' && s.trim() && !out.includes(s.trim())) out.push(s.trim()); };
+  if (SEG && Array.isArray(SEG.notes)) {
+    const re = /^([A-Za-z0-9.\-]+):\s*/;      // "TICKER: text"
+    for (const n of SEG.notes) {
+      if (typeof n !== 'string') continue;
+      const m = n.match(re);
+      if (!m || m[1].toUpperCase() !== tk.toUpperCase()) continue;
+      const body = n.slice(m[0].length).trim();
+      if (isUsefulSegNote(body)) push(body);
+    }
+  }
+  const cn = SEG && SEG.companies && SEG.companies[tk] && SEG.companies[tk].notes;
+  if (typeof cn === 'string') push(cn);              // per-company notes are curated: keep as-is
+  else if (Array.isArray(cn)) cn.forEach(push);
+  else if (cn && typeof cn === 'object') Object.values(cn).forEach(push);
+  return out;
+}
+
+/* Keep #chartPanel's OUTER height constant across companies even though the notes
+   row makes .meta taller for the ~14 tickers that have notes. #logoRail is
+   `position:absolute; top:0; bottom:0`, so its height tracks #chartPanel exactly;
+   without compensation, switching from a noted company (taller meta) to AAPL
+   (no notes) would shrink the panel and make the whole rail jump — the exact
+   layout-shift that tests/verify_filter_jitter.mjs guards against. We absorb the
+   notes row's own height by shrinking the chart canvas by the same amount, so
+     panel = baseMeta + title + (SANKEE_BASE_H - notesH) + timeline = constant.
+   Both verify_layout_refactor (rail==panel) and verify_filter_jitter (rail stable
+   on company switch) depend on this invariant. */
+const SANKEE_BASE_H = 660; // must match #sankey's CSS height in index.html
+function syncChartHeightForNotes() {
+  const sk = document.getElementById('sankey');
+  if (!sk) return;
+  const noteEl = document.getElementById('segNotesLine');
+  let extra = 0;
+  if (noteEl) {
+    const cs = getComputedStyle(noteEl);
+    extra = noteEl.offsetHeight + (parseFloat(cs.marginTop) || 0);
+  }
+  sk.style.height = Math.max(240, SANKEE_BASE_H - extra) + 'px';
+}
+
 function render() {
   const c = DATA.companies[state.company];
   const qv = q();
@@ -1554,8 +1630,19 @@ function render() {
     const hkDerived = (c.frequency === 'hk-mixed') && /^q[1-4]$/.test(qv.periodType || '');
     const estTag = (qv.derivation === 'diff' || hkDerived)
       ? `<span class="estBadge">${lang === 'zh' ? '推算' : 'derived'}</span>` : '';
+    // one extra small-gray row under the two meta lines: disclosure-basis notes for
+    // the CURRENT company only. Clamped to 2 lines via CSS; full text in `title`.
+    const notes = segNotesFor(state.company);
+    let notesHtml = '';
+    if (notes.length) {
+      const escAttr = s => String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+      const full = notes.join(lang === 'zh' ? '；' : '; ');
+      notesHtml = `<div class="segNote" id="segNotesLine" title="${escAttr(full)}">${escAttr(t('segNotes'))}${lang === 'zh' ? '：' : ': '}${escAttr(full)}</div>`;
+    }
     document.getElementById('metaLine').innerHTML =
-      `${bits.join(' · ')}${estTag}<br/>${t('updated')} ${DATA.updated} · ${t('source')} ${srcHtml} · ${cutoffTag} ${cutoff}${staleTag}`;
+      `${bits.join(' · ')}${estTag}<br/>${t('updated')} ${DATA.updated} · ${t('source')} ${srcHtml} · ${cutoffTag} ${cutoff}${staleTag}${notesHtml}`;
   }
   document.getElementById('btnExportPNG').querySelector('span').textContent = t('exportPNG');
   document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
@@ -1590,7 +1677,9 @@ function render() {
   renderIndustryBar();
   renderLogoRail();
   renderTimeline();
+  syncChartHeightForNotes(); // resize canvas to keep panel height constant (see helper)
   renderChart();
+  if (chart) chart.resize(); // re-fit ECharts after the canvas height change (post-setOption is safe)
 
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
   syncHash(); // keep the shareable view-state hash in step with every render
@@ -1781,7 +1870,9 @@ function initControls() {
     }
   });
   applyHash(); // deep-link: #c=&q=&v=&m=&z=&ind= (legacy #ind= still accepted)
-  window.addEventListener('resize', () => { chart.resize(); renderChart(); });
+  // on resize the notes row may re-wrap (1↔2 lines): recompute the canvas height
+  // (the helper also calls chart.resize()) so the panel/rail stay aligned.
+  window.addEventListener('resize', () => { syncChartHeightForNotes(); renderChart(); if (chart) chart.resize(); });
   initControls();
   render();
 })();

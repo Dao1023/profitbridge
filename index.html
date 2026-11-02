@@ -53,6 +53,11 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .meta { position:static; font-size:11px; color:var(--muted); text-align:left; line-height:1.5;
   padding:8px 250px 0 14px; min-height:36px; }
 .meta a { color:var(--blue); pointer-events:auto; }
+/* segment-disclosure notes: an independent small-gray row under the two meta
+   lines. Shows at most 2 lines then ellipsizes; the full text lives in title.
+   It is a normal flow row inside .meta, so it can never overlap #chartTitle. */
+.segNote { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+  overflow:hidden; margin-top:2px; }
 /* derived/estimated period badge (C1 honesty: rows reconstructed by differencing) */
 .estBadge { display:inline-block; font-size:9.5px; font-weight:700; color:#b45309; background:#fef3c7;
   border:1px solid #fcd34d; border-radius:4px; padding:0 4px; margin-left:5px; vertical-align:1px; }
