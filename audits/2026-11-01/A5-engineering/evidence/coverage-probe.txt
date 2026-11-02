@@ -1,0 +1,39 @@
+# test coverage probe
+browser tests (need :8440): 13
+pure-data tests: tests/verify_new.mjs tests/verify_scan.mjs 
+
+# CDP PORT duplication:
+      2 const PORT = 9341
+      1 const PORT = 9388
+      1 const PORT = 9364
+      1 const PORT = 9356
+      1 const PORT = 9352
+      1 const PORT = 9349
+      1 const PORT = 9347
+      1 const PORT = 9342
+      1 const PORT = 9340
+      1 const PORT = 9336
+
+# export / lang / currency refs in tests:
+btnExportSVG -> 
+btnCur     -> 
+btnLang    -> tests/verify_layout_refactor.mjs tests/verify_modes.mjs 
+
+# key symbols in app.js/index.html:
+app.js:1450:  document.getElementById('btnExportSVG').querySelector('span').textContent = t('exportSVG');
+app.js:1451:  document.getElementById('btnLang').textContent = t('langBtn');
+app.js:1454:  const btnCur = document.getElementById('btnCur');
+app.js:1455:  btnCur.style.display = canToggleCur() ? '' : 'none';
+app.js:1457:    btnCur.textContent = dispInUsd() ? (lang === 'zh' ? '显示 ¥' : 'Show ¥') : (lang === 'zh' ? '显示 US$' : 'Show US$');
+app.js:1458:    btnCur.classList.toggle('active', dispInUsd());
+app.js:1488:function exportPNG() {
+app.js:1503:function exportSVG() {
+app.js:1516:  document.getElementById('btnLang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; render(); });
+app.js:1518:  document.getElementById('btnExportSVG').addEventListener('click', exportSVG);
+app.js:1529:  document.getElementById('btnCur').addEventListener('click', () => {
+index.html:55:#btnLang, #btnCur { background:var(--card); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:13px; cursor:pointer; }
+index.html:56:#btnLang:hover, #btnCur:hover { border-color:var(--blue); }
+index.html:57:#btnCur.active { border-color:var(--blue); color:var(--blue); background:#e8effc; }
+index.html:156:      <button id="btnExportSVG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="lblExportSVG"></span></button>
+index.html:158:    <button id="btnCur" style="display:none"></button>
+index.html:159:    <button id="btnLang"></button>

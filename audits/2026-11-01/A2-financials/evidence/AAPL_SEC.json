@@ -1,0 +1,255 @@
+{
+ "ticker": "AAPL",
+ "cik": 320193,
+ "entityName": "Apple Inc.",
+ "fetchedFor": [
+  "2026-06-27",
+  "2023-12-30"
+ ],
+ "periods": [
+  {
+   "end": "2026-06-27",
+   "periodType": null,
+   "db": {
+    "revenue": 109417,
+    "gross": 54770,
+    "opInc": 35695,
+    "netInc": 29789,
+    "rd": 11729,
+    "sga": 7346
+   },
+   "src": {
+    "revenue": {
+     "value": 109417,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-03-29",
+      "end": "2026-06-27",
+      "val": 109417000000,
+      "accn": "0000320193-26-000020",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "frame": "CY2026Q2",
+      "dur": 90
+     }
+    },
+    "gross": {
+     "value": 54770,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-03-29",
+      "end": "2026-06-27",
+      "val": 54770000000,
+      "accn": "0000320193-26-000020",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "frame": "CY2026Q2",
+      "dur": 90
+     }
+    },
+    "opInc": {
+     "value": 35695,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-03-29",
+      "end": "2026-06-27",
+      "val": 35695000000,
+      "accn": "0000320193-26-000020",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "frame": "CY2026Q2",
+      "dur": 90
+     }
+    },
+    "netInc": {
+     "value": 29789,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-03-29",
+      "end": "2026-06-27",
+      "val": 29789000000,
+      "accn": "0000320193-26-000020",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "frame": "CY2026Q2",
+      "dur": 90
+     }
+    },
+    "rd": {
+     "value": 11729,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-03-29",
+      "end": "2026-06-27",
+      "val": 11729000000,
+      "accn": "0000320193-26-000020",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "frame": "CY2026Q2",
+      "dur": 90
+     }
+    },
+    "sga": {
+     "value": 7346,
+     "tag": "SellingGeneralAndAdministrativeExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-03-29",
+      "end": "2026-06-27",
+      "val": 7346000000,
+      "accn": "0000320193-26-000020",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-07-31",
+      "frame": "CY2026Q2",
+      "dur": 90
+     }
+    }
+   }
+  },
+  {
+   "end": "2023-12-30",
+   "periodType": null,
+   "db": {
+    "revenue": 119575,
+    "gross": 54855,
+    "opInc": 40373,
+    "netInc": 33916,
+    "rd": 7696,
+    "sga": 6786
+   },
+   "src": {
+    "revenue": {
+     "value": 119575,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-30",
+      "val": 119575000000,
+      "accn": "0000320193-25-000008",
+      "fy": 2025,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2025-01-31",
+      "frame": "CY2023Q4",
+      "dur": 90
+     }
+    },
+    "gross": {
+     "value": 54855,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-30",
+      "val": 54855000000,
+      "accn": "0000320193-25-000008",
+      "fy": 2025,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2025-01-31",
+      "frame": "CY2023Q4",
+      "dur": 90
+     }
+    },
+    "opInc": {
+     "value": 40373,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-30",
+      "val": 40373000000,
+      "accn": "0000320193-25-000008",
+      "fy": 2025,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2025-01-31",
+      "frame": "CY2023Q4",
+      "dur": 90
+     }
+    },
+    "netInc": {
+     "value": 33916,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-30",
+      "val": 33916000000,
+      "accn": "0000320193-25-000008",
+      "fy": 2025,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2025-01-31",
+      "frame": "CY2023Q4",
+      "dur": 90
+     }
+    },
+    "rd": {
+     "value": 7696,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-30",
+      "val": 7696000000,
+      "accn": "0000320193-25-000008",
+      "fy": 2025,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2025-01-31",
+      "frame": "CY2023Q4",
+      "dur": 90
+     }
+    },
+    "sga": {
+     "value": 6786,
+     "tag": "SellingGeneralAndAdministrativeExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-30",
+      "val": 6786000000,
+      "accn": "0000320193-25-000008",
+      "fy": 2025,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2025-01-31",
+      "frame": "CY2023Q4",
+      "dur": 90
+     }
+    }
+   }
+  }
+ ]
+}

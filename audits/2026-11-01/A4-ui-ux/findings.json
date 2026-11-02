@@ -1,0 +1,145 @@
+[
+  {
+    "id": "A4-01",
+    "angle": "A4",
+    "area": "导出（PNG/SVG）",
+    "symptom": "导出的 PNG/SVG 只有 ECharts 图形本体，缺少标题、公司名、期间、右上元信息与底部时间轴，且无水印；SVG 内检索不到‘英伟达/NVIDIA’，PNG 顶部无标题。背景色 #f2efe9 正确。",
+    "steps": [
+      "打开 NVDA 桑基视图（默认）",
+      "点工具栏『导出 PNG』并保存，得到 export-bridge.png（3200x1800）",
+      "点『导出 SVG』并保存，得到 export-bridge.svg",
+      "打开文件核对：无标题/公司/期间/元信息/时间轴"
+    ],
+    "screenshot": ["shots/export-bridge.png", "shots/export-bridge.svg", "shots/00-initial.png"],
+    "expected": "导出文件与当前屏幕一致：含标题‘英伟达 Q3 2026’、公司名、期间、数据更新/来源元信息与时间轴（或至少品牌+期间水印）",
+    "actual": "仅有图表图形；SVG 文本含‘营收’×6、‘Hyperscale’×1 但无‘英伟达/NVIDIA’；PNG 无标题、无公司、无期间、无时间轴",
+    "severity": "P1",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "标题为 HTML #chartTitle，不在 ECharts option；exportPNG() app.js:1488-1502 用无 title 的 window.__lastOption（app.js:837-848）重绘离屏 canvas；exportSVG() app.js:1503-1512 用 chart.renderToSVGString()"
+  },
+  {
+    "id": "A4-02",
+    "angle": "A4",
+    "area": "桑基空状态提示",
+    "symptom": "分部不可用提示文本超出左侧 176px 留白，尾部字符压在深色节点条/红色节点上；中文‘累计’被拆行，英文最后一行落到色块上。",
+    "steps": [
+      "打开 00992.HK（2026-06-30 期，桑基视图）",
+      "观察左侧灰色提示块（该公司未公开分部数据 + 双语原因）",
+      "同样打开 SPCX 观察"
+    ],
+    "screenshot": ["shots/crop-00992-notice.png", "shots/crop-SPCX-notice.png", "shots/co-00992_HK.png", "shots/co-SPCX.png"],
+    "expected": "提示文本完全落在左侧留白内、可读、不压节点",
+    "actual": "文本右溢进入节点色块区域，末尾字符被遮挡；中文拆行",
+    "severity": "P2",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "segmentNoticeGraphic() app.js:289-312 单个 text graphic，style.width:176、overflow:'break'，degraded.reason 长句/双语在 176px 内换行仍溢出"
+  },
+  {
+    "id": "A4-03",
+    "angle": "A4",
+    "area": "桑基标签布局（TSLA）",
+    "symptom": "右侧成本分支标签非经营性收益/研发费用/营业利润/销售与管理费用/营业费用在约 120px 高度内密集粘连，几何检测检出文本包围盒重叠；近零节点显示 $0.0B。",
+    "steps": [
+      "打开 TSLA（2026-06-30 期，桑基视图）",
+      "观察右侧成本分支标签排布与数值"
+    ],
+    "screenshot": ["shots/co-TSLA.png", "shots/crop-TSLA-right.png"],
+    "expected": "标签互不重叠、可读；近零值用 <0.1B 或省略",
+    "actual": "标签行距约 20px 视觉粘连，检出 $0.4B↔销售与管理费用 396px²、研发费用↔$0.7B 96px² 重叠；营业费用 $0.0B",
+    "severity": "P2",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "桑基自动布局在窄列多节点时未做标签避让；数值统一 toFixed(1)（app.js:811-818）"
+  },
+  {
+    "id": "A4-04",
+    "angle": "A4",
+    "area": "国际化（English 模式）",
+    "symptom": "切 English 后，公司显示名、中文分部名、degraded 原因仍为中文：600519.SS 标题‘贵州茅台 Q2 2026 · H1 2026 cumulative’、节点‘茅台酒/其他系列酒/其他’；LEGO/00992.HK 空状态 hint 仍中文。工具栏/模板/meta 已翻译。",
+    "steps": [
+      "点 #btnLang 切到 English",
+      "打开 600519.SS，读标题、meta、节点名",
+      "打开 LEGO / 00992.HK 读空状态提示"
+    ],
+    "screenshot": ["shots/en-600519_SS.png", "shots/en-LEGO.png", "shots/en-00992_HK.png", "shots/en-NVDA.png"],
+    "expected": "英文界面下公司名、分部名、空状态原因均为英文",
+    "actual": "数据层中文字段未翻译，中英混杂",
+    "severity": "P2",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "c.name、segments 分部名、degraded.reason 为数据层中文；render() 仅翻译 I18N（app.js:8-69）UI 串"
+  },
+  {
+    "id": "A4-05",
+    "angle": "A4",
+    "area": "响应式/窄屏",
+    "symptom": "1280x720、1024x768（及 900x700 列式）下文档高 936/975/1822，时间轴在首屏之下（y≈841/880/1727），工具栏与标题非吸顶，滚到时间轴后不可见；横向无滚动条。",
+    "steps": [
+      "CDP 设定视口 1280x720（导航前）打开 NVDA",
+      "读取文档高与 #timeline 的 y 坐标并截图",
+      "对 1024x768、900x700 重复"
+    ],
+    "screenshot": ["shots/narrow-fresh-1280x720.png", "shots/narrow-fresh-1024x768.png", "shots/narrow-fresh-900x700.png"],
+    "expected": "时间轴与工具栏在首屏可见或滚动时吸顶",
+    "actual": "时间轴需向下滚动才能看到，且滚动后标题/工具栏滚出视野",
+    "severity": "P2",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "#sankey 固定高 660px + 头部，视口高度未适配；无 sticky 工具栏"
+  },
+  {
+    "id": "A4-06",
+    "angle": "A4",
+    "area": "URL 深链",
+    "symptom": "深链仅首次加载生效；页面打开后修改 location.hash 不切换视图（无 hashchange 监听）；#ind 仅恢复单选首个行业，多选丢失。",
+    "steps": [
+      "打开页面（NVDA 桑基）",
+      "执行 location.hash='c=TSLA&q=2026-06-30&v=bar&m=net'",
+      "读标题仍为‘英伟达 Q3 2026’、仍桑基",
+      "对照：about:blank 后新载同一 hash 能正确复现"
+    ],
+    "screenshot": ["shots/deep-link-hashchange.png", "shots/deep-link-fresh-TSLA.png"],
+    "expected": "页内改 hash 也应切换视图；多行业筛选可还原",
+    "actual": "页内 hash 变化无反应；仅 app.js:1573 启动时 applyHash() 一次；syncHash() 用 history.replaceState；#ind 只取 split(',')[0]（app.js:1343）",
+    "severity": "P2",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "applyHash() app.js:1318-1344 无 hashchange 监听"
+  },
+  {
+    "id": "A4-07",
+    "angle": "A4",
+    "area": "时间轴刻度",
+    "symptom": "刻度只显示年份；点击某年跳到该年第一季度，粒度不明确。拖动同步本身正确（拖至 30% → Q2 2015、thumb 29.6875%）。",
+    "steps": [
+      "NVDA 桑基，拖动时间轴到 30%，核对标题与刻度",
+      "点击刻度‘2015’，观察跳到 2015-04-26（该年 Q1）"
+    ],
+    "screenshot": ["shots/tl-drag-30pct.png", "shots/tl-tick-2015.png"],
+    "expected": "刻度能表达季度粒度，点击定位可预期",
+    "actual": "仅‘2015’，点击落到该年首个季度",
+    "severity": "P3",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "renderTimeline() app.js:1356-1383 按年去重只渲染年份，刻度 data-i 指向该年首个季度"
+  },
+  {
+    "id": "A4-08",
+    "angle": "A4",
+    "area": "数值格式",
+    "symptom": "近零金额显示 $0.0B（00992.HK‘税费及其他’、TSLA‘营业费用’），易被误读为 0。",
+    "steps": [
+      "打开 00992.HK 桑基看右侧‘税费及其他’",
+      "打开 TSLA 桑基看‘营业费用’"
+    ],
+    "screenshot": ["shots/co-00992_HK.png", "shots/co-TSLA.png"],
+    "expected": "用 <0.1B 或‘—’表示非零极小值",
+    "actual": "显示 $0.0B",
+    "severity": "P3",
+    "consoleErrors": [],
+    "status": "confirmed",
+    "rootCause": "tooltip/节点标签统一 value.toFixed(1)（app.js:811-818）"
+  }
+]

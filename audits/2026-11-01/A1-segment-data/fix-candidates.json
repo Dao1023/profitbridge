@@ -1,0 +1,47 @@
+[
+  {
+    "ticker": "TSLA",
+    "end": "2022-03-31",
+    "name": "Automotive",
+    "from": 616,
+    "to": 18140,
+    "source": "https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/R75.htm",
+    "evidence": "Automotive Segment [Member] Revenues 18,140 (3 Months Ended Mar.31 2022); Total Revenues 18,756; 18,140+616=18,756"
+  },
+  {
+    "ticker": "TSLA",
+    "end": "2022-03-31",
+    "name": "Energy generation and storage",
+    "from": 18140,
+    "to": 616,
+    "source": "https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/R75.htm",
+    "evidence": "Energy Generation and Storage [Member] Revenues 616 (2021: 494); Gross profit (72)"
+  },
+  {
+    "ticker": "MSFT",
+    "end": "2023-06-30",
+    "name": "Productivity and Business Processes",
+    "from": 43168,
+    "to": 18291,
+    "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm",
+    "evidence": "Three Months Ended June 30 2023 Revenue: PBP $18,291; Total $56,189"
+  },
+  {
+    "ticker": "MSFT",
+    "end": "2023-06-30",
+    "name": "Intelligent Cloud",
+    "from": 9030,
+    "to": 23993,
+    "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm",
+    "evidence": "Intelligent Cloud 23,993 (Three Months Ended June 30 2023)"
+  },
+  {
+    "ticker": "MSFT",
+    "end": "2023-06-30",
+    "name": "More Personal Computing",
+    "from": 3991,
+    "to": 13905,
+    "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm",
+    "evidence": "More Personal Computing 13,905; 18,291+23,993+13,905=56,189=Total"
+  }
+]

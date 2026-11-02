@@ -1,0 +1,31 @@
+{
+  "png_count": 77,
+  "png_transfer_bytes": 171184,
+  "total_transfer_bytes": 3460990,
+  "non_png": [
+    [
+      "echarts.min.js",
+      1031155
+    ],
+    [
+      "profit.json.js",
+      566202
+    ],
+    [
+      "app.js",
+      90063
+    ],
+    [
+      "profit.json",
+      1001676
+    ],
+    [
+      "segments.json",
+      568964
+    ],
+    [
+      "companies.json",
+      31444
+    ]
+  ]
+}

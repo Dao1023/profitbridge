@@ -1,0 +1,688 @@
+{
+  "url": "http://127.0.0.1:8449/index.html",
+  "capturedAt": "2026-11-01T14:46:07.090Z",
+  "timing_nav_ms": {
+    "navigationStart": 1793544366338,
+    "domContentLoaded": 116,
+    "domInteractive": 116,
+    "loadEventEnd": 117,
+    "responseEnd": 4,
+    "firstPaint": 48,
+    "firstContentfulPaint": 48
+  },
+  "sankeyReadyAtMs": 299.5,
+  "jsHeapUsedMB": 8.8,
+  "performance_metrics": {
+    "Timestamp": 793892.768481,
+    "AudioHandlers": 0,
+    "AudioWorkletProcessors": 0,
+    "Documents": 4,
+    "Frames": 4,
+    "JSEventListeners": 240,
+    "LayoutObjects": 549,
+    "MediaKeySessions": 0,
+    "MediaKeys": 0,
+    "Nodes": 953,
+    "Resources": 99,
+    "ContextLifecycleStateObservers": 8,
+    "V8PerContextDatas": 2,
+    "WorkerGlobalScopes": 0,
+    "UACSSResources": 0,
+    "RTCPeerConnections": 0,
+    "ResourceFetchers": 4,
+    "AdSubframes": 0,
+    "DetachedScriptStates": 1,
+    "ArrayBufferContents": 2,
+    "LayoutCount": 10,
+    "RecalcStyleCount": 13,
+    "LayoutDuration": 0.055618,
+    "RecalcStyleDuration": 0.004088,
+    "DevToolsCommandDuration": 0.001787,
+    "ScriptDuration": 0.070612,
+    "V8CompileDuration": 0.000097,
+    "TaskDuration": 0.257509,
+    "TaskOtherDuration": 0.125307,
+    "ThreadTime": 0.287608,
+    "ProcessTime": 0.463625,
+    "JSHeapUsedSize": 9203836,
+    "JSHeapTotalSize": 12320768,
+    "FirstMeaningfulPaint": 0,
+    "DomContentLoaded": 793892.512623,
+    "NavigationStart": 793892.397439
+  },
+  "resources": [
+    {
+      "name": "echarts.min.js",
+      "transferSize": 1031155,
+      "encodedBodySize": 1030855,
+      "decodedBodySize": 1030855,
+      "duration": 17
+    },
+    {
+      "name": "profit.json.js",
+      "transferSize": 566202,
+      "encodedBodySize": 565902,
+      "decodedBodySize": 565902,
+      "duration": 12
+    },
+    {
+      "name": "app.js",
+      "transferSize": 90063,
+      "encodedBodySize": 89763,
+      "decodedBodySize": 89763,
+      "duration": 11
+    },
+    {
+      "name": "profit.json",
+      "transferSize": 1001676,
+      "encodedBodySize": 1001376,
+      "decodedBodySize": 1001376,
+      "duration": 11
+    },
+    {
+      "name": "segments.json",
+      "transferSize": 568964,
+      "encodedBodySize": 568664,
+      "decodedBodySize": 568664,
+      "duration": 16
+    },
+    {
+      "name": "favicon.ico",
+      "transferSize": 302,
+      "encodedBodySize": 2,
+      "decodedBodySize": 2,
+      "duration": 2
+    },
+    {
+      "name": "companies.json",
+      "transferSize": 31444,
+      "encodedBodySize": 31144,
+      "decodedBodySize": 31144,
+      "duration": 2
+    },
+    {
+      "name": "NVDA.png",
+      "transferSize": 1995,
+      "encodedBodySize": 1695,
+      "decodedBodySize": 1695,
+      "duration": 4
+    },
+    {
+      "name": "AAPL.png",
+      "transferSize": 1372,
+      "encodedBodySize": 1072,
+      "decodedBodySize": 1072,
+      "duration": 6
+    },
+    {
+      "name": "MSFT.png",
+      "transferSize": 616,
+      "encodedBodySize": 316,
+      "decodedBodySize": 316,
+      "duration": 7
+    },
+    {
+      "name": "AMZN.png",
+      "transferSize": 1945,
+      "encodedBodySize": 1645,
+      "decodedBodySize": 1645,
+      "duration": 6
+    },
+    {
+      "name": "TSLA.png",
+      "transferSize": 1884,
+      "encodedBodySize": 1584,
+      "decodedBodySize": 1584,
+      "duration": 7
+    },
+    {
+      "name": "INTC.png",
+      "transferSize": 1251,
+      "encodedBodySize": 951,
+      "decodedBodySize": 951,
+      "duration": 7
+    },
+    {
+      "name": "MU.png",
+      "transferSize": 1082,
+      "encodedBodySize": 782,
+      "decodedBodySize": 782,
+      "duration": 10
+    },
+    {
+      "name": "V.png",
+      "transferSize": 1662,
+      "encodedBodySize": 1362,
+      "decodedBodySize": 1362,
+      "duration": 10
+    },
+    {
+      "name": "CSCO.png",
+      "transferSize": 1729,
+      "encodedBodySize": 1429,
+      "decodedBodySize": 1429,
+      "duration": 14
+    },
+    {
+      "name": "KO.png",
+      "transferSize": 3267,
+      "encodedBodySize": 2967,
+      "decodedBodySize": 2967,
+      "duration": 14
+    },
+    {
+      "name": "NFLX.png",
+      "transferSize": 1552,
+      "encodedBodySize": 1252,
+      "decodedBodySize": 1252,
+      "duration": 14
+    },
+    {
+      "name": "IBM.png",
+      "transferSize": 1225,
+      "encodedBodySize": 925,
+      "decodedBodySize": 925,
+      "duration": 14
+    },
+    {
+      "name": "QCOM.png",
+      "transferSize": 1882,
+      "encodedBodySize": 1582,
+      "decodedBodySize": 1582,
+      "duration": 18
+    },
+    {
+      "name": "MCD.png",
+      "transferSize": 2047,
+      "encodedBodySize": 1747,
+      "decodedBodySize": 1747,
+      "duration": 19
+    },
+    {
+      "name": "SBUX.png",
+      "transferSize": 6971,
+      "encodedBodySize": 6671,
+      "decodedBodySize": 6671,
+      "duration": 19
+    },
+    {
+      "name": "ADBE.png",
+      "transferSize": 1485,
+      "encodedBodySize": 1185,
+      "decodedBodySize": 1185,
+      "duration": 22
+    },
+    {
+      "name": "MSI.png",
+      "transferSize": 1865,
+      "encodedBodySize": 1565,
+      "decodedBodySize": 1565,
+      "duration": 23
+    },
+    {
+      "name": "NXPI.png",
+      "transferSize": 1598,
+      "encodedBodySize": 1298,
+      "decodedBodySize": 1298,
+      "duration": 23
+    },
+    {
+      "name": "GOOGL.png",
+      "transferSize": 6756,
+      "encodedBodySize": 6456,
+      "decodedBodySize": 6456,
+      "duration": 44
+    },
+    {
+      "name": "AVGO.png",
+      "transferSize": 2775,
+      "encodedBodySize": 2475,
+      "decodedBodySize": 2475,
+      "duration": 23
+    },
+    {
+      "name": "PLTR.png",
+      "transferSize": 1907,
+      "encodedBodySize": 1607,
+      "decodedBodySize": 1607,
+      "duration": 23
+    },
+    {
+      "name": "META.png",
+      "transferSize": 2889,
+      "encodedBodySize": 2589,
+      "decodedBodySize": 2589,
+      "duration": 43
+    },
+    {
+      "name": "AMD.png",
+      "transferSize": 884,
+      "encodedBodySize": 584,
+      "decodedBodySize": 584,
+      "duration": 48
+    },
+    {
+      "name": "ORCL.png",
+      "transferSize": 1345,
+      "encodedBodySize": 1045,
+      "decodedBodySize": 1045,
+      "duration": 48
+    },
+    {
+      "name": "DELL.png",
+      "transferSize": 1318,
+      "encodedBodySize": 1018,
+      "decodedBodySize": 1018,
+      "duration": 38
+    },
+    {
+      "name": "U.png",
+      "transferSize": 1718,
+      "encodedBodySize": 1418,
+      "decodedBodySize": 1418,
+      "duration": 28
+    },
+    {
+      "name": "DUOL.png",
+      "transferSize": 3681,
+      "encodedBodySize": 3381,
+      "decodedBodySize": 3381,
+      "duration": 43
+    },
+    {
+      "name": "HPQ.png",
+      "transferSize": 4485,
+      "encodedBodySize": 4185,
+      "decodedBodySize": 4185,
+      "duration": 49
+    },
+    {
+      "name": "ARM.png",
+      "transferSize": 1321,
+      "encodedBodySize": 1021,
+      "decodedBodySize": 1021,
+      "duration": 28
+    },
+    {
+      "name": "SPOT.png",
+      "transferSize": 2142,
+      "encodedBodySize": 1842,
+      "decodedBodySize": 1842,
+      "duration": 36
+    },
+    {
+      "name": "STM.png",
+      "transferSize": 1395,
+      "encodedBodySize": 1095,
+      "decodedBodySize": 1095,
+      "duration": 36
+    },
+    {
+      "name": "TSM.png",
+      "transferSize": 5423,
+      "encodedBodySize": 5123,
+      "decodedBodySize": 5123,
+      "duration": 48
+    },
+    {
+      "name": "ASML.png",
+      "transferSize": 1520,
+      "encodedBodySize": 1220,
+      "decodedBodySize": 1220,
+      "duration": 28
+    },
+    {
+      "name": "SONY.png",
+      "transferSize": 1818,
+      "encodedBodySize": 1518,
+      "decodedBodySize": 1518,
+      "duration": 28
+    },
+    {
+      "name": "BABA.png",
+      "transferSize": 1885,
+      "encodedBodySize": 1585,
+      "decodedBodySize": 1585,
+      "duration": 43
+    },
+    {
+      "name": "BIDU.png",
+      "transferSize": 2326,
+      "encodedBodySize": 2026,
+      "decodedBodySize": 2026,
+      "duration": 22
+    },
+    {
+      "name": "TCOM.png",
+      "transferSize": 915,
+      "encodedBodySize": 615,
+      "decodedBodySize": 615,
+      "duration": 35
+    },
+    {
+      "name": "JD.png",
+      "transferSize": 1252,
+      "encodedBodySize": 952,
+      "decodedBodySize": 952,
+      "duration": 35
+    },
+    {
+      "name": "PDD.png",
+      "transferSize": 3534,
+      "encodedBodySize": 3234,
+      "decodedBodySize": 3234,
+      "duration": 35
+    },
+    {
+      "name": "BILI.png",
+      "transferSize": 2284,
+      "encodedBodySize": 1984,
+      "decodedBodySize": 1984,
+      "duration": 35
+    },
+    {
+      "name": "LI.png",
+      "transferSize": 1053,
+      "encodedBodySize": 753,
+      "decodedBodySize": 753,
+      "duration": 47
+    },
+    {
+      "name": "ZH.png",
+      "transferSize": 1664,
+      "encodedBodySize": 1364,
+      "decodedBodySize": 1364,
+      "duration": 27
+    },
+    {
+      "name": "XNET.png",
+      "transferSize": 1795,
+      "encodedBodySize": 1495,
+      "decodedBodySize": 1495,
+      "duration": 28
+    },
+    {
+      "name": "WB.png",
+      "transferSize": 3111,
+      "encodedBodySize": 2811,
+      "decodedBodySize": 2811,
+      "duration": 48
+    },
+    {
+      "name": "LKNCY.png",
+      "transferSize": 2106,
+      "encodedBodySize": 1806,
+      "decodedBodySize": 1806,
+      "duration": 37
+    },
+    {
+      "name": "TME.png",
+      "transferSize": 1357,
+      "encodedBodySize": 1057,
+      "decodedBodySize": 1057,
+      "duration": 53
+    },
+    {
+      "name": "CRWV.png",
+      "transferSize": 1830,
+      "encodedBodySize": 1530,
+      "decodedBodySize": 1530,
+      "duration": 42
+    },
+    {
+      "name": "DIDIY.png",
+      "transferSize": 1294,
+      "encodedBodySize": 994,
+      "decodedBodySize": 994,
+      "duration": 52
+    },
+    {
+      "name": "00941.HK.png",
+      "transferSize": 3421,
+      "encodedBodySize": 3121,
+      "decodedBodySize": 3121,
+      "duration": 37
+    },
+    {
+      "name": "00700.HK.png",
+      "transferSize": 1209,
+      "encodedBodySize": 909,
+      "decodedBodySize": 909,
+      "duration": 42
+    },
+    {
+      "name": "03968.HK.png",
+      "transferSize": 2449,
+      "encodedBodySize": 2149,
+      "decodedBodySize": 2149,
+      "duration": 55
+    },
+    {
+      "name": "00992.HK.png",
+      "transferSize": 1902,
+      "encodedBodySize": 1602,
+      "decodedBodySize": 1602,
+      "duration": 55
+    },
+    {
+      "name": "01398.HK.png",
+      "transferSize": 1761,
+      "encodedBodySize": 1461,
+      "decodedBodySize": 1461,
+      "duration": 55
+    },
+    {
+      "name": "03690.HK.png",
+      "transferSize": 2421,
+      "encodedBodySize": 2121,
+      "decodedBodySize": 2121,
+      "duration": 55
+    },
+    {
+      "name": "00728.HK.png",
+      "transferSize": 2064,
+      "encodedBodySize": 1764,
+      "decodedBodySize": 1764,
+      "duration": 56
+    },
+    {
+      "name": "00981.HK.png",
+      "transferSize": 2194,
+      "encodedBodySize": 1894,
+      "decodedBodySize": 1894,
+      "duration": 59
+    },
+    {
+      "name": "00762.HK.png",
+      "transferSize": 2170,
+      "encodedBodySize": 1870,
+      "decodedBodySize": 1870,
+      "duration": 60
+    },
+    {
+      "name": "01024.HK.png",
+      "transferSize": 2886,
+      "encodedBodySize": 2586,
+      "decodedBodySize": 2586,
+      "duration": 60
+    },
+    {
+      "name": "03888.HK.png",
+      "transferSize": 2875,
+      "encodedBodySize": 2575,
+      "decodedBodySize": 2575,
+      "duration": 60
+    },
+    {
+      "name": "005930.KS.png",
+      "transferSize": 1493,
+      "encodedBodySize": 1193,
+      "decodedBodySize": 1193,
+      "duration": 64
+    },
+    {
+      "name": "000660.KS.png",
+      "transferSize": 2280,
+      "encodedBodySize": 1980,
+      "decodedBodySize": 1980,
+      "duration": 65
+    },
+    {
+      "name": "066570.KS.png",
+      "transferSize": 3319,
+      "encodedBodySize": 3019,
+      "decodedBodySize": 3019,
+      "duration": 65
+    },
+    {
+      "name": "600519.SS.png",
+      "transferSize": 4727,
+      "encodedBodySize": 4427,
+      "decodedBodySize": 4427,
+      "duration": 69
+    },
+    {
+      "name": "300750.SZ.png",
+      "transferSize": 1063,
+      "encodedBodySize": 763,
+      "decodedBodySize": 763,
+      "duration": 71
+    },
+    {
+      "name": "002594.SZ.png",
+      "transferSize": 1065,
+      "encodedBodySize": 765,
+      "decodedBodySize": 765,
+      "duration": 71
+    },
+    {
+      "name": "688256.SS.png",
+      "transferSize": 939,
+      "encodedBodySize": 639,
+      "decodedBodySize": 639,
+      "duration": 71
+    },
+    {
+      "name": "002415.SZ.png",
+      "transferSize": 1534,
+      "encodedBodySize": 1234,
+      "decodedBodySize": 1234,
+      "duration": 72
+    },
+    {
+      "name": "688795.SS.png",
+      "transferSize": 2448,
+      "encodedBodySize": 2148,
+      "decodedBodySize": 2148,
+      "duration": 73
+    },
+    {
+      "name": "000063.SZ.png",
+      "transferSize": 1250,
+      "encodedBodySize": 950,
+      "decodedBodySize": 950,
+      "duration": 73
+    },
+    {
+      "name": "000333.SZ.png",
+      "transferSize": 2574,
+      "encodedBodySize": 2274,
+      "decodedBodySize": 2274,
+      "duration": 77
+    },
+    {
+      "name": "000100.SZ.png",
+      "transferSize": 1114,
+      "encodedBodySize": 814,
+      "decodedBodySize": 814,
+      "duration": 77
+    },
+    {
+      "name": "601360.SS.png",
+      "transferSize": 3164,
+      "encodedBodySize": 2864,
+      "decodedBodySize": 2864,
+      "duration": 77
+    },
+    {
+      "name": "688825.SS.png",
+      "transferSize": 1633,
+      "encodedBodySize": 1333,
+      "decodedBodySize": 1333,
+      "duration": 77
+    },
+    {
+      "name": "600887.SS.png",
+      "transferSize": 2855,
+      "encodedBodySize": 2555,
+      "decodedBodySize": 2555,
+      "duration": 77
+    },
+    {
+      "name": "688981.SS.png",
+      "transferSize": 2194,
+      "encodedBodySize": 1894,
+      "decodedBodySize": 1894,
+      "duration": 81
+    },
+    {
+      "name": "NESN.SW.png",
+      "transferSize": 3546,
+      "encodedBodySize": 3246,
+      "decodedBodySize": 3246,
+      "duration": 82
+    },
+    {
+      "name": "2330.TW.png",
+      "transferSize": 5423,
+      "encodedBodySize": 5123,
+      "decodedBodySize": 5123,
+      "duration": 82
+    }
+  ],
+  "jsonFetchParse": {
+    "fetchMs": 23.5,
+    "parseMs": 1.8,
+    "bytes": 994123,
+    "keys": 8
+  },
+  "switchLatency": {
+    "tickers": [
+      "NVDA",
+      "AAPL",
+      "MSFT",
+      "AMZN",
+      "TSLA",
+      "INTC",
+      "MU",
+      "V"
+    ],
+    "sankey": {
+      "runs": [
+        0,
+        12.6,
+        33.2,
+        13.3,
+        10.3,
+        10.9,
+        14.5,
+        9.6
+      ],
+      "median": 12.6
+    },
+    "bar": {
+      "runs": [
+        28.8,
+        21.5,
+        21.5,
+        19.4,
+        16.7,
+        18.9,
+        17.7,
+        17.7
+      ],
+      "median": 19.4
+    }
+  },
+  "networkRequests": 101
+}

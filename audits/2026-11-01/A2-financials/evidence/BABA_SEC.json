@@ -1,0 +1,187 @@
+{
+ "ticker": "BABA",
+ "cik": 1577552,
+ "entityName": "Alibaba Group Holding Ltd",
+ "fetchedFor": [
+  "2026-03-31",
+  "2024-03-31"
+ ],
+ "periods": [
+  {
+   "end": "2026-03-31",
+   "periodType": "annual",
+   "db": {
+    "revenue": 1023670,
+    "gross": 407534,
+    "opInc": 50150,
+    "netInc": 103592,
+    "rd": 66533,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 1023670,
+     "tag": "Revenues",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-04-01",
+      "end": "2026-03-31",
+      "val": 1023670000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "gross": null,
+    "opInc": {
+     "value": 50150,
+     "tag": "OperatingIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-04-01",
+      "end": "2026-03-31",
+      "val": 50150000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "netInc": {
+     "value": 103592,
+     "tag": "NetIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-04-01",
+      "end": "2026-03-31",
+      "val": 103592000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "rd": {
+     "value": 66533,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-04-01",
+      "end": "2026-03-31",
+      "val": 66533000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "sga": null
+   }
+  },
+  {
+   "end": "2024-03-31",
+   "periodType": "annual",
+   "db": {
+    "revenue": 941168,
+    "gross": 354845,
+    "opInc": 113350,
+    "netInc": 80009,
+    "rd": 52256,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 941168,
+     "tag": "Revenues",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-04-01",
+      "end": "2024-03-31",
+      "val": 941168000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2023",
+      "dur": 365
+     }
+    },
+    "gross": null,
+    "opInc": {
+     "value": 113350,
+     "tag": "OperatingIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-04-01",
+      "end": "2024-03-31",
+      "val": 113350000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2023",
+      "dur": 365
+     }
+    },
+    "netInc": {
+     "value": 80009,
+     "tag": "NetIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-04-01",
+      "end": "2024-03-31",
+      "val": 80009000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2023",
+      "dur": 365
+     }
+    },
+    "rd": {
+     "value": 52256,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-04-01",
+      "end": "2024-03-31",
+      "val": 52256000000,
+      "accn": "0001193125-26-231755",
+      "fy": 2026,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-05-20",
+      "frame": "CY2023",
+      "dur": 365
+     }
+    },
+    "sga": null
+   }
+  }
+ ]
+}

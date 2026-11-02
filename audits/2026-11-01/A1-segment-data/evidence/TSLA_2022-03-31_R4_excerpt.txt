@@ -1,0 +1,5 @@
+SOURCE: SEC 10-Q TSLA 2022-03-31 R4.htm (Consolidated Statements of Operations)
+URL: https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/R4.htm
+EXCERPT:
+Total revenues $ 18,756 $ 10,389 Cost of revenues Total cost of revenues 13,296 8,174 Gross profit 5,460 2,215 Operating expenses Research and development 865 666 Selling, general and administrative 992 1,056 Restructuring and other 0 (101) Total operating exp
+ Revenues Automotive sales $ 15,514 $ 8,187 Automotive regulatory credits 679 518 Automotive leasing 668 297 Total automotive revenues 16,861 9,002 Cost of revenues Automotive sales 10,914 6,457 Automotive leasing 408 160 Total au

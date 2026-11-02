@@ -1,0 +1,3696 @@
+[
+  {
+    "ticker": "NVDA",
+    "market": "US",
+    "currency": "USD-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-07-26",
+        "periodType": null,
+        "db": {
+          "revenue": 96221,
+          "gross": 72142,
+          "opInc": 63734,
+          "netInc": 59688,
+          "rd": 7054,
+          "sga": 1354
+        },
+        "src": {
+          "revenue": {
+            "value": 96221,
+            "tag": "Revenues",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-04-27",
+              "end": "2026-07-26",
+              "val": 96221000000,
+              "accn": "0001045810-26-000075",
+              "fy": 2027,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2026-08-26",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "gross": {
+            "value": 72142,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-04-27",
+              "end": "2026-07-26",
+              "val": 72142000000,
+              "accn": "0001045810-26-000075",
+              "fy": 2027,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2026-08-26",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "opInc": {
+            "value": 63734,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-04-27",
+              "end": "2026-07-26",
+              "val": 63734000000,
+              "accn": "0001045810-26-000075",
+              "fy": 2027,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2026-08-26",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "netInc": {
+            "value": 59688,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-04-27",
+              "end": "2026-07-26",
+              "val": 59688000000,
+              "accn": "0001045810-26-000075",
+              "fy": 2027,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2026-08-26",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "rd": {
+            "value": 7054,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-04-27",
+              "end": "2026-07-26",
+              "val": 7054000000,
+              "accn": "0001045810-26-000075",
+              "fy": 2027,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2026-08-26",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "sga": {
+            "value": 1354,
+            "tag": "SellingGeneralAndAdministrativeExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-04-27",
+              "end": "2026-07-26",
+              "val": 1354000000,
+              "accn": "0001045810-26-000075",
+              "fy": 2027,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2026-08-26",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          }
+        }
+      },
+      {
+        "end": "2023-10-29",
+        "periodType": null,
+        "db": {
+          "revenue": 18120,
+          "gross": 13400,
+          "opInc": 10417,
+          "netInc": 9243,
+          "rd": 2294,
+          "sga": 689
+        },
+        "src": {
+          "revenue": {
+            "value": 18120,
+            "tag": "Revenues",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-07-31",
+              "end": "2023-10-29",
+              "val": 18120000000,
+              "accn": "0001045810-24-000316",
+              "fy": 2025,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2024-11-20",
+              "frame": "CY2023Q3",
+              "dur": 90
+            }
+          },
+          "gross": {
+            "value": 13400,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-07-31",
+              "end": "2023-10-29",
+              "val": 13400000000,
+              "accn": "0001045810-24-000316",
+              "fy": 2025,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2024-11-20",
+              "frame": "CY2023Q3",
+              "dur": 90
+            }
+          },
+          "opInc": {
+            "value": 10417,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-07-31",
+              "end": "2023-10-29",
+              "val": 10417000000,
+              "accn": "0001045810-24-000316",
+              "fy": 2025,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2024-11-20",
+              "frame": "CY2023Q3",
+              "dur": 90
+            }
+          },
+          "netInc": {
+            "value": 9243,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-07-31",
+              "end": "2023-10-29",
+              "val": 9243000000,
+              "accn": "0001045810-24-000316",
+              "fy": 2025,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2024-11-20",
+              "frame": "CY2023Q3",
+              "dur": 90
+            }
+          },
+          "rd": {
+            "value": 2294,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-07-31",
+              "end": "2023-10-29",
+              "val": 2294000000,
+              "accn": "0001045810-24-000316",
+              "fy": 2025,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2024-11-20",
+              "frame": "CY2023Q3",
+              "dur": 90
+            }
+          },
+          "sga": {
+            "value": 689,
+            "tag": "SellingGeneralAndAdministrativeExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-07-31",
+              "end": "2023-10-29",
+              "val": 689000000,
+              "accn": "0001045810-24-000316",
+              "fy": 2025,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2024-11-20",
+              "frame": "CY2023Q3",
+              "dur": 90
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "AAPL",
+    "market": "US",
+    "currency": "USD-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-06-27",
+        "periodType": null,
+        "db": {
+          "revenue": 109417,
+          "gross": 54770,
+          "opInc": 35695,
+          "netInc": 29789,
+          "rd": 11729,
+          "sga": 7346
+        },
+        "src": {
+          "revenue": {
+            "value": 109417,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-03-29",
+              "end": "2026-06-27",
+              "val": 109417000000,
+              "accn": "0000320193-26-000020",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-07-31",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "gross": {
+            "value": 54770,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-03-29",
+              "end": "2026-06-27",
+              "val": 54770000000,
+              "accn": "0000320193-26-000020",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-07-31",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "opInc": {
+            "value": 35695,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-03-29",
+              "end": "2026-06-27",
+              "val": 35695000000,
+              "accn": "0000320193-26-000020",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-07-31",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "netInc": {
+            "value": 29789,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-03-29",
+              "end": "2026-06-27",
+              "val": 29789000000,
+              "accn": "0000320193-26-000020",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-07-31",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "rd": {
+            "value": 11729,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-03-29",
+              "end": "2026-06-27",
+              "val": 11729000000,
+              "accn": "0000320193-26-000020",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-07-31",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          },
+          "sga": {
+            "value": 7346,
+            "tag": "SellingGeneralAndAdministrativeExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-03-29",
+              "end": "2026-06-27",
+              "val": 7346000000,
+              "accn": "0000320193-26-000020",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-07-31",
+              "frame": "CY2026Q2",
+              "dur": 90
+            }
+          }
+        }
+      },
+      {
+        "end": "2023-12-30",
+        "periodType": null,
+        "db": {
+          "revenue": 119575,
+          "gross": 54855,
+          "opInc": 40373,
+          "netInc": 33916,
+          "rd": 7696,
+          "sga": 6786
+        },
+        "src": {
+          "revenue": {
+            "value": 119575,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-30",
+              "val": 119575000000,
+              "accn": "0000320193-25-000008",
+              "fy": 2025,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2025-01-31",
+              "frame": "CY2023Q4",
+              "dur": 90
+            }
+          },
+          "gross": {
+            "value": 54855,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-30",
+              "val": 54855000000,
+              "accn": "0000320193-25-000008",
+              "fy": 2025,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2025-01-31",
+              "frame": "CY2023Q4",
+              "dur": 90
+            }
+          },
+          "opInc": {
+            "value": 40373,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-30",
+              "val": 40373000000,
+              "accn": "0000320193-25-000008",
+              "fy": 2025,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2025-01-31",
+              "frame": "CY2023Q4",
+              "dur": 90
+            }
+          },
+          "netInc": {
+            "value": 33916,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-30",
+              "val": 33916000000,
+              "accn": "0000320193-25-000008",
+              "fy": 2025,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2025-01-31",
+              "frame": "CY2023Q4",
+              "dur": 90
+            }
+          },
+          "rd": {
+            "value": 7696,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-30",
+              "val": 7696000000,
+              "accn": "0000320193-25-000008",
+              "fy": 2025,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2025-01-31",
+              "frame": "CY2023Q4",
+              "dur": 90
+            }
+          },
+          "sga": {
+            "value": 6786,
+            "tag": "SellingGeneralAndAdministrativeExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-30",
+              "val": 6786000000,
+              "accn": "0000320193-25-000008",
+              "fy": 2025,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2025-01-31",
+              "frame": "CY2023Q4",
+              "dur": 90
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "MSFT",
+    "market": "US",
+    "currency": "USD-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 92279,
+          "gross": 62559,
+          "opInc": 45915,
+          "netInc": 36629,
+          "rd": 9047,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 92279,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 92279000000,
+              "accn": "0001193125-26-436133",
+              "fy": 2027,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2026-10-28",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "gross": {
+            "value": 62559,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 62559000000,
+              "accn": "0001193125-26-436133",
+              "fy": 2027,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2026-10-28",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "opInc": {
+            "value": 45915,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 45915000000,
+              "accn": "0001193125-26-436133",
+              "fy": 2027,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2026-10-28",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "netInc": {
+            "value": 36629,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 36629000000,
+              "accn": "0001193125-26-436133",
+              "fy": 2027,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2026-10-28",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "rd": {
+            "value": 9047,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 9047000000,
+              "accn": "0001193125-26-436133",
+              "fy": 2027,
+              "fp": "Q1",
+              "form": "10-Q",
+              "filed": "2026-10-28",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "sga": null
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": null,
+        "db": {
+          "revenue": 62020,
+          "gross": 42397,
+          "opInc": 27032,
+          "netInc": 21870,
+          "rd": 7142,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 62020,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-31",
+              "val": 62020000000,
+              "accn": "0000950170-25-010491",
+              "fy": 2025,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2025-01-29",
+              "frame": "CY2023Q4",
+              "dur": 91
+            }
+          },
+          "gross": {
+            "value": 42397,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-31",
+              "val": 42397000000,
+              "accn": "0000950170-25-010491",
+              "fy": 2025,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2025-01-29",
+              "frame": "CY2023Q4",
+              "dur": 91
+            }
+          },
+          "opInc": {
+            "value": 27032,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-31",
+              "val": 27032000000,
+              "accn": "0000950170-25-010491",
+              "fy": 2025,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2025-01-29",
+              "frame": "CY2023Q4",
+              "dur": 91
+            }
+          },
+          "netInc": {
+            "value": 21870,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-31",
+              "val": 21870000000,
+              "accn": "0000950170-25-010491",
+              "fy": 2025,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2025-01-29",
+              "frame": "CY2023Q4",
+              "dur": 91
+            }
+          },
+          "rd": {
+            "value": 7142,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2023-10-01",
+              "end": "2023-12-31",
+              "val": 7142000000,
+              "accn": "0000950170-25-010491",
+              "fy": 2025,
+              "fp": "Q2",
+              "form": "10-Q",
+              "filed": "2025-01-29",
+              "frame": "CY2023Q4",
+              "dur": 91
+            }
+          },
+          "sga": null
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "TSLA",
+    "market": "US",
+    "currency": "USD-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": null,
+        "db": {
+          "revenue": 28046,
+          "gross": 5494,
+          "opInc": 718,
+          "netInc": 787,
+          "rd": 2761,
+          "sga": 2015
+        },
+        "src": {
+          "revenue": {
+            "value": 28046,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 28046000000,
+              "accn": "0001628280-26-066775",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-22",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "gross": {
+            "value": 5494,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 5494000000,
+              "accn": "0001628280-26-066775",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-22",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "opInc": {
+            "value": 718,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 718000000,
+              "accn": "0001628280-26-066775",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-22",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "netInc": {
+            "value": 787,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 787000000,
+              "accn": "0001628280-26-066775",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-22",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "rd": {
+            "value": 2761,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 2761000000,
+              "accn": "0001628280-26-066775",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-22",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          },
+          "sga": {
+            "value": 2015,
+            "tag": "SellingGeneralAndAdministrativeExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-07-01",
+              "end": "2026-09-30",
+              "val": 2015000000,
+              "accn": "0001628280-26-066775",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-22",
+              "frame": "CY2026Q3",
+              "dur": 91
+            }
+          }
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": null,
+        "db": {
+          "revenue": 25167,
+          "gross": 4438,
+          "opInc": 2064,
+          "netInc": 7928,
+          "rd": 1094,
+          "sga": 1280
+        },
+        "src": {
+          "revenue": null,
+          "gross": null,
+          "opInc": null,
+          "netInc": null,
+          "rd": null,
+          "sga": null
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "INTC",
+    "market": "US",
+    "currency": "USD-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-26",
+        "periodType": "q",
+        "db": {
+          "revenue": 16513,
+          "gross": 7096,
+          "opInc": 2522,
+          "netInc": 3320,
+          "rd": 3490,
+          "sga": 1030
+        },
+        "src": {
+          "revenue": {
+            "value": 16513,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-06-28",
+              "end": "2026-09-26",
+              "val": 16513000000,
+              "accn": "0000050863-26-000191",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-30",
+              "frame": "CY2026Q3",
+              "dur": 90
+            }
+          },
+          "gross": {
+            "value": 7096,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-06-28",
+              "end": "2026-09-26",
+              "val": 7096000000,
+              "accn": "0000050863-26-000191",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-30",
+              "frame": "CY2026Q3",
+              "dur": 90
+            }
+          },
+          "opInc": {
+            "value": 2522,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-06-28",
+              "end": "2026-09-26",
+              "val": 2522000000,
+              "accn": "0000050863-26-000191",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-30",
+              "frame": "CY2026Q3",
+              "dur": 90
+            }
+          },
+          "netInc": {
+            "value": 3320,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-06-28",
+              "end": "2026-09-26",
+              "val": 3320000000,
+              "accn": "0000050863-26-000191",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-30",
+              "frame": "CY2026Q3",
+              "dur": 90
+            }
+          },
+          "rd": {
+            "value": 3490,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-06-28",
+              "end": "2026-09-26",
+              "val": 3490000000,
+              "accn": "0000050863-26-000191",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-30",
+              "frame": "CY2026Q3",
+              "dur": 90
+            }
+          },
+          "sga": {
+            "value": 1030,
+            "tag": "SellingGeneralAndAdministrativeExpense",
+            "unit": "USD",
+            "kind": "q-direct",
+            "raw": {
+              "start": "2026-06-28",
+              "end": "2026-09-26",
+              "val": 1030000000,
+              "accn": "0000050863-26-000191",
+              "fy": 2026,
+              "fp": "Q3",
+              "form": "10-Q",
+              "filed": "2026-10-30",
+              "frame": "CY2026Q3",
+              "dur": 90
+            }
+          }
+        }
+      },
+      {
+        "end": "2023-12-30",
+        "periodType": null,
+        "db": {
+          "revenue": 15406,
+          "gross": 7047,
+          "opInc": 2585,
+          "netInc": 2669,
+          "rd": 3987,
+          "sga": 1617
+        },
+        "src": {
+          "revenue": null,
+          "gross": null,
+          "opInc": null,
+          "netInc": null,
+          "rd": null,
+          "sga": null
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "XNET",
+    "market": "US",
+    "currency": "USD-M",
+    "frequency": "mixed",
+    "periods": [
+      {
+        "end": "2025-12-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 460.4,
+          "gross": 217.5,
+          "opInc": 6.6,
+          "netInc": 1048.3,
+          "rd": 80,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 460.428,
+            "tag": "Revenues",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 460428000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "gross": {
+            "value": 217.542,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 217542000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "opInc": {
+            "value": 6.63,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 6630000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "netInc": {
+            "value": 1048.265,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 1048265000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "rd": {
+            "value": 80.04,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 80040000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "sga": null
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 363.7,
+          "gross": 163.1,
+          "opInc": -1.6,
+          "netInc": 14.2,
+          "rd": 74.2,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 363.722,
+            "tag": "Revenues",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 363722000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "gross": {
+            "value": 163.073,
+            "tag": "GrossProfit",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 163073000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "opInc": {
+            "value": -1.612,
+            "tag": "OperatingIncomeLoss",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": -1612000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "netInc": {
+            "value": 14.225,
+            "tag": "NetIncomeLoss",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 14225000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "rd": {
+            "value": 74.201,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "USD",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 74201000,
+              "accn": "0001104659-26-050304",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-28",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "sga": null
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "002594.SZ",
+    "market": "A",
+    "currency": "CNY-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 221488.25,
+          "gross": 39886.54,
+          "opInc": 12268.16,
+          "netInc": 10019.57,
+          "rd": 12969.99,
+          "sga": 12686.03
+        },
+        "src": {
+          "revenue": {
+            "value": 221488.251
+          },
+          "gross": {
+            "value": 39886.542
+          },
+          "opInc": {
+            "value": 12268.165
+          },
+          "netInc": {
+            "value": 10019.57
+          },
+          "rd": {
+            "value": 12969.986
+          },
+          "sga": {
+            "value": 12686.026
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026三季报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 566303672000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 566303672000
+            },
+            {
+              "OPERATE_COST": 461428568000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 27011743000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 22344978000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 36277138000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 20199335000
+            },
+            {
+              "MANAGE_EXPENSE": 15375141000
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 344815421000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 344815421000
+            },
+            {
+              "OPERATE_COST": 279826859000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 14743578000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 12325408000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 23307152000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 12523014000
+            },
+            {
+              "MANAGE_EXPENSE": 10365436000
+            }
+          ]
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q",
+        "db": {
+          "revenue": 180040.52,
+          "gross": 28368.24,
+          "opInc": 11465.81,
+          "netInc": 8673.92,
+          "rd": 14636.57,
+          "sga": 1325.2
+        },
+        "src": {
+          "revenue": {
+            "value": 180040.516
+          },
+          "gross": {
+            "value": 28368.24
+          },
+          "opInc": {
+            "value": 11465.809
+          },
+          "netInc": {
+            "value": 8673.915
+          },
+          "rd": {
+            "value": 14636.566
+          },
+          "sga": {
+            "value": 1325.204
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 602315354000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 602315354000
+            },
+            {
+              "OPERATE_COST": 490398945000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 38103095000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 30040811000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 39574945000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 15370800000
+            },
+            {
+              "MANAGE_EXPENSE": 13461708000
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 422274838000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 422274838000
+            },
+            {
+              "OPERATE_COST": 338726669000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 26637286000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 21366896000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 24938379000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 17227110000
+            },
+            {
+              "MANAGE_EXPENSE": 10280194000
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "000333.SZ",
+    "market": "A",
+    "currency": "CNY-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 108034.65,
+          "gross": 28584.85,
+          "opInc": 19030.56,
+          "netInc": 14947.33,
+          "rd": 4045.46,
+          "sga": 12549.22
+        },
+        "src": {
+          "revenue": {
+            "value": 108034.65
+          },
+          "gross": {
+            "value": 28584.849
+          },
+          "opInc": {
+            "value": 19030.562
+          },
+          "netInc": {
+            "value": 14947.334
+          },
+          "rd": {
+            "value": 4045.46
+          },
+          "sga": {
+            "value": 12549.221
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026三季报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 369087029000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 369087029000
+            },
+            {
+              "OPERATE_COST": 273816572000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 50715051000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 41393371000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 12512861000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 30281294000
+            },
+            {
+              "MANAGE_EXPENSE": 11428741000
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 261052379000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 261052379000
+            },
+            {
+              "OPERATE_COST": 194366771000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 31684489000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 26446037000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 8467401000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 21545703000
+            },
+            {
+              "MANAGE_EXPENSE": 7615111000
+            }
+          ]
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q",
+        "db": {
+          "revenue": 81330.15,
+          "gross": 20797.16,
+          "opInc": 6537.74,
+          "netInc": 6002.45,
+          "rd": 4569.78,
+          "sga": 10746.01
+        },
+        "src": {
+          "revenue": {
+            "value": 81330.146
+          },
+          "gross": {
+            "value": 20797.162
+          },
+          "opInc": {
+            "value": 6537.74
+          },
+          "netInc": {
+            "value": 6002.454
+          },
+          "rd": {
+            "value": 4569.777
+          },
+          "sga": {
+            "value": 10746.007
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 373709804000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 373709804000
+            },
+            {
+              "OPERATE_COST": 276409404000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 40317441000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 33719935000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 14583311000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 31952844000
+            },
+            {
+              "MANAGE_EXPENSE": 13476908000
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 292379658000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 292379658000
+            },
+            {
+              "OPERATE_COST": 215876420000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 33779701000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 27717481000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 10013534000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 25346676000
+            },
+            {
+              "MANAGE_EXPENSE": 9337069000
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "600519.SS",
+    "market": "A",
+    "currency": "CNY-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 41005.58,
+          "gross": 36833.62,
+          "opInc": 27568.55,
+          "netInc": 19950.55,
+          "rd": 32.73,
+          "sga": 3311.59
+        },
+        "src": {
+          "revenue": {
+            "value": 41005.58
+          },
+          "gross": {
+            "value": 36833.624
+          },
+          "opInc": {
+            "value": 27568.555
+          },
+          "netInc": {
+            "value": 19950.546
+          },
+          "rd": {
+            "value": 32.726
+          },
+          "sga": {
+            "value": 3311.588
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026三季报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 133283652508.95
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 133283652508.95
+            },
+            {
+              "OPERATE_COST": 13645718932.9
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 88979846257.79
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 64467425981.95
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 147652442.32
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 4830628836.78
+            },
+            {
+              "MANAGE_EXPENSE": 5322622377.82
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 92278072083.21
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 92278072083.21
+            },
+            {
+              "OPERATE_COST": 9473762565.88
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 61411291686.27
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 44516880421.86
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 114926219.6
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 3206308341.53
+            },
+            {
+              "MANAGE_EXPENSE": 3635355263.82
+            }
+          ]
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q",
+        "db": {
+          "revenue": 45244.43,
+          "gross": 41940.71,
+          "opInc": 30537.19,
+          "netInc": 21857.85,
+          "rd": 56.25,
+          "sga": 5581.83
+        },
+        "src": {
+          "revenue": {
+            "value": 45244.43
+          },
+          "gross": {
+            "value": 41940.714
+          },
+          "opInc": {
+            "value": 30537.192
+          },
+          "netInc": {
+            "value": 21857.854
+          },
+          "rd": {
+            "value": 56.246
+          },
+          "sga": {
+            "value": 5581.833
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 150560330316.45
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 150560330316.45
+            },
+            {
+              "OPERATE_COST": 11867273851.78
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 103708655208.38
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 74734071550.75
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 157371873.01
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 4648613585.82
+            },
+            {
+              "MANAGE_EXPENSE": 9729389252.31
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 105315900448.1
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 105315900448.1
+            },
+            {
+              "OPERATE_COST": 8563558153.38
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 73171463156.46
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 52876217064.12
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 101126024.63
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 3062692687.17
+            },
+            {
+              "MANAGE_EXPENSE": 5733477491
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "300750.SZ",
+    "market": "A",
+    "currency": "CNY-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 165220.84,
+          "gross": 34180.72,
+          "opInc": 25268.3,
+          "netInc": 21246.06,
+          "rd": 7140.44,
+          "sga": 4503.16
+        },
+        "src": {
+          "revenue": {
+            "value": 165220.844
+          },
+          "gross": {
+            "value": 34180.721
+          },
+          "opInc": {
+            "value": 25268.302
+          },
+          "netInc": {
+            "value": 21246.061
+          },
+          "rd": {
+            "value": 7140.441
+          },
+          "sga": {
+            "value": 4503.158
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026三季报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 442137424000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 442137424000
+            },
+            {
+              "OPERATE_COST": 341695013000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 80933059000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 64530063000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 18516986000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 3371025000
+            },
+            {
+              "MANAGE_EXPENSE": 9315309000
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 276916580000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 276916580000
+            },
+            {
+              "OPERATE_COST": 210654890000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 55664757000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 43284002000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 11376545000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 2163577000
+            },
+            {
+              "MANAGE_EXPENSE": 6019599000
+            }
+          ]
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q",
+        "db": {
+          "revenue": 106239.79,
+          "gross": 12353.7,
+          "opInc": 16702.83,
+          "netInc": 12975.77,
+          "rd": 3480.37,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 106239.794
+          },
+          "gross": {
+            "value": 12353.703
+          },
+          "opInc": {
+            "value": 16702.832
+          },
+          "netInc": {
+            "value": 12975.774
+          },
+          "rd": {
+            "value": 3480.374
+          },
+          "sga": {
+            "value": -5635.36
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 400917045000
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 400917045000
+            },
+            {
+              "OPERATE_COST": 323982130000
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 53718302000
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 44121248000
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 18356108000
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 3042744000
+            },
+            {
+              "MANAGE_EXPENSE": 8461824000
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 294677250600
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 294677250600
+            },
+            {
+              "OPERATE_COST": 230096038100
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 37015470400
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 31145473600
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 14875734500
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 10222106900
+            },
+            {
+              "MANAGE_EXPENSE": 6917820800
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "688256.SS",
+    "market": "A",
+    "currency": "CNY-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 3530.83,
+          "gross": 2072.4,
+          "opInc": 1406.88,
+          "netInc": 1403.61,
+          "rd": 522.59,
+          "sga": 86.19
+        },
+        "src": {
+          "revenue": {
+            "value": 3530.828
+          },
+          "gross": {
+            "value": 2072.4
+          },
+          "opInc": {
+            "value": 1406.885
+          },
+          "netInc": {
+            "value": 1403.611
+          },
+          "rd": {
+            "value": 522.586
+          },
+          "sga": {
+            "value": 86.187
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026三季报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 9526401914.25
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 9526401914.25
+            },
+            {
+              "OPERATE_COST": 4141413443.34
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 3708086377.2
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 3714522759.8
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 1225052567.56
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 45457548.68
+            },
+            {
+              "MANAGE_EXPENSE": 149423555.05
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 5995573619.61
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 5995573619.61
+            },
+            {
+              "OPERATE_COST": 2682984830.53
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 2301201400.18
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 2310912080.33
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 702466071.26
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 26239834.75
+            },
+            {
+              "MANAGE_EXPENSE": 82454649.12
+            }
+          ]
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q",
+        "db": {
+          "revenue": 563.58,
+          "gross": 388.75,
+          "opInc": -44.76,
+          "netInc": -40.71,
+          "rd": 400.11,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 563.576
+          },
+          "gross": {
+            "value": 388.754
+          },
+          "opInc": {
+            "value": -44.765
+          },
+          "netInc": {
+            "value": -40.706
+          },
+          "rd": {
+            "value": 400.109
+          },
+          "sga": {
+            "value": -23.153
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 709386584.26
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 709386584.26
+            },
+            {
+              "OPERATE_COST": 218799649.46
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": -875806411.37
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": -848440140.99
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 1117508162.74
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 82066764.37
+            },
+            {
+              "MANAGE_EXPENSE": 153556524.95
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 145810791.32
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 145810791.32
+            },
+            {
+              "OPERATE_COST": 43977987.56
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": -831041680.06
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": -807734092.59
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 717399523.6
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 55559305.86
+            },
+            {
+              "MANAGE_EXPENSE": 203216788.69
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "688795.SS",
+    "market": "A",
+    "currency": "CNY-M",
+    "frequency": "q",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q",
+        "db": {
+          "revenue": 1552.31,
+          "gross": 777.6,
+          "opInc": 62.8,
+          "netInc": 49.26,
+          "rd": 571.11,
+          "sga": 145.48
+        },
+        "src": {
+          "revenue": {
+            "value": 1552.308
+          },
+          "gross": {
+            "value": 777.597
+          },
+          "opInc": {
+            "value": 62.798
+          },
+          "netInc": {
+            "value": 49.26
+          },
+          "rd": {
+            "value": 571.111
+          },
+          "sga": {
+            "value": 145.479
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026三季报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 3288616730.51
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 3288616730.51
+            },
+            {
+              "OPERATE_COST": 1522255833.15
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": 49225002.12
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": 37697317.32
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 1340258673.6
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 218828878.07
+            },
+            {
+              "MANAGE_EXPENSE": 235783929.53
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 1736309066.25
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 1736309066.25
+            },
+            {
+              "OPERATE_COST": 747545150.25
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": -13572968.82
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": -11563095.44
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 769148107.78
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 158194867.42
+            },
+            {
+              "MANAGE_EXPENSE": 150938889.68
+            }
+          ]
+        }
+      },
+      {
+        "end": "2025-12-31",
+        "periodType": "q",
+        "db": {
+          "revenue": 720.93,
+          "gross": 501.76,
+          "opInc": -284.33,
+          "netInc": -277.26,
+          "rd": 444.34,
+          "sga": 256.66
+        },
+        "src": {
+          "revenue": {
+            "value": 720.926
+          },
+          "gross": {
+            "value": 501.756
+          },
+          "opInc": {
+            "value": -284.33
+          },
+          "netInc": {
+            "value": -277.258
+          },
+          "rd": {
+            "value": 444.336
+          },
+          "sga": {
+            "value": 256.663
+          }
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2025-12-31",
+          "REPORT_NAME": "2025年报"
+        },
+        "rawFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 1505525060.52
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 1505525060.52
+            },
+            {
+              "OPERATE_COST": 518338949.18
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": -1007913657.95
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": -1000786499.6
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 1305026191.16
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 232514145.16
+            },
+            {
+              "MANAGE_EXPENSE": 385011236.54
+            }
+          ]
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2025-09-30",
+          "REPORT_NAME": "2025三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "TOTAL_OPERATE_INCOME": 784599222.88
+          },
+          "gross": [
+            {
+              "TOTAL_OPERATE_INCOME": 784599222.88
+            },
+            {
+              "OPERATE_COST": 299169219.19
+            }
+          ],
+          "opInc": {
+            "OPERATE_PROFIT": -723584020.03
+          },
+          "netInc": {
+            "PARENT_NETPROFIT": -723528598.7
+          },
+          "rd": {
+            "RESEARCH_EXPENSE": 860689771.48
+          },
+          "sga": [
+            {
+              "SALE_EXPENSE": 135903409.39
+            },
+            {
+              "MANAGE_EXPENSE": 224958485.52
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "00700.HK",
+    "market": "HK",
+    "currency": "CNY-M",
+    "frequency": "hk-mixed",
+    "periods": [
+      {
+        "end": "2026-06-30",
+        "periodType": "q2",
+        "db": {
+          "revenue": 204785,
+          "gross": 118433,
+          "opInc": 67276,
+          "netInc": 56022,
+          "rd": null,
+          "sga": 50677
+        },
+        "src": {
+          "revenue": {
+            "value": 204785
+          },
+          "gross": {
+            "value": 118433
+          },
+          "opInc": {
+            "value": 67276
+          },
+          "netInc": {
+            "value": 56022
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage1)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026年中报",
+          "DATE_TYPE_CODE": "002"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 401243000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 229698000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 134651000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 114115000000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-03-31",
+          "REPORT_NAME": "2026年一季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 196458000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 111265000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 67375000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 58093000000
+          }
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q4",
+        "db": {
+          "revenue": 155196,
+          "gross": 77564,
+          "opInc": 41401,
+          "netInc": 27025,
+          "rd": null,
+          "sga": 38146
+        },
+        "src": {
+          "revenue": {
+            "value": 155196
+          },
+          "gross": {
+            "value": 77564
+          },
+          "opInc": {
+            "value": 41401
+          },
+          "netInc": {
+            "value": 27025
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年年报",
+          "DATE_TYPE_CODE": "001"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 609015000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 293109000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 160074000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 115216000000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023年三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 453819000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 215545000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 118673000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 88191000000
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "00941.HK",
+    "market": "HK",
+    "currency": "CNY-M",
+    "frequency": "hk-mixed",
+    "periods": [
+      {
+        "end": "2026-09-30",
+        "periodType": "q3",
+        "db": {
+          "revenue": 242260,
+          "gross": 145248,
+          "opInc": 27434,
+          "netInc": 27264,
+          "rd": null,
+          "sga": 12453
+        },
+        "src": {
+          "revenue": {
+            "value": 242260
+          },
+          "gross": {
+            "value": 145248
+          },
+          "opInc": {
+            "value": 27434
+          },
+          "netInc": {
+            "value": 27264
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage2)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-09-30",
+          "REPORT_NAME": "2026年三季报",
+          "DATE_TYPE_CODE": "004"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 780295000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 458534000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 105690000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 106198000000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026年中报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 538035000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 313286000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 78256000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 78934000000
+          }
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q4",
+        "db": {
+          "revenue": 233749,
+          "gross": 136714,
+          "opInc": 20889,
+          "netInc": 26260,
+          "rd": null,
+          "sga": 13543
+        },
+        "src": {
+          "revenue": {
+            "value": 233749
+          },
+          "gross": {
+            "value": 136714
+          },
+          "opInc": {
+            "value": 20889
+          },
+          "netInc": {
+            "value": 26260
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年年报",
+          "DATE_TYPE_CODE": "001"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 1009309000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 597607000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 134346000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 131766000000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023年三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 775560000000
+          },
+          "gross": {
+            "GROSS_PROFIT": 460893000000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 113457000000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 105506000000
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "01810.HK",
+    "market": "HK",
+    "currency": "CNY-M",
+    "frequency": "hk-mixed",
+    "periods": [
+      {
+        "end": "2026-06-30",
+        "periodType": "q2",
+        "db": {
+          "revenue": 108921.609,
+          "gross": 21608.92,
+          "opInc": 10870.17,
+          "netInc": 9462.405,
+          "rd": 9231.28,
+          "sga": 10130.18
+        },
+        "src": {
+          "revenue": {
+            "value": 108921.609
+          },
+          "gross": {
+            "value": 21608.918
+          },
+          "opInc": {
+            "value": 10870.168
+          },
+          "netInc": {
+            "value": 9462.405
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage1)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026年中报",
+          "DATE_TYPE_CODE": "002"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 208063227000
+          },
+          "gross": {
+            "GROSS_PROFIT": 43419038000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 16182813000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 14185525000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2026-03-31",
+          "REPORT_NAME": "2026年一季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 99141618000
+          },
+          "gross": {
+            "GROSS_PROFIT": 21810120000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 5312645000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 4723120000
+          }
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "q4",
+        "db": {
+          "revenue": 73243.687,
+          "gross": 15613.95,
+          "opInc": 5056.72,
+          "netInc": 4727.498,
+          "rd": 5463.32,
+          "sga": 7392.8
+        },
+        "src": {
+          "revenue": {
+            "value": 73243.687
+          },
+          "gross": {
+            "value": 15613.945
+          },
+          "opInc": {
+            "value": 5056.722
+          },
+          "netInc": {
+            "value": 4727.498
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cum(cur)-cum(prev stage3)",
+        "stageMatch": true,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-12-31",
+          "REPORT_NAME": "2023年年报",
+          "DATE_TYPE_CODE": "001"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 270970141000
+          },
+          "gross": {
+            "GROSS_PROFIT": 57476239000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 20008670000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 17475173000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2023-09-30",
+          "REPORT_NAME": "2023年三季报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 197726454000
+          },
+          "gross": {
+            "GROSS_PROFIT": 41862294000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 14951948000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 12747675000
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "09633.HK",
+    "market": "HK",
+    "currency": "CNY-M",
+    "frequency": "hk-mixed",
+    "periods": [
+      {
+        "end": "2026-06-30",
+        "periodType": "interim",
+        "db": {
+          "revenue": 29718.1,
+          "gross": 18098.58,
+          "opInc": 11765.65,
+          "netInc": 8886.846,
+          "rd": null,
+          "sga": 6968.33
+        },
+        "src": {
+          "revenue": {
+            "value": 29718.1
+          },
+          "gross": {
+            "value": 18098.575
+          },
+          "opInc": {
+            "value": 11765.648
+          },
+          "netInc": {
+            "value": 8886.846
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cumulative(first of FY)",
+        "stageMatch": false,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026年中报",
+          "DATE_TYPE_CODE": "002"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 29718100000
+          },
+          "gross": {
+            "GROSS_PROFIT": 18098575000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 11765648000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 8886846000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2025-12-31",
+          "REPORT_NAME": "2025年年报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 52552910000
+          },
+          "gross": {
+            "GROSS_PROFIT": 31808104000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 20984492000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 15868274000
+          }
+        }
+      },
+      {
+        "end": "2023-06-30",
+        "periodType": "interim",
+        "db": {
+          "revenue": 20462.425,
+          "gross": 12309.93,
+          "opInc": 7553.97,
+          "netInc": 5775.421,
+          "rd": null,
+          "sga": 5653.89
+        },
+        "src": {
+          "revenue": {
+            "value": 20462.425
+          },
+          "gross": {
+            "value": 12309.929
+          },
+          "opInc": {
+            "value": 7553.974
+          },
+          "netInc": {
+            "value": 5775.421
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cumulative(first of FY)",
+        "stageMatch": false,
+        "rawCurrent": {
+          "REPORT_DATE": "2023-06-30",
+          "REPORT_NAME": "2023年中报",
+          "DATE_TYPE_CODE": "002"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 20462425000
+          },
+          "gross": {
+            "GROSS_PROFIT": 12309929000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 7553974000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 5775421000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2022-12-31",
+          "REPORT_NAME": "2022年年报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 33239187000
+          },
+          "gross": {
+            "GROSS_PROFIT": 19095411000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 11126360000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 8495250000
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "00151.HK",
+    "market": "HK",
+    "currency": "CNY-M",
+    "frequency": "hk-mixed",
+    "periods": [
+      {
+        "end": "2026-03-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 24400.665,
+          "gross": 11297.85,
+          "opInc": 5020.6,
+          "netInc": 3837.07,
+          "rd": null,
+          "sga": 6891.35
+        },
+        "src": {
+          "revenue": {
+            "value": 24400.665
+          },
+          "gross": {
+            "value": 11297.851
+          },
+          "opInc": {
+            "value": 5020.603
+          },
+          "netInc": {
+            "value": 3837.07
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "annual-cumulative",
+        "rawCurrent": {
+          "REPORT_DATE": "2026-03-31",
+          "REPORT_NAME": "2025年年报",
+          "DATE_TYPE_CODE": "001"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 24400665000
+          },
+          "gross": {
+            "GROSS_PROFIT": 11297851000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 5020603000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 3837070000
+          }
+        }
+      },
+      {
+        "end": "2023-03-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 22928.219,
+          "gross": 10071.03,
+          "opInc": 4846.71,
+          "netInc": 3371.584,
+          "rd": null,
+          "sga": 5867.32
+        },
+        "src": {
+          "revenue": {
+            "value": 22928.219
+          },
+          "gross": {
+            "value": 10071.028
+          },
+          "opInc": {
+            "value": 4846.711
+          },
+          "netInc": {
+            "value": 3371.584
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "annual-cumulative",
+        "rawCurrent": {
+          "REPORT_DATE": "2023-03-31",
+          "REPORT_NAME": "2022年年报",
+          "DATE_TYPE_CODE": "001"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 22928219000
+          },
+          "gross": {
+            "GROSS_PROFIT": 10071028000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 4846711000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 3371584000
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "02097.HK",
+    "market": "HK",
+    "currency": "CNY-M",
+    "frequency": "hk-mixed",
+    "periods": [
+      {
+        "end": "2026-06-30",
+        "periodType": "interim",
+        "db": {
+          "revenue": 15215.804,
+          "gross": 4629.69,
+          "opInc": 2977.42,
+          "netInc": 2296.314,
+          "rd": 40.39,
+          "sga": 1732.98
+        },
+        "src": {
+          "revenue": {
+            "value": 15215.804
+          },
+          "gross": {
+            "value": 4629.693
+          },
+          "opInc": {
+            "value": 2977.419
+          },
+          "netInc": {
+            "value": 2296.314
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cumulative(first of FY)",
+        "stageMatch": false,
+        "rawCurrent": {
+          "REPORT_DATE": "2026-06-30",
+          "REPORT_NAME": "2026年中报",
+          "DATE_TYPE_CODE": "002"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 15215804000
+          },
+          "gross": {
+            "GROSS_PROFIT": 4629693000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 2977419000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 2296314000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2025-12-31",
+          "REPORT_NAME": "2025年年报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 33559923000
+          },
+          "gross": {
+            "GROSS_PROFIT": 10451762000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 7555044000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 5886704000
+          }
+        }
+      },
+      {
+        "end": "2025-06-30",
+        "periodType": "interim",
+        "db": {
+          "revenue": 14874.809,
+          "gross": 4706.37,
+          "opInc": 3471.51,
+          "netInc": 2692.884,
+          "rd": 41.04,
+          "sga": 1351.33
+        },
+        "src": {
+          "revenue": {
+            "value": 14874.809
+          },
+          "gross": {
+            "value": 4706.373
+          },
+          "opInc": {
+            "value": 3471.508
+          },
+          "netInc": {
+            "value": 2692.884
+          },
+          "rd": null,
+          "sga": null
+        },
+        "pickKind": "q=cumulative(first of FY)",
+        "stageMatch": false,
+        "rawCurrent": {
+          "REPORT_DATE": "2025-06-30",
+          "REPORT_NAME": "2025年中报",
+          "DATE_TYPE_CODE": "002"
+        },
+        "rawFields": {
+          "revenue": {
+            "OPERATE_INCOME": 14874809000
+          },
+          "gross": {
+            "GROSS_PROFIT": 4706373000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 3471508000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 2692884000
+          }
+        },
+        "rawPrev": {
+          "REPORT_DATE": "2024-12-31",
+          "REPORT_NAME": "2024年年报"
+        },
+        "rawPrevFields": {
+          "revenue": {
+            "OPERATE_INCOME": 24828874000
+          },
+          "gross": {
+            "GROSS_PROFIT": 8060207000
+          },
+          "opInc": {
+            "OPERATE_PROFIT": 5819966000
+          },
+          "netInc": {
+            "HOLDER_PROFIT": 4436504000
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "BABA",
+    "market": "US",
+    "currency": "CNY-M",
+    "frequency": "mixed",
+    "periods": [
+      {
+        "end": "2026-03-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 1023670,
+          "gross": 407534,
+          "opInc": 50150,
+          "netInc": 103592,
+          "rd": 66533,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 1023670,
+            "tag": "Revenues",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-04-01",
+              "end": "2026-03-31",
+              "val": 1023670000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "gross": null,
+          "opInc": {
+            "value": 50150,
+            "tag": "OperatingIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-04-01",
+              "end": "2026-03-31",
+              "val": 50150000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "netInc": {
+            "value": 103592,
+            "tag": "NetIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-04-01",
+              "end": "2026-03-31",
+              "val": 103592000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "rd": {
+            "value": 66533,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-04-01",
+              "end": "2026-03-31",
+              "val": 66533000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "sga": null
+        }
+      },
+      {
+        "end": "2024-03-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 941168,
+          "gross": 354845,
+          "opInc": 113350,
+          "netInc": 80009,
+          "rd": 52256,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 941168,
+            "tag": "Revenues",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-04-01",
+              "end": "2024-03-31",
+              "val": 941168000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2023",
+              "dur": 365
+            }
+          },
+          "gross": null,
+          "opInc": {
+            "value": 113350,
+            "tag": "OperatingIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-04-01",
+              "end": "2024-03-31",
+              "val": 113350000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2023",
+              "dur": 365
+            }
+          },
+          "netInc": {
+            "value": 80009,
+            "tag": "NetIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-04-01",
+              "end": "2024-03-31",
+              "val": 80009000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2023",
+              "dur": 365
+            }
+          },
+          "rd": {
+            "value": 52256,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-04-01",
+              "end": "2024-03-31",
+              "val": 52256000000,
+              "accn": "0001193125-26-231755",
+              "fy": 2026,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-05-20",
+              "frame": "CY2023",
+              "dur": 365
+            }
+          },
+          "sga": null
+        }
+      }
+    ]
+  },
+  {
+    "ticker": "PDD",
+    "market": "US",
+    "currency": "CNY-M",
+    "frequency": "mixed",
+    "periods": [
+      {
+        "end": "2025-12-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 431845.7,
+          "gross": 243044,
+          "opInc": 93102.1,
+          "netInc": 97842.5,
+          "rd": 16496.2,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 431845.713,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 431845713000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "gross": null,
+          "opInc": {
+            "value": 93102.131,
+            "tag": "OperatingIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 93102131000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "netInc": {
+            "value": 97842.539,
+            "tag": "NetIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 97842539000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "rd": {
+            "value": 16496.164,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2025-01-01",
+              "end": "2025-12-31",
+              "val": 16496164000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2025",
+              "dur": 364
+            }
+          },
+          "sga": null
+        }
+      },
+      {
+        "end": "2023-12-31",
+        "periodType": "annual",
+        "db": {
+          "revenue": 247639.2,
+          "gross": 155915.6,
+          "opInc": 58698.8,
+          "netInc": 60026.5,
+          "rd": 10952.4,
+          "sga": null
+        },
+        "src": {
+          "revenue": {
+            "value": 247639.205,
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 247639205000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "gross": null,
+          "opInc": {
+            "value": 58698.762,
+            "tag": "OperatingIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 58698762000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "netInc": {
+            "value": 60026.544,
+            "tag": "NetIncomeLoss",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 60026544000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "rd": {
+            "value": 10952.374,
+            "tag": "ResearchAndDevelopmentExpense",
+            "unit": "CNY",
+            "kind": "annual",
+            "raw": {
+              "start": "2023-01-01",
+              "end": "2023-12-31",
+              "val": 10952374000,
+              "accn": "0001104659-26-050727",
+              "fy": 2025,
+              "fp": "FY",
+              "form": "20-F",
+              "filed": "2026-04-29",
+              "frame": "CY2023",
+              "dur": 364
+            }
+          },
+          "sga": null
+        }
+      }
+    ]
+  }
+]

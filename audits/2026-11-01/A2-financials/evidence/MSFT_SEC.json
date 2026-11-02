@@ -1,0 +1,221 @@
+{
+ "ticker": "MSFT",
+ "cik": 789019,
+ "entityName": "MICROSOFT CORPORATION",
+ "fetchedFor": [
+  "2026-09-30",
+  "2023-12-31"
+ ],
+ "periods": [
+  {
+   "end": "2026-09-30",
+   "periodType": "q",
+   "db": {
+    "revenue": 92279,
+    "gross": 62559,
+    "opInc": 45915,
+    "netInc": 36629,
+    "rd": 9047,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 92279,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 92279000000,
+      "accn": "0001193125-26-436133",
+      "fy": 2027,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2026-10-28",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "gross": {
+     "value": 62559,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 62559000000,
+      "accn": "0001193125-26-436133",
+      "fy": 2027,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2026-10-28",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "opInc": {
+     "value": 45915,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 45915000000,
+      "accn": "0001193125-26-436133",
+      "fy": 2027,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2026-10-28",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "netInc": {
+     "value": 36629,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 36629000000,
+      "accn": "0001193125-26-436133",
+      "fy": 2027,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2026-10-28",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "rd": {
+     "value": 9047,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 9047000000,
+      "accn": "0001193125-26-436133",
+      "fy": 2027,
+      "fp": "Q1",
+      "form": "10-Q",
+      "filed": "2026-10-28",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "sga": null
+   }
+  },
+  {
+   "end": "2023-12-31",
+   "periodType": null,
+   "db": {
+    "revenue": 62020,
+    "gross": 42397,
+    "opInc": 27032,
+    "netInc": 21870,
+    "rd": 7142,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 62020,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-31",
+      "val": 62020000000,
+      "accn": "0000950170-25-010491",
+      "fy": 2025,
+      "fp": "Q2",
+      "form": "10-Q",
+      "filed": "2025-01-29",
+      "frame": "CY2023Q4",
+      "dur": 91
+     }
+    },
+    "gross": {
+     "value": 42397,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-31",
+      "val": 42397000000,
+      "accn": "0000950170-25-010491",
+      "fy": 2025,
+      "fp": "Q2",
+      "form": "10-Q",
+      "filed": "2025-01-29",
+      "frame": "CY2023Q4",
+      "dur": 91
+     }
+    },
+    "opInc": {
+     "value": 27032,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-31",
+      "val": 27032000000,
+      "accn": "0000950170-25-010491",
+      "fy": 2025,
+      "fp": "Q2",
+      "form": "10-Q",
+      "filed": "2025-01-29",
+      "frame": "CY2023Q4",
+      "dur": 91
+     }
+    },
+    "netInc": {
+     "value": 21870,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-31",
+      "val": 21870000000,
+      "accn": "0000950170-25-010491",
+      "fy": 2025,
+      "fp": "Q2",
+      "form": "10-Q",
+      "filed": "2025-01-29",
+      "frame": "CY2023Q4",
+      "dur": 91
+     }
+    },
+    "rd": {
+     "value": 7142,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2023-10-01",
+      "end": "2023-12-31",
+      "val": 7142000000,
+      "accn": "0000950170-25-010491",
+      "fy": 2025,
+      "fp": "Q2",
+      "form": "10-Q",
+      "filed": "2025-01-29",
+      "frame": "CY2023Q4",
+      "dur": 91
+     }
+    },
+    "sga": null
+   }
+  }
+ ]
+}

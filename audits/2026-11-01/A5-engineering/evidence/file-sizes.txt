@@ -1,0 +1,9 @@
+# file sizes raw / gzip-9 (bytes)
+index.html                    11944     3888
+vendor/echarts.min.js       1030855   333290
+data/profit.json            1001376   130399
+data/profit.json.js          565902   122417
+data/segments.json           568664    50447
+data/segments.json.js        301229    47342
+data/companies.json           31144     6555
+app.js                        89763    29215

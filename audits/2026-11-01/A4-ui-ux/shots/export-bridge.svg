@@ -1,0 +1,179 @@
+<svg width="1472" height="660" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" viewBox="0 0 1472 660">
+<rect width="1472" height="660" x="0" y="0" fill="none"></rect>
+<g clip-path="url(#zr0-c0)">
+<path d="M30 0C121.2 0 121.2 25.8858 212.4 25.8858L212.4 287.1007C121.2 287.1007 121.2 261.2149 30 261.2149Z" transform="translate(210 60)" fill="#3b82c4" fill-opacity="0.55" class="zr0-cls-2"></path>
+<path d="M30 283.2149C121.2 283.2149 121.2 287.1007 212.4 287.1007L212.4 503.2854C121.2 503.2854 121.2 499.3996 30 499.3996Z" transform="translate(210 60)" fill="#3b82c4" fill-opacity="0.55" class="zr0-cls-2"></path>
+<path d="M242.4 25.8858C333.6 25.8858 333.6 31.85 424.8 31.85L424.8 509.2496C333.6 509.2496 333.6 503.2854 242.4 503.2854Z" transform="translate(210 60)" fill="#3b82c4" fill-opacity="0.55" class="zr0-cls-2"></path>
+<path d="M30 521.3996C227.4 521.3996 227.4 509.2496 424.8 509.2496L424.8 547.85C227.4 547.85 227.4 560 30 560Z" transform="translate(210 60)" fill="#3b82c4" fill-opacity="0.55" class="zr0-cls-2"></path>
+<path d="M454.8 31.85C546 31.85 546 22 637.2 22L637.2 408.8726C546 408.8726 546 418.7226 454.8 418.7226Z" transform="translate(210 60)" fill="#16a34a" fill-opacity="0.55" class="zr0-cls-3"></path>
+<path d="M454.8 418.7226C546 418.7226 546 430.8726 637.2 430.8726L637.2 560C546 560 546 547.85 454.8 547.85Z" transform="translate(210 60)" fill="#dc2626" fill-opacity="0.55" class="zr0-cls-4"></path>
+<path d="M667.2 363.7834C758.4 363.7834 758.4 465.7729 849.6 465.7729L849.6 503.6011C758.4 503.6011 758.4 401.6116 667.2 401.6116Z" transform="translate(210 60)" fill="#dc2626" fill-opacity="0.55" class="zr0-cls-4"></path>
+<path d="M667.2 401.6116C758.4 401.6116 758.4 525.6011 849.6 525.6011L849.6 532.8621C758.4 532.8621 758.4 408.8726 667.2 408.8726Z" transform="translate(210 60)" fill="#dc2626" fill-opacity="0.55" class="zr0-cls-4"></path>
+<path d="M667.2 22C758.4 22 758.4 101.9895 849.6 101.9895L849.6 443.7729C758.4 443.7729 758.4 363.7834 667.2 363.7834Z" transform="translate(210 60)" fill="#16a34a" fill-opacity="0.55" class="zr0-cls-3"></path>
+<path d="M879.6 101.9895C970.8 101.9895 970.8 112.9386 1062 112.9386L1062 433.0248C970.8 433.0248 970.8 422.0756 879.6 422.0756Z" transform="translate(210 60)" fill="#16a34a" fill-opacity="0.55" class="zr0-cls-3"></path>
+<path d="M879.6 422.0756C970.8 422.0756 970.8 455.0248 1062 455.0248L1062 476.7221C970.8 476.7221 970.8 443.7729 879.6 443.7729Z" transform="translate(210 60)" fill="#dc2626" fill-opacity="0.55" class="zr0-cls-4"></path>
+<path d="M0 0l30 0l0 261.2149l-30 0Z" transform="translate(210 60)" fill="#3b82c4" class="zr0-cls-2"></path>
+<path d="M0 283.2149l30 0l0 216.1847l-30 0Z" transform="translate(210 60)" fill="#3b82c4" class="zr0-cls-2"></path>
+<path d="M212.4 25.8858l30 0l0 477.3996l-30 0Z" transform="translate(210 60)" fill="#3b82c4" class="zr0-cls-2"></path>
+<path d="M0 521.3996l30 0l0 38.6004l-30 0Z" transform="translate(210 60)" fill="#3b82c4" class="zr0-cls-2"></path>
+<path d="M424.8 31.85l30 0l0 516l-30 0Z" transform="translate(210 60)" fill="#4b5563" class="zr0-cls-5"></path>
+<path d="M637.2 22l30 0l0 386.8726l-30 0Z" transform="translate(210 60)" fill="#16a34a" class="zr0-cls-3"></path>
+<path d="M637.2 430.8726l30 0l0 129.1274l-30 0Z" transform="translate(210 60)" fill="#dc2626" class="zr0-cls-4"></path>
+<path d="M849.6 101.9895l30 0l0 341.7834l-30 0Z" transform="translate(210 60)" fill="#16a34a" class="zr0-cls-3"></path>
+<path d="M849.6 465.7729l30 0l0 37.8282l-30 0Z" transform="translate(210 60)" fill="#dc2626" class="zr0-cls-4"></path>
+<path d="M849.6 525.6011l30 0l0 7.261l-30 0Z" transform="translate(210 60)" fill="#dc2626" class="zr0-cls-4"></path>
+<path d="M1062 112.9386l30 0l0 320.0861l-30 0Z" transform="translate(210 60)" fill="#16a34a" class="zr0-cls-3"></path>
+<path d="M1062 455.0248l30 0l0 21.6973l-30 0Z" transform="translate(210 60)" fill="#dc2626" class="zr0-cls-4"></path>
+<path d="M-51.7644 -53.5l88.625 0l0 16l-88.625 0Z" transform="translate(225 55)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-51.764404296875" y="-45.5" transform="translate(225 55)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">Hyperscale</text>
+<path d="M-51.7644 -33l42.9365 0l0 14l-42.9365 0Z" transform="translate(225 55)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" x="-51.764404296875" y="-26" transform="translate(225 55)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">50.6%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="-8.827880859375" y="-26" transform="translate(225 55)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M3.6599 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(225 55)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="3.659912109375" y="-26" transform="translate(225 55)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$48.7B</text>
+<path d="M-51.7644 -15l83.459 0l0 13l-83.459 0Z" transform="translate(225 55)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-51.764404296875" y="-8.5" transform="translate(225 55)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+28.6% QoQ</text>
+<path d="M-134.4687 -53.5l268.9375 0l0 16l-268.9375 0Z" transform="translate(225 338.2149)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-134.46875" y="-45.5" transform="translate(225 338.2149)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">AI Clouds, Industrial &amp; Enterprise</text>
+<path d="M-134.4687 -33l42.9365 0l0 14l-42.9365 0Z" transform="translate(225 338.2149)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" x="-134.46875" y="-26" transform="translate(225 338.2149)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">41.9%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="-91.5322265625" y="-26" transform="translate(225 338.2149)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M-79.0444 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(225 338.2149)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="-79.04443359375" y="-26" transform="translate(225 338.2149)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$40.3B</text>
+<path d="M-134.4687 -15l75.4419 0l0 13l-75.4419 0Z" transform="translate(225 338.2149)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-134.46875" y="-8.5" transform="translate(225 338.2149)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+7.9% QoQ</text>
+<path d="M-51.7644 -53.5l95.6406 0l0 16l-95.6406 0Z" transform="translate(437.4 80.8858)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-51.764404296875" y="-45.5" transform="translate(437.4 80.8858)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">Data Center</text>
+<path d="M-51.7644 -33l42.9365 0l0 14l-42.9365 0Z" transform="translate(437.4 80.8858)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" x="-51.764404296875" y="-26" transform="translate(437.4 80.8858)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">92.5%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="-8.827880859375" y="-26" transform="translate(437.4 80.8858)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M3.6599 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(437.4 80.8858)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="3.659912109375" y="-26" transform="translate(437.4 80.8858)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$89.0B</text>
+<path d="M-51.7644 -15l83.459 0l0 13l-83.459 0Z" transform="translate(437.4 80.8858)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-51.764404296875" y="-8.5" transform="translate(437.4 80.8858)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+18.3% QoQ</text>
+<path d="M-67.4375 -53.5l134.875 0l0 16l-134.875 0Z" transform="translate(225 576.3996)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-67.4375" y="-45.5" transform="translate(225 576.3996)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">Edge Computing</text>
+<path d="M-67.4375 -33l34.3027 0l0 14l-34.3027 0Z" transform="translate(225 576.3996)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" x="-67.4375" y="-26" transform="translate(225 576.3996)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">7.5%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="-33.134765625" y="-26" transform="translate(225 576.3996)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M-20.647 -33l39.4707 0l0 14l-39.4707 0Z" transform="translate(225 576.3996)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="-20.64697265625" y="-26" transform="translate(225 576.3996)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$7.2B</text>
+<path d="M-67.4375 -15l83.459 0l0 13l-83.459 0Z" transform="translate(225 576.3996)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-67.4375" y="-8.5" transform="translate(225 576.3996)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+13.0% QoQ</text>
+<path d="M-49.7649 -53.5l32 0l0 16l-32 0Z" transform="translate(649.8 85.85)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-49.764892578125" y="-45.5" transform="translate(649.8 85.85)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">营收</text>
+<path d="M-49.7649 -33l38.9375 0l0 14l-38.9375 0Z" transform="translate(649.8 85.85)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" x="-49.764892578125" y="-26" transform="translate(649.8 85.85)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">100%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="-10.827392578125" y="-26" transform="translate(649.8 85.85)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M1.6604 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(649.8 85.85)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="1.660400390625" y="-26" transform="translate(649.8 85.85)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$96.2B</text>
+<path d="M-49.7649 -15l83.459 0l0 13l-83.459 0Z" transform="translate(649.8 85.85)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-49.764892578125" y="-8.5" transform="translate(649.8 85.85)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+17.9% QoQ</text>
+<path d="M-74.8494 -53.5l48 0l0 16l-48 0Z" transform="translate(862.2 77)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-74.849365234375" y="-45.5" transform="translate(862.2 77)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">毛利润</text>
+<path d="M-74.8494 -33l89.1064 0l0 14l-89.1064 0Z" transform="translate(862.2 77)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-74.849365234375" y="-26" transform="translate(862.2 77)" fill="#1d55a5" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">毛利率 75.0%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="14.257080078125" y="-26" transform="translate(862.2 77)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M26.7449 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(862.2 77)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="26.744873046875" y="-26" transform="translate(862.2 77)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$72.1B</text>
+<path d="M-74.8494 -15l80.6533 0l0 13l-80.6533 0Z" transform="translate(862.2 77)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-74.849365234375" y="-8.5" transform="translate(862.2 77)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+0.0pp QoQ</text>
+<path d="M-74.8494 -53.5l64 0l0 16l-64 0Z" transform="translate(862.2 485.8726)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-74.849365234375" y="-45.5" transform="translate(862.2 485.8726)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">营收成本</text>
+<path d="M-74.8494 -33l89.1064 0l0 14l-89.1064 0Z" transform="translate(862.2 485.8726)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-74.849365234375" y="-26" transform="translate(862.2 485.8726)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">25.0% 占营收</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="14.257080078125" y="-26" transform="translate(862.2 485.8726)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M26.7449 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(862.2 485.8726)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="26.744873046875" y="-26" transform="translate(862.2 485.8726)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$24.1B</text>
+<path d="M-74.8494 -15l83.459 0l0 13l-83.459 0Z" transform="translate(862.2 485.8726)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-74.849365234375" y="-8.5" transform="translate(862.2 485.8726)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+17.7% QoQ</text>
+<path d="M-88.8494 -53.5l64 0l0 16l-64 0Z" transform="translate(1074.6 156.9895)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-88.849365234375" y="-45.5" transform="translate(1074.6 156.9895)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">营业利润</text>
+<path d="M-88.8494 -33l117.1064 0l0 14l-117.1064 0Z" transform="translate(1074.6 156.9895)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-88.849365234375" y="-26" transform="translate(1074.6 156.9895)" fill="#1d55a5" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">营业利润率 66.2%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="28.257080078125" y="-26" transform="translate(1074.6 156.9895)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M40.7449 -33l48.1045 0l0 14l-48.1045 0Z" transform="translate(1074.6 156.9895)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="40.744873046875" y="-26" transform="translate(1074.6 156.9895)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$63.7B</text>
+<path d="M-88.8494 -15l80.6533 0l0 13l-80.6533 0Z" transform="translate(1074.6 156.9895)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-88.849365234375" y="-8.5" transform="translate(1074.6 156.9895)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+0.6pp QoQ</text>
+<path d="M-66.2156 -53.5l64 0l0 16l-64 0Z" transform="translate(1074.6 520.7729)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-66.215576171875" y="-45.5" transform="translate(1074.6 520.7729)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">研发费用</text>
+<path d="M-66.2156 -33l80.4727 0l0 14l-80.4727 0Z" transform="translate(1074.6 520.7729)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-66.215576171875" y="-26" transform="translate(1074.6 520.7729)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">7.3% 占营收</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="14.257080078125" y="-26" transform="translate(1074.6 520.7729)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M26.7449 -33l39.4707 0l0 14l-39.4707 0Z" transform="translate(1074.6 520.7729)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="26.744873046875" y="-26" transform="translate(1074.6 520.7729)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$7.1B</text>
+<path d="M-66.2156 -15l83.459 0l0 13l-83.459 0Z" transform="translate(1074.6 520.7729)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-66.215576171875" y="-8.5" transform="translate(1074.6 520.7729)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+11.6% QoQ</text>
+<path d="M-66.2156 -53.5l112 0l0 16l-112 0Z" transform="translate(1074.6 580.6011)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" x="-66.215576171875" y="-45.5" transform="translate(1074.6 580.6011)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">销售与管理费用</text>
+<path d="M-66.2156 -33l80.4727 0l0 14l-80.4727 0Z" transform="translate(1074.6 580.6011)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-66.215576171875" y="-26" transform="translate(1074.6 580.6011)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">1.4% 占营收</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="14.257080078125" y="-26" transform="translate(1074.6 580.6011)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M26.7449 -33l39.4707 0l0 14l-39.4707 0Z" transform="translate(1074.6 580.6011)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="26.744873046875" y="-26" transform="translate(1074.6 580.6011)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$1.4B</text>
+<path d="M-66.2156 -15l75.4419 0l0 13l-75.4419 0Z" transform="translate(1074.6 580.6011)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" x="-66.215576171875" y="-8.5" transform="translate(1074.6 580.6011)" fill="#16a34a" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">+4.2% QoQ</text>
+<path d="M0 -25.5l48 0l0 16l-48 0Z" transform="translate(1310 332.9817)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" y="-17.5" transform="translate(1310 332.9817)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">净利润</text>
+<path d="M0 -5l89.1064 0l0 14l-89.1064 0Z" transform="translate(1310 332.9817)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" y="2" transform="translate(1310 332.9817)" fill="#1d55a5" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">净利率 62.0%</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="89.1064453125" y="2" transform="translate(1310 332.9817)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M101.5942 -5l48.1045 0l0 14l-48.1045 0Z" transform="translate(1310 332.9817)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="101.59423828125" y="2" transform="translate(1310 332.9817)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$59.7B</text>
+<path d="M0 13l76.4321 0l0 13l-76.4321 0Z" transform="translate(1310 332.9817)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" y="19.5" transform="translate(1310 332.9817)" fill="#dc2626" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">-9.4pp QoQ</text>
+<path d="M0 -25.5l80 0l0 16l-80 0Z" transform="translate(1310 525.8734)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:16px;font-family:Microsoft YaHei;font-weight:700;" y="-17.5" transform="translate(1310 525.8734)" fill="#1e293b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">税费及其他</text>
+<path d="M0 -5l80.4727 0l0 14l-80.4727 0Z" transform="translate(1310 525.8734)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:700;" xml:space="preserve" y="2" transform="translate(1310 525.8734)" fill="#2563eb" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">4.2% 占营收</text>
+<text dominant-baseline="central" text-anchor="start" style="font: normal normal 15px Microsoft YaHei" xml:space="preserve" x="80.47265625" y="2" transform="translate(1310 525.8734)" fill="#333" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2"> · </text>
+<path d="M92.9604 -5l39.4707 0l0 14l-39.4707 0Z" transform="translate(1310 525.8734)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:14px;font-family:Microsoft YaHei;font-weight:600;" x="92.96044921875" y="2" transform="translate(1310 525.8734)" fill="#64748b" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">$4.0B</text>
+<path d="M0 13l47.7344 0l0 13l-47.7344 0Z" transform="translate(1310 525.8734)" fill="transparent" class="zr0-cls-6"></path>
+<text dominant-baseline="central" text-anchor="start" style="font-size:13px;font-family:Microsoft YaHei;font-weight:600;" xml:space="preserve" y="19.5" transform="translate(1310 525.8734)" fill="#94a3b8" stroke="#fff" stroke-width="2.5" paint-order="stroke" stroke-miterlimit="2">— QoQ</text>
+</g>
+<defs >
+<clipPath id="zr0-c0">
+<path d="M-10 -10l0 0l0 580l0 0Z" transform="translate(210 60)" fill="#000" class="zr0-cls-0 zr0-cls-1"></path>
+</clipPath>
+</defs>
+<style ><![CDATA[
+.zr0-cls-0 {
+animation:zr0-ani-0 1s linear both;
+}
+.zr0-cls-1:hover {
+cursor:pointer;
+fill:rgba(0,0,0,1);
+}
+.zr0-cls-2:hover {
+cursor:pointer;
+fill:rgba(64,143,215,1);
+}
+.zr0-cls-3:hover {
+cursor:pointer;
+fill:rgba(24,179,81,1);
+}
+.zr0-cls-4:hover {
+cursor:pointer;
+fill:rgba(242,41,41,1);
+}
+.zr0-cls-5:hover {
+cursor:pointer;
+fill:rgba(82,93,108,1);
+}
+.zr0-cls-6:hover {
+cursor:pointer;
+}
+@keyframes zr0-ani-0 {
+0% {
+d:path("M-10 -10l0 0l0 580l0 0Z");
+}
+100% {
+d:path("M-10 -10l1112 0l0 580l-1112 0Z");
+}
+}
+]]>
+
+</style>
+</svg>

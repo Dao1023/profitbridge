@@ -1,0 +1,300 @@
+[
+ {
+  "tk": "AAPL",
+  "click": "OK",
+  "title": "苹果 Q2 2026",
+  "hash": "#c=AAPL&q=2026-06-27",
+  "seg": "ok",
+  "nodes": 14,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "MSFT",
+  "click": "OK",
+  "title": "微软 Q2 2026",
+  "hash": "#c=MSFT&q=2026-06-30",
+  "seg": "thisQuarter",
+  "nodes": 7,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "TSLA",
+  "click": "OK",
+  "title": "特斯拉 Q2 2026",
+  "hash": "#c=TSLA&q=2026-06-30",
+  "seg": "ok",
+  "nodes": 11,
+  "overlapCount": 2,
+  "overlaps": [
+   [
+    "$0.4B",
+    "销售与管理费用",
+    396
+   ],
+   [
+    "研发费用",
+    "$0.7B",
+    96
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "GOOGL",
+  "click": "OK",
+  "title": "谷歌 Q2 2026",
+  "hash": "#c=GOOGL&q=2026-06-30",
+  "seg": "ok",
+  "nodes": 13,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "$7.3B",
+    "Other Bets",
+    154
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "600519.SS",
+  "click": "OK",
+  "title": "贵州茅台 Q2 2026 · 2026 上半年累计",
+  "hash": "#c=600519.SS&q=2026-06-30",
+  "seg": "ok",
+  "nodes": 12,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "300750.SZ",
+  "click": "OK",
+  "title": "宁德时代 Q2 2026 · 2026 上半年累计",
+  "hash": "#c=300750.SZ&q=2026-06-30",
+  "seg": "ok",
+  "nodes": 11,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "000063.SZ",
+  "click": "OK",
+  "title": "中兴通讯 Q2 2026 · 2026 上半年累计",
+  "hash": "#c=000063.SZ&q=2026-06-30",
+  "seg": "ok",
+  "nodes": 10,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "¥2.8B",
+    "税费及其他",
+    291
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "00700.HK",
+  "click": "OK",
+  "title": "腾讯控股 Q2 2026",
+  "hash": "#c=00700.HK&q=2026-06-30",
+  "seg": "thisQuarter",
+  "nodes": 7,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "00992.HK",
+  "click": "OK",
+  "title": "联想集团 Q2 2026",
+  "hash": "#c=00992.HK&q=2026-06-30",
+  "seg": "unavailable",
+  "nodes": 9,
+  "overlapCount": 2,
+  "overlaps": [
+   [
+    "$0.0B",
+    "研发费用",
+    683
+   ],
+   [
+    "净亏损",
+    "$0.0B",
+    213
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "LEGO",
+  "click": "OK",
+  "title": "乐高 FY 2025",
+  "hash": "#c=LEGO&q=2025-12-31",
+  "seg": "unavailable",
+  "nodes": 5,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "NESN.SW",
+  "click": "OK",
+  "title": "雀巢 Q4 2025",
+  "hash": "#c=NESN.SW&q=2025-12-31",
+  "seg": "ok",
+  "nodes": 14,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "Powdered and Liquid Be",
+    "$113.4B",
+    356
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "MC.PA",
+  "click": "OK",
+  "title": "LVMH Q4 2025",
+  "hash": "#c=MC.PA&q=2025-12-31",
+  "seg": "ok",
+  "nodes": 13,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "ASML",
+  "click": "OK",
+  "title": "阿斯麦 Q4 2025",
+  "hash": "#c=ASML&q=2025-12-31",
+  "seg": "ok",
+  "nodes": 12,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "TSM",
+  "click": "OK",
+  "title": "台积电 Q4 2025",
+  "hash": "#c=TSM&q=2025-12-31",
+  "seg": "ok",
+  "nodes": 9,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "Digital consumer elect",
+    "$2.5B",
+    398
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "SPCX",
+  "click": "OK",
+  "title": "SpaceX Q2 2026",
+  "hash": "#c=SPCX&q=2026-06-30",
+  "seg": "unavailable",
+  "nodes": 3,
+  "overlapCount": 0,
+  "overlaps": [],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "HUAWEI",
+  "click": "OK",
+  "title": "华为 FY 2025",
+  "hash": "#c=HUAWEI&q=2025-12-31",
+  "seg": "ok",
+  "nodes": 11,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "¥32.2B",
+    "Other",
+    348
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "005930.KS",
+  "click": "OK",
+  "title": "三星电子 Q4 2025",
+  "hash": "#c=005930.KS&q=2025-12-31",
+  "seg": "ok",
+  "nodes": 8,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "$10.9B",
+    "内部抵销（推导）",
+    390
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ },
+ {
+  "tk": "NVDA",
+  "click": "OK",
+  "title": "英伟达 Q1 2026",
+  "hash": "#q=2026-01-25",
+  "seg": "thisQuarter",
+  "nodes": 9,
+  "overlapCount": 1,
+  "overlaps": [
+   [
+    "$1.3B",
+    "营业费用",
+    117
+   ]
+  ],
+  "clipped": [],
+  "errs": [],
+  "cerr": []
+ }
+]

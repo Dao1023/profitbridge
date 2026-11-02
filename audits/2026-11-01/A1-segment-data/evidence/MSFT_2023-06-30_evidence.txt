@@ -1,0 +1,4 @@
+SOURCE: SEC 8-K MSFT filed 2023-07-25, accession 0000950170-23-034400, exhibit msft-ex99_1.htm
+URL: https://www.sec.gov/Archives/edgar/data/789019/000095017023034400/msft-ex99_1.htm
+EXCERPT (SEGMENT REVENUE AND OPERATING INCOME, In millions, Unaudited):
+SEGMENT REVENUE AND OPERATING INCOME (In millions) (Unaudited) Three Months Ended Twelve Months Ended June 30, June 30, 2023 2022 2023 2022 Revenue Productivity and Business Processes $18,291 $16,600 $69,274 $63,364 Intelligent Cloud 23,993 20,804 87,907 74,965 More Personal Computing 13,905 14,461 54,734 59,941 Total $56,189 $51,865 $211,915 $198,270 Operating Income Productivity and Business Processes $9,052 $7,236 $34,189 $29,690 Intelligent Cloud 10,526 8,808 37,884 33,203 More Personal Computing 4,676 4,490 16

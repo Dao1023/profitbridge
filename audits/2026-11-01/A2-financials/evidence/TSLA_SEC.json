@@ -1,0 +1,153 @@
+{
+ "ticker": "TSLA",
+ "cik": 1318605,
+ "entityName": "Tesla, Inc.",
+ "fetchedFor": [
+  "2026-09-30",
+  "2023-12-31"
+ ],
+ "periods": [
+  {
+   "end": "2026-09-30",
+   "periodType": null,
+   "db": {
+    "revenue": 28046,
+    "gross": 5494,
+    "opInc": 718,
+    "netInc": 787,
+    "rd": 2761,
+    "sga": 2015
+   },
+   "src": {
+    "revenue": {
+     "value": 28046,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 28046000000,
+      "accn": "0001628280-26-066775",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-10-22",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "gross": {
+     "value": 5494,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 5494000000,
+      "accn": "0001628280-26-066775",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-10-22",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "opInc": {
+     "value": 718,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 718000000,
+      "accn": "0001628280-26-066775",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-10-22",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "netInc": {
+     "value": 787,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 787000000,
+      "accn": "0001628280-26-066775",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-10-22",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "rd": {
+     "value": 2761,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 2761000000,
+      "accn": "0001628280-26-066775",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-10-22",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    },
+    "sga": {
+     "value": 2015,
+     "tag": "SellingGeneralAndAdministrativeExpense",
+     "unit": "USD",
+     "kind": "q-direct",
+     "raw": {
+      "start": "2026-07-01",
+      "end": "2026-09-30",
+      "val": 2015000000,
+      "accn": "0001628280-26-066775",
+      "fy": 2026,
+      "fp": "Q3",
+      "form": "10-Q",
+      "filed": "2026-10-22",
+      "frame": "CY2026Q3",
+      "dur": 91
+     }
+    }
+   }
+  },
+  {
+   "end": "2023-12-31",
+   "periodType": null,
+   "db": {
+    "revenue": 25167,
+    "gross": 4438,
+    "opInc": 2064,
+    "netInc": 7928,
+    "rd": 1094,
+    "sga": 1280
+   },
+   "src": {
+    "revenue": null,
+    "gross": null,
+    "opInc": null,
+    "netInc": null,
+    "rd": null,
+    "sga": null
+   }
+  }
+ ]
+}

@@ -1,0 +1,221 @@
+{
+ "ticker": "XNET",
+ "cik": 1510593,
+ "entityName": "Xunlei Ltd",
+ "fetchedFor": [
+  "2025-12-31",
+  "2023-12-31"
+ ],
+ "periods": [
+  {
+   "end": "2025-12-31",
+   "periodType": "annual",
+   "db": {
+    "revenue": 460.4,
+    "gross": 217.5,
+    "opInc": 6.6,
+    "netInc": 1048.3,
+    "rd": 80,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 460.428,
+     "tag": "Revenues",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 460428000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "gross": {
+     "value": 217.542,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 217542000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "opInc": {
+     "value": 6.63,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 6630000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "netInc": {
+     "value": 1048.265,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 1048265000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "rd": {
+     "value": 80.04,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 80040000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "sga": null
+   }
+  },
+  {
+   "end": "2023-12-31",
+   "periodType": "annual",
+   "db": {
+    "revenue": 363.7,
+    "gross": 163.1,
+    "opInc": -1.6,
+    "netInc": 14.2,
+    "rd": 74.2,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 363.722,
+     "tag": "Revenues",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 363722000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "gross": {
+     "value": 163.073,
+     "tag": "GrossProfit",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 163073000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "opInc": {
+     "value": -1.612,
+     "tag": "OperatingIncomeLoss",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": -1612000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "netInc": {
+     "value": 14.225,
+     "tag": "NetIncomeLoss",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 14225000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "rd": {
+     "value": 74.201,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "USD",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 74201000,
+      "accn": "0001104659-26-050304",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-28",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "sga": null
+   }
+  }
+ ]
+}

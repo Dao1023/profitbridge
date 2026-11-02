@@ -1,0 +1,187 @@
+{
+ "ticker": "PDD",
+ "cik": 1737806,
+ "entityName": "PDD Holdings Inc.",
+ "fetchedFor": [
+  "2025-12-31",
+  "2023-12-31"
+ ],
+ "periods": [
+  {
+   "end": "2025-12-31",
+   "periodType": "annual",
+   "db": {
+    "revenue": 431845.7,
+    "gross": 243044,
+    "opInc": 93102.1,
+    "netInc": 97842.5,
+    "rd": 16496.2,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 431845.713,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 431845713000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "gross": null,
+    "opInc": {
+     "value": 93102.131,
+     "tag": "OperatingIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 93102131000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "netInc": {
+     "value": 97842.539,
+     "tag": "NetIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 97842539000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "rd": {
+     "value": 16496.164,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2025-01-01",
+      "end": "2025-12-31",
+      "val": 16496164000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2025",
+      "dur": 364
+     }
+    },
+    "sga": null
+   }
+  },
+  {
+   "end": "2023-12-31",
+   "periodType": "annual",
+   "db": {
+    "revenue": 247639.2,
+    "gross": 155915.6,
+    "opInc": 58698.8,
+    "netInc": 60026.5,
+    "rd": 10952.4,
+    "sga": null
+   },
+   "src": {
+    "revenue": {
+     "value": 247639.205,
+     "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 247639205000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "gross": null,
+    "opInc": {
+     "value": 58698.762,
+     "tag": "OperatingIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 58698762000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "netInc": {
+     "value": 60026.544,
+     "tag": "NetIncomeLoss",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 60026544000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "rd": {
+     "value": 10952.374,
+     "tag": "ResearchAndDevelopmentExpense",
+     "unit": "CNY",
+     "kind": "annual",
+     "raw": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "val": 10952374000,
+      "accn": "0001104659-26-050727",
+      "fy": 2025,
+      "fp": "FY",
+      "form": "20-F",
+      "filed": "2026-04-29",
+      "frame": "CY2023",
+      "dur": 364
+     }
+    },
+    "sga": null
+   }
+  }
+ ]
+}

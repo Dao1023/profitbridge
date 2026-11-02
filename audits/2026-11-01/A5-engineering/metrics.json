@@ -1,0 +1,118 @@
+{
+  "audit": {
+    "angle": "A5",
+    "title": "profitbridge 工程质量 / 可维护性 / 性能 / 仓库卫生 审计",
+    "date": "2026-11-01",
+    "repo_head": "32ee861",
+    "repo_path": "C:/Users/Dao/Code/dao1023/dsh-temp/profitbridge",
+    "deliverable_path": "profitbridge/audits/2026-11-01/A5-engineering/"
+  },
+  "environment": {
+    "node_version": "v24.18.0",
+    "os": "Windows",
+    "chrome_executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "http_server_for_measurement": "scripts/serve.mjs 8449 (zero-dependency, no gzip)",
+    "cdp_port": 9365,
+    "measurement_mode": "headless=new, localhost, no network latency, no compression (raw transfer)",
+    "production_deploy": "GitHub Pages via .github/workflows/static.yml (uploads path '.', the whole repo). GitHub Pages compresses text assets (gzip/brotli) at its CDN, so raw transferSize here is an UPPER-BOUND local-dev figure, NOT the production wire size."
+  },
+  "file_sizes_bytes": {
+    "index.html": { "raw": 11944, "gzip9": 3888 },
+    "vendor/echarts.min.js": { "raw": 1030855, "gzip9": 333290, "version": "5.6.0", "license": "Apache-2.0" },
+    "data/profit.json": { "raw": 1001376, "gzip9": 130399 },
+    "data/profit.json.js": { "raw": 565902, "gzip9": 122417, "note": "file:// mirror defining window.__PROFIT_DATA; redundant & wasted on http/https path" },
+    "data/segments.json": { "raw": 568664, "gzip9": 50447 },
+    "data/segments.json.js": { "raw": 301229, "gzip9": 47342 },
+    "data/companies.json": { "raw": 31144, "gzip9": 6555 },
+    "app.js": { "raw": 89763, "gzip9": 29215, "lines": 1577 }
+  },
+  "first_load_served_set": {
+    "included_files": ["index.html", "vendor/echarts.min.js", "data/profit.json.js", "app.js", "data/profit.json", "data/segments.json", "data/companies.json"],
+    "raw_bytes_total": 3299648,
+    "raw_mb_total": 3.15,
+    "gzip9_bytes_total": 676211,
+    "gzip9_kb_total": 660,
+    "raw_bytes_excluding_redundant_profit_json_js": 2733746,
+    "gzip9_bytes_excluding_redundant_profit_json_js": 553794,
+    "gzip9_kb_excluding_redundant_profit_json_js": 541,
+    "echarts_gzip_share_pct_of_553794": 60.2,
+    "note": "serve.mjs sends no Content-Encoding, so the browser actually receives RAW bytes locally (== transferSize observed). Production GitHub Pages serves gzip, so real wire size ~= gzip9 column."
+  },
+  "measured_first_load": {
+    "core_non_png_transfer_bytes": 3289504,
+    "logo_png_count": 77,
+    "logo_png_transfer_bytes": 171184,
+    "total_transfer_bytes_all_requests": 3460990,
+    "total_resource_entries": 84,
+    "performance_metrics_resources": 99,
+    "first_paint_ms": 48,
+    "first_contentful_paint_ms": 48,
+    "dom_content_loaded_ms": 116,
+    "dom_interactive_ms": 116,
+    "load_event_end_ms": 117,
+    "sankey_ready_ms_from_navigation_start": 299.5,
+    "script_duration_s": 0.070612,
+    "task_duration_s": 0.257509,
+    "layout_duration_s": 0.055618,
+    "recalc_style_duration_s": 0.004088,
+    "js_heap_used_bytes": 9203836,
+    "js_heap_used_mb": 8.8,
+    "layout_count": 10,
+    "recalc_style_count": 13
+  },
+  "json_parse_cost": {
+    "file": "data/profit.json",
+    "bytes": 994123,
+    "fetch_ms": 23.5,
+    "json_parse_ms": 1.8,
+    "top_level_keys": 8
+  },
+  "company_switch_latency_ms": {
+    "tickers_sampled": ["NVDA", "AAPL", "MSFT", "AMZN", "TSLA", "INTC", "MU", "V"],
+    "sankey_view": { "runs": [0, 12.6, 33.2, 13.3, 10.3, 10.9, 14.5, 9.6], "median": 12.6 },
+    "bar_view": { "runs": [28.8, 21.5, 21.5, 19.4, 16.7, 18.9, 17.7, 17.7], "median": 19.4 }
+  },
+  "tracked_content_breakdown_bytes": {
+    "total_tracked": 5735018,
+    "data_all": 3807393,
+    "vendor": 1030855,
+    "docs": 403583,
+    "scripts": 235560,
+    "tests": 144109,
+    "root_files": 112225,
+    "github": 1293,
+    "data_staging": 1127789,
+    "data_logos": 211289,
+    "data_logos_count": 92,
+    "docs_screenshots": 396929,
+    "non_runtime_published_bytes": 1904387,
+    "non_runtime_published_note": "scripts/ + tests/ + data/staging/ + docs/screenshots = files uploaded to GitHub Pages (artifact path '.') but never fetched by the SPA"
+  },
+  "repo": {
+    "git_dir_size_human": "16M",
+    "git_loose_objects_count": 982,
+    "git_objects_size_mib": 12.85,
+    "git_packs": 0,
+    "tracked_files_count": 160,
+    "commit_count": 114,
+    "tracked_working_tree_bytes": 5735018,
+    "tracked_working_tree_mb": 5.5,
+    "largest_history_blobs_kb": {
+      "vendor/echarts.min.js": 1006.7,
+      "data/profit.json(top versions)": [977.9, 976.8, 974.5, 970.4, 969.7, 965.2, 871.4, 871.4, 871.2, 870.5, 865.4, 861.3, 855.6, 855.1]
+    },
+    "untracked_unignored": { "data/segments.json.bak": 564993 },
+    "tracked_build_artifacts": { "data/staging/": { "file_count": 11, "bytes": 1127789, "files": ["batch1.json","batch2.json","batch3.json","batch4.json","batch5.json","batch6.json","batch7.json","batch8.json","fixups.json","segments_2026q3.json","truncations.json"] } },
+    "root_tmp_dirs_physical_count": 50,
+    "tracked_tmp_bak_node_modules": 0
+  },
+  "tests": {
+    "verify_files_total": 15,
+    "browser_cdp_tests": 13,
+    "pure_data_tests": ["verify_new.mjs", "verify_scan.mjs"],
+    "hardcoded_server": "http://127.0.0.1:8440 (all 13 browser tests)",
+    "duplicated_cdp_port": { "9341": ["verify_layout_refactor.mjs", "verify_seg_axis.mjs"] },
+    "untested_controls": ["btnExportSVG / exportSVG()", "btnCur (currency toggle)"],
+    "partial_language_coverage": "verify_modes.mjs:119-125 asserts only mode-button labels after btnLang click"
+  }
+}

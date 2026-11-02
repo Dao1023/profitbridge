@@ -1,0 +1,92 @@
+
+== 600519.SS freq=q cur=CNY-M FYE=12 seg="其他" pts=13 ==
+  2024-12-31 segPT=half rowPT=q | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=0.2% denom=CUM | grow=qoq 32.4
+  2025-06-30 segPT=half rowPT=q | axis="H1'25" head="Q2 2025" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq -87.3
+  2025-12-31 segPT=half rowPT=q | axis="FY 2025" head="Q4 2025" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq 74.4
+  2026-06-30 segPT=half rowPT=q | axis="H1'26" head="Q2 2026" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq -29.7
+
+== 600887.SS freq=q cur=CNY-M FYE=12 seg="奶粉及奶制品" pts=33 ==
+  2024-12-31 segPT=half rowPT=q | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=25.6% denom=CUM | grow=qoq 104.5
+  2025-06-30 segPT=half rowPT=q | axis="H1'25" head="Q2 2025" | cum=true basis.cum=false decal=false | share=26.8% denom=CUM | grow=qoq -44.1
+  2025-12-31 segPT=half rowPT=q | axis="FY 2025" head="Q4 2025" | cum=true basis.cum=false decal=false | share=28.3% denom=CUM | grow=qoq 97.7
+  2026-06-30 segPT=half rowPT=q | axis="H1'26" head="Q2 2026" | cum=true basis.cum=false decal=false | share=26.1% denom=CUM | grow=qoq -48.6
+
+== 000063.SZ freq=q cur=CNY-M FYE=12 seg="运营商网络" pts=33 ==
+  2024-12-31 segPT=annual rowPT=q | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=58% denom=CUM | grow=qoq 88.6
+  2025-06-30 segPT=half rowPT=q | axis="H1'25" head="Q2 2025" | cum=true basis.cum=false decal=false | share=49% denom=CUM | grow=qoq -50.1
+  2025-12-31 segPT=annual rowPT=q | axis="FY 2025" head="Q4 2025" | cum=true basis.cum=false decal=false | share=46.9% denom=CUM | grow=qoq 79.3
+  2026-06-30 segPT=half rowPT=q | axis="H1'26" head="Q2 2026" | cum=true basis.cum=false decal=false | share=40.7% denom=CUM | grow=qoq -49.5
+
+== 002594.SZ freq=q cur=CNY-M FYE=12 seg="其他" pts=21 ==
+  2024-12-31 segPT=half rowPT=q | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq 257.6
+  2025-06-30 segPT=half rowPT=q | axis="H1'25" head="Q2 2025" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq -72.4
+  2025-12-31 segPT=half rowPT=q | axis="FY 2025" head="Q4 2025" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq 168.1
+  2026-06-30 segPT=half rowPT=q | axis="H1'26" head="Q2 2026" | cum=true basis.cum=false decal=false | share=0% denom=CUM | grow=qoq -16.2
+
+== 300750.SZ freq=q cur=CNY-M FYE=12 seg="动力电池系统" pts=19 ==
+  2024-12-31 segPT=half rowPT=q | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=69.9% denom=CUM | grow=qoq 124.6
+  2025-06-30 segPT=half rowPT=q | axis="H1'25" head="Q2 2025" | cum=true basis.cum=false decal=false | share=73.6% denom=CUM | grow=qoq -48
+  2025-12-31 segPT=half rowPT=q | axis="FY 2025" head="Q4 2025" | cum=true basis.cum=false decal=false | share=74.7% denom=CUM | grow=qoq 140.6
+  2026-06-30 segPT=half rowPT=q | axis="H1'26" head="Q2 2026" | cum=true basis.cum=false decal=false | share=69.4% denom=CUM | grow=qoq -39.3
+
+== BIDU freq=mixed cur=CNY-M FYE=12 seg="Baidu Core - Online marketing services" pts=8 ==
+  2021-12-31 segPT=annual rowPT=annual | axis="FY 2021" head="Q4 2021" | cum=false basis.cum=false decal=false | share=59.4% denom=single | grow=yoy 11.5
+  2022-12-31 segPT=annual rowPT=annual | axis="FY 2022" head="Q4 2022" | cum=false basis.cum=false decal=false | share=56.2% denom=single | grow=yoy -5.9
+  2023-12-31 segPT=annual rowPT=annual | axis="FY 2023" head="Q4 2023" | cum=false basis.cum=false decal=false | share=55.8% denom=single | grow=yoy 8
+  2024-12-31 segPT=annual rowPT=annual | axis="FY 2024" head="Q4 2024" | cum=false basis.cum=false decal=false | share=54.8% denom=single | grow=yoy -2.8
+
+== JD freq=mixed cur=CNY-M FYE=12 seg="New Businesses" pts=9 ==
+  2022-12-31 segPT=annual rowPT=annual | axis="FY 2022" head="Q4 2022" | cum=false basis.cum=false decal=false | share=2.8% denom=single | grow=null 
+  2023-12-31 segPT=annual rowPT=annual | axis="FY 2023" head="Q4 2023" | cum=false basis.cum=false decal=false | share=2.5% denom=single | grow=yoy -10.7
+  2024-12-31 segPT=annual rowPT=annual | axis="FY 2024" head="Q4 2024" | cum=false basis.cum=false decal=false | share=1.7% denom=single | grow=yoy -28
+  2025-12-31 segPT=annual rowPT=annual | axis="FY 2025" head="Q4 2025" | cum=false basis.cum=false decal=false | share=3.8% denom=single | grow=yoy 157.3
+
+== SONY freq=mixed cur=JPY-M FYE=3 seg="Pictures" pts=16 ==
+  2023-03-31 segPT=annual rowPT=annual | axis="FY 2023" head="Q1 2023" | cum=false basis.cum=false decal=false | share=12.5% denom=single | grow=yoy 1.1
+  2024-03-31 segPT=annual rowPT=annual | axis="FY 2024" head="Q1 2024" | cum=false basis.cum=false decal=false | share=11.5% denom=single | grow=yoy -4
+  2025-03-31 segPT=annual rowPT=annual | axis="FY 2025" head="Q1 2025" | cum=false basis.cum=false decal=false | share=11.6% denom=single | grow=yoy 2.1
+  2026-03-31 segPT=annual rowPT=annual | axis="FY 2026" head="Q1 2026" | cum=false basis.cum=false decal=false | share=12% denom=single | grow=yoy -6.7
+
+== 09633.HK freq=hk-mixed cur=CNY-M FYE=12 seg="水类产品" pts=5 ==
+  2021-12-31 segPT=annual rowPT=annual | axis="FY 2021" head="Q4 2021" | cum=false basis.cum=false decal=false | share=57.4% denom=single | grow=yoy 22.1
+  2022-12-31 segPT=annual rowPT=annual | axis="FY 2022" head="Q4 2022" | cum=false basis.cum=false decal=false | share=54.9% denom=single | grow=yoy 7.1
+  2023-12-31 segPT=annual rowPT=annual | axis="FY 2023" head="Q4 2023" | cum=false basis.cum=false decal=false | share=47.5% denom=single | grow=yoy 10.9
+  2024-12-31 segPT=annual rowPT=annual | axis="FY 2024" head="Q4 2024" | cum=false basis.cum=false decal=false | share=37.2% denom=single | grow=yoy -21.3
+
+== 00700.HK freq=hk-mixed cur=CNY-M FYE=12 seg="其他" pts=18 ==
+  2021-12-31 segPT=annual rowPT=q4 | axis="FY 2021" head="Q4 2021" | cum=true basis.cum=false decal=false | share=1.4% denom=CUM | grow=qoq 2.5
+  2022-12-31 segPT=annual rowPT=q4 | axis="FY 2022" head="Q4 2022" | cum=true basis.cum=false decal=false | share=1.3% denom=CUM | grow=qoq -6.4
+  2023-12-31 segPT=annual rowPT=q4 | axis="FY 2023" head="Q4 2023" | cum=true basis.cum=false decal=false | share=0.9% denom=CUM | grow=qoq -25
+  2024-12-31 segPT=annual rowPT=q4 | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=1.2% denom=CUM | grow=qoq 43.8
+
+== 03690.HK freq=hk-mixed cur=CNY-M FYE=12 seg="餐饮外卖" pts=4 ==
+  2018-12-31 segPT=annual rowPT=q4 | axis="FY 2018" head="Q4 2018" | cum=true basis.cum=false decal=false | share=58.5% denom=CUM | grow=null 
+  2019-12-31 segPT=annual rowPT=q4 | axis="FY 2019" head="Q4 2019" | cum=true basis.cum=false decal=false | share=56.2% denom=CUM | grow=qoq 43.8
+  2020-12-31 segPT=annual rowPT=q4 | axis="FY 2020" head="Q4 2020" | cum=true basis.cum=false decal=false | share=57.7% denom=CUM | grow=qoq 20.8
+  2021-12-31 segPT=annual rowPT=q4 | axis="FY 2021" head="Q4 2021" | cum=true basis.cum=false decal=false | share=53.8% denom=CUM | grow=qoq 45.3
+
+== 01398.HK freq=hk-mixed cur=CNY-M FYE=12 seg="其他" pts=18 ==
+  2021-12-31 segPT=annual rowPT=q4 | axis="FY 2021" head="Q4 2021" | cum=true basis.cum=false decal=false | share=0.6% denom=CUM | grow=qoq 14.3
+  2022-12-31 segPT=annual rowPT=q4 | axis="FY 2022" head="Q4 2022" | cum=true basis.cum=false decal=false | share=0.7% denom=CUM | grow=qoq 19.6
+  2023-12-31 segPT=annual rowPT=q4 | axis="FY 2023" head="Q4 2023" | cum=true basis.cum=false decal=false | share=0.7% denom=CUM | grow=qoq -12.9
+  2024-12-31 segPT=annual rowPT=q4 | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=0.5% denom=CUM | grow=qoq -24.4
+
+== 00941.HK freq=hk-mixed cur=CNY-M FYE=12 seg="个人市场" pts=4 ==
+  2021-12-31 segPT=annual rowPT=q4 | axis="FY 2021" head="Q4 2021" | cum=true basis.cum=false decal=false | share=57% denom=CUM | grow=null 
+  2022-12-31 segPT=annual rowPT=q4 | axis="FY 2022" head="Q4 2022" | cum=true basis.cum=false decal=false | share=52.2% denom=CUM | grow=qoq 1.1
+  2023-12-31 segPT=annual rowPT=q4 | axis="FY 2023" head="Q4 2023" | cum=true basis.cum=false decal=false | share=48.6% denom=CUM | grow=qoq 0.3
+  2024-12-31 segPT=annual rowPT=q4 | axis="FY 2024" head="Q4 2024" | cum=true basis.cum=false decal=false | share=46.5% denom=CUM | grow=qoq -1.3
+
+== 005930.KS freq=mixed cur=KRW-M FYE=12 seg="DS" pts=20 ==
+  2025-09-30 segPT=quarter rowPT=q3 | axis="Q3'25" head="Q3 2025" | cum=false basis.cum=false decal=false | share=38.5% denom=single | grow=qoq 14.5
+  2025-12-31 segPT=quarter rowPT=annual | axis="Q4'25" head="Q4 2025" | cum=false basis.cum=false decal=false | share=39% denom=single | grow=yoy 19.6
+  2026-03-31 segPT=quarter rowPT=q1 | axis="Q1'26" head="Q1 2026" | cum=false basis.cum=false decal=false | share=61% denom=single | grow=null 
+  2026-06-30 segPT=quarter rowPT=q2 | axis="Q2'26" head="Q2 2026" | cum=false basis.cum=false decal=false | share=74.3% denom=single | grow=qoq 53.4
+
+== 066570.KS freq=mixed cur=KRW-M FYE=12 seg="VS" pts=20 ==
+  2025-09-30 segPT=quarter rowPT=q3 | axis="Q3'25" head="Q3 2025" | cum=false basis.cum=false decal=false | share=12.1% denom=single | grow=qoq -10.3
+  2025-12-31 segPT=quarter rowPT=annual | axis="Q4'25" head="Q4 2025" | cum=false basis.cum=false decal=false | share=12.5% denom=single | grow=yoy 7.1
+  2026-03-31 segPT=quarter rowPT=q1 | axis="Q1'26" head="Q1 2026" | cum=false basis.cum=false decal=false | share=12.9% denom=single | grow=null 
+  2026-06-30 segPT=quarter rowPT=q2 | axis="Q2'26" head="Q2 2026" | cum=false basis.cum=false decal=false | share=12.7% denom=single | grow=qoq -2.9
+
+== 00992.HK freq=hk-mixed cur=USD-M FYE=3 seg="null" pts=0 ==

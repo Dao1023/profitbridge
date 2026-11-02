@@ -1,0 +1,2310 @@
+[
+ {
+  "ticker": "NVDA",
+  "name": "NVIDIA CORP",
+  "market": "US",
+  "frequency": "q",
+  "periods": 65,
+  "first": "2010-08-01",
+  "last": "2026-07-26",
+  "staleDays": 98,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 30,
+  "segComplete": true,
+  "segLast": "2026-07-26",
+  "segLagDays": 0,
+  "issues": []
+ },
+ {
+  "ticker": "AAPL",
+  "name": "Apple Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2008-12-27",
+  "last": "2026-06-27",
+  "staleDays": 127,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 31,
+  "segComplete": true,
+  "segLast": "2026-06-27",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "MSFT",
+  "name": "Microsoft Corporation",
+  "market": "US",
+  "frequency": "q",
+  "periods": 77,
+  "first": "2007-09-30",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 4,
+   "netInc": 0,
+   "rd": 4,
+   "sga": 77
+  },
+  "segPeriods": 40,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "AMZN",
+  "name": "AMAZON COM INC",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2009-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 71,
+   "sga": 71
+  },
+  "segPeriods": 48,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "TSLA",
+  "name": "Tesla, Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 2,
+   "netInc": 0,
+   "rd": 2,
+   "sga": 2
+  },
+  "segPeriods": 27,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": []
+ },
+ {
+  "ticker": "INTC",
+  "name": "INTEL CORP",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2009-03-28",
+  "last": "2026-09-26",
+  "staleDays": 36,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 1,
+  "segComplete": true,
+  "segLast": "2026-09-26",
+  "segLagDays": 0,
+  "issues": []
+ },
+ {
+  "ticker": "MU",
+  "name": "Micron Technology, Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 68,
+  "first": "2009-12-03",
+  "last": "2026-09-03",
+  "staleDays": 59,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL"
+  ]
+ },
+ {
+  "ticker": "V",
+  "name": "VISA INC.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 72,
+  "first": "2008-12-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 72,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 72,
+   "sga": 72
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL",
+   "NULL_GROSS",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "CSCO",
+  "name": "CISCO SYSTEMS, INC.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 72,
+  "first": "2008-10-25",
+  "last": "2026-07-25",
+  "staleDays": 99,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 20,
+   "sga": 72
+  },
+  "segPeriods": 16,
+  "segComplete": true,
+  "segLast": "2026-04-25",
+  "segLagDays": 91,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "KO",
+  "name": "COCA COLA CO",
+  "market": "US",
+  "frequency": "q",
+  "periods": 35,
+  "first": "2018-03-30",
+  "last": "2026-10-02",
+  "staleDays": 30,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 35,
+   "sga": 0
+  },
+  "segPeriods": 1,
+  "segComplete": true,
+  "segLast": "2026-10-02",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "NFLX",
+  "name": "Netflix, Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2009-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 71
+  },
+  "segPeriods": 9,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "IBM",
+  "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2009-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 71,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL",
+   "NULL_OPINC"
+  ]
+ },
+ {
+  "ticker": "QCOM",
+  "name": "QUALCOMM INC/DE",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2008-12-28",
+  "last": "2026-06-28",
+  "staleDays": 126,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 47,
+  "segComplete": true,
+  "segLast": "2026-06-28",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "MCD",
+  "name": "McDONALD’S CORPORATION",
+  "market": "US",
+  "frequency": "q",
+  "periods": 70,
+  "first": "2009-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 45,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 70,
+   "sga": 16
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SEG_UNITFAIL",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "SBUX",
+  "name": "Starbucks Corporation",
+  "market": "US",
+  "frequency": "q",
+  "periods": 72,
+  "first": "2008-12-28",
+  "last": "2026-09-27",
+  "staleDays": 35,
+  "missing": {
+   "revenue": 0,
+   "gross": 26,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 72,
+   "sga": 72
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "ADBE",
+  "name": "ADOBE INC.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 71,
+  "first": "2009-02-27",
+  "last": "2026-08-28",
+  "staleDays": 65,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 71,
+   "sga": 71
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "MSI",
+  "name": "Motorola Solutions, Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 64,
+  "first": "2010-10-02",
+  "last": "2026-07-04",
+  "staleDays": 120,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 27,
+  "segComplete": true,
+  "segLast": "2026-07-04",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "NXPI",
+  "name": "NXP Semiconductors N.V.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 31,
+  "first": "2019-03-31",
+  "last": "2026-09-27",
+  "staleDays": 35,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 29,
+  "segComplete": true,
+  "segLast": "2026-06-28",
+  "segLagDays": 91,
+  "issues": []
+ },
+ {
+  "ticker": "GOOGL",
+  "name": "Alphabet Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 47,
+  "first": "2015-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 47
+  },
+  "segPeriods": 26,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "META",
+  "name": "Meta Platforms, Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 59,
+  "first": "2012-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 59
+  },
+  "segPeriods": 21,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "ORCL",
+  "name": "Oracle Corporation",
+  "market": "US",
+  "frequency": "q",
+  "periods": 61,
+  "first": "2011-08-31",
+  "last": "2026-08-31",
+  "staleDays": 62,
+  "missing": {
+   "revenue": 0,
+   "gross": 50,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 61
+  },
+  "segPeriods": 30,
+  "segComplete": true,
+  "segLast": "2026-08-31",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "AMD",
+  "name": "ADVANCED MICRO DEVICES INC",
+  "market": "US",
+  "frequency": "q",
+  "periods": 58,
+  "first": "2012-03-31",
+  "last": "2026-06-27",
+  "staleDays": 127,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 16,
+  "segComplete": true,
+  "segLast": "2026-06-27",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "AVGO",
+  "name": "Broadcom Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 39,
+  "first": "2017-01-29",
+  "last": "2026-08-02",
+  "staleDays": 91,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 2,
+   "sga": 2
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_PARTIAL"
+  ]
+ },
+ {
+  "ticker": "PLTR",
+  "name": "Palantir Technologies Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 26,
+  "first": "2020-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 26
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SEG_UNITFAIL",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "DELL",
+  "name": "Dell Technologies Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 46,
+  "first": "2015-05-01",
+  "last": "2026-07-31",
+  "staleDays": 93,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL"
+  ]
+ },
+ {
+  "ticker": "HPQ",
+  "name": "HP INC.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 47,
+  "first": "2015-01-31",
+  "last": "2026-07-31",
+  "staleDays": 93,
+  "missing": {
+   "revenue": 0,
+   "gross": 2,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_UNITFAIL"
+  ]
+ },
+ {
+  "ticker": "U",
+  "name": "UNITY SOFTWARE INC.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 26,
+  "first": "2020-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 26
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SEG_PARTIAL",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "DUOL",
+  "name": "Duolingo, Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 22,
+  "first": "2021-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 22
+  },
+  "segPeriods": 21,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "ARM",
+  "name": "ARM HOLDINGS PLC /UK",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 18,
+  "first": "2022-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 5,
+  "segComplete": true,
+  "segLast": "2026-03-31",
+  "segLagDays": 91,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "SPOT",
+  "name": "Spotify Technology S.A.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 25,
+  "first": "2016-12-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 10,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 10
+  },
+  "segPeriods": 10,
+  "segComplete": false,
+  "segLast": "2025-12-31",
+  "segLagDays": 273,
+  "issues": []
+ },
+ {
+  "ticker": "STM",
+  "name": "STMicroelectronics N.V.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 35,
+  "first": "2007-12-31",
+  "last": "2026-09-26",
+  "staleDays": 36,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 15,
+  "segComplete": false,
+  "segLast": "2025-12-31",
+  "segLagDays": 269,
+  "issues": []
+ },
+ {
+  "ticker": "TSM",
+  "name": "Taiwan Semiconductor Manufacturing Company Limited",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 26,
+  "first": "2015-12-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 11,
+   "netInc": 0,
+   "rd": 1,
+   "sga": 12
+  },
+  "segPeriods": 8,
+  "segComplete": false,
+  "segLast": "2025-12-31",
+  "segLagDays": 273,
+  "issues": []
+ },
+ {
+  "ticker": "ASML",
+  "name": "ASML HOLDING NV",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 34,
+  "first": "2007-12-31",
+  "last": "2026-09-27",
+  "staleDays": 35,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 3,
+   "sga": 0
+  },
+  "segPeriods": 11,
+  "segComplete": false,
+  "segLast": "2025-12-31",
+  "segLagDays": 270,
+  "issues": []
+ },
+ {
+  "ticker": "SONY",
+  "name": "Sony Group Corp",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 34,
+  "first": "2008-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 9,
+   "opInc": 5,
+   "netInc": 0,
+   "rd": 16,
+   "sga": 0
+  },
+  "segPeriods": 16,
+  "segComplete": true,
+  "segLast": "2026-03-31",
+  "segLagDays": 91,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "BABA",
+  "name": "Alibaba Group Holding Ltd",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 29,
+  "first": "2013-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 14
+  },
+  "segPeriods": 8,
+  "segComplete": false,
+  "segLast": "2022-03-31",
+  "segLagDays": 1552,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "BIDU",
+  "name": "Baidu, Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 34,
+  "first": "2007-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 13,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "TCOM",
+  "name": "Trip.com Group Limited",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 33,
+  "first": "2008-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 1,
+   "sga": 18
+  },
+  "segPeriods": 17,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "JD",
+  "name": "JD.com, Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 29,
+  "first": "2012-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 5,
+   "sga": 14
+  },
+  "segPeriods": 9,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "PDD",
+  "name": "PDD Holdings Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 25,
+  "first": "2016-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 10
+  },
+  "segPeriods": 9,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "LI",
+  "name": "Li Auto Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 20,
+  "first": "2021-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 5,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "BILI",
+  "name": "Bilibili Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 20,
+  "first": "2021-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 20,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "WB",
+  "name": "WEIBO CORPORATION",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 29,
+  "first": "2012-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 14
+  },
+  "segPeriods": 11,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "ZH",
+  "name": "Zhihu Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 20,
+  "first": "2021-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 7,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "XNET",
+  "name": "Xunlei Ltd",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 29,
+  "first": "2012-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 14
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SEG_NONE"
+  ]
+ },
+ {
+  "ticker": "TME",
+  "name": "Tencent Music Entertainment Group",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 25,
+  "first": "2016-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 10,
+   "netInc": 0,
+   "rd": 15,
+   "sga": 10
+  },
+  "segPeriods": 23,
+  "segComplete": true,
+  "segLast": "2026-03-31",
+  "segLagDays": 91,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "LKNCY",
+  "name": "Luckin Coffee Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 23,
+  "first": "2018-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 8,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 23,
+   "sga": 8
+  },
+  "segPeriods": 4,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "CRWV",
+  "name": "CoreWeave",
+  "market": "US",
+  "frequency": "q",
+  "periods": 10,
+  "first": "2024-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 10
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SEG_NONE",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "DIDIY",
+  "name": "DiDi Global Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 22,
+  "first": "2019-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 2,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 7
+  },
+  "segPeriods": 7,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "00700.HK",
+  "name": "Tencent",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 94,
+  "first": "2003-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 94,
+   "sga": 0
+  },
+  "segPeriods": 18,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "00941.HK",
+  "name": "China Mobile",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 23,
+  "first": "2021-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 23,
+   "sga": 0
+  },
+  "segPeriods": 4,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 638,
+  "issues": [
+   "SEG_STALE",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "01398.HK",
+  "name": "ICBC",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 81,
+  "first": "2006-09-30",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 81,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 81,
+   "sga": 81
+  },
+  "segPeriods": 18,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 638,
+  "issues": [
+   "SEG_STALE",
+   "NULL_GROSS",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "03968.HK",
+  "name": "China Merchants Bank",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 57,
+  "first": "2012-09-30",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 57,
+   "opInc": 2,
+   "netInc": 0,
+   "rd": 57,
+   "sga": 57
+  },
+  "segPeriods": 13,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 638,
+  "issues": [
+   "SEG_STALE",
+   "NULL_GROSS",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "00992.HK",
+  "name": "Lenovo",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 17,
+  "first": "2022-06-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 3,
+  "segComplete": false,
+  "segLast": "2025-03-31",
+  "segLagDays": 456,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "03690.HK",
+  "name": "Meituan",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 36,
+  "first": "2017-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 18,
+   "opInc": 18,
+   "netInc": 0,
+   "rd": 18,
+   "sga": 18
+  },
+  "segPeriods": 7,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "00728.HK",
+  "name": "China Telecom",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 49,
+  "first": "2014-09-30",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 49,
+   "sga": 0
+  },
+  "segPeriods": 4,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 638,
+  "issues": [
+   "SEG_STALE",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "00981.HK",
+  "name": "SMIC",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 80,
+  "first": "2006-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 40,
+   "opInc": 40,
+   "netInc": 0,
+   "rd": 40,
+   "sga": 41
+  },
+  "segPeriods": 12,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "00762.HK",
+  "name": "China Unicom",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 71,
+  "first": "2009-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 71,
+   "sga": 63
+  },
+  "segPeriods": 4,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 638,
+  "issues": [
+   "SEG_STALE",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "01024.HK",
+  "name": "Kuaishou",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 28,
+  "first": "2019-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 4,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "03888.HK",
+  "name": "Kingsoft",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 54,
+  "first": "2013-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 26,
+   "opInc": 26,
+   "netInc": 0,
+   "rd": 26,
+   "sga": 26
+  },
+  "segPeriods": 4,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "005930.KS",
+  "name": "Samsung Electronics",
+  "market": "KR",
+  "frequency": "mixed",
+  "periods": 20,
+  "first": "2021-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 20,
+   "opInc": 20,
+   "netInc": 0,
+   "rd": 20,
+   "sga": 20
+  },
+  "segPeriods": 20,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_GROSS",
+   "NULL_OPINC",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "000660.KS",
+  "name": "SK hynix",
+  "market": "KR",
+  "frequency": "mixed",
+  "periods": 20,
+  "first": "2021-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 20,
+   "opInc": 20,
+   "netInc": 0,
+   "rd": 20,
+   "sga": 20
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLast": null,
+  "segLagDays": null,
+  "issues": [
+   "SEG_NONE",
+   "NULL_GROSS",
+   "NULL_OPINC",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "066570.KS",
+  "name": "LG Electronics",
+  "market": "KR",
+  "frequency": "mixed",
+  "periods": 20,
+  "first": "2021-09-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 20,
+   "opInc": 20,
+   "netInc": 0,
+   "rd": 20,
+   "sga": 20
+  },
+  "segPeriods": 20,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_GROSS",
+   "NULL_OPINC",
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "600519.SS",
+  "name": "贵州茅台",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 32,
+   "sga": 0
+  },
+  "segPeriods": 16,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "300750.SZ",
+  "name": "宁德时代",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 39,
+  "first": "2017-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 3,
+   "sga": 2
+  },
+  "segPeriods": 19,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "002594.SZ",
+  "name": "比亚迪",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 30,
+   "sga": 0
+  },
+  "segPeriods": 29,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "688256.SS",
+  "name": "寒武纪",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 31,
+  "first": "2019-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 1,
+   "netInc": 0,
+   "rd": 17,
+   "sga": 12
+  },
+  "segPeriods": 14,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "688795.SS",
+  "name": "摩尔线程",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 8,
+  "first": "2024-12-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 2,
+   "sga": 2
+  },
+  "segPeriods": 3,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": [
+   "SHORT_HISTORY"
+  ]
+ },
+ {
+  "ticker": "002415.SZ",
+  "name": "海康威视",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 31,
+   "sga": 0
+  },
+  "segPeriods": 33,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "000063.SZ",
+  "name": "中兴通讯",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 33,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "000333.SZ",
+  "name": "美的集团",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 26,
+   "sga": 0
+  },
+  "segPeriods": 25,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "000100.SZ",
+  "name": "TCL科技",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 31,
+   "sga": 0
+  },
+  "segPeriods": 26,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "601360.SS",
+  "name": "三六零(360安全)",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 39,
+  "first": "2017-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 3,
+   "sga": 1
+  },
+  "segPeriods": 12,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "688825.SS",
+  "name": "长鑫存储",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 8,
+  "first": "2024-12-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 1,
+   "opInc": 1,
+   "netInc": 0,
+   "rd": 2,
+   "sga": 1
+  },
+  "segPeriods": 3,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": [
+   "SHORT_HISTORY"
+  ]
+ },
+ {
+  "ticker": "600887.SS",
+  "name": "伊利股份",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 67,
+  "first": "2010-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 31,
+   "sga": 0
+  },
+  "segPeriods": 33,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ },
+ {
+  "ticker": "688981.SS",
+  "name": "中芯国际A股",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 30,
+  "first": "2019-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 14,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": []
+ },
+ {
+  "ticker": "NESN.SW",
+  "name": "Nestlé S.A.",
+  "market": "CH",
+  "frequency": "mixed",
+  "periods": 11,
+  "first": "2021-06-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 5,
+   "sga": 11
+  },
+  "segPeriods": 3,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "MC.PA",
+  "name": "LVMH Moët Hennessy Louis Vuitton SE",
+  "market": "FR",
+  "frequency": "mixed",
+  "periods": 11,
+  "first": "2021-06-30",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 11,
+   "sga": 11
+  },
+  "segPeriods": 4,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "2454.TW",
+  "name": "MediaTek Inc.",
+  "market": "TW",
+  "frequency": "q",
+  "periods": 14,
+  "first": "2023-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 14,
+   "sga": 14
+  },
+  "segPeriods": 14,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "2330.TW",
+  "name": "Taiwan Semiconductor Manufacturing Company",
+  "market": "TW",
+  "frequency": "q",
+  "periods": 15,
+  "first": "2023-03-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 15,
+   "sga": 15
+  },
+  "segPeriods": 15,
+  "segComplete": true,
+  "segLast": "2026-09-30",
+  "segLagDays": 0,
+  "issues": [
+   "NULL_RD",
+   "NULL_SGA"
+  ]
+ },
+ {
+  "ticker": "SPCX",
+  "name": "Space Exploration Technologies Corp. (SpaceX)",
+  "market": "US",
+  "frequency": "q",
+  "periods": 2,
+  "first": "2026-06-30",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLagDays": null,
+  "issues": [
+   "SHORT_HISTORY",
+   "SEG_NONE"
+  ]
+ },
+ {
+  "ticker": "NTES",
+  "name": "NetEase, Inc.",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 33,
+  "first": "2008-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 18
+  },
+  "segPeriods": 32,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 0,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "CHA",
+  "name": "Chagee Holdings Limited",
+  "market": "US",
+  "frequency": "mixed",
+  "periods": 15,
+  "first": "2022-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 3,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 12,
+   "sga": 3
+  },
+  "segPeriods": 3,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 181,
+  "issues": [
+   "PROFIT_LAG_PEER"
+  ]
+ },
+ {
+  "ticker": "CBRS",
+  "name": "Cerebras Systems Inc.",
+  "market": "US",
+  "frequency": "q",
+  "periods": 4,
+  "first": "2025-03-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 4
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLagDays": null,
+  "issues": [
+   "PROFIT_LAG_PEER",
+   "SHORT_HISTORY",
+   "SEG_NONE"
+  ]
+ },
+ {
+  "ticker": "HUAWEI",
+  "name": "Huawei Technologies Co., Ltd.",
+  "market": "US",
+  "frequency": "annual",
+  "periods": 7,
+  "first": "2019-12-31",
+  "last": "2025-12-31",
+  "staleDays": 305,
+  "missing": {
+   "revenue": 0,
+   "gross": 7,
+   "opInc": 2,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 7
+  },
+  "segPeriods": 7,
+  "segComplete": true,
+  "segLast": "2025-12-31",
+  "segLagDays": 0,
+  "issues": [
+   "SHORT_HISTORY"
+  ]
+ },
+ {
+  "ticker": "LEGO",
+  "name": "The LEGO Group",
+  "market": "US",
+  "frequency": "annual",
+  "periods": 7,
+  "first": "2019-12-31",
+  "last": "2025-12-31",
+  "staleDays": 305,
+  "missing": {
+   "revenue": 0,
+   "gross": 7,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 7,
+   "sga": 7
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLagDays": null,
+  "issues": [
+   "SHORT_HISTORY",
+   "SEG_NONE"
+  ]
+ },
+ {
+  "ticker": "02513.HK",
+  "name": "Z.AI",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 7,
+  "first": "2022-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 1,
+   "netInc": 0,
+   "rd": 7,
+   "sga": 5
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLagDays": null,
+  "issues": [
+   "SHORT_HISTORY",
+   "SEG_NONE"
+  ]
+ },
+ {
+  "ticker": "00100.HK",
+  "name": "MiniMax",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 8,
+  "first": "2022-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 1,
+   "gross": 1,
+   "opInc": 3,
+   "netInc": 0,
+   "rd": 7,
+   "sga": 7
+  },
+  "segPeriods": 0,
+  "segComplete": false,
+  "segLagDays": null,
+  "issues": [
+   "SHORT_HISTORY",
+   "SEG_NONE"
+  ]
+ },
+ {
+  "ticker": "02097.HK",
+  "name": "Mixue",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 11,
+  "first": "2021-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 0
+  },
+  "segPeriods": 2,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "00151.HK",
+  "name": "Want Want China",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 44,
+  "first": "2004-12-31",
+  "last": "2026-03-31",
+  "staleDays": 215,
+  "missing": {
+   "revenue": 0,
+   "gross": 22,
+   "opInc": 22,
+   "netInc": 0,
+   "rd": 44,
+   "sga": 22
+  },
+  "segPeriods": 4,
+  "segComplete": false,
+  "segLast": "2025-03-31",
+  "segLagDays": 365,
+  "issues": [
+   "PROFIT_OVERDUE",
+   "SEG_STALE",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "09633.HK",
+  "name": "Nongfu Spring",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 17,
+  "first": "2017-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 17,
+   "sga": 0
+  },
+  "segPeriods": 5,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE",
+   "NULL_RD"
+  ]
+ },
+ {
+  "ticker": "01810.HK",
+  "name": "Xiaomi",
+  "market": "HK",
+  "frequency": "hk-mixed",
+  "periods": 40,
+  "first": "2015-12-31",
+  "last": "2026-06-30",
+  "staleDays": 124,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 0,
+   "sga": 1
+  },
+  "segPeriods": 8,
+  "segComplete": false,
+  "segLast": "2024-12-31",
+  "segLagDays": 546,
+  "issues": [
+   "SEG_STALE"
+  ]
+ },
+ {
+  "ticker": "603866.SH",
+  "name": "桃李面包",
+  "market": "CN",
+  "frequency": "q",
+  "periods": 48,
+  "first": "2014-12-31",
+  "last": "2026-09-30",
+  "staleDays": 32,
+  "missing": {
+   "revenue": 0,
+   "gross": 0,
+   "opInc": 0,
+   "netInc": 0,
+   "rd": 12,
+   "sga": 0
+  },
+  "segPeriods": 20,
+  "segComplete": true,
+  "segLast": "2026-06-30",
+  "segLagDays": 92,
+  "issues": []
+ }
+]

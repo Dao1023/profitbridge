@@ -11,6 +11,9 @@
 !/scripts/
 !/tests/
 !/vendor/
+# audit records (reports are the artifact; screenshots stay local — reproducible via verify scripts)
+!/audits/
+/audits/**/*.png
 
 # tooling residue inside tests/ (screenshots, chrome profiles)
 /tests/.shots/
@@ -23,3 +26,6 @@ fetch_log.txt
 
 # test residue output dir
 /tests/out/
+
+# local data backups
+/data/**/*.bak

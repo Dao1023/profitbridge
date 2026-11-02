@@ -1,0 +1,6 @@
+SOURCE: SEC 10-Q TSLA 2022-03-31, accession 0000950170-22-006034, R75.htm
+URL: https://www.sec.gov/Archives/edgar/data/1318605/000095017022006034/R75.htm
+EXCERPT (reconstructed from R75 table):
+Total Revenues 18,756 / 10,389 (3 Months Ended Mar.31 2022 / 2021)
+Automotive Segment [Member] Revenues 18,140 / 9,895 ; Gross profit 5,532 / 2,316
+Energy Generation and Storage [Member] Revenues 616 / 494 ; Gross profit (72) / (101)

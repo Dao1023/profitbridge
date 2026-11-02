@@ -1,0 +1,624 @@
+{
+  "meta": {
+    "generatedAt": "2026-11-01T14:51:43.862Z",
+    "source": "data/profit.json",
+    "updated": "2026-10-31",
+    "companies": 92,
+    "quarters": 3709
+  },
+  "checks": {
+    "c1_internal": [
+      {
+        "ticker": "MU",
+        "end": "2013-08-29",
+        "periodType": null,
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=207 netInc=1708 rev=2843 |netInc|/|opInc|=8x"
+      },
+      {
+        "ticker": "QCOM",
+        "end": "2017-12-24",
+        "periodType": null,
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-4 netInc=-5983 rev=6035 |netInc|/|opInc|=1496x"
+      },
+      {
+        "ticker": "DUOL",
+        "end": "2025-09-30",
+        "periodType": null,
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=35.2 netInc=292.2 rev=271.7 |netInc|/|opInc|=8x"
+      },
+      {
+        "ticker": "XNET",
+        "end": "2025-06-30",
+        "periodType": "q",
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=1.11 netInc=727.59 rev=103.55 |netInc|/|opInc|=654x"
+      },
+      {
+        "ticker": "XNET",
+        "end": "2025-09-30",
+        "periodType": "q",
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=2.73 netInc=550.25 rev=125.93 |netInc|/|opInc|=202x"
+      },
+      {
+        "ticker": "XNET",
+        "end": "2025-12-31",
+        "periodType": "annual",
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=6.6 netInc=1048.3 rev=460.4 |netInc|/|opInc|=159x"
+      },
+      {
+        "ticker": "XNET",
+        "end": "2026-03-31",
+        "periodType": "q",
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=4.3 netInc=-174.64 rev=98.11 |netInc|/|opInc|=41x"
+      },
+      {
+        "ticker": "XNET",
+        "end": "2026-06-30",
+        "periodType": "q",
+        "currency": "USD-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-4.77 netInc=-218.42 rev=102.11 |netInc|/|opInc|=46x"
+      },
+      {
+        "ticker": "00700.HK",
+        "end": "2020-12-31",
+        "periodType": "q4",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=62005 gross=58881"
+      },
+      {
+        "ticker": "00700.HK",
+        "end": "2021-12-31",
+        "periodType": "q4",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=108020 gross=57817"
+      },
+      {
+        "ticker": "00700.HK",
+        "end": "2022-12-31",
+        "periodType": "q4",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-2040 netInc=106268 rev=144954 |netInc|/|opInc|=52x"
+      },
+      {
+        "ticker": "03690.HK",
+        "end": "2018-03-31",
+        "periodType": "q1",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-1048.42 netInc=-21051.15 rev=11275.06 |netInc|/|opInc|=20x"
+      },
+      {
+        "ticker": "00981.HK",
+        "end": "2008-03-31",
+        "periodType": "q1",
+        "currency": "CNY-M",
+        "type": "gross<0",
+        "severity": "HIGH",
+        "detail": "gross=-228.62 rev=2543.46"
+      },
+      {
+        "ticker": "00981.HK",
+        "end": "2009-03-31",
+        "periodType": "q1",
+        "currency": "CNY-M",
+        "type": "gross<0",
+        "severity": "HIGH",
+        "detail": "gross=-884.44 rev=1001.59"
+      },
+      {
+        "ticker": "00981.HK",
+        "end": "2009-06-30",
+        "periodType": "q2",
+        "currency": "CNY-M",
+        "type": "gross<0",
+        "severity": "HIGH",
+        "detail": "gross=-88.08 rev=1826.42"
+      },
+      {
+        "ticker": "00981.HK",
+        "end": "2021-06-30",
+        "periodType": "q2",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=3424.9 gross=2579.44"
+      },
+      {
+        "ticker": "01024.HK",
+        "end": "2019-12-31",
+        "periodType": "q4",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-974.62 netInc=-18034.09 rev=11852.38 |netInc|/|opInc|=19x"
+      },
+      {
+        "ticker": "01024.HK",
+        "end": "2020-06-30",
+        "periodType": "q2",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-2540.09 netInc=-37599.26 rev=12862.77 |netInc|/|opInc|=15x"
+      },
+      {
+        "ticker": "01024.HK",
+        "end": "2020-09-30",
+        "periodType": "q3",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-1376.53 netInc=-29280.25 rev=15356.54 |netInc|/|opInc|=21x"
+      },
+      {
+        "ticker": "01024.HK",
+        "end": "2020-12-31",
+        "periodType": "q4",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=-1377.52 netInc=-19263.78 rev=18098.66 |netInc|/|opInc|=14x"
+      },
+      {
+        "ticker": "03888.HK",
+        "end": "2019-06-30",
+        "periodType": "q2",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=165.04 netInc=-1415.2 rev=955.83 |netInc|/|opInc|=9x"
+      },
+      {
+        "ticker": "03888.HK",
+        "end": "2020-06-30",
+        "periodType": "q2",
+        "currency": "CNY-M",
+        "type": "netInc远超opInc",
+        "severity": "HIGH",
+        "detail": "opInc=548.73 netInc=9151.33 rev=1420.12 |netInc|/|opInc|=17x"
+      },
+      {
+        "ticker": "300750.SZ",
+        "end": "2017-06-30",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=2293.3 gross=1810.97"
+      },
+      {
+        "ticker": "300750.SZ",
+        "end": "2023-12-31",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=16702.83 gross=12353.7"
+      },
+      {
+        "ticker": "000100.SZ",
+        "end": "2019-06-30",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=1795.63 gross=1287.57"
+      },
+      {
+        "ticker": "601360.SS",
+        "end": "2019-06-30",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=4164.98 gross=2121.1"
+      },
+      {
+        "ticker": "601360.SS",
+        "end": "2019-06-30",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>revenue",
+        "severity": "HIGH",
+        "detail": "opInc=4164.98 rev=3221.84 (129.3%)"
+      },
+      {
+        "ticker": "688981.SS",
+        "end": "2021-06-30",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=4153.83 gross=2323.89"
+      },
+      {
+        "ticker": "688981.SS",
+        "end": "2021-12-31",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=4091.84 gross=3351.96"
+      },
+      {
+        "ticker": "688981.SS",
+        "end": "2026-06-30",
+        "periodType": "q",
+        "currency": "CNY-M",
+        "type": "opInc>gross",
+        "severity": "HIGH",
+        "detail": "opInc=5369.57 gross=5162.83"
+      }
+    ],
+    "c2_adjacent_jump": [
+      {
+        "ticker": "TSLA",
+        "class": "q",
+        "from": "2012-09-30",
+        "to": "2012-12-31",
+        "fromRev": 50.1,
+        "toRev": 306.3,
+        "ratio": 6.114,
+        "prevRatio": 1.876,
+        "nextRatio": 1.834,
+        "severity": "MED"
+      },
+      {
+        "ticker": "PDD",
+        "class": "annual",
+        "from": "2017-12-31",
+        "to": "2018-12-31",
+        "fromRev": 1744.1,
+        "toRev": 13120,
+        "ratio": 7.523,
+        "prevRatio": 3.454,
+        "nextRatio": 2.297,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2019-03-31",
+        "to": "2019-06-30",
+        "fromRev": 14.25,
+        "toRev": 83.74,
+        "ratio": 5.876,
+        "prevRatio": null,
+        "nextRatio": 0.146,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2019-06-30",
+        "to": "2019-09-30",
+        "fromRev": 83.74,
+        "toRev": 12.2,
+        "ratio": 0.146,
+        "prevRatio": 5.876,
+        "nextRatio": 27.357,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2019-09-30",
+        "to": "2019-12-31",
+        "fromRev": 12.2,
+        "toRev": 333.75,
+        "ratio": 27.357,
+        "prevRatio": 0.146,
+        "nextRatio": 0.035,
+        "severity": "HIGH"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2019-12-31",
+        "to": "2020-03-31",
+        "fromRev": 333.75,
+        "toRev": 11.55,
+        "ratio": 0.035,
+        "prevRatio": 27.357,
+        "nextRatio": 6.55,
+        "severity": "HIGH"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2020-03-31",
+        "to": "2020-06-30",
+        "fromRev": 11.55,
+        "toRev": 75.65,
+        "ratio": 6.55,
+        "prevRatio": 0.035,
+        "nextRatio": 0.93,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2020-12-31",
+        "to": "2021-03-31",
+        "fromRev": 301.4,
+        "toRev": 36.13,
+        "ratio": 0.12,
+        "prevRatio": 4.286,
+        "nextRatio": 2.816,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2021-09-30",
+        "to": "2021-12-31",
+        "fromRev": 84.55,
+        "toRev": 498.63,
+        "ratio": 5.897,
+        "prevRatio": 0.831,
+        "nextRatio": 0.126,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2021-12-31",
+        "to": "2022-03-31",
+        "fromRev": 498.63,
+        "toRev": 62.99,
+        "ratio": 0.126,
+        "prevRatio": 5.897,
+        "nextRatio": 1.727,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2022-09-30",
+        "to": "2022-12-31",
+        "fromRev": 92.58,
+        "toRev": 464.67,
+        "ratio": 5.019,
+        "prevRatio": 0.851,
+        "nextRatio": 0.162,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2022-12-31",
+        "to": "2023-03-31",
+        "fromRev": 464.67,
+        "toRev": 75.29,
+        "ratio": 0.162,
+        "prevRatio": 5.019,
+        "nextRatio": 0.52,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2023-09-30",
+        "to": "2023-12-31",
+        "fromRev": 31.34,
+        "toRev": 563.58,
+        "ratio": 17.983,
+        "prevRatio": 0.8,
+        "nextRatio": 0.046,
+        "severity": "HIGH"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2023-12-31",
+        "to": "2024-03-31",
+        "fromRev": 563.58,
+        "toRev": 25.67,
+        "ratio": 0.046,
+        "prevRatio": 17.983,
+        "nextRatio": 1.523,
+        "severity": "HIGH"
+      },
+      {
+        "ticker": "688256.SS",
+        "class": "q",
+        "from": "2024-09-30",
+        "to": "2024-12-31",
+        "fromRev": 120.54,
+        "toRev": 989.16,
+        "ratio": 8.206,
+        "prevRatio": 3.083,
+        "nextRatio": 1.124,
+        "severity": "MED"
+      },
+      {
+        "ticker": "688795.SS",
+        "class": "q",
+        "from": "2025-09-30",
+        "to": "2025-12-31",
+        "fromRev": 82.84,
+        "toRev": 720.93,
+        "ratio": 8.703,
+        "prevRatio": 0.201,
+        "nextRatio": 1.023,
+        "severity": "MED"
+      },
+      {
+        "ticker": "00100.HK",
+        "class": "annual",
+        "from": "2023-12-31",
+        "to": "2024-12-31",
+        "fromRev": 24.506,
+        "toRev": 219.412,
+        "ratio": 8.953,
+        "prevRatio": null,
+        "nextRatio": 2.532,
+        "severity": "MED"
+      }
+    ],
+    "c3_cumulative_diff": [
+      {
+        "ticker": "00151.HK",
+        "end": "2018-09-30",
+        "type": "累计期同比递减",
+        "severity": "MED",
+        "detail": "2017-09-30=13585.43 -> 2018-09-30=9248.13（同财年累计应非递减）"
+      }
+    ],
+    "c4_fx": [
+      {
+        "ticker": "HUAWEI",
+        "end": "2023-12-31",
+        "type": "fx同侪偏差>5%",
+        "severity": "MED",
+        "currency": "CNY-M",
+        "fx": 0.14975786,
+        "median": 0.14075,
+        "devPct": 6.4,
+        "peers": 41
+      },
+      {
+        "ticker": "HUAWEI",
+        "end": "2024-12-31",
+        "type": "fx同侪偏差>5%",
+        "severity": "MED",
+        "currency": "CNY-M",
+        "fx": 0.14975786,
+        "median": 0.137,
+        "devPct": 9.3,
+        "peers": 43
+      },
+      {
+        "ticker": "TSM",
+        "end": "2022-03-31",
+        "type": "fxDate偏离期末",
+        "severity": "LOW",
+        "fxDate": "26 Oct 2026",
+        "daysOff": 1670
+      },
+      {
+        "ticker": "TSM",
+        "end": "2022-06-30",
+        "type": "fxDate偏离期末",
+        "severity": "LOW",
+        "fxDate": "26 Oct 2026",
+        "daysOff": 1579
+      },
+      {
+        "ticker": "TSM",
+        "end": "2022-09-30",
+        "type": "fxDate偏离期末",
+        "severity": "LOW",
+        "fxDate": "26 Oct 2026",
+        "daysOff": 1487
+      },
+      {
+        "ticker": "TSM",
+        "end": "2023-03-31",
+        "type": "fxDate偏离期末",
+        "severity": "LOW",
+        "fxDate": "26 Oct 2026",
+        "daysOff": 1305
+      },
+      {
+        "ticker": "TSM",
+        "end": "2023-06-30",
+        "type": "fxDate偏离期末",
+        "severity": "LOW",
+        "fxDate": "26 Oct 2026",
+        "daysOff": 1214
+      },
+      {
+        "ticker": "TSM",
+        "end": "2023-09-30",
+        "type": "fxDate偏离期末",
+        "severity": "LOW",
+        "fxDate": "26 Oct 2026",
+        "daysOff": 1122
+      }
+    ],
+    "c5_periodType_freq": []
+  },
+  "gaps": [
+    {
+      "ticker": "005930.KS",
+      "frequency": "mixed",
+      "currency": "KRW-M",
+      "latestEnd": "2026-06-30",
+      "refEnd": "2026-06-30",
+      "lagQuarters": 0,
+      "missRate": 0.667,
+      "issues": [
+        "近8期字段缺失率 67%"
+      ]
+    },
+    {
+      "ticker": "000660.KS",
+      "frequency": "mixed",
+      "currency": "KRW-M",
+      "latestEnd": "2026-06-30",
+      "refEnd": "2026-06-30",
+      "lagQuarters": 0,
+      "missRate": 0.667,
+      "issues": [
+        "近8期字段缺失率 67%"
+      ]
+    },
+    {
+      "ticker": "066570.KS",
+      "frequency": "mixed",
+      "currency": "KRW-M",
+      "latestEnd": "2026-06-30",
+      "refEnd": "2026-06-30",
+      "lagQuarters": 0,
+      "missRate": 0.667,
+      "issues": [
+        "近8期字段缺失率 67%"
+      ]
+    }
+  ],
+  "summary": {
+    "counts": {
+      "c1_internal": 30,
+      "c2_adjacent_jump": 17,
+      "c3_cumulative_diff": 1,
+      "c4_fx": 8,
+      "c5_periodType_freq": 0
+    },
+    "gaps": 3,
+    "bySeverity": {
+      "HIGH": 34,
+      "MED": 16,
+      "LOW": 6
+    }
+  }
+}
