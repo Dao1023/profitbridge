@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-05",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -1374,6 +1374,16 @@
           "rd": 11729,
           "sga": 7346,
           "tax": 6478
+        },
+        {
+          "end": "2026-09-26",
+          "revenue": 114477,
+          "gross": 54820,
+          "opInc": 35631,
+          "netInc": 30711,
+          "rd": 11730,
+          "sga": 7459,
+          "tax": 5424
         }
       ]
     },
@@ -8177,6 +8187,16 @@
           "rd": 2607,
           "sga": 976,
           "tax": 460
+        },
+        {
+          "end": "2026-09-27",
+          "revenue": 10322,
+          "gross": 5238,
+          "opInc": 1357,
+          "netInc": 1252,
+          "rd": 2684,
+          "sga": 962,
+          "tax": -79
         }
       ]
     },
@@ -10533,6 +10553,16 @@
           "rd": 260,
           "sga": 496,
           "tax": 184
+        },
+        {
+          "end": "2026-10-03",
+          "revenue": 3376,
+          "gross": 1768,
+          "opInc": 777,
+          "netInc": 512,
+          "rd": 276,
+          "sga": 504,
+          "tax": 164
         }
       ]
     },
@@ -12913,6 +12943,16 @@
           "rd": 2528,
           "sga": 1401,
           "tax": 252
+        },
+        {
+          "end": "2026-09-26",
+          "revenue": 13377,
+          "gross": 7210,
+          "opInc": 2832,
+          "netInc": 2428,
+          "rd": 2803,
+          "sga": 1298,
+          "tax": -555
         }
       ]
     },
@@ -13545,6 +13585,16 @@
           "netInc": 1061.9,
           "rd": 192.5,
           "tax": 15.4
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 2313.4,
+          "gross": 1930.1,
+          "opInc": 1084.8,
+          "netInc": 1128,
+          "rd": 219.7,
+          "sga": null,
+          "tax": 13.6
         }
       ]
     },
@@ -14728,6 +14778,16 @@
           "netInc": -23.6,
           "rd": 278.3,
           "tax": 2.4
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 622.1,
+          "gross": 509.6,
+          "opInc": 100.6,
+          "netInc": 121.2,
+          "rd": 251.1,
+          "sga": null,
+          "tax": -2.7
         }
       ]
     },
@@ -14933,6 +14993,16 @@
           "netInc": 33.2,
           "rd": 92.2,
           "tax": 12.2
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 309,
+          "gross": 225.1,
+          "opInc": 24.2,
+          "netInc": 27.2,
+          "rd": 107.7,
+          "sga": null,
+          "tax": 8.4
         }
       ]
     },
