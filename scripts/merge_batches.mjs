@@ -54,42 +54,45 @@ const b5 = R('data/staging/batch5.json');
 const b1 = R('data/staging/batch1.json');
 const b7 = R('data/staging/batch7.json');
 const b8 = R('data/staging/batch8.json');
-// --b8-only: 以磁盘 profit.json 为基准，仅应用 batch8（append + fill-missing），跳过 batch1-7/fixups/
-// trauncations/fx/meta 等重建段，从而对非目标公司/期点零改动。用于向已 enrich 的磁盘增量补数。
-const B8_ONLY = process.argv.includes('--b8-only') || process.env.B8_ONLY === '1';
+// --b8-only（兼容别名）/ --batch-only=batchN: 以磁盘 profit.json 为基准，仅应用指定 batch（append + fill-missing），
+// 跳过 batch1-7/fixups/truncations/fx/meta 等重建段，从而对非目标公司/期点零改动。用于向已 enrich 的磁盘增量补数。
+const onlyArg = process.argv.find(a => a.startsWith('--batch-only='));
+const ONLY_BATCH = onlyArg ? onlyArg.slice('--batch-only='.length)
+  : ((process.argv.includes('--b8-only') || process.env.B8_ONLY === '1') ? 'batch8' : null);
 
-// ================= batch8-only PATCH MODE (non-destructive) =================
-// 当以 --b8-only 运行时：以磁盘 data/profit.json 为基准，仅应用 data/staging/batch8.json 的
+// ================= single-batch PATCH MODE (non-destructive) =================
+// 当以 --b8-only / --batch-only=batchN 运行时：以磁盘 data/profit.json 为基准，仅应用 data/staging/<batch>.json 的
 //   (1) results[].newQuarters 追加 与 (2) enrich[] 补空(仅当前为 null/undefined, 且 revenue 对账≤0.5%)。
 // 跳过 batch1-7/fixups/truncations/fx/registry/meta 重建段，因此对非目标公司/期点零改动（notes/source 原样保留）。
-// 语义与主流程 batch8 段一致；额外做值门禁(revenue>0, gross≥0 白名单, gross≤revenue) + additivity。任一门禁失败 exit 1。
-if (B8_ONLY) {
+// 语义与主流程同名 batch 段一致；额外做值门禁(revenue>0, gross≥0 白名单, gross≤revenue) + additivity。任一门禁失败 exit 1。
+if (ONLY_BATCH) {
+  const bx = ONLY_BATCH === 'batch8' ? b8 : R(`data/staging/${ONLY_BATCH}.json`);
   const FIELDS8 = ['gross', 'opInc', 'rd', 'sga'];
-  const report8 = { mode: 'b8-only', added: [], skipped: [], guardFails: {}, note: 'non-destructive: only batch8 applied onto on-disk profit.json; other batches/fixups/meta NOT re-run' };
-  for (const r of b8.results) {
+  const report8 = { mode: `${ONLY_BATCH}-only`, added: [], skipped: [], guardFails: {}, note: `non-destructive: only ${ONLY_BATCH} applied onto on-disk profit.json; other batches/fixups/meta NOT re-run` };
+  for (const r of bx.results) {
     const co = profit.companies[r.ticker];
-    if (!co) { console.error(`batch8: company ${r.ticker} not found in profit.json`); process.exit(1); }
+    if (!co) { console.error(`${ONLY_BATCH}: company ${r.ticker} not found in profit.json`); process.exit(1); }
     if (!Array.isArray(co.quarters)) co.quarters = [];
     for (const nq of r.newQuarters) {
-      if (!nq || !nq.end) { console.error(`batch8: ${r.ticker} newQuarter without end`); process.exit(1); }
+      if (!nq || !nq.end) { console.error(`${ONLY_BATCH}: ${r.ticker} newQuarter without end`); process.exit(1); }
       const ex = co.quarters.find(q => q.end === nq.end);
       if (ex) {
         for (const k of new Set([...Object.keys(ex), ...Object.keys(nq)])) {
           if (JSON.stringify(ex[k]) !== JSON.stringify(nq[k])) {
-            console.error(`batch8 CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(ex[k])} new=${JSON.stringify(nq[k])}`);
+            console.error(`${ONLY_BATCH} CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(ex[k])} new=${JSON.stringify(nq[k])}`);
             process.exit(1);
           }
         }
         continue;
       }
       co.quarters.push(JSON.parse(JSON.stringify(nq)));
-      report8.added.push({ ticker: r.ticker, end: nq.end, market: 'batch8-newperiod' });
+      report8.added.push({ ticker: r.ticker, end: nq.end, market: `${ONLY_BATCH}-newperiod` });
     }
     co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
   }
-  for (const en of (b8.enrich || [])) {
+  for (const en of (bx.enrich || [])) {
     const co = profit.companies[en.ticker];
-    if (!co) { console.error(`batch8: enrich company ${en.ticker} not found`); process.exit(1); }
+    if (!co) { console.error(`${ONLY_BATCH}: enrich company ${en.ticker} not found`); process.exit(1); }
     const q = (co.quarters || []).find(x => x.end === en.end);
     if (!q) { report8.skipped.push({ ticker: en.ticker, end: en.end, reason: 'period-not-found' }); continue; }
     if (q.revenue == null || Math.abs(q.revenue - en.expectRevenue) / Math.abs(en.expectRevenue) > 0.005) {
@@ -101,16 +104,16 @@ if (B8_ONLY) {
       if (en.set[f] == null) continue;
       if (q[f] == null) { q[f] = en.set[f]; did.push(f); }
       else if (JSON.stringify(q[f]) !== JSON.stringify(en.set[f])) {
-        console.error(`batch8 ENRICH CONFLICT ${en.ticker} ${en.end} field '${f}': existing=${JSON.stringify(q[f])} new=${JSON.stringify(en.set[f])}`);
+        console.error(`${ONLY_BATCH} ENRICH CONFLICT ${en.ticker} ${en.end} field '${f}': existing=${JSON.stringify(q[f])} new=${JSON.stringify(en.set[f])}`);
         process.exit(1);
       }
     }
-    if (did.length) report8.added.push({ ticker: en.ticker, end: en.end, market: 'batch8-enrich', fields: did });
+    if (did.length) report8.added.push({ ticker: en.ticker, end: en.end, market: `${ONLY_BATCH}-enrich`, fields: did });
   }
   // value gate on target tickers only
   const NEG_GROSS_OK8 = new Set(['MU', 'TSLA', 'PDD', '00100.HK']);
   const gf = {};
-  for (const tk of new Set([...b8.results.map(r => r.ticker), ...(b8.enrich || []).map(e => e.ticker)])) {
+  for (const tk of new Set([...bx.results.map(r => r.ticker), ...(bx.enrich || []).map(e => e.ticker)])) {
     const co = profit.companies[tk]; const errs = [];
     for (const q of co.quarters) {
       if (q.revenue == null) errs.push(`${q.end}: revenue missing/null`);
@@ -123,7 +126,7 @@ if (B8_ONLY) {
   }
   report8.guardFails = gf;
   if (Object.keys(gf).length) {
-    console.error('REFUSING b8-only write, integrity gate failed: ' + JSON.stringify(gf));
+    console.error(`REFUSING ${ONLY_BATCH}-only write, integrity gate failed: ` + JSON.stringify(gf));
     process.exit(1);
   }
   profit.updated = new Date().toISOString().slice(0, 10);
@@ -131,13 +134,12 @@ if (B8_ONLY) {
   fs.writeFileSync(path.join(ROOT, 'data/profit.json'), JSON.stringify(profit, null, 2) + '\n');
   fs.writeFileSync(path.join(ROOT, 'data/profit.json.js'), 'window.__PROFIT_DATA = ' + JSON.stringify(profit) + ';\n');
   fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'merge_report.json'), JSON.stringify(report8, null, 2) + '\n');
-  console.log('B8-ONLY WROTE profit.json; totalCompanies=' + Object.keys(profit.companies).length +
+  console.log(`${ONLY_BATCH.toUpperCase()}-ONLY WROTE profit.json; totalCompanies=` + Object.keys(profit.companies).length +
     ' totalQuarters=' + Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0) +
     ' added=' + report8.added.length + ' guardFails=' + JSON.stringify(gf) + ' skipped=' + JSON.stringify(report8.skipped));
   console.log(JSON.stringify(report8, null, 1));
   process.exit(0);
 }
-
 
 const log = [], warn = [];
 const notesNew = [];

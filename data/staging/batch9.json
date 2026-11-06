@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "batch": 9,
+    "description": "MCD 2026-09-30 单季（10-Q, accn 0000063908-26-000083, filed 2026-11-06）追加。revenue/opInc/netInc/tax 取 XBRL 单季 fact；gross 按站内既有派生口径 revenue − CostOfGoodsAndServicesSold（Franchised restaurants-occupancy expenses 687）= 7157 − 687 = 6470；sga 取 SellingGeneralAndAdministrativeExpense 759（= D&A 118 + Other SG&A 641）。MCD 全序列无 rd key，故不写 rd；不写 periodType（MCD 70 期均不写）；USD 计价，不写 fxToUsd。",
+    "generatedAt": "2026-11-07",
+    "sources": [
+      "tmp-verify-20261107/REPORT.md",
+      "tmp-verify-20261107/raw/computed.json",
+      "SEC 10-Q mcd-20260930.htm / R4.htm",
+      "https://data.sec.gov/api/xbrl/companyfacts/CIK0000063908.json"
+    ],
+    "shape": "{ results: [ { ticker, name, currency, newQuarters:[quarter] } ], enrich: [] }",
+    "keyNote": "键集合与 MCD 既有 70 期同构：end,revenue,gross,opInc,netInc,sga,tax；无 rd/periodType/fxToUsd。",
+    "grossNote": "站内口径 gross = revenue − CostOfGoodsAndServicesSold（MCD 该 tag 为 Franchised restaurants-occupancy expenses），非会计毛利；与 2018 年以来全部 Q1–Q3 同构。9M 列存在 $1M 舍入差（2042 vs 676+680+687=2043），不影响单季 687。",
+    "verification": "三源交叉核对通过（10-Q 报表 / XBRL companyfacts 90 天 / 9M−H1 倒算），见 tmp-verify-20261107/REPORT.md。"
+  },
+  "results": [
+    {
+      "ticker": "MCD",
+      "name": "McDonald's",
+      "currency": "USD-M",
+      "report_type": "10-Q",
+      "notice_date": "2026-11-06",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 7157,
+          "gross": 6470,
+          "opInc": 3595,
+          "netInc": 2486,
+          "sga": 759,
+          "tax": 702
+        }
+      ]
+    }
+  ],
+  "enrich": []
+}

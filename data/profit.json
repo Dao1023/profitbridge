@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05",
+  "updated": "2026-11-06",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -8773,6 +8773,15 @@
           "netInc": 2362,
           "sga": 817,
           "tax": 574
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 7157,
+          "gross": 6470,
+          "opInc": 3595,
+          "netInc": 2486,
+          "sga": 759,
+          "tax": 702
         }
       ]
     },
