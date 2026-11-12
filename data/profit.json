@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06",
+  "updated": "2026-11-12",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -21383,6 +21383,15 @@
           "netInc": -626,
           "rd": 117,
           "tax": 62
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 3661,
+          "gross": 2478,
+          "opInc": 207,
+          "netInc": -709,
+          "rd": 154,
+          "tax": 83
         }
       ]
     },
@@ -25727,6 +25736,13 @@
           "opInc": 3589.93,
           "rd": 1401.36,
           "sga": 900.87
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 21067.4854488,
+          "netInc": 2834.0608245,
+          "periodType": "q3",
+          "fxToUsd": 0.14915355
         }
       ],
       "notes": "single-quarter series trimmed to continuous run from 2006-09-30; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
@@ -35009,6 +35025,18 @@
           "opInc": 5369.57,
           "rd": 1427.32,
           "sga": 801.01
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 21982.935,
+          "netInc": 2846.764,
+          "periodType": "q",
+          "fxToUsd": 0.14915355,
+          "derivation": "diff",
+          "gross": 6565.591,
+          "opInc": 4540.172,
+          "rd": 1751.64,
+          "sga": 848.935
         }
       ],
       "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd)."
@@ -36168,6 +36196,15 @@
           "netInc": -450.5,
           "rd": 320.2,
           "tax": 0.3
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 210.8,
+          "gross": 42.1,
+          "opInc": -224.1,
+          "netInc": -161.2,
+          "rd": 177.8,
+          "tax": 1
         }
       ],
       "notes": "10-Q as-reported USD-M (4 single quarters, 2025-03-31..2026-06-30; 2025-09 Nasdaq IPO) — below minKeep, exempted into main series mirroring SPCX precedent; watchlist backfill (site ticker CBRS)."

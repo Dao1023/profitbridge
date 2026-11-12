@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "batch": 10,
+    "description": "2026-09-30 单季追加 4 家：中芯国际 A 股（688981.SS，三季报 2026-11-13）、中芯国际 H 股（00981.HK，三季报 2026-11-12）、Cerebras（CBRS，10-Q 2026-11-12）、CoreWeave（CRWV，10-Q 2026-11-12）。逐家来源与口径见 sources / keyNote / aShareNote / hkNote / usNote。复核报告：tmp-verify-20261113/REPORT.md（机器可读版 tmp-verify-20261113/verified.json）。",
+    "generatedAt": "2026-11-13",
+    "sources": [
+      "tmp-verify-20261113/REPORT.md",
+      "tmp-verify-20261113/verified.json",
+      "688981.SS: eastmoney RPT_F10_FINANCE_GINCOME（2026-09-30 与 2026-06-30 累计列）+《中芯国际 2026 年第三季度报告》AN202611121831660505 + 半年度报告 AN202608271828548646 + 新浪利润表交叉核对（三源零差异）",
+      "00981.HK: eastmoney RPT_HKF10_FN_MAININDICATOR（DATE_TYPE_CODE=004，9M 与 H1 累计列）+ HKEX《截至2026年9月30日止三個月未經審核業績公佈》AN202611121831660506",
+      "CBRS: SEC companyfacts CIK0002021728（10-Q accn 0001628280-26-073494，filed 2026-11-12）+ 10-Q R4 CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "CRWV: SEC companyfacts CIK0001769628（10-Q accn 0001769628-26-000465，filed 2026-11-12）+ 10-Q R4 CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "fxToUsd: frankfurter ECB 2026-09-30 期末营业日 USD/CNY = 6.7045 → 0.14915355"
+    ],
+    "shape": "{ _meta, results: [ { ticker, name, currency, report_type, notice_date, newQuarters:[quarter] } ], enrich: [] }",
+    "keyNote": "键顺序与键集按“与既有行同构”逐家固定：688981.SS = end,revenue,netInc,periodType,fxToUsd,derivation,gross,opInc,rd,sga（10 键，无 tax）；00981.HK = end,revenue,netInc,periodType,fxToUsd（与 20 个历史 q3 行同形，不补 gross/opInc/rd/sga）；CBRS/CRWV = end,revenue,gross,opInc,netInc,rd,tax（7 键，无 periodType/fxToUsd/sga，与各自既有 4 / 10 行同形）。",
+    "aShareNote": "688981.SS 为 9M 累计差分单季（derivation=diff，periodType=q），CNY-M，两位小数。**不写 tax**：全站 30 期 A 股行 0 期带 tax 键（14 个 A 股 ticker 无一有 tax），复核报告 §1.7 已注明 tax=183.307 存在但按站内口径丢弃。fxToUsd=1/6.7045=0.14915355，与站内 2026-03-31=0.14491914、2026-06-30=0.14737307 同一算法（frankfurter ECB 期末营业日）已验证吻合。",
+    "hkNote": "00981.HK 为人民币累计差分（Q3 = 9M 58,602.8661663 − H1 37,535.3807175；净利 7,442.622255 − 4,608.5614305），periodType=q3，fxToUsd 沿用与 A 股相同的 0.14915355。**上游 eastmoney RPT_HKF10_FN_MAININDICATOR 的 CURRENCY 字段标 HKD 是错的，实际数值是人民币**：HKEX 披露的 9M 美元营收 8,701.113e6，58,602.8661663 / 8,701.113 = 6.735（人民币汇率；港币应≈7.8）。报告 §2 已证死，后人切勿再按 7.8 折一次汇率。站内该 ticker currency 亦为 CNY-M。",
+    "usNote": "CBRS / CRWV 为 USD-M，单季 XBRL fact 直接取值（Math.round(v/1e6*10)/10），不写 periodType / fxToUsd / sga（两者既有行均无 sga，不拿 S&M+G&A 拼）。CBRS: revenue 210.809→210.8、gross 42.094→42.1、opInc −224.149→−224.1、netInc −161.218→−161.2、rd 177.842→177.8、tax 0.969→1.0。CRWV: revenue 3661、gross=revenue−COGS 1183=2478、opInc 207、netInc −709、rd 154、tax 83。",
+    "verification": "四行均已独立回源三源/双源交叉核对（10-Q R4 原文 + XBRL companyfacts 90 天 fact + 9M−H1 倒算），见 tmp-verify-20261113/REPORT.md 摘要表 §0–§4。"
+  },
+  "results": [
+    {
+      "ticker": "688981.SS",
+      "name": "中芯国际A股",
+      "currency": "CNY-M",
+      "report_type": "三季报",
+      "notice_date": "2026-11-13",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 21982.935,
+          "netInc": 2846.764,
+          "periodType": "q",
+          "fxToUsd": 0.14915355,
+          "derivation": "diff",
+          "gross": 6565.591,
+          "opInc": 4540.172,
+          "rd": 1751.64,
+          "sga": 848.935
+        }
+      ]
+    },
+    {
+      "ticker": "00981.HK",
+      "name": "SMIC",
+      "currency": "CNY-M",
+      "report_type": "三季报",
+      "notice_date": "2026-11-12",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 21067.4854488,
+          "netInc": 2834.0608245,
+          "periodType": "q3",
+          "fxToUsd": 0.14915355
+        }
+      ]
+    },
+    {
+      "ticker": "CBRS",
+      "name": "Cerebras Systems Inc.",
+      "currency": "USD-M",
+      "report_type": "10-Q",
+      "notice_date": "2026-11-12",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 210.8,
+          "gross": 42.1,
+          "opInc": -224.1,
+          "netInc": -161.2,
+          "rd": 177.8,
+          "tax": 1.0
+        }
+      ]
+    },
+    {
+      "ticker": "CRWV",
+      "name": "CoreWeave",
+      "currency": "USD-M",
+      "report_type": "10-Q",
+      "notice_date": "2026-11-12",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 3661,
+          "gross": 2478,
+          "opInc": 207,
+          "netInc": -709,
+          "rd": 154,
+          "tax": 83
+        }
+      ]
+    }
+  ],
+  "enrich": []
+}
