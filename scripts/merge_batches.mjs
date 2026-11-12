@@ -111,7 +111,7 @@ if (ONLY_BATCH) {
     if (did.length) report8.added.push({ ticker: en.ticker, end: en.end, market: `${ONLY_BATCH}-enrich`, fields: did });
   }
   // value gate on target tickers only
-  const NEG_GROSS_OK8 = new Set(['MU', 'TSLA', 'PDD', '00100.HK']);
+  const NEG_GROSS_OK8 = new Set(['MU', 'TSLA', 'PDD', '00100.HK', '00981.HK']);
   const gf = {};
   for (const tk of new Set([...bx.results.map(r => r.ticker), ...(bx.enrich || []).map(e => e.ticker)])) {
     const co = profit.companies[tk]; const errs = [];
