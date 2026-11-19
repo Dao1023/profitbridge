@@ -15,6 +15,7 @@ const I18N = {
       op: 'Operating income', taxOther: 'Tax & other', net: 'Net income', nonop: 'Non-operating income',
       loss: 'Operating loss', netLoss: 'Net loss', grossNeg: 'Negative gross profit',
       undisclosedCost: 'Undisclosed costs & taxes (gross / op income not disclosed)',
+      undisclosedCostShort: 'Undisclosed costs & taxes',
     },
     degradedNotice: 'Gross profit & operating income not disclosed — showing revenue → net income only',
     source: 'Data source:', updated: 'Data updated:', asof: 'As of',
@@ -46,6 +47,7 @@ const I18N = {
       op: '营业利润', taxOther: '税费及其他', net: '净利润', nonop: '非经营性收益',
       loss: '营业亏损', netLoss: '净亏损', grossNeg: '负毛利',
       undisclosedCost: '未披露的成本费用及税项（毛利/营业利润缺失）',
+      undisclosedCostShort: '未披露成本及税项',
     },
     degradedNotice: '毛利与营业利润未披露，仅显示营收 → 净利润',
     source: '数据来源：', updated: '数据更新：', asof: '截至',
@@ -860,6 +862,34 @@ function linkColor(l) {
 }
 const displayName = n => n.name.startsWith('seg:') ? n.name.slice(4) : tn(n.name);
 
+/* Adaptive amount text for labels / tooltips / %-mode amount line / PNG-SVG export. Values
+   arrive in display-$B; one decimal of a billion is 100M, so a 58.9M figure printed as "0.1B"
+   is off by ~70%. Anything under 1B is therefore printed in millions (58.9M, 1.4M); >= 1B keeps
+   one decimal (12.3B). Node values are never touched here — this is print only.
+   NOTE: the brief's middle band (0.01 ≤ |v| < 1 → two decimals, e.g. "0.059B") is deliberately
+   not used: it renders 0.0589 as "0.06B", which still buries the figure, while the acceptance
+   criterion asks the reader to see "58.9M". One rule for all sub-billion amounts keeps the
+   unit predictable across every block of the same chart. */
+const amtText = v => {
+  const a = Math.abs(v);
+  return a >= 1 ? `${a.toFixed(1)}B` : `${(a * 1000).toFixed(1)}M`;
+};
+
+/* Width in full-width columns (CJK / full-width punctuation = 2, ASCII = 1) and its
+   "full-width character equivalent" (columns / 2), the budget below is written in that unit. */
+const fwCols = s => Array.from(s).reduce((n, ch) => n + (ch.codePointAt(0) > 0x2e7f ? 2 : 1), 0);
+const LABEL_MAX_FW = 12; // 12 full-width character equivalents = 24 columns
+const SHORT_NAME_KEY = { undisclosedCost: 'undisclosedCostShort' };
+/* Long block names are shortened for the on-canvas label (> 12 full-width equivalents would
+   wrap into 3-4 lines and run off the right edge at 1280px); the tooltip keeps the full
+   wording. The short form is a hand-written name, never a truncation of the full one. */
+function labelName(n) {
+  const full = displayName(n);
+  const key = SHORT_NAME_KEY[n.name];
+  if (!key || fwCols(full) / 2 <= LABEL_MAX_FW) return full;
+  return tn(key);
+}
+
 /* self-consistency check: input-side leaf inflows must equal revenue */
 function checkConsistency(qv, g) {
   const f = dispFactor(qv), B = MB;
@@ -929,11 +959,10 @@ function renderChart() {
     // loss nodes (neg:true) hold |opInc| / |netInc| as a positive value so ECharts can
     // size the block, but the reader must see the sign of the real disclosure.
     const neg = p.data && p.data.neg === true;
-    // tiny negative blocks (e.g. gross -$0.0088B) would read as "−$0.0B": keep 2 decimals so a
-    // near-zero |value| can never look like a rounding artefact. Non-neg nodes keep 1 decimal.
-    const dec = (neg && Math.abs(p.value) < 0.1) ? 2 : 1;
-    const amt = `${neg ? '−' : ''}${dispSym()}${p.value.toFixed(dec)}B`;
-    let body = `{n|${displayName(p)}}`;
+    // adaptive unit: ≥1B keeps one decimal, below that the amount is printed in M so a
+    // 58.9M revenue can never read as "0.1B" (see amtText).
+    const amt = `${neg ? '−' : ''}${dispSym()}${amtText(p.value)}`;
+    let body = `{n|${labelName(p)}}`;
     const parts = [];
     if (state.mode.pct) {
       if (isMargin) {
@@ -970,7 +999,7 @@ function renderChart() {
      instead of colliding with the tiny 'net' label stacked at the top of the same column. */
   function residualLabel(p) {
     const revB = qv.revenue * dispFactor(qv) / MB;
-    const name = displayName(p);
+    const name = labelName(p); // short form: the full wording would wrap into 4 lines at 1280px
     const maxChars = lang === 'zh' ? 9 : 17;
     const lines = [];
     let line = '';
@@ -982,7 +1011,7 @@ function renderChart() {
     let out = lines.map(l => `{n|${l}}`).join('\n');
     const parts = [];
     if (state.mode.pct) parts.push(`{p|${fmtPct(p.value / revB)}}`);
-    parts.push(`{v|${dispSym()}${p.value.toFixed(1)}B}`);
+    parts.push(`{v|${dispSym()}${amtText(p.value)}}`);
     out += '\n' + parts.join(' · ');
     return out;
   }
@@ -1022,8 +1051,8 @@ function renderChart() {
       formatter: p => {
         const nm = displayName(p);
         return p.dataType === 'edge'
-          ? `${displayName({ name: p.data.source })} → ${displayName({ name: p.data.target })}<br/><b>${dispSym()}${p.data.value.toFixed(1)}B</b>`
-          : `<b>${nm}</b><br/>${dispSym()}${p.value.toFixed(1)}B`;
+          ? `${displayName({ name: p.data.source })} → ${displayName({ name: p.data.target })}<br/><b>${dispSym()}${amtText(p.data.value)}</b>`
+          : `<b>${nm}</b><br/>${dispSym()}${amtText(p.value)}`;
       },
     },
     series: [{

@@ -212,6 +212,17 @@ const near = (a, b, tol = 0.01) => Math.abs(a - b) / Math.max(Math.abs(a), Math.
   check('MSFT 2008-06-30 no operating block invented', !m.has('op') && !m.has('loss'), [...m.keys()].join(','));
   const sum = r.links.filter(l => l.source === 'gross').reduce((a, l) => a + l.value, 0);
   check('MSFT 2008-06-30 gross outflows sum to gross', near(sum, gB, 0.005), `${sum} vs ${gB}`);
+  // long block names must fall back to the short form so the label cannot run off the canvas
+  const resid = r.data.find(x => x.name === 'undisclosedCost') || {};
+  const residName = typeof resid.label === 'string' ? resid.label.split(String.fromCharCode(10))[0].replace(/^\{n\|/, '').replace(/\}$/, '') : '';
+  const fwCols = s => Array.from(s).reduce((n, ch) => n + (ch.codePointAt(0) > 0x2e7f ? 2 : 1), 0);
+  const fwEq = s => fwCols(s) / 2;               // full-width character equivalents (12 = 24 columns)
+  check('MSFT 2008-06-30 residual label is the short form', residName === '未披露成本及税项', residName);
+  check('MSFT 2008-06-30 residual label <= 12 full-width equivalents', !!residName && fwEq(residName) <= 12,
+    `${residName} (${fwEq(residName)} eq / ${fwCols(residName)} cols)`);
+  // the on-canvas label is short, but the tooltip must still explain what the block is
+  const fullResid = await evl(`tn('undisclosedCost')`);
+  check('MSFT 2008-06-30 tooltip keeps the full wording', typeof fullResid === 'string' && fullResid.includes('毛利/营业利润缺失'), fullResid);
   check('MSFT 2008-06-30 no console error', errors.length === 0, errors.slice(0, 2).join(' '));
 }
 // (c) gross <= 0: real blocks, no zero-height ghost, negative gross labelled
@@ -226,9 +237,29 @@ const near = (a, b, tol = 0.01) => Math.abs(a - b) / Math.max(Math.abs(a), Math.
   check('TSLA 2012-09-30 net loss = |netInc|', m.has('netLoss') && near(m.get('netLoss'), -nB), m.get('netLoss'));
   check('TSLA 2012-09-30 grossNeg labelled negative', (() => {
     const d = r.data.find(x => x.name === 'grossNeg');
-    // value |gross| = $0.0088B: must print a minus sign and two decimals, never "−$0.0B"
-    return !!d && typeof d.label === 'string' && d.label.includes('−$0.01B') && !d.label.includes('−$0.0B');
+    // value |gross| = $0.0088B = 8.8M: must print a minus sign and a real unit, never "−$0.0B"
+    return !!d && typeof d.label === 'string' && d.label.includes('−$8.8M') && !d.label.includes('−$0.0B');
   })(), (r.data.find(x => x.name === 'grossNeg') || {}).label);
+  // sub-billion amounts must not be crushed by a one-decimal billion reading: the raw data for
+  // this period is revenue 50.1M / cogs 58.9M / gross -8.8M / opex 99.7M / op -108.5M / tax 2.3M.
+  // (The brief quoted revenue "58.9M" and tax "1.4M"; 58.9M is in fact cogs and the derived tax
+  // gap is 2.3M, so the assertions below pin the values the JSON actually holds.)
+  check('TSLA 2012-09-30 revenue label is not a rounded "$0.1B"', (() => {
+    const d = r.data.find(x => x.name === 'revenue');
+    return !!d && typeof d.label === 'string' && !d.label.includes('0.1B') && d.label.includes('50.1M');
+  })(), (r.data.find(x => x.name === 'revenue') || {}).label);
+  check('TSLA 2012-09-30 cogs label reads 58.9M', (() => {
+    const d = r.data.find(x => x.name === 'cogs');
+    return !!d && typeof d.label === 'string' && d.label.includes('58.9M') && !d.label.includes('0.1B');
+  })(), (r.data.find(x => x.name === 'cogs') || {}).label);
+  check('TSLA 2012-09-30 tax label carries a million unit', (() => {
+    const d = r.data.find(x => x.name === 'taxOther');
+    return !!d && typeof d.label === 'string' && d.label.includes('2.3M') && d.label.includes('−$');
+  })(), (r.data.find(x => x.name === 'taxOther') || {}).label);
+  check('TSLA 2012-09-30 opex/op-loss labels read in M', (() => {
+    const o = r.data.find(x => x.name === 'opex'), l = r.data.find(x => x.name === 'loss');
+    return !!o && !!l && o.label.includes('99.7M') && l.label.includes('−$108.5M');
+  })(), `${(r.data.find(x => x.name === 'opex') || {}).label} | ${(r.data.find(x => x.name === 'loss') || {}).label}`);
   check('TSLA 2012-09-30 no console error', errors.length === 0, errors.slice(0, 2).join(' '));
 }
 // (d) a healthy op>=0 period still renders the plain waterfall
