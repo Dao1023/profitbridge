@@ -23,10 +23,14 @@ const PORT = 9356;
 const SHOTS = new URL('./.shots/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 fs.mkdirSync(SHOTS, { recursive: true });
 
-// ---- independent expectation model, derived from profit.json (NOT the app source) ----
+// ---- independent expectation model, derived from profit.json + companies.json (NOT the app source) ----
 const D = JSON.parse(fs.readFileSync(new URL('../data/profit.json', import.meta.url), 'utf8'));
+const C = JSON.parse(fs.readFileSync(new URL('../data/companies.json', import.meta.url), 'utf8'));
+const DECLARED_FYE = new Map(C.map(c => [c.ticker, Number(c.fiscalYearEndMonth)]));
 function fye(tk) {
-  const e = D.companies[tk] || {};
+  const d = DECLARED_FYE.get(tk);                   // authoritative FYE month from metadata
+  if (d >= 1 && d <= 12) return d;
+  const e = D.companies[tk] || {};                  // fallback: last annual row's month, else December
   const a = (e.quarters || []).filter(o => o.periodType === 'annual');
   return a.length ? Number(a[a.length - 1].end.slice(5, 7)) : 12;
 }
@@ -47,18 +51,27 @@ function coveredMonths(tk, qv) {
   const startMonth = (fye(tk) % 12) + 1;            // fiscal-year start = M+1 (12→1)
   return ((endMonth - startMonth + 12) % 12) + 1;
 }
-function fiscalYearOf(tk, end) {
-  const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
-  return m > fye(tk) ? y + 1 : y;           // e.g. 00151 (FYE=3) 2025-09-30 → FY2026
+// Fiscal year + fiscal quarter of an END date. Re-derived from the FYE month, with the
+// 52/53-week rule: an end inside the first 7 days of a month belongs to the previous month
+// (a "January" FYE can close 2019-02-01, a "June" one on 2026-07-03).
+function fiscalPeriod(tk, end) {
+  const y0 = Number(end.slice(0, 4)), m0 = Number(end.slice(5, 7)), d0 = Number(end.slice(8, 10));
+  const f = fye(tk);
+  const back = d0 <= 7;
+  const m = back ? (m0 === 1 ? 12 : m0 - 1) : m0;
+  const y = (back && m0 === 1) ? y0 - 1 : y0;
+  const fy = m > f ? y + 1 : y;                     // e.g. 00151 (FYE=3) 2025-09-30 → FY2026
+  const start = (f % 12) + 1;
+  const q = Math.floor((((m - start) % 12 + 12) % 12) / 3) + 1;
+  return { fy, q };
 }
 function expectedLabel(tk, qv) {
-  const mm = Number(qv.end.slice(5, 7)), yr = qv.end.slice(0, 4);
-  const fyr = fiscalYearOf(tk, qv.end), fyy = String(fyr).slice(2, 4);
-  const qn = Math.floor((mm - 1) / 3) + 1;
+  const { fy: fyr, q: qn } = fiscalPeriod(tk, qv.end);
+  const fyy = String(fyr).slice(2, 4);
   if (qv.periodType === 'annual' || D.companies[tk].frequency === 'annual') return 'FY ' + fyr;
-  if (!isCumulative(tk, qv)) return `Q${qn}'${qv.end.slice(2, 4)}`; // true single quarter: calendar
+  if (!isCumulative(tk, qv)) return `Q${qn}'${fyy}`; // true single quarter: fiscal
   const cm = coveredMonths(tk, qv);
-  if (cm <= 3) return `Q${qn}'${qv.end.slice(2, 4)}`;
+  if (cm <= 3) return `Q${qn}'${fyy}`;
   if (cm <= 6) return `H1'${fyy}`;          // H1/9M carry the FISCAL year, not the calendar year
   if (cm <= 9) return `9M'${fyy}`;
   return 'FY ' + fyr;
@@ -142,7 +155,7 @@ check('00700 on-chart note is hidden', s.noteVis === 'hidden', `vis=${s.noteVis}
 check('00700 no bar carries a decal', s.seriesData.every(d => !hasDecal(d)), `decal=${s.seriesData.filter(hasDecal).length}`);
 await shot('bar_basis_00700.png');
 
-// ---------- 00151.HK: FYE = 3 (09-30 interim = Apr–Sep = H1; 06-30 interim = 3m = Q2) ----------
+// ---------- 00151.HK: FYE = 3 (09-30 interim = Apr–Sep = H1; 06-30 interim = Apr–Jun = fiscal Q1) ----------
 s = await barState('00151.HK');
 check('00151 bar quarters exclude annual (no MM=03 point)',
   !s.ends.some(e => e.slice(5) === '03'), 'hasMar=' + s.ends.some(e => e.slice(5) === '03'));
@@ -154,11 +167,11 @@ const sep151 = s.ends.map((e, i) => ({ e, i })).filter(x => x.e.slice(5) === '09
 check('00151 every 09-30 interim is labelled H1 (6-month Apr–Sep, not 9M)',
   sep151.length > 0 && sep151.every(x => s.labels[x.i].startsWith('H1')), sep151.map(x => s.ends[x.i] + '=' + s.labels[x.i]).join(','));
 const jun151 = s.ends.map((e, i) => ({ e, i })).filter(x => x.e.slice(5) === '06-30');
-check('00151 06-30 interim (3-month Apr–Jun) stays Q2, not H1',
-  jun151.length > 0 && jun151.every(x => s.labels[x.i].startsWith('Q2')), jun151.map(x => s.ends[x.i] + '=' + s.labels[x.i]).join(','));
+check('00151 06-30 interim (3-month Apr–Jun) is fiscal Q1 of the March FYE, not H1/Q2',
+  jun151.length > 0 && jun151.every(x => s.labels[x.i].startsWith('Q1')), jun151.map(x => s.ends[x.i] + '=' + s.labels[x.i]).join(','));
 check('00151 on-chart note is visible (has H1 cumulative bars)', s.noteVis === 'visible', `vis=${s.noteVis}`);
 const sepDecal = sep151.filter(x => hasDecal(s.seriesData[x.i])).length;
-check('00151 09-30 interim H1 bars are hatched; 06-30 Q2 bars are not',
+check('00151 09-30 interim H1 bars are hatched; 06-30 Q1 bars are not',
   sepDecal === sep151.length && jun151.every(x => !hasDecal(s.seriesData[x.i])),
   `sepDecal=${sepDecal}/${sep151.length} junDecal=${jun151.filter(x => hasDecal(s.seriesData[x.i])).length}`);
 await shot('bar_basis_00151.png');

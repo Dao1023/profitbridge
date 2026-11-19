@@ -57,10 +57,17 @@ await click(startX, startY);
 await sleep(900);
 let s = await snap();
 check('click tick -> state.qIndex = tick index', s.idx === target.i, `idx=${s.idx} want=${target.i}`);
-check('title shows clicked quarter label', await evl(`(() => {
-  const e = DATA.companies[state.company].quarters[${target.i}].end, d = new Date(e + 'T00:00:00Z');
-  const lbl = 'Q' + (Math.floor(d.getUTCMonth() / 3) + 1) + ' ' + d.getUTCFullYear();
-  return document.getElementById('chartTitle').textContent.includes(lbl);
+check('title shows clicked quarter label (fiscal)', await evl(`(() => {
+  const e = DATA.companies[state.company].quarters[${target.i}].end;
+  const fye = (REGISTRY.find(c => c.ticker === state.company) || {}).fiscalYearEndMonth || 12;
+  // re-derive the FISCAL period here (not by calling app.js): 52/53-week drift, then quarter index
+  const y0 = +e.slice(0, 4), m0 = +e.slice(5, 7), d0 = +e.slice(8, 10);
+  const back = d0 <= 7;
+  const m = back ? (m0 === 1 ? 12 : m0 - 1) : m0;
+  const y = (back && m0 === 1) ? y0 - 1 : y0;
+  const fy = m > fye ? y + 1 : y;
+  const q = Math.floor((((m - ((fye % 12) + 1)) % 12 + 12) % 12) / 3) + 1;
+  return document.getElementById('chartTitle').textContent.includes('FY' + fy + ' Q' + q);
 })()`), s.title);
 check('hash q= synced', new URLSearchParams(s.hash.slice(1)).get('q') === s.qEnd, s.hash);
 check('active highlight moved to clicked tick', s.activeI === target.i && s.activeDate === s.qEnd, JSON.stringify({ activeI: s.activeI, activeDate: s.activeDate }));
