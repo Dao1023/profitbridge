@@ -4748,7 +4748,9 @@
       "periodType": "quarter"
     },
     "AVGO": {
-      "degraded": "only 2 quarters with segment data"
+      "degraded": true,
+      "reason": "only 2 quarters with segment data",
+      "quarters": {}
     },
     "MU": {
       "quarters": {
@@ -9482,7 +9484,9 @@
       "periodType": "quarter"
     },
     "U": {
-      "degraded": "only 2 quarters with segment data"
+      "degraded": true,
+      "reason": "only 2 quarters with segment data",
+      "quarters": {}
     },
     "HUAWEI": {
       "quarters": {
@@ -12174,7 +12178,9 @@
       "periodType": "annual"
     },
     "XNET": {
-      "degraded": "SEC EDGAR 无分部数据：迅雷 20-F 全部为 \"Single reportable segment\"，利润表仅披露总收入，无任何 segment/revenue disaggregation R 表（已逐份核查 FilingSummary）；6-K 无 XBRL R 文件"
+      "degraded": true,
+      "reason": "SEC EDGAR 无分部数据：迅雷 20-F 全部为 \"Single reportable segment\"，利润表仅披露总收入，无任何 segment/revenue disaggregation R 表（已逐份核查 FilingSummary）；6-K 无 XBRL R 文件",
+      "quarters": {}
     },
     "LKNCY": {
       "quarters": {
@@ -14545,7 +14551,9 @@
       "periodType": "quarter"
     },
     "CRWV": {
-      "degraded": "No revenue-disaggregation R table exists in any EDGAR filing for this issuer (verified across all filings); CRWV is a single operating segment and its Revenue note contains only narrative/concentration/deferred-revenue/RPO details, so no segment split can be captured from XBRL."
+      "degraded": true,
+      "reason": "No revenue-disaggregation R table exists in any EDGAR filing for this issuer (verified across all filings); CRWV is a single operating segment and its Revenue note contains only narrative/concentration/deferred-revenue/RPO details, so no segment split can be captured from XBRL.",
+      "quarters": {}
     },
     "TCOM": {
       "quarters": {
@@ -24601,7 +24609,9 @@
       "periodType": "annual"
     },
     "000660.KS": {
-      "degraded": "SK hynix: earnings-release PDFs exist only via SK hynix board API (homeapi.skhynix.com/board/list?bcode=105, 52 items FY2013-Q3FY2026) but the file CDN (mis-prod-koce-homepage-cdn-01-blob-ep.azureedge.net/web + /attach/*.pdf) returns HTTP 403 AuthorizationFailure; newsroom press releases report only total revenue/OP (no DRAM/NAND/Others split); no DART API key. 0 periods collected."
+      "degraded": true,
+      "reason": "SK hynix: earnings-release PDFs exist only via SK hynix board API (homeapi.skhynix.com/board/list?bcode=105, 52 items FY2013-Q3FY2026) but the file CDN (mis-prod-koce-homepage-cdn-01-blob-ep.azureedge.net/web + /attach/*.pdf) returns HTTP 403 AuthorizationFailure; newsroom press releases report only total revenue/OP (no DRAM/NAND/Others split); no DART API key. 0 periods collected.",
+      "quarters": {}
     },
     "SPCX": {
       "degraded": true,
