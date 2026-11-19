@@ -54,7 +54,8 @@ ok(negRev === 0, `0 negative revenues (got ${negRev})`);
 ok(grossBad.length === 0, `no gross>revenue beyond known IBM 2020-12-31 (${grossBad})`);
 
 // 8) hk-mixed differencing: every derived single-quarter entry has no residual annual rows
-ok(P.companies['00700.HK'].quarters.length === 94 && P.companies['00700.HK'].quarters.every(q => q.fxToUsd > 0.1 && q.fxToUsd < 0.2), 'Tencent 94 single quarters with fx');
+// 2026-11-19 更新：batch11 补入 2026-09-30 单季，腾讯 94→95 期（断言随数据前移）。
+ok(P.companies['00700.HK'].quarters.length === 95 && P.companies['00700.HK'].quarters.every(q => q.fxToUsd > 0.1 && q.fxToUsd < 0.2), 'Tencent 95 single quarters with fx');
 ok(P.companies['03690.HK'].quarters.every(q => q.periodType !== 'annual'), 'Meituan hk-mixed singles only');
 
 // 9) skipped + preview — 02513/00100 promoted into main data 2026-10-27 (guardrail rule change:
@@ -81,8 +82,8 @@ for (const tk of ['NESN.SW', 'MC.PA']) {
   ok(new Set(fx).size === fx.length, `${tk} per-period fxToUsd all distinct (no single snapshot)`);
 }
 
-// 11) Lenovo 17q USD standalone run
-ok(P.companies['00992.HK'].quarters.length === 17, `Lenovo 17 quarters (got ${P.companies['00992.HK'].quarters.length})`);
+// 11) Lenovo 18q USD standalone run (2026-11-19 batch11: +1 → 18)
+ok(P.companies['00992.HK'].quarters.length === 18, `Lenovo 18 quarters (got ${P.companies['00992.HK'].quarters.length})`);
 
 // 12) NVDA regression: profit-bridge values 96.2→72.1→63.7→59.7 ($B) for the latest quarter
 const nq = P.companies.NVDA.quarters.at(-1);
