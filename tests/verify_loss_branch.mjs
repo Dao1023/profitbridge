@@ -93,6 +93,9 @@ const byName = (r, n) => r.data.find(d => d.name === n);
 /* node value is in $B of the DISPLAY currency; raw figure is in $M native → compare in native $M */
 const asRaw = (r, node) => node.value * r.B / r.fx;
 const relErr = (got, want) => Math.abs(got - want) / Math.abs(want);
+/* amount text contract (app.js amtText): >= 1B keeps one decimal, anything below 1B is printed
+   in millions so a 58.9M figure can never be rounded into "0.1B". Labels follow that rule. */
+const amtText = v => { const a = Math.abs(v); return a >= 1 ? `${a.toFixed(1)}B` : `${(a * 1000).toFixed(1)}M`; };
 
 /* ---------- 1. op < 0 with gross (three real periods) ---------- */
 const LOSS = [
@@ -112,7 +115,7 @@ for (const cs of LOSS) {
   if (loss) {
     const e = relErr(asRaw(r, loss), Math.abs(op));
     check(`${tag}: 营业亏损 value == |opInc| (<1%)`, e < 0.01, `got ${asRaw(r, loss).toFixed(2)} want ${Math.abs(op).toFixed(2)} err=${(e * 100).toFixed(3)}%`);
-    check(`${tag}: 营业亏损 label shows the NEGATIVE amount`, typeof loss.label === 'string' && loss.label.includes('−' + r.sym + loss.value.toFixed(1) + 'B'), JSON.stringify(loss.label));
+    check(`${tag}: 营业亏损 label shows the NEGATIVE amount`, typeof loss.label === 'string' && loss.label.includes('−' + r.sym + amtText(loss.value)), JSON.stringify(loss.label));
     check(`${tag}: 营业亏损 uses RED`, loss.color === '#dc2626', String(loss.color));
   }
 
@@ -136,7 +139,7 @@ for (const cs of LOSS) {
     if (nl) {
       const e = relErr(asRaw(r, nl), Math.abs(net));
       check(`${tag}: 净亏损 value == |netInc| (<1%)`, e < 0.01, `got ${asRaw(r, nl).toFixed(2)} want ${Math.abs(net).toFixed(2)} err=${(e * 100).toFixed(3)}%`);
-      check(`${tag}: 净亏损 label shows the NEGATIVE amount`, typeof nl.label === 'string' && nl.label.includes('−' + r.sym + nl.value.toFixed(1) + 'B'), JSON.stringify(nl.label));
+      check(`${tag}: 净亏损 label shows the NEGATIVE amount`, typeof nl.label === 'string' && nl.label.includes('−' + r.sym + amtText(nl.value)), JSON.stringify(nl.label));
     }
     // the gap between the operating loss and the bottom line must be drawn, not swallowed
     const into = r.links.filter(l => l.t === 'netLoss').reduce((a, l) => a + l.v, 0);
@@ -145,7 +148,7 @@ for (const cs of LOSS) {
     if (tax) {
       check(`${tag}: tax/non-op gap node == |netInc| − |opInc|`, relErr(asRaw(r, tax), Math.abs(net) - Math.abs(op)) < 0.01,
         `got ${asRaw(r, tax).toFixed(2)} want ${(Math.abs(net) - Math.abs(op)).toFixed(2)}`);
-      check(`${tag}: gap node label is negative`, typeof tax.label === 'string' && tax.label.includes('−' + r.sym + tax.value.toFixed(1) + 'B'), JSON.stringify(tax.label));
+      check(`${tag}: gap node label is negative`, typeof tax.label === 'string' && tax.label.includes('−' + r.sym + amtText(tax.value)), JSON.stringify(tax.label));
     }
   } else {
     check(`${tag}: net is positive (data)`, net != null && net > 0, `netInc=${net}`);
