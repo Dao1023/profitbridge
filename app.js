@@ -44,7 +44,7 @@ const I18N = {
       revenue: '营收', cogs: '营收成本', gross: '毛利润', opex: '营业费用',
       rd: '研发费用', sga: '销售与管理费用',
       op: '营业利润', taxOther: '税费及其他', net: '净利润', nonop: '非经营性收益',
-      loss: '经营亏损', netLoss: '净亏损',
+      loss: '营业亏损', netLoss: '净亏损',
       undisclosedCost: '未披露的成本费用及税项（毛利/营业利润缺失）',
     },
     degradedNotice: '毛利与营业利润未披露，仅显示营收 → 净利润',
@@ -168,7 +168,7 @@ const fmtPP = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1
 
 /* ---- label-mode helpers (pct / QoQ); only change label display, never node values ---- */
 const MARGIN_KEYS = ['gross', 'op', 'net'];
-const KEY_ALIAS = { netLoss: 'net' };
+const KEY_ALIAS = { netLoss: 'net', loss: 'op' }; // loss node = |opInc|: its amount QoQ is opInc's
 
 /* Raw USD metrics for one quarter, mirroring the nodes buildGraph() actually creates
    (same guards: opex only when the waterfall branch emits it, etc.). */
@@ -640,6 +640,61 @@ function buildGraph(qv, segList) {
         links.push({ source: 'gross', target: 'opex', value: opexVal });
       }
       links.push({ source: 'gross', target: 'op', value: op });
+    } else if (op != null && op < 0 && gross > 0) {
+      /* ---- operating LOSS (op < 0) ----
+         Semantics: operating expenses are larger than gross profit by exactly |op|.
+         There is no positive 'op' node to draw, so the loss is spelled out instead of
+         truncating the chart at gross (the old behaviour for all 61 companies):
+            gross → opex   carries the gross profit that actually funds the expenses
+            opex           real disclosed size = gross - op = gross + |op|
+            opex → loss    the |op| that the expenses overshoot by
+         The opex block is therefore taller than its inflow by exactly the loss. ECharts
+         sankey sizes a block at max(value, in-sum, out-sum), so nothing is rescaled and
+         no figure is invented — the same "inflow < node value" allowance that
+         DEGRADED_RESIDUAL already depends on (it is also why out-sums may be smaller
+         than the block). Bottom line:
+            net < 0  → red netLoss, the extra |net|-|op| (tax / non-operating) drawn as
+                       its own red inflow, or a gold nonop inflow when non-op income
+                       shrank the loss without turning it positive;
+            net >= 0 → the loss is flipped positive by non-operating income: gold nonop
+                       block (= net - op) between the loss and the green net.
+         Every label shows the real data value (|op|, |net|, net-op), never a plug. */
+      const loss = -op;                       // |op| > 0
+      const opexVal = gross - op;             // gross + |op|: real operating expenses
+      nodes.push({ name: 'opex', value: opexVal, depth: revDepth + 2, itemStyle: { color: RED } });
+      links.push({ source: 'gross', target: 'opex', value: gross });
+      nodes.push({ name: 'loss', value: loss, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
+      links.push({ source: 'opex', target: 'loss', value: loss });
+      if (net != null) {
+        if (net < 0) {
+          const netLossVal = -net;
+          const deeper = netLossVal - loss;   // = op - net: tax / non-op items that deepen the loss
+          nodes.push({ name: 'netLoss', value: netLossVal, depth: revDepth + 3, itemStyle: { color: RED }, neg: true });
+          links.push({ source: 'loss', target: 'netLoss', value: Math.min(loss, netLossVal) });
+          if (deeper > 0) {
+            nodes.push({ name: 'taxOther', value: deeper, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
+            links.push({ source: 'taxOther', target: 'netLoss', value: deeper });
+          } else if (deeper < 0) {
+            // non-operating income shrank the loss but did not turn it positive
+            nodes.push({ name: 'nonop', value: -deeper, depth: revDepth + 2, itemStyle: { color: GOLD } });
+            links.push({ source: 'loss', target: 'nonop', value: -deeper });
+          }
+        } else {
+          // loss turned into a profit by non-operating income: nonop = net - op = net + |op|
+          nodes.push({ name: 'nonop', value: net - op, depth: revDepth + 2, itemStyle: { color: GOLD } });
+          nodes.push({ name: 'net', value: net, depth: revDepth + 3, itemStyle: { color: GREEN } });
+          links.push({ source: 'loss', target: 'nonop', value: loss });
+          links.push({ source: 'nonop', target: 'net', value: net });
+        }
+      }
+    } else if (op == null && net != null && net < 0 && gross > 0) {
+      /* Gross profit disclosed, operating income missing, bottom line a loss
+         (00100.HK 2025-12-31: gross ¥0.14B, net -¥13.16B). The chart used to stop at
+         gross and hide the loss. Draw all gross profit into a netLoss block sized by
+         the disclosed |net|; the block is taller than the inflow, and that overhang is
+         the undisclosed opex + tax that produced the loss — no plug value invented. */
+      nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
+      links.push({ source: 'gross', target: 'netLoss', value: Math.min(gross, -net) });
     }
   } else if (op != null && op >= 0) {
     nodes.push({ name: 'op', value: op, depth: revDepth + 1, itemStyle: { color: GREEN } });
@@ -683,6 +738,7 @@ function buildGraph(qv, segList) {
 function linkColor(l) {
   if (l.source.startsWith('seg:')) return BLUE; // all input-side ribbons (children→parent, parent/segment→revenue)
   if (l.source === 'nonop') return GOLD;
+  if (l.target === 'nonop') return GOLD; // loss → nonop inflow (operating loss cancelled by non-op income)
   if (l.target === 'gross' || l.target === 'op' || l.target === 'net') return GREEN;
   return RED; // cogs / rd / sga / opex / taxOther / netLoss branches
 }
@@ -754,7 +810,10 @@ function renderChart() {
   function nodeLabel(p) {
     const revB = qv.revenue * dispFactor(qv) / MB;
     const isMargin = MARGIN_KEYS.includes(p.name);
-    const amt = `${dispSym()}${p.value.toFixed(1)}B`;
+    // loss nodes (neg:true) hold |opInc| / |netInc| as a positive value so ECharts can
+    // size the block, but the reader must see the sign of the real disclosure.
+    const neg = p.data && p.data.neg === true;
+    const amt = `${neg ? '−' : ''}${dispSym()}${p.value.toFixed(1)}B`;
     let body = `{n|${displayName(p)}}`;
     const parts = [];
     if (state.mode.pct) {
@@ -770,7 +829,7 @@ function renderChart() {
       } else {
         parts.push(p.name.startsWith('seg:')
           ? `{p|${fmtPct(p.value / revB)}}`
-          : `{p|${fmtPct(p.value / revB)} ${t('ofRev')}}`);
+          : `{p|${neg ? '−' : ''}${fmtPct(p.value / revB)} ${t('ofRev')}}`);
       }
     }
     parts.push(`{v|${amt}}`);
@@ -812,6 +871,7 @@ function renderChart() {
   const degraded = qv.gross == null && qv.opInc == null && qv.netInc != null;
   const data = g.nodes.map(n => {
     const d = { name: n.name, value: n.value, depth: n.depth, itemStyle: n.itemStyle };
+    if (n.neg) d.neg = true; // loss node: value is |opInc| / |netInc|, label must read negative
     // per-node label placement to avoid overlaps (pitfall #3)
     if (n.name === DEGRADED_RESIDUAL) {
       // huge residual: label to its right (into the right margin), wrapped onto short lines
