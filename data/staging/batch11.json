@@ -1,0 +1,101 @@
+{
+  "_meta": {
+    "batch": 11,
+    "description": "2026 Q3/中报追加 4 家：Cisco（CSCO，10-Q FY2027 Q1，end 2026-10-24，notice 2026-11-17）、腾讯（00700.HK，2026 年三季报，end 2026-09-30）、联想（00992.HK，2027 年中报，end 2026-09-30）、快手（01024.HK，2026 年三季报，end 2026-09-30）。逐家来源与口径见 sources / keyNote。复核报告：tmp-verify-20261119/REPORT.md（机器可读版 tmp-verify-20261119/verified.json）。",
+    "generatedAt": "2026-11-19",
+    "sources": [
+      "tmp-verify-20261119/REPORT.md",
+      "tmp-verify-20261119/verified.json",
+      "CSCO: SEC companyfacts CIK0000858877（10-Q accn 0000858877-26-000185，filed 2026-11-17，start=2026-07-26..end=2026-10-24 的 90 天 fact）+ 10-Q R4 Consolidated Statements of Operations（仅 3 个月列，原生单季，无差分）",
+      "00700.HK: eastmoney RPT_HKF10_FN_MAININDICATOR + RPT_HKF10_FN_INCOME（9M 与 H1 累计列做差）+ HKEX《截至二零二六年九月三十日止三個月及九個月業績公佈》2026111800449_c.pdf / 2026111800448.pdf（公告 3 个月列逐项核对）",
+      "00992.HK: eastmoney 港股 F10 利润表（H1 与 Q1 累计列做差）+ HKEX 2027 年中报业绩公告（美元披露）",
+      "01024.HK: eastmoney 港股 F10 利润表（9M 与 H1 累计列做差）+ HKEX《截至二零二六年九月三十日止三個月業績公佈》",
+      "fxToUsd: frankfurter ECB 2026-09-30 期末营业日 USD/CNY = 6.7045 → 0.14915355（与站内 2026-03-31=0.14491914、2026-06-30=0.14737307 同算法）"
+    ],
+    "shape": "{ _meta, results: [ { ticker, name, currency, report_type, notice_date, newQuarters:[quarter] } ], enrich: [] }",
+    "keyNote": "键顺序与键集按“与既有行严格同构”逐家固定：CSCO = end,revenue,gross,opInc,netInc,rd,tax（7 键，无 periodType/fxToUsd/sga）；00700.HK = end,revenue,netInc,periodType,fxToUsd,gross,opInc,sga（8 键，无 rd/tax）；00992.HK = end,revenue,netInc,periodType,gross,opInc,rd,sga（8 键，无 fxToUsd/tax）；01024.HK = end,revenue,netInc,periodType,fxToUsd,gross,opInc,rd,sga（9 键，无 tax）。缺的键整条省略，不写 null 占位。",
+    "q3Note": "腾讯 / 快手为港股累计表差分单季（Q3 = 9M − H1），periodType=q3，CNY-M 整数，fxToUsd=0.14915355；腾讯 sga = 销售及分销 + 行政开支（站内 2026-06-30 的 50,677 已用 Q1/H1 反推验证），腾讯无 rd 键（G&A 含研发）；快手有 rd 键。",
+    "usHkNote": "CSCO 为 USD-M 整数、10-Q 原生 3 个月列直接取值；00992.HK 为 USD-M（联想以美元披露），revenue 取整、其余 2 位小数，periodType=q2（与站内 2025-09-30 同为 q2），无 fxToUsd（站内既有行即无此键）。",
+    "riskNote": "01024.HK 本季单季转亏（opInc −635、netInc −961），为站内首次出现毛利→营业利润为负的桑基分支；数值经复核报告 §4 两源核对（confidence medium-high），前端负值分支已单独截图验证。",
+    "verification": "四行均已回源双源交叉核对（SEC XBRL + 10-Q R4；东财 F10 + HKEX 公告 PDF），映射用站内 2026-06-30 / 2026-04-25 既有行反向验证，详见 tmp-verify-20261119/REPORT.md §0–§4。"
+  },
+  "results": [
+    {
+      "ticker": "CSCO",
+      "name": "CISCO SYSTEMS, INC.",
+      "currency": "USD-M",
+      "report_type": "10-Q",
+      "notice_date": "2026-11-17",
+      "newQuarters": [
+        {
+          "end": "2026-10-24",
+          "revenue": 18517,
+          "gross": 11788,
+          "opInc": 5598,
+          "netInc": 4552,
+          "rd": 2423,
+          "tax": 943
+        }
+      ]
+    },
+    {
+      "ticker": "00700.HK",
+      "name": "Tencent",
+      "currency": "CNY-M",
+      "report_type": "2026年三季报",
+      "notice_date": null,
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 207336,
+          "netInc": 63612,
+          "periodType": "q3",
+          "fxToUsd": 0.14915355,
+          "gross": 115911,
+          "opInc": 59147,
+          "sga": 56221
+        }
+      ]
+    },
+    {
+      "ticker": "00992.HK",
+      "name": "Lenovo",
+      "currency": "USD-M",
+      "report_type": "2027年中报",
+      "notice_date": null,
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 30238,
+          "netInc": -639.86,
+          "periodType": "q2",
+          "gross": 4840.87,
+          "opInc": -117.08,
+          "rd": 793.99,
+          "sga": 1995.52
+        }
+      ]
+    },
+    {
+      "ticker": "01024.HK",
+      "name": "Kuaishou",
+      "currency": "CNY-M",
+      "report_type": "2026年三季报",
+      "notice_date": null,
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 31592,
+          "netInc": -961,
+          "periodType": "q3",
+          "fxToUsd": 0.14915355,
+          "gross": 15216,
+          "opInc": -635,
+          "rd": 5178,
+          "sga": 11049
+        }
+      ]
+    }
+  ],
+  "enrich": []
+}
