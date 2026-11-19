@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "batch": 12,
+    "description": "2026-09-30 补 4 家 ADR 新期（全部从 SEC 6-K HTML 正文解析，非 XBRL）：微博 WB 2026Q3、百度 BIDU 2026Q3、腾讯音乐 TME 2026Q3、索尼 SONY FY2026 Q2（半年度 6M − Q1 差分）。键集逐家与上一期行完全一致（11 键），不写 tax/rd/periodType 以外的任何新增键。",
+    "generatedAt": "2026-11-20",
+    "sources": [
+      "WB: SEC 6-K accn 0001104659-26-128775（filed 2026-11-17）exhibit https://www.sec.gov/Archives/edgar/data/1595761/000110465926128775/tm2629662d1_ex99-1.htm —— Condensed Consolidated Statements of Operations（3M2026 列）",
+      "WB 第二源: 公司 IR 新闻稿 http://ir.weibo.com/news-releases/news-release-details/weibo-announces-third-quarter-2026-unaudited-financial-results （逐字段同 6-K 正文，零差异；https:// 由 WAF 拒绝 TLS，用 http 取到同一 CMS 页面）",
+      "BIDU: SEC 6-K accn 0001193125-26-462286（filed 2026-11-16）exhibit https://www.sec.gov/Archives/edgar/data/1329099/000119312526462286/d767848dex991.htm —— unaudited condensed consolidated statements of income（3M2026 列）",
+      "BIDU 第二源: 公司 IR 新闻稿 https://ir.baidu.com/news-releases/news-release-details/baidu-announces-third-quarter-2026-results （逐字段同 6-K 正文）",
+      "TME: SEC 6-K accn 0000950103-26-017589（filed 2026-11-17）exhibit https://www.sec.gov/Archives/edgar/data/1744676/000095010326017589/dp256931_ex9901.htm —— unaudited consolidated statements of operations（RMB millions，3M2026 列）",
+      "TME 第二源: 公司 IR 新闻稿 https://ir.tencentmusic.com/2026-11-17-Tencent-Music-Entertainment-Group-Announces-Third-Quarter-2026-Unaudited-Financial-Results （逐字段同 6-K 正文）",
+      "SONY 6M: SEC 6-K accn 0001193125-26-454312（filed 2026-11-10）https://www.sec.gov/Archives/edgar/data/313838/000119312526454312/d148641d6k.htm —— Condensed Semi-annual Consolidated Statements of Income（Yen in millions，六ヶ月終了 2026-09-30 列）",
+      "SONY Q1: SEC 6-K accn 0001104659-26-088915（filed 2026-07-31）https://www.sec.gov/Archives/edgar/data/313838/000110465926088915/tm2621477d1_6k.htm —— Consolidated Financial Summary for the First Quarter Ended June 30, 2026（Condensed Consolidated Statements of Income，3M 2026 列）",
+      "SONY 第二源: 公司 IR Q2 FY2026 新闻稿 https://www.sony.com/en/SonyInfo/IR/library/er/pdf/26q2_sonypre.pdf （Q2 FY26 Sales 3,429.4 bln / Operating income 622.3 bln / Net income attributable 449.6 bln，与 6M−Q1 差分一致）",
+      "fx: frankfurter ECB 2026-09-30 USD/CNY=6.7045 → 0.14915355；USD/JPY=157.0 → 0.0063694268；WB 为 USD 报表，fxToUsd=1",
+      "东财美股 F10 接口（RPT_USF10_FN_GINCOME / PC_USF10 GetZYZBAjaxNew / GetLRBAjax）对 ADR 返回“报表配置不存在”“无F10资料”，未采用"
+    ],
+    "shape": "{ _meta, results: [ { ticker, name, currency, report_type, notice_date, newQuarters:[quarter] } ], enrich: [] }",
+    "keyNote": "四家新行键集与各自上一期（2026-06-30）行逐键一致：end,periodType,revenue,gross,opInc,netInc,rd,sga,tax,fxToUsd,fxDate（11 键，顺序同上一期）。TME / SONY 历史行 rd 恒为 null，新行同样写 null（既有行如此，保持一致）。",
+    "wbNote": "WB（USD-M，单位百万）：revenue 410,230；cost of revenues 129,979 → gross 410,230−129,979=280,251；S&M 121,656 + G&A 15,973 = sga 137,629（原文无合并 “SG&A” 行，按上一期行口径把两者合并）；product development 78,337 → rd；Income from operations 64,285（原文行，且 280,251−78,337−137,629=64,285 精确闭合）；income before income tax 40,279；tax 15,343；net income 24,936；NCI 154 + 可赎回 NCI 增值 267 → 归属微博股东 24,515。调研基线里的 opInc 117.3 是 3M2025 同列值（原文对照列可见），非本期。",
+    "biduNote": "BIDU（CNY-M，单位百万）：Revenue 30,807；cost of revenues 19,892 → gross 10,915；SG&A 5,460；R&D 4,829；Total costs 30,181；Operating income 626（且 10,915−4,829−5,460=626 精确闭合）；income before tax 1,795；tax 427；net income 1,368；NCI −27 → 归属百度 1,395。原文表头写作 “Revenue” 而非 “Total revenues”。",
+    "tmeNote": "TME（CNY-M，单位百万）：Revenues 8,941（music 7,682 + social 1,259；调研基线写 8,940 系四舍五入到美元的 US$1,334M 回折差异，原文 RMB 列为 8,941）；cost of revenues 5,118 → gross 3,823；S&M 295 + G&A 1,237 = Total operating expenses 1,532 → sga 1,532；opInc 取 2,291 = 3,823−1,532（纯经营口径，与站内既有季度列 gross−sga 口径一致，残差在 ±100 内）。注意原文有 “Operating profit 2,720” 一行，但该行在 1,532 之后又加进了 Interest income 256 与 Other gains 173（非经营性），若直接采用会让 opex=gross−opInc 小于 sga，图形勾稽失真；故按 gross−总营业费用 计，并在两源（6-K / IR）均为 1,532、3,823、8,941 的前提下写入。tax 431；profit 2,219；NCI 65 → 归属股东 2,154。",
+    "sonyNote": "SONY（JPY-M，单位百万）：Q2 = 6M FY2026 − Q1 FY2026，两个数分别取自 6M 半年报 6-K 与 Q1 决算短信 6-K 的同一行项目。6M：Sales 6,267,217 / Cost of sales 3,958,403 / SG&A 1,197,539 / Other operating (income) expense net (8,334) / Total costs 5,147,608 / Share of loss of equity method (20,781) / Operating income 1,098,828 / Income taxes 293,785 / Net income attributable 791,764。Q1：Sales 2,837,771 / Cost of sales 1,796,292 / SG&A 568,373 / Other operating (income) expense net (1,387) / Total costs 2,363,278 / Share of profit 2,006 / Operating income 476,499 / Income taxes 127,484 / 归属 342,161。差分：revenue 3,429,446；gross (6,267,217−3,958,403)−(2,837,771−1,796,292)=2,308,814−1,041,479=1,267,335；sga 629,166；opInc 1,098,828−476,499=622,329；tax 166,301；netInc 791,764−342,161=449,603。差分校验：6M = Q1 + Q2 逐行成立（Sales 2,837,771+3,429,446=6,267,217；opInc 476,499+622,329=1,098,828；归属 342,161+449,603=791,764）；Q2 内部勾稽 1,267,335−629,166+6,947−22,787=622,329（other operating income 与权益法损益已含）。opInc 与公司 IR Q2 新闻稿 “Operating income 622.3 bln” 一致。调研基线的 624,335 = 1,098,828 − 474,493，其中 474,493 是站内上一期行（stockanalysis 口径，不含权益法损益 2,006），与 6M 原文口径不同源，故不采用；若强行按该口径则为 645,116，同样与 IR 的 622.3 不符。",
+    "verification": [
+      "四家新行 gross ≤ revenue、revenue > 0、gross ≥ 0 全部通过（merge 值门禁）",
+      "WB/BIDU/TME：gross − rd − sga − opInc = 0（WB 0、BIDU 0、TME 0）",
+      "SONY：gross − sga − opInc = −15,840 = −(other operating income 6,947) + 权益法损失 22,787（已解释，非零属正常；上一期行为 −1,387，同一成因）",
+      "两源交叉：WB（6-K × IR）、BIDU（6-K × IR）、TME（6-K × IR）、SONY（6M 6-K + Q1 6-K 差分 × IR Q2 新闻稿）全部零差异"
+    ]
+  },
+  "results": [
+    {
+      "ticker": "WB",
+      "name": "微博",
+      "currency": "USD-M",
+      "report_type": "6-K",
+      "notice_date": "2026-11-17",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 410.23,
+          "gross": 280.251,
+          "opInc": 64.285,
+          "netInc": 24.515,
+          "rd": 78.337,
+          "sga": 137.629,
+          "tax": 15.343,
+          "fxToUsd": 1,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "BIDU",
+      "name": "百度",
+      "currency": "CNY-M",
+      "report_type": "6-K",
+      "notice_date": "2026-11-16",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 30807,
+          "gross": 10915,
+          "opInc": 626,
+          "netInc": 1395,
+          "rd": 4829,
+          "sga": 5460,
+          "tax": 427,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "TME",
+      "name": "腾讯音乐",
+      "currency": "CNY-M",
+      "report_type": "6-K",
+      "notice_date": "2026-11-17",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 8941,
+          "gross": 3823,
+          "opInc": 2291,
+          "netInc": 2154,
+          "rd": null,
+          "sga": 1532,
+          "tax": 431,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "SONY",
+      "name": "索尼",
+      "currency": "JPY-M",
+      "report_type": "6-K",
+      "notice_date": "2026-11-10",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 3429446,
+          "gross": 1267335,
+          "opInc": 622329,
+          "netInc": 449603,
+          "rd": null,
+          "sga": 629166,
+          "tax": 166301,
+          "fxToUsd": 0.0063694268,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    }
+  ],
+  "enrich": []
+}
