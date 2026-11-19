@@ -114,7 +114,7 @@ node scripts/validate_profit.mjs # 口径校验
 <summary><b>目录结构与脚本</b></summary>
 
 ```
-index.html / app.js    站点（原生 JS + vendor/echarts.min.js 5.6.0）
+index.html / app.js    站点（原生 JS + vendor/echarts.min.js（5.5.1））
 data/                  profit.json / segments.json / companies.json / logos/
 scripts/               serve.mjs（零依赖静态服务器）、fetch_profit.mjs、
                        fetch_segments.mjs、validate_profit.mjs、
@@ -123,6 +123,8 @@ tests/                 verify_*.mjs（23 个，含 verify_scan.mjs；无头 CDP 
                        需先起 :8440 服务；截图与浏览器 profile 落在 tests/.shots、tests/.chrome）
 docs/screenshots/      README 配图
 ```
+
+> 版本注记：`vendor/echarts.min.js` 运行时自报 `5.5.1`（`node -e "require('./vendor/echarts.min.js').version"` → `5.5.1`；文件内 `t.version="5.5.1"` 唯一一处）。文件里另有 `version:"5.6.0"`，它落在随包 zrender 的命名空间对象与 `dependencies={zrender:"5.6.0"}` 声明上，不是 ECharts 版本。仓库 `app.js:3` 注释与 `audits/2026-11-01/A5-engineering` 里写的 v5.6.0 属过时/错误记录，以 vendor 运行时自报的 5.5.1 为准。
 
 </details>
 
