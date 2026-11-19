@@ -17223,6 +17223,19 @@
           "tax": 127484,
           "fxToUsd": 0.0061563,
           "fxDate": "2026-06-30"
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 3429446,
+          "gross": 1267335,
+          "opInc": 622329,
+          "netInc": 449603,
+          "rd": null,
+          "sga": 629166,
+          "tax": 166301,
+          "fxToUsd": 0.0063694268,
+          "fxDate": "2026-09-30"
         }
       ],
       "frequency": "mixed",
@@ -18047,6 +18060,19 @@
           "tax": 1000,
           "fxToUsd": 0.14737,
           "fxDate": "2026-06-30"
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 30807,
+          "gross": 10915,
+          "opInc": 626,
+          "netInc": 1395,
+          "rd": 4829,
+          "sga": 5460,
+          "tax": 427,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
         }
       ],
       "notes": "BIDU: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
@@ -20064,6 +20090,19 @@
           "tax": 22.958,
           "fxToUsd": 1,
           "fxDate": "2026-06-30"
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 410.23,
+          "gross": 280.251,
+          "opInc": 64.285,
+          "netInc": 24.515,
+          "rd": 78.337,
+          "sga": 137.629,
+          "tax": 15.343,
+          "fxToUsd": 1,
+          "fxDate": "2026-09-30"
         }
       ],
       "frequency": "mixed",
@@ -21009,6 +21048,19 @@
           "tax": 514,
           "fxToUsd": 0.14737,
           "fxDate": "2026-06-30"
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 8941,
+          "gross": 3823,
+          "opInc": 2291,
+          "netInc": 2154,
+          "rd": null,
+          "sga": 1532,
+          "tax": 431,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
         }
       ],
       "frequency": "mixed",
