@@ -13,7 +13,7 @@ const I18N = {
       revenue: 'Revenue', cogs: 'Cost of revenue', gross: 'Gross profit', opex: 'Operating expenses',
       rd: 'R&D expenses', sga: 'Selling, general & admin',
       op: 'Operating income', taxOther: 'Tax & other', net: 'Net income', nonop: 'Non-operating income',
-      loss: 'Operating loss', netLoss: 'Net loss',
+      loss: 'Operating loss', netLoss: 'Net loss', grossNeg: 'Negative gross profit',
       undisclosedCost: 'Undisclosed costs & taxes (gross / op income not disclosed)',
     },
     degradedNotice: 'Gross profit & operating income not disclosed — showing revenue → net income only',
@@ -44,7 +44,7 @@ const I18N = {
       revenue: '营收', cogs: '营收成本', gross: '毛利润', opex: '营业费用',
       rd: '研发费用', sga: '销售与管理费用',
       op: '营业利润', taxOther: '税费及其他', net: '净利润', nonop: '非经营性收益',
-      loss: '营业亏损', netLoss: '净亏损',
+      loss: '营业亏损', netLoss: '净亏损', grossNeg: '负毛利',
       undisclosedCost: '未披露的成本费用及税项（毛利/营业利润缺失）',
     },
     degradedNotice: '毛利与营业利润未披露，仅显示营收 → 净利润',
@@ -168,7 +168,7 @@ const fmtPP = v => v == null ? '—' : (v >= 0 ? '+' : '') + (v * 100).toFixed(1
 
 /* ---- label-mode helpers (pct / QoQ); only change label display, never node values ---- */
 const MARGIN_KEYS = ['gross', 'op', 'net'];
-const KEY_ALIAS = { netLoss: 'net', loss: 'op' }; // loss node = |opInc|: its amount QoQ is opInc's
+const KEY_ALIAS = { netLoss: 'net', loss: 'op', grossNeg: 'gross' }; // loss/grossNeg hold |opInc| / |gross|: their amount QoQ is opInc's / gross's
 
 /* Raw USD metrics for one quarter, mirroring the nodes buildGraph() actually creates
    (same guards: opex only when the waterfall branch emits it, etc.). */
@@ -620,7 +620,112 @@ function buildGraph(qv, segList) {
   // ---- revenue + output waterfall ----
   nodes.push({ name: 'revenue', value: rev, depth: revDepth, itemStyle: { color: GRAY } });
   const hasOpexSplit = qv.rd != null && qv.sga != null;
-  if (gross != null) {
+
+  /* ---- shared tails -------------------------------------------------------------------
+     Both are pure placements of DISCLOSED values: they never invent a number, so every
+     block label still equals a real figure divided by B.
+     lossTail(lossB = |op|, lossDepth, netB): from a loss block down to the bottom line.
+       net < 0  → |net| block; the extra |net|-|op| (tax / non-operating items that deepen
+                  the loss) becomes its own red inflow, or a gold non-operating inflow when
+                  those items shrank the loss without flipping it positive;
+       net >= 0 → the loss is flipped positive by non-operating income: gold nonop
+                  (= net - op = net + |op|) between the loss block and the green net.
+     profitTail(opB, opDepth, netB): from a positive 'op' block down to the bottom line. */
+  function lossTail(lossB, lossDepth, netB) {
+    if (netB < 0) {
+      const netLossVal = -netB;
+      const deeper = netLossVal - lossB;   // = op - net: tax / non-op items that deepen the loss
+      nodes.push({ name: 'netLoss', value: netLossVal, depth: lossDepth + 1, itemStyle: { color: RED }, neg: true });
+      links.push({ source: 'loss', target: 'netLoss', value: Math.min(lossB, netLossVal) });
+      if (deeper > 0) {
+        nodes.push({ name: 'taxOther', value: deeper, depth: lossDepth, itemStyle: { color: RED }, neg: true });
+        links.push({ source: 'taxOther', target: 'netLoss', value: deeper });
+      } else if (deeper < 0) {
+        nodes.push({ name: 'nonop', value: -deeper, depth: lossDepth, itemStyle: { color: GOLD } });
+        links.push({ source: 'loss', target: 'nonop', value: -deeper });
+      }
+    } else {
+      nodes.push({ name: 'nonop', value: netB + lossB, depth: lossDepth, itemStyle: { color: GOLD } });
+      nodes.push({ name: 'net', value: netB, depth: lossDepth + 1, itemStyle: { color: GREEN } });
+      links.push({ source: 'loss', target: 'nonop', value: lossB });
+      links.push({ source: 'nonop', target: 'net', value: netB });
+    }
+  }
+  function profitTail(opB, opDepth, netB) {
+    if (netB >= 0) {
+      nodes.push({ name: 'net', value: netB, depth: opDepth + 1, itemStyle: { color: GREEN } });
+      links.push({ source: 'op', target: 'net', value: Math.min(netB, opB) });
+      if (opB - netB > 0) {
+        nodes.push({ name: 'taxOther', value: opB - netB, depth: opDepth + 1, itemStyle: { color: RED } });
+        links.push({ source: 'op', target: 'taxOther', value: opB - netB });
+      }
+      if (netB > opB) {
+        // the opAboveGross branch may already have created a nonop block feeding 'op'
+        // (op - gross). Grow that one instead of emitting a duplicate block name, so the block
+        // carries the whole non-operating income (net - gross) and both outflows are real.
+        const ex = nodes.find(n => n.name === 'nonop');
+        if (ex) { ex.value += netB - opB; links.push({ source: 'nonop', target: 'net', value: netB - opB }); }
+        else {
+          nodes.push({ name: 'nonop', value: netB - opB, depth: opDepth, itemStyle: { color: GOLD } });
+          links.push({ source: 'nonop', target: 'net', value: netB - opB });
+        }
+      }
+    } else {
+      nodes.push({ name: 'netLoss', value: -netB, depth: opDepth + 1, itemStyle: { color: RED } });
+      nodes.push({ name: 'taxOther', value: opB, depth: opDepth + 1, itemStyle: { color: RED } });
+      links.push({ source: 'op', target: 'taxOther', value: opB });
+      links.push({ source: 'taxOther', target: 'netLoss', value: -netB });
+    }
+  }
+
+  // A reported gross profit of zero or less needs its own statement: the old code drew a
+  // zero-height (or negative) 'gross' block and cleanLinks() dropped the negative ribbon.
+  const grossNeg = gross != null && gross <= 0;
+  if (grossNeg) {
+    /* ---- NEGATIVE gross profit (gross <= 0) ----
+       Reported cost of revenue exceeds revenue, so there is no positive gross block to draw.
+       Draw the real statement instead of dropping out of the waterfall:
+          revenue → cogs       all revenue funds cost of revenue
+          cogs                 real size = revenue - gross (= revenue + |gross|): taller than
+                               its inflow, and that overhang IS the negative gross
+          cogs    → grossNeg   the |gross| overshoot, labelled as a negative gross profit
+          grossNeg → loss      the operating loss continues from the negative gross
+          opex     → loss      operating expenses beyond the negative gross (source block)
+       Sizes are disclosed ones: cogs = revenue - gross, opex = gross - op (= |op| - |gross|),
+       loss = |op|, netLoss = |net|. The loss block's inflow sums to |op| exactly
+       (|gross| + opex), so nothing is stretched and no value is a plug.
+       This branch takes priority over the op<0 && gross>0 branch below: a period is drawn
+       by exactly one of them. */
+    const negG = -gross;                     // |gross| > 0
+    const cogsVal = rev - gross;             // = revenue + |gross|: cost of revenue really is this big
+    nodes.push({ name: 'cogs', value: cogsVal, depth: revDepth + 1, itemStyle: { color: RED } });
+    nodes.push({ name: 'grossNeg', value: negG, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
+    links.push({ source: 'revenue', target: 'cogs', value: rev });
+    links.push({ source: 'cogs', target: 'grossNeg', value: negG });
+    if (op != null && op < 0) {
+      const loss = -op;                      // |op| (> |gross| whenever opex > 0)
+      const opexExtra = gross - op;          // |op| - |gross|: expenses past the negative gross
+      nodes.push({ name: 'opex', value: opexExtra, depth: revDepth + 2, itemStyle: { color: RED } });
+      nodes.push({ name: 'loss', value: loss, depth: revDepth + 3, itemStyle: { color: RED }, neg: true });
+      links.push({ source: 'grossNeg', target: 'loss', value: negG });
+      if (opexExtra > 0) links.push({ source: 'opex', target: 'loss', value: opexExtra });
+      if (net != null) lossTail(loss, revDepth + 3, net);
+    } else if (op != null) {
+      // negative gross but a positive operating income (rare): keep the disclosed op
+      nodes.push({ name: 'op', value: op, depth: revDepth + 3, itemStyle: { color: GREEN } });
+      links.push({ source: 'grossNeg', target: 'op', value: Math.min(negG, op) });
+      if (net != null) profitTail(op, revDepth + 3, net);
+    } else if (net != null) {
+      if (net < 0) {
+        nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 3, itemStyle: { color: RED }, neg: true });
+        links.push({ source: 'grossNeg', target: 'netLoss', value: Math.min(negG, -net) });
+      } else {
+        nodes.push({ name: 'net', value: net, depth: revDepth + 3, itemStyle: { color: GREEN } });
+        links.push({ source: 'grossNeg', target: 'net', value: Math.min(negG, net) });
+      }
+    }
+  } else if (gross != null) {
+
     nodes.push({ name: 'gross', value: gross, depth: revDepth + 1, itemStyle: { color: GREEN } });
     nodes.push({ name: 'cogs', value: rev - gross, depth: revDepth + 1, itemStyle: { color: RED } });
     links.push({ source: 'revenue', target: 'gross', value: gross });
@@ -665,28 +770,17 @@ function buildGraph(qv, segList) {
       links.push({ source: 'gross', target: 'opex', value: gross });
       nodes.push({ name: 'loss', value: loss, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
       links.push({ source: 'opex', target: 'loss', value: loss });
-      if (net != null) {
-        if (net < 0) {
-          const netLossVal = -net;
-          const deeper = netLossVal - loss;   // = op - net: tax / non-op items that deepen the loss
-          nodes.push({ name: 'netLoss', value: netLossVal, depth: revDepth + 3, itemStyle: { color: RED }, neg: true });
-          links.push({ source: 'loss', target: 'netLoss', value: Math.min(loss, netLossVal) });
-          if (deeper > 0) {
-            nodes.push({ name: 'taxOther', value: deeper, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
-            links.push({ source: 'taxOther', target: 'netLoss', value: deeper });
-          } else if (deeper < 0) {
-            // non-operating income shrank the loss but did not turn it positive
-            nodes.push({ name: 'nonop', value: -deeper, depth: revDepth + 2, itemStyle: { color: GOLD } });
-            links.push({ source: 'loss', target: 'nonop', value: -deeper });
-          }
-        } else {
-          // loss turned into a profit by non-operating income: nonop = net - op = net + |op|
-          nodes.push({ name: 'nonop', value: net - op, depth: revDepth + 2, itemStyle: { color: GOLD } });
-          nodes.push({ name: 'net', value: net, depth: revDepth + 3, itemStyle: { color: GREEN } });
-          links.push({ source: 'loss', target: 'nonop', value: loss });
-          links.push({ source: 'nonop', target: 'net', value: net });
-        }
-      }
+      if (net != null) lossTail(loss, revDepth + 2, net);
+    } else if (op != null && op > gross) {
+      /* Operating income reported ABOVE gross profit (6 periods: the opInc figure carries other
+         income, or gross is understated). opex = gross - op would be a NEGATIVE expense block, so
+         instead show the shortfall as a gold non-operating inflow: gross funds the op block as far
+         as it reaches, and the rest (op - gross) comes in as nonop. The op block equals opInc, its
+         inflows sum to it exactly, and the shared tail below paints net / taxOther / nonop off it. */
+      nodes.push({ name: 'op', value: op, depth: revDepth + 2, itemStyle: { color: GREEN } });
+      nodes.push({ name: 'nonop', value: op - gross, depth: revDepth + 2, itemStyle: { color: GOLD } });
+      links.push({ source: 'gross', target: 'op', value: gross });
+      links.push({ source: 'nonop', target: 'op', value: op - gross });
     } else if (op == null && net != null && net < 0 && gross > 0) {
       /* Gross profit disclosed, operating income missing, bottom line a loss
          (00100.HK 2025-12-31: gross ¥0.14B, net -¥13.16B). The chart used to stop at
@@ -695,12 +789,48 @@ function buildGraph(qv, segList) {
          the undisclosed opex + tax that produced the loss — no plug value invented. */
       nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
       links.push({ source: 'gross', target: 'netLoss', value: Math.min(gross, -net) });
+    } else if (op == null && net != null && net >= 0) {
+      /* Operating income missing, bottom line disclosed and PROFITABLE — 101 periods that
+         used to stop at gross (MSFT 2007-09…2008-06, IBM 2009-2010, …). Split the gross
+         profit into the part that reached the bottom line and the part that did not:
+            gross → net       (green) the disclosed net income
+            gross → residual  (red)   gross - net: costs & taxes between gross and net
+         The two outflows sum to gross exactly, so no block is stretched and no figure is a
+         plug; the residual reuses the DEGRADED_RESIDUAL name and wording because it is the
+         same unknowable ("undisclosed costs & taxes").
+         net > gross cannot be a cost gap — non-operating income lifted the bottom line above
+         gross — so the surplus is a gold nonop inflow into net instead of a negative red
+         residual. (No such period exists in the current data; kept so the rule is total.) */
+      if (net > gross) {
+        nodes.push({ name: 'nonop', value: net - gross, depth: revDepth + 2, itemStyle: { color: GOLD } });
+        nodes.push({ name: 'net', value: net, depth: revDepth + 3, itemStyle: { color: GREEN } });
+        links.push({ source: 'gross', target: 'net', value: gross });
+        links.push({ source: 'nonop', target: 'net', value: net - gross });
+      } else {
+        nodes.push({ name: 'net', value: net, depth: revDepth + 2, itemStyle: { color: GREEN } });
+        links.push({ source: 'gross', target: 'net', value: net });
+        if (gross - net > 0) {
+          nodes.push({ name: DEGRADED_RESIDUAL, value: gross - net, depth: revDepth + 2, itemStyle: { color: RED } });
+          links.push({ source: 'gross', target: DEGRADED_RESIDUAL, value: gross - net });
+        }
+      }
     }
   } else if (op != null && op >= 0) {
     nodes.push({ name: 'op', value: op, depth: revDepth + 1, itemStyle: { color: GREEN } });
     nodes.push({ name: 'opex', value: rev - op, depth: revDepth + 1, itemStyle: { color: RED } });
     links.push({ source: 'revenue', target: 'op', value: op });
     links.push({ source: 'revenue', target: 'opex', value: rev - op });
+  } else if (op != null && op < 0) {
+    /* Gross profit not disclosed, but opInc IS — and negative (SBUX 2020-06-28, SONY 2009/2012,
+       LKNCY 2018…2021 …). The old code fell through to the revenue→net fallback and silently
+       dropped the operating loss. Draw revenue → residual → loss: the residual block is
+       revenue-sized and its out-sum is |op|, the untouched gap being the undisclosed cost of
+       revenue. net/tax are then painted by the shared loss tail. */
+    nodes.push({ name: DEGRADED_RESIDUAL, value: rev, depth: revDepth + 1, itemStyle: { color: RED } });
+    nodes.push({ name: 'loss', value: -op, depth: revDepth + 2, itemStyle: { color: RED }, neg: true });
+    links.push({ source: 'revenue', target: DEGRADED_RESIDUAL, value: rev });
+    links.push({ source: DEGRADED_RESIDUAL, target: 'loss', value: -op });
+    if (net != null) lossTail(-op, revDepth + 2, net);
   } else if (net != null) {
     // no gross/op disclosed (HK-style revenue+netProfit only): pure waterfall revenue → net
     if (net >= 0) {
@@ -714,22 +844,8 @@ function buildGraph(qv, segList) {
       links.push({ source: DEGRADED_RESIDUAL, target: 'netLoss', value: -net });
     }
   }
-  if (op != null && op > 0 && net != null) {
-    if (net >= 0) {
-      nodes.push({ name: 'net', value: net, depth: revDepth + 3, itemStyle: { color: GREEN } });
-      links.push({ source: 'op', target: 'net', value: Math.min(net, op) });
-      if (op - net > 0) { nodes.push({ name: 'taxOther', value: op - net, depth: revDepth + 3, itemStyle: { color: RED } }); links.push({ source: 'op', target: 'taxOther', value: op - net }); }
-      if (net > op) {
-        nodes.push({ name: 'nonop', value: net - op, depth: revDepth + 2, itemStyle: { color: GOLD } });
-        links.push({ source: 'nonop', target: 'net', value: net - op });
-      }
-    } else {
-      nodes.push({ name: 'netLoss', value: -net, depth: revDepth + 3, itemStyle: { color: RED } });
-      nodes.push({ name: 'taxOther', value: op, depth: revDepth + 3, itemStyle: { color: RED } });
-      links.push({ source: 'op', target: 'taxOther', value: op });
-      links.push({ source: 'taxOther', target: 'netLoss', value: -net });
-    }
-  }
+  // the tail hangs off the 'op' block, so it must never run when that block was not painted
+  if (!grossNeg && op != null && op > 0 && net != null && nodes.some(n => n.name === 'op')) profitTail(op, revDepth + 2, net);
 
   const cleanLinks = links.filter(l => l.value > 0 && l.source !== l.target)
     .map(l => ({ ...l, lineStyle: { color: linkColor(l), opacity: FLOW_OPACITY, curveness: 0.5 } }));
@@ -813,7 +929,10 @@ function renderChart() {
     // loss nodes (neg:true) hold |opInc| / |netInc| as a positive value so ECharts can
     // size the block, but the reader must see the sign of the real disclosure.
     const neg = p.data && p.data.neg === true;
-    const amt = `${neg ? '−' : ''}${dispSym()}${p.value.toFixed(1)}B`;
+    // tiny negative blocks (e.g. gross -$0.0088B) would read as "−$0.0B": keep 2 decimals so a
+    // near-zero |value| can never look like a rounding artefact. Non-neg nodes keep 1 decimal.
+    const dec = (neg && Math.abs(p.value) < 0.1) ? 2 : 1;
+    const amt = `${neg ? '−' : ''}${dispSym()}${p.value.toFixed(dec)}B`;
     let body = `{n|${displayName(p)}}`;
     const parts = [];
     if (state.mode.pct) {
@@ -883,8 +1002,8 @@ function renderChart() {
       d.label = { position: 'top', distance: 6, formatter: nodeLabel };
     } else if (n.depth === 0 && (!segList || !segList.some(s => s.children && s.children.length))) {
       d.label = { position: 'right', distance: 6 };   // no aggregate column: safe right of node
-    } else if (n.depth === (segList && segList.some(s => s.children && s.children.length) ? 2 : (segList ? 1 : 0)) + 3) {
-      d.label = { position: 'right', distance: 8 };   // last column: label right, no conflicts
+    } else if (n.depth >= (segList && segList.some(s => s.children && s.children.length) ? 2 : (segList ? 1 : 0)) + 3) {
+      d.label = { position: 'right', distance: 8 };   // last column (or deeper: negative-gross chains): label right, no conflicts
     } else {
       d.label = { position: 'top', distance: 5 };
     }
