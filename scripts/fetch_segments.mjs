@@ -514,7 +514,9 @@ for (const tk of ONLY) {
   process.stdout.write(`${tk} ... `);
   try {
     const r = await fetchTicker(tk, failures);
-    if (r.degraded) { console.log(`DEGRADED (${r.degraded})`); companies[tk] = { degraded: r.degraded }; notes.push(`${tk}: degraded — ${r.degraded}`); }
+    // 规范占位形态：degraded 必须是 true，原因放 reason（app.js segmentStatus() 只认 degraded===true；
+    // 字符串形态会落到 noData 分支，图内提示只剩通用文案、原因丢失）。见 fix_segments_2026-11-20_degraded.mjs。
+    if (r.degraded) { console.log(`DEGRADED (${r.degraded})`); companies[tk] = { degraded: true, reason: r.degraded, quarters: {} }; notes.push(`${tk}: degraded — ${r.degraded}`); }
     else {
       console.log(`${Object.keys(r.quarters).length} qtrs${r.warnings.length ? ' WARN ' + r.warnings.join('; ') : ''}`);
       companies[tk] = { quarters: r.quarters };
@@ -530,7 +532,8 @@ for (const tk of ONLY) {
     }
   } catch (e) {
     console.log('ERROR ' + e.message);
-    companies[tk] = { degraded: 'fetch error: ' + e.message };
+    // 同上：抓取异常也写规范占位，不写字符串 degraded
+    companies[tk] = { degraded: true, reason: 'fetch error: ' + e.message, quarters: {} };
     notes.push(`${tk}: error — ${e.message}`);
     failures.push({ ticker: tk, kind: 'ticker', reason: e.message });
   }
