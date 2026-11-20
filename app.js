@@ -1580,8 +1580,23 @@ function renderBarChart() {
 
 /* ---- left logo rail ---- */
 const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d','#15803d','#a16207','#1e40af','#4d7c0f'];
+/* Phone layout keeps the 92-logo wall folded behind this count chip; keeping the
+   label/aria state in one helper means language switches and renders stay in sync. */
+function syncLogoToggle() {
+  const rail = document.getElementById('logoRail');
+  const toggle = document.getElementById('logoToggle');
+  if (!rail || !toggle) return;
+  const open = rail.classList.contains('open');
+  const n = Object.keys(DATA.companies).length;
+  const count = document.getElementById('logoCount');
+  if (count) count.textContent = lang === 'zh' ? `${n} 家公司` : `${n} companies`;
+  const caret = toggle.querySelector('.caret');
+  if (caret) caret.textContent = open ? '▴' : '▾';
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
 function renderLogoRail() {
   const rail = document.getElementById('logoRail');
+  const toggle = document.getElementById('logoToggle');
   /* build DOM once; subsequent renders only toggle classes — re-creating <img>
      nodes on company switch re-fetched logos and made the rail visibly jitter */
   if (rail.dataset.built !== '1' || rail.dataset.lang !== lang) {
@@ -1596,6 +1611,14 @@ function renderLogoRail() {
     rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => switchCompany(el.dataset.sym)));
     rail.dataset.built = '1'; rail.dataset.lang = lang;
   }
+  if (toggle && toggle.dataset.bound !== '1') {
+    toggle.addEventListener('click', () => {
+      rail.classList.toggle('open');
+      syncLogoToggle();
+    });
+    toggle.dataset.bound = '1';
+  }
+  syncLogoToggle();
   /* incremental update: active highlight + industry visibility, no DOM rebuild */
   rail.querySelectorAll('.logo').forEach(el => {
     const tk = el.dataset.sym;
@@ -1982,6 +2005,15 @@ function segNotesFor(tk) {
    Both verify_layout_refactor (rail==panel) and verify_filter_jitter (rail stable
    on company switch) depend on this invariant. */
 const SANKEE_BASE_H = 660; // must match #sankey's CSS height in index.html
+/* Phones get a shorter canvas so the timeline is reachable without a long
+   scroll; desktop keeps the exact 660px base that the layout-refactor tests
+   and the 1280px pixel regression depend on. */
+function sankeyBaseHeight() {
+  const w = window.innerWidth || 1280;
+  if (w <= 400) return 480;
+  if (w <= 768) return 520;
+  return SANKEE_BASE_H;
+}
 function syncChartHeightForNotes() {
   const sk = document.getElementById('sankey');
   if (!sk) return;
@@ -1991,7 +2023,7 @@ function syncChartHeightForNotes() {
     const cs = getComputedStyle(noteEl);
     extra = noteEl.offsetHeight + (parseFloat(cs.marginTop) || 0);
   }
-  sk.style.height = Math.max(240, SANKEE_BASE_H - extra) + 'px';
+  sk.style.height = Math.max(240, sankeyBaseHeight() - extra) + 'px';
 }
 
 function render() {
