@@ -1827,24 +1827,52 @@ function isUsefulSegNote(s) {
   const lower = s.toLowerCase();
   return SEG_NOTE_KEEP_HINTS.some(k => s.includes(k) || lower.includes(k.toLowerCase()));
 }
+/* Normalise a notes container to a flat list of strings. segments.json has shipped
+   `notes` both as a flat array of "TICKER: text" rows and as an object keyed by
+   ticker (either `{ticker: "text"}`, `{ticker: ["text", ...]}` or a numeric-keyed
+   row bucket); per-company `notes` may likewise be a string / array / object. One
+   normaliser keeps every shape renderable instead of silently dropping the bucket. */
+function segNoteStrings(v) {
+  if (typeof v === 'string') return [v];
+  if (Array.isArray(v)) return v.flatMap(segNoteStrings);
+  if (v && typeof v === 'object') return Object.values(v).flatMap(segNoteStrings);
+  return [];
+}
+/* all top-level note rows that belong to `tk`, before the useful/noise filter.
+   - array (current data): "TICKER: text" rows, filtered by prefix;
+   - object keyed by ticker: take that ticker's entry only (values are already
+     scoped, so a bare "only 2 quarters..." text must NOT be dropped by the prefix test);
+   - object with numeric/row keys: treat the values as a row bucket.
+   `scoped` says whether the returned strings were already selected for this ticker. */
+function segNoteBucket(tk) {
+  const raw = SEG && SEG.notes;
+  if (!raw) return { rows: [], scoped: false };
+  if (typeof raw === 'string' || Array.isArray(raw)) return { rows: segNoteStrings(raw), scoped: false };
+  const key = Object.keys(raw).find(k => k.toUpperCase() === tk.toUpperCase());
+  if (key != null) return { rows: segNoteStrings(raw[key]), scoped: true };
+  return { rows: segNoteStrings(raw), scoped: false };
+}
 /* all display-worthy notes for one ticker, de-duped, in source order */
 function segNotesFor(tk) {
   const out = [];
   const push = s => { if (typeof s === 'string' && s.trim() && !out.includes(s.trim())) out.push(s.trim()); };
-  if (SEG && Array.isArray(SEG.notes)) {
-    const re = /^([A-Za-z0-9.\-]+):\s*/;      // "TICKER: text"
-    for (const n of SEG.notes) {
-      if (typeof n !== 'string') continue;
-      const m = n.match(re);
-      if (!m || m[1].toUpperCase() !== tk.toUpperCase()) continue;
+  const re = /^([A-Za-z0-9.\-]+):\s*/;      // "TICKER: text"
+  const bucket = segNoteBucket(tk);
+  for (const n of bucket.rows) {
+    const m = n.match(re);
+    if (m) {
+      // a prefixed row belongs to its own ticker
+      if (m[1].toUpperCase() !== tk.toUpperCase()) continue;
       const body = n.slice(m[0].length).trim();
       if (isUsefulSegNote(body)) push(body);
+    } else if (bucket.scoped) {
+      // object form: the text is already ticker-scoped, keep the curated wording as-is
+      if (isUsefulSegNote(n)) push(n);
     }
+    // bare rows in a flat "TICKER: text" bucket have no owner → skip (legacy behaviour)
   }
   const cn = SEG && SEG.companies && SEG.companies[tk] && SEG.companies[tk].notes;
-  if (typeof cn === 'string') push(cn);              // per-company notes are curated: keep as-is
-  else if (Array.isArray(cn)) cn.forEach(push);
-  else if (cn && typeof cn === 'object') Object.values(cn).forEach(push);
+  segNoteStrings(cn).forEach(push);                   // per-company notes are curated: keep as-is
   return out;
 }
 
