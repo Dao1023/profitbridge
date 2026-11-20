@@ -5394,6 +5394,123 @@
         ],
         "notes": "CSMAR/东财 A股真实单季 (direct/diff rows only); revenue+归母净利; fxToUsd per period (1/fx_cny_per_usd). Pre-2017 rows removed: 601360 backdoor listing completed 2017; earlier periods belong to 江南嘉捷 (different entity), and 2016-12-31 revenue was a cross-entity splice."
       }
+    },
+    {
+      "ticker": "NESN.SW",
+      "sourceCommit": "manual-fix 2026-11-20: annual revenue/gross restated to official Sales (P&L Other revenue row below Gross profit excluded); 2021-2025 annual rows only; H1 rows already Sales basis; sources + page refs in tmp-nesn/REPORT.md",
+      "entry": {
+        "name": "Nestlé S.A.",
+        "currency": "CHF-M",
+        "frequency": "mixed",
+        "quarters": [
+          {
+            "end": "2021-06-30",
+            "revenue": 41755,
+            "gross": 20356,
+            "opInc": 6987,
+            "netInc": 5945,
+            "rd": 793,
+            "periodType": "interim",
+            "fxToUsd": 1.0823
+          },
+          {
+            "end": "2021-12-31",
+            "revenue": 87088,
+            "gross": 41620,
+            "opInc": 14640.4,
+            "netInc": 16904.7,
+            "periodType": "annual",
+            "fxToUsd": 1.0963
+          },
+          {
+            "end": "2022-06-30",
+            "revenue": 45580,
+            "gross": 20947,
+            "opInc": 6684,
+            "netInc": 5247,
+            "rd": 808,
+            "periodType": "interim",
+            "fxToUsd": 1.0429
+          },
+          {
+            "end": "2022-12-31",
+            "revenue": 94424,
+            "gross": 42678.4,
+            "opInc": 15648,
+            "netInc": 9269.9,
+            "periodType": "annual",
+            "fxToUsd": 1.0832
+          },
+          {
+            "end": "2023-06-30",
+            "revenue": 46293,
+            "gross": 21121,
+            "opInc": 7351,
+            "netInc": 5649,
+            "rd": 810,
+            "periodType": "interim",
+            "fxToUsd": 1.1101
+          },
+          {
+            "end": "2023-12-31",
+            "revenue": 92998,
+            "gross": 42669.9,
+            "opInc": 15657.9,
+            "netInc": 11209.3,
+            "periodType": "annual",
+            "fxToUsd": 1.1933
+          },
+          {
+            "end": "2024-06-30",
+            "revenue": 45045,
+            "gross": 21255,
+            "opInc": 7398,
+            "netInc": 5644,
+            "rd": 830,
+            "periodType": "interim",
+            "fxToUsd": 1.1112
+          },
+          {
+            "end": "2024-12-31",
+            "revenue": 91354,
+            "gross": 42684.1,
+            "opInc": 15555.7,
+            "netInc": 10883.6,
+            "periodType": "annual",
+            "fxToUsd": 1.1038
+          },
+          {
+            "end": "2025-06-30",
+            "revenue": 44228,
+            "gross": 20619,
+            "opInc": 6885,
+            "netInc": 5065,
+            "rd": 786,
+            "periodType": "interim",
+            "fxToUsd": 1.2539
+          },
+          {
+            "end": "2025-12-31",
+            "revenue": 89490,
+            "gross": 40796.2,
+            "opInc": 13905.7,
+            "netInc": 9033.3,
+            "periodType": "annual",
+            "fxToUsd": 1.2615
+          },
+          {
+            "end": "2026-06-30",
+            "revenue": 43109,
+            "gross": 19991,
+            "opInc": 6247,
+            "netInc": 3472,
+            "rd": 773,
+            "periodType": "interim",
+            "fxToUsd": 1.2353
+          }
+        ],
+        "notes": "FY Dec; 半年报(Swiss/French semi-annual)制度, 现为 annual+H1 interim (frequency=mixed). 历史 5 个年度期原以固定快照 fx (1.21274155) 折算成 USD 却标为 CHF-M, 已按快照 fx 还原为本位币百万; 逐期 fxToUsd 改为 ECB/frankfurter 期末真实汇率 (USD per 1 CHF). 2026-06-30 H1 为半年累计口径, 与年度期不可直接比较."
+      }
     }
   ],
   "meta": {

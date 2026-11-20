@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -35150,8 +35150,8 @@
         },
         {
           "end": "2021-12-31",
-          "revenue": 87470.4,
-          "gross": 42002.4,
+          "revenue": 87088,
+          "gross": 41620,
           "opInc": 14640.4,
           "netInc": 16904.7,
           "periodType": "annual",
@@ -35169,8 +35169,8 @@
         },
         {
           "end": "2022-12-31",
-          "revenue": 94780.3,
-          "gross": 43034.7,
+          "revenue": 94424,
+          "gross": 42678.4,
           "opInc": 15648,
           "netInc": 9269.9,
           "periodType": "annual",
@@ -35188,8 +35188,8 @@
         },
         {
           "end": "2023-12-31",
-          "revenue": 93351.3,
-          "gross": 43023.2,
+          "revenue": 92998,
+          "gross": 42669.9,
           "opInc": 15657.9,
           "netInc": 11209.3,
           "periodType": "annual",
@@ -35207,8 +35207,8 @@
         },
         {
           "end": "2024-12-31",
-          "revenue": 91720.3,
-          "gross": 43050.4,
+          "revenue": 91354,
+          "gross": 42684.1,
           "opInc": 15555.7,
           "netInc": 10883.6,
           "periodType": "annual",
@@ -35226,8 +35226,8 @@
         },
         {
           "end": "2025-12-31",
-          "revenue": 89884.8,
-          "gross": 41191,
+          "revenue": 89490,
+          "gross": 40796.2,
           "opInc": 13905.7,
           "netInc": 9033.3,
           "periodType": "annual",
