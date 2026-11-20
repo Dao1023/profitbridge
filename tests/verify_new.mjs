@@ -131,5 +131,23 @@ ok(P.companies['NESN.SW'].frequency === 'mixed' && /半年报/.test(P.companies[
 ok(P.companies['MC.PA'].frequency === 'mixed' && /半年报/.test(P.companies['MC.PA'].notes), 'MC.PA now mixed (半年报公司: annual+H1, intentional change from annual)');
 ok(P.companies.HUAWEI.frequency === 'annual' && P.companies.LEGO.frequency === 'annual', 'HUAWEI/LEGO stay annual (unchanged)');
 
+// 15) 2026-11-20 SK hynix 000660.KS: 3 期 opInc 回填（batch13 enrich）+ 补入 2026Q3 单季（官方 2026-10-28 发布）
+const hy = P.companies['000660.KS'];
+ok(hy && hy.currency === 'KRW-M' && hy.frequency === 'mixed' && hy.quarters.at(-1).end === '2026-09-30',
+  `000660.KS latest end 2026-09-30 (got ${hy && hy.quarters.at(-1).end})`);
+const hyQ3 = hy.quarters.at(-1);
+ok(hyQ3.periodType === 'q3' && hyQ3.revenue === 104615500 && hyQ3.opInc === 83333800 && hyQ3.netInc === 39775600,
+  `000660.KS Q3-26 rev=104615500 op=83333800 NI=39775600 KRW-M (got ${hyQ3.revenue}/${hyQ3.opInc}/${hyQ3.netInc})`);
+ok(Object.keys(hyQ3).join(',') === 'end,revenue,netInc,periodType,fxToUsd,opInc',
+  `000660.KS Q3-26 key order matches prior rows (got ${Object.keys(hyQ3).join(',')})`);
+ok(hyQ3.fxToUsd === 0.00073779, `000660.KS Q3-26 fxToUsd = 1/1355.4 = 0.00073779 (got ${hyQ3.fxToUsd})`);
+for (const [e, v] of Object.entries({ '2025-12-31': 47206300, '2026-03-31': 37610300, '2026-06-30': 60542600 })) {
+  const row = hy.quarters.find(q => q.end === e);
+  ok(row && row.opInc === v, `000660.KS ${e} opInc backfilled = ${v} (got ${row && row.opInc})`);
+}
+const SEG = JSON.parse(fs.readFileSync(new URL('../data/segments.json', import.meta.url), 'utf8'));
+ok(SEG.notes.some(n => n.startsWith('000660.KS:') && /净利率 118%/.test(n) && /Kioxia/.test(n)),
+  'segments.notes documents the Kioxia one-off gain (Q2-26 net margin 118%)');
+
 console.log(fails ? `\n${fails} FAILURE(S)` : '\nALL PASS');
 process.exit(fails ? 1 : 0);

@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "batch": 13,
+    "description": "000660.KS（SK海力士）补 opInc 三期（FY2025 / 1Q26 / 2Q26）+ 追加 2026-09-30 期（3Q26 官方业绩）。全部来自 SK hynix 官方业绩新闻稿（K-IFRS 合并口径，KRW-M）。stage1 只追加新期与补空字段，绝不改写既有 revenue/netInc/periodType/fxToUsd。",
+    "generatedAt": "2026-11-20",
+    "sources": [
+      "3Q26 官方新闻稿（2026-10-28）：https://news.skhynix.com/en/q3-2026-business-results/ —— revenues 104.6155 / operating profit 83.3338 / net profit 39.7756（trillion KRW），表内 Billion KRW 行 104,615.5 / 83,333.8 / 39,775.6，QoQ 列复述 2Q26 79,318.7 / 60,542.6 / 93,922.6",
+      "2Q26 官方新闻稿（2026-07-29）：https://news.skhynix.com/en/q2-2026-business-results/ —— revenues 79.3187 / operating profit 60.5426 / net profit 93.9226（trillion KRW）",
+      "1Q26 官方新闻稿（2026-04-22）：https://news.skhynix.com/en/q1-2026-business-results/ —— revenue 52.5763 / operating profit 37.6103（trillion KRW）",
+      "FY25 官方新闻稿（2026-01-28）：https://news.skhynix.com/en/sk-hynix-announces-fy25-financial-results/ —— Revenues 97,146.7 / Operating Profit 47,206.3 / Net Income 42,947.9（Billion KRW）",
+      "第二源（独立采集，站内既有上游）：https://stockanalysis.com/quote/krx/000660/financials/?p=quarterly —— Q3 2026 Revenue 104,615,483 / Operating Income 83,333,818 / Net Income 39,534,392；Q2 2026 60,542,608 / 93,820,236；Q1 2026 37,610,283；FY2025 四季 opInc 合计 47,206,319",
+      "fx：frankfurter/ECB 2026-09-30 USD→KRW = 1355.4（https://api.frankfurter.app/2026-09-30?from=USD&to=KRW，返回 date=2026-09-30），fxToUsd = 1/1355.4 = 0.00073778958 → 0.00073779"
+    ],
+    "shape": "{ _meta, results: [ { ticker, name, currency, report_type, notice_date, newQuarters:[quarter] } ], enrich: [ { ticker, end, expectRevenue, set:{...} } ] }",
+    "keyNote": "新行键顺序与既有最近一期（2026-06-30）一致后再接 opInc：end,revenue,netInc,periodType,fxToUsd,opInc。opInc 是该票此前完全没有的字段，既有三期由 enrich[] 在行尾追加，位置与本期行同构。",
+    "fxNote": "同一算法回算既有四期逐位复现：2026-06-30 USD/KRW 1550.89→0.00064479、2026-03-31 1524.8→0.00065582、2025-12-31 1444.2→0.00069242、2025-09-30 1403.67→0.00071242（舍入 8 位小数）。",
+    "netIncNote": "3Q26 netInc 取官方 39,775,600。stockanalysis 同季 39,534,392（低 0.61%），与本站既有序列系统性口径差同向但幅度略大（Q2 −0.11% / Q1 −0.04%）；revenue 与 opInc 两源差 ≤18 KRW-M（纯取整）。按任务指定写官方值，差异已记入 tmp-skhy/REPORT.md。",
+    "verification": [
+      "revenue 104,615,500 vs stockanalysis 104,615,483（−17，0.00002%）",
+      "opInc 83,333,800 vs stockanalysis 83,333,818（+18，0.00002%）",
+      "netInc 39,775,600 vs stockanalysis 39,534,392（+241,208，0.61%；口径差，见 netIncNote）",
+      "enrich expectRevenue 与该期站内 revenue 完全相等（FY25 97,146,675 / 1Q26 52,576,287 / 2Q26 79,318,746），对账 0% 偏差"
+    ]
+  },
+  "results": [
+    {
+      "ticker": "000660.KS",
+      "name": "SK hynix",
+      "currency": "KRW-M",
+      "report_type": "earnings release",
+      "notice_date": "2026-10-28",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 104615500,
+          "netInc": 39775600,
+          "periodType": "q3",
+          "fxToUsd": 0.00073779,
+          "opInc": 83333800
+        }
+      ]
+    }
+  ],
+  "enrich": [
+    {
+      "ticker": "000660.KS",
+      "end": "2025-12-31",
+      "expectRevenue": 97146675,
+      "set": {
+        "opInc": 47206300
+      }
+    },
+    {
+      "ticker": "000660.KS",
+      "end": "2026-03-31",
+      "expectRevenue": 52576287,
+      "set": {
+        "opInc": 37610300
+      }
+    },
+    {
+      "ticker": "000660.KS",
+      "end": "2026-06-30",
+      "expectRevenue": 79318746,
+      "set": {
+        "opInc": 60542600
+      }
+    }
+  ]
+}

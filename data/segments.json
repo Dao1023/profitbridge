@@ -24841,7 +24841,8 @@
     "00151.HK: 历史各期分部值原误用固定汇率 0.12083（分部/营收恒约 0.12），本批已按各期真实 fxToUsd 等比修正；2026-03-31 新期起即为正确 fx。",
     "00992.HK: FY2026(2026-03-31) 年度分部值已追加至 annualQuarters（该公司 annualOnly，quarters 保持空对象）。",
     "NESN.SW: 2023-2025 分部值此前被二次换算（D2 staging 已是 USD，又被当作 CHF 再乘一次快照 fx 1.21274155），2026-11-20 按 native CHF 披露值 × 该期 profit.json fxToUsd 重算；合计与 Annual Review 的 Total sales 完全一致（92,998 / 91,354 / 89,490 CHF m）。",
-    "MC.PA: 2022-2025 分部值此前被二次换算（D2 staging 已是 USD，又被当作 EUR 再乘一次快照 fx 1.12091287），2026-11-20 按 native EUR 披露值 × 该期 profit.json fxToUsd 重算；合计与 URD 的 Total revenue 完全一致（79,184 / 86,153 / 84,683 / 80,807 EUR m）。"
+    "MC.PA: 2022-2025 分部值此前被二次换算（D2 staging 已是 USD，又被当作 EUR 再乘一次快照 fx 1.12091287），2026-11-20 按 native EUR 披露值 × 该期 profit.json fxToUsd 重算；合计与 URD 的 Total revenue 完全一致（79,184 / 86,153 / 84,683 / 80,807 EUR m）。",
+    "000660.KS: 2026-06-30 净利率 118%（净利 93,820,236 > 营收 79,318,746 KRW-M）含约 33.4 万亿韩元一次性投资收益（Kioxia 股权处置），非数据错误"
   ],
   "failures": [
     {

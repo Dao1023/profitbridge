@@ -27590,21 +27590,32 @@
           "revenue": 97146675,
           "netInc": 42919287,
           "periodType": "annual",
-          "fxToUsd": 0.00069242
+          "fxToUsd": 0.00069242,
+          "opInc": 47206300
         },
         {
           "end": "2026-03-31",
           "revenue": 52576287,
           "netInc": 40330176,
           "periodType": "q1",
-          "fxToUsd": 0.00065582
+          "fxToUsd": 0.00065582,
+          "opInc": 37610300
         },
         {
           "end": "2026-06-30",
           "revenue": 79318746,
           "netInc": 93820236,
           "periodType": "q2",
-          "fxToUsd": 0.00064479
+          "fxToUsd": 0.00064479,
+          "opInc": 60542600
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 104615500,
+          "netInc": 39775600,
+          "periodType": "q3",
+          "fxToUsd": 0.00073779,
+          "opInc": 83333800
         }
       ],
       "notes": "Korean disclosure: standalone Q1/Q3 + FY (no cumulative H1); Q2/Q4 not separately disclosed — as-filed rows only, no differencing possible."
