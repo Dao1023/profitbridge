@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "id": "2026-11-20_netinc",
+    "created": "2026-11-20",
+    "field": "netInc",
+    "scope": "historical net-income (attributable to owners) corrections for 005930.KS and 066570.KS",
+    "why": "Six quarterly netInc values were sourced from stockanalysis `niToCommon` (net income to common), which is not the IFRS 'net income attributable to owners of the parent'. The values below are the DART 연결 손익계산서 '지배기업(의) 소유주지분' single-quarter column for the same period (백만원).",
+    "fields_note": "Only netInc is written; row key order and every other field/row stay byte-identical. The patch layer is loaded by scripts/patch_rows_2026-11-20.mjs (targeted, verifies disk value === old) and by scripts/merge_batches.mjs on every write path, so a full --out-dir rebuild reproduces the corrected values instead of restoring the old ones.",
+    "sources": {
+      "DART": {
+        "005930.KS": {
+          "company": "삼성전자",
+          "reports": [
+            { "end": "2025-09-30", "rcpNo": "20261116001482", "dcmNo": "11660641", "note": "2026 3분기 보고서, 제57기 3분기 3개월(비교) 열", "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20261116001482&dcmNo=11660641&eleId=21" },
+            { "end": "2026-03-31", "rcpNo": "20260515002181", "dcmNo": "11386164", "note": "2026 1분기 보고서, 제58기 1분기 3개월 열", "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260515002181&dcmNo=11386164&eleId=21" },
+            { "end": "2026-06-30", "rcpNo": "20260814003699", "dcmNo": "11538146", "note": "2026 반기 보고서, 제58기 반기 3개월 열（지배회사지분 반기순이익）", "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260814003699&dcmNo=11538146&eleId=21" }
+          ]
+        },
+        "066570.KS": {
+          "company": "LG전자",
+          "reports": [
+            { "end": "2025-09-30", "rcpNo": "20261116000748", "dcmNo": "11658619", "note": "2026 3분기 보고서, 제24기 3분기 3개월(비교) 열", "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20261116000748&dcmNo=11658619&eleId=21" },
+            { "end": "2026-03-31", "rcpNo": "20260515000856", "dcmNo": "11382713", "note": "2026 1분기 보고서, 제25기 1분기 3개월 열", "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260515000856&dcmNo=11382713&eleId=21" },
+            { "end": "2026-06-30", "rcpNo": "20260814001997", "dcmNo": "11531711", "note": "2026 반기 보고서, 제25기 반기 3개월 열", "url": "https://dart.fss.or.kr/report/viewer.do?rcpNo=20260814001997&dcmNo=11531711&eleId=21" }
+          ]
+        }
+      },
+      "Naver금융": {
+        "url": "https://m.stock.naver.com/api/stock/005930/finance/quarter （066570 同形）",
+        "note": "지배주주순이익 (단위 억원, 반올림). 2025.09./2026.03./2026.06. 三列 isConsensus=N（실적 확정치）: 005930 = 120,065 / 471,012 / 712,695 억원 = 12,006,500 / 47,101,200 / 71,269,500 백만원; 066570 = 3,852 / 8,157 / 6,680 억원 = 385,200 / 815,700 / 668,000 백만원. 与 DART 差 ≤43 백만원(억원 반올림), 即 0.01% 量级。"
+      },
+      "rejected_source": "stockanalysis niToCommon — 旧值来源, 并非归母净利（对 2025-09-30 起 6 个季度系统性偏低 6~12%）"
+    }
+  },
+  "patches": [
+    { "ticker": "005930.KS", "end": "2025-09-30", "field": "netInc", "old": 10552774, "new": 12006461 },
+    { "ticker": "005930.KS", "end": "2026-03-31", "field": "netInc", "old": 41401515, "new": 47101190 },
+    { "ticker": "005930.KS", "end": "2026-06-30", "field": "netInc", "old": 62564653, "new": 71269468 },
+    { "ticker": "066570.KS", "end": "2025-09-30", "field": "netInc", "old": 348244, "new": 385190 },
+    { "ticker": "066570.KS", "end": "2026-03-31", "field": "netInc", "old": 737660, "new": 815703 },
+    { "ticker": "066570.KS", "end": "2026-06-30", "field": "netInc", "old": 604363, "new": 668043 }
+  ]
+}

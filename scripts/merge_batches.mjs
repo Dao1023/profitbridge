@@ -24,6 +24,7 @@
 // Does NOT modify data/staging/* originals. Idempotent: rebuilds merged entries from staging each run.
 import fs from 'node:fs';
 import path from 'node:path';
+import { loadPatches, applyRowPatches, DEFAULT_PATCH_FILE } from './lib/row_patches.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const R = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
@@ -126,6 +127,20 @@ function applyCompanyNotes(bx, tag) {
   }
 }
 
+// ---------- targeted row patches (scripts/lib/row_patches.mjs) ----------
+// 少数历史值是「数值错」而非「来源错」（stockanalysis niToCommon 被当成归母净利），enrich 只补空值、
+// 永远改不到非空旧值。patch 层在主重建里必须**先于 reconcile** 应用：reconcile 会把「重建值 != 磁盘值」
+// 当硬错误，未打补丁的重建值(旧值)会直接 exit 1。挂在所有写盘路径上也保证全量重建复现磁盘修正值。
+const patchArg = process.argv.find(a => a.startsWith('--patch-file='));
+const PATCH_FILE = patchArg ? patchArg.slice('--patch-file='.length) : DEFAULT_PATCH_FILE;
+function applyRowPatchLayer(target, rep) {
+  const { patches } = loadPatches(ROOT, PATCH_FILE);
+  const r = applyRowPatches(target, patches, { label: 'merge_batches' });
+  rep.rowPatches = { file: PATCH_FILE, applied: r.applied, already: r.already };
+  if (r.applied.length) console.log(`row patches: applied ${r.applied.length} value(s) from ${PATCH_FILE}`);
+  return r;
+}
+
 // ================= single-batch PATCH MODE (non-destructive) =================
 // 当以 --b8-only / --batch-only=batchN 运行时：以磁盘 data/profit.json 为基准，仅应用 data/staging/<batch>.json 的
 //   (1) results[].newQuarters 追加 与 (2) enrich[] 补空(仅当前为 null/undefined, 且 revenue 对账≤0.5%)。
@@ -199,6 +214,7 @@ if (ONLY_BATCH) {
     console.error(`REFUSING ${ONLY_BATCH}-only write, integrity gate failed: ` + JSON.stringify(gf));
     process.exit(1);
   }
+  applyRowPatchLayer(profit, report8);
   stampUpdated(profit);
   fs.mkdirSync(path.join(ROOT, 'tmp-merge'), { recursive: true });
   writeJsonOut('profit.json', profit);
@@ -563,6 +579,11 @@ for (const key of ['2454.TW', '2330.TW']) {
     report.replacements.push({ ticker: f.ticker, action: 'fixup-applied', n: f.entry.quarters.length, src: f.sourceCommit });
   }
 }
+
+// targeted value corrections (authoritative, whitelisted, old -> new verified) — applied BEFORE the
+// reconcile pass below so a rebuild from staging yields the same corrected values as the on-disk file.
+const patchMain = applyRowPatchLayer(profit, report);
+const PATCHED = new Set([...patchMain.applied, ...patchMain.already].map(p => `${p.ticker}|${p.end}|${p.field}`));
 
 // ---------- reconcile: keep on-disk enrichment fields (non-destructive, key-order preserving) ----------
 // The staging batch sections above only ever construct revenue/netInc (+fx) for a ticker, so a full
@@ -929,6 +950,7 @@ if (process.env.DRY || process.argv.includes('--dry')) {
       const o = oldMap.get(q.end + '|' + (q.periodType || ''));
       if (!o) continue; // new period: additive, fine
       for (const f of ['revenue', 'netInc', 'gross', 'opInc', 'fxToUsd', 'periodType']) {
+        if (PATCHED.has(`${tk}|${q.end}|${f}`)) continue; // intentional, verified old -> new correction
         const a = norm(o[f]), b = norm(q[f]);
         const bothNull = a == null && b == null;
         if (!bothNull && JSON.stringify(a) !== JSON.stringify(b))

@@ -27513,7 +27513,7 @@
         {
           "end": "2025-09-30",
           "revenue": 86061747,
-          "netInc": 10552774,
+          "netInc": 12006461,
           "periodType": "q3",
           "fxToUsd": 0.00071242
         },
@@ -27527,14 +27527,14 @@
         {
           "end": "2026-03-31",
           "revenue": 133873444,
-          "netInc": 41401515,
+          "netInc": 47101190,
           "periodType": "q1",
           "fxToUsd": 0.00065582
         },
         {
           "end": "2026-06-30",
           "revenue": 171499470,
-          "netInc": 62564653,
+          "netInc": 71269468,
           "periodType": "q2",
           "fxToUsd": 0.00064479
         },
@@ -27832,7 +27832,7 @@
         {
           "end": "2025-09-30",
           "revenue": 21873774,
-          "netInc": 348244,
+          "netInc": 385190,
           "periodType": "q3",
           "fxToUsd": 0.00071242
         },
@@ -27846,14 +27846,14 @@
         {
           "end": "2026-03-31",
           "revenue": 23727227,
-          "netInc": 737660,
+          "netInc": 815703,
           "periodType": "q1",
           "fxToUsd": 0.00065582
         },
         {
           "end": "2026-06-30",
           "revenue": 23826468,
-          "netInc": 604363,
+          "netInc": 668043,
           "periodType": "q2",
           "fxToUsd": 0.00064479
         },
