@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-11-20",
+  "description": "净利润 > 营收的期次登记表（含一次性收益）。这些是真实披露值，不是数据错误；自动审计应跳过或标注。",
+  "entries": [
+    {
+      "ticker": "AVGO",
+      "end": "2018-02-04",
+      "revenue": 5327,
+      "netInc": 6230,
+      "reason": "TCJA 一次性税项收益 $5,786M",
+      "source": "SEC 10-K FY2018 — https://www.sec.gov/Archives/edgar/data/1730168/000173016818000084/avgo-11042018x10k.htm"
+    },
+    {
+      "ticker": "DUOL",
+      "end": "2025-09-30",
+      "revenue": 271.7,
+      "netInc": 292.2,
+      "reason": "递延所得税估值备抵释放，税项收益 $245.7M",
+      "source": "SEC 10-Q 2025-11-06 — https://www.sec.gov/Archives/edgar/data/1562088/000162828025049743/duol-20250930.htm"
+    },
+    {
+      "ticker": "TCOM",
+      "end": "2025-09-30",
+      "revenue": 18338,
+      "netInc": 19890,
+      "reason": "部分处置投资，其他收益 RMB 17,032M",
+      "source": "SEC 6-K 2025-11-18 ex99.1 — https://www.sec.gov/Archives/edgar/data/1269238/000119312525285260/d17038dex991.htm"
+    },
+    {
+      "ticker": "XNET",
+      "end": "2025-06-30",
+      "revenue": 103.545,
+      "netInc": 727.59,
+      "reason": "Insta360 股权公允价值未实现收益 $721.8M",
+      "source": "SEC 6-K Q2 2025 ex99-1 — https://www.sec.gov/Archives/edgar/data/1510593/000110465925078021/tm2523514d1_ex99-1.htm"
+    },
+    {
+      "ticker": "XNET",
+      "end": "2025-09-30",
+      "revenue": 125.93,
+      "netInc": 550.252,
+      "reason": "Insta360 股权公允价值未实现收益 $545.8M",
+      "source": "SEC 6-K Q3 2025 ex99-1 — https://www.sec.gov/Archives/edgar/data/1510593/000110465925110853/tm2531161d1_ex99-1.htm"
+    },
+    {
+      "ticker": "XNET",
+      "end": "2025-12-31",
+      "revenue": 460.4,
+      "netInc": 1048.3,
+      "reason": "Insta360 全年累计公允价值收益（Q2 $721.8M + Q3 $545.8M）",
+      "source": "SEC 20-F FY2025（accn 0001104659-26-050304）— https://data.sec.gov/api/xbrl/companyconcept/CIK0001510593/us-gaap/NetIncomeLoss.json"
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2017-12-31",
+      "revenue": 1380.498,
+      "netInc": 2474.863,
+      "reason": "猎豹移动视作出售收益 2,224.291M（终止经营）",
+      "source": "HKEXnews FY2017 业绩公告 2018-03-21 — https://www1.hkexnews.hk/listedco/listconews/sehk/2018/0321/ltn20180321659_c.pdf"
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2020-06-30",
+      "revenue": 1420.118,
+      "netInc": 9151.331,
+      "reason": "金山云分拆视作出售净收益 9,096.4M（终止经营）",
+      "source": "HKEXnews H1 2020 业绩公告 2020-08-18 — https://www1.hkexnews.hk/listedco/listconews/sehk/2020/0818/2020081801012_c.pdf"
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2019-06-30",
+      "revenue": 3221.84,
+      "netInc": 3405.05,
+      "reason": "转让奇安信 22.5856% 股权投资收益 3,031.04M",
+      "source": "三六零 2019 年半年度报告 2019-08-27 — https://pdf.dfcfw.com/pdf/H2_AN201908261345117106_1.pdf"
+    },
+    {
+      "ticker": "CBRS",
+      "end": "2025-06-30",
+      "revenue": 103.3,
+      "netInc": 309.5,
+      "reason": "远期合同负债终止确认一次性收益 $363.3M",
+      "source": "SEC S-1 2026-04（cerebras-sx1april2026.htm，Selected Quarterly Financial Data）— https://www.sec.gov/Archives/edgar/data/2021728/000162828026025762/cerebras-sx1april2026.htm"
+    },
+    {
+      "ticker": "000660.KS",
+      "end": "2026-06-30",
+      "revenue": 79318746,
+      "netInc": 93820236,
+      "reason": "Kioxia 股权处置收益约 33.4 万亿韩元",
+      "source": "SK hynix 2Q26 业绩发布 2026-07-29 + stockanalysis 季度表 — https://news.skhynix.com/en/q2-2026-business-results/"
+    }
+  ]
+}
