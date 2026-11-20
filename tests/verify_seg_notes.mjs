@@ -60,6 +60,27 @@ const overlap = () => evl(`(()=>{const n=document.getElementById('segNotesLine')
   const ov=!(a.right<=b.left||a.left>=b.right||a.bottom<=b.top||a.top>=b.bottom);
   return {overlap:ov, noteBottom:a.bottom, titleTop:b.top};})()`);
 
+// ---------- 0. data-level: batch "N 季无分部披露" notes are recomputed, not hand-typed ----------
+// These rows are intentionally filtered out of the meta row by isUsefulSegNote, so
+// they are asserted against data/profit.json ∖ data/segments.json here instead.
+const DATA_DIR = new URL('../data/', import.meta.url);
+const segData = JSON.parse(fs.readFileSync(new URL('segments.json', DATA_DIR), 'utf8'));
+const profitData = JSON.parse(fs.readFileSync(new URL('profit.json', DATA_DIR), 'utf8'));
+const mirrorData = JSON.parse(fs.readFileSync(new URL('segments.json.js', DATA_DIR), 'utf8')
+  .replace(/^window\.__SEGMENT_DATA\s*=\s*/, '').replace(/;\s*$/, ''));
+check('segments.json.js mirror deep-equals segments.json', JSON.stringify(mirrorData) === JSON.stringify(segData));
+for (const tk of ['MSFT', 'NVDA']) {
+  const pends = profitData.companies[tk].quarters.map(q => q.end);
+  const sends = new Set(Object.keys(segData.companies[tk].quarters));
+  const miss = pends.filter(e => !sends.has(e)).sort();
+  const note = segData.notes.find(n => n.startsWith(tk + ':') && n.includes('无分部披露'));
+  const m = note && note.match(/^([A-Za-z0-9.\-]+):\s*(\d+)\s*季无分部披露（源上无分部表，非抓取失败）\s*[:：]\s*(.*)$/);
+  check(`${tk}: batch-note count == profit∖segments (${miss.length})`, !!m && Number(m[2]) === miss.length, note?.slice(0, 80));
+  const dates = m ? m[3].split(',').map(x => x.trim()) : [];
+  check(`${tk}: batch-note dates == computed list (ascending)`, JSON.stringify(dates) === JSON.stringify(miss),
+    `${dates.length} note / ${miss.length} computed`);
+}
+
 // ---------- 1. default view is sankey; 00941.HK note with 客群 ----------
 check('default view is bridge (sankey)', await evl(`state.view==='bridge'`));
 await evlA(`state.company='00941.HK'; render(); true`);
