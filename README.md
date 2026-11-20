@@ -42,10 +42,11 @@
 
 ### 数据整合管线（scripts/merge_batches.mjs）
 
-`node scripts/merge_batches.mjs` 把 `data/staging/batch1-6.json` 合并进 `data/profit.json` + `data/companies.json`。使用边界：
+`node scripts/merge_batches.mjs` 用 glob 加载**全部** `data/staging/batch*.json`（缺号 FATAL），再叠加 `fixups.json` 与磁盘优先 reconcile，合并进 `data/profit.json` + `data/companies.json`。使用边界：
 
-- **不是全量重建**：脚本加载磁盘现有 profit.json，只覆写 staging 覆盖的 ticker，其余条目（含全部手工修复）原样保留；**从不修改 data/staging/**。
+- **不是从零重建**：脚本加载磁盘现有 profit.json，只覆写 staging 覆盖的 ticker；重建丢掉的 gross/opInc/rd/sga 由 reconcile 按磁盘原键序补回，其余条目（含全部手工修复）原样保留；**从不修改 data/staging/**。
 - **先 dry 后写**：`node scripts/merge_batches.mjs --dry`（或 `DRY=1`）只打印报告不写盘。
+- **定向/沙盒**：`--out-dir=DIR`（必须等号）写沙盒；`--batch-only=batchN` / `--fixup-ticker=XXXX` 只对指定 batch / 公司做增量补丁，其余零改动。
 - **防回滚护栏**：写盘前逐条目对比合并结果与磁盘原版（公司数/期数/币种/期型/逐期数值），任何回滚都会 **exit 1 且不写盘**，差异摘要见 `tmp-merge/merge_report.json`；确属有意刷数时加 `--force` 显式放行。
 - **修复层 `data/staging/fixups.json`**：batch 整合后直接修进 profit.json 的手工修复（mixed 季度回填 BABA/BIDU/DIDIY/JD/LKNCY/PDD/TCOM/TSM 等）已反写进该文件，管线在所有 batch 之后以最高优先级应用，保证全量重跑与磁盘修复版一致。
 - 手工修复的正确流向是**反写进 staging**（batch*.json 或 fixups.json，磁盘为准），而不是 `--force` 硬压。

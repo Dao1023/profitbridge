@@ -1,55 +1,83 @@
 # Data pipeline: how `data/profit.json` is reproduced
 
 `data/profit.json` (and its JS mirror `data/profit.json.js`) is produced by a **two-stage**
-pipeline. Running only the first stage is `NOT` a valid reproduction — this is by design, not
-bad data. Read this before regenerating.
+pipeline. Stage 1 is disk-anchored (not a from-scratch rebuild), but since the 2026-11-20
+glob + reconcile rewrite a single stage-1 run already reproduces the committed file
+byte-for-byte; stage 2 stays the enrichment layer for refreshing `gross`/`opInc`/`rd`/`sga`
+from `tmp-backfill/` and is a no-op on a complete image. Read this before regenerating.
 
 ## Correct order (canonical)
 
 ```bash
-node scripts/merge_batches.mjs        # stage 1: batch1-6 staging + fixups -> base series
+node scripts/merge_batches.mjs        # stage 1: all data/staging/batch*.json + fixups -> base series
 node scripts/merge_fundamentals.mjs   # stage 2: enrich gross/opInc/rd/sga from tmp-backfill/
 ```
 
-- **Stage 1 `merge_batches.mjs`** — *not a full rebuild*. It loads the on-disk
-  `data/profit.json`, overwrites only the tickers covered by the staging batches, then applies
-  `data/staging/fixups.json` (highest priority, whole-ticker replace). It writes only
-  `revenue` + `netInc` (+ `periodType`/`fx`), and it will refuse to write (exit 1) if the merge
-  would roll back any existing field.
+- **Stage 1 `merge_batches.mjs`** — *not a full from-scratch build*. It loads the on-disk
+  `data/profit.json` as the baseline, then:
+  1. globs **every** `data/staging/batchN.json` and applies them in numeric order (a missing
+     number in `1..max` is a hard FATAL, never silently skipped);
+  2. applies `data/staging/fixups.json` (highest priority, whole-ticker replace);
+  3. re-applies late batches (`N >= 7`) append-only, so a fixup snapshot cannot drop periods a
+     later batch added;
+  4. **reconciles** enrichment fields (`gross`/`opInc`/`rd`/`sga`, …) that stage 1 itself did not
+     write back from disk, in the disk's own key order (same key + different value is a hard
+     `RECONCILE CONFLICT`).
+  It writes `profit.json`, `profit.json.js` and `companies.json`; `updated` is refreshed only
+  when the payload (everything except `updated`) actually changed, so re-running on unchanged
+  data is byte-idempotent. The pre-write regression guard still refuses to roll back on-disk data.
 - **Stage 2 `merge_fundamentals.mjs`** — adds `gross` / `opInc` / `rd` / `sga` from
   `tmp-backfill/backfill_{A,HKB,HKC,FX}.json`. It only *enriches* existing periods; it never
   changes `end` / `revenue` / `netInc` / `periodType` / `currency` / `fxToUsd` (idempotent,
   conflict → keeps old value). It also rebuilds `profit.json.js` and asserts it deep-equals the
   JSON.
 
-## Why standalone `merge_batches.mjs` reports `REFUSING 2189 semantic regressions` — EXPECTED
+## Full rebuild is idempotent — no `--force` needed
 
-Because stage-1 staging (`diffHK` / batch4) carries only `revenue` + `netInc`, it drops the
-`gross` / `opInc` / `rd` / `sga` that were added later by stage 2. With a fully-enriched disk
-image, the regression guard therefore sees e.g. `00700.HK 2003-03-31/q1: gross 88.65 -> undefined`
-across the 25 HK/A-share tickers that stage 2 enriches, and refuses. **This is the expected,
-healthy refusal** — it protects the enrichment layer from being wiped. It disappears after
-stage 2 runs; it is not a data error and does not require `--force`.
+Before the 2026-11-20 rewrite, standalone stage 1 erased stage-2 enrichment and aborted with
+`REFUSING 2189 semantic regressions`; that is no longer the expected behaviour. With the glob
+loader + disk-first reconcile, a single stage-1 run reproduces the committed image exactly
+(2026-11-20: 92 companies / 3731 periods, CRLF-normalised bytes identical, sha256 matches the LF
+blob in git). A refusal now is a **real staging gap** — a disk period no batch produces, or a
+conflicting value — so back-write the fix into `data/staging/`; do not force.
 
-> Do **not** "fix" it with `--force` in the normal pipeline; `--force` is only for deliberately
-> re-generating a fresh BASE image (then stage 2 must be run immediately after).
+> `--force` / `FORCE=1` is only for deliberately re-generating a fresh BASE image; run stage 2
+> immediately afterwards.
+
+### Stage 1 options (current CLI)
+
+```bash
+node scripts/merge_batches.mjs --dry                 # DRY=1: report only, write nothing
+node scripts/merge_batches.mjs --out-dir=DIR         # must use '='; writes profit.json/profit.json.js/companies.json to DIR
+node scripts/merge_batches.mjs --batch-only=batch8   # targeted patch onto disk (legacy alias: --b8-only / B8_ONLY=1)
+node scripts/merge_batches.mjs --fixup-ticker=2330.TW  # apply only the last fixups[] entry for one ticker
+node scripts/merge_batches.mjs --force               # deliberately bypass the regression guard (rare)
+```
+
+`--batch-only=batchN` and `--fixup-ticker=XXXX` skip the normal batch/fixups/meta rebuild: they
+apply only the named batch (append + fill-missing) or that ticker's last fixup onto the disk
+image, leaving every other ticker/period untouched (the fixup path only permits `revenue` /
+`gross` changes and runs the integrity gate). `--out-dir` only accepts the `--out-dir=DIR` form;
+a space-separated `--out-dir DIR` is ignored.
 
 ## Verification used (0-difference reproduction)
 
-From a base image, the two-stage pipeline reproduces the committed `data/profit.json` exactly
-(92 companies / 3679 periods, per-field 0 diff), confirming stage 1 + stage 2 is the real
-regenerator:
+Stage 1 alone reproduces the committed `data/profit.json` byte-for-byte (2026-11-20: 92
+companies / 3731 periods; 1,006,825 B canonical LF, 1,045,820 B in a CRLF checkout):
 
 ```bash
-# sandbox check that stage1(base) + stage2 == target, per-company / per-field 0 diff
-node scripts/merge_batches.mjs && node scripts/merge_fundamentals.mjs
-node -e 'const a=require("./data/profit.json").companies,b=require("./tmp-fix-currency/target_profit.json").companies;/* deep-equal */'
+node scripts/merge_batches.mjs --out-dir=tmp-fixups-test
+# then Buffer-compare data/profit.json vs tmp-fixups-test/profit.json
+# (CRLF-normalised) and deep-compare the JSON (keys, periods, values)
 ```
 
-(An earlier audit left a base copy at `tmp-fix-currency/base_profit.json`.) The only fields that
-can drift between a re-run and the committed file are a few hand-edited human `notes`
-(IBM / 00762.HK / 601360.SS) that were never back-written into staging — those are descriptive
-text only, never data values.
+(An earlier audit left a base copy at `tmp-fix-currency/base_profit.json`.) `updated` only changes
+when the payload changes, so the comparison stays valid across days. Note drift: the top-level
+`notes[]` snapshot in `fixups.json` is now fully in sync with disk — the IBM entry was
+back-written on 2026-11-20, and 00762.HK / 601360.SS already carry `notes-preserve` fixups. If a
+note is edited directly on disk again, back-write it into `fixups.json`; stage 1 still keeps the
+disk text for a same-index mismatch and warns (`stale staging note`), but that safety net should
+not be the normal path.
 
 ## Fixup layer (durable manual corrections)
 
@@ -58,6 +86,13 @@ Manual per-company fixes live in `data/staging/fixups.json` `fixups[]` as
 `merge_batches.mjs` applies each entry as a **whole-ticker replace** (not a field patch), so the
 `entry` must contain the complete `quarters` array. This is how the NESN.SW / MC.PA local-currency
 restoration + H1-2026 interim and the 00151.HK per-period-fx correction survive a re-merge.
+Late batches (`N >= 7`) are applied again after fixups, which is why e.g. BIDU's 2026-09-30
+period survives even though the BIDU fixup snapshot predates it.
+
+`fixups.json` also carries a top-level `meta` snapshot (`source`/`units`/`skipped[]`/`notes[]`).
+The `notes[]` array is the append-only revision log and must mirror the on-disk `data/profit.json`
+text; a same-index mismatch makes stage 1 keep the disk note and print a `stale staging note`
+warning. IBM was back-written on 2026-11-20.
 
 ---
 
