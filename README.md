@@ -131,3 +131,13 @@ docs/screenshots/      README 配图
 ## License
 
 数据来自各公司公开申报与交易所披露（SEC EDGAR 公有领域数据、HKEX、东方财富、TWSE、stockanalysis/fnguide 及公司年报等），仅供研究参考。代码 MIT。
+
+## 第三方许可 / Third-party licenses
+
+本站唯一随包分发的第三方库是 **Apache ECharts 5.5.1**（`vendor/echarts.min.js`），以 **Apache License 2.0** 许可分发：
+
+| 组件 | 版本 | 许可 | 声明文件 |
+| --- | --- | --- | --- |
+| Apache ECharts | 5.5.1 | Apache-2.0 | 许可全文 [`vendor/echarts.LICENSE.txt`](vendor/echarts.LICENSE.txt) · 版权与组件声明 [`vendor/NOTICE`](vendor/NOTICE) |
+
+`vendor/echarts.min.js` 为官方发行版原样文件（**Unmodified**）。其 bundle 内另含 ZRender 5.6.0（BSD-3-Clause）、tslib（0BSD），以及 treemap / tree / force 布局的 d3.js 派生代码（BSD-3-Clause，许可全文 [`vendor/licenses/LICENSE-d3.txt`](vendor/licenses/LICENSE-d3.txt)），声明见 `vendor/NOTICE`。除 ECharts 外，站点不加载其它第三方运行时依赖（`index.html` 仅引用 `vendor/echarts.min.js` 与本站 `app.js`）。
