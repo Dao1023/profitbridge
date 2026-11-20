@@ -343,7 +343,8 @@ function segmentNoticeGraphic(plan) {
   if (state.view === 'bar') return [];
   // `plan` is the sankey segment plan (see sankeySegPlan); when omitted (e.g. cached
   // __lastOption paths) recompute it so a fiscal-cumulative render still reports 'ok'.
-  const st = (plan || sankeySegPlan(state.company, q())).status;
+  const p = plan || sankeySegPlan(state.company, q());
+  const st = p.status;
   if (st.kind === 'ok') return [];
   let title, hint;
   if (st.kind === 'unavailable') {
@@ -353,12 +354,22 @@ function segmentNoticeGraphic(plan) {
   } else {
     title = t('segNoDataTitle'); hint = t('segNoDataHint');
   }
+  // Keep the text inside the EMPTY INPUT BAND, i.e. strictly left of the revenue column.
+  // The sankey series starts at `left` (170, or 210 when segment parents form an extra
+  // column), the notice starts at x=16, so the usable width is left-16-8 (8px gutter).
+  // A fixed 176 overran the revenue column at every common width: English words such as
+  // "segment" are unbreakable under overflow:'break', so the line ran past the band and
+  // painted over the 营收 column (AVGO/CRWV/000660.KS). `breakAll` breaks long unspaced
+  // words by character, and the capped width means even the 384-char 000660.KS reason
+  // wraps into more (fully readable) lines instead of poking out to the right.
+  const segList = p.segList;
+  const hasAgg = !!(segList && segList.some(s => s.children && s.children.length));
+  const padLeft = hasAgg ? 210 : 170;   // MUST mirror the sankey series `left` below
+  const width = Math.min(176, padLeft - 16 - 8);
   return [{
     type: 'text', left: 16, top: 'middle', z: 10, silent: true,
-    // width 176: 140 was too narrow — Chinese hints broke mid-word (e.g. "披露经审计的合并分部数
-    // 据" split across lines); 176 keeps the hint tidy inside the empty input band.
     style: {
-      width: 176, overflow: 'break', lineHeight: 19, fill: '#94a3b8',
+      width, overflow: 'breakAll', lineHeight: 19, fill: '#94a3b8',
       fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
     },
   }];
