@@ -141,6 +141,55 @@ if (ONLY_BATCH) {
   process.exit(0);
 }
 
+// ================= single-fixup PATCH MODE (non-destructive) =================
+// --fixup-ticker=XXXX: 以磁盘 profit.json 为基准, 只应用该 ticker 的最后一条 fixup（与主流程「后者覆盖前者」一致）。
+// 不重建任何 batch / 不写 companies.json / 不改其它公司, 用于单票修正上线。护栏: 只允许 revenue/gross 变化。
+const fixupArg = process.argv.find(a => a.startsWith('--fixup-ticker='));
+const FIXUP_TICKER = fixupArg ? fixupArg.slice('--fixup-ticker='.length) : null;
+if (FIXUP_TICKER) {
+  const matches = FIXUPS.fixups.filter(f => f.ticker === FIXUP_TICKER);
+  if (!matches.length) { console.error(`fixup-ticker: no fixup entry for ${FIXUP_TICKER}`); process.exit(1); }
+  const fx = matches[matches.length - 1];
+  const old = profit.companies[FIXUP_TICKER];
+  if (!old) { console.error(`fixup-ticker: company ${FIXUP_TICKER} not found in profit.json`); process.exit(1); }
+  const neu = JSON.parse(JSON.stringify(fx.entry));
+  const changes = [];
+  const oldByEnd = new Map((old.quarters || []).map(q => [q.end, q]));
+  const newByEnd = new Map((neu.quarters || []).map(q => [q.end, q]));
+  for (const [end, nq] of newByEnd) {
+    const oq = oldByEnd.get(end);
+    if (!oq) { changes.push({ end, field: '<period>', before: null, after: 'added' }); continue; }
+    for (const k of new Set([...Object.keys(oq), ...Object.keys(nq)])) {
+      if (JSON.stringify(oq[k]) !== JSON.stringify(nq[k])) changes.push({ end, field: k, before: oq[k] === undefined ? '<absent>' : oq[k], after: nq[k] });
+    }
+  }
+  for (const [end, oq] of oldByEnd) if (!newByEnd.has(end)) changes.push({ end, field: '<period>', before: 'present', after: 'removed' });
+  const illegal = changes.filter(c => !['revenue', 'gross'].includes(c.field));
+  if (illegal.length) {
+    console.error(`REFUSING fixup-ticker ${FIXUP_TICKER}: ${illegal.length} change(s) outside revenue/gross`);
+    console.error(JSON.stringify(illegal.slice(0, 20), null, 1));
+    process.exit(1);
+  }
+  const errs = [];
+  for (const q of neu.quarters) {
+    if (!(typeof q.revenue === 'number' && q.revenue > 0)) errs.push(`${q.end}: revenue<=0`);
+    if (!(typeof q.gross === 'number' && q.gross >= 0)) errs.push(`${q.end}: gross<0`);
+    if (q.gross > q.revenue) errs.push(`${q.end}: gross>revenue`);
+    if (!(q.revenue - q.gross > 0)) errs.push(`${q.end}: revenue-gross<=0`);
+  }
+  if (errs.length) { console.error(`REFUSING fixup-ticker ${FIXUP_TICKER}: integrity gate failed`); console.error(JSON.stringify(errs, null, 1)); process.exit(1); }
+  profit.companies[FIXUP_TICKER] = neu;
+  profit.updated = new Date().toISOString().slice(0, 10);
+  const reportFx = { mode: 'fixup-ticker', ticker: FIXUP_TICKER, sourceCommit: fx.sourceCommit, changes, guardFails: {} };
+  fs.mkdirSync(path.join(ROOT, 'tmp-merge'), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, 'data/profit.json'), JSON.stringify(profit, null, 2) + '\n');
+  fs.writeFileSync(path.join(ROOT, 'data/profit.json.js'), 'window.__PROFIT_DATA = ' + JSON.stringify(profit) + ';\n');
+  fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'fixup_report.json'), JSON.stringify(reportFx, null, 2) + '\n');
+  console.log(`FIXUP-TICKER WROTE profit.json; ticker=${FIXUP_TICKER} fieldsChanged=${changes.length} companies=${Object.keys(profit.companies).length} periods=${Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0)}`);
+  console.log(JSON.stringify(changes, null, 1));
+  process.exit(0);
+}
+
 const log = [], warn = [];
 const notesNew = [];
 const report = { replacements: [], added: [], fx: {}, skipped: [], warnings: warn };
