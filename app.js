@@ -2160,6 +2160,20 @@ function initControls() {
     const res = await fetch('data/segments.json');
     if (res.ok) SEG = await res.json();
   } catch (e) { /* segments optional — waterfall only */ }
+  if (!SEG) {
+    // Same on-demand pattern as data/profit.json.js above: the fetch is the normal path, so
+    // HTTP visitors never pay for the 340KB mirror. Only file:// double-click / offline lands
+    // here. Failure is non-fatal: SEG stays null and the views degrade to "no segments".
+    if (!window.__SEGMENT_DATA) {
+      await new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = 'data/segments.json.js';
+        s.onload = resolve; s.onerror = resolve; // resolve either way; missing data handled below
+        document.head.appendChild(s);
+      });
+    }
+    if (window.__SEGMENT_DATA) SEG = window.__SEGMENT_DATA;
+  }
   try {
     const res = await fetch('data/companies.json');
     if (res.ok) REGISTRY = await res.json();
