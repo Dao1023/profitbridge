@@ -18,7 +18,7 @@
   },
   "file_sizes_bytes": {
     "index.html": { "raw": 11944, "gzip9": 3888 },
-    "vendor/echarts.min.js": { "raw": 1030855, "gzip9": 333290, "version": "5.6.0", "license": "Apache-2.0" },
+    "vendor/echarts.min.js": { "raw": 1030855, "gzip9": 333290, "version": "5.5.1", "license": "Apache-2.0", "version_original_recorded": "5.6.0", "version_correction": { "date": "2026-11-20", "basis": "运行时自报 5.5.1（node -e require('./vendor/echarts.min.js').version）；原 5.6.0 是随包 zrender 的版本号，不是 ECharts 版本", "see": "audits/2026-11-20/README.md 第 8 节" } },
     "data/profit.json": { "raw": 1001376, "gzip9": 130399 },
     "data/profit.json.js": { "raw": 565902, "gzip9": 122417, "note": "file:// mirror defining window.__PROFIT_DATA; redundant & wasted on http/https path" },
     "data/segments.json": { "raw": 568664, "gzip9": 50447 },

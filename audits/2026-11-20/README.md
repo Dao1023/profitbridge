@@ -91,3 +91,40 @@ node tests/verify_units_guard.mjs        # 单位守卫回归，末行 SUMMARY A
 | `audits/2026-11-20/README.md` | 本记录 | 是 |
 | `tmp-doc/verify_caveats.mjs` | 复算脚本（只读 data/） | 否（`.gitignore` 忽略根目录 `/*` 白名单外的 tmp-doc） |
 | `tmp-doc/REPORT.md` | 本次工作报告 | 否（同上） |
+
+## 8. 追加：ECharts 版本实测定案（5.5.1）与同源错误清单
+
+背景：`vendor/echarts.min.js` 被仓库多处记为 5.6.0，实测为 5.5.1。2026-11-20 在 worktree `docs/audit-echarts-fix`（基线 `c02adb4`）实测并订正审计文档；只改 `audits/**` 与 `tmp-audfix/**`。
+
+### 8.1 实测结论
+
+| 检查 | 结果 | 命令 / 证据 |
+|---|---|---|
+| 运行时自报版本 | **5.5.1** | `node -e "require('./vendor/echarts.min.js').version"` → `5.5.1` |
+| bundle 内 ECharts 版本赋值 | `t.version="5.5.1"`，唯一 1 处 | `grep -o '5\.5\.1' vendor/echarts.min.js \| wc -l` → 1 |
+| `version:"5.6.0"` 归属 | 随包 **zrender**：`t.zrender.version=5.6.0`、`t.dependencies={zrender:"5.6.0"}` | `grep -o '.\{60\}5\.6\.0.\{60\}'` → 2 处，均非 `t.version=` |
+| 5.6.0 特征 matrix 坐标系 | 不存在（旁证 bundle 非 5.6.0） | `grep -c 'coordinateSystem:"matrix"'` → 0 |
+
+### 8.2 同源错误记录清单
+
+| # | 位置 | 原文 | 性质 | 处置 |
+|---|---|---|---|---|
+| 1 | `app.js:3` | `Sankey rendered with the ECharts (v5.6.0)` | ECharts 版本声明（错） | **未改**（app.js 由另一 Agent 在改），登记待改 |
+| 2 | commit `26db8a2` 提交信息 | `... rewrite profit bridge sankey with echarts 5.6 ...` | 历史提交信息（错） | **不改写历史**，仅登记 |
+| 3 | `audits/2026-11-01/A5-engineering/findings.json`（A5-LIC-01 evidence） | `version:"5.6.0"` | ECharts 版本声明（错） | **已订正**：原文保留，新增 `correction` 字段（date/basis/see） |
+| 4 | `audits/2026-11-01/A5-engineering/metrics.json`（file_sizes_bytes） | `"version": "5.6.0"` | ECharts 版本声明（错） | **已订正**：`version` 改 `5.5.1`，原值存入 `version_original_recorded`，另有 `version_correction` |
+| 5 | `audits/2026-11-01/A5-engineering/REPORT.md:21,164` | `v5.6.0` / `version:"5.6.0"` | ECharts 版本声明（错） | **已订正**：原地加订正标注 + 文末「版本订正」小节 |
+| 6 | `README.md:117,127` | `5.5.1` + 版本注记 | 正确记录 | 已由 `4b9ef41` 修正，本次不动（docs 不属本 worktree 范围） |
+
+### 8.3 扫描口径
+
+- 脚本 `tmp-audfix/scan-versions.js`（未入库，`.gitignore` 根级白名单不含 tmp-*），扫描 254 个文本文件，排除 `vendor/`、`node_modules/`、`tmp-*`、`.git`。
+- `5.6.0` 命中 6 行：`app.js:3`、`A5-engineering/findings.json:248`、`A5-engineering/metrics.json:21`、`A5-engineering/REPORT.md:21`、`A5-engineering/REPORT.md:164`、`README.md:127`（该处本身是正确注记）。
+- `5.5.1` 命中 2 行：`README.md:117`、`README.md:127`（均为正确记录）。
+- `vendor/echarts.min.js` 内 `5.6.0` 2 处、`5.5.1` 1 处（按任务口径排除在清单外，只作为判定依据）。
+
+### 8.4 未决
+
+1. `app.js:3` 注释仍写 v5.6.0，需前端 owner 改为 5.5.1（本 worktree 严禁改 app.js）。
+2. `26db8a2` 提交信息保持原样（不改写历史、不 rebase/amend）。
+3. `audits/2026-11-01/SUMMARY.md:65` 只写「echarts Apache-2.0 未声明」，未带版本号，无需订正。

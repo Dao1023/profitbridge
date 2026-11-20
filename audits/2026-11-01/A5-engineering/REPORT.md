@@ -18,7 +18,7 @@
 | 文件 | raw | gzip-9 | 说明 |
 |---|---:|---:|---|
 | index.html | 11,944 | 3,888 | 首屏外壳 |
-| vendor/echarts.min.js | 1,030,855 | 333,290 | v5.6.0，Apache-2.0 |
+| vendor/echarts.min.js | 1,030,855 | 333,290 | v5.6.0（**2026-11-20 订正：实为 v5.5.1**，见文末「版本订正」），Apache-2.0 |
 | data/profit.json | 1,001,376 | 130,399 | 单体数据文件 |
 | data/profit.json.js | 565,902 | 122,417 | **file:// 镜像，http 路径冗余** |
 | data/segments.json | 568,664 | 50,447 | 瀑布图分段 |
@@ -161,7 +161,7 @@
 | A5-HYG-04 | hygiene | 根目录物理残留 ~50 个 tmp-* 目录 + `tmp-serve-8440.log` | 均被 .gitignore 忽略、`git ls-files` 无命中（无入库风险），但占盘 | 加一次性清理脚本保持根目录干净 |
 | A5-HYG-05 | hygiene | `audits/` 交付目录被 `.gitignore:2:/*` 根级忽略 | `git check-ignore audits/.../REPORT.md` 命中 `.gitignore:2:/*`，默认不入库 | 如需入库加 `!/audits/` 或对该目录 `git add -f` |
 | A5-SEC-01 | security | 源码无密钥 | grep `api[_-]?key|secret|password|bearer|access_token` 覆盖 app.js/index.html/start.bat/README.md/scripts/*.mjs → **无命中**（仅 tmp-audit/**/.chrome 第三方扩展与 data/staging 审计日志噪声） | 保持；日后凭证走环境变量 |
-| A5-LIC-01 | license | 第三方 echarts 许可证未声明 | `vendor/echarts.min.js` 内含 `version:"5.6.0"` 与 Apache-2.0 ASF 头；README.md:113 提 echarts 5.6，但 README.md:127-129 License 段仅写"代码 MIT"，未声明第三方 Apache-2.0；vendor/ 无独立 LICENSE/NOTICE | 补 `vendor/echarts.LICENSE`(Apache-2.0 全文) 与 NOTICE，README License 段注明第三方依赖 |
+| A5-LIC-01 | license | 第三方 echarts 许可证未声明 | `vendor/echarts.min.js` 内含 `version:"5.6.0"`（**2026-11-20 订正：该号属随包 zrender，ECharts 自身为 5.5.1**，见文末「版本订正」）与 Apache-2.0 ASF 头；README.md:113 提 echarts 5.6，但 README.md:127-129 License 段仅写"代码 MIT"，未声明第三方 Apache-2.0；vendor/ 无独立 LICENSE/NOTICE | 补 `vendor/echarts.LICENSE`(Apache-2.0 全文) 与 NOTICE，README License 段注明第三方依赖 |
 
 ---
 
@@ -190,3 +190,18 @@
 | `harness.stderr.log` | 测量 harness 运行日志（空=无错误） |
 
 > 备注：`A5-PERF-02` 与 `A5-HYG-06` 的结论基于 `scripts/serve.mjs` 与 `.github/workflows/static.yml` 的静态审阅 + resource timing 实测；GitHub Pages 的 CDN 压缩为平台既有行为，故本地未压缩测量为上限口径，已在正文显著标注。
+
+---
+
+## 版本订正（2026-11-20 追加）
+
+本报告 2026-11-01 原稿把 `vendor/echarts.min.js` 记为 **v5.6.0**（上表「文件体积」与 A5-LIC-01「证据」两处）。2026-11-20 实测订正为 **v5.5.1**；原文保留，仅在原地加标注并在文末追加本节记录，不抹掉历史。
+
+| 项 | 值 | 依据 |
+|---|---|---|
+| ECharts 运行时自报 | **5.5.1** | `node -e "require('./vendor/echarts.min.js').version"` → `5.5.1` |
+| bundle 内全局版本赋值 | `t.version="5.5.1"`，全文唯一 1 处 | `grep -o '5\.5\.1' vendor/echarts.min.js \| wc -l` → 1 |
+| `version:"5.6.0"` 归属 | 随包 **zrender**：`t.zrender.version=5.6.0`、`t.dependencies={zrender:"5.6.0"}` | `grep -o '.\{60\}5\.6\.0.\{60\}'` 仅 2 处，均非 `t.version=` |
+| 5.6.0 特征（matrix 坐标系） | 不存在，反证 bundle 非 5.6.0 | `grep -c 'coordinateSystem:"matrix"'` → 0 |
+
+影响面：只涉及版本号。A5-LIC-01 的结论（vendor 为 Apache-2.0、README/vendor 未声明第三方许可证）与文件体积数字均不变。同源错误另见 `app.js:3` 注释（待前端 owner 改）与历史提交 `26db8a2` 的提交信息（不改写历史）。全量扫描清单与判定见 `audits/2026-11-20/README.md` 第 8 节。
