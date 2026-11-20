@@ -145,6 +145,53 @@ await sleep(300);
 
 check('no console/exception errors during run', errors.length === 0, JSON.stringify(errors).slice(0, 300));
 
+// ---------- 9. MSFT 2026-09-30: 3→2 报告分部口径变更备注 ----------
+// notes[] 里「MSFT: 2026-09-30 起披露口径变更…」是唯一对 MSFT 生效的备注
+// （warning/「N 季无分部披露」两类会被 isUsefulSegNote 过滤，故此处是单条）。
+const noteFit = () => evl(`(()=>{const n=document.getElementById('segNotesLine'); if(!n) return null;
+  return {clip: n.scrollHeight <= n.clientHeight + 1, h: n.clientHeight, sh: n.scrollHeight};})()`);
+const pickQuarter = (tk, end) => evl(`(()=>{const i=DATA.companies['${tk}'].quarters.findIndex(q=>q.end==='${end}');
+  if(i<0) return false; state.company='${tk}'; state.qIndex=i; state.view='bridge'; render(); return true;})()`);
+await setW(1680);
+await sleep(200);
+check('MSFT 2026-09-30: quarter selectable', await pickQuarter('MSFT', '2026-09-30') === true);
+await sleep(400);
+const nMSFT = await noteInfo();
+check('MSFT 2026-09-30: notes row exists', nMSFT !== null);
+check('MSFT 2026-09-30: note says 3→2 分部', !!nMSFT && nMSFT.text.includes('3 个调整为 2 个'), nMSFT?.text);
+check('MSFT 2026-09-30: note names Agents and Infra 76,795',
+  !!nMSFT && nMSFT.text.includes('Agents and Infra 76,795'), nMSFT?.text);
+check('MSFT 2026-09-30: note names Devices and Consumer 15,484',
+  !!nMSFT && nMSFT.text.includes('Devices and Consumer 15,484'), nMSFT?.text);
+check('MSFT 2026-09-30: note says 跨期不可直接比较', !!nMSFT && nMSFT.text.includes('不可直接比较'));
+check('MSFT 2026-09-30: note not clipped at 1680', (await noteFit())?.clip === true, JSON.stringify(await noteFit()));
+check('MSFT 2026-09-30: no overlap with #chartTitle', (await overlap())?.overlap === false, JSON.stringify(await overlap()));
+await shot('MSFT_notes_2026-09-30_1680.png', SHOTS_REQ);
+await setW(1280);
+await sleep(350);
+check('MSFT 2026-09-30 @1280: note still full (not clipped)', (await noteFit())?.clip === true, JSON.stringify(await noteFit()));
+check('MSFT 2026-09-30 @1280: no overlap with #chartTitle', (await overlap())?.overlap === false);
+await shot('MSFT_notes_2026-09-30_1280.png', SHOTS_REQ);
+
+// ---------- 10. NVDA 2026-04-26: 备注分部名与数据标签一致 ----------
+check('NVDA 2026-04-26: quarter selectable', await pickQuarter('NVDA', '2026-04-26') === true);
+await sleep(400);
+const nNVDA = await noteInfo();
+check('NVDA 2026-04-26: notes row exists', nNVDA !== null);
+check('NVDA 2026-04-26: note names Data Center 75,246', !!nNVDA && nNVDA.text.includes('Data Center 75,246'), nNVDA?.text);
+check('NVDA 2026-04-26: note names Edge Computing 6,369', !!nNVDA && nNVDA.text.includes('Edge Computing 6,369'));
+check('NVDA 2026-04-26: note lists historical 5 platform labels',
+  !!nNVDA && nNVDA.text.includes('Gaming') && nNVDA.text.includes('Professional Visualization') &&
+  nNVDA.text.includes('Automotive') && nNVDA.text.includes('OEM & Other'));
+check('NVDA 2026-04-26: 旧文案 Compute & Networking 已消失', !!nNVDA && !nNVDA.text.includes('Compute & Networking'));
+check('NVDA 2026-04-26: 旧文案 Graphics 已消失', !!nNVDA && !/\bGraphics\b/.test(nNVDA.text));
+check('NVDA 2026-04-26 @1280: note not clipped', (await noteFit())?.clip === true, JSON.stringify(await noteFit()));
+check('NVDA 2026-04-26 @1280: no overlap with #chartTitle', (await overlap())?.overlap === false);
+await shot('NVDA_notes_2026-04-26_1280.png', SHOTS_REQ);
+await setW(1680);
+await sleep(300);
+await shot('NVDA_notes_2026-04-26_1680.png', SHOTS_REQ);
+
 const fails = results.filter(r => !r.ok);
 console.log(`\n${results.length - fails.length}/${results.length} passed`);
 console.log('required shots:', SHOTS_REQ);
