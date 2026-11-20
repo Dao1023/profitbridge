@@ -1704,7 +1704,9 @@ function renderTimeline() {
   // the bare year (with 64 quarters a "Y Qx + date" label set overflows the track).
   const order = [cur, n - 1, 0];
   const byYear = new Map();
-  for (let i = 0; i < n; i++) { const y = yearOf(qs[i].end); if (!byYear.has(y)) byYear.set(y, i); }
+  // a year tick represents that year's LAST reported quarter, so clicking "2019"
+  // lands on the year-end period (index 0 stays pinned below for the data start)
+  for (let i = 0; i < n; i++) { const y = yearOf(qs[i].end); byYear.set(y, i); }
   for (const i of [...byYear.values()].sort((a, b) => a - b)) order.push(i);
   const usedYears = new Set(), show = [];
   for (const i of order) {
@@ -1713,11 +1715,67 @@ function renderTimeline() {
     usedYears.add(y); show.push(i);
   }
   show.sort((a, b) => a - b);
-  ticks.innerHTML = show.map(i =>
-    `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}" title="${qs[i].end}">
-       <div class="q">${yearOf(qs[i].end)}</div>${i === cur ? `<div class="d">${qs[i].end}</div>` : ''}</div>`).join('');
-  ticks.querySelectorAll('.tl-tick').forEach(el =>
-    el.addEventListener('click', () => setQuarter(Number(el.dataset.i))));
+  const paint = list => {
+    ticks.innerHTML = list.map(i =>
+      `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}" title="${qs[i].end}">
+         <div class="q">${yearOf(qs[i].end)}</div>${i === cur ? `<div class="d">${qs[i].end}</div>` : ''}</div>`).join('');
+  };
+  /* Narrow screens: 19 year labels cannot fit 220-600px, so thin the row to the
+     coarsest step that still FITS instead of letting `space-between` glue the
+     labels together and clip the recent years behind #chartPanel's overflow.
+     First/last/active are always kept. Ticks are measured after paint, so the
+     active tick's wider date caption is accounted for. Desktop (>900px) keeps
+     the exact previous tick set, hence a pixel-identical rendering. */
+  let picked = show;
+  if (innerWidth <= 900) {
+    const sample = step => {
+      if (step <= 1) return show;
+      const keep = new Set([0, show.length - 1]);
+      const cp = show.indexOf(cur);
+      if (cp >= 0) keep.add(cp);
+      for (let p = 0; p < show.length; p += step) keep.add(p);
+      return [...keep].sort((a, b) => a - b).map(p => show[p]);
+    };
+    /* Readability floor: space-between always stretches the row to the full
+       container, so scrollWidth alone never tells us the labels are comfortable.
+       Require both "no pixel overflow" and >=40px of track per year label. */
+    const comfortable = list => ticks.scrollWidth <= ticks.clientWidth + 3 &&
+      (list.length < 2 || ticks.clientWidth / (list.length - 1) >= 40);
+    for (let step = 1; step <= 8; step++) {
+      picked = sample(step);
+      paint(picked);
+      if (comfortable(picked)) break;
+    }
+    if (!comfortable(picked)) {
+      const keep = new Set([0, show.length - 1]);
+      const cp = show.indexOf(cur);
+      if (cp >= 0) keep.add(cp);
+      picked = [...keep].sort((a, b) => a - b).map(p => show[p]);
+      paint(picked);
+    }
+  } else {
+    paint(picked);
+  }
+  ticks.classList.toggle('scrollable', ticks.scrollWidth > ticks.clientWidth + 3);
+  /* One delegated handler for the whole row, selecting the tick whose CENTRE is
+     nearest the pointer. This is immune to any hit-area overlap: the previous
+     per-tick ±18px pseudo-elements made the next sibling swallow the previous
+     label's centre below ~1280px, so every mobile click jumped one year ahead. */
+  if (ticks.dataset.delegated !== '1') {
+    ticks.addEventListener('click', e => {
+      // track clicks (and clicks anywhere outside a label) keep the track's own
+      // fraction→quarter mapping; only a click that hit a tick is re-mapped
+      if (!e.target.closest || !e.target.closest('.tl-tick')) return;
+      const list = [...ticks.querySelectorAll('.tl-tick')];
+      let best = null, bestD = Infinity;
+      for (const el of list) {
+        const r = el.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - e.clientX);
+        if (d < bestD) { bestD = d; best = el; }
+      }
+      if (best) setQuarter(Number(best.dataset.i));
+    });
+    ticks.dataset.delegated = '1';
+  }
   const pct = n > 1 ? (cur / (n - 1)) * 100 : 0;
   document.getElementById('tlFill').style.width = pct + '%';
   document.getElementById('tlThumb').style.left = pct + '%';

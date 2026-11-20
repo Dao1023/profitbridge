@@ -111,8 +111,14 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 .tl-ticks { display:flex; justify-content:space-between; margin:10px 30px 0; }
 .tl-tick { flex:0 0 auto; text-align:center; cursor:pointer; color:var(--muted); font-size:12.5px; line-height:1.35; user-select:none; position:relative; }
 /* generous invisible hit area around each tick label — easy to hit without
-   changing the visible layout */
-.tl-tick::before { content:''; position:absolute; inset:-10px -18px; }
+   changing the visible layout. Horizontal expansion is deliberately 0: a fixed
+   ±18px box is 36px wide, so whenever ticks sit closer than 36px (every width
+   below ~1280) the NEXT sibling covers the previous label's centre and clicks
+   silently select the following year. Extending only vertically keeps every
+   tick's hit box inside its own label, so a click always lands on the year the
+   reader aimed at; #tlTicks' delegated click handler adds a nearest-centre
+   fallback for the active tick's wider date caption. */
+.tl-tick::before { content:''; position:absolute; inset:-8px 0; }
 .tl-tick .q { font-weight:600; }
 .tl-tick:hover .q { color:var(--blue); }
 .tl-tick.active .q { color:var(--blue); font-weight:800; }
@@ -146,6 +152,21 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
   .layout { flex-direction:column; }
   #logoRail { position:static; width:100%; grid-template-columns:repeat(10,1fr); }
   .main { margin-left:0; }
+  /* the timeline gets the panel's full width: 26px side padding + 30px tick
+     margins ate 112px of a 332px panel, which was what pushed 9 years outside
+     the clip in the first place */
+  #timeline { padding:8px 10px 12px; }
+  .tl-ticks { margin:10px 4px 0; }
+  /* last-resort horizontal scroll (e.g. a 320px viewport where even the
+     thinned set cannot fit); hidden scrollbar, the row still pans by drag */
+  .tl-ticks.scrollable { overflow-x:auto; overflow-y:visible; scrollbar-width:none; padding-bottom:2px; }
+  .tl-ticks.scrollable::-webkit-scrollbar { display:none; }
+}
+@media (max-width: 480px) {
+  /* the full date caption is ~65px wide, wider than a 30-40px tick slot at this
+     width; the title already states the quarter, so drop it instead of letting
+     it paint over the neighbouring years */
+  .tl-tick .d { display:none; }
 }
 </style>
 </head>
