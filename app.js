@@ -79,19 +79,55 @@ const ZH_NAMES_FALLBACK = {
 };
 let REGISTRY = []; // data/companies.json — single source of company truth (see P4 governance)
 const regOf = tk => REGISTRY.find(c => c.ticker === tk) || null;
+/* ---- true fiscal quarter of a period END ----
+   Calendar quarters are wrong for every filer whose fiscal year does not end in December:
+   Cisco's quarter ending 2026-10-24 is FY2027 Q1, not calendar "Q4 2026"; Micron's
+   2026-09-03 is FY2026 Q4; Oracle's 2026-08-31 is FY2027 Q1. fiscalQuarterOf() maps an end
+   date onto the company's own fiscal calendar, where `fyeMonth` (1–12, from
+   data/companies.json) is the month the fiscal year ends in and the fiscal year is named by
+   the year it ENDS in (MSFT's year ending 2027-06-30 is FY2027 — the convention the old
+   fiscalYearOf() already used).
+
+   52/53-week filers drift: the fiscal year closes on the weekday nearest the month end, so
+   it can land up to ~6 days INTO the following month (Dell FY2019 ended 2019-02-01 on a
+   January FYE; Micron FY2026 ended 2026-09-03 on an August FYE). An end date inside the
+   first 7 days of a month is therefore bucketed to the PREVIOUS month before the FY /
+   quarter arithmetic, which restores the nominal month-end boundary — without it,
+   2019-02-01 would read as FY2019 Q1 instead of FY2019 Q4. It also fixes quarter index
+   drift such as Dell's Q3 ending 2024-11-01 (= Aug–Oct, Q3, not Q4).
+   Returns { fy, q, label } with `label` the canonical chart label ("FY2026 Q4");
+   null only for an unparseable date, so callers can degrade instead of throwing. */
+const FQ_DRIFT_DAYS = 7;
+function fiscalQuarterOf(endDate, fyeMonth) {
+  const s = String(endDate || '');
+  const y0 = Number(s.slice(0, 4)), m0 = Number(s.slice(5, 7)), d0 = Number(s.slice(8, 10));
+  if (!y0 || !m0 || !d0) return null;
+  let fye = Number(fyeMonth);
+  if (!(fye >= 1 && fye <= 12)) fye = 12;          // missing/invalid FYE → December (old behaviour)
+  const back = d0 <= FQ_DRIFT_DAYS;
+  const m = back ? (m0 === 1 ? 12 : m0 - 1) : m0;  // nominal month-end boundary
+  const y = (back && m0 === 1) ? y0 - 1 : y0;
+  const fy = m > fye ? y + 1 : y;                  // FY named by the year it ends in
+  const start = (fye % 12) + 1;                    // first month of the fiscal year
+  const mfs = ((m - start) % 12 + 12) % 12;        // months elapsed inside the fiscal year
+  const q = Math.floor(mfs / 3) + 1;
+  return { fy, q, label: `FY${fy} Q${q}` };
+}
 function quarterLabel(end, periodType) {
   const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
   if (periodType === 'annual' || isAnnual()) return `FY ${fiscalYearOf(end)}`;
   if (periodType === 'interim') return `H1 ${fiscalYearOf(end)}`;
-  return `Q${Math.floor((m - 1) / 3) + 1} ${y}`;
+  const fq = fiscalQuarterOf(end, fiscalYearEndMonth(state.company));
+  if (!fq) return `Q${Math.floor((m - 1) / 3) + 1} ${y}`; // unparseable date → legacy label
+  return fq.label;
 }
 /* Fiscal year that a period END belongs to. Calendar-FYE filers: the calendar year.
    Non-December FYE (e.g. 00151.HK FYE=3): a period ending AFTER the FYE month belongs to
    the NEXT fiscal year — 00151 2025-09-30 covers Apr–Sep 2025 = FY2026 H1, not FY2025.
    fiscalYearEndMonth() is defined further down (hoisted) so this is safe to call. */
 function fiscalYearOf(end, tk = state.company) {
-  const y = Number(end.slice(0, 4)), m = Number(end.slice(5, 7));
-  return m > fiscalYearEndMonth(tk) ? y + 1 : y;
+  const fq = fiscalQuarterOf(end, fiscalYearEndMonth(tk));
+  return fq ? fq.fy : Number(end.slice(0, 4));
 }
 function shortName(ticker) {
   const c = DATA.companies[ticker];
@@ -387,8 +423,15 @@ function ytdSum(tk, qEnd, key) {
    (e.g. SONY/BABA/ARM Mar-FY, 00992/00151.HK) a calendar slice would mix two fiscal
    years, so cumulativeView() skips the correction entirely — keep the original numbers
    rather than compute a wrong total. */
-function fiscalYearEndMonth(tk) {
+function fiscalYearEndMonth(tk = state.company) {
   const e = DATA.companies[tk] || {};
+  /* Authoritative source first: data/companies.json carries fiscalYearEndMonth per company,
+     verified against each filer's 10-K/20-F (or annual report) cover. The inference below
+     used to be the only source and guessed wrong for every non-December FYE — it read the
+     most common month among recent quarter ends, so AAPL (ends Dec/Mar/Jun/Sep) fell back to
+     December and MU (Aug/Sep-year-end, quarters in Nov/Feb/May) was read as November. */
+  const declared = Number((regOf(tk) || {}).fiscalYearEndMonth);
+  if (declared >= 1 && declared <= 12) return declared;
   const annual = (e.quarters || []).filter(o => o.periodType === 'annual');
   if (annual.length) return Number(annual[annual.length - 1].end.slice(5, 7));
   const s = SEG && SEG.companies[tk];
@@ -426,16 +469,20 @@ function periodCoveredMonths(tk, qv) {
 }
 /* x-axis label for one bar point — single quarters keep Qn'yy; cumulative interims/full
    years get H1'yy / 9M'yy / FY yyyy so the axis never misrepresents an accumulated total
-   as one quarter. Annual rows / annual-only series are unchanged (FY yyyy). */
+   as one quarter. Annual rows / annual-only series are unchanged (FY yyyy).
+   The quarter number AND the year are the company's FISCAL ones (fiscalQuarterOf), so a
+   Cisco bar ending 2026-10-24 reads Q1'27 (FY2027 Q1), not the calendar Q4'26. */
 function barPeriodLabel(tk, qv) {
-  const mm = Number(qv.end.slice(5, 7));
-  const fyr = fiscalYearOf(qv.end, tk);                 // fiscal year the point belongs to
+  const fye = fiscalYearEndMonth(tk);
+  const fq = fiscalQuarterOf(qv.end, fye);
+  const fyr = fq ? fq.fy : Number(qv.end.slice(0, 4));  // fiscal year the point belongs to
   const yy = String(fyr).slice(2, 4);
-  const qn = Math.floor((mm - 1) / 3) + 1;
+  const qn = fq ? fq.q : Math.floor((Number(qv.end.slice(5, 7)) - 1) / 3) + 1;
+  const single = `Q${qn}'${yy}`;                        // one true quarter, fiscal numbering
   if (qv.periodType === 'annual' || isAnnual(tk)) return 'FY ' + fyr; // annual row / series
-  if (!periodIsCumulative(tk, qv)) return `Q${qn}'${qv.end.slice(2, 4)}`; // true single quarter: calendar quarter
+  if (!periodIsCumulative(tk, qv)) return single;
   const cm = periodCoveredMonths(tk, qv);
-  if (cm <= 3) return `Q${qn}'${qv.end.slice(2, 4)}`;
+  if (cm <= 3) return single;
   if (cm <= 6) return `H1'${yy}`;
   if (cm <= 9) return `9M'${yy}`;
   return 'FY ' + fyr;                                   // >=10 months → full-year cumulative
@@ -1154,13 +1201,16 @@ function segPeriods(ticker, name) {
     return row;
   });
 }
-/* x-axis label for a segment period, keyed off its OWN granularity (not the profit row's) */
+/* x-axis label for a segment period, keyed off its OWN granularity (not the profit row's).
+   Quarter numbering is the company's fiscal one (same rule as barPeriodLabel). */
 function segPeriodLabel(ticker, qv) {
   const pt = qv.__segPT || 'quarter';
   const yr = qv.end.slice(0, 4), mm = Number(qv.end.slice(5, 7));
-  const fyr = fiscalYearOf(qv.end, ticker), yy = String(fyr).slice(2, 4);
+  const fq = fiscalQuarterOf(qv.end, fiscalYearEndMonth(ticker));
+  const fyr = fq ? fq.fy : fiscalYearOf(qv.end, ticker), yy = String(fyr).slice(2, 4);
+  const qn = fq ? fq.q : Math.floor((mm - 1) / 3) + 1;
   if (pt === 'annual') return 'FY ' + fyr;
-  if (pt === 'quarter') return `Q${Math.floor((mm - 1) / 3) + 1}'${qv.end.slice(2, 4)}`;
+  if (pt === 'quarter') return `Q${qn}'${yy}`;
   const cm = periodCoveredMonths(ticker, qv);
   if (cm <= 6) return `H1'${yy}`;
   if (cm <= 9) return `9M'${yy}`;

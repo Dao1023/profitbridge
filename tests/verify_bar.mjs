@@ -65,7 +65,7 @@ check('revenue default item, bar count = quarter count', bm.item === 'revenue' &
 check('revenue: no holes (all non-null)', bm.data.every(v => v != null));
 check('NVDA latest revenue bar = 96.221 → $96.2B', Math.abs(bm.data[64] - 96.221) < 1e-6, `value=${bm.data[64]}`);
 check('series echo in option has 64 points', await evl(`chart.getOption().series[0].data.length===65`));
-check('x axis has 64 labels ending Q3\'26', await evl(`(o=chart.getOption(),o.xAxis[0].data.length===65 && o.xAxis[0].data[64]===\"Q3'26\")`));
+check('x axis has 64 labels ending Q2\'27 (NVDA FY2027 Q2, fiscal not calendar)', await evl(`(o=chart.getOption(),o.xAxis[0].data.length===65 && o.xAxis[0].data[64]==="Q2'27")`));
 const t0 = await evl(`(t0=performance.now(),renderChart(),performance.now()-t0)`);
 check('renderBarChart (65 bars) < 120ms', t0 < 120, `${+t0.toFixed(1)}ms`);
 await shot('bar_revenue.png');
