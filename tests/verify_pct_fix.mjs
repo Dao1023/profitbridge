@@ -119,15 +119,23 @@ const rel = (a, b) => Math.abs(a - b) / Math.abs(b);
     { tk: 'SPOT', key: 'gross', nodeZh: '毛利率', baseline: 32.99 },
     { tk: 'ASML', key: 'gross', nodeZh: '毛利率', baseline: 57.45 },
     { tk: 'SONY', key: 'gross', nodeZh: '毛利率', baseline: 36.70 },
-    { tk: '005930.KS', key: 'net', nodeZh: '净利率', baseline: 36.48 },
+    // batch16: 2026-09-30 became the new latest row, so the audited 2026-06-30 baseline is pinned
+    // to its own quarter instead of drifting with `latest`; the new quarter gets its own baseline
+    // as an extra case. The ±0.5pp tolerance is untouched.
+    // 2026-11-20: 005930 2026-06-30 netInc was corrected 62,564,653 -> 71,269,468 (niToCommon ->
+    // DART attributable; see verify_historical_netinc), so the true 2026-06-30 margin is 41.557%
+    // instead of the previously recorded 36.48%; the baseline follows the corrected net income.
+    { tk: '005930.KS', key: 'net', nodeZh: '净利率', baseline: 41.56, end: '2026-06-30' },
+    { tk: '005930.KS', key: 'net', nodeZh: '净利率', baseline: 38.52, end: '2026-09-30' },
   ];
   for (const c of cases) {
-    const d = await sankey(c.tk, null, true);
+    const d = await sankey(c.tk, c.end || null, true);
     const q = qOf(c.tk, d.quarter);
     const truth = q[c.key === 'gross' ? 'gross' : c.key === 'net' ? 'netInc' : 'opInc'] / q.revenue * 100;
     const labelStr = `${c.nodeZh} ${truth.toFixed(1)}%`; // fmtPct = (ratio*100).toFixed(1)
-    check(`B: ${c.tk} sankey label ≈ baseline ${c.baseline}% ±0.5pp`, Math.abs(truth - c.baseline) <= 0.5, `truth=${truth.toFixed(3)}`);
-    check(`B: ${c.tk} rendered sankey label "${labelStr}"`, typeof d.svg === 'string' && d.svg.includes(labelStr), `has=${d.svg ? d.svg.includes(labelStr) : 'no-svg'}`);
+    const tag = c.end ? `${c.tk} ${c.end}` : c.tk;
+    check(`B: ${tag} sankey label ≈ baseline ${c.baseline}% ±0.5pp`, Math.abs(truth - c.baseline) <= 0.5, `truth=${truth.toFixed(3)}`);
+    check(`B: ${tag} rendered sankey label "${labelStr}"`, typeof d.svg === 'string' && d.svg.includes(labelStr), `has=${d.svg ? d.svg.includes(labelStr) : 'no-svg'}`);
     if (c.tk === 'SPOT') await shot('spot-sankey-margin.png');
   }
 }

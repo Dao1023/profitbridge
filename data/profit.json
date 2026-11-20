@@ -27513,7 +27513,7 @@
         {
           "end": "2025-09-30",
           "revenue": 86061747,
-          "netInc": 10552774,
+          "netInc": 12006461,
           "periodType": "q3",
           "fxToUsd": 0.00071242
         },
@@ -27527,16 +27527,26 @@
         {
           "end": "2026-03-31",
           "revenue": 133873444,
-          "netInc": 41401515,
+          "netInc": 47101190,
           "periodType": "q1",
           "fxToUsd": 0.00065582
         },
         {
           "end": "2026-06-30",
           "revenue": 171499470,
-          "netInc": 62564653,
+          "netInc": 71269468,
           "periodType": "q2",
           "fxToUsd": 0.00064479
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 195253209,
+          "netInc": 75208134,
+          "periodType": "q3",
+          "fxToUsd": 0.00073779,
+          "fxDate": "2026-09-30",
+          "gross": 135263852,
+          "opInc": 107440482
         }
       ],
       "notes": "Korean disclosure: standalone Q1/Q3 + FY (no cumulative H1); Q2/Q4 not separately disclosed — as-filed rows only, no differencing possible."
@@ -27822,7 +27832,7 @@
         {
           "end": "2025-09-30",
           "revenue": 21873774,
-          "netInc": 348244,
+          "netInc": 385190,
           "periodType": "q3",
           "fxToUsd": 0.00071242
         },
@@ -27836,16 +27846,29 @@
         {
           "end": "2026-03-31",
           "revenue": 23727227,
-          "netInc": 737660,
+          "netInc": 815703,
           "periodType": "q1",
           "fxToUsd": 0.00065582
         },
         {
           "end": "2026-06-30",
           "revenue": 23826468,
-          "netInc": 604363,
+          "netInc": 668043,
           "periodType": "q2",
           "fxToUsd": 0.00064479
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 23824080,
+          "netInc": 663250,
+          "periodType": "q3",
+          "fxToUsd": 0.00073779,
+          "fxDate": "2026-09-30",
+          "gross": 5815902,
+          "opInc": 781858,
+          "rd": 750810,
+          "sga": 5034044,
+          "tax": 145240
         }
       ],
       "notes": "Korean disclosure: standalone Q1/Q3 + FY (no cumulative H1); Q2/Q4 not separately disclosed — as-filed rows only, no differencing possible."
@@ -35561,6 +35584,14 @@
           "gross": 2157,
           "opInc": 702,
           "netInc": 747,
+          "periodType": "q"
+        },
+        {
+          "end": "2026-09-30",
+          "revenue": 5156,
+          "gross": 2388,
+          "opInc": 831,
+          "netInc": 855,
           "periodType": "q"
         }
       ],
