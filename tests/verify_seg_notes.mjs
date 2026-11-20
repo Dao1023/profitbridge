@@ -124,6 +124,30 @@ await evlA(`state.company='00941.HK'; render(); true`);
 await sleep(300);
 check('switch back to 00941.HK: note returns', (await noteInfo())?.text.includes('客群') === true);
 
+// ---------- 5b. object-shaped SEG.notes also renders (schema-tolerant, ticker-keyed) ----------
+// data/segments.json currently ships notes as an array of "TICKER: text" rows, but the
+// renderer used to accept ONLY that shape: an object bucket ({ticker: "text"}) rendered
+// nothing. The reader now normalises string/array/object, so both shapes must work.
+await evl(`SEG._realNotes = SEG.notes; SEG.notes = {'00941.hk': '口径备注：按客群披露（对象形态）'}; true`);
+await evlA(`state.company='00941.HK'; render(); true`);
+await sleep(300);
+const nObj = await noteInfo();
+check('object notes {ticker: text} (lowercase key): renders for that ticker', !!nObj && nObj.text.includes('对象形态'), nObj?.text);
+await evlA(`state.company='00992.HK'; render(); true`);
+await sleep(300);
+const nObjOther = await noteInfo();
+check('object notes: a different ticker does not inherit it', nObjOther === null || !nObjOther.text.includes('对象形态'), nObjOther?.text);
+await evl(`SEG.notes = {0: '00941.HK: 口径按客群 (numeric bucket)', 1: 'NVDA: should not appear'}; true`);
+await evlA(`state.company='00941.HK'; render(); true`);
+await sleep(300);
+const nBucket = await noteInfo();
+check('numeric-keyed row bucket still filters by TICKER prefix', !!nBucket && nBucket.text.includes('numeric bucket') && !nBucket.text.includes('should not appear'), nBucket?.text);
+await evl(`SEG.notes = SEG._realNotes; delete SEG._realNotes; true`);
+await evlA(`state.company='00992.HK'; render(); true`);
+await sleep(300);
+const nRestored = await noteInfo();
+check('real array notes restored (00992 per-company note still shows)', !!nRestored && (nRestored.text.includes('财年') || nRestored.text.includes('抵销')), nRestored?.text);
+
 // ---------- 6. notes row vs title do not intersect at 1280/1440/1920 ----------
 for (const w of [1280, 1440, 1920]) {
   await setW(w);

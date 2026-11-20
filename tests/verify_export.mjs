@@ -62,6 +62,10 @@ check('exportHeaderData().title is non-empty (screen title captured)', typeof ou
 check('export header line contains company name', out.line.includes(c.name), out.line);
 check('export header line contains the period end', out.line.includes(END), out.line);
 check('export watermark names the data source + update date', /profitbridge/.test(out.wm) && out.wm.includes(D.updated), out.wm);
+// Amounts print adaptively (≥1B → B, <1B → M), so a fixed "十亿 (B)" caption would be
+// wrong whenever an M label appears in the same image. The caption must state the rule.
+check('export unit caption is adaptive B/M (not a fixed 十亿/B)', /B\/M/.test(out.line) && !out.line.includes('十亿'), out.line);
+check('export watermark unit is adaptive B/M', /B\/M/.test(out.wm), out.wm);
 
 check('SVG export is a string', out.svgType === 'string' && out.svg.length > 1000, `len=${out.svg && out.svg.length}`);
 check('SVG export contains the company name', typeof out.svg === 'string' && out.svg.includes(c.name), 'name=' + c.name);

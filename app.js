@@ -1,6 +1,6 @@
 /* Profit Bridge dashboard — data-driven, all figures from data/profit.json (SEC EDGAR XBRL)
    and data/segments.json (SEC EDGAR XBRL segment R files).
-   Sankey rendered with the ECharts (v5.6.0) sankey series, SVG renderer.
+   Sankey rendered with the ECharts (v5.5.1) sankey series, SVG renderer.
    Input side: segment inflows (blue) → Revenue (gray, center).
    Output side: profit waterfall (green) + cost branches (red) + non-operating inflow. */
 'use strict';
@@ -343,7 +343,8 @@ function segmentNoticeGraphic(plan) {
   if (state.view === 'bar') return [];
   // `plan` is the sankey segment plan (see sankeySegPlan); when omitted (e.g. cached
   // __lastOption paths) recompute it so a fiscal-cumulative render still reports 'ok'.
-  const st = (plan || sankeySegPlan(state.company, q())).status;
+  const p = plan || sankeySegPlan(state.company, q());
+  const st = p.status;
   if (st.kind === 'ok') return [];
   let title, hint;
   if (st.kind === 'unavailable') {
@@ -353,12 +354,22 @@ function segmentNoticeGraphic(plan) {
   } else {
     title = t('segNoDataTitle'); hint = t('segNoDataHint');
   }
+  // Keep the text inside the EMPTY INPUT BAND, i.e. strictly left of the revenue column.
+  // The sankey series starts at `left` (170, or 210 when segment parents form an extra
+  // column), the notice starts at x=16, so the usable width is left-16-8 (8px gutter).
+  // A fixed 176 overran the revenue column at every common width: English words such as
+  // "segment" are unbreakable under overflow:'break', so the line ran past the band and
+  // painted over the 营收 column (AVGO/CRWV/000660.KS). `breakAll` breaks long unspaced
+  // words by character, and the capped width means even the 384-char 000660.KS reason
+  // wraps into more (fully readable) lines instead of poking out to the right.
+  const segList = p.segList;
+  const hasAgg = !!(segList && segList.some(s => s.children && s.children.length));
+  const padLeft = hasAgg ? 210 : 170;   // MUST mirror the sankey series `left` below
+  const width = Math.min(176, padLeft - 16 - 8);
   return [{
     type: 'text', left: 16, top: 'middle', z: 10, silent: true,
-    // width 176: 140 was too narrow — Chinese hints broke mid-word (e.g. "披露经审计的合并分部数
-    // 据" split across lines); 176 keeps the hint tidy inside the empty input band.
     style: {
-      width: 176, overflow: 'break', lineHeight: 19, fill: '#94a3b8',
+      width, overflow: 'breakAll', lineHeight: 19, fill: '#94a3b8',
       fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
     },
   }];
@@ -1296,7 +1307,11 @@ function renderBarChart() {
   const hasCumPoint = bases.some(b => b.decal); // series contains H1/9M cumulative bars
   const hasAny = item.data.some(v => v != null);
   const isMargin = item.kind === 'margin';
-  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : dispSym() + v.toFixed(1) + 'B';
+  // Amount text follows the same adaptive B/M rule as the sankey (amtText): a 98.9M
+  // bar must read "$98.9M", never the old "$0.1B" (which is 1% off and hides the unit
+  // switch). Values themselves stay in $B; this is print only. Negative bars (losses)
+  // keep an explicit minus sign before the currency symbol.
+  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : (v < 0 ? '−' : '') + dispSym() + amtText(v);
   // BUG-D: segment bars for half/FY periods carry cumulative values (as disclosed), so
   // cumulativeView() tells us the matching YTD revenue + a '上半年累计 / FY全年累计' label.
   const cumFor = qv => (item.kind === 'segment' ? cumulativeView(state.company, qv) : null);
@@ -1816,24 +1831,52 @@ function isUsefulSegNote(s) {
   const lower = s.toLowerCase();
   return SEG_NOTE_KEEP_HINTS.some(k => s.includes(k) || lower.includes(k.toLowerCase()));
 }
+/* Normalise a notes container to a flat list of strings. segments.json has shipped
+   `notes` both as a flat array of "TICKER: text" rows and as an object keyed by
+   ticker (either `{ticker: "text"}`, `{ticker: ["text", ...]}` or a numeric-keyed
+   row bucket); per-company `notes` may likewise be a string / array / object. One
+   normaliser keeps every shape renderable instead of silently dropping the bucket. */
+function segNoteStrings(v) {
+  if (typeof v === 'string') return [v];
+  if (Array.isArray(v)) return v.flatMap(segNoteStrings);
+  if (v && typeof v === 'object') return Object.values(v).flatMap(segNoteStrings);
+  return [];
+}
+/* all top-level note rows that belong to `tk`, before the useful/noise filter.
+   - array (current data): "TICKER: text" rows, filtered by prefix;
+   - object keyed by ticker: take that ticker's entry only (values are already
+     scoped, so a bare "only 2 quarters..." text must NOT be dropped by the prefix test);
+   - object with numeric/row keys: treat the values as a row bucket.
+   `scoped` says whether the returned strings were already selected for this ticker. */
+function segNoteBucket(tk) {
+  const raw = SEG && SEG.notes;
+  if (!raw) return { rows: [], scoped: false };
+  if (typeof raw === 'string' || Array.isArray(raw)) return { rows: segNoteStrings(raw), scoped: false };
+  const key = Object.keys(raw).find(k => k.toUpperCase() === tk.toUpperCase());
+  if (key != null) return { rows: segNoteStrings(raw[key]), scoped: true };
+  return { rows: segNoteStrings(raw), scoped: false };
+}
 /* all display-worthy notes for one ticker, de-duped, in source order */
 function segNotesFor(tk) {
   const out = [];
   const push = s => { if (typeof s === 'string' && s.trim() && !out.includes(s.trim())) out.push(s.trim()); };
-  if (SEG && Array.isArray(SEG.notes)) {
-    const re = /^([A-Za-z0-9.\-]+):\s*/;      // "TICKER: text"
-    for (const n of SEG.notes) {
-      if (typeof n !== 'string') continue;
-      const m = n.match(re);
-      if (!m || m[1].toUpperCase() !== tk.toUpperCase()) continue;
+  const re = /^([A-Za-z0-9.\-]+):\s*/;      // "TICKER: text"
+  const bucket = segNoteBucket(tk);
+  for (const n of bucket.rows) {
+    const m = n.match(re);
+    if (m) {
+      // a prefixed row belongs to its own ticker
+      if (m[1].toUpperCase() !== tk.toUpperCase()) continue;
       const body = n.slice(m[0].length).trim();
       if (isUsefulSegNote(body)) push(body);
+    } else if (bucket.scoped) {
+      // object form: the text is already ticker-scoped, keep the curated wording as-is
+      if (isUsefulSegNote(n)) push(n);
     }
+    // bare rows in a flat "TICKER: text" bucket have no owner → skip (legacy behaviour)
   }
   const cn = SEG && SEG.companies && SEG.companies[tk] && SEG.companies[tk].notes;
-  if (typeof cn === 'string') push(cn);              // per-company notes are curated: keep as-is
-  else if (Array.isArray(cn)) cn.forEach(push);
-  else if (cn && typeof cn === 'object') Object.values(cn).forEach(push);
+  segNoteStrings(cn).forEach(push);                   // per-company notes are curated: keep as-is
   return out;
 }
 
@@ -1955,7 +1998,10 @@ function exportHeaderData() {
   const period = state.view === 'bar'
     ? (lang === 'zh' ? `全历史至 ${qv.end}` : `full history to ${qv.end}`)
     : quarterLabel(qv.end, qv.periodType);
-  const unit = lang === 'zh' ? `单位 ${dispSym()}十亿 (B)` : `unit ${dispSym()}B`;
+  // Amounts are printed adaptively (≥1B one decimal, <1B in millions — see amtText),
+  // so a fixed "十亿 (B)" caption contradicts M labels in the same export. State the
+  // adaptive rule instead of naming one unit; the currency symbol is still shown.
+  const unit = lang === 'zh' ? `单位 ${dispSym()}B/M（随数值自适应）` : `unit ${dispSym()}B/M (adaptive)`;
   const cur = (c.currency && c.currency !== 'USD-M')
     ? (dispInUsd() ? '≈US$ · ' : c.currency.replace('-M', '') + ' · ') : '';
   return { title, line: `${c.name} (${state.company}) · ${period} · ${view} · ${cur}${unit}` };
@@ -1979,7 +2025,7 @@ function exportOption() {
   return base;
 }
 function exportWatermark() {
-  return `profitbridge · ${lang === 'zh' ? '数据更新' : 'data updated'} ${DATA.updated} · ${lang === 'zh' ? '单位' : 'unit'} ${dispSym()}${lang === 'zh' ? '十亿 (B)' : 'B'}`;
+  return `profitbridge · ${lang === 'zh' ? '数据更新' : 'data updated'} ${DATA.updated} · ${lang === 'zh' ? '单位' : 'unit'} ${dispSym()}${lang === 'zh' ? 'B/M（自适应）' : 'B/M (adaptive)'}`;
 }
 function exportFileName(ext) {
   return `${state.view === 'bar' ? 'bar_' + state.barItem.replace(/^seg:/, 'seg_') : 'profit_bridge'}_${state.company}_${q().end}.${ext}`;
