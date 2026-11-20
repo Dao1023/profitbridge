@@ -136,7 +136,8 @@ node tests/verify_units_guard.mjs        # 单位守卫回归，末行 SUMMARY A
 | 新增文件 | 内容 | 字节 | sha256 |
 | --- | --- | --- | --- |
 | `vendor/echarts.LICENSE.txt` | Apache-2.0 全文，逐字取自 `https://www.apache.org/licenses/LICENSE-2.0.txt`，未改写未截断 | 11,358 | `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30` |
-| `vendor/NOTICE` | ECharts 5.5.1 / Apache-2.0 / 版权行 / `Unmodified`；随包 ZRender 5.6.0（BSD-3-Clause，附全文）、tslib（0BSD） | 7969 | `1da3b3b7507ddef289ec44840a61a404982320242bf3c320436623ec13b074d4` |
+| `vendor/NOTICE` | ECharts 5.5.1 / Apache-2.0 / 版权行 / `Unmodified`；随包 ZRender 5.6.0（BSD-3-Clause，附全文）、d3.js 派生代码（BSD-3-Clause，指向 `vendor/licenses/`）、tslib（0BSD） | 9,312 | `97387a333af617ea55f038d84f0d1a7707d08129530d09ca2a83dd519eb3f49e` |
+| `vendor/licenses/LICENSE-d3.txt` | d3.js BSD-3-Clause 全文（`Copyright 2010-2016 Mike Bostock`），逐字取自 ECharts 5.5.1 随包 `licenses/LICENSE-d3` | 1,475 | `e1211892da0b0e0585b7aebe8f98c1274fba15bafe47fa1f4ee8a7a502c06304` |
 
 其它改动：`README.md` 末尾追加「第三方许可 / Third-party licenses」一节（只追加，既有内容未动）。
 
@@ -147,8 +148,10 @@ node tests/verify_units_guard.mjs        # 单位守卫回归，末行 SUMMARY A
 - §4(c) 保留声明：`vendor/NOTICE` 逐字引用文件头原始 ASF 声明，并记录上游 5.5.1 NOTICE 的版权行 `Copyright 2017-2024 The Apache Software Foundation`。
 - 版本口径沿用第 8 节实测 **5.5.1**，未把随包 zrender 的 `version:"5.6.0"` 误记为 ECharts 版本。
 
-附带发现（不影响本项闭合）：bundle 内 ZRender 为 BSD-3-Clause、tslib 为 0BSD，已在 `vendor/NOTICE` 一并声明；ECharts 官方 LICENSE 附录所称 d3.js 派生代码（BSD-3）在 bundle 内无独立 banner，列为待人工确认项。
+附带发现（不影响本项闭合）：bundle 内 ZRender 为 BSD-3-Clause、tslib 为 0BSD，已在 `vendor/NOTICE` 一并声明。
 
-引入提交：`7c7afb4`（分支 `chore/license-notice`，2026-11-20，4 files changed / +406）；本行 sha 由紧随其后的补记提交补入。
+BSD-3 补强（2026-11-20 追加）：ECharts 官方 LICENSE 附录所称 d3.js 派生代码（treemap / tree / force / number，BSD-3-Clause）此前只登记为待确认，现已随附 `vendor/licenses/LICENSE-d3.txt` 并在 `vendor/NOTICE` §2.2 声明。文本取自 ECharts 5.5.1 随包 `licenses/LICENSE-d3`（`Copyright 2010-2016 Mike Bostock`）；未采用 d3/d3 仓库现行 LICENSE，因其为 ISC 许可（`Copyright 2010-2023 Mike Bostock`），与上游对这段 v3 时代派生代码的 BSD-3 声明不一致。
+
+引入提交：`7c7afb4`（分支 `chore/license-notice`，2026-11-20，4 files changed / +406）；本行 sha 由紧随其后的补记提交补入；d3 声明由同一分支的后续提交补齐（`git log --oneline -- vendor/licenses`）。
 
 sha256 口径：按仓库内 blob（LF 行尾）计算，命令 `git cat-file -p :vendor/NOTICE | sha256sum`；工作区在 `core.autocrlf=true` 下检出为 CRLF，直接对工作区文件求 sha256 会因行尾不同而得到不同值。

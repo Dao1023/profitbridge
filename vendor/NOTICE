@@ -130,7 +130,39 @@ vendor/echarts.min.js 是 ECharts 官方 bundle，内部还包含以下组件。
       OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
       OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-2.2 tslib
+2.2 d3.js（派生代码，非独立文件）
+
+  组件:     d3.js（ECharts 的 treemap / tree / force 布局算法派生自 d3.js）
+  许可:     BSD 3-Clause
+  版权:     Copyright 2010-2016 Mike Bostock / All rights reserved.
+  许可全文: vendor/licenses/LICENSE-d3.txt
+  修改:     派生并改写（ECharts 把 d3 的布局算法改写为 TypeScript 后编译进
+            vendor/echarts.min.js；本仓库未再改动该 dist 文件）
+
+  ECharts 官方 LICENSE 的 "Apache ECharts Subcomponents" 附录声明，以下 4 个源文件
+  含 d3.js（BSD 3-Clause）派生代码：
+
+      src/chart/treemap/treemapLayout.ts
+      src/chart/tree/layoutHelper.ts
+      src/chart/graph/forceHelper.ts
+      src/util/number.ts
+
+  对应逻辑已编译进 vendor/echarts.min.js，bundle 内没有独立的 d3 banner，因此不靠
+  bundle 内注释声明，改由本节 + vendor/licenses/LICENSE-d3.txt 随附（满足 BSD-3-Clause
+  第 2 条：二进制再分发时在文档中重现版权声明、条件与免责声明）。
+
+2.2.1 许可文本来源
+
+  URL:      https://raw.githubusercontent.com/apache/echarts/5.5.1/licenses/LICENSE-d3
+  上游页面: https://github.com/apache/echarts/blob/5.5.1/licenses/LICENSE-d3
+  抓取日期: 2026-11-20
+  说明:     即 ECharts 5.5.1 随包分发的 d3 许可文本，逐字保存，未增删（1,475 字节）。
+            注：d3/d3 仓库现行 LICENSE（v7+）为 ISC 许可、版权行
+            "Copyright 2010-2023 Mike Bostock"；ECharts 内嵌的是 d3 v3 时代的布局
+            代码，上游按 BSD 3-Clause 声明并附 2010-2016 版权行，故此处采用 ECharts
+            随包的 BSD-3 文本，而非 d3/d3 现行的 ISC 文本。
+
+2.3 tslib
 
   组件:     tslib（TypeScript 运行时 helper，随 ECharts 打包）
   许可:     0BSD
@@ -157,16 +189,9 @@ vendor/echarts.min.js 是 ECharts 官方 bundle，内部还包含以下组件。
   （0BSD 不要求保留声明，此处仍予记录。）
 
 
-3. 备注：d3.js 派生代码
-
-  Apache ECharts 官方 LICENSE 的 "Apache ECharts Subcomponents" 附录声明：treemap /
-  tree / force 布局相关的 4 个源文件含 d3.js（BSD 3-Clause）派生代码，详见上游
-  https://github.com/apache/echarts/blob/5.5.1/LICENSE 附录与 /licenses/LICENSE-d3。
-  该部分随 ECharts dist 一并进入 vendor/echarts.min.js，bundle 内无独立 d3 banner，
-  本文件未单独附 d3 许可文本 —— 列为待人工确认项（不影响第 1 节 ECharts 主组件声明）。
-
-
-4. 变更记录
+3. 变更记录
 
   2026-11-20  首版（闭合审计项 A5-LIC-01）：ECharts 5.5.1（Apache-2.0）许可副本与
               NOTICE 声明、随包 ZRender 5.6.0（BSD-3-Clause）、tslib（0BSD）。
+  2026-11-20  补充 d3.js（BSD 3-Clause）派生代码声明，新增
+              vendor/licenses/LICENSE-d3.txt（取自 ECharts 5.5.1 随包副本）。
