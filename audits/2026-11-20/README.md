@@ -128,3 +128,25 @@ node tests/verify_units_guard.mjs        # 单位守卫回归，末行 SUMMARY A
 1. `app.js:3` 注释仍写 v5.6.0，需前端 owner 改为 5.5.1（本 worktree 严禁改 app.js）。
 2. `26db8a2` 提交信息保持原样（不改写历史、不 rebase/amend）。
 3. `audits/2026-11-01/SUMMARY.md:65` 只写「echarts Apache-2.0 未声明」，未带版本号，无需订正。
+
+## 9. 追加：A5-LIC-01 许可实质项已闭合（2026-11-20）
+
+`audits/2026-11-01/A5-engineering/findings.json` 的 A5-LIC-01 指出：`vendor/echarts.min.js` 以 Apache-2.0 随包分发，但 `vendor/` 下无 LICENSE / NOTICE，README 的 License 段只写「代码 MIT」，未声明第三方组件（Apache-2.0 §4(a) 附许可副本、§4(c) 保留 NOTICE）。本次在 worktree `chore/license-notice`（基线 `5628f48`）补齐：
+
+| 新增文件 | 内容 | 字节 | sha256 |
+| --- | --- | --- | --- |
+| `vendor/echarts.LICENSE.txt` | Apache-2.0 全文，逐字取自 `https://www.apache.org/licenses/LICENSE-2.0.txt`，未改写未截断 | 11,358 | `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30` |
+| `vendor/NOTICE` | ECharts 5.5.1 / Apache-2.0 / 版权行 / `Unmodified`；随包 ZRender 5.6.0（BSD-3-Clause，附全文）、tslib（0BSD） | 7969 | `1da3b3b7507ddef289ec44840a61a404982320242bf3c320436623ec13b074d4` |
+
+其它改动：`README.md` 末尾追加「第三方许可 / Third-party licenses」一节（只追加，既有内容未动）。
+
+**判定**：
+
+- §4(a) 许可副本：`vendor/echarts.LICENSE.txt` 提供；校验首行 `Apache License`（首个非空行）、末行 `limitations under the License.`，与官方文件同源同字节。
+- §4(b) 标注修改：`vendor/NOTICE` 明确写 `Unmodified`。
+- §4(c) 保留声明：`vendor/NOTICE` 逐字引用文件头原始 ASF 声明，并记录上游 5.5.1 NOTICE 的版权行 `Copyright 2017-2024 The Apache Software Foundation`。
+- 版本口径沿用第 8 节实测 **5.5.1**，未把随包 zrender 的 `version:"5.6.0"` 误记为 ECharts 版本。
+
+附带发现（不影响本项闭合）：bundle 内 ZRender 为 BSD-3-Clause、tslib 为 0BSD，已在 `vendor/NOTICE` 一并声明；ECharts 官方 LICENSE 附录所称 d3.js 派生代码（BSD-3）在 bundle 内无独立 banner，列为待人工确认项。
+
+引入提交：`chore/license-notice` 分支的许可声明提交（`待补（见 git log）`）。
