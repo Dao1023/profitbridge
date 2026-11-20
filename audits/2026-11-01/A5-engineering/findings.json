@@ -246,6 +246,16 @@
     "angle": "A5",
     "category": "license",
     "evidence": "vendored echarts.min.js 内含 version:\"5.6.0\" 与 Apache-2.0 ASF 头（'Licensed to the Apache Software Foundation' + LICENSE-2.0），README.md:113 提到 echarts 5.6，但 README.md:127-129 License 段仅称 '代码 MIT'，未声明第三方 Apache-2.0 组件；vendor/ 下无独立 LICENSE/NOTICE 文件（仅 echarts.min.js 被 tracked）。",
+    "correction": {
+      "date": "2026-11-20",
+      "field": "evidence",
+      "original_version_claim": "5.6.0",
+      "corrected_version": "5.5.1",
+      "original_fragment": "vendored echarts.min.js 内含 version:\"5.6.0\"（原文据此把 ECharts 版本记为 5.6.0；原文保留不删）",
+      "corrected_fragment": "ECharts 自身版本是 5.5.1；version:\"5.6.0\" 落在随包 zrender 的命名空间对象与 dependencies={zrender:\"5.6.0\"} 上，是 zrender 版本，不是 ECharts 版本",
+      "basis": "实测：node -e \"require('./vendor/echarts.min.js').version\" → 5.5.1；bundle 内 t.version=\"5.5.1\" 唯一一处；grep 5.6.0 仅 2 处，分别为 zrender 对象 version:\"5.6.0\" 与 t.dependencies={zrender:\"5.6.0\"}；5.6.0 新增的 matrix 坐标系不存在（coordinateSystem:\"matrix\" 0 命中）。订正只涉及版本号，A5-LIC-01 的实质结论（第三方 Apache-2.0 未声明）不变。",
+      "see": "audits/2026-11-20/README.md 第 8 节"
+    },
     "path": "vendor/echarts.min.js",
     "line": 1,
     "severity": "P3",
