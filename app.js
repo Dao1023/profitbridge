@@ -1,6 +1,6 @@
 /* Profit Bridge dashboard — data-driven, all figures from data/profit.json (SEC EDGAR XBRL)
    and data/segments.json (SEC EDGAR XBRL segment R files).
-   Sankey rendered with the ECharts (v5.6.0) sankey series, SVG renderer.
+   Sankey rendered with the ECharts (v5.5.1) sankey series, SVG renderer.
    Input side: segment inflows (blue) → Revenue (gray, center).
    Output side: profit waterfall (green) + cost branches (red) + non-operating inflow. */
 'use strict';
