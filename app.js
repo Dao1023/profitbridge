@@ -336,6 +336,20 @@ function segmentStatus(ticker, qEnd) {
   return { kind: 'noData' }; // legacy degraded note string, or empty quarters
 }
 
+/* Responsive sankey padding. The left/right gutters used to be hard-coded 170/210px,
+   which is wider than the whole plot on a phone: at 390px the chart panel is 332px and
+   332-170-170 = -8px, so every node was squeezed to zero/negative width and the labels
+   piled on top of each other. Scale the gutters with the host instead, clamped so the
+   desktop geometry (host >= 773px -> base 170, left 210 when an aggregate column exists)
+   is byte-for-byte unchanged. */
+function sankeyPads(hasAgg) {
+  const host = document.getElementById('sankey');
+  const w = (host && host.clientWidth) || 1072;
+  const base = Math.round(Math.max(60, Math.min(170, w * 0.22)));
+  const left = hasAgg ? Math.min(210, base + 40) : base;
+  return { w, base, left, right: base, compact: base < 170 };
+}
+
 /* ECharts graphic notice shown in the empty input-side band of the sankey when a
    company+quarter has no segment inflow. Placed left of the revenue column so it
    never overlaps or squeezes the waterfall. */
@@ -364,13 +378,16 @@ function segmentNoticeGraphic(plan) {
   // wraps into more (fully readable) lines instead of poking out to the right.
   const segList = p.segList;
   const hasAgg = !!(segList && segList.some(s => s.children && s.children.length));
-  const padLeft = hasAgg ? 210 : 170;   // MUST mirror the sankey series `left` below
-  const width = Math.min(176, padLeft - 16 - 8);
+  const pads = sankeyPads(hasAgg);
+  const padLeft = pads.left;            // MUST mirror the sankey series `left` below
+  // Never go below 48px: a 49px column of 11px text is still readable, while a negative
+  // width makes ECharts drop the whole notice.
+  const width = Math.max(48, Math.min(176, padLeft - 16 - 8));
   return [{
     type: 'text', left: 16, top: 'middle', z: 10, silent: true,
     style: {
-      width, overflow: 'breakAll', lineHeight: 19, fill: '#94a3b8',
-      fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
+      width, overflow: 'breakAll', lineHeight: pads.compact ? 15 : 19, fill: '#475569',
+      fontSize: pads.compact ? 11 : 12.5, fontWeight: 600, text: `${title}\n${hint}`,
     },
   }];
 }
@@ -1000,14 +1017,17 @@ function renderChart() {
     cum ? `${shortName(state.company)} · ${cum.label}`
         : `${shortName(state.company)} ${quarterLabel(qv.end, qv.periodType)}`;
 
+  const hasAgg = !!(segList && segList.some(s => s.children && s.children.length));
+  const pads = sankeyPads(hasAgg);
+  const compactLabel = pads.compact; // host < 773px: 390/768 phones and small tablets
   const labelRich = {
-    n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    v: { fontSize: 14, fontWeight: 600, color: '#64748b', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    p: { fontSize: 14, fontWeight: 700, color: '#2563eb', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // share of revenue
-    m: { fontSize: 14, fontWeight: 700, color: '#1d55a5', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // margin ratios
-    up: { fontSize: 13, fontWeight: 700, color: '#16a34a', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    down: { fontSize: 13, fontWeight: 700, color: '#dc2626', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    flat: { fontSize: 13, fontWeight: 600, color: '#94a3b8', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
+    n: { fontSize: compactLabel ? 13 : 16, fontWeight: 700, color: '#1e293b', lineHeight: compactLabel ? 17 : 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    v: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 600, color: '#52607a', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    p: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 700, color: '#2563eb', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // share of revenue
+    m: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 700, color: '#1d55a5', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // margin ratios
+    up: { fontSize: compactLabel ? 11 : 13, fontWeight: 700, color: '#16a34a', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    down: { fontSize: compactLabel ? 11 : 13, fontWeight: 700, color: '#dc2626', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    flat: { fontSize: compactLabel ? 11 : 13, fontWeight: 600, color: '#52607a', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
   };
 
   /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
@@ -1094,9 +1114,15 @@ function renderChart() {
     } else {
       d.label = { position: 'top', distance: 5 };
     }
+    // Narrow hosts cannot fit every per-segment label: below 2% of revenue the text is
+    // wider than the node and ECharts would stack it over its neighbours. Hide just the
+    // label (d.label.show=false); the node, its link and the item tooltip stay intact.
+    if (compactLabel && n.name.startsWith('seg:') && qv.revenue) {
+      const revB = qv.revenue * dispFactor(qv) / MB;
+      if (revB > 0 && n.value / revB < 0.02) d.label = { show: false };
+    }
     return d;
   });
-  const hasAgg = segList && segList.some(s => s.children && s.children.length);
   // Degraded views carry an amber banner in the top margin; bump the plot's top inset so the
   // banner never sits on top of the revenue label (which is drawn just above the revenue node).
   const sankeyTop = degraded ? 96 : 60;
@@ -1118,10 +1144,11 @@ function renderChart() {
       layout: 'none',               // manual depth layout (pitfall #5)
       nodeAlign: 'justify',
       nodeWidth: 30, nodeGap: 22,
-      left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
+      left: pads.left, right: pads.right, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
+      ...(compactLabel ? { avoidLabelOverlap: true, labelLayout: { hideOverlap: true } } : {}),
       label: {
-        fontSize: 15,
+        fontSize: compactLabel ? 12 : 15,
         formatter: nodeLabel,
         rich: labelRich,
         textBorderColor: '#fff', textBorderWidth: 2.5, // white halo keeps labels legible over colored flow bands
@@ -1136,9 +1163,10 @@ function renderChart() {
     graphic: graphicAll,
     series: [{
       type: 'sankey', layout: 'none', nodeAlign: 'justify',
-      nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
+      nodeWidth: 30, nodeGap: 22, left: pads.left, right: pads.right, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
-      label: { fontSize: 15, formatter: nodeLabel, rich: labelRich, textBorderColor: '#fff', textBorderWidth: 2.5 },
+      ...(compactLabel ? { avoidLabelOverlap: true, labelLayout: { hideOverlap: true } } : {}),
+      label: { fontSize: compactLabel ? 12 : 15, formatter: nodeLabel, rich: labelRich, textBorderColor: '#fff', textBorderWidth: 2.5 },
       data, links: g.links,
     }],
   };
@@ -1512,28 +1540,28 @@ function renderBarChart() {
         moveHandleStyle: { color: '#2563eb' }, emphasis: { handleStyle: { borderColor: '#2563eb' } },
         dataBackground: { lineStyle: { color: '#94a3b8' }, areaStyle: { color: 'rgba(148,163,184,.18)' } },
         selectedDataBackground: { lineStyle: { color: '#2563eb' }, areaStyle: { color: 'rgba(37,99,235,.15)' } },
-        textStyle: { color: '#64748b', fontSize: 10 },
+        textStyle: { color: '#52607a', fontSize: 10 },
       },
       { type: 'inside', xAxisIndex: 0 },
     ],
     grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 66, bottom: 92 }, // top:66 leaves a clear band above the % axis line for the legend
     xAxis: {
       type: 'category', data: labels,
-      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },
+      axisLabel: { rotate: 45, fontSize: 11, color: '#52607a', interval: 'auto', hideOverlap: true },
       axisLine: { lineStyle: { color: '#cbd5e1' } }, axisTick: { alignWithLabel: true },
     },
     yAxis: [
       {
-        type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#64748b' },
-        axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
+        type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#52607a' },
+        axisLabel: { color: '#52607a' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
       },
       ...(lineSeries.length ? [{
-        type: 'value', name: '%', position: 'right', nameTextStyle: { color: '#64748b' },
-        axisLabel: { color: '#64748b', formatter: '{value}%' }, splitLine: { show: false },
+        type: 'value', name: '%', position: 'right', nameTextStyle: { color: '#52607a' },
+        axisLabel: { color: '#52607a', formatter: '{value}%' }, splitLine: { show: false },
       }] : []),
     ],
     graphic: hasAny ? [] : [{ type: 'text', left: 'center', top: 'middle',
-      style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#94a3b8' } }],
+      style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#52607a' } }],
     series: [
       { name: item.label, type: 'bar', data: barSeriesData, barMaxWidth: 16,
         itemStyle: { color: item.color, borderRadius: [2, 2, 0, 0] } },
@@ -1552,8 +1580,23 @@ function renderBarChart() {
 
 /* ---- left logo rail ---- */
 const MONO_COLORS = ['#1d55a5','#b91c1c','#0f766e','#7c3aed','#c2410c','#be185d','#15803d','#a16207','#1e40af','#4d7c0f'];
+/* Phone layout keeps the 92-logo wall folded behind this count chip; keeping the
+   label/aria state in one helper means language switches and renders stay in sync. */
+function syncLogoToggle() {
+  const rail = document.getElementById('logoRail');
+  const toggle = document.getElementById('logoToggle');
+  if (!rail || !toggle) return;
+  const open = rail.classList.contains('open');
+  const n = Object.keys(DATA.companies).length;
+  const count = document.getElementById('logoCount');
+  if (count) count.textContent = lang === 'zh' ? `${n} 家公司` : `${n} companies`;
+  const caret = toggle.querySelector('.caret');
+  if (caret) caret.textContent = open ? '▴' : '▾';
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
 function renderLogoRail() {
   const rail = document.getElementById('logoRail');
+  const toggle = document.getElementById('logoToggle');
   /* build DOM once; subsequent renders only toggle classes — re-creating <img>
      nodes on company switch re-fetched logos and made the rail visibly jitter */
   if (rail.dataset.built !== '1' || rail.dataset.lang !== lang) {
@@ -1568,6 +1611,14 @@ function renderLogoRail() {
     rail.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => switchCompany(el.dataset.sym)));
     rail.dataset.built = '1'; rail.dataset.lang = lang;
   }
+  if (toggle && toggle.dataset.bound !== '1') {
+    toggle.addEventListener('click', () => {
+      rail.classList.toggle('open');
+      syncLogoToggle();
+    });
+    toggle.dataset.bound = '1';
+  }
+  syncLogoToggle();
   /* incremental update: active highlight + industry visibility, no DOM rebuild */
   rail.querySelectorAll('.logo').forEach(el => {
     const tk = el.dataset.sym;
@@ -1704,7 +1755,9 @@ function renderTimeline() {
   // the bare year (with 64 quarters a "Y Qx + date" label set overflows the track).
   const order = [cur, n - 1, 0];
   const byYear = new Map();
-  for (let i = 0; i < n; i++) { const y = yearOf(qs[i].end); if (!byYear.has(y)) byYear.set(y, i); }
+  // a year tick represents that year's LAST reported quarter, so clicking "2019"
+  // lands on the year-end period (index 0 stays pinned below for the data start)
+  for (let i = 0; i < n; i++) { const y = yearOf(qs[i].end); byYear.set(y, i); }
   for (const i of [...byYear.values()].sort((a, b) => a - b)) order.push(i);
   const usedYears = new Set(), show = [];
   for (const i of order) {
@@ -1713,11 +1766,72 @@ function renderTimeline() {
     usedYears.add(y); show.push(i);
   }
   show.sort((a, b) => a - b);
-  ticks.innerHTML = show.map(i =>
-    `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}" title="${qs[i].end}">
-       <div class="q">${yearOf(qs[i].end)}</div>${i === cur ? `<div class="d">${qs[i].end}</div>` : ''}</div>`).join('');
-  ticks.querySelectorAll('.tl-tick').forEach(el =>
-    el.addEventListener('click', () => setQuarter(Number(el.dataset.i))));
+  const paint = list => {
+    ticks.innerHTML = list.map(i =>
+      `<div class="tl-tick${i === cur ? ' active' : ''}" data-i="${i}" title="${qs[i].end}">
+         <div class="q">${yearOf(qs[i].end)}</div>${i === cur ? `<div class="d">${qs[i].end}</div>` : ''}</div>`).join('');
+  };
+  /* Narrow screens: 19 year labels cannot fit 220-600px, so thin the row to the
+     coarsest step that still FITS instead of letting `space-between` glue the
+     labels together and clip the recent years behind #chartPanel's overflow.
+     First/last/active are always kept. Ticks are measured after paint, so the
+     active tick's wider date caption is accounted for. Desktop (>900px) keeps
+     the exact previous tick set, hence a pixel-identical rendering. */
+  let picked = show;
+  if (innerWidth <= 900) {
+    const sample = step => {
+      if (step <= 1) return show;
+      const keep = new Set([0, show.length - 1]);
+      const cp = show.indexOf(cur);
+      if (cp >= 0) keep.add(cp);
+      for (let p = 0; p < show.length; p += step) keep.add(p);
+      return [...keep].sort((a, b) => a - b).map(p => show[p]);
+    };
+    /* Readability floor: space-between always stretches the row to the full
+       container, so scrollWidth alone never tells us the labels are comfortable.
+       Require both "no pixel overflow" and >=40px of track per year label. */
+    const comfortable = list => ticks.scrollWidth <= ticks.clientWidth + 3 &&
+      (list.length < 2 || ticks.clientWidth / (list.length - 1) >= 40);
+    for (let step = 1; step <= 8; step++) {
+      picked = sample(step);
+      paint(picked);
+      if (comfortable(picked)) break;
+    }
+    if (!comfortable(picked)) {
+      const keep = new Set([0, show.length - 1]);
+      const cp = show.indexOf(cur);
+      if (cp >= 0) keep.add(cp);
+      picked = [...keep].sort((a, b) => a - b).map(p => show[p]);
+      paint(picked);
+    }
+  } else {
+    paint(picked);
+  }
+  ticks.classList.toggle('scrollable', ticks.scrollWidth > ticks.clientWidth + 3);
+  /* One delegated handler for the whole row, selecting the tick whose CENTRE is
+     nearest the pointer. This is immune to any hit-area overlap: the previous
+     per-tick ±18px pseudo-elements made the next sibling swallow the previous
+     label's centre below ~1280px, so every mobile click jumped one year ahead. */
+  if (ticks.dataset.delegated !== '1') {
+    ticks.addEventListener('click', e => {
+      // track clicks (and clicks anywhere outside a label) keep the track's own
+      // fraction→quarter mapping; only a click that hit a tick is re-mapped
+      const hit = e.target.closest && e.target.closest('.tl-tick');
+      if (!hit) return;
+      // Programmatic .click() (tests, keyboard/AT activation) carries detail=0 and
+      // clientX=0; nearest-centre would always resolve to the first tick. Trust the
+      // element the caller actually activated in that case.
+      if (!e.detail) { setQuarter(Number(hit.dataset.i)); return; }
+      const list = [...ticks.querySelectorAll('.tl-tick')];
+      let best = null, bestD = Infinity;
+      for (const el of list) {
+        const r = el.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - e.clientX);
+        if (d < bestD) { bestD = d; best = el; }
+      }
+      if (best) setQuarter(Number(best.dataset.i));
+    });
+    ticks.dataset.delegated = '1';
+  }
   const pct = n > 1 ? (cur / (n - 1)) * 100 : 0;
   document.getElementById('tlFill').style.width = pct + '%';
   document.getElementById('tlThumb').style.left = pct + '%';
@@ -1891,6 +2005,15 @@ function segNotesFor(tk) {
    Both verify_layout_refactor (rail==panel) and verify_filter_jitter (rail stable
    on company switch) depend on this invariant. */
 const SANKEE_BASE_H = 660; // must match #sankey's CSS height in index.html
+/* Phones get a shorter canvas so the timeline is reachable without a long
+   scroll; desktop keeps the exact 660px base that the layout-refactor tests
+   and the 1280px pixel regression depend on. */
+function sankeyBaseHeight() {
+  const w = window.innerWidth || 1280;
+  if (w <= 400) return 480;
+  if (w <= 768) return 520;
+  return SANKEE_BASE_H;
+}
 function syncChartHeightForNotes() {
   const sk = document.getElementById('sankey');
   if (!sk) return;
@@ -1900,7 +2023,7 @@ function syncChartHeightForNotes() {
     const cs = getComputedStyle(noteEl);
     extra = noteEl.offsetHeight + (parseFloat(cs.marginTop) || 0);
   }
-  sk.style.height = Math.max(240, SANKEE_BASE_H - extra) + 'px';
+  sk.style.height = Math.max(240, sankeyBaseHeight() - extra) + 'px';
 }
 
 function render() {
@@ -2046,7 +2169,7 @@ function svgWithHeader(rawSvg) {
 <text x="${W / 2}" y="40" text-anchor="middle" font-family="${fam}" font-size="30" font-weight="800" fill="#1d55a5">${_svgEsc(h.title)}</text>
 <text x="${W / 2}" y="72" text-anchor="middle" font-family="${fam}" font-size="15" fill="#475569">${_svgEsc(h.line)}</text>
 <g transform="translate(0,${headH})">${inner}</g>
-<text x="${W / 2}" y="${H - 14}" text-anchor="middle" font-family="${fam}" font-size="11" fill="#94a3b8">${_svgEsc(wm)}</text>
+<text x="${W / 2}" y="${H - 14}" text-anchor="middle" font-family="${fam}" font-size="11" fill="#52607a">${_svgEsc(wm)}</text>
 </svg>`;
 }
 async function exportPNG() {
@@ -2073,7 +2196,7 @@ async function exportPNG() {
   ctx.fillText(h.title, canvas.width / 2, 40 * ratio);
   ctx.fillStyle = '#475569'; ctx.font = `${15 * ratio}px ${fam}`;
   ctx.fillText(h.line, canvas.width / 2, 74 * ratio);
-  ctx.fillStyle = '#94a3b8'; ctx.font = `${11 * ratio}px ${fam}`;
+  ctx.fillStyle = '#52607a'; ctx.font = `${11 * ratio}px ${fam}`;
   ctx.fillText(wm, canvas.width / 2, (H + headH + wmH / 2) * ratio);
   const dataUrl = canvas.toDataURL('image/png');
   const a = document.createElement('a');
