@@ -1307,7 +1307,11 @@ function renderBarChart() {
   const hasCumPoint = bases.some(b => b.decal); // series contains H1/9M cumulative bars
   const hasAny = item.data.some(v => v != null);
   const isMargin = item.kind === 'margin';
-  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : dispSym() + v.toFixed(1) + 'B';
+  // Amount text follows the same adaptive B/M rule as the sankey (amtText): a 98.9M
+  // bar must read "$98.9M", never the old "$0.1B" (which is 1% off and hides the unit
+  // switch). Values themselves stay in $B; this is print only. Negative bars (losses)
+  // keep an explicit minus sign before the currency symbol.
+  const fmtVal = v => isMargin ? v.toFixed(1) + '%' : (v < 0 ? '−' : '') + dispSym() + amtText(v);
   // BUG-D: segment bars for half/FY periods carry cumulative values (as disclosed), so
   // cumulativeView() tells us the matching YTD revenue + a '上半年累计 / FY全年累计' label.
   const cumFor = qv => (item.kind === 'segment' ? cumulativeView(state.company, qv) : null);
@@ -1994,7 +1998,10 @@ function exportHeaderData() {
   const period = state.view === 'bar'
     ? (lang === 'zh' ? `全历史至 ${qv.end}` : `full history to ${qv.end}`)
     : quarterLabel(qv.end, qv.periodType);
-  const unit = lang === 'zh' ? `单位 ${dispSym()}十亿 (B)` : `unit ${dispSym()}B`;
+  // Amounts are printed adaptively (≥1B one decimal, <1B in millions — see amtText),
+  // so a fixed "十亿 (B)" caption contradicts M labels in the same export. State the
+  // adaptive rule instead of naming one unit; the currency symbol is still shown.
+  const unit = lang === 'zh' ? `单位 ${dispSym()}B/M（随数值自适应）` : `unit ${dispSym()}B/M (adaptive)`;
   const cur = (c.currency && c.currency !== 'USD-M')
     ? (dispInUsd() ? '≈US$ · ' : c.currency.replace('-M', '') + ' · ') : '';
   return { title, line: `${c.name} (${state.company}) · ${period} · ${view} · ${cur}${unit}` };
@@ -2018,7 +2025,7 @@ function exportOption() {
   return base;
 }
 function exportWatermark() {
-  return `profitbridge · ${lang === 'zh' ? '数据更新' : 'data updated'} ${DATA.updated} · ${lang === 'zh' ? '单位' : 'unit'} ${dispSym()}${lang === 'zh' ? '十亿 (B)' : 'B'}`;
+  return `profitbridge · ${lang === 'zh' ? '数据更新' : 'data updated'} ${DATA.updated} · ${lang === 'zh' ? '单位' : 'unit'} ${dispSym()}${lang === 'zh' ? 'B/M（自适应）' : 'B/M (adaptive)'}`;
 }
 function exportFileName(ext) {
   return `${state.view === 'bar' ? 'bar_' + state.barItem.replace(/^seg:/, 'seg_') : 'profit_bridge'}_${state.company}_${q().end}.${ext}`;

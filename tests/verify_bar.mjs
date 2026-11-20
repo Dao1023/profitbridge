@@ -108,6 +108,16 @@ const tip = await evlA(`(async()=>{ chart.dispatchAction({type:'showTip',seriesI
 // value and the QoQ change but drops the redundant share.
 check('tooltip contains $96.2B + QoQ, omits redundant 占营收', typeof tip === 'string' && tip.includes('96.2') && tip.includes('QoQ') && !tip.includes('占营收'), JSON.stringify(tip?.slice(0, 140)));
 
+// ---------- 4b. small amounts print adaptively in millions (never the rounded "$0.1B") ----------
+// NVDA FY2011 Q2 sga = 0.0989 ($B). toFixed(1)+'B' rounded it to $0.1B, a 1% error that
+// also hid the unit switch; bar tooltips now share amtText() with the sankey.
+await evlA(`(s=document.getElementById('barSelect'),s.value='sga',s.dispatchEvent(new Event('change')),state.mode.pct=false,state.mode.qoq=false,render(),true)`);
+await sleep(300);
+const smallTip = await evlA(`(async()=>{ chart.dispatchAction({type:'showTip',seriesIndex:0,dataIndex:0}); await new Promise(r=>setTimeout(r,300));
+  const el=document.querySelector('#sankey div[style*="position: absolute"]'); return el?el.textContent:''; })()`);
+check('sga FY2011 Q2: tooltip prints $98.9M, not the rounded $0.1B', typeof smallTip === 'string' && smallTip.includes('$98.9M') && !smallTip.includes('0.1B'), JSON.stringify(smallTip?.slice(0, 120)));
+await shot('bar_small_amount.png');
+
 // ---------- 5. no-data item: AMZN rd → empty chart + notice ----------
 await evlA(`state.company='AMZN'; state.barItem='rd'; state.mode.pct=false; state.mode.qoq=false; render(); true`);
 await sleep(300);
