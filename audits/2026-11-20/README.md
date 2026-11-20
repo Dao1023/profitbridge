@@ -149,4 +149,6 @@ node tests/verify_units_guard.mjs        # 单位守卫回归，末行 SUMMARY A
 
 附带发现（不影响本项闭合）：bundle 内 ZRender 为 BSD-3-Clause、tslib 为 0BSD，已在 `vendor/NOTICE` 一并声明；ECharts 官方 LICENSE 附录所称 d3.js 派生代码（BSD-3）在 bundle 内无独立 banner，列为待人工确认项。
 
-引入提交：`chore/license-notice` 分支的许可声明提交（`待补（见 git log）`）。
+引入提交：`7c7afb4`（分支 `chore/license-notice`，2026-11-20，4 files changed / +406）；本行 sha 由紧随其后的补记提交补入。
+
+sha256 口径：按仓库内 blob（LF 行尾）计算，命令 `git cat-file -p :vendor/NOTICE | sha256sum`；工作区在 `core.autocrlf=true` 下检出为 CRLF，直接对工作区文件求 sha256 会因行尾不同而得到不同值。
