@@ -13,7 +13,7 @@ import { loadPatches, applyRowPatches } from '../scripts/lib/row_patches.mjs';
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const P = JSON.parse(fs.readFileSync(new URL('../data/profit.json', import.meta.url), 'utf8'));
 const MIRROR = fs.readFileSync(new URL('../data/profit.json.js', import.meta.url), 'utf8')
-  .replace(/^window\.__PROFIT_DATA = /, '').replace(/;\n$/, '');
+  .replace(/^window\.__PROFIT_DATA = /, '').replace(/;\s*$/, '');
 
 let fails = 0;
 const ok = (cond, msg) => { if (!cond) { console.error('FAIL', msg); fails++; } else console.log('ok  ', msg); };

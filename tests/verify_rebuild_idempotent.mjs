@@ -112,7 +112,7 @@ if (s1 === null) {
   ok(fs.existsSync(mirrorPath), 'A6: stage1 产出 profit.json.js 镜像');
   if (fs.existsSync(mirrorPath)) {
     const raw = fs.readFileSync(mirrorPath, 'utf8');
-    const m = raw.match(/^window\.__PROFIT_DATA\s*=\s*([\s\S]*);\n$/);
+    const m = raw.match(/^window\.__PROFIT_DATA\s*=\s*([\s\S]*);\s*$/);
     ok(!!m, 'A7: 镜像 payload 形状 window.__PROFIT_DATA = ...;');
     let parsed = null;
     try { parsed = m ? JSON.parse(m[1]) : null; } catch { parsed = null; }
@@ -139,7 +139,7 @@ if (!fs.existsSync(backfillDir)) {
     const outTxt = norm(fs.readFileSync(path.join(stage2Dir, 'profit.json')));
     ok(outTxt === diskTxt, `B2: stage1+stage2 与磁盘逐字节一致（${Buffer.byteLength(diskTxt)} B）`, outTxt.slice(0, 400));
     const mirrorRaw = fs.readFileSync(path.join(stage2Dir, 'profit.json.js'), 'utf8');
-    const m = mirrorRaw.match(/^window\.__PROFIT_DATA\s*=\s*([\s\S]*);\n$/);
+    const m = mirrorRaw.match(/^window\.__PROFIT_DATA\s*=\s*([\s\S]*);\s*$/);
     let parsed = null;
     try { parsed = m ? JSON.parse(m[1]) : null; } catch { parsed = null; }
     ok(parsed !== null && JSON.stringify(parsed) === JSON.stringify(JSON.parse(outTxt)), 'B3: stage2 镜像与输出 deepEqual');
