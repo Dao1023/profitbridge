@@ -386,7 +386,7 @@ function segmentNoticeGraphic(plan) {
   return [{
     type: 'text', left: 16, top: 'middle', z: 10, silent: true,
     style: {
-      width, overflow: 'breakAll', lineHeight: pads.compact ? 15 : 19, fill: '#94a3b8',
+      width, overflow: 'breakAll', lineHeight: pads.compact ? 15 : 19, fill: '#475569',
       fontSize: pads.compact ? 11 : 12.5, fontWeight: 600, text: `${title}\n${hint}`,
     },
   }];
@@ -1022,12 +1022,12 @@ function renderChart() {
   const compactLabel = pads.compact; // host < 773px: 390/768 phones and small tablets
   const labelRich = {
     n: { fontSize: compactLabel ? 13 : 16, fontWeight: 700, color: '#1e293b', lineHeight: compactLabel ? 17 : 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    v: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 600, color: '#64748b', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    v: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 600, color: '#52607a', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
     p: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 700, color: '#2563eb', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // share of revenue
     m: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 700, color: '#1d55a5', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // margin ratios
     up: { fontSize: compactLabel ? 11 : 13, fontWeight: 700, color: '#16a34a', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
     down: { fontSize: compactLabel ? 11 : 13, fontWeight: 700, color: '#dc2626', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    flat: { fontSize: compactLabel ? 11 : 13, fontWeight: 600, color: '#94a3b8', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
+    flat: { fontSize: compactLabel ? 11 : 13, fontWeight: 600, color: '#52607a', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
   };
 
   /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
@@ -1540,28 +1540,28 @@ function renderBarChart() {
         moveHandleStyle: { color: '#2563eb' }, emphasis: { handleStyle: { borderColor: '#2563eb' } },
         dataBackground: { lineStyle: { color: '#94a3b8' }, areaStyle: { color: 'rgba(148,163,184,.18)' } },
         selectedDataBackground: { lineStyle: { color: '#2563eb' }, areaStyle: { color: 'rgba(37,99,235,.15)' } },
-        textStyle: { color: '#64748b', fontSize: 10 },
+        textStyle: { color: '#52607a', fontSize: 10 },
       },
       { type: 'inside', xAxisIndex: 0 },
     ],
     grid: { left: 64, right: lineSeries.length ? 56 : 24, top: 66, bottom: 92 }, // top:66 leaves a clear band above the % axis line for the legend
     xAxis: {
       type: 'category', data: labels,
-      axisLabel: { rotate: 45, fontSize: 11, color: '#64748b', interval: 'auto', hideOverlap: true },
+      axisLabel: { rotate: 45, fontSize: 11, color: '#52607a', interval: 'auto', hideOverlap: true },
       axisLine: { lineStyle: { color: '#cbd5e1' } }, axisTick: { alignWithLabel: true },
     },
     yAxis: [
       {
-        type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#64748b' },
-        axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
+        type: 'value', name: isMargin ? '%' : dispSym() + 'B', nameTextStyle: { color: '#52607a' },
+        axisLabel: { color: '#52607a' }, splitLine: { lineStyle: { color: '#e2e6ee' } },
       },
       ...(lineSeries.length ? [{
-        type: 'value', name: '%', position: 'right', nameTextStyle: { color: '#64748b' },
-        axisLabel: { color: '#64748b', formatter: '{value}%' }, splitLine: { show: false },
+        type: 'value', name: '%', position: 'right', nameTextStyle: { color: '#52607a' },
+        axisLabel: { color: '#52607a', formatter: '{value}%' }, splitLine: { show: false },
       }] : []),
     ],
     graphic: hasAny ? [] : [{ type: 'text', left: 'center', top: 'middle',
-      style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#94a3b8' } }],
+      style: { text: t('barNoData'), fontSize: 20, fontWeight: 600, fill: '#52607a' } }],
     series: [
       { name: item.label, type: 'bar', data: barSeriesData, barMaxWidth: 16,
         itemStyle: { color: item.color, borderRadius: [2, 2, 0, 0] } },
@@ -2137,7 +2137,7 @@ function svgWithHeader(rawSvg) {
 <text x="${W / 2}" y="40" text-anchor="middle" font-family="${fam}" font-size="30" font-weight="800" fill="#1d55a5">${_svgEsc(h.title)}</text>
 <text x="${W / 2}" y="72" text-anchor="middle" font-family="${fam}" font-size="15" fill="#475569">${_svgEsc(h.line)}</text>
 <g transform="translate(0,${headH})">${inner}</g>
-<text x="${W / 2}" y="${H - 14}" text-anchor="middle" font-family="${fam}" font-size="11" fill="#94a3b8">${_svgEsc(wm)}</text>
+<text x="${W / 2}" y="${H - 14}" text-anchor="middle" font-family="${fam}" font-size="11" fill="#52607a">${_svgEsc(wm)}</text>
 </svg>`;
 }
 async function exportPNG() {
@@ -2164,7 +2164,7 @@ async function exportPNG() {
   ctx.fillText(h.title, canvas.width / 2, 40 * ratio);
   ctx.fillStyle = '#475569'; ctx.font = `${15 * ratio}px ${fam}`;
   ctx.fillText(h.line, canvas.width / 2, 74 * ratio);
-  ctx.fillStyle = '#94a3b8'; ctx.font = `${11 * ratio}px ${fam}`;
+  ctx.fillStyle = '#52607a'; ctx.font = `${11 * ratio}px ${fam}`;
   ctx.fillText(wm, canvas.width / 2, (H + headH + wmH / 2) * ratio);
   const dataUrl = canvas.toDataURL('image/png');
   const a = document.createElement('a');
