@@ -119,7 +119,7 @@ data/                  profit.json / segments.json / companies.json / logos/
 scripts/               serve.mjs（零依赖静态服务器）、fetch_profit.mjs、
                        fetch_segments.mjs、validate_profit.mjs、
                        verify_profit_fix.mjs、verify_segments_hist.mjs（回归）
-tests/                 verify_*.mjs（23 个，含 verify_scan.mjs；无头 CDP + 数据回归：柱状图/模式/时间轴/导出/币种/单位护栏等，
+tests/                 verify_*.mjs（25 个，含 verify_scan.mjs；无头 CDP + 数据回归：柱状图/模式/时间轴/导出/币种/单位护栏等，
                        需先起 :8440 服务；截图与浏览器 profile 落在 tests/.shots、tests/.chrome）
 docs/screenshots/      README 配图
 ```
