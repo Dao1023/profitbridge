@@ -1,0 +1,94 @@
+{
+  "_meta": {
+    "batch": 16,
+    "description": "补 3 家非 SEC 亚洲公司 2026-09-30 单季：005930.KS（三星电子，KRW-M）、066570.KS（LG电子，KRW-M）、2454.TW（联发科，USD-M）。全部为一手/官方报表回源复核后新增，无 enrich、无既有期改写。韩企金额为百万韩元原值（fxToUsd 仅供美元视图）；联发科按站内既有固定率 TWD÷32.596145 折 USD-M，不写 fxToUsd（与 2330.TW 先例一致）。",
+    "generatedAt": "2026-11-20",
+    "fetchedAt": "2026-11-20T13:00:00+08:00",
+    "sources": [
+      "【005930.KS 主源 A】stockanalysis.com Samsung Electronics KRX/005930 quarterly：https://stockanalysis.com/quote/KRX/005930/financials/?p=quarterly —— Sep '26 列 Revenue 195,253,209；Gross Profit 135,263,852；Operating Income 107,440,482；Net Income 75,208,134（归母口径）。本行四项逐位取自该页。",
+      "【005930.KS 主源 B】Naver 移动端 DART 镜像季度财务（억원，2026.09 列 isConsensus=N，即实际值）：https://m.stock.naver.com/api/stock/005930/finance/quarter —— 매출액 1,952,532억=195,253,200 KRW-M；영업이익 1,074,405억=107,440,500；당기순이익 751,361억=75,136,100；지배주주순이익 752,081억=75,208,100。与 A 偏差分别 9 / 18 / 34 KRW-M（≤0.00005%），为 억원 舍入。",
+      "【005930.KS 官方源 C】Samsung Electronics 2026 3Q conference deck（Appendix 1: 3Q 2026 Results & Financial Data）：https://images.samsung.com/is/content/samsung/assets/global/ir/docs/2026_3Q_conference_eng.pdf —— Sales 195.3T（100.0%）；Cost of sales 60.0T（30.7%）；Gross profit 135.3T（69.3%）；SG&A 27.8T（14.2%）；R&D 14.4T（7.4%）；Operating profit 107.4T（55.0%）；Profit before income tax 98.5T；Income tax 23.4T；Net profit 75.1T；attributable to owners of parent 75.2T；EPS 11,462。0.1 万亿舍入（±50,000 KRW-M）。注意：deck 的 Cost of sales 为 60.0T、Gross profit 为 135.3T，勿把 135.3T 误当营业成本；135.3−27.8≈107.5 与 OP 107.4 勾稽。",
+      "【066570.KS 主源 A（一手）】LG전자 분기보고서 2026.09（2026-11-16 提交，rcpNo 20261116000748，dcmNo 11658619，eleId 21 连接 손익계산서，单位 백만원）：https://dart.fss.or.kr/report/viewer.do?rcpNo=20261116000748&dcmNo=11658619&eleId=21&offset=0&length=400000&dtd=dart4.xsd —— 3Q26 单季列 매출액 23,824,080；매출원가 18,008,178；매출총이익 5,815,902；판매비와관리비 5,034,044（판매비 3,143,806、관리비 695,860、연구개발비 750,810、서비스비 443,568）；영업이익 781,858；법인세비용차감전순이익 853,647；법인세비용 145,240；분기순이익 708,407；지배기업의 소유주지분 663,250；비지배지분 45,157。",
+      "【066570.KS 官方源 B】LG Electronics 2026 Q3 Earnings Release (EN)：https://www.lge.co.kr/kr/upload/admin/investment/result/2026_Q3_Earnings_Release_of_LGE_EN.pdf —— Sales 23,824.1（십억）；Gross profit 5,815.9；SG&A 5,034.0；Operating profit 781.9；PBT 853.6；Income tax 145.2；Net income 708.4；attributable（Controlled）663.2；NCI 45.2。与 A 最大偏差 0.0075%。",
+      "【066570.KS 独立媒体源 C】연합뉴스 2026-10-28：https://www.yna.co.kr/view/AKR20261028115801527 —— 「3분기 매출 23조8천241억원, 영업이익 7천819억원」→ 23,824,100 / 781,900 KRW-M；9M 누적 매출 71조3,778억、영업이익 4조347억。与 DART 差 20 / 42 KRW-M（≤0.005%）。",
+      "【2454.TW 主源 A】TWSE OpenAPI t187ap06_L_ci（出表日期 1151120 = 2026-11-20，年度 115 季別 3，公司代號 2454，单位千元，9 个月累计）：https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci —— 營業收入 469,390,909；營業毛利 217,211,357；營業利益 72,860,839；稅前淨利 88,554,079；所得稅 11,373,860；本期淨利 77,180,219；淨利歸屬於母公司業主 76,371,063；非控制權益 809,156；EPS 47.94。单季 = 9M − (Q1+Q2)。",
+      "【2454.TW 主源 B】stockanalysis.com TPE/2454 quarterly：https://stockanalysis.com/quote/TPE/2454/financials/?p=quarterly —— Sep '26 列 Revenue 168,058；Gross Profit 77,848；Operating Income 27,102；Net Income 27,882（归母）；Q1/Q2 分别为 149,151/152,183、69,055/70,308、22,891/22,868、24,154/24,335（TWD-M），用于从 TWSE 9M 差分。差分结果 168,056.909 / 77,848.357 / 27,101.839 / 27,882.063，与 B 直接列偏差 ≤0.001%。",
+      "【fx】2026-09-30 USD/KRW 即期 1,355.40：https://api.frankfurter.app/2026-09-30?from=USD&to=KRW —— 1/1355.40 = 0.00073778758… → fxToUsd 0.00073779，fxDate 2026-09-30。与既有 2026-03-31（1/1524.80=0.00065582）、2026-06-30（1/1550.89=0.00064479）同法。",
+      "【2454.TW 换算先例】2330.TW 2026-09-30 行同为 USD-M、无 fxToUsd（rev 45,841 / gross 30,445 / opInc 26,888 / netInc 23,410），TWSE TWD 统一按 USD/TWD 32.596145 折算；2454.TW 既有 2026-06-30 行 152,183/32.596145=4,668.7≈4,669 亦逐项吻合。"
+    ],
+    "shape": "results[].newQuarters 逐票追加 2026-09-30 单季；无 enrich；不改既有期。韩企行键序 = 既有 5 键 end,revenue,netInc,periodType,fxToUsd 原样保留，其后按 fxDate,gross,opInc[,rd,sga,tax] 追加；联发科行键序 = 既有 end,revenue,gross,opInc,netInc,periodType。",
+    "periodTypeNote": "两家韩企既有 Q3 行的 periodType 为 \"q3\"（2021-09-30 起每一年 Q3 均如此），非 \"q\"；故新行写 q3。2454.TW 既有行一律 \"q\"，新行写 q。",
+    "netIncNote": "三家 netInc 一律为归母净利：LG 663,250（总净利 708,407，NCI 45,157）；Samsung 75,208,134（总净利 75,136,100，NCI −72,000，即少数股东权益为负）；MediaTek 27,882（TWD-M 27,882.063；总净利 28,791.219，NCI 809.156）。",
+    "fxNote": "韩企写 KRW-M 原值，fxToUsd 仅用于 UI 美元视图；Q3 韩元大幅升值（1,550.89→1,355.40），必须用当期 0.00073779，不得沿用 Q2 的 0.00064479（否则美元视图高估 14.4%）。联发科值已折 USD-M，禁止再写 fxToUsd。",
+    "singleSourceRisks": [
+      "066570.KS rd 750,810：DART 正式报表 판관비 内역 단일 출처（LG deck 不单列 R&D）。sga 5,034,044 已包含 rd 750,810，二者不可相加重复计入 opex；入库保留原报表层级。",
+      "005930.KS 本期未写 sga/rd/tax：仅 Samsung IR deck 单源且为 0.1 万亿舍入（sga 27.8T / rd 14.4T / tax 23.4T，±50,000 KRW-M）。按「四项核心」处理，风险留档于此。",
+      "005930.KS gross 135,263,852：SA 精确值 + deck 135.3T（0.1T 舍入）双源；deck 同期 Cost of sales 60.0T 与之勾稽（195.3−60.0=135.3）。",
+      "2454.TW tax 单季不可得（9M 仅 11,373.86 TWD-M，需 H1 累计所得税才能差分）；rd/sga 未披露（9M 營業費用 144,350.518 无细分）。既有 14 期本就没有这些键，故不写、不阻塞。",
+      "005930.KS / 066570.KS 既有历史行 netInc 与官方申报不符（SA 口径偏低 12%/9.6%），本批按要求不动历史行，仅保证新行写归母官方值。"
+    ],
+    "verification": "每条数字均回源原始页/PDF 复核，未沿用 tmp-check-krtw/REPORT.md 的结论：三星 SA 页逐位命中 195,253,209 / 135,263,852 / 107,440,482 / 75,208,134，Naver 2026.09 列 isConsensus=N 且与 SA 差 ≤34 KRW-M，deck 0.1T 级一致；LG DART eleId=21 原文逐行抄录，deck 与 연합뉴스 双向一致；联发科 TWSE 9M 原值与 SA 单季/Q1/Q2 双向差分，四项偏差 ≤0.001%；fx 由 frankfurter 2026-09-30 原始 JSON 复核。"
+  },
+  "results": [
+    {
+      "ticker": "005930.KS",
+      "name": "Samsung Electronics",
+      "currency": "KRW-M",
+      "report_type": "K-IFRS consolidated quarterly (Samsung IR 3Q26 deck + Naver/DART mirror + stockanalysis)",
+      "notice_date": "2026-10-30",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 195253209,
+          "netInc": 75208134,
+          "periodType": "q3",
+          "fxToUsd": 0.00073779,
+          "fxDate": "2026-09-30",
+          "gross": 135263852,
+          "opInc": 107440482
+        }
+      ]
+    },
+    {
+      "ticker": "066570.KS",
+      "name": "LG Electronics",
+      "currency": "KRW-M",
+      "report_type": "K-IFRS consolidated quarterly (DART 분기보고서 2026.09, rcpNo 20261116000748)",
+      "notice_date": "2026-11-16",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 23824080,
+          "netInc": 663250,
+          "periodType": "q3",
+          "fxToUsd": 0.00073779,
+          "fxDate": "2026-09-30",
+          "gross": 5815902,
+          "opInc": 781858,
+          "rd": 750810,
+          "sga": 5034044,
+          "tax": 145240
+        }
+      ]
+    },
+    {
+      "ticker": "2454.TW",
+      "name": "MediaTek",
+      "currency": "USD-M",
+      "report_type": "TWSE quarterly cumulative (9M−H1) converted to USD-M at fixed 32.596145",
+      "notice_date": "2026-11-20",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "revenue": 5156,
+          "gross": 2388,
+          "opInc": 831,
+          "netInc": 855,
+          "periodType": "q"
+        }
+      ]
+    }
+  ],
+  "enrich": [],
+  "companyNotes": []
+}
