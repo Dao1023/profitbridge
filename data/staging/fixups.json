@@ -5961,7 +5961,7 @@
       "NFLX: consistency — 2022-12-31: netInc chain resid 510.5 (opInc 549.9 − tax -15.9 − netInc 55.3)",
       "NFLX: consistency — 2023-12-31: netInc chain resid 348.0 (opInc 1496.1 − tax 210.3 − netInc 937.8)",
       "NFLX: consistency — 2026-03-31: netInc chain resid -2590.1 (opInc 3957 − tax 1264.3 − netInc 5282.8)",
-      "IBM: consistency — 2020-12-31: gross 5813 > revenue 1925",
+      "IBM: consistency — 2020-12-31 gross>revenue 已修复: revenue 1925→20366, gross 5813→10523（取 2020 10-K 原始口径 FY2020 revenue 73620 / gross 35575 减去 Q1–Q3 合计 53254 / 25052）；rd 1540→1611, sga 4711→7232, tax -471→25 同源订正；gross + 派生 cogs(rev−gross) = revenue 恒等成立",
       "QCOM: consistency — 2008-12-28: netInc chain resid 294.0 (opInc 745 − tax 110 − netInc 341)",
       "QCOM: consistency — 2009-03-29: netInc chain resid 91.0 (opInc -10 − tax 188 − netInc -289)",
       "QCOM: consistency — 2009-09-27: netInc chain resid -272.0 (opInc 597 − tax 66 − netInc 803)",
