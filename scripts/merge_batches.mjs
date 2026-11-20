@@ -112,6 +112,20 @@ const onlyArg = process.argv.find(a => a.startsWith('--batch-only='));
 const ONLY_BATCH = onlyArg ? onlyArg.slice('--batch-only='.length)
   : ((process.argv.includes('--b8-only') || process.env.B8_ONLY === '1') ? 'batch8' : null);
 
+// companyNotes: 把「口径 / 一次性项」说明追加进 companies[ticker].notes（幂等：已含该句则跳过）。
+// 背景：batch14 需要为 03888.HK 2017Q4 记一句「净利含终止经营视作出售收益 2,224.291M」——这是口径而非数值，
+// 不进 quarters；旧 batch 的 results[].notes 只是文档字段、从不写入 profit.json，这里给它一条真实写入路径。
+// 只追加、永不覆盖既有 notes，因此对既有说明与渲染零影响；重复运行不产生重复句子（配合 --batch-only 幂等）。
+function applyCompanyNotes(bx, tag) {
+  for (const cn of (bx.companyNotes || [])) {
+    const co = profit.companies[cn.ticker];
+    if (!co) { console.error(`${tag}: companyNotes ticker ${cn.ticker} not found in profit.json`); process.exit(1); }
+    const cur = co.notes || '';
+    if (cur.includes(cn.append)) continue;
+    co.notes = cur ? `${cur.replace(/\s+$/, '')} ${cn.append}` : cn.append;
+  }
+}
+
 // ================= single-batch PATCH MODE (non-destructive) =================
 // 当以 --b8-only / --batch-only=batchN 运行时：以磁盘 data/profit.json 为基准，仅应用 data/staging/<batch>.json 的
 //   (1) results[].newQuarters 追加 与 (2) enrich[] 补空(仅当前为 null/undefined, 且 revenue 对账≤0.5%)。
@@ -120,7 +134,9 @@ const ONLY_BATCH = onlyArg ? onlyArg.slice('--batch-only='.length)
 if (ONLY_BATCH) {
   const bx = (BATCHES.find(b => b.id === `${ONLY_BATCH}.json`) || {}).data;
   if (!bx) { console.error(`${ONLY_BATCH}: data/staging/${ONLY_BATCH}.json not found`); process.exit(1); }
-  const FIELDS8 = ['gross', 'opInc', 'rd', 'sga'];
+  // 'tax' 于 2026-11-20 (batch14) 加入: 所得税费用行, 与其余四字段同一 fill-missing-only 契约。
+  // tax 只是数据字段（app.js 不读它做布局/派生), 扩展此列表不改变任何渲染; 仅允许 staging 填空白槽位。
+  const FIELDS8 = ['gross', 'opInc', 'rd', 'sga', 'tax'];
   const report8 = { mode: `${ONLY_BATCH}-only`, added: [], skipped: [], guardFails: {}, note: `non-destructive: only ${ONLY_BATCH} applied onto on-disk profit.json; other batches/fixups/meta NOT re-run` };
   for (const r of bx.results) {
     const co = profit.companies[r.ticker];
@@ -163,6 +179,7 @@ if (ONLY_BATCH) {
     }
     if (did.length) report8.added.push({ ticker: en.ticker, end: en.end, market: `${ONLY_BATCH}-enrich`, fields: did });
   }
+  applyCompanyNotes(bx, ONLY_BATCH);
   // value gate on target tickers only
   const NEG_GROSS_OK8 = new Set(['MU', 'TSLA', 'PDD', '00100.HK', '00981.HK']);
   const gf = {};
@@ -622,7 +639,7 @@ for (const { n: bn, data } of BATCHES.filter(x => x.n >= 7)) {
   }
   const addedN = report.added.length - before;
 
-  const FIELDS = ['gross', 'opInc', 'rd', 'sga'];
+  const FIELDS = ['gross', 'opInc', 'rd', 'sga', 'tax']; // 'tax' 见 --batch-only 段注释 (batch14)
   let enrichedN = 0;
   for (const en of (data.enrich || [])) {
     const co = profit.companies[en.ticker];
@@ -646,6 +663,7 @@ for (const { n: bn, data } of BATCHES.filter(x => x.n >= 7)) {
     }
     if (did.length) { enrichedN++; report.added.push({ ticker: en.ticker, end: en.end, market: `batch${bn}-enrich`, fields: did }); }
   }
+  applyCompanyNotes(data, `batch${bn}`);
   log.push(`batch${bn}: appended ${addedN} new period(s) for ${(data.results || []).length} tickers` + (enrichedN ? `; enriched ${enrichedN} period(s)` : ''));
 }
 

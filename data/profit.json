@@ -26996,7 +26996,10 @@
           "revenue": 1380.498,
           "netInc": 2474.863,
           "periodType": "q4",
-          "fxToUsd": 0.15367
+          "fxToUsd": 0.15367,
+          "gross": 768.653,
+          "opInc": 137.492,
+          "tax": -5.475
         },
         {
           "end": "2018-03-31",
@@ -27309,7 +27312,7 @@
           "sga": 571.95
         }
       ],
-      "notes": "single-quarter series trimmed to continuous run from 2013-03-31; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods."
+      "notes": "single-quarter series trimmed to continuous run from 2013-03-31; HKEX cumulative periods differenced to single quarters at integration (Q2=H1−Q1, Q3=9M−H1, Q4=FY−9M); periodType tags q1–q4/annual; bars render single quarters only; 环比 restricted to adjacent ≤100d periods. 2017-12-31（2017Q4）归母净利 2,474.863M 中含终止经营项目「视作出售猎豹移动（Cheetah Mobile）子公司」收益 2,224.291M（HKEX 2017 年度业绩公告 Gain on deemed disposal of a subsidiary，非经常、非现金经营利得），净利率/环比与占比类派生指标请按持续经营口径剔除后解读；该季 gross/opInc/tax 取自年报第四季度单季列（768.653 / 137.492 / −5.475）。"
     },
     "005930.KS": {
       "name": "Samsung Electronics",
@@ -33531,7 +33534,8 @@
           "gross": 2121.1,
           "opInc": 4164.98,
           "rd": 582.09,
-          "sga": 493.22
+          "sga": 493.22,
+          "tax": 758.142
         },
         {
           "end": "2019-09-30",

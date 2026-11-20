@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "batch": 14,
+    "description": "补三处站内缺失字段（只补空、绝不改既有值）：① 03888.HK 金山软件 2017-12-31 补 gross/opInc/tax；② 601360.SS 三六零 2019-06-30 补 tax；③ 03888.HK 公司级 notes 追加一句终止经营口径说明。全部走 enrich[]（fill-missing-only，且要求该期站内 revenue 与 expectRevenue 对账 ≤0.5%），无 newQuarters，故不改任何期间/期型。XNET 的诊断结论是「无需改数据」，未进本 batch。",
+    "generatedAt": "2026-11-20",
+    "fetchedAt": "2026-11-20T09:40:00+08:00",
+    "sources": [
+      "【主源·一手】金山软件 2017 年度业绩公告（HKEXnews，联交所披露易，2018-03-21）：https://www1.hkexnews.hk/listedco/listconews/sehk/2018/0321/ltn20180321658.pdf —— 合并综合收益表 FY2017 全年列：营业额 Revenue 5,181,290 / 毛利 Gross profit 3,012,383 / 经营溢利 Operating profit 813,912 / 所得税 Income tax expense (133,834)（千元人民币）；同表 Q4 单季（第四季度）列：营业额 1,380,498 / 毛利 768,653 / 经营溢利 137,492 / 除税前溢利 229,737 / 所得税（抵免）credit +5,475；另「Gain on deemed disposal of a subsidiary」2,224,291（终止经营，见分级损益表），归母 2,474,863",
+      "【交叉源·东财】RPT_HKF10_FN_INCOME（HKEX F10 利润表，全量金额单位=元，÷1e6 得 CNY-M）：https://datacenter.eastmoney.com/securities/api/data/v1/get?reportName=RPT_HKF10_FN_INCOME&columns=ALL&filter=(SECUCODE%3D%2203888.HK%22)(REPORT_DATE%3D%272017-12-31%27)&source=F10&client=PC —— CURRENCY=人民币；营业额 5181290000 / 毛利 3012383000 / 经营溢利 813912000 / 税项 133834000 / 除税前溢利 912114000 / 股东应占溢利 3201837000 / 终止经营溢利 2518349000",
+      "【交叉源·一手】金山软件 2017 年三季度业绩公告（HKEXnews，2017-11-21）：https://www1.hkexnews.hk/listedco/listconews/sehk/2017/1121/ltn20171121570.pdf —— 公告「截至2017年9月30日止三个月」列：Revenue 1,303,014 / Gross profit 744,297 / Operating profit 150,419 / PBT 186,910 / Income tax (45,048)（千元人民币），即 Q3 单季；与站内 Q3 revenue 1,303.014 逐位吻合，并佐证「港股公告同时给单季列，Q4 可直接取年报单季列、不必差分」",
+      "【主源·一手】三六零 2019 年半年度报告（巨潮资讯网 cninfo，2019-08-27）：http://static.cninfo.com.cn/finalpage/2019-08-27/1206578472.PDF —— 合并利润表「所得税费用」904,656 千元（=904.656 CNY-M），营业收入 5,924,501 千元，营业利润 4,933,518 千元，利润总额 4,936,419 千元，归母净利润 4,052,497 千元",
+      "【交叉源·东财】RPT_DMSK_FN_INCOME（A股单季/累计利润表）：https://datacenter.eastmoney.com/securities/api/data/v1/get?reportName=RPT_DMSK_FN_INCOME&columns=ALL&filter=(SECURITY_CODE%3D%22601360%22)(REPORT_DATE%3D%272019-06-30%27)&source=WEB&client=WEB —— TOTAL_OPERATE_INCOME 5924501000 / OPERATE_PROFIT 4933518000 / TOTAL_PROFIT 4936419000 / INCOME_TAX 904656000 / PARENT_NETPROFIT 4052497000；同接口 2019-03-31：收入 2702658000 / 营业利润 768536000 / 所得税 146514000 / 归母 647449000"
+    ],
+    "shape": "{ _meta, results: [ { ticker, name, currency, newQuarters: [] } ], enrich: [ { ticker, end, expectRevenue, set:{ gross?, opInc?, tax? } } ], companyNotes: [ { ticker, append } ] }",
+    "unitNote": "03888.HK 站内 currency=CNY-M（已核 data/profit.json），故直接用年报「千元人民币 ÷ 1000」得 CNY-M（如 768,653 千元 = 768.653）。东财 RPT_HKF10_FN_INCOME 的 CURRENCY 字段同样是人民币，两源同币种，无需任何 HKD 折算；若按 HKD 折算会让该期偏离站内 CNY 序列约 1.1e0 倍，站内 2017 四季 revenue 合计 5181.290 与年报 5,181,290 千元逐位吻合，可作为币种自证。601360.SS 站内 CNY-M，半年报单位千元 ÷1000。",
+    "taxSignNote": "全库 tax 符号约定 =「所得税费用为正、税收抵免为负」（见 profit.notes 里 GOOGL 的 netInc chain resid 校验 opInc − tax ≈ netInc）。故 03888.HK 2017Q4 的年报「所得税抵免 +5,475 千元」入库为 tax = −5.475；601360 2019Q2 为费用，取正号。",
+    "q2Note": "601360.SS 2019-06-30 行是 derivation:'diff' 的单季行（Q2 = H1 − Q1，站内 revenue 3221.84 = 5924.501 − 2702.658；gross 2121.1 = 3927.539 − 1806.44；opInc 4164.98 = 4933.518 − 768.536）。因此 tax 必须同口径取 Q2 单季 = 904.656 − 146.514 = 758.142，而不是半年累计 904.656；否则 opInc − tax 与 netInc 的残差会由 −1.79 恶化到 +144.7（污染「净利=经营−税」一致性）。半年累计 904.656 已在本报告与 _meta 中留档。",
+    "xcNote": "03888.HK 2017-12-31 的 Q4 单季三值直接取自年报「第四季度」列，不是 FY − 9M 差分（差分得 gross 768.653 亦相同，但 opInc 差分会掺入四舍五入，故用一手单季列）。校验：Q1 703.92 + Q2 795.51 + Q3 744.297 + Q4 768.653 = 3,012.380 vs FY 毛利 3,012.383（差 0.003，纯舍入）；opInc：265.2 + 260.8 + 150.419 + 137.492 = 813.911 vs FY 813.912。",
+    "notesReason": "净利 2,474.863 里含 2,224.291 的「视作出售猎豹移动（Cheetah Mobile）子公司」收益——属终止经营/非经常、非现金经营利得，会让该季净利率与同比失真。该说明属口径而非数值，故走 companyNotes 追加到 companies['03888.HK'].notes，不进 quarters。"
+  },
+  "results": [
+    {
+      "ticker": "03888.HK",
+      "name": "Kingsoft",
+      "currency": "CNY-M",
+      "report_type": "annual results announcement",
+      "notice_date": "2018-03-21",
+      "newQuarters": []
+    },
+    {
+      "ticker": "601360.SS",
+      "name": "三六零(360安全)",
+      "currency": "CNY-M",
+      "report_type": "半年度报告",
+      "notice_date": "2019-08-27",
+      "newQuarters": []
+    }
+  ],
+  "enrich": [
+    {
+      "ticker": "03888.HK",
+      "end": "2017-12-31",
+      "expectRevenue": 1380.498,
+      "set": {
+        "gross": 768.653,
+        "opInc": 137.492,
+        "tax": -5.475
+      },
+      "source": "HKEXnews ltn20180321658.pdf 第四季度列：Gross profit 768,653 / Operating profit 137,492 / Income tax credit 5,475（千元人民币）；东财 RPT_HKF10_FN_INCOME 全年列同源可对账"
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2019-06-30",
+      "expectRevenue": 3221.84,
+      "set": {
+        "tax": 758.142
+      },
+      "source": "cninfo 1206578472.PDF 半年报所得税费用 904,656 千元 − Q1 146,514 千元 = 758,142 千元（Q2 单季，与本站 diff 口径一致）；东财 RPT_DMSK_FN_INCOME INCOME_TAX 两期同值"
+    }
+  ],
+  "companyNotes": [
+    {
+      "ticker": "03888.HK",
+      "append": "2017-12-31（2017Q4）归母净利 2,474.863M 中含终止经营项目「视作出售猎豹移动（Cheetah Mobile）子公司」收益 2,224.291M（HKEX 2017 年度业绩公告 Gain on deemed disposal of a subsidiary，非经常、非现金经营利得），净利率/环比与占比类派生指标请按持续经营口径剔除后解读；该季 gross/opInc/tax 取自年报第四季度单季列（768.653 / 137.492 / −5.475）。"
+    }
+  ]
+}
