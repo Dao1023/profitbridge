@@ -92,8 +92,10 @@ ok(nq.end === '2026-10-31' || nq.end === '2026-11-01' || true, `NVDA latest ${nq
 ok(JSON.stringify(bridge) === JSON.stringify([96.2, 72.1, 63.7, 59.7]), `NVDA latest bridge = ${bridge}`);
 
 // 13) watchlist backfill 2026-10-27: NTES / CHA / CBRS + 09633.HK skipped + GOOG alias note
+// 2026-11-20 更新（batch15）：NTES 补入 2026-09-30 单季后 33 → 34 期，断言随数据前移
+//（同本文件 line ~24 茅台 2026Q3 之先例），并顺带加严为「最新一期即 2026-09-30」。
 const nt = P.companies.NTES;
-ok(nt && nt.frequency === 'mixed' && nt.currency === 'CNY-M' && nt.quarters.length === 33, `NTES mixed 18FY+15q CNY-M (got ${nt && nt.frequency} ${nt && nt.quarters.length})`);
+ok(nt && nt.frequency === 'mixed' && nt.currency === 'CNY-M' && nt.quarters.length === 34 && nt.quarters.at(-1).end === '2026-09-30', `NTES mixed 18FY+16q CNY-M latest 2026-09-30 (got ${nt && nt.frequency} ${nt && nt.quarters.length})`);
 const ntFy = nt.quarters.filter(q => q.periodType === 'annual');
 ok(ntFy.length === 18 && ntFy.at(-1).end === '2025-12-31' && approx(ntFy.at(-1).revenue, 112625.8, 0.001) && approx(ntFy.at(-1).netInc, 34797.8, 0.001), 'NTES FY2025 rev=112625.8 NI=34797.8 CNY-M');
 ok(nt.quarters.every(q => q.fxToUsd > 0.1 && q.fxToUsd < 0.2), 'NTES per-FY fx sane');

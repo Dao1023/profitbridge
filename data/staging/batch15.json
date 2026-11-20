@@ -1,0 +1,191 @@
+{
+  "_meta": {
+    "batch": 15,
+    "description": "补 7 家美股/ADR 2026-09-30 新期（Q3 2026 / FY2027Q2）：BABA、JD、PDD、NTES、LKNCY（CNY-M，fxToUsd=0.14915355 恒定 2026-09-30 ECB 即期 1/6.7045）与 XNET、ARM（USD-M，沿用既有行 fxToUsd=1 的写法，未按「USD 公司不写 fx」处理，理由见 fxNote）。全部为一手 6-K 正文复核后新增，无 enrich、无既有期改写。",
+    "generatedAt": "2026-11-20",
+    "fetchedAt": "2026-11-20T11:20:00+08:00",
+    "sources": [
+      "【主源·一手】BABA 2026-09-30 季报 6-K（2026-11-19 递交）exhibit 99.1：https://www.sec.gov/Archives/edgar/data/1577552/000119312526458832/tm2630263d1_ex99-1.htm —— 摘要：Revenue 271,519；Income from operations 29,116；Net income 64,420，Net income attributable to ordinary shareholders 64,535（百万人民币）。合并利润表：Revenue 271,519；Cost of revenue 168,476；Income before income tax 100,570；Income tax expenses (37,126)；Share of results of equity method investees 976；去年同期同列 247,795 / 150,781 / 23,921 / (5,550) / 2,241。费用：Product development 22,632、Sales and marketing 41,341、General and administrative 10,097。勾稽：271,519−168,476=103,043（gross）；100,570−37,126+976=64,420；归母 64,535。",
+      "【交叉源】stockanalysis.com BABA quarterly（分部门表 Revenue (Total) 列）：https://stockanalysis.com/stocks/baba/financials/?p=quarterly —— Sep '26 列 Revenue (Total) 271,519，与 6-K 逐位一致（该页利润表主表尚未收录 Sep '26，仅分部门表已更新）；Yahoo Finance BABA earningsHistory 亦为 2Q2027 revenue 271,519 / earnings 64,535（与归母口径一致）。gross/opInc 无第三方覆盖，仅一手源 + 表内科目勾稽。",
+      "【主源·一手】JD 2026-09-30 季报 6-K（2026-11-17 递交）exhibit 99.1：https://www.sec.gov/Archives/edgar/data/1330712/000133071226000043/d179042dex991.htm —— Total net revenues 309,593；Cost of revenues 253,632；Fulfillment 23,640；Total consolidated income from operations 5,154（正文「Income from operations was RMB5.2 billion」）；Net income attributable to ordinary shareholders 6,503；Research and development 7,730；Marketing 15,534；General and administrative 3,348；Income tax expense 1,637。",
+      "【交叉源】stockanalysis.com JD quarterly：https://stockanalysis.com/stocks/jd/financials/?p=quarterly —— Sep '26 列 Revenue 309,593、Gross Profit 32,321、Net Income 6,503，与一手源逐位一致（gross=收入−营业成本−履约费用，与站内既有口径完全吻合）；其 Operating Income 显示 5,709，与 6-K 合并利润表 5,154 差 555（约 +10.8%），取舍见 _meta.verification。",
+      "【主源·一手】PDD 2026-09-30 季报 6-K（2026-11-19 递交）exhibit 99.1：https://www.sec.gov/Archives/edgar/data/1737806/000119312526459016/tm2630261d1_ex99-1.htm —— Revenues 108,341；Cost of revenues 45,243；Operating profit 31,164；Net income attributable to ordinary shareholders 29,541；Research and development 5,059；Sales and marketing 25,296；General and administrative 1,579；Income tax expense 6,570（百万人民币）。",
+      "【交叉源】stockanalysis.com PDD quarterly：https://stockanalysis.com/stocks/pdd/financials/?p=quarterly —— Sep '26 列 Revenue 108,341、Gross Profit 63,098、Operating Income 31,164、Net Income 29,541，四项与 6-K 逐位一致。",
+      "【主源·一手】NTES 2026-09-30 季报 6-K（2026-11-19 递交）exhibit 99.1：https://www.sec.gov/Archives/edgar/data/1110646/000110465926133861/tm2630023d1_ex99-1.htm —— 表内单位为人民币千元：Net revenues 27,852,400；Gross profit 19,045,025；Operating income 9,427,843；Income tax expense 1,850,000；Net income attributable to ordinary shareholders 8,402,223；Research and development 4,694,212；Selling and marketing 4,090,659；General and administrative 832,311。÷1000 得本行数值。",
+      "【交叉源】stockanalysis.com NTES quarterly：https://stockanalysis.com/stocks/ntes/financials/?p=quarterly —— Sep '26 列 Revenue 27,852、Gross Profit 19,045、Operating Income 9,428、Net Income 8,402，四舍五入后与一手源一致（偏差 <0.01%）。",
+      "【主源·一手】LKNCY 2026-09-30 季报 6-K（2026-11-03 递交）exhibit 99.1：https://www.sec.gov/Archives/edgar/data/1767582/000119312526436772/tm2628441d1_ex99-1.htm —— Total net revenues 17,891,458（千元）；Cost of materials 6,854,198；Operating income 2,755,932；Income tax expense 914,118；Net income attributable 1,858,881；Store rental and other operating costs 3,925,426；Selling and marketing 976,243；General and administrative 1,075,277；Delivery 1,788,969；Impairment losses 0；Restructuring losses 1,119；D&A 490,916；Pre-opening 23,378。",
+      "【交叉源】stockanalysis.com LKNCY quarterly（OTC 页）：https://stockanalysis.com/quote/otc/LKNCY/financials/?p=quarterly —— Sep '26 列 Revenue 17,891、Gross Profit 11,037、Operating Income 2,757、Net Income 1,859，与一手源一致（opInc 差 0.04%，SA 四舍五入）。",
+      "【主源·一手】XNET 2026-09-30 季报 6-K（2026-11-12 递交）exhibit 99.1：https://www.sec.gov/Archives/edgar/data/1464300/000110465926130379/tm2629668d1_ex99-1.htm —— 单位为千美元：Revenues, net of rebates and discounts 101,304；Business taxes and surcharges (480)；Net revenues 100,824；Cost of revenues 44,365；Gross profit 56,459；Operating loss (14,788)；Income tax expense 2,274；Net loss (235,772)；Less: NCI (4)... 归母 Net loss attributable to common shareholders (235,776)；Research and development 25,636；Sales and marketing 33,311；General and administrative 12,446。",
+      "【交叉源】stockanalysis.com XNET quarterly：https://stockanalysis.com/stocks/xnet/financials/?p=quarterly —— Sep '26 列 Revenue 100.82、Gross Profit 56.46、Operating Income −14.79、Net Income −235.78，与一手源一致（SA 同样取扣除营业税后的 net revenues 口径 100.82，佐证本行 revenue 取 100.824 而非 101.304）。",
+      "【主源·一手】ARM FY2027 Q2（截至 2026-09-30）6-K exhibit 99.2（2026-11-04 递交，accession 0001973239-26-000141）：https://www.sec.gov/Archives/edgar/data/1973239/000197323926000141/exhibit992fye27q230-sepx26.htm —— Total revenue 1,443；Cost of sales (42)；Gross profit 1,401；Research and development (857)；Selling, general and administrative (343)；Operating income 201；Income before income taxes 208；Income tax expense (78)；Net income 130（百万美元）。同一 accession 的 arm-20260930.htm 为 XBRL 封面，未使用。",
+      "【交叉源】stockanalysis.com ARM quarterly：https://stockanalysis.com/stocks/arm/financials/?p=quarterly —— Sep '26 列 Revenue 1,443、Gross Profit 1,401、Operating Income 201、Net Income 130，四项与 6-K 逐位一致；该页表头亦标 Sep '26 为 FY2027 第二财季，佐证 periodType=q 与 FYE=3 的映射。"
+    ],
+    "shape": "每家公司仅新增 1 个季度、1 行；键集合与顺序逐家对齐该公司最新一行（end, periodType, revenue, gross, opInc, netInc, rd, sga, tax, fxToUsd, fxDate），无新增键、无删键。LKNCY 的 rd 沿用该序列 15/23 期的显式 null 写法。",
+    "fxNote": "BABA/JD/PDD/NTES/LKNCY 为 CNY-M，fxToUsd=0.14915355（2026-09-30 营业日 ECB 即期 EUR/CNY 6.7045 之倒数 1/6.7045=0.14915355）、fxDate=2026-09-30。XNET/ARM 为 USD-M：任务口径规则 2 说「USD 公司不写 fxToUsd」，但规则 1 要求逐键同序、不许漏键，而 XNET 现有 29 期、ARM 现有 18 期全部带 fxToUsd:1 与 fxDate，且 app.js dispFx() 与 tests/verify_currency.mjs 均按字段存在性动态读取——故此处保留 fxToUsd:1 + fxDate:\"2026-09-30\"，以规则 1 优先。",
+    "netIncNote": "netInc 一律取「归属于普通股股东/母公司」口径：BABA 64,535（非总净利 64,420）、JD 6,503、PDD 29,541、NTES 8,402.223、LKNCY 1,858.881、XNET −235.776（总亏损 −235.772 扣少数股东后）、ARM 130（无少数股东）。该口径与各序列既有行一致（如 BABA 2025-09-30 存 20,990 而总净利为 20,612）。",
+    "verification": "双源核对（6-K 合并报表 vs stockanalysis.com 季度页；BABA 另加 Yahoo Finance earningsHistory）逐项比对，除下列一处外全部 ≤0.05%：① JD 的 opInc：6-K 合并利润表「Total consolidated income from operations」=5,154（正文复述「RMB5.2 billion」），stockanalysis 显示 5,709（差 555，+10.8%）。取 5,154，理由是任务规则 4「优先从利润表科目取（Income from operations）」且正文与报表两处自证；SA 的偏高处更可能把处置开发物业收益等非经常项留在经营利润内（该序列 2025-09-30 存 −1,214 而当年报表为 −1,051，差 163，说明存量本身即来自 SA 口径、存在既有定义缝隙，本次以一手报表为准并在公司 note 中说明）。② JD gross 32,321 与 SA 完全一致，说明「收入−营业成本−履约费用」确为该序列口径。③ XNET revenue 取扣除营业税后的 100.824（SA 同为 100.82），任务表中 101.3 为税前 Revenues 101,304。④ BABA gross 103,043 与 opInc 29,116 无第三方覆盖（SA/Yahoo 均未收录该季主表），以 6-K 表内勾稽闭合（271,519−168,476=103,043；100,570−37,126+976=64,420；收入−各项费用=29,116）作替代验证，报告中标「单源但表内勾稽通过」。"
+  },
+  "results": [
+    {
+      "ticker": "BABA",
+      "name": "Alibaba Group",
+      "currency": "CNY-M",
+      "report_type": "6-K quarterly results (unaudited condensed consolidated)",
+      "notice_date": "2026-11-19",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 271519,
+          "gross": 103043,
+          "opInc": 29116,
+          "netInc": 64535,
+          "rd": 22632,
+          "sga": 51438,
+          "tax": 37126,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "JD",
+      "name": "JD.com",
+      "currency": "CNY-M",
+      "report_type": "6-K quarterly results",
+      "notice_date": "2026-11-17",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 309593,
+          "gross": 32321,
+          "opInc": 5154,
+          "netInc": 6503,
+          "rd": 7730,
+          "sga": 18882,
+          "tax": 1637,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings",
+      "currency": "CNY-M",
+      "report_type": "6-K quarterly results",
+      "notice_date": "2026-11-19",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 108341,
+          "gross": 63098,
+          "opInc": 31164,
+          "netInc": 29541,
+          "rd": 5059,
+          "sga": 26875,
+          "tax": 6570,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "NTES",
+      "name": "NetEase",
+      "currency": "CNY-M",
+      "report_type": "6-K quarterly results",
+      "notice_date": "2026-11-19",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 27852.4,
+          "gross": 19045.025,
+          "opInc": 9427.843,
+          "netInc": 8402.223,
+          "rd": 4694.212,
+          "sga": 4922.97,
+          "tax": 1850,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "LKNCY",
+      "name": "Luckin Coffee",
+      "currency": "CNY-M",
+      "report_type": "6-K quarterly results",
+      "notice_date": "2026-11-03",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 17891.458,
+          "gross": 11037.26,
+          "opInc": 2755.932,
+          "netInc": 1858.881,
+          "rd": null,
+          "sga": 7767.034,
+          "tax": 914.118,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "XNET",
+      "name": "Xunlei",
+      "currency": "USD-M",
+      "report_type": "6-K quarterly results",
+      "notice_date": "2026-11-12",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 100.824,
+          "gross": 56.459,
+          "opInc": -14.788,
+          "netInc": -235.776,
+          "rd": 25.636,
+          "sga": 45.757,
+          "tax": 2.274,
+          "fxToUsd": 1,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm Holdings",
+      "currency": "USD-M",
+      "report_type": "6-K FY2027 Q2 results",
+      "notice_date": "2026-11-04",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 1443,
+          "gross": 1401,
+          "opInc": 201,
+          "netInc": 130,
+          "rd": 857,
+          "sga": 343,
+          "tax": 78,
+          "fxToUsd": 1,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    }
+  ],
+  "enrich": [],
+  "companyNotes": [
+    {
+      "ticker": "JD",
+      "append": "2026-09-30 期 opInc 取 6-K 合并利润表「Total consolidated income from operations」5,154（正文复述 RMB5.2 billion）；第三方聚合站（stockanalysis）该季显示 5,709（+10.8%），差异来自对处置开发物业收益等非经常项的经营/非经营归类。本站 2025-09-30 行存 −1,214 而当年报表为 −1,051（差 163，同源问题），本次起以一手报表为准，跨年比较 opInc 时请注意该定义缝隙（幅度约 0.5% 收入以内）。"
+    }
+  ]
+}
