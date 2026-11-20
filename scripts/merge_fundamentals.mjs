@@ -6,6 +6,10 @@
  *   node scripts/merge_fundamentals.mjs --check   # 干跑：只统计将写入多少期/多少字段、冲突列表，不写盘
  *   node scripts/merge_fundamentals.mjs           # 执行写盘（同时重建镜像并断言深等）
  *   node scripts/merge_fundamentals.mjs --force   # 冲突时用新值覆盖旧值（默认保留旧值）
+ *   node scripts/merge_fundamentals.mjs --in=DIR/profit.json --out-dir=DIR
+ *                                                 # 读写临时快照（默认仍是 data/profit.json + data/profit.json.js）
+ *   node scripts/merge_fundamentals.mjs --in=... --out-dir=... --backfill-dir=DIR
+ *                                                 # 用 DIR 下的 backfill_*.json 作为补数输入（测试用，默认 tmp-backfill/）
  *
  * 规则（严格，见任务书）:
  *   - 只新增四个字段 gross / opInc / rd / sga；绝不改动 end/revenue/netInc/periodType/currency/
@@ -28,9 +32,19 @@ const ROOT = path.resolve(__dirname, '..');
 const ARGS = new Set(process.argv.slice(2));
 const CHECK = ARGS.has('--check');
 const FORCE = ARGS.has('--force');
+// `--in=<path>` / `--out-dir=<dir>`: run against a snapshot instead of data/ (used by
+// tests/verify_rebuild_idempotent.mjs). Defaults reproduce the historical in-place behaviour.
+const argVal = (name) => {
+  const a = process.argv.slice(2).find(x => x.startsWith(`--${name}=`));
+  return a ? a.slice(name.length + 3) : null;
+};
 
-const PROFIT = path.join(ROOT, 'data', 'profit.json');
-const MIRROR = path.join(ROOT, 'data', 'profit.json.js');
+const PROFIT = argVal('in') ? path.resolve(ROOT, argVal('in')) : path.join(ROOT, 'data', 'profit.json');
+// --out-dir=DIR: write profit.json.js (and the json when --in is given) to DIR; default keeps data/.
+const OUT_DIR = argVal('out-dir') ? path.resolve(ROOT, argVal('out-dir')) : path.dirname(PROFIT);
+const PROFIT_OUT = argVal('out-dir') ? path.join(OUT_DIR, 'profit.json') : PROFIT;
+const MIRROR = path.join(OUT_DIR, 'profit.json.js');
+const BACKFILL_DIR = argVal('backfill-dir') ? path.resolve(ROOT, argVal('backfill-dir')) : path.join(ROOT, 'tmp-backfill');
 const FIELDS = ['gross', 'opInc', 'rd', 'sga'];
 const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD', '00981.HK', '00100.HK']);
 const RD_SGA_RATIO = 1.05;   // 结构偏紧告警阈值（> 则登记，不跳过）
@@ -51,9 +65,10 @@ function loadPatches() {
     patches.push({ ticker, end, src, fields: f });
   };
 
+  if (!fs.existsSync(BACKFILL_DIR)) throw new Error(`staging backfill dir not found: ${BACKFILL_DIR} (pass --backfill-dir=DIR)`);
   // A / HKB / FX: companies[t].patched 是 OBJECT（key=end）
   for (const file of ['backfill_A.json', 'backfill_HKB.json', 'backfill_FX.json']) {
-    const d = readJson(path.join(ROOT, 'tmp-backfill', file));
+    const d = readJson(path.join(BACKFILL_DIR, file));
     const cos = d.companies || {};
     for (const [ticker, c] of Object.entries(cos)) {
       const patched = c.patched || {};
@@ -63,7 +78,7 @@ function loadPatches() {
 
   // HKC: companies[t].patched 是 ARRAY（每项含 end）
   {
-    const d = readJson(path.join(ROOT, 'tmp-backfill', 'backfill_HKC.json'));
+    const d = readJson(path.join(BACKFILL_DIR, 'backfill_HKC.json'));
     const cos = d.companies || {};
     for (const [ticker, c] of Object.entries(cos)) {
       const arr = Array.isArray(c.patched) ? c.patched : [];
@@ -78,6 +93,10 @@ function loadPatches() {
 // ---------- 载入 profit ----------
 const profit = readJson(PROFIT);
 const companies = profit.companies || {};
+// `updated` idempotence: only bump when the payload (everything except `updated`) really changed.
+const prevUpdated = profit.updated;
+const payloadSig = (o) => JSON.stringify(Object.fromEntries(Object.entries(o).filter(([k]) => k !== 'updated')));
+const origSig = payloadSig(profit);
 
 // 建索引 ticker -> Map(end -> quarter)
 const qIndex = new Map();
@@ -215,8 +234,15 @@ for (const p of patches) {
   }
 
   // --- 写入（或计划写入） ---
+  // 键序稳定性（幂等前提）: 本脚本只 append 新字段，append 顺序决定输出的键序。历史管线里负 gross 先被
+  // 护栏拒绝（negative-gross-not-whitelisted），白名单加入后才补写，所以在磁盘上这些期的 gross 总排在
+  // opInc/rd/sga 之后（00981.HK 2008-03-31/2009-03-31/2009-06-30、00100.HK 2023-12-31）。若一律按 FIELDS
+  // 固定顺序追加会得到 gross,opInc,rd,sga，与磁盘键序不同，逐字节幂等即被破坏。
+  const effGrossForOrder = (cand.gross && cand.gross.write) ? cand.gross.value : (isNum(q.gross) ? q.gross : null);
+  const writeOrder = (typeof effGrossForOrder === 'number' && effGrossForOrder < 0)
+    ? ['opInc', 'rd', 'sga', 'gross'] : FIELDS;
   let wroteAny = false;
-  for (const f of FIELDS) {
+  for (const f of writeOrder) {
     if (!cand[f].write) continue;
     if (!CHECK) q[f] = cand[f].value;
     stat.fields[f].written++; ci.fields[f]++;
@@ -250,11 +276,15 @@ stat.totals = {
 
 // ---------- 写盘 + 镜像 ----------
 if (!CHECK) {
-  fs.writeFileSync(PROFIT, JSON.stringify(profit, null, 2));
+  // deterministic stamp: unchanged payload keeps the previous `updated` (rebuild stays byte-identical)
+  profit.updated = payloadSig(profit) === origSig ? prevUpdated : new Date().toISOString().slice(0, 10);
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  // trailing newline matches merge_batches.mjs / the on-disk file (previously stage2 dropped it)
+  fs.writeFileSync(PROFIT_OUT, JSON.stringify(profit, null, 2) + '\n');
   const payload = 'window.__PROFIT_DATA = ' + JSON.stringify(profit) + ';\n';
   fs.writeFileSync(MIRROR, payload);
   // 断言镜像与 json 解析后深等
-  const a = JSON.parse(fs.readFileSync(PROFIT, 'utf8'));
+  const a = JSON.parse(fs.readFileSync(PROFIT_OUT, 'utf8'));
   const mirrorRaw = fs.readFileSync(MIRROR, 'utf8');
   const m = mirrorRaw.match(/^window\.__PROFIT_DATA\s*=\s*([\s\S]*);\s*$/);
   if (!m) throw new Error('mirror payload shape mismatch');

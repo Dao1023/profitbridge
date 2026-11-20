@@ -1,13 +1,19 @@
-// Integration-layer merge: staging batch1-6 -> data/profit.json + data/companies.json
+// Integration-layer merge: data/staging/batch*.json -> data/profit.json + data/companies.json + data/profit.json.js
 //
 // 使用边界 (READ BEFORE RUNNING):
-//   * 本脚本**不是**全量重建: 它加载磁盘上现有的 data/profit.json, 仅覆写 staging batch 覆盖到的
-//     ticker, 其余条目(含所有事后手工修复)原样保留。因此磁盘上的手工修复只要未被 staging 反噬就是安全的。
+//   * 本脚本**不是**纯 from-scratch 重建: 它加载磁盘上现有的 data/profit.json 作为基准, 覆写 staging batch
+//     覆盖到的 ticker, 其余条目原样保留；并且会「非破坏性地」把重建过程中丢失、但磁盘上已有的补数字段
+//     (gross/opInc/rd/sga 等) 按磁盘原有键序补回 (见下方 reconcile 段), 因此重跑可逐字节幂等。
+//   * batch 加载(2026-11-20 修复): 通过 glob 读取 **全部** data/staging/batchN.json 并按编号升序应用。旧版硬编码
+//     b1..b8, 导致「全量重建」静默丢掉 batch9-12 的期(实测丢 7 个 2026-09-30 期)。序列缺号(1..max 不连续)现在是
+//     硬错误 (exit 1), 不再静默跳过。
 //   * 安全护栏(2026-10-29 加入): 写盘前会把合并结果与磁盘原版做逐条目语义对比(公司数/期数/币种/
 //     期型/逐期数值), 任何"回滚"(丢条目、丢期、币种或期型变更、已有期数值变化)都会导致 **exit 1 且不写盘**,
 //     并打印差异摘要。确属有意的重新刷数时用 `--force`(或 FORCE=1)显式放行。
 //   * 用法: `node scripts/merge_batches.mjs --dry` 先看报告(DRY=1 等价), 确认无误后再不带参数运行。
-//   * 只写 data/profit.json / data/companies.json / tmp-merge/merge_report.json; **从不修改 data/staging/**。
+//     `--out-dir=DIR` 把 profit.json / profit.json.js / companies.json 写到 DIR(默认 data/), 供幂等测试使用。
+//   * 只写 data/profit.json / data/profit.json.js / data/companies.json / tmp-merge/*; **从不修改 data/staging/**。
+//   * `updated`: 仅在「除 updated 外的内容」真的变化时才刷新为当天; 内容未变则沿用磁盘原值, 保证重建可复现。
 //   * 截断规则(2026-10-29 加入): data/staging/truncations.json 显式声明各 ticker 的最早可信期 minEnd; 合并时先丢弃
 //     end < minEnd 的期(输出 report.truncated), 且 regression guard 会拦截「合并结果比磁盘多了更早的期」(复活已删期)。
 //   * 历史: batch5 时代曾为纯重建脚本, 后来全部手工修复(IBM/ARM/SONY 币种与期型、ADR +15q、
@@ -22,16 +28,42 @@ import path from 'node:path';
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const R = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const W = (p, o) => { const s = JSON.stringify(o, null, 2) + '\n'; fs.writeFileSync(path.join(ROOT, p), s); };
+// --out-dir=DIR: write profit.json / profit.json.js / companies.json to DIR instead of data/.
+// Default (no flag) keeps the historical behaviour: in-place rewrite of data/.
+// Used by tests/verify_rebuild_idempotent.mjs so a full rebuild never touches data/**.
+const outArg = process.argv.find(a => a.startsWith('--out-dir='));
+const OUT_DIR = outArg ? path.resolve(ROOT, outArg.slice('--out-dir='.length)) : path.join(ROOT, 'data');
+const writeJsonOut = (name, obj) => {
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  fs.writeFileSync(path.join(OUT_DIR, name), JSON.stringify(obj, null, 2) + '\n');
+};
+const writeMirrorOut = (obj) => {
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  fs.writeFileSync(path.join(OUT_DIR, 'profit.json.js'), 'window.__PROFIT_DATA = ' + JSON.stringify(obj) + ';\n');
+};
 
+const log = [], warn = [];
 const profit = R('data/profit.json');
 // safety net: snapshot of the on-disk state BEFORE any mutation, for the pre-write regression guard
 const diskSnapshot = JSON.parse(JSON.stringify(profit.companies));
 const diskRegistryCount = R('data/companies.json').length;
+// `updated` idempotence: remember the pre-merge value and a canonical signature of the payload
+// (everything except `updated`). At write time the stamp is only bumped when the payload really
+// changed, so re-running a rebuild on unchanged data reproduces the same bytes on any later date.
+const prevUpdated = profit.updated;
+// append-only changelog snapshot: used to keep on-disk note edits that were never written back to
+// data/staging/fixups.json (see PIPELINE.md: IBM / 00762.HK / 601360.SS manual note fixes).
+const diskNotesSnapshot = Array.isArray(profit.notes) ? profit.notes.slice() : [];
+const payloadSig = (o) => JSON.stringify(Object.fromEntries(Object.entries(o).filter(([k]) => k !== 'updated')));
+const diskPayloadSig = payloadSig(profit);
+const stampUpdated = (o) => {
+  o.updated = payloadSig(o) === diskPayloadSig ? prevUpdated : new Date().toISOString().slice(0, 10);
+};
 // stale-disk detector: 本脚本以磁盘 profit.json 为基准, 无法自救一个已经回滚的工作副本。
 // 这里额外对照 git HEAD 的总期数, 若磁盘比 HEAD 少则大声告警(先 git checkout 恢复, 再跑合并)。
 try {
   const { execSync } = await import('node:child_process');
-  const headP = JSON.parse(execSync('git show HEAD:data/profit.json', { cwd: ROOT, maxBuffer: 1 << 28 }).toString());
+  const headP = JSON.parse(execSync('git show HEAD:data/profit.json', { cwd: ROOT, maxBuffer: 1 << 28, stdio: ['ignore', 'pipe', 'ignore'] }).toString());
   const tq = (p) => Object.values(p.companies || {}).reduce((s, e) => s + (e.quarters || []).length, 0);
   if (tq(headP) > tq(profit)) {
     const msg = `DISK STALE vs git HEAD: on-disk profit.json has ${tq(profit)} periods but git HEAD has ${tq(headP)}. The working copy looks rolled back — run \`git checkout -- data/profit.json data/companies.json\` BEFORE merging.`;
@@ -46,14 +78,34 @@ const FIXUPS = R('data/staging/fixups.json');
 const TRUNC = R('data/staging/truncations.json');
 const truncations = TRUNC.truncations || TRUNC;
 const registry = R('data/companies.json');
-const b2 = R('data/staging/batch2.json');
-const b3 = R('data/staging/batch3.json');
-const b4 = R('data/staging/batch4.json');
-const b6 = R('data/staging/batch6.json');
-const b5 = R('data/staging/batch5.json');
-const b1 = R('data/staging/batch1.json');
-const b7 = R('data/staging/batch7.json');
-const b8 = R('data/staging/batch8.json');
+
+// ---------- staging batch loading (glob, numeric ascending) ----------
+// Every data/staging/batchN.json is loaded and sorted by N. The previous code hard-coded b1..b8,
+// so a "full rebuild" silently ignored batch9+ and dropped the periods they had added. Missing
+// numbers in the sequence (e.g. batch9 absent while batch10 exists) are a hard error, never a skip.
+const STAGING = path.join(ROOT, 'data', 'staging');
+const batchFiles = fs.readdirSync(STAGING).filter(f => /^batch\d+\.json$/.test(f));
+if (!batchFiles.length) { console.error('FATAL: no data/staging/batch*.json found'); process.exit(1); }
+const BATCHES = batchFiles
+  .map(f => ({ id: f, n: Number(f.match(/^batch(\d+)\.json$/)[1]) }))
+  .sort((a, b) => a.n - b.n);
+{
+  const seen = new Set(BATCHES.map(b => b.n));
+  for (let i = 1; i <= BATCHES.at(-1).n; i++) {
+    if (!seen.has(i)) {
+      console.error(`FATAL: missing staging batch data/staging/batch${i}.json (found: ${batchFiles.join(', ')}). Refusing to merge a non-contiguous batch set.`);
+      process.exit(1);
+    }
+  }
+  for (const b of BATCHES) b.data = R(`data/staging/${b.id}`);
+}
+const batch = (n) => {
+  const b = BATCHES.find(x => x.n === n);
+  if (!b) { console.error(`FATAL: staging batch${n}.json not found`); process.exit(1); }
+  return b.data;
+};
+// named handles kept for the batch1-6 staging sections below
+const b1 = batch(1), b2 = batch(2), b3 = batch(3), b4 = batch(4), b5 = batch(5), b6 = batch(6), b7 = batch(7), b8 = batch(8);
 // --b8-only（兼容别名）/ --batch-only=batchN: 以磁盘 profit.json 为基准，仅应用指定 batch（append + fill-missing），
 // 跳过 batch1-7/fixups/truncations/fx/meta 等重建段，从而对非目标公司/期点零改动。用于向已 enrich 的磁盘增量补数。
 const onlyArg = process.argv.find(a => a.startsWith('--batch-only='));
@@ -66,7 +118,8 @@ const ONLY_BATCH = onlyArg ? onlyArg.slice('--batch-only='.length)
 // 跳过 batch1-7/fixups/truncations/fx/registry/meta 重建段，因此对非目标公司/期点零改动（notes/source 原样保留）。
 // 语义与主流程同名 batch 段一致；额外做值门禁(revenue>0, gross≥0 白名单, gross≤revenue) + additivity。任一门禁失败 exit 1。
 if (ONLY_BATCH) {
-  const bx = ONLY_BATCH === 'batch8' ? b8 : R(`data/staging/${ONLY_BATCH}.json`);
+  const bx = (BATCHES.find(b => b.id === `${ONLY_BATCH}.json`) || {}).data;
+  if (!bx) { console.error(`${ONLY_BATCH}: data/staging/${ONLY_BATCH}.json not found`); process.exit(1); }
   const FIELDS8 = ['gross', 'opInc', 'rd', 'sga'];
   const report8 = { mode: `${ONLY_BATCH}-only`, added: [], skipped: [], guardFails: {}, note: `non-destructive: only ${ONLY_BATCH} applied onto on-disk profit.json; other batches/fixups/meta NOT re-run` };
   for (const r of bx.results) {
@@ -129,10 +182,10 @@ if (ONLY_BATCH) {
     console.error(`REFUSING ${ONLY_BATCH}-only write, integrity gate failed: ` + JSON.stringify(gf));
     process.exit(1);
   }
-  profit.updated = new Date().toISOString().slice(0, 10);
+  stampUpdated(profit);
   fs.mkdirSync(path.join(ROOT, 'tmp-merge'), { recursive: true });
-  fs.writeFileSync(path.join(ROOT, 'data/profit.json'), JSON.stringify(profit, null, 2) + '\n');
-  fs.writeFileSync(path.join(ROOT, 'data/profit.json.js'), 'window.__PROFIT_DATA = ' + JSON.stringify(profit) + ';\n');
+  writeJsonOut('profit.json', profit);
+  writeMirrorOut(profit);
   fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'merge_report.json'), JSON.stringify(report8, null, 2) + '\n');
   console.log(`${ONLY_BATCH.toUpperCase()}-ONLY WROTE profit.json; totalCompanies=` + Object.keys(profit.companies).length +
     ' totalQuarters=' + Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0) +
@@ -179,20 +232,19 @@ if (FIXUP_TICKER) {
   }
   if (errs.length) { console.error(`REFUSING fixup-ticker ${FIXUP_TICKER}: integrity gate failed`); console.error(JSON.stringify(errs, null, 1)); process.exit(1); }
   profit.companies[FIXUP_TICKER] = neu;
-  profit.updated = new Date().toISOString().slice(0, 10);
+  stampUpdated(profit);
   const reportFx = { mode: 'fixup-ticker', ticker: FIXUP_TICKER, sourceCommit: fx.sourceCommit, changes, guardFails: {} };
   fs.mkdirSync(path.join(ROOT, 'tmp-merge'), { recursive: true });
-  fs.writeFileSync(path.join(ROOT, 'data/profit.json'), JSON.stringify(profit, null, 2) + '\n');
-  fs.writeFileSync(path.join(ROOT, 'data/profit.json.js'), 'window.__PROFIT_DATA = ' + JSON.stringify(profit) + ';\n');
+  writeJsonOut('profit.json', profit);
+  writeMirrorOut(profit);
   fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'fixup_report.json'), JSON.stringify(reportFx, null, 2) + '\n');
   console.log(`FIXUP-TICKER WROTE profit.json; ticker=${FIXUP_TICKER} fieldsChanged=${changes.length} companies=${Object.keys(profit.companies).length} periods=${Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0)}`);
   console.log(JSON.stringify(changes, null, 1));
   process.exit(0);
 }
 
-const log = [], warn = [];
 const notesNew = [];
-const report = { replacements: [], added: [], fx: {}, skipped: [], warnings: warn };
+const report = { replacements: [], added: [], fx: {}, skipped: [], notesKept: [], warnings: warn };
 
 // ---------- fx cache (frankfurter.app) ----------
 const fxCachePath = path.join(ROOT, 'tmp-merge', 'fx_cache.json');
@@ -495,81 +547,91 @@ for (const key of ['2454.TW', '2330.TW']) {
   }
 }
 
-// ---------- batch7: 2026 Q3 profit new periods (append-only, idempotent) ----------
-// data/staging/batch7.json 承载 A股/港股 2026-09-30 三季报 + SEC 2026 Q3 的新期（已是最终 quarter 元素形状）。
-// 契约：只「追加」期末点，绝不改写任何既有期点。已存在同 end 且值全等 → 跳过（幂等）；
-// 同 end 但任一字段不同 → 报错退出，禁止静默覆盖。注意本段在任何 fixups（整 ticker 替换）之后运行，
-// 因此即使某 ticker 被 fixups 重置，其新期仍能可靠追加。stage1 既有 batch 段仍只写 revenue/netInc。
+// ---------- reconcile: keep on-disk enrichment fields (non-destructive, key-order preserving) ----------
+// The staging batch sections above only ever construct revenue/netInc (+fx) for a ticker, so a full
+// rebuild used to erase every enrichment field (gross/opInc/rd/sga/...) that stage2
+// merge_fundamentals.mjs had merged into data/profit.json. Worse, because stage2 re-appended those
+// fields in its own FIELDS order, a rebuild+restage round-trip also *changed the key order* of
+// affected quarters (00981.HK: disk has ...,opInc,rd,sga,gross while a rebuild produced
+// ...,gross,opInc,rd,sga — the historic appends happened in a different order).
+// Fix: after all batch/fixup sections, append back the keys the rebuild dropped, in the disk's own
+// key order, for quarters that both disk and the rebuild contain. A full rebuild therefore becomes a
+// superset operation and preserves byte-level key order. Conflicts (same key, different value) are
+// hard errors — the rebuild must never silently overwrite on-disk data.
+// Deliberately NOT restored: periods that exist on disk but that no batch produces. Those must come
+// from a staging batch (that is the bug this pipeline is meant to make visible), not from a copy of
+// the previous output.
 {
-  for (const r of b7.results) {
-    const co = profit.companies[r.ticker];
-    if (!co) {
-      console.error(`batch7: company ${r.ticker} not found in profit.json`);
-      process.exit(1);
-    }
-    if (!Array.isArray(co.quarters)) co.quarters = [];
-    for (const nq of r.newQuarters) {
-      if (!nq || !nq.end) { console.error(`batch7: ${r.ticker} has newQuarter without end`); process.exit(1); }
-      const existing = co.quarters.find(q => q.end === nq.end);
-      if (existing) {
-        for (const k of new Set([...Object.keys(existing), ...Object.keys(nq)])) {
-          if (JSON.stringify(existing[k]) !== JSON.stringify(nq[k])) {
-            console.error(`batch7 CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(existing[k])} new=${JSON.stringify(nq[k])}`);
+  let restored = 0;
+  for (const [ticker, co] of Object.entries(profit.companies)) {
+    const diskCo = diskSnapshot[ticker];
+    if (!diskCo || !Array.isArray(diskCo.quarters) || !Array.isArray(co.quarters)) continue;
+    for (const dq of diskCo.quarters) {
+      const ptype = dq.periodType || 'q';
+      const candidates = co.quarters.filter(x => x.end === dq.end);
+      const q = candidates.find(x => (x.periodType || 'q') === ptype) || (candidates.length === 1 ? candidates[0] : null);
+      if (!q) continue;
+      for (const [k, v] of Object.entries(dq)) {
+        if (Object.prototype.hasOwnProperty.call(q, k)) {
+          if (JSON.stringify(q[k]) !== JSON.stringify(v)) {
+            console.error(`RECONCILE CONFLICT ${ticker} ${dq.end} field '${k}': rebuilt=${JSON.stringify(q[k])} disk=${JSON.stringify(v)}`);
             process.exit(1);
           }
+          continue;
         }
-        continue; // identical period already present -> idempotent skip
+        q[k] = v;
+        restored++;
       }
-      co.quarters.push(JSON.parse(JSON.stringify(nq)));
-      report.added.push({ ticker: r.ticker, end: nq.end, market: 'batch7-newperiod' });
     }
-    co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
   }
-  log.push(`batch7: appended 2026Q3 new periods for ${b7.results.length} tickers`);
+  if (restored) log.push(`reconcile: restored ${restored} enrichment field(s) from on-disk profit.json`);
 }
 
-// ---------- batch8: A股 2026 Q3 三季报追加 + 长鑫存储历史字段补齐（append / fill-missing, 幂等） ----------
-// data/staging/batch8.json 承载三只 A 股 (600519.SS/000100.SZ/688825.SS) 的 2026-09-30 单季新期
-// （已是最终 quarter 元素形状），外加 688825.SS 的 2025-09-30/2025-12-31 两期历史的 gross/opInc/rd/sga 补齐。
-// 契约：① results[].newQuarters 只「追加」期末点，已存在同 end 且值全等→跳过，不同→exit 1；
-//       ② enrich[] 只对既有期点「补空」gross/opInc/rd/sga（仅当当前为 null/undefined），
-//         且必须先验证该期 revenue 与 expectRevenue 偏差≤0.5%，否则跳过并记录，绝不覆盖既有非空值。
-// 本段在 batch4(整 ticker 重建，只含 revenue/netInc) 与 fixups 之后运行，故可安全补回被 stage1 丢弃的字段。
-{
+// ---------- late batches (n >= 7): append-only new periods + fill-missing enrichment ----------
+// batch7 (A股/港股 2026-09-30 三季报 + SEC 2026 Q3) and batch8 (A股 2026Q3 + 688825.SS 历史字段补齐) and
+// batch9-12 (2026-09-30 期: MCD, 688981.SS/00981.HK/CBRS/CRWV, CSCO/00700.HK/00992.HK/01024.HK,
+// WB/BIDU/TME/SONY) all share the same contract:
+//   ① results[].newQuarters: append a period end-point only; identical period already present -> skip
+//      (idempotent); same end but any field differs -> exit 1 (never silently overwrite).
+//   ② enrich[]: fill gross/opInc/rd/sga only where currently null/undefined, after verifying the
+//      period's revenue is within 0.5% of expectRevenue; never overwrite a non-null value.
+// Applied in ascending batch-number order after fixups, so a fixup reset cannot drop a later batch's
+// new period. New batches are picked up automatically by the staging glob loader at the top.
+for (const { n: bn, data } of BATCHES.filter(x => x.n >= 7)) {
   const before = report.added.length;
-  for (const r of b8.results) {
+  for (const r of data.results || []) {
     const co = profit.companies[r.ticker];
-    if (!co) { console.error(`batch8: company ${r.ticker} not found in profit.json`); process.exit(1); }
+    if (!co) { console.error(`batch${bn}: company ${r.ticker} not found in profit.json`); process.exit(1); }
     if (!Array.isArray(co.quarters)) co.quarters = [];
-    for (const nq of r.newQuarters) {
-      if (!nq || !nq.end) { console.error(`batch8: ${r.ticker} has newQuarter without end`); process.exit(1); }
+    for (const nq of r.newQuarters || []) {
+      if (!nq || !nq.end) { console.error(`batch${bn}: ${r.ticker} has newQuarter without end`); process.exit(1); }
       const existing = co.quarters.find(q => q.end === nq.end);
       if (existing) {
         for (const k of new Set([...Object.keys(existing), ...Object.keys(nq)])) {
           if (JSON.stringify(existing[k]) !== JSON.stringify(nq[k])) {
-            console.error(`batch8 CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(existing[k])} new=${JSON.stringify(nq[k])}`);
+            console.error(`batch${bn} CONFLICT ${r.ticker} ${nq.end} field '${k}': existing=${JSON.stringify(existing[k])} new=${JSON.stringify(nq[k])}`);
             process.exit(1);
           }
         }
         continue; // identical period already present -> idempotent skip
       }
       co.quarters.push(JSON.parse(JSON.stringify(nq)));
-      report.added.push({ ticker: r.ticker, end: nq.end, market: 'batch8-newperiod' });
+      report.added.push({ ticker: r.ticker, end: nq.end, market: `batch${bn}-newperiod` });
     }
     co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
   }
   const addedN = report.added.length - before;
 
   const FIELDS = ['gross', 'opInc', 'rd', 'sga'];
-  const enrichedN = [];
-  for (const en of (b8.enrich || [])) {
+  let enrichedN = 0;
+  for (const en of (data.enrich || [])) {
     const co = profit.companies[en.ticker];
-    if (!co) { console.error(`batch8: enrich company ${en.ticker} not found`); process.exit(1); }
+    if (!co) { console.error(`batch${bn}: enrich company ${en.ticker} not found`); process.exit(1); }
     const q = (co.quarters || []).find(x => x.end === en.end);
-    if (!q) { console.error(`batch8 ENRICH SKIP ${en.ticker} ${en.end}: period not found`); report.skipped.push({ ticker: en.ticker, end: en.end, reason: 'period-not-found' }); continue; }
+    if (!q) { console.error(`batch${bn} ENRICH SKIP ${en.ticker} ${en.end}: period not found`); report.skipped.push({ ticker: en.ticker, end: en.end, reason: 'period-not-found' }); continue; }
     const rev = q.revenue, exp = en.expectRevenue;
     if (rev == null || Math.abs(rev - exp) / Math.abs(exp) > 0.005) {
-      console.error(`batch8 ENRICH SKIP ${en.ticker} ${en.end}: revenue mismatch on-disk=${rev} expect=${exp} (>0.5%)`);
+      console.error(`batch${bn} ENRICH SKIP ${en.ticker} ${en.end}: revenue mismatch on-disk=${rev} expect=${exp} (>0.5%)`);
       report.skipped.push({ ticker: en.ticker, end: en.end, reason: 'revenue-mismatch', onDisk: rev, expect: exp });
       continue;
     }
@@ -578,13 +640,13 @@ for (const key of ['2454.TW', '2330.TW']) {
       if (en.set[f] == null) continue;
       if (q[f] == null) { q[f] = en.set[f]; did.push(f); }
       else if (JSON.stringify(q[f]) !== JSON.stringify(en.set[f])) {
-        console.error(`batch8 ENRICH CONFLICT ${en.ticker} ${en.end} field '${f}': existing=${JSON.stringify(q[f])} new=${JSON.stringify(en.set[f])}`);
+        console.error(`batch${bn} ENRICH CONFLICT ${en.ticker} ${en.end} field '${f}': existing=${JSON.stringify(q[f])} new=${JSON.stringify(en.set[f])}`);
         process.exit(1);
       }
     }
-    if (did.length) { enrichedN.push({ ticker: en.ticker, end: en.end, filled: did }); report.added.push({ ticker: en.ticker, end: en.end, market: 'batch8-enrich', fields: did }); }
+    if (did.length) { enrichedN++; report.added.push({ ticker: en.ticker, end: en.end, market: `batch${bn}-enrich`, fields: did }); }
   }
-  log.push(`batch8: appended ${addedN} new period(s) for ${b8.results.length} tickers; enriched ${enrichedN.length} period(s)`);
+  log.push(`batch${bn}: appended ${addedN} new period(s) for ${(data.results || []).length} tickers` + (enrichedN ? `; enriched ${enrichedN} period(s)` : ''));
 }
 
 // ---------- documented period truncations (apply BEFORE guards/stats) ----------
@@ -665,18 +727,40 @@ profit.units = 'mixed by entry (see entry.currency); USD-converted display via p
 notesNew.push('Integration 2026-10-26: batch1-5 merged. Non-USD display conversion uses per-period fxToUsd (frankfurter.app ECB reference, period-end business day) except snapshot-fx entries (NESN.SW/MC.PA) and KRW/HK row-level fx from staging. 2454.TW/2330.TW 为 USD-M（TWSE 报表以 TWD 列示，入池已按 USD/TWD 32.596145 折算，无 fxToUsd；2026-10-29 更正 currency 标记）。');
 notesNew.push('2330.TW (TWSE quarterly) and TSM (20-F annual TWD-M) are separate entries by design — 禁止跨条目环比.');
 profit.notes = [...new Set([...(profit.notes || []), ...notesNew])];
-profit.updated = new Date().toISOString().slice(0, 10);
 profit.source = 'SEC EDGAR + HKEX (东财) + KR/TW/EU disclosures; integration merge of staging batches 1-5';
 // top-level meta snapshot (fixups.meta): 事后手工修订的 source/units/skipped[]/notes 以磁盘为准
 if (FIXUPS.meta) {
-  for (const [k, v] of Object.entries(FIXUPS.meta)) if (k !== 'updated') profit[k] = JSON.parse(JSON.stringify(v));
+  for (const [k, v] of Object.entries(FIXUPS.meta)) {
+    if (k === 'updated') continue;
+    if (k === 'notes') {
+      // notes 是 append-only 的修订日志快照，而磁盘上存在「事后就地改写、未回写 staging」的条目
+      // (PIPELINE.md 记录的 IBM / 00762.HK / 601360.SS)。以磁盘为准：同下标且文本不同时保留磁盘版本
+      // 并告警（staging 已 stale，应反写回 fixups.json）；staging 追加的尾部条目照常保留。
+      const staged = Array.isArray(v) ? v : [];
+      const merged = staged.map((s, i) => {
+        if (i < diskNotesSnapshot.length && diskNotesSnapshot[i] !== s) {
+          const msg = `stale staging note at notes[${i}] (disk kept): staging="${String(s).slice(0, 100)}" disk="${String(diskNotesSnapshot[i]).slice(0, 100)}"`;
+          console.error('WARNING: ' + msg); warn.push(msg);
+          report.notesKept.push({ index: i, staged: s, disk: diskNotesSnapshot[i] });
+          return diskNotesSnapshot[i];
+        }
+        return s;
+      });
+      for (let i = merged.length; i < diskNotesSnapshot.length; i++) merged.push(diskNotesSnapshot[i]);
+      profit.notes = merged;
+      continue;
+    }
+    profit[k] = JSON.parse(JSON.stringify(v));
+  }
   if (!('profitPreview' in FIXUPS.meta)) delete profit.profitPreview; // SPCX preview 已在后续修复中移除, 以磁盘为准
 }
 
 // ---------- integrity whitelists (documented benign cases, see tmp-integrity/REPORT.md) ----------
 // 真实毛亏公司：源头即负毛利（存储半导体下行 / Model S 爬坡 / 早期平台补贴），数据真实，非脏数据。
 // 00100.HK (MiniMax)：2023-12-31 早期 AI 平台毛利率为负 (gross -6.05 / revenue 24.5, 算力成本高于收入), 源头真实, 非脏数据。
-const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD', '00100.HK']);
+// 00981.HK (中芯国际)：2008-03-31 / 2009-03-31 / 2009-06-30 源头即负毛利（晶圆代工产能利用率低谷 + 折旧），
+// 与磁盘 data/profit.json 一致；此前这些 gross 字段在 stage1 重建中被抹掉，reconcile 复原后需要显式放行。
+const NEG_GROSS_OK = new Set(['MU', 'TSLA', 'PDD', '00100.HK', '00981.HK']);
 // 源确未披露 revenue 的已记录 null 行（REPORT §一 P1）：保留 null + notes，不当作门禁失败。
 const MISSING_REV_OK = new Set(['00762.HK|2008-09-30', '00100.HK|2022-12-31']);
 
@@ -846,9 +930,13 @@ if (process.env.DRY || process.argv.includes('--dry')) {
     process.exit(1);
   }
   if (regressions.length) console.error(`WARNING: --force given; writing despite ${regressions.length} regression(s).`);
-  W('data/profit.json', profit);
-  W('data/companies.json', registry);
+  // deterministic stamp: keep the on-disk `updated` when the payload is unchanged, so a rebuild is
+  // reproducible byte-for-byte on any later day (idempotence requirement).
+  stampUpdated(profit);
+  writeJsonOut('profit.json', profit);
+  writeJsonOut('companies.json', registry);
+  writeMirrorOut(profit); // keep data/profit.json.js in sync (previously left stale by a full rebuild)
   W('tmp-merge/merge_report.json', report);
-  console.log('WROTE profit.json companies=' + report.totalCompanies + ' quarters=' + totalQ + ' registry=' + registry.length);
+  console.log('WROTE ' + path.relative(ROOT, path.join(OUT_DIR, 'profit.json')) + ' companies=' + report.totalCompanies + ' quarters=' + totalQ + ' registry=' + registry.length + ' updated=' + profit.updated);
   console.log('guardFails:', JSON.stringify(guardFails, null, 1));
 }
