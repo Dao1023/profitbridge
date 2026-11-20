@@ -336,6 +336,20 @@ function segmentStatus(ticker, qEnd) {
   return { kind: 'noData' }; // legacy degraded note string, or empty quarters
 }
 
+/* Responsive sankey padding. The left/right gutters used to be hard-coded 170/210px,
+   which is wider than the whole plot on a phone: at 390px the chart panel is 332px and
+   332-170-170 = -8px, so every node was squeezed to zero/negative width and the labels
+   piled on top of each other. Scale the gutters with the host instead, clamped so the
+   desktop geometry (host >= 773px -> base 170, left 210 when an aggregate column exists)
+   is byte-for-byte unchanged. */
+function sankeyPads(hasAgg) {
+  const host = document.getElementById('sankey');
+  const w = (host && host.clientWidth) || 1072;
+  const base = Math.round(Math.max(60, Math.min(170, w * 0.22)));
+  const left = hasAgg ? Math.min(210, base + 40) : base;
+  return { w, base, left, right: base, compact: base < 170 };
+}
+
 /* ECharts graphic notice shown in the empty input-side band of the sankey when a
    company+quarter has no segment inflow. Placed left of the revenue column so it
    never overlaps or squeezes the waterfall. */
@@ -364,13 +378,16 @@ function segmentNoticeGraphic(plan) {
   // wraps into more (fully readable) lines instead of poking out to the right.
   const segList = p.segList;
   const hasAgg = !!(segList && segList.some(s => s.children && s.children.length));
-  const padLeft = hasAgg ? 210 : 170;   // MUST mirror the sankey series `left` below
-  const width = Math.min(176, padLeft - 16 - 8);
+  const pads = sankeyPads(hasAgg);
+  const padLeft = pads.left;            // MUST mirror the sankey series `left` below
+  // Never go below 48px: a 49px column of 11px text is still readable, while a negative
+  // width makes ECharts drop the whole notice.
+  const width = Math.max(48, Math.min(176, padLeft - 16 - 8));
   return [{
     type: 'text', left: 16, top: 'middle', z: 10, silent: true,
     style: {
-      width, overflow: 'breakAll', lineHeight: 19, fill: '#94a3b8',
-      fontSize: 12.5, fontWeight: 600, text: `${title}\n${hint}`,
+      width, overflow: 'breakAll', lineHeight: pads.compact ? 15 : 19, fill: '#94a3b8',
+      fontSize: pads.compact ? 11 : 12.5, fontWeight: 600, text: `${title}\n${hint}`,
     },
   }];
 }
@@ -1000,14 +1017,17 @@ function renderChart() {
     cum ? `${shortName(state.company)} · ${cum.label}`
         : `${shortName(state.company)} ${quarterLabel(qv.end, qv.periodType)}`;
 
+  const hasAgg = !!(segList && segList.some(s => s.children && s.children.length));
+  const pads = sankeyPads(hasAgg);
+  const compactLabel = pads.compact; // host < 773px: 390/768 phones and small tablets
   const labelRich = {
-    n: { fontSize: 16, fontWeight: 700, color: '#1e293b', lineHeight: 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    v: { fontSize: 14, fontWeight: 600, color: '#64748b', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    p: { fontSize: 14, fontWeight: 700, color: '#2563eb', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // share of revenue
-    m: { fontSize: 14, fontWeight: 700, color: '#1d55a5', lineHeight: 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // margin ratios
-    up: { fontSize: 13, fontWeight: 700, color: '#16a34a', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    down: { fontSize: 13, fontWeight: 700, color: '#dc2626', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
-    flat: { fontSize: 13, fontWeight: 600, color: '#94a3b8', lineHeight: 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
+    n: { fontSize: compactLabel ? 13 : 16, fontWeight: 700, color: '#1e293b', lineHeight: compactLabel ? 17 : 21, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    v: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 600, color: '#64748b', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    p: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 700, color: '#2563eb', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // share of revenue
+    m: { fontSize: compactLabel ? 11.5 : 14, fontWeight: 700, color: '#1d55a5', lineHeight: compactLabel ? 15 : 18, textBorderColor: '#fff', textBorderWidth: 2.5 },   // margin ratios
+    up: { fontSize: compactLabel ? 11 : 13, fontWeight: 700, color: '#16a34a', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    down: { fontSize: compactLabel ? 11 : 13, fontWeight: 700, color: '#dc2626', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 },
+    flat: { fontSize: compactLabel ? 11 : 13, fontWeight: 600, color: '#94a3b8', lineHeight: compactLabel ? 14 : 17, textBorderColor: '#fff', textBorderWidth: 2.5 }, // '—' no prior data
   };
 
   /* label formatter with 4 modes: amount / pct / qoq / pct+qoq. Node values untouched. */
@@ -1094,9 +1114,15 @@ function renderChart() {
     } else {
       d.label = { position: 'top', distance: 5 };
     }
+    // Narrow hosts cannot fit every per-segment label: below 2% of revenue the text is
+    // wider than the node and ECharts would stack it over its neighbours. Hide just the
+    // label (d.label.show=false); the node, its link and the item tooltip stay intact.
+    if (compactLabel && n.name.startsWith('seg:') && qv.revenue) {
+      const revB = qv.revenue * dispFactor(qv) / MB;
+      if (revB > 0 && n.value / revB < 0.02) d.label = { show: false };
+    }
     return d;
   });
-  const hasAgg = segList && segList.some(s => s.children && s.children.length);
   // Degraded views carry an amber banner in the top margin; bump the plot's top inset so the
   // banner never sits on top of the revenue label (which is drawn just above the revenue node).
   const sankeyTop = degraded ? 96 : 60;
@@ -1118,10 +1144,11 @@ function renderChart() {
       layout: 'none',               // manual depth layout (pitfall #5)
       nodeAlign: 'justify',
       nodeWidth: 30, nodeGap: 22,
-      left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
+      left: pads.left, right: pads.right, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
+      ...(compactLabel ? { avoidLabelOverlap: true, labelLayout: { hideOverlap: true } } : {}),
       label: {
-        fontSize: 15,
+        fontSize: compactLabel ? 12 : 15,
         formatter: nodeLabel,
         rich: labelRich,
         textBorderColor: '#fff', textBorderWidth: 2.5, // white halo keeps labels legible over colored flow bands
@@ -1136,9 +1163,10 @@ function renderChart() {
     graphic: graphicAll,
     series: [{
       type: 'sankey', layout: 'none', nodeAlign: 'justify',
-      nodeWidth: 30, nodeGap: 22, left: hasAgg ? 210 : 170, right: 170, top: sankeyTop, bottom: 40,
+      nodeWidth: 30, nodeGap: 22, left: pads.left, right: pads.right, top: sankeyTop, bottom: 40,
       emphasis: { focus: 'adjacency' },
-      label: { fontSize: 15, formatter: nodeLabel, rich: labelRich, textBorderColor: '#fff', textBorderWidth: 2.5 },
+      ...(compactLabel ? { avoidLabelOverlap: true, labelLayout: { hideOverlap: true } } : {}),
+      label: { fontSize: compactLabel ? 12 : 15, formatter: nodeLabel, rich: labelRich, textBorderColor: '#fff', textBorderWidth: 2.5 },
       data, links: g.links,
     }],
   };
@@ -1765,7 +1793,12 @@ function renderTimeline() {
     ticks.addEventListener('click', e => {
       // track clicks (and clicks anywhere outside a label) keep the track's own
       // fraction→quarter mapping; only a click that hit a tick is re-mapped
-      if (!e.target.closest || !e.target.closest('.tl-tick')) return;
+      const hit = e.target.closest && e.target.closest('.tl-tick');
+      if (!hit) return;
+      // Programmatic .click() (tests, keyboard/AT activation) carries detail=0 and
+      // clientX=0; nearest-centre would always resolve to the first tick. Trust the
+      // element the caller actually activated in that case.
+      if (!e.detail) { setQuarter(Number(hit.dataset.i)); return; }
       const list = [...ticks.querySelectorAll('.tl-tick')];
       let best = null, bestD = Infinity;
       for (const el of list) {
