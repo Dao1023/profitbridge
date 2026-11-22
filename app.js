@@ -54,7 +54,7 @@ const I18N = {
       retainedEarnings: 'Retained earnings', minorityInterests: 'Non-controlling interests',
       ocf: 'Operating cash flow', capex: 'Capex', icf: 'Investing cash flow', finCashFlow: 'Financing cash flow',
       dividendsTotal: 'Cash dividends (declared, fiscal year)', dividendsToParent: 'of which: parent shareholders',
-      stateDividend: 'Profit remittance to the state (parent dividend)',
+      stateDividend: 'Profit remittance (parent dividend × state stake)',
       dividendsPaid: 'Cash dividends paid (cash basis)', buyback: 'Share buybacks',
       eps: 'EPS (diluted)', dps: 'DPS',
     },
@@ -67,14 +67,19 @@ const I18N = {
     mvUnit: 'Unit: millions of',
     mvNote: 'As reported by the source, no interpolation; ratios computed from the raw figures above; "—" = not disclosed. Source:',
     mvEmptyTitle: 'No metrics data for this company',
-    mvEmptyHint: 'The metrics view currently covers MSFT, KO, 600887.SS, 00700.HK, 005930.KS and SGCC (latest 4–6 fiscal years). Other companies still have the Sankey and bar views.',
+    mvEmptyHint: 'The metrics view covers 24 companies — A-shares (600519.SS, 300750.SZ, 002594.SZ, 688256.SS, 688795.SS, 002415.SZ, 000063.SZ, 000333.SZ, 000100.SZ, 601360.SS, 688825.SS, 688981.SS, 603866.SH, 600887.SS), Hong Kong (00941.HK, 01398.HK, 03968.HK, 00728.HK, 00762.HK, 00700.HK), MSFT, KO, 005930.KS and SGCC (latest 2–6 fiscal years). Other companies still have the Sankey and bar views.',
     mvYear: 'FY',
-    mvStateNa: 'Not 100% state-owned: the remittance basis needs the state shareholding ratio, which is not in the data layer — not estimated',
+    mvStateNa: 'No state controlling shareholder on record (private, or no controlling shareholder): no state stake, remittance not estimated',
     mvDivPaidNa: 'Cash-flow line "dividends, profits or interest paid" is a mixed basis (includes interest) and is not comparable with the statement of changes in equity; not used.',
     mvBuybackNa: 'No share-buyback line in this source',
     mvPayoutNote: 'Payout ratio = dividends attributable to parent shareholders ÷ net income attributable to parent (both exactly as reported). Where a dividend total cannot be reproduced from the source (00700.HK, 005930.KS) it falls back to DPS ÷ EPS — the same concept on a per-share basis, stated in the row footnote.',
-    mvStateNote: 'There is no "profit remittance" account in corporate statements. For an issuer 100% owned by the state (SGCC / 国务院国资委) the only auditable proxy is "distributions to owners" in the statement of changes in equity, parent column — shown here as declared, not estimated.',
+    mvStateNote: 'There is no "profit remittance" account in corporate statements. For a wholly state-owned issuer (SGCC / 国务院国资委 at 100%) the only auditable proxy is "distributions to owners" in the statement of changes in equity, parent column. For a state-controlled listed issuer the proxy is the parent dividend scaled by the top state shareholder ratio — a lower-bound basis, because state holders beyond that one are not counted.',
     mvStateDisclaimer: 'National capital gains (国有资本收益, the fiscal-budget item) is not an account in corporate financial statements — a full-text search of all six SGCC annual reports returns 0 hits. It is deliberately not modelled here.',
+    mvStakeTip: 'Remittance proxy = parent dividend × {0}, the stake of {1} as of {2}. Lower-bound basis: state shareholders beyond the top one are not counted.',
+    mvStateTip100: 'Wholly state-owned (stateOwnership = 1): the multiplier is 1, so the proxy equals the parent dividend itself.',
+    mvStakeNote: 'Profit remittance proxy = parent dividend × {0} ({1}, as of {2}). It is a LOWER-BOUND basis — top state holder only, other state shareholders outside that group are excluded — so it must not be extrapolated to the actual remittance.',
+    mvStateNonState: 'No state controlling shareholder is recorded for this issuer, so there is no state stake to apply — remittance not estimated.',
+    mvStateNoDividend: 'No parent dividend in this fiscal year (none declared, or not disclosed) — nothing to scale.',
     mvDivBasis: 'Dividend basis: ',
   },
   zh: {
@@ -125,7 +130,7 @@ const I18N = {
       retainedEarnings: '未分配利润', minorityInterests: '少数股东权益',
       ocf: '经营活动现金流', capex: '资本开支', icf: '投资活动现金流', finCashFlow: '筹资活动现金流',
       dividendsTotal: '现金分红总额（当年宣告）', dividendsToParent: '其中：归属母公司股东',
-      stateDividend: '利润上缴（归母分红）',
+      stateDividend: '利润上缴（归母分红×国有持股）',
       dividendsPaid: '已付现金股利（收付实现制）', buyback: '股份回购',
       eps: '每股收益（摊薄）', dps: '每股股息',
     },
@@ -138,14 +143,19 @@ const I18N = {
     mvUnit: '单位：百万',
     mvNote: '仅取报告原始值、不插值；比率由上方原始数现算；“—”表示该源未披露。数据来源：',
     mvEmptyTitle: '该公司暂无指标明细数据',
-    mvEmptyHint: '指标明细当前覆盖 MSFT、KO、600887.SS、00700.HK、005930.KS、SGCC 六家（4–6 个财年）；其余公司仍可使用桑基图与柱状图。',
+    mvEmptyHint: '指标明细覆盖 24 家：A 股（600519.SS、300750.SZ、002594.SZ、688256.SS、688795.SS、002415.SZ、000063.SZ、000333.SZ、000100.SZ、601360.SS、688825.SS、688981.SS、603866.SH、600887.SS）、港股（00941.HK、01398.HK、03968.HK、00728.HK、00762.HK、00700.HK），以及 MSFT、KO、005930.KS、SGCC（2–6 个财年）；其余公司仍可使用桑基图与柱状图。',
     mvYear: 'FY',
-    mvStateNa: '非国有独资：上缴口径需国有持股比例（未入库），不估算',
+    mvStateNa: '未登记国有控股股东（民营或无实际控制人）：无国有持股比例，利润上缴不估算',
     mvDivPaidNa: '现金流「分配股利、利润或偿付利息支付的现金」为混合口径（含利息），与权益变动表口径不可混用，故不采用',
     mvBuybackNa: '该源现金流量表无「回购股份」科目',
     mvPayoutNote: '分红率 = 归母分红 ÷ 归母净利（两者均为报表原始值）。来源无法给出分红总额的公司（00700.HK、005930.KS）回退为「每股股息 ÷ 每股收益」——同一概念的每股口径，行内脚注已注明。',
-    mvStateNote: '企业报表没有「利润上缴」科目；对国有独资公司（国家电网，国务院国资委 100% 持股），唯一可审计的代理口径是所有者权益变动表「对所有者的分配」的归母列，按宣告口径列示、不做估算。',
+    mvStateNote: '企业报表没有「利润上缴」科目。国有独资公司（国家电网，国务院国资委 100% 持股）唯一可审计的代理口径是所有者权益变动表「对所有者的分配」归母列；国有控股上市公司则按「归母分红 × 第一大国有股东持股比例」折算，属下限口径（集团之外的其他国有股东未计入），按宣告口径列示、不做估算。',
     mvStateDisclaimer: '国有资本收益属财政预算科目（国有资本经营预算），企业财务报表无此科目——六份国家电网年报全文检索 0 命中，本站明确不入库。',
+    mvStakeTip: '利润上缴 = 归母分红 × {0}（{1} 持股，基准日 {2}）。属下限口径：集团之外的其他国有股东未计入。',
+    mvStateTip100: '国有独资（stateOwnership = 1）：折算比例按 100% 计，与归母分红相同。',
+    mvStakeNote: '利润上缴（代理）= 归母分红 × {0}（{1}，基准日 {2}）。按第一大国有股东持股比例折算，属「下限」口径（集团之外的其他国有股东未计入），不可外推为实际上缴额。',
+    mvStateNonState: '该发行人未登记国有控股股东（民营或无实际控制人），无国有持股比例可用，利润上缴不估算。',
+    mvStateNoDividend: '该财年无归母分红（未宣派或未披露），无法折算。',
     mvDivBasis: '分红口径：',
   },
 };
@@ -214,6 +224,7 @@ function shortName(ticker) {
 }
 let lang = 'zh'; // 中文界面为默认，右上按钮切换 English
 const t = k => I18N[lang][k];
+const fmtT = (s, ...a) => String(s == null ? '' : s).replace(/\{(\d)\}/g, (m, i) => (a[i] == null ? m : a[i]));
 const tn = k => I18N[lang].nodes[k] || k;
 
 let DATA = null;      // profit.json (values in $M)
@@ -1473,9 +1484,25 @@ function mvPayout(y) {
 /* 利润上缴 (SOE basis): corporate statements have no "remittance" account. For an issuer that is
    100% state-owned (stateOwnership === 1) the only auditable proxy is the parent column of
    "distributions to owners" in the statement of changes in equity. Everyone else: null + tooltip. */
+/* 折算比例：优先公司级 stateStake.ratio（第一大国有股东持股比例，见 METRICS_SCHEMA）；
+   stateOwnership === 1（国有独资）视为 ratio = 1；两者都没有 → null（民营/无控股股东）。 */
+function mvStateRatio(e) {
+  if (!e) return null;
+  const st = e.stateStake;
+  if (st && st.ratio != null && st.ratio > 0) return st.ratio;
+  return e.stateOwnership === 1 ? 1 : null;
+}
 function mvStateDividend(e, y) {
   const S = y.shareholder || {};
-  return e && e.stateOwnership === 1 && S.dividendsToParent != null ? S.dividendsToParent : null;
+  const r = mvStateRatio(e);
+  return r != null && S.dividendsToParent != null ? S.dividendsToParent * r : null;
+}
+function mvStateTip(e) {
+  const r = mvStateRatio(e);
+  if (r == null) return t('mvStateNonState');
+  const st = e && e.stateStake;
+  if (st && st.ratio != null) return fmtT(t('mvStakeTip'), mvPct(st.ratio), st.holder || '', st.asOf || '');
+  return t('mvStateTip100');
 }
 function mvVal(row, y, gid, e) {
   if (row.derived === 'payout') return mvPayout(y);
@@ -1527,12 +1554,16 @@ function renderMetrics() {
     if (g.id === 'shareholder') hasSh = true;
     body += '<tr class="mv-group"><td class="mv-name">' + t('mvGroups')[g.id] + '</td><td colspan="' + years.length + '"></td></tr>';
     rows.forEach((r, i) => {
-      body += '<tr><td class="mv-name">' + (t('mvFields')[r.k] || t('mvRatios')[r.k]) + '</td>' +
+      // 利润上缴行：行名 tooltip 说明折算比例与「下限口径」，缺值 tooltip 区分「无国有股东」与「本年无分红」
+      const nameTip = r.k === 'stateDividend' ? mvStateTip(e) : null;
+      const naKey = r.k === 'stateDividend' ? (mvStateRatio(e) != null ? 'mvStateNoDividend' : 'mvStateNonState') : r.na;
+      body += '<tr><td class="mv-name"' + (nameTip ? ' title="' + mvEsc(nameTip) + '"' : '') + '>' +
+        (t('mvFields')[r.k] || t('mvRatios')[r.k]) + '</td>' +
         years.map((y, j) => {
           const v = cols[i][j];
           const no = fnNo.get(y.end + '|' + r.k);
           const s = v == null ? null : (r.pct ? mvPct(v) : mvNum(v));
-          const tip = no ? fnList[no - 1].text : (s == null ? (r.na ? t(r.na) : t('mvMissing')) : null);
+          const tip = no ? fnList[no - 1].text : (s == null ? (naKey ? t(naKey) : t('mvMissing')) : null);
           return '<td class="mv-num' + (s == null ? ' mv-null' : '') + '"' +
             (tip ? ' title="' + mvEsc(tip) + '"' : '') + '>' + (s == null ? '—' : s) +
             (no ? '<sup class="mv-fn" title="' + mvEsc(fnList[no - 1].text) + '">' + no + '</sup>' : '') +
@@ -1561,7 +1592,11 @@ function renderMetrics() {
     '<div class="mv-note">' + t('mvNote') + ' ' + src +
     (METRICS.updated ? ' · ' + t('updated') + ' ' + mvEsc(METRICS.updated) : '') +
     (e.sourceNote ? '<br/>' + mvEsc(e.sourceNote) : '') +
-    (hasSh ? '<br/>' + t('mvPayoutNote') + '<br/>' + t('mvStateNote') + '<br/>' + t('mvStateDisclaimer') +
+    (hasSh ? '<br/>' + t('mvPayoutNote') + '<br/>' + t('mvStateNote') +
+      (e.stateStake && e.stateStake.ratio != null
+        ? '<br/>' + mvEsc(fmtT(t('mvStakeNote'), mvPct(e.stateStake.ratio), e.stateStake.holder || '', e.stateStake.asOf || ''))
+        : '') +
+      '<br/>' + t('mvStateDisclaimer') +
       (divNote ? '<br/>' + t('mvDivBasis') + mvEsc(divNote) : '') : '') + '</div>';
 }
 
