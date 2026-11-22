@@ -100,6 +100,17 @@ const BATCHES = batchFiles
   }
   for (const b of BATCHES) b.data = R(`data/staging/${b.id}`);
 }
+// 具名覆盖批次（batch-*.json）：不属于 batchN 连续序列，用于「整段替换某公司期序列」的迁移型批次
+// （如 SGCC annual→q）。它们最后应用，且其 replaceAllQuarters 涉及的 ticker 会跳过 batchN 的追加，
+// 保证全量重建与磁盘逐字节一致。
+const NAMED_BATCHES = fs.readdirSync(STAGING)
+  .filter(f => /^batch-.+\.json$/.test(f))
+  .sort()
+  .map(f => ({ id: f, data: R(`data/staging/${f}`) }));
+const REPLACED_BY_NAMED = new Set();
+for (const nb of NAMED_BATCHES) for (const r of (nb.data.results || [])) {
+  if (r.replaceAllQuarters) REPLACED_BY_NAMED.add(r.ticker);
+}
 const batch = (n) => {
   const b = BATCHES.find(x => x.n === n);
   if (!b) { console.error(`FATAL: staging batch${n}.json not found`); process.exit(1); }
@@ -110,8 +121,12 @@ const b1 = batch(1), b2 = batch(2), b3 = batch(3), b4 = batch(4), b5 = batch(5),
 // --b8-only（兼容别名）/ --batch-only=batchN: 以磁盘 profit.json 为基准，仅应用指定 batch（append + fill-missing），
 // 跳过 batch1-7/fixups/truncations/fx/meta 等重建段，从而对非目标公司/期点零改动。用于向已 enrich 的磁盘增量补数。
 const onlyArg = process.argv.find(a => a.startsWith('--batch-only='));
-const ONLY_BATCH = onlyArg ? onlyArg.slice('--batch-only='.length)
+const ONLY_BATCH_ARG = onlyArg ? onlyArg.slice('--batch-only='.length)
   : ((process.argv.includes('--b8-only') || process.env.B8_ONLY === '1') ? 'batch8' : null);
+// batchN → data/staging/batchN.json（旧行为）；其它值（如 data/staging/batch-sgcc-q.json）按路径加载，
+// 用于不占用 batch 序号的一次性/专项批次（SGCC 季度）。
+const ONLY_BATCH_FILE = ONLY_BATCH_ARG && !/^batch\d+$/.test(ONLY_BATCH_ARG) ? path.resolve(ROOT, ONLY_BATCH_ARG) : null;
+const ONLY_BATCH = ONLY_BATCH_ARG && ONLY_BATCH_FILE ? path.basename(ONLY_BATCH_ARG, '.json') : ONLY_BATCH_ARG;
 
 // companyNotes: 把「口径 / 一次性项」说明追加进 companies[ticker].notes（幂等：已含该句则跳过）。
 // 背景：batch14 需要为 03888.HK 2017Q4 记一句「净利含终止经营视作出售收益 2,224.291M」——这是口径而非数值，
@@ -147,8 +162,14 @@ function applyRowPatchLayer(target, rep) {
 // 跳过 batch1-7/fixups/truncations/fx/registry/meta 重建段，因此对非目标公司/期点零改动（notes/source 原样保留）。
 // 语义与主流程同名 batch 段一致；额外做值门禁(revenue>0, gross≥0 白名单, gross≤revenue) + additivity。任一门禁失败 exit 1。
 if (ONLY_BATCH) {
-  const bx = (BATCHES.find(b => b.id === `${ONLY_BATCH}.json`) || {}).data;
-  if (!bx) { console.error(`${ONLY_BATCH}: data/staging/${ONLY_BATCH}.json not found`); process.exit(1); }
+  let bx;
+  if (ONLY_BATCH_FILE) {
+    try { bx = JSON.parse(fs.readFileSync(ONLY_BATCH_FILE, 'utf8')); }
+    catch (e) { console.error(`${ONLY_BATCH}: cannot read ${ONLY_BATCH_FILE}: ${e.message}`); process.exit(1); }
+  } else {
+    bx = (BATCHES.find(b => b.id === `${ONLY_BATCH}.json`) || {}).data;
+  }
+  if (!bx) { console.error(`${ONLY_BATCH}: staging file not found`); process.exit(1); }
   // 'tax' 于 2026-11-20 (batch14) 加入: 所得税费用行, 与其余四字段同一 fill-missing-only 契约。
   // tax 只是数据字段（app.js 不读它做布局/派生), 扩展此列表不改变任何渲染; 仅允许 staging 填空白槽位。
   const FIELDS8 = ['gross', 'opInc', 'rd', 'sga', 'tax'];
@@ -165,6 +186,14 @@ if (ONLY_BATCH) {
       report8.added.push({ ticker: r.ticker, end: null, market: `${ONLY_BATCH}-newcompany` });
     }
     if (!Array.isArray(co.quarters)) co.quarters = [];
+    // replaceAllQuarters: 显式重建某公司的期序列（本批次用于 SGCC annual→q：删掉 6 条年度行、换成 41 条单季行）。
+    // 只在 staging 明写 replaceAllQuarters:true 时生效，普通 batch 仍是 append-only。
+    if (r.replaceAllQuarters) {
+      report8.replaced ||= [];
+      report8.replaced.push({ ticker: r.ticker, removed: co.quarters.length, frequencyBefore: co.frequency || null, frequencyAfter: r.frequency || null });
+      co.quarters = [];
+      if (r.frequency) co.frequency = r.frequency;
+    }
     if (r.registry && !registry.some(x => x.ticker === r.ticker)) {
       registry.push({ ticker: r.ticker, ...JSON.parse(JSON.stringify(r.registry)) });
       registryAdded++;
@@ -226,6 +255,15 @@ if (ONLY_BATCH) {
   if (Object.keys(gf).length) {
     console.error(`REFUSING ${ONLY_BATCH}-only write, integrity gate failed: ` + JSON.stringify(gf));
     process.exit(1);
+  }
+  // --dry 在 batch-only 模式同样必须只预览、不写盘（旧代码在真写之后才判断 --dry）。
+  if (process.env.DRY || process.argv.includes('--dry')) {
+    const sumQ = Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0);
+    console.log(`[DRY] ${ONLY_BATCH}-only: would write profit.json; totalCompanies=` + Object.keys(profit.companies).length +
+      ' totalQuarters=' + sumQ + ' added=' + report8.added.length +
+      ' replaced=' + JSON.stringify(report8.replaced || []) + ' guardFails=' + JSON.stringify(gf));
+    console.log(JSON.stringify(report8, null, 1));
+    process.exit(0);
   }
   applyRowPatchLayer(profit, report8);
   stampUpdated(profit);
@@ -652,6 +690,7 @@ const PATCHED = new Set([...patchMain.applied, ...patchMain.already].map(p => `$
 for (const { n: bn, data } of BATCHES.filter(x => x.n >= 7)) {
   const before = report.added.length;
   for (const r of data.results || []) {
+    if (REPLACED_BY_NAMED.has(r.ticker)) { log.push(`batch${bn}: skipped ${r.ticker} (replaced by a named batch)`); continue; }
     let co = profit.companies[r.ticker];
     if (!co && r.newCompany) {
       co = profit.companies[r.ticker] = { ...JSON.parse(JSON.stringify(r.newCompany)), quarters: [] };
@@ -708,6 +747,30 @@ for (const { n: bn, data } of BATCHES.filter(x => x.n >= 7)) {
   }
   applyCompanyNotes(data, `batch${bn}`);
   log.push(`batch${bn}: appended ${addedN} new period(s) for ${(data.results || []).length} tickers` + (enrichedN ? `; enriched ${enrichedN} period(s)` : ''));
+}
+
+// ---------- named override batches (batch-*.json), applied last ----------
+for (const nb of NAMED_BATCHES) {
+  let n = 0;
+  for (const r of (nb.data.results || [])) {
+    const co = profit.companies[r.ticker];
+    if (!co) { console.error(`${nb.id}: company ${r.ticker} not found`); process.exit(1); }
+    if (r.replaceAllQuarters) {
+      report.replaced ||= [];
+      report.replaced.push({ ticker: r.ticker, removed: (co.quarters || []).length, frequencyBefore: co.frequency || null, frequencyAfter: r.frequency || null });
+      co.quarters = [];
+      if (r.frequency) co.frequency = r.frequency;
+    }
+    if (!Array.isArray(co.quarters)) co.quarters = [];
+    for (const nq of r.newQuarters || []) {
+      co.quarters.push(JSON.parse(JSON.stringify(nq)));
+      report.added.push({ ticker: r.ticker, end: nq.end, market: `${nb.id}-newperiod` });
+      n++;
+    }
+    co.quarters.sort((a, b) => (a.end < b.end ? -1 : a.end > b.end ? 1 : 0));
+  }
+  applyCompanyNotes(nb.data, nb.id);
+  log.push(`${nb.id}: replaced/added ${n} period(s)`);
 }
 
 // ---------- documented period truncations (apply BEFORE guards/stats) ----------
