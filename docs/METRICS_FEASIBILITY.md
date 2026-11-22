@@ -5,7 +5,7 @@
 > **"利润上缴 / 国有资本收益"没有公司级标准数据源**：前者只能用「分红总额 × 国有股东持股比例」做代理，后者只有财政部全国/中央汇总，单家公司口径必须下年报 PDF/OCR，**不可 API 化**。
 
 - 实测日期：2026-11-22
-- 仓库：`profitbridge`（93 家公司 / 7 个市场 / 3,748 期）
+- 仓库：`profitbridge`（93 家公司 / 7 个市场 / 3,783 期）
 - 分支：`docs/metrics-feasibility`
 - 探测脚本：`scripts/probe_metrics.mjs`（真实请求，非文档推断）
 - 原始响应缓存：`tmp-metrics-probe/cache/`（不入库）
