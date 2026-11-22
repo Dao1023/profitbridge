@@ -43,7 +43,14 @@ export const RATIO_KEYS = ['grossMargin', 'opMargin', 'netMargin', 'roe', 'roa',
 
 /* 公司级可选元数据：stateOwnership=1 表示国务院国资委 100% 持股（利润上缴口径成立）；
    dividendBasis: 'declared' 宣告口径 / 'cash' 收付实现制已付现金 / null 无数据。 */
-export const COMPANY_META = ['stateOwnership', 'dividendBasis', 'dividendBasisNote', 'dividendBasisNoteEn'];
+export const COMPANY_META = ['stateOwnership', 'dividendBasis', 'dividendBasisNote', 'dividendBasisNoteEn',
+  'stateStake', 'stateStakeNote'];
+
+/* 国有持股比例（利润上缴代理口径的乘数）：{ratio, holder, layer, asOf, source}。
+   layer: 'central-soe' | 'local-soe' | null。ratio 为 0–1 小数、4 位小数；只有查得到原始
+   股东表（东财十大股东 / 港股年报「主要股东」）的公司才登记，查不到写 null + stateStakeNote，
+   绝不估算。前端现算：利润上缴 = 归母分红 × ratio（下限口径，见 app.js mvStateRatio）。 */
+export const STATE_LAYERS = ['central-soe', 'local-soe'];
 
 /* 哪个组拥有某个字段（字段在 schema 里只属于一个组）。 */
 export const OWNER = Object.fromEntries(Object.entries(GROUPS).flatMap(([g, fs]) => fs.map((f) => [f, g])));
