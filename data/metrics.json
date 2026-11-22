@@ -7,6 +7,9 @@
    "currency": "USD-M",
    "asReported": true,
    "frequency": "annual",
+   "dividendBasis": "cash",
+   "dividendBasisNote": "MSFT 的分红总额取 SEC XBRL 的「已付现金股利」事实（PaymentsOfDividendsCommonStock，收付实现制）；SEC companyfacts 不提供「宣告总额」事实。两者相差最多一个季度（逐季派息、当年宣告次季支付），本站不做估算调整，行名与脚注均标注「已付现金口径」。",
+   "dividendBasisNoteEn": "MSFT: the dividend total is the SEC XBRL \"payments of dividends\" fact (PaymentsOfDividendsCommonStock, cash-paid basis); companyfacts does not tag a declared total. A quarterly payer lags declaration by at most one quarter - no estimation is applied, and both the row label and the footnote state the cash basis.",
    "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
    "sourceNote": "SEC EDGAR XBRL companyfacts（仅 10-K 年度事实；金额 USD，÷1e6 → USD-M；比率未存，前端现算）",
    "fields": {
@@ -44,6 +47,10 @@
     "perShare": [
      "eps",
      "dps"
+    ],
+    "shareholder": [
+     "dividendsTotal",
+     "dividendsToParent"
     ]
    },
    "years": [
@@ -90,9 +97,14 @@
       "10-K FY2023（期末 2023-06-30，accn 0000950170-25-100235，filed 2025-07-30，https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.htm）· 合并利润表 · revenue: RevenueFromContractWithCustomerExcludingAssessedTax 211915000000 | cogs: CostOfGoodsAndServicesSold 65863000000 | gross: GrossProfit 146052000000 | opInc: OperatingIncomeLoss 88523000000 | rd: ResearchAndDevelopmentExpense 27195000000 | pbt: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest 89311000000 | tax: IncomeTaxExpenseBenefit 16950000000 | netInc: NetIncomeLoss 72361000000 | sga: SellingAndMarketingExpense 22759000000 + GeneralAndAdministrativeExpense 7575000000 = 30334000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2023（期末 2023-06-30，accn 0000950170-25-100235，filed 2025-07-30，https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.htm）· 合并资产负债表 · cash: CashAndCashEquivalentsAtCarryingValue 34704000000 | receivables: AccountsReceivableNetCurrent 48688000000 | inventory: InventoryNet 2500000000 | currentAssets: AssetsCurrent 184257000000 | ppe: PropertyPlantAndEquipmentNet 95641000000 | totalAssets: Assets 411976000000 | debtShort: LongTermDebtCurrent 5247000000 | debtLong: LongTermDebtNoncurrent 41990000000 | liabilities: Liabilities 205753000000 | equityParent: StockholdersEquity 206223000000 | equity: StockholdersEquity 206223000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2023（期末 2023-06-30，accn 0000950170-25-100235，filed 2025-07-30，https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 87582000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 28107000000 | icf: NetCashProvidedByUsedInInvestingActivities -22680000000 | dividendsPaid: PaymentsOfDividendsCommonStock 19800000000 | buyback: PaymentsForRepurchaseOfCommonStock 22245000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
-      "10-K FY2023（期末 2023-06-30，accn 0000950170-25-100235，filed 2025-07-30，https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 9.68 | dps: CommonStockDividendsPerShareDeclared 2.72（XBRL 原始单位 USD/shares，不换算）"
+      "10-K FY2023（期末 2023-06-30，accn 0000950170-25-100235，filed 2025-07-30，https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 9.68 | dps: CommonStockDividendsPerShareDeclared 2.72（XBRL 原始单位 USD/shares，不换算）",
+      "10-K FY2023（期末 2023-06-30，accn 0000950170-25-100235，filed 2025-07-30，https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividendsCommonStock 19800000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
-     "nulls": []
+     "nulls": [],
+     "shareholder": {
+      "dividendsTotal": 19800,
+      "dividendsToParent": 19800
+     }
     },
     {
      "end": "2024-06-30",
@@ -137,9 +149,14 @@
       "10-K FY2024（期末 2024-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并利润表 · revenue: RevenueFromContractWithCustomerExcludingAssessedTax 245122000000 | cogs: CostOfGoodsAndServicesSold 74114000000 | gross: GrossProfit 171008000000 | opInc: OperatingIncomeLoss 109433000000 | rd: ResearchAndDevelopmentExpense 29510000000 | pbt: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest 107787000000 | tax: IncomeTaxExpenseBenefit 19651000000 | netInc: NetIncomeLoss 88136000000 | sga: SellingAndMarketingExpense 24456000000 + GeneralAndAdministrativeExpense 7609000000 = 32065000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2024（期末 2024-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并资产负债表 · cash: CashAndCashEquivalentsAtCarryingValue 18315000000 | receivables: AccountsReceivableNetCurrent 56924000000 | inventory: InventoryNet 1246000000 | currentAssets: AssetsCurrent 159734000000 | ppe: PropertyPlantAndEquipmentNet 135591000000 | totalAssets: Assets 512163000000 | debtShort: LongTermDebtCurrent 2249000000 | debtLong: LongTermDebtNoncurrent 42688000000 | liabilities: Liabilities 243686000000 | equityParent: StockholdersEquity 268477000000 | equity: StockholdersEquity 268477000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2024（期末 2024-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 118548000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 44477000000 | icf: NetCashProvidedByUsedInInvestingActivities -96970000000 | dividendsPaid: PaymentsOfDividendsCommonStock 21771000000 | buyback: PaymentsForRepurchaseOfCommonStock 17254000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
-      "10-K FY2024（期末 2024-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 11.8 | dps: CommonStockDividendsPerShareDeclared 3（XBRL 原始单位 USD/shares，不换算）"
+      "10-K FY2024（期末 2024-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 11.8 | dps: CommonStockDividendsPerShareDeclared 3（XBRL 原始单位 USD/shares，不换算）",
+      "10-K FY2024（期末 2024-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividendsCommonStock 21771000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
-     "nulls": []
+     "nulls": [],
+     "shareholder": {
+      "dividendsTotal": 21771,
+      "dividendsToParent": 21771
+     }
     },
     {
      "end": "2025-06-30",
@@ -184,9 +201,14 @@
       "10-K FY2025（期末 2025-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并利润表 · revenue: RevenueFromContractWithCustomerExcludingAssessedTax 281724000000 | cogs: CostOfGoodsAndServicesSold 87831000000 | gross: GrossProfit 193893000000 | opInc: OperatingIncomeLoss 128528000000 | rd: ResearchAndDevelopmentExpense 32488000000 | pbt: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest 123627000000 | tax: IncomeTaxExpenseBenefit 21795000000 | netInc: NetIncomeLoss 101832000000 | sga: SellingAndMarketingExpense 25654000000 + GeneralAndAdministrativeExpense 7223000000 = 32877000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2025（期末 2025-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并资产负债表 · cash: CashAndCashEquivalentsAtCarryingValue 30242000000 | receivables: AccountsReceivableNetCurrent 69905000000 | inventory: InventoryNet 938000000 | currentAssets: AssetsCurrent 191131000000 | ppe: PropertyPlantAndEquipmentNet 204966000000 | totalAssets: Assets 619003000000 | debtShort: LongTermDebtCurrent 2999000000 | debtLong: LongTermDebtNoncurrent 40152000000 | liabilities: Liabilities 275524000000 | equityParent: StockholdersEquity 343479000000 | equity: StockholdersEquity 343479000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2025（期末 2025-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 136162000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 64551000000 | icf: NetCashProvidedByUsedInInvestingActivities -72599000000 | dividendsPaid: PaymentsOfDividendsCommonStock 24082000000 | buyback: PaymentsForRepurchaseOfCommonStock 18420000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
-      "10-K FY2025（期末 2025-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 13.64 | dps: CommonStockDividendsPerShareDeclared 3.32（XBRL 原始单位 USD/shares，不换算）"
+      "10-K FY2025（期末 2025-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 13.64 | dps: CommonStockDividendsPerShareDeclared 3.32（XBRL 原始单位 USD/shares，不换算）",
+      "10-K FY2025（期末 2025-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividendsCommonStock 24082000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
-     "nulls": []
+     "nulls": [],
+     "shareholder": {
+      "dividendsTotal": 24082,
+      "dividendsToParent": 24082
+     }
     },
     {
      "end": "2026-06-30",
@@ -231,9 +253,14 @@
       "10-K FY2026（期末 2026-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并利润表 · revenue: RevenueFromContractWithCustomerExcludingAssessedTax 331839000000 | cogs: CostOfGoodsAndServicesSold 106374000000 | gross: GrossProfit 225465000000 | opInc: OperatingIncomeLoss 155237000000 | rd: ResearchAndDevelopmentExpense 35562000000 | pbt: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest 165934000000 | tax: IncomeTaxExpenseBenefit 32185000000 | netInc: NetIncomeLoss 133749000000 | sga: SellingAndMarketingExpense 26710000000 + GeneralAndAdministrativeExpense 7956000000 = 34666000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2026（期末 2026-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并资产负债表 · cash: CashAndCashEquivalentsAtCarryingValue 20935000000 | receivables: AccountsReceivableNetCurrent 80876000000 | inventory: InventoryNet 1397000000 | currentAssets: AssetsCurrent 207710000000 | ppe: PropertyPlantAndEquipmentNet 313076000000 | totalAssets: Assets 758376000000 | debtShort: LongTermDebtCurrent 9227000000 | debtLong: LongTermDebtNoncurrent 31067000000 | liabilities: Liabilities 315989000000 | equityParent: StockholdersEquity 442387000000 | equity: StockholdersEquity 442387000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2026（期末 2026-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 182935000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 115948000000 | icf: NetCashProvidedByUsedInInvestingActivities -139500000000 | dividendsPaid: PaymentsOfDividendsCommonStock 26445000000 | buyback: PaymentsForRepurchaseOfCommonStock 22271000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
-      "10-K FY2026（期末 2026-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 17.95 | dps: CommonStockDividendsPerShareDeclared 3.64（XBRL 原始单位 USD/shares，不换算）"
+      "10-K FY2026（期末 2026-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 17.95 | dps: CommonStockDividendsPerShareDeclared 3.64（XBRL 原始单位 USD/shares，不换算）",
+      "10-K FY2026（期末 2026-06-30，accn 0001193125-26-323660，filed 2026-07-29，https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividendsCommonStock 26445000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
-     "nulls": []
+     "nulls": [],
+     "shareholder": {
+      "dividendsTotal": 26445,
+      "dividendsToParent": 26445
+     }
     }
    ]
   },
@@ -242,6 +269,9 @@
    "currency": "USD-M",
    "asReported": true,
    "frequency": "annual",
+   "dividendBasis": "cash",
+   "dividendBasisNote": "KO 的分红总额取 SEC XBRL 的「已付现金股利」事实（PaymentsOfDividends，收付实现制）；SEC companyfacts 不提供「宣告总额」事实。两者相差最多一个季度（逐季派息、当年宣告次季支付），本站不做估算调整，行名与脚注均标注「已付现金口径」。",
+   "dividendBasisNoteEn": "KO: the dividend total is the SEC XBRL \"payments of dividends\" fact (PaymentsOfDividends, cash-paid basis); companyfacts does not tag a declared total. A quarterly payer lags declaration by at most one quarter - no estimation is applied, and both the row label and the footnote state the cash basis.",
    "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021344.json",
    "sourceNote": "SEC EDGAR XBRL companyfacts（仅 10-K 年度事实；金额 USD，÷1e6 → USD-M；比率未存，前端现算）",
    "fields": {
@@ -277,6 +307,10 @@
     "perShare": [
      "eps",
      "dps"
+    ],
+    "shareholder": [
+     "dividendsTotal",
+     "dividendsToParent"
     ]
    },
    "years": [
@@ -325,12 +359,17 @@
       "10-K FY2022（期末 2022-12-31，accn 0000021344-25-000011，filed 2025-02-20，https://www.sec.gov/Archives/edgar/data/21344/000002134425000011/0000021344-25-000011-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 11018000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 1484000000 | icf: NetCashProvidedByUsedInInvestingActivities -763000000 | dividendsPaid: PaymentsOfDividends 7616000000 | buyback: PaymentsForRepurchaseOfCommonStock 1418000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2022（期末 2022-12-31，accn 0000021344-25-000011，filed 2025-02-20，https://www.sec.gov/Archives/edgar/data/21344/000002134425000011/0000021344-25-000011-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 2.19 | dps: CommonStockDividendsPerShareCashPaid 1.76（XBRL 原始单位 USD/shares，不换算）",
       "10-K FY2022（期末 2022-12-31）· rd：可口可乐 10-K 不单列研发费用科目（XBRL 无 ResearchAndDevelopmentExpense） → null",
-      "10-K FY2022（期末 2022-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null"
+      "10-K FY2022（期末 2022-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null",
+      "10-K FY2022（期末 2022-12-31，accn 0000021344-25-000011，filed 2025-02-20，https://www.sec.gov/Archives/edgar/data/21344/000002134425000011/0000021344-25-000011-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividends 7616000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
      "nulls": [
       "rd",
       "liabilities"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 7616,
+      "dividendsToParent": 7616
+     }
     },
     {
      "end": "2023-12-31",
@@ -377,12 +416,17 @@
       "10-K FY2023（期末 2023-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 11599000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 1852000000 | icf: NetCashProvidedByUsedInInvestingActivities -3349000000 | dividendsPaid: PaymentsOfDividends 7952000000 | buyback: PaymentsForRepurchaseOfCommonStock 2289000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2023（期末 2023-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 2.47 | dps: CommonStockDividendsPerShareCashPaid 1.84（XBRL 原始单位 USD/shares，不换算）",
       "10-K FY2023（期末 2023-12-31）· rd：可口可乐 10-K 不单列研发费用科目（XBRL 无 ResearchAndDevelopmentExpense） → null",
-      "10-K FY2023（期末 2023-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null"
+      "10-K FY2023（期末 2023-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null",
+      "10-K FY2023（期末 2023-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividends 7952000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
      "nulls": [
       "rd",
       "liabilities"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 7952,
+      "dividendsToParent": 7952
+     }
     },
     {
      "end": "2024-12-31",
@@ -429,12 +473,17 @@
       "10-K FY2024（期末 2024-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 6805000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 2064000000 | icf: NetCashProvidedByUsedInInvestingActivities 2524000000 | dividendsPaid: PaymentsOfDividends 8359000000 | buyback: PaymentsForRepurchaseOfCommonStock 1795000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2024（期末 2024-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 2.46 | dps: CommonStockDividendsPerShareCashPaid 1.94（XBRL 原始单位 USD/shares，不换算）",
       "10-K FY2024（期末 2024-12-31）· rd：可口可乐 10-K 不单列研发费用科目（XBRL 无 ResearchAndDevelopmentExpense） → null",
-      "10-K FY2024（期末 2024-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null"
+      "10-K FY2024（期末 2024-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null",
+      "10-K FY2024（期末 2024-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividends 8359000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
      "nulls": [
       "rd",
       "liabilities"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 8359,
+      "dividendsToParent": 8359
+     }
     },
     {
      "end": "2025-12-31",
@@ -481,12 +530,17 @@
       "10-K FY2025（期末 2025-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 合并现金流量表 · ocf: NetCashProvidedByUsedInOperatingActivities 7408000000 | capex: PaymentsToAcquirePropertyPlantAndEquipment 2112000000 | icf: NetCashProvidedByUsedInInvestingActivities -67000000 | dividendsPaid: PaymentsOfDividends 8779000000 | buyback: PaymentsForRepurchaseOfCommonStock 746000000（XBRL 原始单位 USD，÷1e6 → USD-M）",
       "10-K FY2025（期末 2025-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 每股数据 · eps: EarningsPerShareDiluted 3.04 | dps: CommonStockDividendsPerShareCashPaid 2.04（XBRL 原始单位 USD/shares，不换算）",
       "10-K FY2025（期末 2025-12-31）· rd：可口可乐 10-K 不单列研发费用科目（XBRL 无 ResearchAndDevelopmentExpense） → null",
-      "10-K FY2025（期末 2025-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null"
+      "10-K FY2025（期末 2025-12-31）· liabilities：10-K 的 XBRL 未单独标记 Total liabilities（只标了负债合计的另一路径），本站不存「资产−权益」倒算值 → null",
+      "10-K FY2025（期末 2025-12-31，accn 0001628280-26-010047，filed 2026-02-20，https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/0001628280-26-010047-index.htm）· 合并现金流量表 · 股东回报（已付现金口径）· dividendsTotal: PaymentsOfDividends 8779000000 | dividendsToParent: = dividendsTotal（发行人层面无少数股东，股利全部归普通股股东）（XBRL 原始单位 USD，÷1e6 → USD-M）"
      ],
      "nulls": [
       "rd",
       "liabilities"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 8779,
+      "dividendsToParent": 8779
+     }
     }
    ]
   },
@@ -495,6 +549,9 @@
    "currency": "CNY-M",
    "asReported": true,
    "frequency": "annual",
+   "dividendBasis": "declared",
+   "dividendBasisNote": "伊利股份的分红总额取东方财富 RPT_SHAREBONUS_DET 中「实施分配」的方案（只算已实施，股东会通过未实施的不计）：总额 = PRETAX_BONUS_RMB ÷ 10 × TOTAL_SHARES，PRETAX_BONUS_RMB 为每 10 股含税派息。按 REPORT_DATE 归属财年，FY2025 = 中期（2025-09-30，10派4.8元）3,036.17 + 年度（2025-12-31，10派9元）5,692.82 = 8,728.99。现金流量表「已付现金股利」为收付实现制（支付上年年度分红 + 本年中期分红），与宣告口径不同，两行并列显示、互不替代。",
+   "dividendBasisNoteEn": "600887.SS: total = the implemented plans in RPT_SHAREBONUS_DET (implemented status only); PRETAX_BONUS_RMB is quoted per 10 shares, so total = per10/10 x TOTAL_SHARES, attributed to the fiscal year by REPORT_DATE. FY2025 = interim (2025-09-30, 4.8 per 10) 3,036.17 + annual (2025-12-31, 9.0 per 10) 5,692.82 = 8,728.99. The cash-flow dividends-paid row is a cash basis (prior-year final + current interim) and is shown alongside, never substituted.",
    "sourceUrl": "https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SH600887",
    "sourceNote": "东方财富 F10 财报接口（原始单位为元，÷1e6 → CNY-M）；A 股利润表不单列毛利，比率前端现算",
    "fields": {
@@ -530,6 +587,10 @@
     "perShare": [
      "eps",
      "dps"
+    ],
+    "shareholder": [
+     "dividendsTotal",
+     "dividendsToParent"
     ]
    },
    "years": [
@@ -580,12 +641,17 @@
       "东方财富 RPT_SHAREBONUS_DET · 2022 年度分红：2022-12-31 实施分配 每10股派10.4元（除权 2023-06-13）（合计每股 1.04 元，含税）",
       "A 股利润表不单列「毛利」，gross 记 null；毛利率由 营收−营业成本 现算。sga = 销售费用+管理费用；debtShort = 短期借款+一年内到期非流动负债；debtLong = 长期借款+应付债券；eps = 稀释每股收益（元/股，不换算）",
       "东方财富 · 2022-12-31 · gross：A 股利润表不单列毛利科目，毛利率由 营收−营业成本 在页面现算 → null",
-      "东方财富 · 2022-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null"
+      "东方财富 · 2022-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null",
+      "东方财富 RPT_SHAREBONUS_DET · 股东回报（宣告口径，只计「实施分配」）· dividendsTotal: 2022-12-31 每10股派10.4元(含税) × 股本 6366450305 → 6,621.11 = 6,621.11 | dividendsToParent: = dividendsTotal（分红按每股宣派给全体股东，发行人层面无少数股东拆分）（元 ÷1e6 → CNY-M）"
      ],
      "nulls": [
       "gross",
       "buyback"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 6621.11,
+      "dividendsToParent": 6621.11
+     }
     },
     {
      "end": "2023-12-31",
@@ -634,12 +700,17 @@
       "东方财富 RPT_SHAREBONUS_DET · 2023 年度分红：2023-12-31 实施分配 每10股派12元（除权 2024-06-05）（合计每股 1.2 元，含税）",
       "A 股利润表不单列「毛利」，gross 记 null；毛利率由 营收−营业成本 现算。sga = 销售费用+管理费用；debtShort = 短期借款+一年内到期非流动负债；debtLong = 长期借款+应付债券；eps = 稀释每股收益（元/股，不换算）",
       "东方财富 · 2023-12-31 · gross：A 股利润表不单列毛利科目，毛利率由 营收−营业成本 在页面现算 → null",
-      "东方财富 · 2023-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null"
+      "东方财富 · 2023-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null",
+      "东方财富 RPT_SHAREBONUS_DET · 股东回报（宣告口径，只计「实施分配」）· dividendsTotal: 2023-12-31 每10股派12元(含税) × 股本 6366098705 → 7,639.32 = 7,639.32 | dividendsToParent: = dividendsTotal（分红按每股宣派给全体股东，发行人层面无少数股东拆分）（元 ÷1e6 → CNY-M）"
      ],
      "nulls": [
       "gross",
       "buyback"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 7639.32,
+      "dividendsToParent": 7639.32
+     }
     },
     {
      "end": "2024-12-31",
@@ -688,12 +759,17 @@
       "东方财富 RPT_SHAREBONUS_DET · 2024 年度分红：2024-12-31 实施分配 每10股派12.2元（除权 2025-06-06）（合计每股 1.22 元，含税）",
       "A 股利润表不单列「毛利」，gross 记 null；毛利率由 营收−营业成本 现算。sga = 销售费用+管理费用；debtShort = 短期借款+一年内到期非流动负债；debtLong = 长期借款+应付债券；eps = 稀释每股收益（元/股，不换算）",
       "东方财富 · 2024-12-31 · gross：A 股利润表不单列毛利科目，毛利率由 营收−营业成本 在页面现算 → null",
-      "东方财富 · 2024-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null"
+      "东方财富 · 2024-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null",
+      "东方财富 RPT_SHAREBONUS_DET · 股东回报（宣告口径，只计「实施分配」）· dividendsTotal: 2024-12-31 每10股派12.2元(含税) × 股本 6325360667 → 7,716.94 = 7,716.94 | dividendsToParent: = dividendsTotal（分红按每股宣派给全体股东，发行人层面无少数股东拆分）（元 ÷1e6 → CNY-M）"
      ],
      "nulls": [
       "gross",
       "buyback"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 7716.94,
+      "dividendsToParent": 7716.94
+     }
     },
     {
      "end": "2025-12-31",
@@ -742,12 +818,17 @@
       "东方财富 RPT_SHAREBONUS_DET · 2025 年度分红：2025-12-31 实施分配 每10股派9元（除权 2026-06-05）；2025-09-30 实施分配 每10股派4.8元（除权 2025-12-17）（合计每股 1.38 元，含税）",
       "A 股利润表不单列「毛利」，gross 记 null；毛利率由 营收−营业成本 现算。sga = 销售费用+管理费用；debtShort = 短期借款+一年内到期非流动负债；debtLong = 长期借款+应付债券；eps = 稀释每股收益（元/股，不换算）",
       "东方财富 · 2025-12-31 · gross：A 股利润表不单列毛利科目，毛利率由 营收−营业成本 在页面现算 → null",
-      "东方财富 · 2025-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null"
+      "东方财富 · 2025-12-31 · buyback：该年度现金流量表无「回购股份」科目 → null",
+      "东方财富 RPT_SHAREBONUS_DET · 股东回报（宣告口径，只计「实施分配」）· dividendsTotal: 2025-09-30 每10股派4.8元(含税) × 股本 6325360667 → 3,036.17 + 2025-12-31 每10股派9元(含税) × 股本 6325360667 → 5,692.82 = 8,728.99 | dividendsToParent: = dividendsTotal（分红按每股宣派给全体股东，发行人层面无少数股东拆分）（元 ÷1e6 → CNY-M）"
      ],
      "nulls": [
       "gross",
       "buyback"
-     ]
+     ],
+     "shareholder": {
+      "dividendsTotal": 8728.99,
+      "dividendsToParent": 8728.99
+     }
     }
    ]
   },
@@ -756,6 +837,9 @@
    "currency": "CNY-M",
    "asReported": true,
    "frequency": "annual",
+   "dividendBasis": "declared",
+   "dividendBasisNote": "腾讯控股为年度宣派、次年支付：东方财富 RPT_HKF10_MAIN_DIVBASIC 只提供「每股派港币 X 元」，港股接口没有逐期已发行股本（ISSUED_COMMON_SHARES 对所有年份都返回最新值 9,092,644,829 股），因此「宣告总额」无法精确复现 → 记 null，不估算。缺失时以现金流量表「已付股息(融资)」的已付现金口径作参考（该行显示本年度实际支付、含上年度宣派，与宣派年度错位一年），每股宣派值见「每股股利」行（港币按除净日汇率折算人民币）。",
+   "dividendBasisNoteEn": "00700.HK declares once a year and pays the following year: RPT_HKF10_MAIN_DIVBASIC only gives DPS in HKD. The HK endpoint returns one latest share count for every year (ISSUED_COMMON_SHARES = 9,092,644,829), so the declared total cannot be reproduced per year -> null, not estimated. When missing, the cash-flow line \"dividends paid (financing)\" is shown as a reference (cash paid during the year, i.e. last year declaration, a one-year shift); the declared DPS lives in perShare.dps (converted at the ex-dividend date rate).",
    "sourceUrl": "https://emweb.securities.eastmoney.com/pc_hkf10/pages/index.html?type=web&code=00700",
    "sourceNote": "东方财富港股 F10 财报接口（报告币种 CNY，原始单位为元，÷1e6 → CNY-M）；分红为港币宣派，按除净日 HKD/CNY 折算",
    "fields": {
@@ -841,11 +925,18 @@
       "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2022 年度分配：每股派港币2.4元；每股派港币 2.4 元（2023-05-19 除净，HKD/CNY=0.8967）→ 2.15 CNY",
       "东方财富 RPT_HKF10_FN_INCOME_PC · 2022 年报 · 每股数据（元/股，不换算）：eps: 每股摊薄盈利 19.341（页面保留两位：19.34）",
       "口径：revenue=营运收入（营业额+其他营业收入）；sga=销售及分销费用+行政开支；eps=每股摊薄盈利；debtShort=短期贷款；debtLong=长期贷款+非流动应付票据；capex 仅固定资产（不含无形资产）；dps 为港币宣派值按除净日汇率折算为人民币",
-      "东方财富 · 2022 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null"
+      "东方财富 · 2022 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null",
+      "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2022 年度分配 每股派港币2.4元（见 perShare.dps 的折算）· dividendsTotal：港股接口无逐期已发行股本，宣告总额无法精确复现 → null（不估算）| dividendsToParent：同上 → null"
      ],
      "nulls": [
-      "rd"
-     ]
+      "rd",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
     },
     {
      "end": "2023-12-31",
@@ -893,11 +984,18 @@
       "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2023 年度分配：每股派港币3.4元；每股派港币 3.4 元（2024-05-17 除净，HKD/CNY=0.92636）→ 3.15 CNY",
       "东方财富 RPT_HKF10_FN_INCOME_PC · 2023 年报 · 每股数据（元/股，不换算）：eps: 每股摊薄盈利 11.887（页面保留两位：11.89）",
       "口径：revenue=营运收入（营业额+其他营业收入）；sga=销售及分销费用+行政开支；eps=每股摊薄盈利；debtShort=短期贷款；debtLong=长期贷款+非流动应付票据；capex 仅固定资产（不含无形资产）；dps 为港币宣派值按除净日汇率折算为人民币",
-      "东方财富 · 2023 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null"
+      "东方财富 · 2023 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null",
+      "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2023 年度分配 每股派港币3.4元（见 perShare.dps 的折算）· dividendsTotal：港股接口无逐期已发行股本，宣告总额无法精确复现 → null（不估算）| dividendsToParent：同上 → null"
      ],
      "nulls": [
-      "rd"
-     ]
+      "rd",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
     },
     {
      "end": "2024-12-31",
@@ -945,11 +1043,18 @@
       "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2024 年度分配：每股派港币4.5元；每股派港币 4.5 元（2025-05-16 除净，HKD/CNY=0.92205）→ 4.15 CNY",
       "东方财富 RPT_HKF10_FN_INCOME_PC · 2024 年报 · 每股数据（元/股，不换算）：eps: 每股摊薄盈利 20.486（页面保留两位：20.49）",
       "口径：revenue=营运收入（营业额+其他营业收入）；sga=销售及分销费用+行政开支；eps=每股摊薄盈利；debtShort=短期贷款；debtLong=长期贷款+非流动应付票据；capex 仅固定资产（不含无形资产）；dps 为港币宣派值按除净日汇率折算为人民币",
-      "东方财富 · 2024 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null"
+      "东方财富 · 2024 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null",
+      "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2024 年度分配 每股派港币4.5元（见 perShare.dps 的折算）· dividendsTotal：港股接口无逐期已发行股本，宣告总额无法精确复现 → null（不估算）| dividendsToParent：同上 → null"
      ],
      "nulls": [
-      "rd"
-     ]
+      "rd",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
     },
     {
      "end": "2025-12-31",
@@ -997,11 +1102,18 @@
       "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2025 年度分配：每股派港币5.3元；每股派港币 5.3 元（2026-05-15 除净，HKD/CNY=0.86964）→ 4.61 CNY",
       "东方财富 RPT_HKF10_FN_INCOME_PC · 2025 年报 · 每股数据（元/股，不换算）：eps: 每股摊薄盈利 24.153（页面保留两位：24.15）",
       "口径：revenue=营运收入（营业额+其他营业收入）；sga=销售及分销费用+行政开支；eps=每股摊薄盈利；debtShort=短期贷款；debtLong=长期贷款+非流动应付票据；capex 仅固定资产（不含无形资产）；dps 为港币宣派值按除净日汇率折算为人民币",
-      "东方财富 · 2025 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null"
+      "东方财富 · 2025 年报 · rd：东方财富港股利润表未列研发开支科目（腾讯仅在报表附注披露），该源不披露 → null",
+      "东方财富 RPT_HKF10_MAIN_DIVBASIC · 2025 年度分配 每股派港币5.3元（见 perShare.dps 的折算）· dividendsTotal：港股接口无逐期已发行股本，宣告总额无法精确复现 → null（不估算）| dividendsToParent：同上 → null"
      ],
      "nulls": [
-      "rd"
-     ]
+      "rd",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
     }
    ]
   },
@@ -1010,6 +1122,9 @@
    "currency": "KRW-M",
    "asReported": true,
    "frequency": "annual",
+   "dividendBasis": null,
+   "dividendBasisNote": "三星电子：Naver 금융 annual 只有「주당배당금」（每股股利），没有「支付股利」总额行；总额需 DART 오픈API 키（本次未配置）→ 分红总额与归母分红记 null，不估算。分红率按「每股股利 ÷ 每股收益」口径给出（见数据层 schema 说明）。",
+   "dividendBasisNoteEn": "005930.KS: Naver only exposes DPS; there is no \"dividends paid\" total without a DART OpenAPI key, so both dividend rows are null, not estimated. The payout ratio falls back to DPS / EPS and says so in the row footnote.",
    "sourceUrl": "https://m.stock.naver.com/domestic/stock/005930/finance/annual",
    "sourceNote": "Naver 금융 年度摘要（单位 억원→KRW-M）；仅 3 个已报告财年（2023–2025），资产负债表/现金流量表因 DART API 需密钥未取，字段缩减",
    "fields": {
@@ -1068,7 +1183,8 @@
      "sources": [
       "Naver 금융 annual（https://m.stock.naver.com/api/stock/005930/finance/annual）· 202312 · 原始单位：억원（亿韩元）· 매출액 2589355 | 영업이익 65670 | 지배주주순이익 144734（×100 → KRW-M）",
       "Naver 금융 annual · 202312 · EPS 2131 | 주당배당금 1444（KRW/股）",
-      "Naver 只提供合并利润表摘要（收入/营业利润/净利润/每股指标）；资产负债表与现金流量表需 DART 오픈API 키，本次未取。该源不披露以下字段 → null：cogs, gross, rd, sga, pbt, tax, cash, receivables, inventory, currentAssets, ppe, totalAssets, debtShort, debtLong, liabilities, equityParent, equity, ocf, capex, icf, dividendsPaid, buyback"
+      "Naver 只提供合并利润表摘要（收入/营业利润/净利润/每股指标）；资产负债表与现金流量表需 DART 오픈API 키，本次未取。该源不披露以下字段 → null：cogs, gross, rd, sga, pbt, tax, cash, receivables, inventory, currentAssets, ppe, totalAssets, debtShort, debtLong, liabilities, equityParent, equity, ocf, capex, icf, dividendsPaid, buyback",
+      "Naver 금융 annual · dividendsTotal：该源无「支付股利」总额（需 DART 오픈API 키），记 null 不估算 | dividendsToParent：同上 → null；每股股利见 perShare.dps"
      ],
      "nulls": [
       "cogs",
@@ -1092,8 +1208,14 @@
       "capex",
       "icf",
       "dividendsPaid",
-      "buyback"
-     ]
+      "buyback",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
     },
     {
      "end": "2024-12-31",
@@ -1137,7 +1259,8 @@
      "sources": [
       "Naver 금융 annual（https://m.stock.naver.com/api/stock/005930/finance/annual）· 202412 · 原始单位：억원（亿韩元）· 매출액 3008709 | 영업이익 327260 | 지배주주순이익 336214（×100 → KRW-M）",
       "Naver 금융 annual · 202412 · EPS 4950 | 주당배당금 1446（KRW/股）",
-      "Naver 只提供合并利润表摘要（收入/营业利润/净利润/每股指标）；资产负债表与现金流量表需 DART 오픈API 키，本次未取。该源不披露以下字段 → null：cogs, gross, rd, sga, pbt, tax, cash, receivables, inventory, currentAssets, ppe, totalAssets, debtShort, debtLong, liabilities, equityParent, equity, ocf, capex, icf, dividendsPaid, buyback"
+      "Naver 只提供合并利润表摘要（收入/营业利润/净利润/每股指标）；资产负债表与现金流量表需 DART 오픈API 키，本次未取。该源不披露以下字段 → null：cogs, gross, rd, sga, pbt, tax, cash, receivables, inventory, currentAssets, ppe, totalAssets, debtShort, debtLong, liabilities, equityParent, equity, ocf, capex, icf, dividendsPaid, buyback",
+      "Naver 금융 annual · dividendsTotal：该源无「支付股利」总额（需 DART 오픈API 키），记 null 不估算 | dividendsToParent：同上 → null；每股股利见 perShare.dps"
      ],
      "nulls": [
       "cogs",
@@ -1161,8 +1284,14 @@
       "capex",
       "icf",
       "dividendsPaid",
-      "buyback"
-     ]
+      "buyback",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
     },
     {
      "end": "2025-12-31",
@@ -1206,7 +1335,8 @@
      "sources": [
       "Naver 금융 annual（https://m.stock.naver.com/api/stock/005930/finance/annual）· 202512 · 原始单位：억원（亿韩元）· 매출액 3336059 | 영업이익 436011 | 지배주주순이익 442610（×100 → KRW-M）",
       "Naver 금융 annual · 202512 · EPS 6564 | 주당배당금 1668（KRW/股）",
-      "Naver 只提供合并利润表摘要（收入/营业利润/净利润/每股指标）；资产负债表与现金流量表需 DART 오픈API 키，本次未取。该源不披露以下字段 → null：cogs, gross, rd, sga, pbt, tax, cash, receivables, inventory, currentAssets, ppe, totalAssets, debtShort, debtLong, liabilities, equityParent, equity, ocf, capex, icf, dividendsPaid, buyback"
+      "Naver 只提供合并利润表摘要（收入/营业利润/净利润/每股指标）；资产负债表与现金流量表需 DART 오픈API 키，本次未取。该源不披露以下字段 → null：cogs, gross, rd, sga, pbt, tax, cash, receivables, inventory, currentAssets, ppe, totalAssets, debtShort, debtLong, liabilities, equityParent, equity, ocf, capex, icf, dividendsPaid, buyback",
+      "Naver 금융 annual · dividendsTotal：该源无「支付股利」总额（需 DART 오픈API 키），记 null 不估算 | dividendsToParent：同上 → null；每股股利见 perShare.dps"
      ],
      "nulls": [
       "cogs",
@@ -1230,7 +1360,500 @@
       "capex",
       "icf",
       "dividendsPaid",
-      "buyback"
+      "buyback",
+      "dividendsTotal",
+      "dividendsToParent"
+     ],
+     "shareholder": {
+      "dividendsTotal": null,
+      "dividendsToParent": null
+     }
+    }
+   ]
+  },
+  "SGCC": {
+   "name": "State Grid Corporation of China 国家电网有限公司",
+   "currency": "CNY-M",
+   "asReported": true,
+   "frequency": "annual",
+   "dividendBasis": "declared",
+   "dividendBasisNote": "国家电网为国务院国资委 100% 持股的国有独资公司，归母分红即「利润上缴」国家；分红总额取合并所有者权益变动表「3.对所有者的分配」当年金额（as reported，不用次年重述值），现金流量表「分配股利、利润或偿付利息支付的现金」因含利息不采用。",
+   "dividendBasisNoteEn": "SGCC is a wholly state-owned company (100% held by SASAC of the State Council), so the parent-shareholder dividend IS the remittance to the state. The total is taken from the statement of changes in equity, line 3 \"distributions to owners\", as reported (never the next year restated comparative); the cash-flow line \"dividends, profits or interest paid\" mixes interest and is not used. Derived ratios are not stored.",
+   "stateOwnership": 1,
+   "sourceUrl": "",
+   "sourceNote": "未上市中央国有企业；数据取自上海清算所披露的 6 份经审计年度报告扫描件（FY2020–FY2025，合并口径，标准无保留意见），OCR + 逐格目视复核，恒等式自检见 docs/evidence/sgcc_full.json 的 checks 字段。CNY-M，一律 as reported（各年自身年报「本年金额」列）；FY2021 归母分红在原报表为空白，记 null，次年重述值单列在 years[].restated。派生的比率（毛利率/分红率等）不入库，前端现算。",
+   "fields": {
+    "income": [
+     "totalRevenue",
+     "revenue",
+     "cogs",
+     "opInc",
+     "rd",
+     "sga",
+     "pbt",
+     "tax",
+     "netInc",
+     "taxAndSurcharges",
+     "finExpense",
+     "investmentIncome",
+     "interestExpense"
+    ],
+    "balance": [
+     "cash",
+     "receivables",
+     "inventory",
+     "currentAssets",
+     "ppe",
+     "totalAssets",
+     "debtShort",
+     "debtLong",
+     "liabilities",
+     "equityParent",
+     "equity",
+     "cip",
+     "paidInCapital",
+     "retainedEarnings",
+     "minorityInterests"
+    ],
+    "cashflow": [
+     "ocf",
+     "capex",
+     "icf",
+     "finCashFlow"
+    ],
+    "perShare": [],
+    "shareholder": [
+     "dividendsTotal",
+     "dividendsToParent"
+    ]
+   },
+   "years": [
+    {
+     "end": "2020-12-31",
+     "periodType": "FY",
+     "fiscalYear": 2020,
+     "income": {
+      "totalRevenue": 2667667.82,
+      "revenue": 2644517.05,
+      "cogs": 2479341.23,
+      "gross": null,
+      "opInc": 56628.8,
+      "rd": 16703.61,
+      "sga": 56737.87,
+      "pbt": 59120.66,
+      "tax": 17099.89,
+      "netInc": 38504.71,
+      "taxAndSurcharges": 32920.22,
+      "finExpense": 21792.49,
+      "investmentIncome": 19601.52,
+      "interestExpense": 25842.14
+     },
+     "balance": {
+      "cash": 78103.72,
+      "receivables": 85617.26,
+      "inventory": 32072.98,
+      "currentAssets": 432349.12,
+      "ppe": 2913938.06,
+      "totalAssets": 4346227.58,
+      "debtShort": 439260.72,
+      "debtLong": 450930.33,
+      "liabilities": 2446040.44,
+      "equityParent": 1822909.21,
+      "equity": 1900187.14,
+      "cip": 409546.97,
+      "paidInCapital": 1437825.25,
+      "retainedEarnings": 123161.29,
+      "minorityInterests": 77277.93
+     },
+     "cashflow": {
+      "ocf": 324520.56,
+      "capex": 439855.98,
+      "icf": -476156.87,
+      "dividendsPaid": null,
+      "buyback": null,
+      "finCashFlow": 162048.53
+     },
+     "perShare": {
+      "eps": null,
+      "dps": null
+     },
+     "shareholder": {
+      "dividendsTotal": 6113.48,
+      "dividendsToParent": 3172.73
+     },
+     "sources": [
+      "P2020.pdf p18-19 合并资产负债表 · cash: 货币资金 78,103.72 | receivables: 应收账款 85,617.26 | inventory: 存货 32,072.98 | currentAssets: 流动资产合计 432,349.12 | ppe: 固定资产 2,913,938.06 | totalAssets: 资产总计 4,346,227.58 | debtShort: 短期借款 349,313.38 + 一年内到期的非流动负债 89,947.34 = 439,260.72 | debtLong: 长期借款 217,894.85 + 应付债券 233,035.48 = 450,930.33 | liabilities: 负债合计 2,446,040.44 | equityParent: 归属于母公司所有者权益合计 1,822,909.21 | equity: 所有者权益合计 1,900,187.14（原表金额 ÷1e6 → CNY-M）",
+      "P2020.pdf p20 合并利润表 · totalRevenue: 营业总收入 2,667,667.82 | revenue: 营业收入 2,644,517.05 | cogs: 营业成本 2,479,341.23 | opInc: 营业利润 56,628.80 | rd: 研发费用 16,703.61 | sga: 销售费用 8,584.53 + 管理费用 48,153.34 = 56,737.87 | pbt: 利润总额 59,120.66 | tax: 所得税费用 17,099.89 | netInc: 归属于母公司所有者的净利润 38,504.71（净利润合计 42,020.77，其中少数股东 3,516.06）| taxAndSurcharges: 税金及附加 32,920.22 | finExpense: 财务费用 21,792.49 | investmentIncome: 投资收益 19,601.52 | interestExpense: 其中：利息费用 25,842.14（原表金额 ÷1e6 → CNY-M）",
+      "P2020.pdf p21 合并现金流量表 · ocf: 经营活动产生的现金流量净额 324,520.56 | capex: 购建固定资产、无形资产和其他长期资产支付的现金 439,855.98 | icf: 投资活动产生的现金流量净额 -476,156.87 | finCashFlow: 筹资活动产生的现金流量净额 162,048.53（原表金额 ÷1e6 → CNY-M）",
+      "P2020.pdf p22 行次21/17 · 合并所有者权益变动表「3.对所有者的分配」· dividendsTotal: 合计 -6,113.48 | dividendsToParent: 归属于母公司 -3,172.73 | 少数股东 -2,940.75（原表以负数列示「分配」，入库取绝对值；÷1e6 → CNY-M）",
+      "口径说明（P2020.pdf）· gross：A 股利润表不单列「毛利」科目，gross 记 null，毛利率由 营收−营业成本 在页面现算 · eps/dps：国家电网有限公司未上市、无股本与每股数据，记 null · dividendsPaid：现金流量表「分配股利、利润或偿付利息支付的现金」为混合口径（含利息，FY2020 = 40,634.91），与权益变动表「对所有者的分配」不可混用，故 dividendsPaid 记 null，分红总额取权益变动表口径 · buyback：该年度报表无「回购」科目，记 null"
+     ],
+     "nulls": [
+      "gross",
+      "dividendsPaid",
+      "buyback",
+      "eps",
+      "dps"
+     ]
+    },
+    {
+     "end": "2021-12-31",
+     "periodType": "FY",
+     "fiscalYear": 2021,
+     "income": {
+      "totalRevenue": 2971130.25,
+      "revenue": 2944711.52,
+      "cogs": 2767262.72,
+      "gross": null,
+      "opInc": 65665.6,
+      "rd": 16329.64,
+      "sga": 59087.3,
+      "pbt": 69111.67,
+      "tax": 18842.74,
+      "netInc": 46041.12,
+      "taxAndSurcharges": 32456.69,
+      "finExpense": 26091.29,
+      "investmentIncome": 19540.01,
+      "interestExpense": null
+     },
+     "balance": {
+      "cash": 78966,
+      "receivables": 116713.3,
+      "inventory": 26687.31,
+      "currentAssets": 502074.01,
+      "ppe": 3158806.72,
+      "totalAssets": 4671524.25,
+      "debtShort": 447696,
+      "debtLong": 580051.86,
+      "liabilities": 2615437.65,
+      "equityParent": 1970694.29,
+      "equity": 2056086.6,
+      "cip": 387618.85,
+      "paidInCapital": 1522134.92,
+      "retainedEarnings": 175167.12,
+      "minorityInterests": 85392.31
+     },
+     "cashflow": {
+      "ocf": 418057.57,
+      "capex": 501272.39,
+      "icf": -509697.4,
+      "dividendsPaid": null,
+      "buyback": null,
+      "finCashFlow": 100088.19
+     },
+     "perShare": {
+      "eps": null,
+      "dps": null
+     },
+     "shareholder": {
+      "dividendsTotal": 3516.06,
+      "dividendsToParent": null
+     },
+     "sources": [
+      "P2021.pdf p36-37 合并资产负债表 · cash: 货币资金 78,966.00 | receivables: 应收账款 116,713.30 | inventory: 存货 26,687.31 | currentAssets: 流动资产合计 502,074.01 | ppe: 固定资产 3,158,806.72 | totalAssets: 资产总计 4,671,524.25 | debtShort: 短期借款 355,087.52 + 一年内到期的非流动负债 92,608.48 = 447,696.00 | debtLong: 长期借款 329,242.54 + 应付债券 250,809.32 = 580,051.86 | liabilities: 负债合计 2,615,437.65 | equityParent: 归属于母公司所有者权益合计 1,970,694.29 | equity: 所有者权益合计 2,056,086.60（原表金额 ÷1e6 → CNY-M）",
+      "P2021.pdf p38 合并利润表 · totalRevenue: 营业总收入 2,971,130.25 | revenue: 营业收入 2,944,711.52 | cogs: 营业成本 2,767,262.72 | opInc: 营业利润 65,665.60 | rd: 研发费用 16,329.64 | sga: 销售费用 8,638.85 + 管理费用 50,448.45 = 59,087.30 | pbt: 利润总额 69,111.67 | tax: 所得税费用 18,842.74 | netInc: 归属于母公司所有者的净利润 46,041.12（净利润合计 50,268.93，其中少数股东 4,227.81）| taxAndSurcharges: 税金及附加 32,456.69 | finExpense: 财务费用 26,091.29 | investmentIncome: 投资收益 19,540.01 | interestExpense: 其中：利息费用 原表未设该明细行（null）（原表金额 ÷1e6 → CNY-M）",
+      "P2021.pdf p39 合并现金流量表 · ocf: 经营活动产生的现金流量净额 418,057.57 | capex: 购建固定资产、无形资产和其他长期资产支付的现金 501,272.39 | icf: 投资活动产生的现金流量净额 -509,697.40 | finCashFlow: 筹资活动产生的现金流量净额 100,088.19（原表金额 ÷1e6 → CNY-M）",
+      "P2021.pdf p40 行次21（归母格空白）/17；行次16 利润分配合计 −3,514.84（含「4.其他」+1.22） · 合并所有者权益变动表「3.对所有者的分配」· dividendsTotal: 合计 -3,516.06 | dividendsToParent: 归属于母公司 空白（null） | 少数股东 -3,516.06（原表以负数列示「分配」，入库取绝对值；÷1e6 → CNY-M）",
+      "口径说明（P2021.pdf）· gross：A 股利润表不单列「毛利」科目，gross 记 null，毛利率由 营收−营业成本 在页面现算 · eps/dps：国家电网有限公司未上市、无股本与每股数据，记 null · dividendsPaid：现金流量表「分配股利、利润或偿付利息支付的现金」为混合口径（含利息，FY2021 = 45,163.62），与权益变动表「对所有者的分配」不可混用，故 dividendsPaid 记 null，分红总额取权益变动表口径 · buyback：该年度报表无「回购」科目，记 null"
+     ],
+     "restated": {
+      "dividendsTotal": 8098.24,
+      "dividendsToParent": 4582.18,
+      "source": "P2022.pdf p38 上年金额栏 行次21"
+     },
+     "notes": [
+      {
+       "id": "fy2021-restated",
+       "fields": [
+        "dividendsTotal",
+        "dividendsToParent",
+        "stateDividend",
+        "payout"
+       ],
+       "text": "FY2021 年报权益变动表「3.对所有者的分配」归母列为空白（记 null，不按 0 计）；2022 年报上年列重述为归母 4,582.18、合计 8,098.24。按重述口径：归母分红率 9.95%、合并口径分红率 17.59%。"
+      }
+     ],
+     "nulls": [
+      "gross",
+      "interestExpense",
+      "dividendsPaid",
+      "buyback",
+      "eps",
+      "dps",
+      "dividendsToParent"
+     ]
+    },
+    {
+     "end": "2022-12-31",
+     "periodType": "FY",
+     "fiscalYear": 2022,
+     "income": {
+      "totalRevenue": 3565245.05,
+      "revenue": 3537419.02,
+      "cogs": 3362155.14,
+      "gross": null,
+      "opInc": 80835.89,
+      "rd": 16785.76,
+      "sga": 63086.59,
+      "pbt": 79286.48,
+      "tax": 20316.47,
+      "netInc": 55104.99,
+      "taxAndSurcharges": 12160.81,
+      "finExpense": 34292.89,
+      "investmentIncome": 24549.64,
+      "interestExpense": null
+     },
+     "balance": {
+      "cash": 78215.51,
+      "receivables": 192500.72,
+      "inventory": 27017.65,
+      "currentAssets": 520437.71,
+      "ppe": 3323665.2,
+      "totalAssets": 4902275.57,
+      "debtShort": 459080.6,
+      "debtLong": 667623.3,
+      "liabilities": 2713668.01,
+      "equityParent": 2097971.26,
+      "equity": 2188607.56,
+      "cip": 387059.93,
+      "paidInCapital": 1568787.59,
+      "retainedEarnings": 246034.01,
+      "minorityInterests": 90636.3
+     },
+     "cashflow": {
+      "ocf": 408870.31,
+      "capex": 534459.8,
+      "icf": -439968.16,
+      "dividendsPaid": null,
+      "buyback": null,
+      "finCashFlow": 27366.98
+     },
+     "perShare": {
+      "eps": null,
+      "dps": null
+     },
+     "shareholder": {
+      "dividendsTotal": 25122.02,
+      "dividendsToParent": 21228.38
+     },
+     "sources": [
+      "P2022.pdf p33-34 合并资产负债表 · cash: 货币资金 78,215.51 | receivables: 应收账款 192,500.72 | inventory: 存货 27,017.65 | currentAssets: 流动资产合计 520,437.71 | ppe: 固定资产 3,323,665.20 | totalAssets: 资产总计 4,902,275.57 | debtShort: 短期借款 330,398.13 + 一年内到期的非流动负债 128,682.47 = 459,080.60 | debtLong: 长期借款 405,873.02 + 应付债券 261,750.28 = 667,623.30 | liabilities: 负债合计 2,713,668.01 | equityParent: 归属于母公司所有者权益合计 2,097,971.26 | equity: 所有者权益合计 2,188,607.56（原表金额 ÷1e6 → CNY-M）",
+      "P2022.pdf p35 合并利润表 · totalRevenue: 营业总收入 3,565,245.05 | revenue: 营业收入 3,537,419.02 | cogs: 营业成本 3,362,155.14 | opInc: 营业利润 80,835.89 | rd: 研发费用 16,785.76 | sga: 销售费用 9,141.60 + 管理费用 53,944.99 = 63,086.59 | pbt: 利润总额 79,286.48 | tax: 所得税费用 20,316.47 | netInc: 归属于母公司所有者的净利润 55,104.99（净利润合计 58,970.01，其中少数股东 3,865.02）| taxAndSurcharges: 税金及附加 12,160.81 | finExpense: 财务费用 34,292.89 | investmentIncome: 投资收益 24,549.64 | interestExpense: 其中：利息费用 原表未设该明细行（null）（原表金额 ÷1e6 → CNY-M）",
+      "P2022.pdf p36 合并现金流量表 · ocf: 经营活动产生的现金流量净额 408,870.31 | capex: 购建固定资产、无形资产和其他长期资产支付的现金 534,459.80 | icf: 投资活动产生的现金流量净额 -439,968.16 | finCashFlow: 筹资活动产生的现金流量净额 27,366.98（原表金额 ÷1e6 → CNY-M）",
+      "P2022.pdf p37 行次21/17 · 合并所有者权益变动表「3.对所有者的分配」· dividendsTotal: 合计 -25,122.02 | dividendsToParent: 归属于母公司 -21,228.38 | 少数股东 -3,893.64（原表以负数列示「分配」，入库取绝对值；÷1e6 → CNY-M）",
+      "口径说明（P2022.pdf）· gross：A 股利润表不单列「毛利」科目，gross 记 null，毛利率由 营收−营业成本 在页面现算 · eps/dps：国家电网有限公司未上市、无股本与每股数据，记 null · dividendsPaid：现金流量表「分配股利、利润或偿付利息支付的现金」为混合口径（含利息，FY2022 = 51,821.59），与权益变动表「对所有者的分配」不可混用，故 dividendsPaid 记 null，分红总额取权益变动表口径 · buyback：该年度报表无「回购」科目，记 null"
+     ],
+     "nulls": [
+      "gross",
+      "interestExpense",
+      "dividendsPaid",
+      "buyback",
+      "eps",
+      "dps"
+     ]
+    },
+    {
+     "end": "2023-12-31",
+     "periodType": "FY",
+     "fiscalYear": 2023,
+     "income": {
+      "totalRevenue": 3864891.68,
+      "revenue": 3835570.57,
+      "cogs": 3589276.27,
+      "gross": null,
+      "opInc": 96261.95,
+      "rd": 21604.92,
+      "sga": 109764.84,
+      "pbt": 96383.55,
+      "tax": 25895.96,
+      "netInc": 65159.36,
+      "taxAndSurcharges": 15823.65,
+      "finExpense": 32471.6,
+      "investmentIncome": 17435.89,
+      "interestExpense": 33382.58
+     },
+     "balance": {
+      "cash": 98548.26,
+      "receivables": 267289.62,
+      "inventory": 140076.34,
+      "currentAssets": 802861.27,
+      "ppe": 3553142.28,
+      "totalAssets": 5544277.38,
+      "debtShort": 421009.13,
+      "debtLong": 786252.55,
+      "liabilities": 3003375.6,
+      "equityParent": 2442897.86,
+      "equity": 2540901.79,
+      "cip": 436008.08,
+      "paidInCapital": 1833941.43,
+      "retainedEarnings": 297404.74,
+      "minorityInterests": 98003.93
+     },
+     "cashflow": {
+      "ocf": 481416.83,
+      "capex": 584787.69,
+      "icf": -495237.9,
+      "dividendsPaid": null,
+      "buyback": null,
+      "finCashFlow": 30396.28
+     },
+     "perShare": {
+      "eps": null,
+      "dps": null
+     },
+     "shareholder": {
+      "dividendsTotal": 27693.37,
+      "dividendsToParent": 23182.03
+     },
+     "sources": [
+      "P2023.pdf p25-26 合并资产负债表 · cash: 货币资金 98,548.26 | receivables: 应收账款 267,289.62 | inventory: 存货 140,076.34 | currentAssets: 流动资产合计 802,861.27 | ppe: 固定资产 3,553,142.28 | totalAssets: 资产总计 5,544,277.38 | debtShort: 短期借款 270,051.38 + 一年内到期的非流动负债 150,957.75 = 421,009.13 | debtLong: 长期借款 539,836.64 + 应付债券 246,415.91 = 786,252.55 | liabilities: 负债合计 3,003,375.60 | equityParent: 归属于母公司所有者权益合计 2,442,897.86 | equity: 所有者权益合计 2,540,901.79（原表金额 ÷1e6 → CNY-M）",
+      "P2023.pdf p27 合并利润表 · totalRevenue: 营业总收入 3,864,891.68 | revenue: 营业收入 3,835,570.57 | cogs: 营业成本 3,589,276.27 | opInc: 营业利润 96,261.95 | rd: 研发费用 21,604.92 | sga: 销售费用 11,607.71 + 管理费用 98,157.13 = 109,764.84 | pbt: 利润总额 96,383.55 | tax: 所得税费用 25,895.96 | netInc: 归属于母公司所有者的净利润 65,159.36（净利润合计 70,487.59，其中少数股东 5,328.23）| taxAndSurcharges: 税金及附加 15,823.65 | finExpense: 财务费用 32,471.60 | investmentIncome: 投资收益 17,435.89 | interestExpense: 其中：利息费用 33,382.58（原表金额 ÷1e6 → CNY-M）",
+      "P2023.pdf p28 合并现金流量表 · ocf: 经营活动产生的现金流量净额 481,416.83 | capex: 购建固定资产、无形资产和其他长期资产支付的现金 584,787.69 | icf: 投资活动产生的现金流量净额 -495,237.90 | finCashFlow: 筹资活动产生的现金流量净额 30,396.28（原表金额 ÷1e6 → CNY-M）",
+      "P2023.pdf p29 行次16(利润分配)/17 · 合并所有者权益变动表「3.对所有者的分配」· dividendsTotal: 合计 -27,693.37 | dividendsToParent: 归属于母公司 -23,182.03 | 少数股东 -4,511.34（原表以负数列示「分配」，入库取绝对值；÷1e6 → CNY-M）",
+      "口径说明（P2023.pdf）· gross：A 股利润表不单列「毛利」科目，gross 记 null，毛利率由 营收−营业成本 在页面现算 · eps/dps：国家电网有限公司未上市、无股本与每股数据，记 null · dividendsPaid：现金流量表「分配股利、利润或偿付利息支付的现金」为混合口径（含利息，FY2023 = 62,132.68），与权益变动表「对所有者的分配」不可混用，故 dividendsPaid 记 null，分红总额取权益变动表口径 · buyback：该年度报表无「回购」科目，记 null"
+     ],
+     "nulls": [
+      "gross",
+      "dividendsPaid",
+      "buyback",
+      "eps",
+      "dps"
+     ]
+    },
+    {
+     "end": "2024-12-31",
+     "periodType": "FY",
+     "fiscalYear": 2024,
+     "income": {
+      "totalRevenue": 3945928.33,
+      "revenue": 3919271.5,
+      "cogs": 3667364.19,
+      "gross": null,
+      "opInc": 109396.48,
+      "rd": 23493.38,
+      "sga": 103283.44,
+      "pbt": 106047.19,
+      "tax": 28749.65,
+      "netInc": 72274.48,
+      "taxAndSurcharges": 16358.14,
+      "finExpense": 31810.39,
+      "investmentIncome": 21635.19,
+      "interestExpense": 35018.68
+     },
+     "balance": {
+      "cash": 69849.77,
+      "receivables": 269696.85,
+      "inventory": 108414.83,
+      "currentAssets": 729165.87,
+      "ppe": 3810312.64,
+      "totalAssets": 5822607.53,
+      "debtShort": 619640.72,
+      "debtLong": 729696.3,
+      "liabilities": 3156375.39,
+      "equityParent": 2568325.3,
+      "equity": 2666232.14,
+      "cip": 474976.25,
+      "paidInCapital": 1932343.32,
+      "retainedEarnings": 319304.4,
+      "minorityInterests": 97906.84
+     },
+     "cashflow": {
+      "ocf": 527594.38,
+      "capex": 702277.73,
+      "icf": -670886.86,
+      "dividendsPaid": null,
+      "buyback": null,
+      "finCashFlow": 109857.61
+     },
+     "perShare": {
+      "eps": null,
+      "dps": null
+     },
+     "shareholder": {
+      "dividendsTotal": 40795.06,
+      "dividendsToParent": 33860.43
+     },
+     "sources": [
+      "P2024.pdf p31-32 合并资产负债表 · cash: 货币资金 69,849.77 | receivables: 应收账款 269,696.85 | inventory: 存货 108,414.83 | currentAssets: 流动资产合计 729,165.87 | ppe: 固定资产 3,810,312.64 | totalAssets: 资产总计 5,822,607.53 | debtShort: 短期借款 513,251.10 + 一年内到期的非流动负债 106,389.62 = 619,640.72 | debtLong: 长期借款 516,038.20 + 应付债券 213,658.10 = 729,696.30 | liabilities: 负债合计 3,156,375.39 | equityParent: 归属于母公司所有者权益合计 2,568,325.30 | equity: 所有者权益合计 2,666,232.14（原表金额 ÷1e6 → CNY-M）",
+      "P2024.pdf p33 合并利润表 · totalRevenue: 营业总收入 3,945,928.33 | revenue: 营业收入 3,919,271.50 | cogs: 营业成本 3,667,364.19 | opInc: 营业利润 109,396.48 | rd: 研发费用 23,493.38 | sga: 销售费用 4,418.95 + 管理费用 98,864.49 = 103,283.44 | pbt: 利润总额 106,047.19 | tax: 所得税费用 28,749.65 | netInc: 归属于母公司所有者的净利润 72,274.48（净利润合计 77,297.54，其中少数股东 5,023.06）| taxAndSurcharges: 税金及附加 16,358.14 | finExpense: 财务费用 31,810.39 | investmentIncome: 投资收益 21,635.19 | interestExpense: 其中：利息费用 35,018.68（原表金额 ÷1e6 → CNY-M）",
+      "P2024.pdf p34 合并现金流量表 · ocf: 经营活动产生的现金流量净额 527,594.38 | capex: 购建固定资产、无形资产和其他长期资产支付的现金 702,277.73 | icf: 投资活动产生的现金流量净额 -670,886.86 | finCashFlow: 筹资活动产生的现金流量净额 109,857.61（原表金额 ÷1e6 → CNY-M）",
+      "P2025.pdf p48 上年金额栏 行次24/17 + P2024 附注 · 合并所有者权益变动表「3.对所有者的分配」· dividendsTotal: 合计 -40,795.06 | dividendsToParent: 归属于母公司 -33,860.43 | 少数股东 -6,934.63（原表以负数列示「分配」，入库取绝对值；÷1e6 → CNY-M）",
+      "口径说明（P2024.pdf）· gross：A 股利润表不单列「毛利」科目，gross 记 null，毛利率由 营收−营业成本 在页面现算 · eps/dps：国家电网有限公司未上市、无股本与每股数据，记 null · dividendsPaid：现金流量表「分配股利、利润或偿付利息支付的现金」为混合口径（含利息，FY2024 = 63,034.31），与权益变动表「对所有者的分配」不可混用，故 dividendsPaid 记 null，分红总额取权益变动表口径 · buyback：该年度报表无「回购」科目，记 null"
+     ],
+     "nulls": [
+      "gross",
+      "dividendsPaid",
+      "buyback",
+      "eps",
+      "dps"
+     ]
+    },
+    {
+     "end": "2025-12-31",
+     "periodType": "FY",
+     "fiscalYear": 2025,
+     "income": {
+      "totalRevenue": 3991828.96,
+      "revenue": 3966411.18,
+      "cogs": 3702663.07,
+      "gross": null,
+      "opInc": 121058.02,
+      "rd": 26765.47,
+      "sga": 102154.68,
+      "pbt": 118232.16,
+      "tax": 31807.15,
+      "netInc": 79899.85,
+      "taxAndSurcharges": 16873.83,
+      "finExpense": 35578.86,
+      "investmentIncome": 22686.08,
+      "interestExpense": 33676.94
+     },
+     "balance": {
+      "cash": 52547.75,
+      "receivables": 263658.18,
+      "inventory": 69974.2,
+      "currentAssets": 696514.61,
+      "ppe": 4082713.37,
+      "totalAssets": 6161238.46,
+      "debtShort": 581900.2,
+      "debtLong": 951517.61,
+      "liabilities": 3275261.19,
+      "equityParent": 2757055.46,
+      "equity": 2885977.27,
+      "cip": 518438.25,
+      "paidInCapital": 2058280.5,
+      "retainedEarnings": 360075.52,
+      "minorityInterests": 128921.81
+     },
+     "cashflow": {
+      "ocf": 536810.42,
+      "capex": 709162.77,
+      "icf": -683544.27,
+      "dividendsPaid": null,
+      "buyback": null,
+      "finCashFlow": 141846.02
+     },
+     "perShare": {
+      "eps": null,
+      "dps": null
+     },
+     "shareholder": {
+      "dividendsTotal": 42986.32,
+      "dividendsToParent": 36147.3
+     },
+     "sources": [
+      "P2025.pdf p43-44 合并资产负债表 · cash: 货币资金 52,547.75 | receivables: 应收账款 263,658.18 | inventory: 存货 69,974.20 | currentAssets: 流动资产合计 696,514.61 | ppe: 固定资产 4,082,713.37 | totalAssets: 资产总计 6,161,238.46 | debtShort: 短期借款 321,970.91 + 一年内到期的非流动负债 259,929.29 = 581,900.20 | debtLong: 长期借款 292,687.14 + 应付债券 658,830.47 = 951,517.61 | liabilities: 负债合计 3,275,261.19 | equityParent: 归属于母公司所有者权益合计 2,757,055.46 | equity: 所有者权益合计 2,885,977.27（原表金额 ÷1e6 → CNY-M）",
+      "P2025.pdf p45 合并利润表 · totalRevenue: 营业总收入 3,991,828.96 | revenue: 营业收入 3,966,411.18 | cogs: 营业成本 3,702,663.07 | opInc: 营业利润 121,058.02 | rd: 研发费用 26,765.47 | sga: 销售费用 4,056.03 + 管理费用 98,098.65 = 102,154.68 | pbt: 利润总额 118,232.16 | tax: 所得税费用 31,807.15 | netInc: 归属于母公司所有者的净利润 79,899.85（净利润合计 86,425.01，其中少数股东 6,525.16）| taxAndSurcharges: 税金及附加 16,873.83 | finExpense: 财务费用 35,578.86 | investmentIncome: 投资收益 22,686.08 | interestExpense: 其中：利息费用 33,676.94（原表金额 ÷1e6 → CNY-M）",
+      "P2025.pdf p46 合并现金流量表 · ocf: 经营活动产生的现金流量净额 536,810.42 | capex: 购建固定资产、无形资产和其他长期资产支付的现金 709,162.77 | icf: 投资活动产生的现金流量净额 -683,544.27 | finCashFlow: 筹资活动产生的现金流量净额 141,846.02（原表金额 ÷1e6 → CNY-M）",
+      "P2025.pdf p47 行次24/17 · 合并所有者权益变动表「3.对所有者的分配」· dividendsTotal: 合计 -42,986.32 | dividendsToParent: 归属于母公司 -36,147.30 | 少数股东 -6,839.02（原表以负数列示「分配」，入库取绝对值；÷1e6 → CNY-M）",
+      "口径说明（P2025.pdf）· gross：A 股利润表不单列「毛利」科目，gross 记 null，毛利率由 营收−营业成本 在页面现算 · eps/dps：国家电网有限公司未上市、无股本与每股数据，记 null · dividendsPaid：现金流量表「分配股利、利润或偿付利息支付的现金」为混合口径（含利息，FY2025 = 58,766.77），与权益变动表「对所有者的分配」不可混用，故 dividendsPaid 记 null，分红总额取权益变动表口径 · buyback：该年度报表无「回购」科目，记 null"
+     ],
+     "nulls": [
+      "gross",
+      "dividendsPaid",
+      "buyback",
+      "eps",
+      "dps"
      ]
     }
    ]
