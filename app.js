@@ -1889,7 +1889,7 @@ function initTimelineDrag() {
 }
 
 /* ---- C1 honesty: per-company data source + real segment cutoff + derived-period badge ----
-   The source line used to hardcode "SEC EDGAR XBRL" for all 92 companies, which is false
+   The source line used to hardcode "SEC EDGAR XBRL" for every company, which is false
    for HK/CN/KR/CH/EU filers. Map by ticker suffix to their true disclosure venue. */
 function dataSourceLabel(tk) {
   const sfx = (tk.match(/\.[A-Za-z]+$/) || [''])[0].toUpperCase();
@@ -1897,12 +1897,13 @@ function dataSourceLabel(tk) {
   if (sfx === '.SS' || sfx === '.SZ' || sfx === '.SH') return lang === 'zh' ? '东方财富（Eastmoney）' : 'Eastmoney';
   if (sfx === '.KS') return lang === 'zh' ? '公司年报（无免费结构化源）' : 'Company annual report (no free structured source)';
   if (sfx === '.SW' || sfx === '.PA' || sfx === '.TW') return lang === 'zh' ? '公司年报' : 'Company annual report';
+  if (tk === 'SGCC') return lang === 'zh' ? '上海清算所（经审计年报）' : 'Shanghai Clearing House (audited annual report)';
   if (tk === 'HUAWEI' || tk === 'LEGO') return lang === 'zh' ? '公司年报' : 'Company annual report';
   return 'SEC EDGAR XBRL';
 }
 function isSecSource(tk) {
   const sfx = (tk.match(/\.[A-Za-z]+$/) || [''])[0];
-  return !sfx && tk !== 'HUAWEI' && tk !== 'LEGO';
+  return !sfx && tk !== 'HUAWEI' && tk !== 'LEGO' && tk !== 'SGCC';
 }
 /* latest period end that actually has a segment split (max key across quarters / annualQuarters) */
 function segCutoffEnd(tk) {

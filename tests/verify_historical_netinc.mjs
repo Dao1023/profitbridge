@@ -54,10 +54,11 @@ for (const [tk, rows] of Object.entries(FIX)) {
   }
 }
 
-// ---- B. totals unchanged: the fix edits 6 rows, it never adds/removes a row ----
+// ---- B. totals: the fix edits 6 rows, it never adds/removes a row ----
+// 2026-11-22: batch17 adds SGCC (6 annual periods) -> 93 companies / 3748 quarters.
 const totalQ = Object.values(P.companies).reduce((s, c) => s + c.quarters.length, 0);
-ok(Object.keys(P.companies).length === 92, `companies = 92 (got ${Object.keys(P.companies).length})`);
-ok(totalQ === 3742, `quarters = 3742 (got ${totalQ})`);
+ok(Object.keys(P.companies).length === 93, `companies = 93 (got ${Object.keys(P.companies).length})`);
+ok(totalQ === 3748, `quarters = 3748 (got ${totalQ})`);
 
 // ---- C. the committed patch layer is still in sync with the data: re-applying it is a no-op ----
 const { patches } = loadPatches(ROOT);

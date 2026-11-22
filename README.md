@@ -14,18 +14,18 @@
 - 📊 **全历史柱状图** — 任选科目/分部，2003 → 2026 逐季时间序列，**无断季、无空洞**。
 - 🎚️ **占比 / 环比一键切换** — 看结构（占营收 %）或看动能（QoQ 变化），不用碰 Excel。
 - 🏛️ **每个数字可溯源** — 美股来自 SEC EDGAR XBRL 真实申报，港/A/韩/台/欧股来自交易所与权威聚合源，不是拍脑袋。
-- 💱 **多币种多频次** — 92 家、7 个市场、申报本位币入库；年度看同比、港混频不跨期环比，口径不撒谎。
+- 💱 **多币种多频次** — 93 家、7 个市场、申报本位币入库；年度看同比、港混频不跨期环比，口径不撒谎。
 - 🫥 **缺数据就留白** — 不编数、不插值。没披露的季度诚实空着，这是工程诚信，不是缺陷。
 - ⚡ **纯前端零构建** — 无框架、无 npm install，克隆或点开链接即可运行。
 
 ## 覆盖范围
 
-**92 家公司 · 3,739 期（3,361 单季 + 331 年度 + 47 中期） · 7 个市场**（实测统计自合并后 `data/profit.json`，2026-11-20）。美股条目无 64 季封顶，为 EDGAR XBRL 完整连续历史（AAPL 72 季、MSFT 77 季、CSCO 73 季等）；SPCX（SpaceX）IPO 后仅 2 季、CRWV 与 CBRS 同样低于 12 季护栏，均经豁免入主序列并标注短历史；7 期尾端缺口（V/KO/NXPI 10-Q、SONY/TSM/TME/DIDIY 20-F）已从 filing 内嵌 iXBRL 实抓补齐（SEC companyfacts 未收录该批申报财务 facts）。覆盖审计（2026-11-01）另记录 2 家共 3 期缺口：CBRS 缺 2 期、00151.HK 缺 FY2018，如实留白、不插值。
+**93 家公司 · 3,748 期（3,364 单季 + 337 年度 + 47 中期） · 7 个市场**（实测统计自合并后 `data/profit.json`，2026-11-22）。国家电网（SGCC，未上市央企）以银行间债市发行人在上海清算所披露的经审计年报入库，6 个财年、人民币百万元、as reported，口径断层见 `docs/KNOWN_CAVEATS.md` 第十二节。美股条目无 64 季封顶，为 EDGAR XBRL 完整连续历史（AAPL 72 季、MSFT 77 季、CSCO 73 季等）；SPCX（SpaceX）IPO 后仅 2 季、CRWV 与 CBRS 同样低于 12 季护栏，均经豁免入主序列并标注短历史；7 期尾端缺口（V/KO/NXPI 10-Q、SONY/TSM/TME/DIDIY 20-F）已从 filing 内嵌 iXBRL 实抓补齐（SEC companyfacts 未收录该批申报财务 facts）。覆盖审计（2026-11-01）另记录 2 家共 3 期缺口：CBRS 缺 2 期、00151.HK 缺 FY2018，如实留白、不插值。
 
 | 市场 | 公司数 | 期数 | 口径 |
 | --- | --- | --- | --- |
 | 美股（EDGAR 季度 10-Q/10-K） | 31 | 1,648q | USD-M，Q4=FY−Q1..Q3；SPCX（SpaceX）2026-06 IPO 后仅披露 2 季，低于 minKeep=12 经豁免单独收录 |
-| 年度申报（20-F/年报：阿里/百度/京东/拼多多/瑞幸/TSM/DIDIY/ASML/ARM/SPOT/STM/SONY/NESN/MC/华为/乐高 等） | 25 | 605 期（年度 271 + 单季 322 + 中期 12） | 申报本位币（CNY/TWD/EUR/CHF/JPY/DKK-M），frequency 为 annual / mixed |
+| 年度申报（20-F/年报：阿里/百度/京东/拼多多/瑞幸/TSM/DIDIY/ASML/ARM/SPOT/STM/SONY/NESN/MC/华为/乐高/国家电网 等） | 26 | 611 期（年度 277 + 单季 322 + 中期 12） | 申报本位币（CNY/TWD/EUR/CHF/JPY/DKK-M），frequency 为 annual / mixed |
 | 港股（HKEX/东财，累计期差分为单季） | 17 | 723 期（单季 643 + 年度 45 + 中期 35） | CNY-M，frequency:'hk-mixed'，联想为 USD 单季 18q；02513/00100 为累计口径未差分 |
 | 韩股（stockanalysis/fnguide 独立单季） | 3 | 61 期（单季 46 + 年度 15） | KRW-M，frequency:'mixed' |
 | A 股（东财，真单季） | 14 | 673q | CNY-M |

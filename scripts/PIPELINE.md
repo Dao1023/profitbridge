@@ -37,7 +37,7 @@ node scripts/merge_fundamentals.mjs   # stage 2: enrich gross/opInc/rd/sga from 
 Before the 2026-11-20 rewrite, standalone stage 1 erased stage-2 enrichment and aborted with
 `REFUSING 2189 semantic regressions`; that is no longer the expected behaviour. With the glob
 loader + disk-first reconcile, a single stage-1 run reproduces the committed image exactly
-(2026-11-20: 92 companies / 3739 periods, CRLF-normalised bytes identical, sha256 matches the LF
+(2026-11-22: 93 companies / 3748 periods, CRLF-normalised bytes identical, sha256 matches the LF
 blob in git). A refusal now is a **real staging gap** — a disk period no batch produces, or a
 conflicting value — so back-write the fix into `data/staging/`; do not force.
 
@@ -62,8 +62,8 @@ a space-separated `--out-dir DIR` is ignored.
 
 ## Verification used (0-difference reproduction)
 
-Stage 1 alone reproduces the committed `data/profit.json` byte-for-byte (2026-11-20: 92
-companies / 3739 periods; 1,010,436 B canonical LF, 1,049,537 B in a CRLF checkout):
+Stage 1 alone reproduces the committed `data/profit.json` byte-for-byte (2026-11-22: 93
+companies / 3748 periods; 1,015,468 B canonical LF, 1,054,687 B in a CRLF checkout):
 
 ```bash
 node scripts/merge_batches.mjs --out-dir=tmp-fixups-test
@@ -98,7 +98,7 @@ warning. IBM was back-written on 2026-11-20.
 
 ## 每日新财报扫描（`scripts/scan_filings.mjs`）
 
-**用途**：每天检查 `data/profit.json` 已收录的 92 家公司，是否已有「站内还没有的新报告期」披露出来，产出一份**只读**待办清单，供人或 Agent 判断要不要补数。它**不写 `data/` 下任何文件**，跑完 `git status` 应保持干净。
+**用途**：每天检查 `data/profit.json` 已收录的 93 家公司，是否已有「站内还没有的新报告期」披露出来，产出一份**只读**待办清单，供人或 Agent 判断要不要补数。它**不写 `data/` 下任何文件**，跑完 `git status` 应保持干净。
 
 ```bash
 node scripts/scan_filings.mjs                    # 人读摘要（stdout）
