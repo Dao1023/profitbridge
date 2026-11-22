@@ -84,6 +84,14 @@ for (const [tk, c] of Object.entries(MET.companies || {})) {
       `json=${JSON.stringify(y.nulls)} computed=${JSON.stringify(computed)}`);
     ok(`${tag} 每个 null 都在 sources 里解释过`,
       computed.every((f) => y.sources.some((s) => s.includes(f))), computed.join(','));
+    // 脚注 fields 必须 ⊆ schema 字段（payout / stateDividend 是前端派生行，不属于数据层）
+    for (const n of (y.notes || [])) {
+      ok(`${tag} 脚注 ${n.id || '?'} fields 非空`, Array.isArray(n.fields) && n.fields.length > 0,
+        JSON.stringify(n.fields));
+      for (const f of (n.fields || [])) {
+        ok(`${tag} 脚注 ${n.id || '?'} 的 field ${f} 是 schema 字段`, ALL.includes(f), f);
+      }
+    }
   }
   // fields 组：只列真实取到的字段
   for (const g of Object.keys(GROUPS)) {
@@ -452,8 +460,11 @@ function verifySGCC() {
   ok('SGCC 2021 payout 按 as-reported 无法计算（null）', payout(y21) === null, String(payout(y21)));
   const note21 = (y21.notes || []).find((n) => n.id === 'fy2021-restated');
   ok('SGCC 2021 有双口径脚注', !!note21);
-  ok('SGCC 2021 脚注覆盖 dividendsTotal/dividendsToParent/stateDividend/payout',
-    !!note21 && ['dividendsTotal', 'dividendsToParent', 'stateDividend', 'payout'].every((f) => note21.fields.includes(f)),
+  ok('SGCC 2021 脚注覆盖 dividendsTotal/dividendsToParent',
+    !!note21 && ['dividendsTotal', 'dividendsToParent'].every((f) => note21.fields.includes(f)),
+    JSON.stringify(note21 && note21.fields));
+  ok('SGCC 2021 脚注 fields 不含派生行 payout/stateDividend',
+    !!note21 && !note21.fields.some((f) => f === 'payout' || f === 'stateDividend'),
     JSON.stringify(note21 && note21.fields));
   ok('SGCC 2021 脚注写明重述数字 4,582.18 / 8,098.24',
     !!note21 && note21.text.includes('4,582.18') && note21.text.includes('8,098.24'), note21 && note21.text.slice(0, 80));

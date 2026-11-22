@@ -43,6 +43,9 @@
 3. `nulls` 里每个字段都要在某条 `sources` 字符串里出现（写清为什么没有）；
 4. 金额最多两位小数、不是字符串；比率（`grossMargin` / `payout` …）**不得**出现在任何组里；
 5. `years` 按 `end` 升序；`metrics.json.js` 必须是同一份 JSON 的 `window.METRICS_DATA = {…};` 镜像（deepEqual）。
+6. `years[].notes[].fields` 必须 ⊆ schema 字段（`scripts/metrics_schema.mjs` 的 `ALL` = `CORE` ∪ `EXTENDED`）；
+   前端派生行 `payout` / `stateDividend` **不得**出现在 `fields` 里——它们不是数据层字段，一致性检查无法对它们成立
+   （2026-11-22 已从 SGCC FY2021 脚注中剔除）。
 
 ## 2. 字段登记簿
 

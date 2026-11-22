@@ -111,13 +111,20 @@ if (mode === '--check') {
       ok(JSON.stringify([...y.nulls].sort()) === JSON.stringify([...nulls].sort()),
         `${tk} ${y.end}: nulls 与实际 null 不一致\n    记录=${JSON.stringify(y.nulls)}\n    实际=${JSON.stringify(nulls)}`);
       for (const f of y.nulls) ok(y.sources.some((s) => s.includes(f)), `${tk} ${y.end}: null 字段 ${f} 未在 sources 里解释`);
+      // notes.fields 必须 ⊆ schema 字段：payout / stateDividend 是前端派生行，不是数据层字段
+      for (const n of (y.notes || [])) {
+        ok(Array.isArray(n.fields) && n.fields.length > 0, `${tk} ${y.end}: 脚注 ${n.id || '?'} 的 fields 缺失`);
+        for (const f of (n.fields || [])) {
+          ok(ALL.includes(f), `${tk} ${y.end}: 脚注 ${n.id || '?'} 的 fields 含非 schema 字段 ${f}`);
+        }
+      }
       const S = y.shareholder || {};
       if (S.dividendsToParent != null && S.dividendsTotal != null) {
         ok(S.dividendsToParent <= S.dividendsTotal + 1e-9, `${tk} ${y.end}: 归母分红 > 分红总额`);
       }
       if (y.restated) {
         ok(y.restated.dividendsToParent != null && y.restated.source, `${tk} ${y.end}: restated 不完整`);
-        ok((y.notes || []).some((n) => (n.fields || []).includes('payout')), `${tk} ${y.end}: restated 年缺 payout 脚注`);
+        ok((y.notes || []).some((n) => (n.fields || []).includes('dividendsToParent')), `${tk} ${y.end}: restated 年缺分红口径脚注`);
       }
       if (tk === 'SGCC' && y.end === '2021-12-31') {
         ok(S.dividendsToParent === null, 'SGCC 2021: as-reported 归母分红必须是 null（不许写 0）');
