@@ -746,6 +746,14 @@ try {
     ok('SGCC 毛利润行显示的是精确值而非 —', !/^—/.test((sgccRows.rows[F.gross] || {}).cells?.[5] || '—'),
       (sgccRows.rows[F.gross] || {}).cells?.[5]);
   }
+  // 利润表行序 = 会计顺序（不再是「核心 9 行 + 扩展 5 行」两段拼接）
+  {
+    const wantOrder = ['revenue', 'totalRevenue', 'cogs', 'gross', 'taxAndSurcharges', 'sga', 'rd',
+      'finExpense', 'interestExpense', 'investmentIncome', 'opInc', 'pbt', 'tax', 'netInc'].map((k) => F[k]);
+    const gotOrder = Object.keys(sgccRows.rows).slice(0, wantOrder.length);
+    ok('SGCC 利润表行序按会计顺序', JSON.stringify(gotOrder) === JSON.stringify(wantOrder),
+      `got=${JSON.stringify(gotOrder)}`);
+  }
   // 2021：as-reported 归母空白 → 显示 —（不是 0），且带脚注上标；合计 3,516.06
   const c21 = sgccRows.rows[F.dividendsToParent].cells[1];
   ok('SGCC 2021 归母分红显示为 —（不显示 0）', /^—/.test(c21) && !/^0/.test(c21), c21);

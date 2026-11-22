@@ -1413,9 +1413,13 @@ function renderBarSelect() {
      onlyIf   — company-level guard; the "cash dividends paid" row is dropped when the primary
                 figure already IS the cash figure (dividendBasis === 'cash'), so the same number
                 never appears twice under two labels */
+/* Row order follows the accounting statement, not the CORE/EXTENDED provenance split:
+   revenue → total revenue → cost → gross → tax & surcharges → opex lines → operating profit
+   → pre-tax → tax → net income. 营业总收入 only has a value for SGCC; elsewhere it is "—". */
 const MV_GROUPS = [
-  { id: 'income', rows: ['revenue', 'cogs', { k: 'gross', derived: 'gross' }, 'opInc', 'rd', 'sga', 'pbt', 'tax', 'netInc',
-    'totalRevenue', 'taxAndSurcharges', 'finExpense', 'investmentIncome', 'interestExpense'] },
+  { id: 'income', rows: ['revenue', 'totalRevenue', 'cogs', { k: 'gross', derived: 'gross' },
+    'taxAndSurcharges', 'sga', 'rd', 'finExpense', 'interestExpense', 'investmentIncome',
+    'opInc', 'pbt', 'tax', 'netInc'] },
   { id: 'shareholder', rows: [
     'dividendsTotal',
     'dividendsToParent',

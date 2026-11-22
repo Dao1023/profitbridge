@@ -26,9 +26,11 @@ export const EXTENDED = {
   cashflow: ['finCashFlow'],
 };
 
-/* 渲染 / 覆盖表用的全量顺序：CORE 在前、EXTENDED 在后（与 app.js 的 MV_GROUPS 行序一致）。 */
+/* 渲染 / 覆盖表用的全量顺序：按会计科目顺序（利润表 = 营收 → 成本 → 毛利 → 费用 → 营业利润
+   → 税前 → 所得税 → 净利），与 app.js 的 MV_GROUPS 行序逐项一致。 */
 export const GROUPS = {
-  income: [...CORE.income, ...EXTENDED.income],
+  income: ['revenue', 'totalRevenue', 'cogs', 'gross', 'taxAndSurcharges', 'sga', 'rd',
+    'finExpense', 'interestExpense', 'investmentIncome', 'opInc', 'pbt', 'tax', 'netInc'],
   shareholder: [...CORE.shareholder],
   balance: [...CORE.balance, ...EXTENDED.balance],
   cashflow: ['ocf', 'capex', 'icf', ...EXTENDED.cashflow, 'dividendsPaid', 'buyback'],

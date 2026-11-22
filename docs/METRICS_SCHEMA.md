@@ -48,22 +48,27 @@
 
 ### 2.1 `income`（合并利润表）
 
+> 行序按会计顺序（`app.js` 的 `MV_GROUPS.income` 与 `scripts/metrics_schema.mjs` 的 `GROUPS.income`
+> 逐项一致）：营业收入 → 营业总收入 → 营业成本 → 毛利润 → 税金及附加 → 销售及管理费用 → 研发费用
+> → 财务费用 → 其中：利息费用 → 投资收益 → 营业利润 → 税前利润 → 所得税 → 净利润（归母）。
+> `营业总收入` 只有 SGCC 有值，其余公司该行显示 `—`（预期，不是缺数）。
+
 | 字段 | 中文 | 说明 |
 | --- | --- | --- |
 | `revenue` | 营业收入 | SGCC 取「营业收入」（**不含**营业总收入口径）；A 股 `TOTAL_OPERATE_INCOME`；港股「营运收入」 |
 | `totalRevenue` | 营业总收入 | 扩展字段。仅 SGCC（营业总收入 = 营业收入 + 利息/已赚保费/手续费等） |
 | `cogs` | 营业成本 | A 股 `OPERATE_COST`；港股「营运支出」 |
-| `gross` | 毛利 | **A 股利润表不单列毛利** → SGCC / 600887 记 `null`，毛利率由 营收−营业成本 现算 |
-| `opInc` | 营业利润 | |
-| `rd` | 研发费用 | 港股腾讯只在附注披露 → 00700 记 `null` |
+| `gross` | 毛利 | **A 股利润表不单列毛利** → SGCC / 600887 记 `null`，页面按 营收 − 营业成本 现算（行名带 ¹ 脚注，与利润桥视图同口径） |
+| `taxAndSurcharges` | 税金及附加 | 扩展字段。仅 SGCC；FY2022 起原表重分类，跨期不可比（见 KNOWN_CAVEATS 第十二节） |
 | `sga` | 销售 + 管理费用 | 聚合字段：`sellingExpenses + adminExpenses`（SGCC）/ `sale + admin`（A 股）/ 销售及分销 + 行政开支（港股） |
+| `rd` | 研发费用 | 港股腾讯只在附注披露 → 00700 记 `null` |
+| `finExpense` | 财务费用 | 扩展字段。仅 SGCC |
+| `interestExpense` | 其中：利息费用 | 扩展字段。仅 SGCC；FY2021 / FY2022 原表无该明细行 → `null` |
+| `investmentIncome` | 投资收益 | 扩展字段。仅 SGCC |
+| `opInc` | 营业利润 | |
 | `pbt` | 利润总额 | |
 | `tax` | 所得税费用 | **不含**「税金及附加」 |
 | `netInc` | 净利润（归母） | 全部 6 家统一为**归母**口径（SGCC = 归属于母公司所有者的净利润；600887 `PARENT_NETPROFIT`；00700 `HOLDER_PROFIT`；005930 `지배주주순이익`）。分红率的分母就是它 |
-| `taxAndSurcharges` | 税金及附加 | 扩展字段。仅 SGCC；FY2022 起原表重分类，跨期不可比（见 KNOWN_CAVEATS 第十二节） |
-| `finExpense` | 财务费用 | 扩展字段。仅 SGCC |
-| `investmentIncome` | 投资收益 | 扩展字段。仅 SGCC |
-| `interestExpense` | 其中：利息费用 | 扩展字段。仅 SGCC；FY2021 / FY2022 原表无该明细行 → `null` |
 
 ### 2.2 `shareholder`（股东回报 · 2026-11 新增组）
 
