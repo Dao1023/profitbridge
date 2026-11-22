@@ -76,6 +76,7 @@ const I18N = {
     mvStateNote: 'There is no "profit remittance" account in corporate statements. For an issuer 100% owned by the state (SGCC / 国务院国资委) the only auditable proxy is "distributions to owners" in the statement of changes in equity, parent column — shown here as declared, not estimated.',
     mvStateDisclaimer: 'National capital gains (国有资本收益, the fiscal-budget item) is not an account in corporate financial statements — a full-text search of all six SGCC annual reports returns 0 hits. It is deliberately not modelled here.',
     mvDivBasis: 'Dividend basis: ',
+    mvGrossNote: 'Gross profit = revenue − cost of revenue (the source does not present gross profit as a separate line; same basis as the profit-bridge view); the JSON keeps null.',
   },
   zh: {
     appTitle: '财报可视化', langBtn: 'English',
@@ -147,6 +148,7 @@ const I18N = {
     mvStateNote: '企业报表没有「利润上缴」科目；对国有独资公司（国家电网，国务院国资委 100% 持股），唯一可审计的代理口径是所有者权益变动表「对所有者的分配」的归母列，按宣告口径列示、不做估算。',
     mvStateDisclaimer: '国有资本收益属财政预算科目（国有资本经营预算），企业财务报表无此科目——六份国家电网年报全文检索 0 命中，本站明确不入库。',
     mvDivBasis: '分红口径：',
+    mvGrossNote: '毛利 = 营业收入 − 营业成本（原表不单列毛利，判断与利润桥视图同口径）；JSON 存 null',
   },
 };
 
@@ -1412,7 +1414,7 @@ function renderBarSelect() {
                 figure already IS the cash figure (dividendBasis === 'cash'), so the same number
                 never appears twice under two labels */
 const MV_GROUPS = [
-  { id: 'income', rows: ['revenue', 'cogs', 'gross', 'opInc', 'rd', 'sga', 'pbt', 'tax', 'netInc',
+  { id: 'income', rows: ['revenue', 'cogs', { k: 'gross', derived: 'gross' }, 'opInc', 'rd', 'sga', 'pbt', 'tax', 'netInc',
     'totalRevenue', 'taxAndSurcharges', 'finExpense', 'investmentIncome', 'interestExpense'] },
   { id: 'shareholder', rows: [
     'dividendsTotal',
@@ -1441,14 +1443,18 @@ function metricsEntry() {
 }
 
 const mvDiv = (a, b) => (a == null || b == null || b === 0) ? null : a / b;
+/* 毛利：原表单列时取原值；A 股 / 部分报表不单列毛利 → 营收 − 营业成本（与利润桥视图同口径），
+   只在前端现算，JSON 里 gross 保持 null（数据层不写派生值）。 */
+function mvGross(y) {
+  const I = y.income || {};
+  if (I.gross != null) return I.gross;
+  if (I.revenue != null && I.cogs != null) return I.revenue - I.cogs;
+  return null;
+}
 function mvRatio(id, y) {
   const I = y.income || {}, B = y.balance || {}, C = y.cashflow || {}, P = y.perShare || {};
   switch (id) {
-    case 'grossMargin': {
-      const g = I.gross != null ? I.gross
-        : (I.revenue != null && I.cogs != null ? I.revenue - I.cogs : null); // A 股不单列毛利
-      return mvDiv(g, I.revenue);
-    }
+    case 'grossMargin': return mvDiv(mvGross(y), I.revenue);
     case 'opMargin': return mvDiv(I.opInc, I.revenue);
     case 'netMargin': return mvDiv(I.netInc, I.revenue);
     case 'roe': return mvDiv(I.netInc, B.equityParent);       // 净利 / 期末归母权益
@@ -1478,6 +1484,7 @@ function mvStateDividend(e, y) {
   return e && e.stateOwnership === 1 && S.dividendsToParent != null ? S.dividendsToParent : null;
 }
 function mvVal(row, y, gid, e) {
+  if (row.derived === 'gross') return mvGross(y);
   if (row.derived === 'payout') return mvPayout(y);
   if (row.derived === 'stateDividend') return mvStateDividend(e, y);
   const src = (row.from ? y[row.from] : y[gid]) || {};
@@ -1516,7 +1523,7 @@ function renderMetrics() {
       for (const f of (n.fields || [])) fnNo.set(y.end + '|' + f, fnList.length);
     }
   }
-  let body = ''; let hasSh = false;
+  let body = ''; let hasSh = false; let grossDerived = false;
   for (const g of MV_GROUPS) {
     // a group is shown when ANY of its rows has a value for ANY year; inside a shown group every
     // row keeps its place, so a source that never discloses a line (KO liabilities, SGCC buybacks)
@@ -1527,7 +1534,16 @@ function renderMetrics() {
     if (g.id === 'shareholder') hasSh = true;
     body += '<tr class="mv-group"><td class="mv-name">' + t('mvGroups')[g.id] + '</td><td colspan="' + years.length + '"></td></tr>';
     rows.forEach((r, i) => {
-      body += '<tr><td class="mv-name">' + (t('mvFields')[r.k] || t('mvRatios')[r.k]) + '</td>' +
+      // 行级脚注：毛利这一行只要有任一年是按 营收−营业成本 现算出来的，行名后加 ¹
+      // （years[].notes 是 per-year 的，装不下这种「整行口径」说明）。
+      const derivedHere = r.derived === 'gross' && years.some((y) => {
+        const I = y.income || {};
+        return I.gross == null && I.revenue != null && I.cogs != null;
+      });
+      if (derivedHere) grossDerived = true;
+      const label = t('mvFields')[r.k] || t('mvRatios')[r.k];
+      body += '<tr><td class="mv-name">' + label +
+        (derivedHere ? '<sup class="mv-fn" title="' + mvEsc(t('mvGrossNote')) + '">¹</sup>' : '') + '</td>' +
         years.map((y, j) => {
           const v = cols[i][j];
           const no = fnNo.get(y.end + '|' + r.k);
@@ -1552,9 +1568,15 @@ function renderMetrics() {
     '<th>' + t('mvYear') + y.fiscalYear + '<span class="mv-end">' + y.end + '</span></th>').join('') + '</tr>';
   const src = e.sourceUrl
     ? '<a href="' + e.sourceUrl + '" target="_blank" rel="noopener">' + mvEsc(e.name || state.company) + '</a>' : mvEsc(e.name || '');
-  const fnBlock = fnList.length
-    ? '<div class="mv-fn-list">' + fnList.map((n, i) =>
-      '<div><sup class="mv-fn">' + (i + 1) + '</sup>' + mvEsc(n.text) + '</div>').join('') + '</div>'
+  // footnotes: numbered year notes (years[].notes) plus the row-level gross ¹ note appended
+  // last; the two marker systems never collide because the gross note is always ¹.
+  const fnItems = fnList.map((n, i) =>
+    '<div><sup class="mv-fn">' + (i + 1) + '</sup>' + mvEsc(n.text) + '</div>');
+  if (grossDerived) {
+    fnItems.push('<div><sup class="mv-fn">¹</sup>' + mvEsc(t('mvGrossNote')) + '</div>');
+  }
+  const fnBlock = fnItems.length
+    ? '<div class="mv-fn-list">' + fnItems.join('') + '</div>'
     : '';
   const divNote = lang === 'en' ? (e.dividendBasisNoteEn || '') : (e.dividendBasisNote || '');
   wrap.innerHTML = '<table class="mv-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>' + fnBlock +

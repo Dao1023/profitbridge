@@ -107,6 +107,12 @@ for (const [tk, c] of Object.entries(MET.companies || {})) {
   ok('SGCC 是国有独资（stateOwnership=1）', sg.stateOwnership === 1, String(sg.stateOwnership));
   ok('SGCC 分红为宣告口径', sg.dividendBasis === 'declared', sg.dividendBasis);
   ok('SGCC 有分红口径说明（中英）', !!(sg.dividendBasisNote && sg.dividendBasisNoteEn));
+  // 毛利派生值只在前端现算：原表不单列毛利的公司，JSON 里必须始终是 null
+  for (const tk of ['SGCC', '600887.SS']) {
+    ok(`${tk} 各年 income.gross 均为 null（毛利派生值不入库）`,
+      MET.companies[tk].years.every((y) => y.income.gross === null),
+      JSON.stringify(MET.companies[tk].years.map((y) => y.income.gross)));
+  }
   for (const tk of ALL_TICKERS) {
     const c = MET.companies[tk] || {};
     ok(`${tk} dividendBasis 合法`, [ 'cash', 'declared', null ].includes(c.dividendBasis === undefined ? null : c.dividendBasis), String(c.dividendBasis));
@@ -707,6 +713,7 @@ try {
         const label = c0.querySelector('sup') ? c0.childNodes[0].textContent : c0.textContent;
         out.rows[label] = { cells: [...tr.children].slice(1).map((c) => c.textContent),
           sups: [...tr.children].slice(1).map((c) => (c.querySelector('sup') || {}).textContent || ''),
+          nameSup: (c0.querySelector('sup') || {}).textContent || '',
           title: c0.title || '' };
       }
       return out;
@@ -724,6 +731,21 @@ try {
   ok('SGCC 2025 其中归母 = 36,147.30', (sgccRows.rows[F.dividendsToParent] || {}).cells?.[5] === '36,147.30');
   ok('SGCC 2025 利润上缴 = 36,147.30（= 归母分红）', (sgccRows.rows[F.stateDividend] || {}).cells?.[5] === '36,147.30',
     JSON.stringify((sgccRows.rows[F.stateDividend] || {}).cells));
+  // 毛利润：JSON 里 gross 必须是 null（派生值不入库），页面按 营收 − 营业成本 现算，行名带 ¹ 脚注
+  {
+    const sg25 = MET.companies.SGCC.years.at(-1).income;
+    const wantGross = (sg25.revenue - sg25.cogs).toLocaleString('en-US',
+      { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    ok('SGCC 毛利润行在页面现算 = 营收 − 营业成本',
+      (sgccRows.rows[F.gross] || {}).cells?.[5] === wantGross,
+      `page=${(sgccRows.rows[F.gross] || {}).cells?.[5]} calc=${wantGross}`);
+    ok('SGCC 毛利润行带行级脚注 ¹', (sgccRows.rows[F.gross] || {}).nameSup === '¹',
+      JSON.stringify((sgccRows.rows[F.gross] || {}).nameSup));
+    ok('SGCC 表尾脚注解释毛利现算口径',
+      sgccRows.fns.includes('毛利 = 营业收入 − 营业成本'), sgccRows.fns.slice(0, 200));
+    ok('SGCC 毛利润行显示的是精确值而非 —', !/^—/.test((sgccRows.rows[F.gross] || {}).cells?.[5] || '—'),
+      (sgccRows.rows[F.gross] || {}).cells?.[5]);
+  }
   // 2021：as-reported 归母空白 → 显示 —（不是 0），且带脚注上标；合计 3,516.06
   const c21 = sgccRows.rows[F.dividendsToParent].cells[1];
   ok('SGCC 2021 归母分红显示为 —（不显示 0）', /^—/.test(c21) && !/^0/.test(c21), c21);
