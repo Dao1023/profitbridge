@@ -360,16 +360,17 @@ function qoqText(name) {
 }
 
 function q() {
-  const c = DATA.companies[state.company];
-  const i = state.qIndex == null ? c.quarters.length - 1 : state.qIndex;
-  return c.quarters[i];
+  // single source of truth for the active period: curQIndex() clamps a stale
+  // qIndex (deep link / direct state.company switch) to the latest period, so
+  // render() never sees undefined here.
+  return DATA.companies[state.company].quarters[curQIndex()];
 }
 function prev(offset) {
   /* comparable prior period: same period class (annual row vs single quarter),
      sane day-gap (annual ↔ annual: 300–400d; quarter ↔ quarter: 70–250d).
      Prevents comparing across the annual/interim boundary in hk-mixed series. */
   const qs = DATA.companies[state.company].quarters;
-  const curIdx = state.qIndex == null ? qs.length - 1 : state.qIndex;
+  const curIdx = curQIndex();
   const i = curIdx - (offset || 0);
   if (i < 0 || i >= qs.length) return null;
   const cur = qs[curIdx], p = qs[i];
@@ -2011,7 +2012,13 @@ function applyHash() {
 }
 
 /* ---- bottom timeline ---- */
-function curQIndex() { return state.qIndex == null ? DATA.companies[state.company].quarters.length - 1 : state.qIndex; }
+function curQIndex() {
+  const n = DATA.companies[state.company].quarters.length;
+  const i = state.qIndex == null ? n - 1 : state.qIndex;
+  // clamp a stale index (deep link / direct state switch across companies) so the
+  // timeline, q(), prev() and render() all agree on the latest available period
+  return (i >= 0 && i < n) ? i : n - 1;
+}
 function setQuarter(i) {
   const n = DATA.companies[state.company].quarters.length;
   i = Math.max(0, Math.min(n - 1, i));
