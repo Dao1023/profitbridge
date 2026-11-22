@@ -22,7 +22,10 @@ const SHOTS = path.join(ROOT, 'tests', '.shots');   // 截图交付目录（.git
 fs.mkdirSync(SHOTS, { recursive: true });
 
 const MAIN = ['MSFT', 'KO', '600887.SS', '00700.HK', '005930.KS'];
-const ALL_TICKERS = [...MAIN, 'SGCC'];
+const WAVE2 = ['600519.SS', '300750.SZ', '002594.SZ', '688256.SS', '688795.SS', '002415.SZ', '000063.SZ',
+  '000333.SZ', '000100.SZ', '601360.SS', '688825.SS', '688981.SS', '603866.SH',
+  '00941.HK', '01398.HK', '03968.HK', '00728.HK', '00762.HK'];
+const ALL_TICKERS = [...MAIN, 'SGCC', ...WAVE2];
 const isShr = (f) => OWNER[f] === 'shareholder';
 /* 分红率与前端 mvPayout 同一条公式；测试里独立重算，不读前端实现。 */
 function payout(y) {
@@ -226,7 +229,7 @@ async function verifyA() {
   const tk = '600887.SS';
   const c = MET.companies[tk];
   const inc = (await getJSON(emUrl('RPT_F10_FINANCE_GINCOME', '(SECUCODE="600887.SH")'), EM)).result.data;
-  const bal = (await getJSON(emUrl('RPT_F10_FINANCE_GBALANCE', '(SECUCODE="600887.SH")'), EM)).result.data;
+  const bal = (await getJ(emUrl('RPT_F10_FINANCE_GBALANCE', '(SECUCODE="600887.SH")'), EM)).result.data;
   const cf = (await getJSON(emUrl('RPT_F10_FINANCE_GCASHFLOW', '(SECUCODE="600887.SH")'), EM)).result.data;
   const row = (rows, end) => rows.filter((r) => r.REPORT_TYPE === '年报' && String(r.REPORT_DATE).startsWith(end))
     .sort((a, b) => String(b.UPDATE_DATE).localeCompare(String(a.UPDATE_DATE)))[0] || null;
@@ -504,7 +507,7 @@ async function verifyDividends() {
   // --- 600887.SS：东财 RPT_SHAREBONUS_DET，每 10 股 → 总额 ---
   {
     const tk = '600887.SS';
-    const rows = (await getJSON(emUrl('RPT_SHAREBONUS_DET', '(SECURITY_CODE="600887")'), EM)).result.data;
+    const rows = (await getJ(emUrl('RPT_SHAREBONUS_DET', '(SECURITY_CODE="600887")'), EM)).result.data;
     ok('600887 分红明细行数 ≥ 20', rows.length >= 20, String(rows.length));
     const impl = rows.filter((r) => r.ASSIGN_PROGRESS === '实施分配');
     ok('600887 只把「实施分配」计入（其余进度不计）', impl.length < rows.length, `${impl.length}/${rows.length}`);
@@ -535,7 +538,7 @@ async function verifyDividends() {
   // --- 00700.HK：东财 RPT_HKF10_MAIN_DIVBASIC，只有每股派息，没有逐期股本 ---
   {
     const tk = '00700.HK';
-    const rows = (await getJSON(emUrl('RPT_HKF10_MAIN_DIVBASIC', '(SECURITY_CODE="00700")(IS_BFP="0")', 5000, 'NOTICE_DATE'), EM)).result.data;
+    const rows = (await getJ(emUrl('RPT_HKF10_MAIN_DIVBASIC', '(SECURITY_CODE="00700")(IS_BFP="0")', 5000, 'NOTICE_DATE'), EM)).result.data;
     ok('00700 分红明细行数 ≥ 20', rows.length >= 20, String(rows.length));
     const cash = rows.filter((r) => /^每股派港币/.test(r.PLAN_EXPLAIN || ''));
     ok('00700 有非现金「特别分配」（京东/美团实物股，不计入现金分红）',
@@ -586,6 +589,164 @@ async function verifyDividends() {
   }
 }
 
+/* ------------- ③d 第二批 18 家：A 股每 10 股换算 / 港股 DPS×股本 / stateStake 复算 ------------- */
+const WAVE2_A = [
+  ['600519.SS', '600519', '600519.SH'],
+  ['300750.SZ', '300750', '300750.SZ'],
+  ['002594.SZ', '002594', '002594.SZ'],
+  ['688256.SS', '688256', '688256.SH'],
+  ['688795.SS', '688795', '688795.SH'],
+  ['002415.SZ', '002415', '002415.SZ'],
+  ['000063.SZ', '000063', '000063.SZ'],
+  ['000333.SZ', '000333', '000333.SZ'],
+  ['000100.SZ', '000100', '000100.SZ'],
+  ['601360.SS', '601360', '601360.SH'],
+  ['688825.SS', '688825', '688825.SH'],
+  ['688981.SS', '688981', '688981.SH'],
+  ['603866.SH', '603866', '603866.SH'],
+];
+const WAVE2_HK = [
+  ['00941.HK', '00941', null],
+  ['01398.HK', '01398', 356406257089],
+  ['03968.HK', '03968', 25219845601],
+  ['00728.HK', '00728', 91507138699],
+  ['00762.HK', '00762', 30598124345],
+];
+/* 除净日 HKD→CNY（ECB euro reference rates，EUR/CNY ÷ EUR/HKD），与 sources 里的数字一致 */
+const W2FX = {
+  '2022-09-06': 0.8865549453369604,
+  '2023-06-07': 0.9072463078222993,
+  '2024-06-06': 0.9276631350688838,
+};
+const r4 = (v) => Math.round(v * 1e4) / 1e4;
+
+async function getJ(u) {
+  for (let i = 0; ; i++) {
+    try { return await getJSON(u, EM); } catch (e) { if (i >= 2) throw e; await sleep(700); }
+  }
+}
+
+async function verifyWave2() {
+  // --- A 股 13 家：分红明细（每 10 股）+ 当年年末实收资本 ---
+  for (const [tk, code, secucode] of WAVE2_A) {
+    const rows = (await getJ(emUrl('RPT_SHAREBONUS_DET', `(SECURITY_CODE="${code}")`), EM)).result?.data || [];
+    const bal = (await getJ(emUrl('RPT_F10_FINANCE_GBALANCE', `(SECUCODE="${secucode}")`), EM)).result?.data || [];
+    const shareCap = {};
+    for (const b of bal) {
+      if (b.REPORT_TYPE === '年报' && b.SHARE_CAPITAL != null) shareCap[String(b.REPORT_DATE).slice(0, 4)] = Number(b.SHARE_CAPITAL);
+    }
+    const impl = rows.filter((r) => r.ASSIGN_PROGRESS === '实施分配');
+    if (rows.length) ok(`${tk} 只把「实施分配」计入（其余进度不计）`, impl.length <= rows.length, `${impl.length}/${rows.length}`);
+    for (const y of MET.companies[tk].years) {
+      const yr = y.end.slice(0, 4);
+      const mine = impl.filter((r) => String(r.REPORT_DATE).startsWith(yr) && r.PRETAX_BONUS_RMB != null);
+      // 含送转的方案里 TOTAL_SHARES 已是送转后口径 → 改用当年年末实收资本作基数
+      const baseOf = (r) => (Number(r.BONUS_IT_RATIO) > 0 ? shareCap[yr] : Number(r.TOTAL_SHARES));
+      const totalOf = (r) => (Number(r.PRETAX_BONUS_RMB) / 10) * baseOf(r) / 1e6;
+      const want = mine.length ? r2(mine.reduce((a, r) => a + r2(totalOf(r)), 0)) : null;
+      const dpsWant = mine.length ? r2(mine.reduce((a, r) => a + Number(r.PRETAX_BONUS_RMB) / 10, 0)) : null;
+      ok(`${tk} ${y.end} dividendsTotal 可复现（每10股÷10×股本，只计实施分配）`,
+        y.shareholder.dividendsTotal === want, `json=${y.shareholder.dividendsTotal} calc=${want}`);
+      ok(`${tk} ${y.end} dps == Σ(每10股派息)/10`, y.perShare.dps === dpsWant, `json=${y.perShare.dps} calc=${dpsWant}`);
+      ok(`${tk} ${y.end} dividendsToParent = dividendsTotal（发行人层面无少数股东）`,
+        y.shareholder.dividendsToParent === y.shareholder.dividendsTotal);
+      coveredShr.add(shrKey(tk, y.end, 'dividendsTotal'));
+      coveredShr.add(shrKey(tk, y.end, 'dividendsToParent'));
+    }
+    if (rows.some((r) => Number(r.BONUS_IT_RATIO) > 0)) {
+      ok(`${tk} 有送转年度（必须改用年末实收资本）`, true);
+    }
+  }
+
+  // --- 港股 5 家：DPS × 股数（00941 无逐期股本 → null，不估算） ---
+  for (const [tk, code, shares] of WAVE2_HK) {
+    const rows = (await getJ(emUrl('RPT_HKF10_MAIN_DIVBASIC', `(SECURITY_CODE="${code}")(IS_BFP="0")`, 5000, 'NOTICE_DATE'), EM)).result?.data || [];
+    ok(`${tk} 港股分红明细行数 ≥ 4`, rows.length >= 4, String(rows.length));
+    for (const y of MET.companies[tk].years) {
+      const yr = y.end.slice(0, 4);
+      const mine = rows.filter((r) => String(r.YEAR) === yr);
+      let sum = 0; let bad = null;
+      for (const r of mine) {
+        const m = /每股派(人民币|港币)([\d.]+)元/.exec(r.PLAN_EXPLAIN || '');
+        if (!m) { bad = r.PLAN_EXPLAIN; continue; }
+        let v = Number(m[2]);
+        if (m[1] === '港币') {
+          const ex = String(r.EX_DIVIDEND_DATE || '').slice(0, 10).replace(/\//g, '-');
+          const fx = W2FX[ex];
+          ok(`${tk} ${yr} 港币派息有除净日汇率（${ex}）`, Number.isFinite(fx), ex);
+          v *= fx || 0;
+        }
+        sum += v;
+      }
+      ok(`${tk} ${yr} 每股派息全部可解析`, bad == null, bad);
+      const dpsWant = r2(sum);
+      ok(`${tk} ${y.end} dps == Σ(人民币每股派息)`, y.perShare.dps === dpsWant, `json=${y.perShare.dps} calc=${dpsWant}`);
+      if (shares == null) {
+        ok(`${tk} ${y.end} dividendsTotal 为 null（无逐期已发行股本 / 期间有回购，不估算）`,
+          y.shareholder.dividendsTotal === null, String(y.shareholder.dividendsTotal));
+        ok(`${tk} ${y.end} null 原因写在 sources 里`,
+          y.sources.some((x) => x.includes('dividendsTotal') && (x.includes('股本') || x.includes('回购'))));
+        ok(`${tk} ${y.end} 现金流「已付股息」有值（替代口径）`, typeof y.cashflow.dividendsPaid === 'number');
+      } else {
+        const want = r2((sum * shares) / 1e6);
+        ok(`${tk} ${y.end} dividendsTotal 可复现（Σ每股人民币 × ${shares} 股）`,
+          y.shareholder.dividendsTotal === want, `json=${y.shareholder.dividendsTotal} calc=${want}`);
+        ok(`${tk} ${y.end} dividendsToParent = dividendsTotal`, y.shareholder.dividendsToParent === y.shareholder.dividendsTotal);
+        // 股本与汇率都必须在 sources 里留痕
+        const line = y.sources.find((x) => x.includes('RPT_HKF10_MAIN_DIVBASIC'));
+        ok(`${tk} ${y.end} sources 写明股本`, !!(line && (line.includes('股本') || line.includes(String(shares)))), line && line.slice(-60));
+      }
+      coveredShr.add(shrKey(tk, y.end, 'dividendsTotal'));
+      coveredShr.add(shrKey(tk, y.end, 'dividendsToParent'));
+    }
+  }
+
+  // --- stateStake：回到原始股东表复算（A 股用同一发行人的 A 股十大股东） ---
+  const STAKE = [
+    ['600519.SS', '600519.SH', '茅台'],
+    ['002415.SZ', '002415.SZ', '中电海康'],
+    ['688981.SS', '688981.SH', '大唐控股'],
+    ['00941.HK', '600941.SH', '中国移动香港'],
+    ['01398.HK', '601398.SH', '中央汇金'],
+    ['03968.HK', '600036.SH', '招商局轮船'],
+    ['00728.HK', '601728.SH', '中国电信集团'],
+  ];
+  for (const [tk, secucode, key] of STAKE) {
+    const rows = (await getJ(emUrl('RPT_F10_EH_HOLDERS', `(SECUCODE="${secucode}")`, 5000, 'END_DATE'), EM)).result?.data || [];
+    const snap = rows.filter((r) => String(r.END_DATE).slice(0, 10) === '2025-12-31');
+    ok(`${tk} 股东表有 2025-12-31 快照`, snap.length >= 10, String(snap.length));
+    const hit = snap.find((r) => String(r.HOLDER_NAME || '').includes(key));
+    ok(`${tk} 股东表能定位「${key}」`, !!hit, snap.map((r) => r.HOLDER_RANK + ':' + r.HOLDER_NAME).slice(0, 5).join(' | '));
+    if (!hit) continue;
+    const st = MET.companies[tk].stateStake;
+    ok(`${tk} stateStake.ratio == 原始 HOLD_NUM_RATIO/100`,
+      st && st.ratio === r4(Number(hit.HOLD_NUM_RATIO) / 100), `json=${st && st.ratio} raw=${hit.HOLD_NUM_RATIO}`);
+    ok(`${tk} stateStake.holder == 原始 HOLDER_NAME`, st && st.holder === hit.HOLDER_NAME,
+      `${st && st.holder} vs ${hit.HOLDER_NAME}`);
+    ok(`${tk} stateStake.asOf = 2025-12-31`, st && st.asOf === '2025-12-31', st && st.asOf);
+    // 第一大股东是名义持有人（HKSCC）时不得当成实益股东
+    const top1 = snap.find((r) => Number(r.HOLDER_RANK) === 1);
+    if (/香港中央结算|HKSCC/.test(String(top1 && top1.HOLDER_NAME))) {
+      ok(`${tk} 第一大股东为名义持有人（HKSCC），未误用`, !/香港中央结算|HKSCC/.test(st.holder), st.holder);
+    }
+  }
+  // 00762：港股无股东接口 → 年报「主要股东」章节（p.79）
+  {
+    const st = MET.companies['00762.HK'].stateStake;
+    const shares = 30598124345, group = 24683896309;
+    ok('00762 stateStake.ratio == 24,683,896,309 / 30,598,124,345（年报 p.79）',
+      st && st.ratio === r4(group / shares), `json=${st && st.ratio} calc=${r4(group / shares)}`);
+    ok('00762 stateStake.source 指向 2025 年报 p.79', !!(st && /p\.79/.test(st.source)), st && st.source.slice(0, 60));
+    ok('00762 stateStake.layer = central-soe', st && st.layer === 'central-soe');
+  }
+  // 18 家都要有 stateStake 或 stateStakeNote
+  for (const [tk] of [...WAVE2_A, ...WAVE2_HK]) {
+    const c = MET.companies[tk];
+    ok(`${tk} 登记了 stateStake 或说明为非国有`, !!(c.stateStake || c.stateStakeNote));
+    if (!c.stateStake) ok(`${tk} 非国有须写明理由`, /非国有|无实际控制人|无控股股东/.test(c.stateStakeNote || ''), c.stateStakeNote);
+  }
+}
+
 verifySGCC();   // 离线：先跑，登记 coveredShr
 
 if (LIVE) {
@@ -595,9 +756,11 @@ if (LIVE) {
     await verifyA();
     await verifyHK();
     await verifyKR();
+    await verifyWave2();
     await verifyDividends();
   } catch (e) {
     ok('联网复取（SEC/东财/Naver）可用', false, String(e && e.message));
+    if (process.env.DEBUG) console.error(e && e.stack);
   }
 }
 
@@ -757,6 +920,41 @@ try {
     JSON.stringify(txRows.rows[F.dividendsPaid].cells));
   ok('00700 现金分红总额全部为 —（无逐期股本，不估算）',
     txRows.rows[F.dividendsTotal].cells.every((c) => /^—/.test(c)), JSON.stringify(txRows.rows[F.dividendsTotal].cells));
+
+  // —— 第二批：A 股（600519）与港股（01398）股东回报组 / 利润上缴 / 脚注 ——
+  const numOf = (s) => Number(String(s == null ? '' : s).replace(/,/g, ''));
+  for (const [tk, stakeKey] of [['600519.SS', '茅台'], ['01398.HK', '中央汇金']]) {
+    const co = MET.companies[tk];
+    const ly = co.years[co.years.length - 1];
+    const r = await rowsOf(tk);
+    ok(`${tk} 有「股东回报」分组行`, r.groups.includes(G.shareholder), JSON.stringify(r.groups));
+    ok(`${tk} 现金分红总额有数值（不是 —）`, numOf((r.rows[F.dividendsTotal] || {}).cells.slice(-1)[0]) > 0,
+      JSON.stringify((r.rows[F.dividendsTotal] || {}).cells));
+    const cell = numOf((r.rows[F.stateDividend] || {}).cells.slice(-1)[0]);
+    const want = ly.shareholder.dividendsToParent * co.stateStake.ratio;
+    ok(`${tk} 利润上缴行有值且 = 归母分红 × ${(co.stateStake.ratio * 100).toFixed(2)}%`,
+      Math.abs(cell - want) < 0.02, `page=${cell} calc=${want.toFixed(2)}`);
+    ok(`${tk} 利润上缴行 tooltip 含持股方名称`, ((r.rows[F.stateDividend] || {}).title || '').includes(stakeKey),
+      (r.rows[F.stateDividend] || {}).title);
+    ok(`${tk} 表尾脚注含持股方名称与基准日`,
+      r.note.includes(stakeKey) && r.note.includes(co.stateStake.asOf), r.note.slice(-160));
+    ok(`${tk} 表尾脚注写明「下限」口径`, r.note.includes('下限'), r.note.slice(-200));
+  }
+  // 民营公司（002594）：利润上缴行必须为 —，且说明不是国有控股
+  {
+    const r = await rowsOf('002594.SZ');
+    ok('002594 利润上缴行为 —（非国有控股，不估算）',
+      /^—/.test((r.rows[F.stateDividend] || {}).cells.slice(-1)[0] || ''), JSON.stringify((r.rows[F.stateDividend] || {}).cells));
+    ok('002594 利润上缴行 tooltip 说明未登记国有控股股东',
+      /未登记|民营|无实际控制人/.test((r.rows[F.stateDividend] || {}).title || ''), (r.rows[F.stateDividend] || {}).title);
+  }
+  // 00941：无逐期股本 → 现金分红总额全 —，但已付现金股利行有值
+  {
+    const r = await rowsOf('00941.HK');
+    ok('00941 现金分红总额全部为 —（无逐期股本，不估算）',
+      (r.rows[F.dividendsTotal] || { cells: [] }).cells.every((c) => /^—/.test(c)), JSON.stringify((r.rows[F.dividendsTotal] || {}).cells));
+    ok('00941 显示「已付现金股利」行', !!r.rows[F.dividendsPaid], Object.keys(r.rows).join('|'));
+  }
 
   // 截图（交付物，tests/.shots/ 已被 gitignore）
   const clipOf = async (sel) => evl(`(() => { const el = document.querySelector(${JSON.stringify(sel)});
