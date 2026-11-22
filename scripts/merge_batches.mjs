@@ -153,10 +153,23 @@ if (ONLY_BATCH) {
   // tax 只是数据字段（app.js 不读它做布局/派生), 扩展此列表不改变任何渲染; 仅允许 staging 填空白槽位。
   const FIELDS8 = ['gross', 'opInc', 'rd', 'sga', 'tax'];
   const report8 = { mode: `${ONLY_BATCH}-only`, added: [], skipped: [], guardFails: {}, note: `non-destructive: only ${ONLY_BATCH} applied onto on-disk profit.json; other batches/fixups/meta NOT re-run` };
+  // New-company support (batch17+): a results[] entry may declare `newCompany` (company-level metadata,
+  // no quarters) and `registry` (data/companies.json row). Periods still come from newQuarters and pass
+  // the same value/additivity gate below; any other unknown ticker still hard-fails.
+  let registryAdded = 0;
   for (const r of bx.results) {
-    const co = profit.companies[r.ticker];
-    if (!co) { console.error(`${ONLY_BATCH}: company ${r.ticker} not found in profit.json`); process.exit(1); }
+    let co = profit.companies[r.ticker];
+    if (!co) {
+      if (!r.newCompany) { console.error(`${ONLY_BATCH}: company ${r.ticker} not found in profit.json (and no newCompany)`); process.exit(1); }
+      co = profit.companies[r.ticker] = { ...JSON.parse(JSON.stringify(r.newCompany)), quarters: [] };
+      report8.added.push({ ticker: r.ticker, end: null, market: `${ONLY_BATCH}-newcompany` });
+    }
     if (!Array.isArray(co.quarters)) co.quarters = [];
+    if (r.registry && !registry.some(x => x.ticker === r.ticker)) {
+      registry.push({ ticker: r.ticker, ...JSON.parse(JSON.stringify(r.registry)) });
+      registryAdded++;
+      report8.added.push({ ticker: r.ticker, end: null, market: `${ONLY_BATCH}-registry` });
+    }
     for (const nq of r.newQuarters) {
       if (!nq || !nq.end) { console.error(`${ONLY_BATCH}: ${r.ticker} newQuarter without end`); process.exit(1); }
       const ex = co.quarters.find(q => q.end === nq.end);
@@ -219,6 +232,7 @@ if (ONLY_BATCH) {
   fs.mkdirSync(path.join(ROOT, 'tmp-merge'), { recursive: true });
   writeJsonOut('profit.json', profit);
   writeMirrorOut(profit);
+  if (registryAdded) writeJsonOut('companies.json', registry); // only when a batch declares a new registry row
   fs.writeFileSync(path.join(ROOT, 'tmp-merge', 'merge_report.json'), JSON.stringify(report8, null, 2) + '\n');
   console.log(`${ONLY_BATCH.toUpperCase()}-ONLY WROTE profit.json; totalCompanies=` + Object.keys(profit.companies).length +
     ' totalQuarters=' + Object.values(profit.companies).reduce((s, e) => s + e.quarters.length, 0) +
@@ -638,9 +652,17 @@ const PATCHED = new Set([...patchMain.applied, ...patchMain.already].map(p => `$
 for (const { n: bn, data } of BATCHES.filter(x => x.n >= 7)) {
   const before = report.added.length;
   for (const r of data.results || []) {
-    const co = profit.companies[r.ticker];
-    if (!co) { console.error(`batch${bn}: company ${r.ticker} not found in profit.json`); process.exit(1); }
+    let co = profit.companies[r.ticker];
+    if (!co && r.newCompany) {
+      co = profit.companies[r.ticker] = { ...JSON.parse(JSON.stringify(r.newCompany)), quarters: [] };
+      report.added.push({ ticker: r.ticker, end: null, market: `batch${bn}-newcompany` });
+    }
+    if (!co) { console.error(`batch${bn}: company ${r.ticker} not found in profit.json (and no newCompany)`); process.exit(1); }
     if (!Array.isArray(co.quarters)) co.quarters = [];
+    if (r.registry && !registry.some(x => x.ticker === r.ticker)) {
+      registry.push({ ticker: r.ticker, ...JSON.parse(JSON.stringify(r.registry)) });
+      report.added.push({ ticker: r.ticker, end: null, market: `batch${bn}-registry` });
+    }
     for (const nq of r.newQuarters || []) {
       if (!nq || !nq.end) { console.error(`batch${bn}: ${r.ticker} has newQuarter without end`); process.exit(1); }
       const existing = co.quarters.find(q => q.end === nq.end);

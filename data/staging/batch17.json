@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "batch": 17,
+    "description": "新增国家电网有限公司（SGCC）FY2020–FY2025 六个年度（CNY-M，合并口径，as reported）。非上市央企，无股票代码；来源为上海清算所披露的经审计年度报告（标准无保留意见），无需 enrich、无既有期改写。",
+    "generatedAt": "2026-11-22",
+    "fxSource": "frankfurter.app (ECB) USD→CNY period-end spot",
+    "sources": [
+      "SGCC 2020年年度报告（上清所 p20 合并利润表，信永中和，标准无保留）：https://www.shclearing.com.cn/xxpl/cwbg/nb/202104/t20210430_861325.html",
+      "SGCC 2021年度报告（p38）：https://www.shclearing.com.cn/xxpl/cwbg/nb/202204/t20220429_1048012.html",
+      "SGCC 2022年度报告（p35，纯扫描件，OCR+目视复核）：https://www.shclearing.com.cn/xxpl/cwbg/nb/202304/t20230428_1231955.html",
+      "SGCC 2023年年度报告（p27）：https://www.shclearing.com.cn/xxpl/cwbg/nb/202405/t20240501_1412553.html",
+      "SGCC 2024年年度报告（p33）：https://www.shclearing.com.cn/xxpl/cwbg/nb/202504/t20250430_1584003.html",
+      "SGCC 2025年年度报告（p45，中审众环）：https://www.shclearing.com.cn/xxpl/cwbg/nb/202604/t20260430_1779212.html",
+      "FX: https://api.frankfurter.app/2020-12-31?from=USD&to=CNY … 2025-12-31（2022/2023 的 12-31 无报价，取前一营业日）"
+    ],
+    "rounding": "FY2022 gross / FY2024 sga 与表内两位小数相减差 0.01（元→百万元独立舍入），取 JSON 元级值。"
+  },
+  "results": [
+    {
+      "ticker": "SGCC",
+      "class": "A",
+      "newCompany": {
+        "name": "State Grid Corporation of China 国家电网有限公司",
+        "currency": "CNY-M",
+        "frequency": "annual",
+        "companyType": "private",
+        "quarters": [],
+        "notes": "未上市中央国有企业（无股票代码）；数据取自银行间债市发行人在上海清算所逐年披露的经审计年度报告（合并口径），FY2020–FY2025 六年均为标准无保留意见。CNY-M，一律 as reported（各年自身年报「本年金额」；不用次年年报的重述值，以保证同一年「营收−成本−费用−税」闭合）。netInc 为归属于母公司所有者的净利润（非含少数股东的净利润）；tax 为所得税费用，不含「税金及附加」（站内无该字段）；无分部披露。跨年重述（仅提示，不改数）：FY2021 归母 46,041.12→49,973.17（+3,932.05，+8.5%）、FY2022 55,104.99→61,109.83（+6,004.84，+10.9%）、FY2023 65,159.36→64,253.65（−905.71）、FY2024 72,274.48→72,936.56（+662.08）。因此 FY2022→FY2023 归母增速 18.2%（as reported）中约 12–13pp 来自重述（全重述口径 +5.1%；仅重述基期则 6.6%）。税金及附加口径自 FY2022 年报起变化（FY2021 32,456.69→FY2022 12,160.81），影响跨 2022 毛利率可比性（FY2022 报 4.95% 中约 0.56pp 为口径）。销售/管理费用 FY2023→FY2024 重分类（销售 11,607.71→4,418.95），单项不可比、sga 合计可比。FY2025 审计机构由信永中和变更为中审众环（原因未披露）；年报附注「批准报出日 2025 年 4 月 16 日」为沿用上年模板笔误（应为 2026）；「经国资委备案」文件未载明，标 unknown。汇率：各年末 USD/CNY 即期（frankfurter.app/ECB，fxToUsd=1/rate）；2022-12-31 与 2023-12-31 无报价，分别取前一营业日 2022-12-30（6.8987）与 2023-12-29（7.1049），fxDate 记实际报价日。元→百万元四舍五入：FY2022 gross 175,263.89（表内两值相减 175,263.88）、FY2024 sga 103,283.43（销售+管理 103,283.44），差 0.01 属舍入，站内取元级值。"
+      },
+      "registry": {
+        "ticker": "SGCC",
+        "nameZh": "国家电网",
+        "nameEn": "State Grid Corporation of China",
+        "color": "#00843d",
+        "frequency": "annual",
+        "companyType": "private",
+        "fiscalYearEndMonth": 12
+      },
+      "newQuarters": [
+        {
+          "end": "2020-12-31",
+          "revenue": 2644517.05,
+          "netInc": 38504.71,
+          "periodType": "annual",
+          "fxToUsd": 0.15295665,
+          "fxDate": "2020-12-31",
+          "gross": 165175.82,
+          "opInc": 56628.8,
+          "rd": 16703.61,
+          "sga": 56737.87,
+          "tax": 17099.89
+        },
+        {
+          "end": "2021-12-31",
+          "revenue": 2944711.52,
+          "netInc": 46041.12,
+          "periodType": "annual",
+          "fxToUsd": 0.15742082,
+          "fxDate": "2021-12-31",
+          "gross": 177448.8,
+          "opInc": 65665.6,
+          "rd": 16329.64,
+          "sga": 59087.3,
+          "tax": 18842.74
+        },
+        {
+          "end": "2022-12-31",
+          "revenue": 3537419.02,
+          "netInc": 55104.99,
+          "periodType": "annual",
+          "fxToUsd": 0.14495485,
+          "fxDate": "2022-12-30",
+          "gross": 175263.89,
+          "opInc": 80835.89,
+          "rd": 16785.76,
+          "sga": 63086.59,
+          "tax": 20316.47
+        },
+        {
+          "end": "2023-12-31",
+          "revenue": 3835570.57,
+          "netInc": 65159.36,
+          "periodType": "annual",
+          "fxToUsd": 0.14074793,
+          "fxDate": "2023-12-29",
+          "gross": 246294.3,
+          "opInc": 96261.95,
+          "rd": 21604.92,
+          "sga": 109764.84,
+          "tax": 25895.96
+        },
+        {
+          "end": "2024-12-31",
+          "revenue": 3919271.5,
+          "netInc": 72274.48,
+          "periodType": "annual",
+          "fxToUsd": 0.13699756,
+          "fxDate": "2024-12-31",
+          "gross": 251907.31,
+          "opInc": 109396.48,
+          "rd": 23493.38,
+          "sga": 103283.43,
+          "tax": 28749.65
+        },
+        {
+          "end": "2025-12-31",
+          "revenue": 3966411.18,
+          "netInc": 79899.85,
+          "periodType": "annual",
+          "fxToUsd": 0.14283674,
+          "fxDate": "2025-12-31",
+          "gross": 263748.11,
+          "opInc": 121058.02,
+          "rd": 26765.47,
+          "sga": 102154.68,
+          "tax": 31807.15
+        }
+      ]
+    }
+  ]
+}

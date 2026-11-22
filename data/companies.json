@@ -1640,5 +1640,14 @@
     "nameEn": "Toly Bread",
     "color": "#8d6e63",
     "fiscalYearEndMonth": 12
+  },
+  {
+    "ticker": "SGCC",
+    "nameZh": "国家电网",
+    "nameEn": "State Grid Corporation of China",
+    "color": "#00843d",
+    "frequency": "annual",
+    "companyType": "private",
+    "fiscalYearEndMonth": 12
   }
 ]
