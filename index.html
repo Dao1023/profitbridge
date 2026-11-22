@@ -209,6 +209,35 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
 @media (max-width: 400px) {
   #sankey { height:480px; }
 }
+/* ---- metrics view (third view): grouped table, sticky first column ---- */
+#metricsWrap { padding:2px 16px 18px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.mv-table { border-collapse:separate; border-spacing:0; width:100%; min-width:620px;
+  font-size:13.5px; color:var(--text); font-variant-numeric:tabular-nums; }
+.mv-table th, .mv-table td { padding:7px 12px; border-bottom:1px solid #e6e1d6; white-space:nowrap; }
+.mv-table thead th { font-weight:800; color:var(--title-blue); text-align:right; background:var(--cream);
+  position:sticky; top:0; z-index:2; border-bottom:2px solid #d8d2c4; }
+.mv-table thead th .mv-end { display:block; font-size:10.5px; font-weight:600; color:var(--muted); margin-top:1px; }
+.mv-table th.mv-name, .mv-table td.mv-name { position:sticky; left:0; z-index:3; text-align:left;
+  background:var(--cream); border-right:1px solid #e0dacd; font-weight:600; max-width:230px; overflow:hidden; text-overflow:ellipsis; }
+.mv-table thead th.mv-name { z-index:4; }
+.mv-table tr.mv-group td { background:#e9e4d8; font-weight:800; font-size:12.5px; letter-spacing:.02em;
+  color:#3d4a63; text-transform:none; padding:6px 12px; }
+.mv-table tr.mv-group td.mv-name { background:#e9e4d8; }
+.mv-table td.mv-num { text-align:right; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; }
+.mv-table td.mv-null { color:#9aa3b2; cursor:help; }
+.mv-table tbody tr:hover td { background:#ece6da; }
+.mv-table tbody tr:hover td.mv-name { background:#ece6da; }
+.mv-note { margin-top:10px; font-size:11.5px; line-height:1.5; color:var(--muted); }
+.mv-empty { padding:56px 18px; text-align:center; color:var(--muted); }
+.mv-empty .mv-empty-title { font-size:17px; font-weight:800; color:var(--title-blue); margin-bottom:8px; }
+.mv-empty .mv-empty-hint { font-size:13px; line-height:1.6; max-width:640px; margin:0 auto; }
+@media (max-width: 768px) {
+  #metricsWrap { padding:2px 8px 14px; }
+  .mv-table { font-size:12.5px; min-width:520px; }
+  .mv-table th, .mv-table td { padding:6px 9px; }
+  .mv-table th.mv-name, .mv-table td.mv-name { max-width:150px; }
+  .mv-table td.mv-num { font-size:11.5px; }
+}
 </style>
 </head>
 <body>
@@ -221,6 +250,7 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
     <div class="exportGroup" id="viewGroup">
       <button id="btnViewBridge"><span id="lblViewBridge"></span></button>
       <button id="btnViewBar"><span id="lblViewBar"></span></button>
+      <button id="btnViewMetrics"><span id="lblViewMetrics"></span></button>
     </div>
     <div class="exportGroup" id="modeGroup">
       <button id="btnPct"><span id="lblPct"></span></button>
@@ -244,6 +274,7 @@ body { background:var(--bg); color:var(--text); font-family:"Segoe UI","Microsof
       <select id="barSelect" style="display:none"></select>
       <div id="sankey"></div>
       <div id="barBasisNote" class="barBasisNote"></div>
+      <div id="metricsWrap" style="display:none"></div>
       <div id="timeline">
         <div class="tl-track"><div class="tl-fill" id="tlFill"></div><div class="tl-thumb" id="tlThumb"></div></div>
         <div class="tl-ticks" id="tlTicks"></div>

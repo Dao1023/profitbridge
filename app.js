@@ -37,6 +37,31 @@ const I18N = {
     barNoData: 'No disclosed data for this item', barFullHistory: 'full history', barFullHistoryAnnual: 'full history (annual)', barFullHistorySemiannual: 'full history (semiannual)',
     barNoDataTag: 'no data',
     segNotes: 'Segment notes',
+    // ---- metrics view (third view) ----
+    viewMetrics: 'Metrics',
+    mvTitle: 'Metrics detail',
+    mvColName: 'Item',
+    mvGroups: { income: 'Income statement', balance: 'Balance sheet', cashflow: 'Cash flow', perShare: 'Per share & returns', ratios: 'Ratios (computed)' },
+    mvFields: {
+      revenue: 'Revenue', cogs: 'Cost of revenue', gross: 'Gross profit', opInc: 'Operating income',
+      rd: 'R&D expenses', sga: 'Selling, general & admin', pbt: 'Pre-tax income', tax: 'Income tax', netInc: 'Net income',
+      cash: 'Cash & equivalents', receivables: 'Receivables', inventory: 'Inventory', currentAssets: 'Current assets',
+      ppe: 'Property, plant & equipment', totalAssets: 'Total assets', debtShort: 'Short-term debt',
+      debtLong: 'Long-term debt', liabilities: 'Total liabilities', equityParent: 'Equity (parent)',
+      equity: 'Total equity', ocf: 'Operating cash flow', capex: 'Capex', icf: 'Investing cash flow',
+      dividendsPaid: 'Dividends paid', buyback: 'Share buybacks', eps: 'EPS (diluted)', dps: 'DPS',
+    },
+    mvRatios: {
+      grossMargin: 'Gross margin', opMargin: 'Operating margin', netMargin: 'Net margin', roe: 'ROE (net income / parent equity)',
+      roa: 'ROA (net income / total assets)', debtRatio: 'Liabilities / assets', payout: 'Payout ratio (DPS / EPS)',
+      fcf: 'Free cash flow (OCF − capex)',
+    },
+    mvMissing: 'Not disclosed by this source',
+    mvUnit: 'Unit: millions of',
+    mvNote: 'As reported by the source, no interpolation; ratios computed from the raw figures above; "—" = not disclosed. Source:',
+    mvEmptyTitle: 'No metrics data for this company',
+    mvEmptyHint: 'The metrics view currently covers MSFT, KO, 600887.SS, 00700.HK and 005930.KS (latest 4 fiscal years). Other companies still have the Sankey and bar views.',
+    mvYear: 'FY',
   },
   zh: {
     appTitle: '财报可视化', langBtn: 'English',
@@ -69,6 +94,31 @@ const I18N = {
     barNoData: '该子项无披露数据', barFullHistory: '全历史季度', barFullHistoryAnnual: '全历史年度', barFullHistorySemiannual: '全历史半年度',
     barNoDataTag: '无数据',
     segNotes: '口径备注',
+    // ---- metrics view (third view) ----
+    viewMetrics: '指标明细',
+    mvTitle: '指标明细',
+    mvColName: '指标',
+    mvGroups: { income: '利润表', balance: '资产负债表', cashflow: '现金流量表', perShare: '每股与股东回报', ratios: '比率（现算）' },
+    mvFields: {
+      revenue: '营业收入', cogs: '营业成本', gross: '毛利润', opInc: '营业利润',
+      rd: '研发费用', sga: '销售及管理费用', pbt: '税前利润', tax: '所得税', netInc: '净利润',
+      cash: '货币资金', receivables: '应收账款', inventory: '存货', currentAssets: '流动资产合计',
+      ppe: '固定资产', totalAssets: '总资产', debtShort: '短期借款',
+      debtLong: '长期借款', liabilities: '总负债', equityParent: '归母权益',
+      equity: '股东权益合计', ocf: '经营活动现金流', capex: '资本开支', icf: '投资活动现金流',
+      dividendsPaid: '已付股息', buyback: '股份回购', eps: '每股收益（摊薄）', dps: '每股股息',
+    },
+    mvRatios: {
+      grossMargin: '毛利率', opMargin: '营业利润率', netMargin: '净利率', roe: 'ROE（净利/期末归母权益）',
+      roa: 'ROA（净利/期末总资产）', debtRatio: '资产负债率', payout: '分红率（DPS/EPS）',
+      fcf: '自由现金流（OCF−capex）',
+    },
+    mvMissing: '该源未披露',
+    mvUnit: '单位：百万',
+    mvNote: '仅取报告原始值、不插值；比率由上方原始数现算；“—”表示该源未披露。数据来源：',
+    mvEmptyTitle: '该公司暂无指标明细数据',
+    mvEmptyHint: '指标明细当前覆盖 MSFT、KO、600887.SS、00700.HK、005930.KS 五家（最近 4 个财年）；其余公司仍可使用桑基图与柱状图。',
+    mvYear: 'FY',
   },
 };
 
@@ -140,6 +190,7 @@ const tn = k => I18N[lang].nodes[k] || k;
 
 let DATA = null;      // profit.json (values in $M)
 let SEG = null;       // segments.json (values in $M) — optional, degrade gracefully
+let METRICS = null;   // metrics.json (metrics view; as-reported, millions) — optional, degrade gracefully
 let chart = null;     // echarts instance
 /* ---- industry filter: mapping table lives here (data/ untouched) ----
    A company may span MULTIPLE industries (e.g. Google = internet + AI):
@@ -986,6 +1037,7 @@ function checkConsistency(qv, g) {
 
 function renderChart() {
   if (state.view === 'bar') { window.__qvEff = null; renderBarChart(); return; }
+  if (state.view === 'metrics') { window.__qvEff = null; renderMetrics(); return; }
   const qvRaw = q();
   // cumulative-period reconciliation: A 股半年/全年分部 vs 单季 profit 行, plus the
   // annual-only non-Dec-FY path (e.g. 00992.HK) resolved through the same plan helper.
@@ -1315,6 +1367,104 @@ function renderBarSelect() {
   }).join('');
   sel.style.display = state.view === 'bar' ? '' : 'none';
   sel.onchange = () => { state.barItem = sel.value; renderChart(); };
+}
+
+/* ---------------------------------------------------------------------------
+   Metrics view (third view): grouped table of as-reported statements.
+   Data: data/metrics.json — one block per company, amounts already in millions.
+   Ratios are NEVER stored in the JSON: they are derived here from the raw
+   numbers of the same fiscal year (no derived values in the data layer).
+   Missing values stay null in the data → rendered as "—" + tooltip, never 0.
+   ------------------------------------------------------------------------- */
+const MV_GROUPS = [
+  { id: 'income', fields: ['revenue', 'cogs', 'gross', 'opInc', 'rd', 'sga', 'pbt', 'tax', 'netInc'] },
+  { id: 'balance', fields: ['cash', 'receivables', 'inventory', 'currentAssets', 'ppe', 'totalAssets',
+    'debtShort', 'debtLong', 'liabilities', 'equityParent', 'equity'] },
+  { id: 'cashflow', fields: ['ocf', 'capex', 'icf', 'dividendsPaid', 'buyback'] },
+  { id: 'perShare', fields: ['eps', 'dps'] },
+];
+/* ratio rows: percentages, except fcf (a money amount, ocf − capex) */
+const MV_RATIOS = ['grossMargin', 'opMargin', 'netMargin', 'roe', 'roa', 'debtRatio', 'payout', 'fcf'];
+
+function metricsEntry() {
+  if (!METRICS || !METRICS.companies) return null;
+  let e = METRICS.companies[state.company];
+  if (e && e.aliasOf) e = METRICS.companies[e.aliasOf]; // e.g. 0700.HK → 00700.HK
+  return e && e.years ? e : null;
+}
+
+const mvDiv = (a, b) => (a == null || b == null || b === 0) ? null : a / b;
+function mvRatio(id, y) {
+  const I = y.income || {}, B = y.balance || {}, C = y.cashflow || {}, P = y.perShare || {};
+  switch (id) {
+    case 'grossMargin': {
+      const g = I.gross != null ? I.gross
+        : (I.revenue != null && I.cogs != null ? I.revenue - I.cogs : null); // A 股不单列毛利
+      return mvDiv(g, I.revenue);
+    }
+    case 'opMargin': return mvDiv(I.opInc, I.revenue);
+    case 'netMargin': return mvDiv(I.netInc, I.revenue);
+    case 'roe': return mvDiv(I.netInc, B.equityParent);       // 净利 / 期末归母权益
+    case 'roa': return mvDiv(I.netInc, B.totalAssets);        // 净利 / 期末总资产
+    case 'debtRatio': return mvDiv(B.liabilities, B.totalAssets);
+    case 'payout': return mvDiv(P.dps, P.eps);
+    case 'fcf': return (C.ocf == null || C.capex == null) ? null : C.ocf - C.capex;
+  }
+  return null;
+}
+
+const mvNum = v => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const mvPct = v => (v * 100).toFixed(2) + '%';
+const mvEsc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function renderMetrics() {
+  const wrap = document.getElementById('metricsWrap');
+  const titleEl = document.getElementById('chartTitle');
+  const pc = (DATA && DATA.companies[state.company]) || null;
+  const e = metricsEntry();
+  if (!e) {
+    titleEl.textContent = (pc ? pc.name : state.company) + ' · ' + t('mvTitle');
+    wrap.innerHTML = '<div class="mv-empty"><div class="mv-empty-title">' + t('mvEmptyTitle') +
+      '</div><div class="mv-empty-hint">' + t('mvEmptyHint') + '</div></div>';
+    return;
+  }
+  const years = e.years.slice().sort((a, b) => a.fiscalYear - b.fiscalYear);
+  const cur = (e.currency || '').replace('-M', '');
+  titleEl.textContent = (pc ? pc.name : e.name) + ' · ' + t('mvTitle') + ' · ' + t('mvUnit') + ' ' + cur;
+  const cell = (v, fmt) => {
+    const s = v == null ? null : fmt(v);
+    return '<td class="mv-num' + (s == null ? ' mv-null' : '') + '"' +
+      (s == null ? ' title="' + t('mvMissing') + '"' : '') + '>' + (s == null ? '—' : s) + '</td>';
+  };
+  let body = '';
+  for (const g of MV_GROUPS) {
+    // a group is shown when ANY of its fields has a value for ANY year; inside a shown
+    // group every canonical field keeps its row, so a source that never discloses a
+    // line (e.g. KO total liabilities) renders as "—" with the tooltip, never 0.
+    const covered = g.fields.some(f => years.some(y => (y[g.id] || {})[f] != null));
+    if (!covered) continue;
+    body += '<tr class="mv-group"><td class="mv-name">' + t('mvGroups')[g.id] + '</td><td colspan="' + years.length + '"></td></tr>';
+    for (const f of g.fields) {
+      body += '<tr><td class="mv-name">' + t('mvFields')[f] + '</td>' +
+        years.map(y => cell((y[g.id] || {})[f], mvNum)).join('') + '</tr>';
+    }
+  }
+  const onlyRatios = MV_RATIOS.filter(id => years.some(y => mvRatio(id, y) != null));
+  if (onlyRatios.length) {
+    body += '<tr class="mv-group"><td class="mv-name">' + t('mvGroups').ratios + '</td><td colspan="' + years.length + '"></td></tr>';
+    for (const id of onlyRatios) {
+      body += '<tr><td class="mv-name">' + t('mvRatios')[id] + '</td>' +
+        years.map(y => cell(mvRatio(id, y), id === 'fcf' ? mvNum : mvPct)).join('') + '</tr>';
+    }
+  }
+  const head = '<tr><th class="mv-name">' + t('mvColName') + '</th>' + years.map(y =>
+    '<th>' + t('mvYear') + y.fiscalYear + '<span class="mv-end">' + y.end + '</span></th>').join('') + '</tr>';
+  const src = e.sourceUrl
+    ? '<a href="' + e.sourceUrl + '" target="_blank" rel="noopener">' + mvEsc(e.name || state.company) + '</a>' : mvEsc(e.name || '');
+  wrap.innerHTML = '<table class="mv-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>' +
+    '<div class="mv-note">' + t('mvNote') + ' ' + src +
+    (METRICS.updated ? ' · ' + t('updated') + ' ' + mvEsc(METRICS.updated) : '') +
+    (e.sourceNote ? '<br/>' + mvEsc(e.sourceNote) : '') + '</div>';
 }
 
 /* full echarts bar option: x = all quarters (no holes), y = selected item.
@@ -1713,7 +1863,7 @@ function applyHash() {
   const tk = hp.get('c');
   if (tk && DATA.companies[tk]) state.company = tk;
   const v = hp.get('v');
-  if (v === 'bar' || v === 'bridge') state.view = v;
+  if (v === 'bar' || v === 'bridge' || v === 'metrics') state.view = v;
   const mi = hp.get('m');
   if (mi) state.barItem = mi; // renderBarSelect falls back to 'revenue' if missing
   const q = hp.get('q');
@@ -2088,13 +2238,25 @@ function render() {
   document.getElementById('btnQoQ').classList.toggle('active', state.view === 'bar' ? barLines.qoq : state.mode.qoq);
 
   // view switcher: bridge (sankey + timeline) vs bar (full-history time series)
+  // vs metrics (grouped as-reported table)
   document.getElementById('lblViewBridge').textContent = t('viewBridge');
   document.getElementById('lblViewBar').textContent = t('viewBar');
+  document.getElementById('lblViewMetrics').textContent = t('viewMetrics');
   document.getElementById('btnViewBridge').classList.toggle('active', state.view === 'bridge');
   document.getElementById('btnViewBar').classList.toggle('active', state.view === 'bar');
+  document.getElementById('btnViewMetrics').classList.toggle('active', state.view === 'metrics');
   // visibility (not display) — the timeline slot keeps its height in bar view so
-  // #chartPanel's outer box never changes when switching views
+  // #chartPanel's outer box never changes when switching views. Metrics view is a
+  // table, not a chart: timeline, % / QoQ toggles and the PNG/SVG export (which
+  // serialise the ECharts option) are hidden there.
+  const isMetrics = state.view === 'metrics';
   document.getElementById('timeline').style.visibility = state.view === 'bar' ? 'hidden' : '';
+  document.getElementById('timeline').style.display = isMetrics ? 'none' : '';
+  document.getElementById('sankey').style.display = isMetrics ? 'none' : '';
+  document.getElementById('metricsWrap').style.display = isMetrics ? '' : 'none';
+  document.getElementById('modeGroup').style.display = isMetrics ? 'none' : '';
+  const exportGroup = document.getElementById('btnExportPNG').closest('.exportGroup');
+  if (exportGroup) exportGroup.style.display = isMetrics ? 'none' : '';
   // bridge view has no bar chart → make sure the cumulative-bar note never lingers
   if (state.view !== 'bar') { const bn = document.getElementById('barBasisNote'); if (bn) bn.classList.remove('show'); }
   renderBarSelect(); // must run before renderChart — it fixes state.barItem for the new company
@@ -2104,7 +2266,7 @@ function render() {
   renderTimeline();
   syncChartHeightForNotes(); // resize canvas to keep panel height constant (see helper)
   renderChart();
-  if (chart) chart.resize(); // re-fit ECharts after the canvas height change (post-setOption is safe)
+  if (chart && !isMetrics) chart.resize(); // re-fit ECharts after the canvas height change (post-setOption is safe)
 
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
   syncHash(); // keep the shareable view-state hash in step with every render
@@ -2118,7 +2280,7 @@ function exportHeaderData() {
   const c = DATA.companies[state.company];
   const qv = q();
   const title = (document.getElementById('chartTitle').textContent || '').trim();
-  const view = state.view === 'bar' ? t('viewBar') : t('viewBridge');
+  const view = state.view === 'bar' ? t('viewBar') : (state.view === 'metrics' ? t('viewMetrics') : t('viewBridge'));
   const period = state.view === 'bar'
     ? (lang === 'zh' ? `全历史至 ${qv.end}` : `full history to ${qv.end}`)
     : quarterLabel(qv.end, qv.periodType);
@@ -2239,6 +2401,7 @@ function initControls() {
   });
   document.getElementById('btnViewBridge').addEventListener('click', () => { if (state.view !== 'bridge') { state.view = 'bridge'; render(); } });
   document.getElementById('btnViewBar').addEventListener('click', () => { if (state.view !== 'bar') { state.view = 'bar'; render(); } });
+  document.getElementById('btnViewMetrics').addEventListener('click', () => { if (state.view !== 'metrics') { state.view = 'metrics'; render(); } });
   document.getElementById('btnCur').addEventListener('click', () => {
     if (!canToggleCur()) return;
     state.curMode = dispInUsd() ? 'native' : 'usd';
@@ -2302,6 +2465,24 @@ function initControls() {
     const res = await fetch('data/companies.json');
     if (res.ok) REGISTRY = await res.json();
   } catch (e) { /* registry optional — built-in fallbacks cover the 10 dashboard companies */ }
+
+  // metrics view data (5 companies × 4 FY): same fetch-then-inline-fallback pattern as
+  // profit.json above. Failure is non-fatal — the view degrades to its empty state.
+  try {
+    const res = await fetch('data/metrics.json');
+    if (res.ok) METRICS = await res.json();
+  } catch (e) { /* file:// or offline */ }
+  if (!METRICS) {
+    if (!window.METRICS_DATA) {
+      await new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = 'data/metrics.json.js';
+        s.onload = resolve; s.onerror = resolve; // resolve either way; missing data handled below
+        document.head.appendChild(s);
+      });
+    }
+    if (window.METRICS_DATA) METRICS = window.METRICS_DATA;
+  }
 
   chart = echarts.init(document.getElementById('sankey'), null, { renderer: 'svg' });
   chart.on('datazoom', () => { // remember the user's time window (also synced to hash)
