@@ -41,27 +41,41 @@ const I18N = {
     viewMetrics: 'Metrics',
     mvTitle: 'Metrics detail',
     mvColName: 'Item',
-    mvGroups: { income: 'Income statement', balance: 'Balance sheet', cashflow: 'Cash flow', perShare: 'Per share & returns', ratios: 'Ratios (computed)' },
+    mvGroups: { income: 'Income statement', shareholder: 'Shareholder returns (dividends / SOE remittance)', balance: 'Balance sheet', cashflow: 'Cash flow', perShare: 'Per share', ratios: 'Ratios (computed)' },
     mvFields: {
       revenue: 'Revenue', cogs: 'Cost of revenue', gross: 'Gross profit', opInc: 'Operating income',
-      rd: 'R&D expenses', sga: 'Selling, general & admin', pbt: 'Pre-tax income', tax: 'Income tax', netInc: 'Net income',
+      rd: 'R&D expenses', sga: 'Selling, general & admin', pbt: 'Pre-tax income', tax: 'Income tax', netInc: 'Net income (parent)',
+      totalRevenue: 'Total revenue', taxAndSurcharges: 'Taxes & surcharges', finExpense: 'Finance expenses',
+      investmentIncome: 'Investment income', interestExpense: 'of which: interest expense',
       cash: 'Cash & equivalents', receivables: 'Receivables', inventory: 'Inventory', currentAssets: 'Current assets',
       ppe: 'Property, plant & equipment', totalAssets: 'Total assets', debtShort: 'Short-term debt',
       debtLong: 'Long-term debt', liabilities: 'Total liabilities', equityParent: 'Equity (parent)',
-      equity: 'Total equity', ocf: 'Operating cash flow', capex: 'Capex', icf: 'Investing cash flow',
-      dividendsPaid: 'Dividends paid', buyback: 'Share buybacks', eps: 'EPS (diluted)', dps: 'DPS',
+      equity: 'Total equity', cip: 'Construction in progress', paidInCapital: 'Paid-in capital',
+      retainedEarnings: 'Retained earnings', minorityInterests: 'Non-controlling interests',
+      ocf: 'Operating cash flow', capex: 'Capex', icf: 'Investing cash flow', finCashFlow: 'Financing cash flow',
+      dividendsTotal: 'Cash dividends (declared, fiscal year)', dividendsToParent: 'of which: parent shareholders',
+      stateDividend: 'Profit remittance to the state (parent dividend)',
+      dividendsPaid: 'Cash dividends paid (cash basis)', buyback: 'Share buybacks',
+      eps: 'EPS (diluted)', dps: 'DPS',
     },
     mvRatios: {
       grossMargin: 'Gross margin', opMargin: 'Operating margin', netMargin: 'Net margin', roe: 'ROE (net income / parent equity)',
-      roa: 'ROA (net income / total assets)', debtRatio: 'Liabilities / assets', payout: 'Payout ratio (DPS / EPS)',
+      roa: 'ROA (net income / total assets)', debtRatio: 'Liabilities / assets', payout: 'Payout ratio (dividends / parent net income)',
       fcf: 'Free cash flow (OCF − capex)',
     },
     mvMissing: 'Not disclosed by this source',
     mvUnit: 'Unit: millions of',
     mvNote: 'As reported by the source, no interpolation; ratios computed from the raw figures above; "—" = not disclosed. Source:',
     mvEmptyTitle: 'No metrics data for this company',
-    mvEmptyHint: 'The metrics view currently covers MSFT, KO, 600887.SS, 00700.HK and 005930.KS (latest 4 fiscal years). Other companies still have the Sankey and bar views.',
+    mvEmptyHint: 'The metrics view currently covers MSFT, KO, 600887.SS, 00700.HK, 005930.KS and SGCC (latest 4–6 fiscal years). Other companies still have the Sankey and bar views.',
     mvYear: 'FY',
+    mvStateNa: 'Not 100% state-owned: the remittance basis needs the state shareholding ratio, which is not in the data layer — not estimated',
+    mvDivPaidNa: 'Cash-flow line "dividends, profits or interest paid" is a mixed basis (includes interest) and is not comparable with the statement of changes in equity; not used.',
+    mvBuybackNa: 'No share-buyback line in this source',
+    mvPayoutNote: 'Payout ratio = dividends attributable to parent shareholders ÷ net income attributable to parent (both exactly as reported). Where a dividend total cannot be reproduced from the source (00700.HK, 005930.KS) it falls back to DPS ÷ EPS — the same concept on a per-share basis, stated in the row footnote.',
+    mvStateNote: 'There is no "profit remittance" account in corporate statements. For an issuer 100% owned by the state (SGCC / 国务院国资委) the only auditable proxy is "distributions to owners" in the statement of changes in equity, parent column — shown here as declared, not estimated.',
+    mvStateDisclaimer: 'National capital gains (国有资本收益, the fiscal-budget item) is not an account in corporate financial statements — a full-text search of all six SGCC annual reports returns 0 hits. It is deliberately not modelled here.',
+    mvDivBasis: 'Dividend basis: ',
   },
   zh: {
     appTitle: '财报可视化', langBtn: 'English',
@@ -98,27 +112,41 @@ const I18N = {
     viewMetrics: '指标明细',
     mvTitle: '指标明细',
     mvColName: '指标',
-    mvGroups: { income: '利润表', balance: '资产负债表', cashflow: '现金流量表', perShare: '每股与股东回报', ratios: '比率（现算）' },
+    mvGroups: { income: '利润表', shareholder: '股东回报（分红 / 利润上缴）', balance: '资产负债表', cashflow: '现金流量表', perShare: '每股数据', ratios: '比率（现算）' },
     mvFields: {
       revenue: '营业收入', cogs: '营业成本', gross: '毛利润', opInc: '营业利润',
-      rd: '研发费用', sga: '销售及管理费用', pbt: '税前利润', tax: '所得税', netInc: '净利润',
+      rd: '研发费用', sga: '销售及管理费用', pbt: '税前利润', tax: '所得税', netInc: '净利润（归母）',
+      totalRevenue: '营业总收入', taxAndSurcharges: '税金及附加', finExpense: '财务费用',
+      investmentIncome: '投资收益', interestExpense: '其中：利息费用',
       cash: '货币资金', receivables: '应收账款', inventory: '存货', currentAssets: '流动资产合计',
       ppe: '固定资产', totalAssets: '总资产', debtShort: '短期借款',
       debtLong: '长期借款', liabilities: '总负债', equityParent: '归母权益',
-      equity: '股东权益合计', ocf: '经营活动现金流', capex: '资本开支', icf: '投资活动现金流',
-      dividendsPaid: '已付股息', buyback: '股份回购', eps: '每股收益（摊薄）', dps: '每股股息',
+      equity: '股东权益合计', cip: '在建工程', paidInCapital: '实收资本',
+      retainedEarnings: '未分配利润', minorityInterests: '少数股东权益',
+      ocf: '经营活动现金流', capex: '资本开支', icf: '投资活动现金流', finCashFlow: '筹资活动现金流',
+      dividendsTotal: '现金分红总额（当年宣告）', dividendsToParent: '其中：归属母公司股东',
+      stateDividend: '利润上缴（归母分红）',
+      dividendsPaid: '已付现金股利（收付实现制）', buyback: '股份回购',
+      eps: '每股收益（摊薄）', dps: '每股股息',
     },
     mvRatios: {
       grossMargin: '毛利率', opMargin: '营业利润率', netMargin: '净利率', roe: 'ROE（净利/期末归母权益）',
-      roa: 'ROA（净利/期末总资产）', debtRatio: '资产负债率', payout: '分红率（DPS/EPS）',
+      roa: 'ROA（净利/期末总资产）', debtRatio: '资产负债率', payout: '分红率（分红/归母净利）',
       fcf: '自由现金流（OCF−capex）',
     },
     mvMissing: '该源未披露',
     mvUnit: '单位：百万',
     mvNote: '仅取报告原始值、不插值；比率由上方原始数现算；“—”表示该源未披露。数据来源：',
     mvEmptyTitle: '该公司暂无指标明细数据',
-    mvEmptyHint: '指标明细当前覆盖 MSFT、KO、600887.SS、00700.HK、005930.KS 五家（最近 4 个财年）；其余公司仍可使用桑基图与柱状图。',
+    mvEmptyHint: '指标明细当前覆盖 MSFT、KO、600887.SS、00700.HK、005930.KS、SGCC 六家（4–6 个财年）；其余公司仍可使用桑基图与柱状图。',
     mvYear: 'FY',
+    mvStateNa: '非国有独资：上缴口径需国有持股比例（未入库），不估算',
+    mvDivPaidNa: '现金流「分配股利、利润或偿付利息支付的现金」为混合口径（含利息），与权益变动表口径不可混用，故不采用',
+    mvBuybackNa: '该源现金流量表无「回购股份」科目',
+    mvPayoutNote: '分红率 = 归母分红 ÷ 归母净利（两者均为报表原始值）。来源无法给出分红总额的公司（00700.HK、005930.KS）回退为「每股股息 ÷ 每股收益」——同一概念的每股口径，行内脚注已注明。',
+    mvStateNote: '企业报表没有「利润上缴」科目；对国有独资公司（国家电网，国务院国资委 100% 持股），唯一可审计的代理口径是所有者权益变动表「对所有者的分配」的归母列，按宣告口径列示、不做估算。',
+    mvStateDisclaimer: '国有资本收益属财政预算科目（国有资本经营预算），企业财务报表无此科目——六份国家电网年报全文检索 0 命中，本站明确不入库。',
+    mvDivBasis: '分红口径：',
   },
 };
 
@@ -1376,15 +1404,34 @@ function renderBarSelect() {
    numbers of the same fiscal year (no derived values in the data layer).
    Missing values stay null in the data → rendered as "—" + tooltip, never 0.
    ------------------------------------------------------------------------- */
+/* Row spec: a bare field name, or {k, from?, derived?, pct?, na?, onlyIf?}
+     from     — read from another statement object (dividendsPaid / buyback live in cashflow)
+     derived  — computed here, never stored in the JSON (payout, stateDividend)
+     na       — i18n key of the tooltip used instead of the generic "not disclosed"
+     onlyIf   — company-level guard; the "cash dividends paid" row is dropped when the primary
+                figure already IS the cash figure (dividendBasis === 'cash'), so the same number
+                never appears twice under two labels */
 const MV_GROUPS = [
-  { id: 'income', fields: ['revenue', 'cogs', 'gross', 'opInc', 'rd', 'sga', 'pbt', 'tax', 'netInc'] },
-  { id: 'balance', fields: ['cash', 'receivables', 'inventory', 'currentAssets', 'ppe', 'totalAssets',
-    'debtShort', 'debtLong', 'liabilities', 'equityParent', 'equity'] },
-  { id: 'cashflow', fields: ['ocf', 'capex', 'icf', 'dividendsPaid', 'buyback'] },
-  { id: 'perShare', fields: ['eps', 'dps'] },
+  { id: 'income', rows: ['revenue', 'cogs', 'gross', 'opInc', 'rd', 'sga', 'pbt', 'tax', 'netInc',
+    'totalRevenue', 'taxAndSurcharges', 'finExpense', 'investmentIncome', 'interestExpense'] },
+  { id: 'shareholder', rows: [
+    'dividendsTotal',
+    'dividendsToParent',
+    { k: 'stateDividend', derived: 'stateDividend', na: 'mvStateNa' },
+    { k: 'dividendsPaid', from: 'cashflow', onlyIf: (e) => e.dividendBasis !== 'cash', na: 'mvDivPaidNa' },
+    { k: 'buyback', from: 'cashflow', na: 'mvBuybackNa' },
+    { k: 'payout', derived: 'payout', pct: true },
+  ] },
+  { id: 'balance', rows: ['cash', 'receivables', 'inventory', 'currentAssets', 'ppe', 'totalAssets',
+    'debtShort', 'debtLong', 'liabilities', 'equityParent', 'equity',
+    'cip', 'paidInCapital', 'retainedEarnings', 'minorityInterests'] },
+  { id: 'cashflow', rows: ['ocf', 'capex', 'icf', 'finCashFlow'] },
+  { id: 'perShare', rows: ['eps', 'dps'] },
 ];
-/* ratio rows: percentages, except fcf (a money amount, ocf − capex) */
-const MV_RATIOS = ['grossMargin', 'opMargin', 'netMargin', 'roe', 'roa', 'debtRatio', 'payout', 'fcf'];
+const mvRow = r => (typeof r === 'string' ? { k: r } : r);
+/* ratio rows: percentages, except fcf (a money amount, ocf − capex).
+   payout is NOT here any more: it is a dividend metric and lives in the shareholder group. */
+const MV_RATIOS = ['grossMargin', 'opMargin', 'netMargin', 'roe', 'roa', 'debtRatio', 'fcf'];
 
 function metricsEntry() {
   if (!METRICS || !METRICS.companies) return null;
@@ -1407,10 +1454,34 @@ function mvRatio(id, y) {
     case 'roe': return mvDiv(I.netInc, B.equityParent);       // 净利 / 期末归母权益
     case 'roa': return mvDiv(I.netInc, B.totalAssets);        // 净利 / 期末总资产
     case 'debtRatio': return mvDiv(B.liabilities, B.totalAssets);
-    case 'payout': return mvDiv(P.dps, P.eps);
+    case 'payout': return mvPayout(y); // kept for callers; rendered in the shareholder group
     case 'fcf': return (C.ocf == null || C.capex == null) ? null : C.ocf - C.capex;
   }
   return null;
+}
+
+/* payout = 归母分红 ÷ 归母净利, both exactly as reported. Where the source cannot give a
+   dividend total (00700.HK: no per-period share count; 005930.KS: no total line at all) it
+   falls back to DPS ÷ EPS — the same concept on a per-share basis, flagged in the row footnote.
+   Never estimated, never 0. */
+function mvPayout(y) {
+  const S = y.shareholder || {}, I = y.income || {}, P = y.perShare || {};
+  if (S.dividendsToParent != null && I.netInc != null) return S.dividendsToParent / I.netInc;
+  if (P.dps != null && P.eps != null) return mvDiv(P.dps, P.eps);
+  return null;
+}
+/* 利润上缴 (SOE basis): corporate statements have no "remittance" account. For an issuer that is
+   100% state-owned (stateOwnership === 1) the only auditable proxy is the parent column of
+   "distributions to owners" in the statement of changes in equity. Everyone else: null + tooltip. */
+function mvStateDividend(e, y) {
+  const S = y.shareholder || {};
+  return e && e.stateOwnership === 1 && S.dividendsToParent != null ? S.dividendsToParent : null;
+}
+function mvVal(row, y, gid, e) {
+  if (row.derived === 'payout') return mvPayout(y);
+  if (row.derived === 'stateDividend') return mvStateDividend(e, y);
+  const src = (row.from ? y[row.from] : y[gid]) || {};
+  return src[row.k] == null ? null : src[row.k];
 }
 
 const mvNum = v => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -1436,18 +1507,38 @@ function renderMetrics() {
     return '<td class="mv-num' + (s == null ? ' mv-null' : '') + '"' +
       (s == null ? ' title="' + t('mvMissing') + '"' : '') + '>' + (s == null ? '—' : s) + '</td>';
   };
-  let body = '';
-  for (const g of MV_GROUPS) {
-    // a group is shown when ANY of its fields has a value for ANY year; inside a shown
-    // group every canonical field keeps its row, so a source that never discloses a
-    // line (e.g. KO total liabilities) renders as "—" with the tooltip, never 0.
-    const covered = g.fields.some(f => years.some(y => (y[g.id] || {})[f] != null));
-    if (!covered) continue;
-    body += '<tr class="mv-group"><td class="mv-name">' + t('mvGroups')[g.id] + '</td><td colspan="' + years.length + '"></td></tr>';
-    for (const f of g.fields) {
-      body += '<tr><td class="mv-name">' + t('mvFields')[f] + '</td>' +
-        years.map(y => cell((y[g.id] || {})[f], mvNum)).join('') + '</tr>';
+  // footnotes: years[].notes[{fields:[...], text}] — numbered in year order; several cells of
+  // the same note share one marker (SGCC FY2021: as-reported nulls vs the restated figures).
+  const fnNo = new Map(); const fnList = [];
+  for (const y of years) {
+    for (const n of (y.notes || [])) {
+      fnList.push(n);
+      for (const f of (n.fields || [])) fnNo.set(y.end + '|' + f, fnList.length);
     }
+  }
+  let body = ''; let hasSh = false;
+  for (const g of MV_GROUPS) {
+    // a group is shown when ANY of its rows has a value for ANY year; inside a shown group every
+    // row keeps its place, so a source that never discloses a line (KO liabilities, SGCC buybacks)
+    // renders as "—" with the tooltip, never 0.
+    const rows = g.rows.map(mvRow).filter(r => !r.onlyIf || r.onlyIf(e));
+    const cols = rows.map(r => years.map(y => mvVal(r, y, g.id, e)));
+    if (!cols.some(a => a.some(v => v != null))) continue;
+    if (g.id === 'shareholder') hasSh = true;
+    body += '<tr class="mv-group"><td class="mv-name">' + t('mvGroups')[g.id] + '</td><td colspan="' + years.length + '"></td></tr>';
+    rows.forEach((r, i) => {
+      body += '<tr><td class="mv-name">' + (t('mvFields')[r.k] || t('mvRatios')[r.k]) + '</td>' +
+        years.map((y, j) => {
+          const v = cols[i][j];
+          const no = fnNo.get(y.end + '|' + r.k);
+          const s = v == null ? null : (r.pct ? mvPct(v) : mvNum(v));
+          const tip = no ? fnList[no - 1].text : (s == null ? (r.na ? t(r.na) : t('mvMissing')) : null);
+          return '<td class="mv-num' + (s == null ? ' mv-null' : '') + '"' +
+            (tip ? ' title="' + mvEsc(tip) + '"' : '') + '>' + (s == null ? '—' : s) +
+            (no ? '<sup class="mv-fn" title="' + mvEsc(fnList[no - 1].text) + '">' + no + '</sup>' : '') +
+            '</td>';
+        }).join('') + '</tr>';
+    });
   }
   const onlyRatios = MV_RATIOS.filter(id => years.some(y => mvRatio(id, y) != null));
   if (onlyRatios.length) {
@@ -1461,10 +1552,17 @@ function renderMetrics() {
     '<th>' + t('mvYear') + y.fiscalYear + '<span class="mv-end">' + y.end + '</span></th>').join('') + '</tr>';
   const src = e.sourceUrl
     ? '<a href="' + e.sourceUrl + '" target="_blank" rel="noopener">' + mvEsc(e.name || state.company) + '</a>' : mvEsc(e.name || '');
-  wrap.innerHTML = '<table class="mv-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>' +
+  const fnBlock = fnList.length
+    ? '<div class="mv-fn-list">' + fnList.map((n, i) =>
+      '<div><sup class="mv-fn">' + (i + 1) + '</sup>' + mvEsc(n.text) + '</div>').join('') + '</div>'
+    : '';
+  const divNote = lang === 'en' ? (e.dividendBasisNoteEn || '') : (e.dividendBasisNote || '');
+  wrap.innerHTML = '<table class="mv-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>' + fnBlock +
     '<div class="mv-note">' + t('mvNote') + ' ' + src +
     (METRICS.updated ? ' · ' + t('updated') + ' ' + mvEsc(METRICS.updated) : '') +
-    (e.sourceNote ? '<br/>' + mvEsc(e.sourceNote) : '') + '</div>';
+    (e.sourceNote ? '<br/>' + mvEsc(e.sourceNote) : '') +
+    (hasSh ? '<br/>' + t('mvPayoutNote') + '<br/>' + t('mvStateNote') + '<br/>' + t('mvStateDisclaimer') +
+      (divNote ? '<br/>' + t('mvDivBasis') + mvEsc(divNote) : '') : '') + '</div>';
 }
 
 /* full echarts bar option: x = all quarters (no holes), y = selected item.
