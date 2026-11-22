@@ -1,0 +1,1346 @@
+{
+ "company": "SGCC",
+ "name": "国家电网有限公司",
+ "currency": "CNY-M",
+ "asReported": true,
+ "years": {
+  "2020-12-31": {
+   "income": {
+    "totalRevenue": 2667667.82,
+    "revenue": 2644517.05,
+    "costOfSales": 2479341.23,
+    "taxesAndSurcharges": 32920.22,
+    "sellingExpenses": 8584.53,
+    "adminExpenses": 48153.34,
+    "rdExpenses": 16703.61,
+    "financialExpenses": 21792.49,
+    "interestExpense": 25842.14,
+    "interestIncome": 3863.54,
+    "investmentIncome": 19601.52,
+    "operatingProfit": 56628.8,
+    "nonOperatingIncome": 8527.74,
+    "nonOperatingExpense": 6035.88,
+    "profitBeforeTax": 59120.66,
+    "incomeTaxExpense": 17099.89,
+    "netProfit": 42020.77,
+    "netProfitAttributableToParent": 38504.71,
+    "minorityInterestsProfit": 3516.06,
+    "otherComprehensiveIncome": 23070.15,
+    "totalComprehensiveIncome": 18950.62
+   },
+   "balance": {
+    "cash": 78103.72,
+    "accountsReceivable": 85617.26,
+    "inventory": 32072.98,
+    "currentAssetsTotal": 432349.12,
+    "fixedAssets": 2913938.06,
+    "constructionInProgress": 409546.97,
+    "noncurrentAssetsTotal": 3913878.47,
+    "totalAssets": 4346227.58,
+    "shortTermBorrowings": 349313.38,
+    "noncurrentLiabDueWithin1y": 89947.34,
+    "longTermBorrowings": 217894.85,
+    "bondsPayable": 233035.48,
+    "totalLiabilities": 2446040.44,
+    "paidInCapital": 1437825.25,
+    "capitalReserve": 217769.82,
+    "retainedEarnings": 123161.29,
+    "equityAttributableToParent": 1822909.21,
+    "minorityInterests": 77277.93,
+    "totalEquity": 1900187.14
+   },
+   "cashflow": {
+    "operatingCashFlow": 324520.56,
+    "investingCashFlow": -476156.87,
+    "financingCashFlow": 162048.53,
+    "capex": 439855.98,
+    "distributionsToOwners": 40634.91,
+    "borrowingsReceived": 756376.08,
+    "debtRepaid": 607659.74,
+    "cashEndOfPeriod": 75141.87,
+    "cashBeginOfPeriod": 69753.3,
+    "cashNetIncrease": 5388.56,
+    "fxEffectOnCash": -5023.66
+   },
+   "equityChange": {
+    "distributionsToOwners": {
+     "consolidated": -6113.48,
+     "attributableToParent": -3172.73,
+     "minority": -2940.75
+    },
+    "surplusReserveAppropriation": 2841.5,
+    "equityAtYearEnd": 1900187.14,
+    "equityAtPriorYearEnd": 1843312.41,
+    "retainedEarningsAtYearEnd": 123161.29,
+    "retainedEarningsAtPriorYearEnd": 113333.63,
+    "otherMovementsResidual": -22662.82,
+    "evidencePage": "P2020 p22 行次21/17",
+    "checks": {
+     "eq_total_yearend_minus_bs_totalEquity": 0.0
+    }
+   },
+   "pages": {
+    "balance_assets": 18,
+    "balance_liab": 19,
+    "income": 20,
+    "cashflow": 21,
+    "equityChange": [
+     22,
+     23
+    ]
+   },
+   "sources": [
+    "P2020.pdf p18 合并资产负债表(资产)",
+    "P2020.pdf p19 合并资产负债表(负债及所有者权益)",
+    "P2020.pdf p20 合并利润表",
+    "P2020.pdf p21 合并现金流量表",
+    "P2020.pdf p22-23 合并所有者权益变动表"
+   ],
+   "checkFail": [],
+   "uncertain": [
+    {
+     "field": "cashflow.investingCashFlow",
+     "reason": "OCR 缺失负号（扫描件括号/横线未识别）；已按「经营+投资+筹资+汇率=净增加额」与「期初+净增加=期末」两式唯一解反推符号，数值本身逐位核对"
+    },
+    {
+     "field": "cashflow.fxEffectOnCash",
+     "reason": "该行 OCR 数值逐位可靠但正负号缺失/不可辨；符号由上述两式唯一解确定"
+    }
+   ],
+   "checks": {
+    "a_assets_eq_liab_plus_equity": 0.0,
+    "b_netProfit_eq_pbt_minus_tax": -0.0,
+    "c_cashEnd_eq_begin_plus_net": 0.01,
+    "d_retainedEarnings_residual": -22662.82
+   }
+  },
+  "2021-12-31": {
+   "income": {
+    "totalRevenue": 2971130.25,
+    "revenue": 2944711.52,
+    "costOfSales": 2767262.72,
+    "taxesAndSurcharges": 32456.69,
+    "sellingExpenses": 8638.85,
+    "adminExpenses": 50448.45,
+    "rdExpenses": 16329.64,
+    "financialExpenses": 26091.29,
+    "interestExpense": null,
+    "interestIncome": 4245.58,
+    "investmentIncome": 19540.01,
+    "operatingProfit": 65665.6,
+    "nonOperatingIncome": 10190.17,
+    "nonOperatingExpense": 6744.3,
+    "profitBeforeTax": 69111.67,
+    "incomeTaxExpense": 18842.74,
+    "netProfit": 50268.93,
+    "netProfitAttributableToParent": 46041.12,
+    "minorityInterestsProfit": 4227.81,
+    "otherComprehensiveIncome": 2901.48,
+    "totalComprehensiveIncome": 47367.46
+   },
+   "balance": {
+    "cash": 78966.0,
+    "accountsReceivable": 116713.3,
+    "inventory": 26687.31,
+    "currentAssetsTotal": 502074.01,
+    "fixedAssets": 3158806.72,
+    "constructionInProgress": 387618.85,
+    "noncurrentAssetsTotal": 4169450.24,
+    "totalAssets": 4671524.25,
+    "shortTermBorrowings": 355087.52,
+    "noncurrentLiabDueWithin1y": 92608.48,
+    "longTermBorrowings": 329242.54,
+    "bondsPayable": 250809.32,
+    "totalLiabilities": 2615437.65,
+    "paidInCapital": 1522134.92,
+    "capitalReserve": 229404.94,
+    "retainedEarnings": 175167.12,
+    "equityAttributableToParent": 1970694.29,
+    "minorityInterests": 85392.31,
+    "totalEquity": 2056086.6
+   },
+   "cashflow": {
+    "operatingCashFlow": 418057.57,
+    "investingCashFlow": -509697.4,
+    "financingCashFlow": 100088.19,
+    "capex": 501272.39,
+    "distributionsToOwners": 45163.62,
+    "borrowingsReceived": 872604.77,
+    "debtRepaid": 739937.33,
+    "cashEndOfPeriod": 78023.25,
+    "cashBeginOfPeriod": 70444.1,
+    "cashNetIncrease": 7579.15,
+    "fxEffectOnCash": -869.2
+   },
+   "equityChange": {
+    "distributionsToOwners": {
+     "consolidated": -3516.06,
+     "attributableToParent": null,
+     "minority": -3516.06,
+     "restatedInNextYearReport": {
+      "consolidated": -8098.23908127,
+      "attributableToParent": -4582.17619045,
+      "minority": -3516.06289082,
+      "source": "P2022 p38 上年金额栏 行次21（合并=归母+少数精确成立）",
+      "note": "2021 年报权益变动表「3.对所有者的分配」归母列空白，仅列少数股东 3,516.06；2022 年报上年列把 2021 归母分红补列为 4,582.18，合计 8,098.24。差额 4,583.40 系跨年重述，as-reported 不替换"
+     }
+    },
+    "surplusReserveAppropriation": 2914.56,
+    "equityAtYearEnd": 2056086.6,
+    "equityAtPriorYearEnd": 1909498.64,
+    "retainedEarningsAtYearEnd": 175167.12,
+    "retainedEarningsAtPriorYearEnd": 146078.27,
+    "otherMovementsResidual": -16038.93,
+    "evidencePage": "P2021 p40 行次21（归母格空白）/17；行次16 利润分配合计 −3,514.84（含「4.其他」+1.22）",
+    "checks": {
+     "eq_total_yearend_minus_bs_totalEquity": null
+    }
+   },
+   "pages": {
+    "balance_assets": 36,
+    "balance_liab": 37,
+    "income": 38,
+    "cashflow": 39,
+    "equityChange": [
+     40,
+     41
+    ]
+   },
+   "sources": [
+    "P2021.pdf p36 合并资产负债表(资产)",
+    "P2021.pdf p37 合并资产负债表(负债及所有者权益)",
+    "P2021.pdf p38 合并利润表",
+    "P2021.pdf p39 合并现金流量表",
+    "P2021.pdf p40-41 合并所有者权益变动表"
+   ],
+   "checkFail": [],
+   "uncertain": [
+    {
+     "field": "income.netProfitAttributableToParent",
+     "ocrValue": 48041.12,
+     "usedValue": 46041.12,
+     "reason": "OCR 48,041,122,... 首两位 46 误读为 48；与 P2021 报表 & 前轮 REPORT.md 4,604,112 百万元一致；P2022 上年列重述值 49,973.17"
+    },
+    {
+     "field": "income.operatingProfit",
+     "ocrValue": 65665.8,
+     "usedValue": 65665.6,
+     "reason": "OCR 末位 8 应为 6（差额 20 万元），与前轮 REPORT.md 65,665.60 一致"
+    },
+    {
+     "field": "equityChange.eqTotalYearEnd",
+     "reason": "EQ 表本年年末余额行（14 列宽表）OCR 不可靠，未取得；合计层校验改用 BS 所有者权益合计（已由 a) 式交叉验证）"
+    },
+    {
+     "field": "income.interestExpense",
+     "reason": "该年利润表「财务费用」未设「其中：利息费用」明细行（z4/z6 双引擎一致），记 null 不填 0"
+    },
+    {
+     "field": "cashflow.investingCashFlow",
+     "reason": "OCR 缺失负号（扫描件括号/横线未识别）；已按「经营+投资+筹资+汇率=净增加额」与「期初+净增加=期末」两式唯一解反推符号，数值本身逐位核对"
+    },
+    {
+     "field": "cashflow.fxEffectOnCash",
+     "reason": "该行 OCR 数值逐位可靠但正负号缺失/不可辨；符号由上述两式唯一解确定"
+    },
+    {
+     "field": "equityChange.distributionsToOwners.attributableToParent",
+     "ocrValue": "空白（表格该格无墨迹）",
+     "usedValue": null,
+     "reason": "P2021 p40 行次21 归母两列（未分配利润/小计）为空白，仅少数股东列与合计列有数（−3,516,062,890.82）；按纪律记 null 不填 0。2022 年报上年列重述为归母 −4,582,176,190.45（合计 8,098,239,081.27），差额 4,583.40 列入重述"
+    },
+    {
+     "field": "equityChange.distributionsToOwners.consolidated",
+     "usedValue": -3516.06,
+     "reason": "取行次21「3.对所有者的分配」合计列 −3,516,062,890.82（=归母0+少数3,516.06）；行次16「（四）利润分配」合计 −3,514,841,901.89 含「4.其他」+1,220,988.93，两者差 1.22，勿混用"
+    }
+   ],
+   "checks": {
+    "a_assets_eq_liab_plus_equity": 0.0,
+    "b_netProfit_eq_pbt_minus_tax": 0.0,
+    "c_cashEnd_eq_begin_plus_net": 0.0,
+    "d_retainedEarnings_residual": -16038.93
+   }
+  },
+  "2022-12-31": {
+   "income": {
+    "totalRevenue": 3565245.05,
+    "revenue": 3537419.02,
+    "costOfSales": 3362155.14,
+    "taxesAndSurcharges": 12160.81,
+    "sellingExpenses": 9141.6,
+    "adminExpenses": 53944.99,
+    "rdExpenses": 16785.76,
+    "financialExpenses": 34292.89,
+    "interestExpense": null,
+    "interestIncome": null,
+    "investmentIncome": 24549.64,
+    "operatingProfit": 80835.89,
+    "nonOperatingIncome": 7484.0,
+    "nonOperatingExpense": 9033.41,
+    "profitBeforeTax": 79286.48,
+    "incomeTaxExpense": 20316.47,
+    "netProfit": 58970.01,
+    "netProfitAttributableToParent": 55104.99,
+    "minorityInterestsProfit": 3865.02,
+    "otherComprehensiveIncome": 9061.73,
+    "totalComprehensiveIncome": 68031.74
+   },
+   "balance": {
+    "cash": 78215.51,
+    "accountsReceivable": 192500.72,
+    "inventory": 27017.65,
+    "currentAssetsTotal": 520437.71,
+    "fixedAssets": 3323665.2,
+    "constructionInProgress": 387059.93,
+    "noncurrentAssetsTotal": 4381837.86,
+    "totalAssets": 4902275.57,
+    "shortTermBorrowings": 330398.13,
+    "noncurrentLiabDueWithin1y": 128682.47,
+    "longTermBorrowings": 405873.02,
+    "bondsPayable": 261750.28,
+    "totalLiabilities": 2713668.01,
+    "paidInCapital": 1568787.59,
+    "capitalReserve": 228009.81,
+    "retainedEarnings": 246034.01,
+    "equityAttributableToParent": 2097971.26,
+    "minorityInterests": 90636.3,
+    "totalEquity": 2188607.56
+   },
+   "cashflow": {
+    "operatingCashFlow": 408870.31,
+    "investingCashFlow": -439968.16,
+    "financingCashFlow": 27366.98,
+    "capex": 534459.8,
+    "distributionsToOwners": 51821.59,
+    "borrowingsReceived": 838145.71,
+    "debtRepaid": 757064.98,
+    "cashEndOfPeriod": 76484.49,
+    "cashBeginOfPeriod": 77799.04,
+    "cashNetIncrease": -1314.55,
+    "fxEffectOnCash": 2416.33
+   },
+   "equityChange": {
+    "distributionsToOwners": {
+     "consolidated": -25122.02,
+     "attributableToParent": -21228.38,
+     "minority": -3893.64
+    },
+    "surplusReserveAppropriation": 3436.58,
+    "equityAtYearEnd": 2188607.56,
+    "equityAtPriorYearEnd": 2098990.6,
+    "retainedEarningsAtYearEnd": 246034.01,
+    "retainedEarningsAtPriorYearEnd": 224872.03,
+    "otherMovementsResidual": -9278.04,
+    "evidencePage": "P2022 p37 行次21/17",
+    "checks": {
+     "eq_total_yearend_minus_bs_totalEquity": 0.0
+    }
+   },
+   "pages": {
+    "balance_assets": 33,
+    "balance_liab": 34,
+    "income": 35,
+    "cashflow": 36,
+    "equityChange": [
+     37,
+     38
+    ]
+   },
+   "sources": [
+    "P2022.pdf p33 合并资产负债表(资产)",
+    "P2022.pdf p34 合并资产负债表(负债及所有者权益)",
+    "P2022.pdf p35 合并利润表",
+    "P2022.pdf p36 合并现金流量表",
+    "P2022.pdf p37-38 合并所有者权益变动表"
+   ],
+   "checkFail": [],
+   "uncertain": [
+    {
+     "field": "income.interestExpense",
+     "reason": "该年利润表「财务费用」未设「其中：利息费用」明细行（z4/z6 双引擎一致），记 null 不填 0"
+    },
+    {
+     "field": "cashflow.investingCashFlow",
+     "reason": "OCR 缺失负号（扫描件括号/横线未识别）；已按「经营+投资+筹资+汇率=净增加额」与「期初+净增加=期末」两式唯一解反推符号，数值本身逐位核对"
+    },
+    {
+     "field": "cashflow.fxEffectOnCash",
+     "reason": "该行 OCR 数值逐位可靠但正负号缺失/不可辨；符号由上述两式唯一解确定"
+    },
+    {
+     "field": "income.interestIncome",
+     "reason": "该年利润表「财务费用」未设「利息收入」明细行；页面上仅有金融企业专用行「△利息收入」5,359.41（非财务费用明细），故记 null"
+    }
+   ],
+   "checks": {
+    "a_assets_eq_liab_plus_equity": 0.0,
+    "b_netProfit_eq_pbt_minus_tax": 0.0,
+    "c_cashEnd_eq_begin_plus_net": 0.0,
+    "d_retainedEarnings_residual": -9278.04
+   }
+  },
+  "2023-12-31": {
+   "income": {
+    "totalRevenue": 3864891.68,
+    "revenue": 3835570.57,
+    "costOfSales": 3589276.27,
+    "taxesAndSurcharges": 15823.65,
+    "sellingExpenses": 11607.71,
+    "adminExpenses": 98157.13,
+    "rdExpenses": 21604.92,
+    "financialExpenses": 32471.6,
+    "interestExpense": 33382.58,
+    "interestIncome": 7481.39,
+    "investmentIncome": 17435.89,
+    "operatingProfit": 96261.95,
+    "nonOperatingIncome": 12559.18,
+    "nonOperatingExpense": 12137.58,
+    "profitBeforeTax": 96383.55,
+    "incomeTaxExpense": 25895.96,
+    "netProfit": 70487.59,
+    "netProfitAttributableToParent": 65159.36,
+    "minorityInterestsProfit": 5328.23,
+    "otherComprehensiveIncome": 4299.69,
+    "totalComprehensiveIncome": 6062.19
+   },
+   "balance": {
+    "cash": 98548.26,
+    "accountsReceivable": 267289.62,
+    "inventory": 140076.34,
+    "currentAssetsTotal": 802861.27,
+    "fixedAssets": 3553142.28,
+    "constructionInProgress": 436008.08,
+    "noncurrentAssetsTotal": 4741416.12,
+    "totalAssets": 5544277.38,
+    "shortTermBorrowings": 270051.38,
+    "noncurrentLiabDueWithin1y": 150957.75,
+    "longTermBorrowings": 539836.64,
+    "bondsPayable": 246415.91,
+    "totalLiabilities": 3003375.6,
+    "paidInCapital": 1833941.43,
+    "capitalReserve": 242353.94,
+    "retainedEarnings": 297404.74,
+    "equityAttributableToParent": 2442897.86,
+    "minorityInterests": 98003.93,
+    "totalEquity": 2540901.79
+   },
+   "cashflow": {
+    "operatingCashFlow": 481416.83,
+    "investingCashFlow": -495237.9,
+    "financingCashFlow": 30396.28,
+    "capex": 584787.69,
+    "distributionsToOwners": 62132.68,
+    "borrowingsReceived": 896297.71,
+    "debtRepaid": 820184.89,
+    "cashEndOfPeriod": 93955.16,
+    "cashBeginOfPeriod": 76484.49,
+    "cashNetIncrease": 17470.67,
+    "fxEffectOnCash": 895.47
+   },
+   "equityChange": {
+    "distributionsToOwners": {
+     "consolidated": -27693.37,
+     "attributableToParent": -23182.03,
+     "minority": -4511.34
+    },
+    "surplusReserveAppropriation": 3883.02,
+    "equityAtYearEnd": 2540901.79,
+    "equityAtPriorYearEnd": 2405967.35,
+    "retainedEarningsAtYearEnd": 297404.74,
+    "retainedEarningsAtPriorYearEnd": 269349.7,
+    "otherMovementsResidual": -10039.26,
+    "evidencePage": "P2023 p29 行次16(利润分配)/17",
+    "checks": {
+     "eq_total_yearend_minus_bs_totalEquity": null
+    }
+   },
+   "pages": {
+    "balance_assets": 25,
+    "balance_liab": 26,
+    "income": 27,
+    "cashflow": 28,
+    "equityChange": [
+     29,
+     30
+    ]
+   },
+   "sources": [
+    "P2023.pdf p25 合并资产负债表(资产)",
+    "P2023.pdf p26 合并资产负债表(负债及所有者权益)",
+    "P2023.pdf p27 合并利润表",
+    "P2023.pdf p28 合并现金流量表",
+    "P2023.pdf p29-30 合并所有者权益变动表"
+   ],
+   "checkFail": [],
+   "uncertain": [
+    {
+     "field": "income.revenue",
+     "ocrValue": 3836570.57,
+     "usedValue": 3835570.57,
+     "reason": "OCR 3,836,570.57 千位 5 误读为 6，与前轮 REPORT.md 3,835,570.57 一致"
+    },
+    {
+     "field": "equityChange.eqTotalYearEnd",
+     "reason": "EQ 表本年年末余额行（14 列宽表）OCR 不可靠，未取得；合计层校验改用 BS 所有者权益合计（已由 a) 式交叉验证）"
+    },
+    {
+     "field": "cashflow.fxEffectOnCash",
+     "reason": "该行 OCR 数值逐位可靠但正负号缺失/不可辨；符号由上述两式唯一解确定"
+    }
+   ],
+   "checks": {
+    "a_assets_eq_liab_plus_equity": -0.01,
+    "b_netProfit_eq_pbt_minus_tax": 0.0,
+    "c_cashEnd_eq_begin_plus_net": 0.0,
+    "d_retainedEarnings_residual": -10039.26
+   }
+  },
+  "2024-12-31": {
+   "income": {
+    "totalRevenue": 3945928.33,
+    "revenue": 3919271.5,
+    "costOfSales": 3667364.19,
+    "taxesAndSurcharges": 16358.14,
+    "sellingExpenses": 4418.95,
+    "adminExpenses": 98864.49,
+    "rdExpenses": 23493.38,
+    "financialExpenses": 31810.39,
+    "interestExpense": 35018.68,
+    "interestIncome": 6899.65,
+    "investmentIncome": 21635.19,
+    "operatingProfit": 109396.48,
+    "nonOperatingIncome": 10226.75,
+    "nonOperatingExpense": 13576.04,
+    "profitBeforeTax": 106047.19,
+    "incomeTaxExpense": 28749.65,
+    "netProfit": 77297.54,
+    "netProfitAttributableToParent": 72274.48,
+    "minorityInterestsProfit": 5023.06,
+    "otherComprehensiveIncome": -13309.85,
+    "totalComprehensiveIncome": 63987.69
+   },
+   "balance": {
+    "cash": 69849.77,
+    "accountsReceivable": 269696.85,
+    "inventory": 108414.83,
+    "currentAssetsTotal": 729165.87,
+    "fixedAssets": 3810312.64,
+    "constructionInProgress": 474976.25,
+    "noncurrentAssetsTotal": 5093441.67,
+    "totalAssets": 5822607.53,
+    "shortTermBorrowings": 513251.1,
+    "noncurrentLiabDueWithin1y": 106389.62,
+    "longTermBorrowings": 516038.2,
+    "bondsPayable": 213658.1,
+    "totalLiabilities": 3156375.39,
+    "paidInCapital": 1932343.32,
+    "capitalReserve": 247998.56,
+    "retainedEarnings": 319304.4,
+    "equityAttributableToParent": 2568325.3,
+    "minorityInterests": 97906.84,
+    "totalEquity": 2666232.14
+   },
+   "cashflow": {
+    "operatingCashFlow": 527594.38,
+    "investingCashFlow": -670886.86,
+    "financingCashFlow": 109857.61,
+    "capex": 702277.73,
+    "distributionsToOwners": 63034.31,
+    "borrowingsReceived": 983732.22,
+    "debtRepaid": 815285.19,
+    "cashEndOfPeriod": 58472.19,
+    "cashBeginOfPeriod": 93953.15,
+    "cashNetIncrease": -35480.96,
+    "fxEffectOnCash": -2046.08
+   },
+   "equityChange": {
+    "distributionsToOwners": {
+     "consolidated": -40795.06,
+     "attributableToParent": -33860.43,
+     "minority": -6934.63
+    },
+    "surplusReserveAppropriation": 3649.34,
+    "equityAtYearEnd": 2666232.14,
+    "equityAtPriorYearEnd": 2528147.11,
+    "retainedEarningsAtYearEnd": 319304.4,
+    "retainedEarningsAtPriorYearEnd": 285316.64,
+    "otherMovementsResidual": -776.95,
+    "evidencePage": "P2025 p48 上年金额栏 行次24/17 + P2024 附注",
+    "checks": {
+     "eq_total_yearend_minus_bs_totalEquity": null
+    }
+   },
+   "pages": {
+    "balance_assets": 31,
+    "balance_liab": 32,
+    "income": 33,
+    "cashflow": 34,
+    "equityChange": [
+     35,
+     36
+    ]
+   },
+   "sources": [
+    "P2024.pdf p31 合并资产负债表(资产)",
+    "P2024.pdf p32 合并资产负债表(负债及所有者权益)",
+    "P2024.pdf p33 合并利润表",
+    "P2024.pdf p34 合并现金流量表",
+    "P2024.pdf p35-36 合并所有者权益变动表"
+   ],
+   "checkFail": [],
+   "uncertain": [
+    {
+     "field": "equityChange.eqTotalYearEnd",
+     "reason": "EQ 表本年年末余额行（14 列宽表）OCR 不可靠，未取得；合计层校验改用 BS 所有者权益合计（已由 a) 式交叉验证）"
+    },
+    {
+     "field": "cashflow.investingCashFlow",
+     "reason": "OCR 缺失负号（扫描件括号/横线未识别）；已按「经营+投资+筹资+汇率=净增加额」与「期初+净增加=期末」两式唯一解反推符号，数值本身逐位核对"
+    },
+    {
+     "field": "cashflow.cashNetIncrease",
+     "reason": "OCR 缺失负号（扫描件括号/横线未识别）；已按「经营+投资+筹资+汇率=净增加额」与「期初+净增加=期末」两式唯一解反推符号，数值本身逐位核对"
+    },
+    {
+     "field": "cashflow.fxEffectOnCash",
+     "reason": "该行 OCR 数值逐位可靠但正负号缺失/不可辨；符号由上述两式唯一解确定"
+    }
+   ],
+   "checks": {
+    "a_assets_eq_liab_plus_equity": 0.0,
+    "b_netProfit_eq_pbt_minus_tax": -0.0,
+    "c_cashEnd_eq_begin_plus_net": 0.0,
+    "d_retainedEarnings_residual": -776.95
+   }
+  },
+  "2025-12-31": {
+   "income": {
+    "totalRevenue": 3991828.96,
+    "revenue": 3966411.18,
+    "costOfSales": 3702663.07,
+    "taxesAndSurcharges": 16873.83,
+    "sellingExpenses": 4056.03,
+    "adminExpenses": 98098.65,
+    "rdExpenses": 26765.47,
+    "financialExpenses": 35578.86,
+    "interestExpense": 33676.94,
+    "interestIncome": 6089.28,
+    "investmentIncome": 22686.08,
+    "operatingProfit": 121058.02,
+    "nonOperatingIncome": 8128.5,
+    "nonOperatingExpense": 10954.36,
+    "profitBeforeTax": 118232.16,
+    "incomeTaxExpense": 31807.15,
+    "netProfit": 86425.01,
+    "netProfitAttributableToParent": 79899.85,
+    "minorityInterestsProfit": 6525.16,
+    "otherComprehensiveIncome": 7208.28,
+    "totalComprehensiveIncome": 93633.29
+   },
+   "balance": {
+    "cash": 52547.75,
+    "accountsReceivable": 263658.18,
+    "inventory": 69974.2,
+    "currentAssetsTotal": 696514.61,
+    "fixedAssets": 4082713.37,
+    "constructionInProgress": 518438.25,
+    "noncurrentAssetsTotal": 5464723.85,
+    "totalAssets": 6161238.46,
+    "shortTermBorrowings": 321970.91,
+    "noncurrentLiabDueWithin1y": 259929.29,
+    "longTermBorrowings": 292687.14,
+    "bondsPayable": 658830.47,
+    "totalLiabilities": 3275261.19,
+    "paidInCapital": 2058280.5,
+    "capitalReserve": 258070.1,
+    "retainedEarnings": 360075.52,
+    "equityAttributableToParent": 2757055.46,
+    "minorityInterests": 128921.81,
+    "totalEquity": 2885977.27
+   },
+   "cashflow": {
+    "operatingCashFlow": 536810.42,
+    "investingCashFlow": -683544.27,
+    "financingCashFlow": 141846.02,
+    "capex": 709162.77,
+    "distributionsToOwners": 58766.77,
+    "borrowingsReceived": 1518589.78,
+    "debtRepaid": 1355929.27,
+    "cashEndOfPeriod": 54309.44,
+    "cashBeginOfPeriod": 58472.19,
+    "cashNetIncrease": -4162.75,
+    "fxEffectOnCash": 725.08
+   },
+   "equityChange": {
+    "distributionsToOwners": {
+     "consolidated": -42986.32,
+     "attributableToParent": -36147.3,
+     "minority": -6839.02
+    },
+    "surplusReserveAppropriation": 3441.87,
+    "equityAtYearEnd": 2885977.27,
+    "equityAtPriorYearEnd": 2666768.74,
+    "retainedEarningsAtYearEnd": 360075.52,
+    "retainedEarningsAtPriorYearEnd": 320449.05,
+    "otherMovementsResidual": -684.21,
+    "evidencePage": "P2025 p47 行次24/17",
+    "checks": {
+     "eq_total_yearend_minus_bs_totalEquity": 0.0
+    }
+   },
+   "pages": {
+    "balance_assets": 43,
+    "balance_liab": 44,
+    "income": 45,
+    "cashflow": 46,
+    "equityChange": [
+     47,
+     48
+    ]
+   },
+   "sources": [
+    "P2025.pdf p43 合并资产负债表(资产)",
+    "P2025.pdf p44 合并资产负债表(负债及所有者权益)",
+    "P2025.pdf p45 合并利润表",
+    "P2025.pdf p46 合并现金流量表",
+    "P2025.pdf p47-48 合并所有者权益变动表"
+   ],
+   "checkFail": [],
+   "uncertain": [
+    {
+     "field": "cashflow.cashNetIncrease",
+     "reason": "OCR 缺失负号（扫描件括号/横线未识别）；已按「经营+投资+筹资+汇率=净增加额」与「期初+净增加=期末」两式唯一解反推符号，数值本身逐位核对"
+    },
+    {
+     "field": "cashflow.fxEffectOnCash",
+     "reason": "该行 OCR 数值逐位可靠但正负号缺失/不可辨；符号由上述两式唯一解确定"
+    }
+   ],
+   "checks": {
+    "a_assets_eq_liab_plus_equity": 0.0,
+    "b_netProfit_eq_pbt_minus_tax": -0.0,
+    "c_cashEnd_eq_begin_plus_net": 0.0,
+    "d_retainedEarnings_residual": -684.21
+   }
+  }
+ },
+ "restatements": [
+  {
+   "year": "2020",
+   "field": "cash",
+   "asReported": 78103.72,
+   "nextYearPriorColumn": 71512.54,
+   "diff": -6591.18
+  },
+  {
+   "year": "2020",
+   "field": "accountsReceivable",
+   "asReported": 85617.26,
+   "nextYearPriorColumn": 106349.84,
+   "diff": 20732.58
+  },
+  {
+   "year": "2020",
+   "field": "inventory",
+   "asReported": 32072.98,
+   "nextYearPriorColumn": 22747.66,
+   "diff": -9325.32
+  },
+  {
+   "year": "2020",
+   "field": "currentAssetsTotal",
+   "asReported": 432349.12,
+   "nextYearPriorColumn": 494230.82,
+   "diff": 61881.7
+  },
+  {
+   "year": "2020",
+   "field": "fixedAssets",
+   "asReported": 2913938.06,
+   "nextYearPriorColumn": 2908292.94,
+   "diff": -5645.12
+  },
+  {
+   "year": "2020",
+   "field": "constructionInProgress",
+   "asReported": 409546.97,
+   "nextYearPriorColumn": 409153.24,
+   "diff": -393.73
+  },
+  {
+   "year": "2020",
+   "field": "noncurrentAssetsTotal",
+   "asReported": 3913878.47,
+   "nextYearPriorColumn": 3857054.83,
+   "diff": -56823.64
+  },
+  {
+   "year": "2020",
+   "field": "totalAssets",
+   "asReported": 4346227.58,
+   "nextYearPriorColumn": 4351285.64,
+   "diff": 5058.06
+  },
+  {
+   "year": "2020",
+   "field": "shortTermBorrowings",
+   "asReported": 349313.38,
+   "nextYearPriorColumn": 341904.06,
+   "diff": -7409.32
+  },
+  {
+   "year": "2020",
+   "field": "noncurrentLiabDueWithin1y",
+   "asReported": 89947.34,
+   "nextYearPriorColumn": 95338.58,
+   "diff": 5391.24
+  },
+  {
+   "year": "2020",
+   "field": "longTermBorrowings",
+   "asReported": 217894.85,
+   "nextYearPriorColumn": 214493.67,
+   "diff": -3401.18
+  },
+  {
+   "year": "2020",
+   "field": "bondsPayable",
+   "asReported": 233035.48,
+   "nextYearPriorColumn": 231229.67,
+   "diff": -1805.81
+  },
+  {
+   "year": "2020",
+   "field": "totalLiabilities",
+   "asReported": 2446040.44,
+   "nextYearPriorColumn": 2441787.0,
+   "diff": -4253.44
+  },
+  {
+   "year": "2020",
+   "field": "paidInCapital",
+   "asReported": 1437825.25,
+   "nextYearPriorColumn": 1422870.74,
+   "diff": -14954.51
+  },
+  {
+   "year": "2020",
+   "field": "capitalReserve",
+   "asReported": 217769.82,
+   "nextYearPriorColumn": 229658.72,
+   "diff": 11888.9
+  },
+  {
+   "year": "2020",
+   "field": "retainedEarnings",
+   "asReported": 123161.29,
+   "nextYearPriorColumn": 146078.27,
+   "diff": 22916.98
+  },
+  {
+   "year": "2020",
+   "field": "equityAttributableToParent",
+   "asReported": 1822909.21,
+   "nextYearPriorColumn": 1841598.29,
+   "diff": 18689.08
+  },
+  {
+   "year": "2020",
+   "field": "minorityInterests",
+   "asReported": 77277.93,
+   "nextYearPriorColumn": 67900.35,
+   "diff": -9377.58
+  },
+  {
+   "year": "2020",
+   "field": "totalEquity",
+   "asReported": 1900187.14,
+   "nextYearPriorColumn": 1909498.64,
+   "diff": 9311.5
+  },
+  {
+   "year": "2020",
+   "field": "cashEndOfPeriod",
+   "asReported": 75141.87,
+   "nextYearPriorColumn": 70444.1,
+   "diff": -4697.77
+  },
+  {
+   "year": "2021",
+   "field": "cash",
+   "asReported": 78966.0,
+   "nextYearPriorColumn": 78966.44,
+   "diff": 0.44
+  },
+  {
+   "year": "2021",
+   "field": "accountsReceivable",
+   "asReported": 116713.3,
+   "nextYearPriorColumn": 186384.44,
+   "diff": 69671.14
+  },
+  {
+   "year": "2021",
+   "field": "inventory",
+   "asReported": 26687.31,
+   "nextYearPriorColumn": 26674.39,
+   "diff": -12.92
+  },
+  {
+   "year": "2021",
+   "field": "currentAssetsTotal",
+   "asReported": 502074.01,
+   "nextYearPriorColumn": 570580.44,
+   "diff": 68506.43
+  },
+  {
+   "year": "2021",
+   "field": "fixedAssets",
+   "asReported": 3158806.72,
+   "nextYearPriorColumn": 3157480.03,
+   "diff": -1326.69
+  },
+  {
+   "year": "2021",
+   "field": "constructionInProgress",
+   "asReported": 387618.85,
+   "nextYearPriorColumn": 387516.83,
+   "diff": -102.02
+  },
+  {
+   "year": "2021",
+   "field": "noncurrentAssetsTotal",
+   "asReported": 4169450.24,
+   "nextYearPriorColumn": 4157870.97,
+   "diff": -11579.27
+  },
+  {
+   "year": "2021",
+   "field": "totalAssets",
+   "asReported": 4671524.25,
+   "nextYearPriorColumn": 4728451.41,
+   "diff": 56927.16
+  },
+  {
+   "year": "2021",
+   "field": "noncurrentLiabDueWithin1y",
+   "asReported": 92608.48,
+   "nextYearPriorColumn": 92290.84,
+   "diff": -317.64
+  },
+  {
+   "year": "2021",
+   "field": "longTermBorrowings",
+   "asReported": 329242.54,
+   "nextYearPriorColumn": 329243.06,
+   "diff": 0.52
+  },
+  {
+   "year": "2021",
+   "field": "bondsPayable",
+   "asReported": 250809.32,
+   "nextYearPriorColumn": 251126.87,
+   "diff": 317.55
+  },
+  {
+   "year": "2021",
+   "field": "totalLiabilities",
+   "asReported": 2615437.65,
+   "nextYearPriorColumn": 2629460.81,
+   "diff": 14023.16
+  },
+  {
+   "year": "2021",
+   "field": "paidInCapital",
+   "asReported": 1522134.92,
+   "nextYearPriorColumn": 1523204.65,
+   "diff": 1069.73
+  },
+  {
+   "year": "2021",
+   "field": "capitalReserve",
+   "asReported": 229404.94,
+   "nextYearPriorColumn": 221319.94,
+   "diff": -8085.0
+  },
+  {
+   "year": "2021",
+   "field": "retainedEarnings",
+   "asReported": 175167.12,
+   "nextYearPriorColumn": 224872.03,
+   "diff": 49704.91
+  },
+  {
+   "year": "2021",
+   "field": "equityAttributableToParent",
+   "asReported": 1970694.29,
+   "nextYearPriorColumn": 2013327.42,
+   "diff": 42633.13
+  },
+  {
+   "year": "2021",
+   "field": "minorityInterests",
+   "asReported": 85392.31,
+   "nextYearPriorColumn": 85663.18,
+   "diff": 270.87
+  },
+  {
+   "year": "2021",
+   "field": "totalEquity",
+   "asReported": 2056086.6,
+   "nextYearPriorColumn": 2098990.6,
+   "diff": 42904.0
+  },
+  {
+   "year": "2021",
+   "field": "cashEndOfPeriod",
+   "asReported": 78023.25,
+   "nextYearPriorColumn": 77799.04,
+   "diff": -224.21
+  },
+  {
+   "year": "2022",
+   "field": "cash",
+   "asReported": 78215.51,
+   "nextYearPriorColumn": 118925.97,
+   "diff": 40710.46
+  },
+  {
+   "year": "2022",
+   "field": "accountsReceivable",
+   "asReported": 192500.72,
+   "nextYearPriorColumn": 266174.09,
+   "diff": 73673.37
+  },
+  {
+   "year": "2022",
+   "field": "inventory",
+   "asReported": 27017.65,
+   "nextYearPriorColumn": 154320.92,
+   "diff": 127303.27
+  },
+  {
+   "year": "2022",
+   "field": "currentAssetsTotal",
+   "asReported": 520437.71,
+   "nextYearPriorColumn": 800717.02,
+   "diff": 280279.31
+  },
+  {
+   "year": "2022",
+   "field": "fixedAssets",
+   "asReported": 3323665.2,
+   "nextYearPriorColumn": 3385593.18,
+   "diff": 61927.98
+  },
+  {
+   "year": "2022",
+   "field": "constructionInProgress",
+   "asReported": 387059.93,
+   "nextYearPriorColumn": 395324.99,
+   "diff": 8265.06
+  },
+  {
+   "year": "2022",
+   "field": "noncurrentAssetsTotal",
+   "asReported": 4381837.86,
+   "nextYearPriorColumn": 4491480.61,
+   "diff": 109642.75
+  },
+  {
+   "year": "2022",
+   "field": "totalAssets",
+   "asReported": 4902275.57,
+   "nextYearPriorColumn": 5292197.62,
+   "diff": 389922.05
+  },
+  {
+   "year": "2022",
+   "field": "shortTermBorrowings",
+   "asReported": 330398.13,
+   "nextYearPriorColumn": 322790.65,
+   "diff": -7607.48
+  },
+  {
+   "year": "2022",
+   "field": "noncurrentLiabDueWithin1y",
+   "asReported": 128682.47,
+   "nextYearPriorColumn": 122845.55,
+   "diff": -5836.92
+  },
+  {
+   "year": "2022",
+   "field": "longTermBorrowings",
+   "asReported": 405873.02,
+   "nextYearPriorColumn": 399944.45,
+   "diff": -5928.57
+  },
+  {
+   "year": "2022",
+   "field": "totalLiabilities",
+   "asReported": 2713668.01,
+   "nextYearPriorColumn": 2886230.28,
+   "diff": 172562.27
+  },
+  {
+   "year": "2022",
+   "field": "paidInCapital",
+   "asReported": 1568787.59,
+   "nextYearPriorColumn": 1765784.86,
+   "diff": 196997.27
+  },
+  {
+   "year": "2022",
+   "field": "capitalReserve",
+   "asReported": 228009.81,
+   "nextYearPriorColumn": 225786.78,
+   "diff": -2223.03
+  },
+  {
+   "year": "2022",
+   "field": "retainedEarnings",
+   "asReported": 246034.01,
+   "nextYearPriorColumn": 269349.7,
+   "diff": 23315.69
+  },
+  {
+   "year": "2022",
+   "field": "equityAttributableToParent",
+   "asReported": 2097971.26,
+   "nextYearPriorColumn": 2316076.07,
+   "diff": 218104.81
+  },
+  {
+   "year": "2022",
+   "field": "minorityInterests",
+   "asReported": 90636.3,
+   "nextYearPriorColumn": 89891.27,
+   "diff": -745.03
+  },
+  {
+   "year": "2022",
+   "field": "totalEquity",
+   "asReported": 2188607.56,
+   "nextYearPriorColumn": 2405967.35,
+   "diff": 217359.79
+  },
+  {
+   "year": "2023",
+   "field": "cash",
+   "asReported": 98548.26,
+   "nextYearPriorColumn": 98546.25,
+   "diff": -2.01
+  },
+  {
+   "year": "2023",
+   "field": "accountsReceivable",
+   "asReported": 267289.62,
+   "nextYearPriorColumn": 268002.67,
+   "diff": 713.05
+  },
+  {
+   "year": "2023",
+   "field": "currentAssetsTotal",
+   "asReported": 802861.27,
+   "nextYearPriorColumn": 791722.73,
+   "diff": -11138.54
+  },
+  {
+   "year": "2023",
+   "field": "fixedAssets",
+   "asReported": 3553142.28,
+   "nextYearPriorColumn": 3553284.25,
+   "diff": 141.97
+  },
+  {
+   "year": "2023",
+   "field": "noncurrentAssetsTotal",
+   "asReported": 4741416.12,
+   "nextYearPriorColumn": 4752147.65,
+   "diff": 10731.53
+  },
+  {
+   "year": "2023",
+   "field": "totalAssets",
+   "asReported": 5544277.38,
+   "nextYearPriorColumn": 5543870.39,
+   "diff": -406.99
+  },
+  {
+   "year": "2023",
+   "field": "shortTermBorrowings",
+   "asReported": 270051.38,
+   "nextYearPriorColumn": 273063.21,
+   "diff": 3011.83
+  },
+  {
+   "year": "2023",
+   "field": "noncurrentLiabDueWithin1y",
+   "asReported": 150957.75,
+   "nextYearPriorColumn": 151070.24,
+   "diff": 112.49
+  },
+  {
+   "year": "2023",
+   "field": "longTermBorrowings",
+   "asReported": 539836.64,
+   "nextYearPriorColumn": 539247.17,
+   "diff": -589.47
+  },
+  {
+   "year": "2023",
+   "field": "totalLiabilities",
+   "asReported": 3003375.6,
+   "nextYearPriorColumn": 3015723.27,
+   "diff": 12347.67
+  },
+  {
+   "year": "2023",
+   "field": "retainedEarnings",
+   "asReported": 297404.74,
+   "nextYearPriorColumn": 285316.64,
+   "diff": -12088.1
+  },
+  {
+   "year": "2023",
+   "field": "equityAttributableToParent",
+   "asReported": 2442897.86,
+   "nextYearPriorColumn": 2430769.63,
+   "diff": -12128.23
+  },
+  {
+   "year": "2023",
+   "field": "minorityInterests",
+   "asReported": 98003.93,
+   "nextYearPriorColumn": 97377.48,
+   "diff": -626.45
+  },
+  {
+   "year": "2023",
+   "field": "totalEquity",
+   "asReported": 2540901.79,
+   "nextYearPriorColumn": 2528147.11,
+   "diff": -12754.68
+  },
+  {
+   "year": "2023",
+   "field": "cashEndOfPeriod",
+   "asReported": 93955.16,
+   "nextYearPriorColumn": 93953.15,
+   "diff": -2.01
+  },
+  {
+   "year": "2024",
+   "field": "cash",
+   "asReported": 69849.77,
+   "nextYearPriorColumn": 65899.55,
+   "diff": -3950.22
+  },
+  {
+   "year": "2024",
+   "field": "accountsReceivable",
+   "asReported": 269696.85,
+   "nextYearPriorColumn": 269602.6,
+   "diff": -94.25
+  },
+  {
+   "year": "2024",
+   "field": "inventory",
+   "asReported": 108414.83,
+   "nextYearPriorColumn": 106334.95,
+   "diff": -2079.88
+  },
+  {
+   "year": "2024",
+   "field": "currentAssetsTotal",
+   "asReported": 729165.87,
+   "nextYearPriorColumn": 727217.37,
+   "diff": -1948.5
+  },
+  {
+   "year": "2024",
+   "field": "fixedAssets",
+   "asReported": 3810312.64,
+   "nextYearPriorColumn": 3812420.26,
+   "diff": 2107.62
+  },
+  {
+   "year": "2024",
+   "field": "constructionInProgress",
+   "asReported": 474976.25,
+   "nextYearPriorColumn": 475028.03,
+   "diff": 51.78
+  },
+  {
+   "year": "2024",
+   "field": "noncurrentAssetsTotal",
+   "asReported": 5093441.67,
+   "nextYearPriorColumn": 5095534.78,
+   "diff": 2093.11
+  },
+  {
+   "year": "2024",
+   "field": "totalAssets",
+   "asReported": 5822607.53,
+   "nextYearPriorColumn": 5822752.15,
+   "diff": 144.62
+  },
+  {
+   "year": "2024",
+   "field": "shortTermBorrowings",
+   "asReported": 513251.1,
+   "nextYearPriorColumn": 483251.1,
+   "diff": -30000.0
+  },
+  {
+   "year": "2024",
+   "field": "bondsPayable",
+   "asReported": 213658.1,
+   "nextYearPriorColumn": 243658.1,
+   "diff": 30000.0
+  },
+  {
+   "year": "2024",
+   "field": "totalLiabilities",
+   "asReported": 3156375.39,
+   "nextYearPriorColumn": 3155983.4,
+   "diff": -391.99
+  },
+  {
+   "year": "2024",
+   "field": "capitalReserve",
+   "asReported": 247998.56,
+   "nextYearPriorColumn": 248014.86,
+   "diff": 16.3
+  },
+  {
+   "year": "2024",
+   "field": "retainedEarnings",
+   "asReported": 319304.4,
+   "nextYearPriorColumn": 320449.05,
+   "diff": 1144.65
+  },
+  {
+   "year": "2024",
+   "field": "equityAttributableToParent",
+   "asReported": 2568325.3,
+   "nextYearPriorColumn": 2569249.18,
+   "diff": 923.88
+  },
+  {
+   "year": "2024",
+   "field": "minorityInterests",
+   "asReported": 97906.84,
+   "nextYearPriorColumn": 97519.56,
+   "diff": -387.28
+  },
+  {
+   "year": "2024",
+   "field": "totalEquity",
+   "asReported": 2666232.14,
+   "nextYearPriorColumn": 2666768.74,
+   "diff": 536.6
+  }
+ ]
+}
