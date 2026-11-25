@@ -1,0 +1,285 @@
+{
+  "scannedAt": "2026-11-25T03:30:14.006Z",
+  "siteUpdated": "2026-11-22",
+  "counts": {
+    "total": 93,
+    "scanned": 83,
+    "newPeriods": 2,
+    "fillCandidates": 0,
+    "filingAlerts": 17,
+    "longTermMissing": 0,
+    "errors": 0,
+    "skipped": 10
+  },
+  "newPeriods": [
+    {
+      "ticker": "00151.HK",
+      "name": "Want Want China",
+      "market": "HK",
+      "currency": "CNY-M",
+      "siteMaxEnd": "2026-03-31",
+      "latestEnd": "2026-09-30",
+      "latestNotice": null,
+      "reportType": "2027年中报"
+    },
+    {
+      "ticker": "01810.HK",
+      "name": "Xiaomi",
+      "market": "HK",
+      "currency": "CNY-M",
+      "siteMaxEnd": "2026-06-30",
+      "latestEnd": "2026-09-30",
+      "latestNotice": null,
+      "reportType": "2026年三季报"
+    }
+  ],
+  "fillCandidates": [],
+  "filingAlerts": [
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-24",
+      "count": 2,
+      "recent": [
+        "2026-11-24",
+        "2026-11-19"
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "name": "ARM HOLDINGS PLC /UK",
+      "market": "US",
+      "latestSixK": "2026-11-23",
+      "count": 3,
+      "recent": [
+        "2026-11-23",
+        "2026-11-04",
+        "2026-11-04"
+      ]
+    },
+    {
+      "ticker": "BABA",
+      "name": "Alibaba Group Holding Ltd",
+      "market": "US",
+      "latestSixK": "2026-11-23",
+      "count": 5,
+      "recent": [
+        "2026-11-23",
+        "2026-11-19",
+        "2026-11-10"
+      ]
+    },
+    {
+      "ticker": "BIDU",
+      "name": "Baidu, Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-23",
+      "count": 3,
+      "recent": [
+        "2026-11-23",
+        "2026-11-16",
+        "2026-11-04"
+      ]
+    },
+    {
+      "ticker": "STM",
+      "name": "STMicroelectronics N.V.",
+      "market": "US",
+      "latestSixK": "2026-11-23",
+      "count": 6,
+      "recent": [
+        "2026-11-23",
+        "2026-11-16",
+        "2026-11-12"
+      ]
+    },
+    {
+      "ticker": "ZH",
+      "name": "Zhihu Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-23",
+      "count": 3,
+      "recent": [
+        "2026-11-23",
+        "2026-11-16",
+        "2026-11-09"
+      ]
+    },
+    {
+      "ticker": "NTES",
+      "name": "NetEase, Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-19",
+      "count": 4,
+      "recent": [
+        "2026-11-19",
+        "2026-11-06",
+        "2026-11-05"
+      ]
+    },
+    {
+      "ticker": "TCOM",
+      "name": "Trip.com Group Limited",
+      "market": "US",
+      "latestSixK": "2026-11-19",
+      "count": 1,
+      "recent": [
+        "2026-11-19"
+      ]
+    },
+    {
+      "ticker": "JD",
+      "name": "JD.com, Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-17",
+      "count": 3,
+      "recent": [
+        "2026-11-17",
+        "2026-11-12",
+        "2026-11-04"
+      ]
+    },
+    {
+      "ticker": "TME",
+      "name": "Tencent Music Entertainment Group",
+      "market": "US",
+      "latestSixK": "2026-11-17",
+      "count": 1,
+      "recent": [
+        "2026-11-17"
+      ]
+    },
+    {
+      "ticker": "WB",
+      "name": "WEIBO CORPORATION",
+      "market": "US",
+      "latestSixK": "2026-11-17",
+      "count": 1,
+      "recent": [
+        "2026-11-17"
+      ]
+    },
+    {
+      "ticker": "BILI",
+      "name": "Bilibili Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-13",
+      "count": 3,
+      "recent": [
+        "2026-11-13",
+        "2026-11-06",
+        "2026-11-06"
+      ]
+    },
+    {
+      "ticker": "SONY",
+      "name": "Sony Group Corp",
+      "market": "US",
+      "latestSixK": "2026-11-13",
+      "count": 6,
+      "recent": [
+        "2026-11-13",
+        "2026-11-12",
+        "2026-11-10"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "market": "US",
+      "latestSixK": "2026-11-13",
+      "count": 4,
+      "recent": [
+        "2026-11-13",
+        "2026-11-12",
+        "2026-11-10"
+      ]
+    },
+    {
+      "ticker": "CHA",
+      "name": "Chagee Holdings Limited",
+      "market": "US",
+      "latestSixK": "2026-11-12",
+      "count": 1,
+      "recent": [
+        "2026-11-12"
+      ]
+    },
+    {
+      "ticker": "XNET",
+      "name": "Xunlei Ltd",
+      "market": "US",
+      "latestSixK": "2026-11-12",
+      "count": 1,
+      "recent": [
+        "2026-11-12"
+      ]
+    },
+    {
+      "ticker": "LI",
+      "name": "Li Auto Inc.",
+      "market": "US",
+      "latestSixK": "2026-11-10",
+      "count": 2,
+      "recent": [
+        "2026-11-10",
+        "2026-11-09"
+      ]
+    }
+  ],
+  "longTermMissing": [],
+  "errors": [],
+  "skipped": [
+    {
+      "ticker": "000660.KS",
+      "market": "KR",
+      "reason": "KR：未接免费数据源"
+    },
+    {
+      "ticker": "005930.KS",
+      "market": "KR",
+      "reason": "KR：未接免费数据源"
+    },
+    {
+      "ticker": "066570.KS",
+      "market": "KR",
+      "reason": "KR：未接免费数据源"
+    },
+    {
+      "ticker": "2330.TW",
+      "market": "TW",
+      "reason": "TW：无 CIK（未接台股源）"
+    },
+    {
+      "ticker": "2454.TW",
+      "market": "TW",
+      "reason": "TW：无 CIK（未接台股源）"
+    },
+    {
+      "ticker": "HUAWEI",
+      "market": "US",
+      "reason": "私有/无 CIK（人工关注）"
+    },
+    {
+      "ticker": "LEGO",
+      "market": "US",
+      "reason": "私有/无 CIK（人工关注）"
+    },
+    {
+      "ticker": "MC.PA",
+      "market": "EU",
+      "reason": "EU：无 CIK（未接欧股源）"
+    },
+    {
+      "ticker": "NESN.SW",
+      "market": "EU",
+      "reason": "EU：无 CIK（未接欧股源）"
+    },
+    {
+      "ticker": "SGCC",
+      "market": "US",
+      "reason": "私有/无 CIK（人工关注）"
+    }
+  ]
+}
