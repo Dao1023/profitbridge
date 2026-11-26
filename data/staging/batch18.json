@@ -48,5 +48,11 @@
         }
       ]
     }
+  ],
+  "companyNotes": [
+    {
+      "ticker": "ZH",
+      "append": "opInc 口径（2026-11-26 修正）：2025-12-31 的经营亏损 −507.288 为 as-reported，含经营内「商誉减值（GoodwillImpairmentLoss）」126.344（FY2025 20-F accn 0001104659-26-044557 XBRL）；gross − rd − sga 反推会得到 −380.944（旧值），缺口 −126.344；stockanalysis 标准化 Operating Income 已剔除该项，与本站口径不同。"
+    }
   ]
 }

@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "id": "2026-11-26_opinc",
+    "created": "2026-11-26",
+    "field": "opInc",
+    "scope": "4 opInc cells (BIDU 1, BABA 2, ZH 1) corrected from stockanalysis normalized values to the companies' as-reported income/(loss) from operations (CNY-M)",
+    "why": "stockanalysis 的 Operating Income 把公司经营利润内的「减值/资产处置/商誉减值」等经营内其他项剔除，本站过去直接抄了它的标准化值。公司 6-K/20-F 的 income/(loss) from operations 已含这些项目；本次按一手报表改回。4 格差额分别等于：BIDU 长期资产减值 16,190；BABA 2023Q4 无形资产减值 12,084 + 商誉减值 8,490；BABA 2025Q4 商誉减值 9,515；ZH 商誉减值 126.344。",
+    "fields_note": "Only opInc is written; row key order and every other field/row stay byte-identical. Loaded by scripts/patch_rows_2026-11-26_opinc.mjs (targeted, verifies disk value === old) and by scripts/merge_batches.mjs on every write path (before the reconcile pass), so a full --out-dir rebuild reproduces the corrected values instead of restoring the stockanalysis ones.",
+    "bridge_gap_note": "改后 gross − rd − sga − opInc 的缺口（as-reported 含经营内其他项）已登记在 companies[ticker].notes 与 docs/KNOWN_CAVEATS.md「opInc 口径」一节；勿用三项反推营业利润。",
+    "sources": {
+      "BIDU": {
+        "cik": "1329099",
+        "form": "6-K",
+        "accn": "0001193125-25-285391",
+        "exhibit": "d52736dex991.htm",
+        "note": "2025-11-18 Q3 2025 earnings release, Unaudited Condensed Consolidated Statements of Operations: Revenue 31,174; Cost of revenues 18,315; Impairment of long-lived assets 16,190; Operating income (loss) (15,091) — CNY millions"
+      },
+      "BABA": {
+        "cik": "1577552",
+        "form": "6-K",
+        "filings": [
+          {
+            "end": "2023-12-31",
+            "accn": "0001104659-24-011604",
+            "exhibit": "tm245446d1_ex99-1.htm",
+            "note": "2024-02-07 Q4/FY2023 earnings release: Income from operations 22,511; impairment of intangible assets RMB12,084 million (Sun Art) + impairment of goodwill RMB8,490 million (Youku), both inside operating costs and expenses"
+          },
+          {
+            "end": "2025-12-31",
+            "accn": "0001104659-26-032060",
+            "exhibit": "tm269353d1_ex99-1.htm",
+            "note": "2026-03-19 Q4/FY2025 earnings release: Income from operations 10,645; Impairment of goodwill 9,515"
+          }
+        ]
+      },
+      "ZH": {
+        "cik": "1835724",
+        "form": "20-F",
+        "accn": "0001104659-26-044557",
+        "note": "FY2025 20-F XBRL companyfacts (us-gaap): OperatingIncomeLoss -507,288,000; GoodwillImpairmentLoss 126,344,000; RevenueFromContractWithCustomerExcludingAssessedTax 2,749,004,000; CostOfRevenue 1,101,259,000; ResearchAndDevelopmentExpense 524,996,000; SellingAndMarketingExpense 1,252,274,000 + GeneralAndAdministrativeExpense 251,419,000 = sga 1,503,693,000 (amounts in CNY, stored here as CNY-M)"
+      }
+    },
+    "rejected_source": "stockanalysis.com quarterly/annual income statements — 旧值来源；Operating Income 剔除经营内减值/处置损益，非公司 as-reported 口径"
+  },
+  "patches": [
+    { "ticker": "BIDU", "end": "2025-09-30", "field": "opInc", "old": 1099, "new": -15091, "accn": "0001193125-25-285391", "note": "as-reported operating loss (15,091); impairment of long-lived assets 16,190 sits inside operating costs and expenses; old 1,099 = gross 12,859 − rd 5,179 − sga 6,581" },
+    { "ticker": "BABA", "end": "2023-12-31", "field": "opInc", "old": 43085, "new": 22511, "accn": "0001104659-24-011604", "note": "as-reported income from operations 22,511; SA removed 12,084 intangible impairment + 8,490 goodwill impairment; old also carried an unrelated −2,517 three-line residual" },
+    { "ticker": "BABA", "end": "2025-12-31", "field": "opInc", "old": 20160, "new": 10645, "accn": "0001104659-26-032060", "note": "as-reported income from operations 10,645; SA removed 9,515 goodwill impairment; old also carried an unrelated +620 three-line residual" },
+    { "ticker": "ZH", "end": "2025-12-31", "field": "opInc", "old": -380.944, "new": -507.288, "accn": "0001104659-26-044557", "note": "as-reported operating loss -507.288; goodwill impairment 126.344 sits inside operating expenses; old -380.944 = gross − rd − sga" }
+  ]
+}

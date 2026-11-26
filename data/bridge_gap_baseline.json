@@ -1,0 +1,4624 @@
+{
+  "generatedAt": "2026-11-26",
+  "generator": "node scripts/gen_bridge_gap_baseline.mjs",
+  "definition": "gap = opInc − (gross − rd − sga); entries have |gap| > 1% × |revenue|; periods missing opInc/gross/rd/sga/revenue are skipped",
+  "thresholdPct": 1,
+  "note": "回归基线：已有期允许 gap 变化，但基线外的新期会让 tests/verify_opinc_bridge_gap.mjs 变红。新增缺口必须人工确证是「as-reported 口径（经营内其他项/减值/处置）」还是「取数错误」，再重跑生成脚本并与数据修正同一 commit。精确白名单（LI/BIDU/BABA/ZH）在测试里逐期断言，不在此文件。",
+  "count": 769,
+  "entries": [
+    {
+      "ticker": "NVDA",
+      "end": "2011-01-30",
+      "gap": 57,
+      "revenue": 886.4
+    },
+    {
+      "ticker": "NVDA",
+      "end": "2015-07-26",
+      "gap": -89,
+      "revenue": 1153
+    },
+    {
+      "ticker": "NVDA",
+      "end": "2016-01-31",
+      "gap": -35,
+      "revenue": 1401
+    },
+    {
+      "ticker": "NVDA",
+      "end": "2022-05-01",
+      "gap": -1353,
+      "revenue": 8288
+    },
+    {
+      "ticker": "TSLA",
+      "end": "2018-06-30",
+      "gap": -103.4,
+      "revenue": 4002.2
+    },
+    {
+      "ticker": "TSLA",
+      "end": "2019-06-30",
+      "gap": -117,
+      "revenue": 6350
+    },
+    {
+      "ticker": "TSLA",
+      "end": "2024-06-30",
+      "gap": -622,
+      "revenue": 25500
+    },
+    {
+      "ticker": "INTC",
+      "end": "2009-03-28",
+      "gap": -76,
+      "revenue": 7145
+    },
+    {
+      "ticker": "INTC",
+      "end": "2009-06-27",
+      "gap": -93,
+      "revenue": 8024
+    },
+    {
+      "ticker": "INTC",
+      "end": "2013-09-28",
+      "gap": -198,
+      "revenue": 13483
+    },
+    {
+      "ticker": "INTC",
+      "end": "2013-12-28",
+      "gap": -190,
+      "revenue": 13834
+    },
+    {
+      "ticker": "INTC",
+      "end": "2014-03-29",
+      "gap": -210,
+      "revenue": 12764
+    },
+    {
+      "ticker": "INTC",
+      "end": "2014-06-28",
+      "gap": -153,
+      "revenue": 13831
+    },
+    {
+      "ticker": "INTC",
+      "end": "2015-03-28",
+      "gap": -167,
+      "revenue": 12781
+    },
+    {
+      "ticker": "INTC",
+      "end": "2015-06-27",
+      "gap": -316,
+      "revenue": 13195
+    },
+    {
+      "ticker": "INTC",
+      "end": "2016-07-02",
+      "gap": -1503,
+      "revenue": 13533
+    },
+    {
+      "ticker": "INTC",
+      "end": "2016-10-01",
+      "gap": -446,
+      "revenue": 15778
+    },
+    {
+      "ticker": "INTC",
+      "end": "2017-12-30",
+      "gap": -248,
+      "revenue": 17053
+    },
+    {
+      "ticker": "INTC",
+      "end": "2019-06-29",
+      "gap": -184,
+      "revenue": 16505
+    },
+    {
+      "ticker": "INTC",
+      "end": "2021-03-27",
+      "gap": -2209,
+      "revenue": 19673
+    },
+    {
+      "ticker": "INTC",
+      "end": "2021-06-26",
+      "gap": -346,
+      "revenue": 19631
+    },
+    {
+      "ticker": "INTC",
+      "end": "2022-04-02",
+      "gap": 1211,
+      "revenue": 18353
+    },
+    {
+      "ticker": "INTC",
+      "end": "2022-10-01",
+      "gap": -664,
+      "revenue": 15338
+    },
+    {
+      "ticker": "INTC",
+      "end": "2022-12-31",
+      "gap": -462,
+      "revenue": 14042
+    },
+    {
+      "ticker": "INTC",
+      "end": "2023-07-01",
+      "gap": -200,
+      "revenue": 12949
+    },
+    {
+      "ticker": "INTC",
+      "end": "2023-09-30",
+      "gap": -816,
+      "revenue": 14158
+    },
+    {
+      "ticker": "INTC",
+      "end": "2023-12-30",
+      "gap": 1142,
+      "revenue": 15406
+    },
+    {
+      "ticker": "INTC",
+      "end": "2024-03-30",
+      "gap": -348,
+      "revenue": 12724
+    },
+    {
+      "ticker": "INTC",
+      "end": "2024-06-29",
+      "gap": -943,
+      "revenue": 12833
+    },
+    {
+      "ticker": "INTC",
+      "end": "2024-09-28",
+      "gap": -5622,
+      "revenue": 13284
+    },
+    {
+      "ticker": "INTC",
+      "end": "2025-03-29",
+      "gap": -156,
+      "revenue": 12667
+    },
+    {
+      "ticker": "INTC",
+      "end": "2025-06-28",
+      "gap": -1890,
+      "revenue": 12859
+    },
+    {
+      "ticker": "INTC",
+      "end": "2025-09-27",
+      "gap": -175,
+      "revenue": 13653
+    },
+    {
+      "ticker": "INTC",
+      "end": "2026-03-28",
+      "gap": -4070,
+      "revenue": 13577
+    },
+    {
+      "ticker": "INTC",
+      "end": "2026-06-27",
+      "gap": -170,
+      "revenue": 16128
+    },
+    {
+      "ticker": "MU",
+      "end": "2010-03-04",
+      "gap": 21,
+      "revenue": 1961
+    },
+    {
+      "ticker": "MU",
+      "end": "2010-06-03",
+      "gap": 24,
+      "revenue": 2288
+    },
+    {
+      "ticker": "MU",
+      "end": "2010-12-02",
+      "gap": 191,
+      "revenue": 2252
+    },
+    {
+      "ticker": "MU",
+      "end": "2011-03-03",
+      "gap": 76,
+      "revenue": 2257
+    },
+    {
+      "ticker": "MU",
+      "end": "2011-06-02",
+      "gap": 121,
+      "revenue": 2139
+    },
+    {
+      "ticker": "MU",
+      "end": "2012-05-31",
+      "gap": -35,
+      "revenue": 2172
+    },
+    {
+      "ticker": "MU",
+      "end": "2012-11-29",
+      "gap": 29,
+      "revenue": 1834
+    },
+    {
+      "ticker": "MU",
+      "end": "2013-02-28",
+      "gap": -52,
+      "revenue": 2078
+    },
+    {
+      "ticker": "MU",
+      "end": "2013-05-30",
+      "gap": -54,
+      "revenue": 2318
+    },
+    {
+      "ticker": "MU",
+      "end": "2013-08-29",
+      "gap": -41,
+      "revenue": 2843
+    },
+    {
+      "ticker": "MU",
+      "end": "2013-11-28",
+      "gap": -234,
+      "revenue": 4042
+    },
+    {
+      "ticker": "MU",
+      "end": "2016-09-01",
+      "gap": -43,
+      "revenue": 3217
+    },
+    {
+      "ticker": "MU",
+      "end": "2019-02-28",
+      "gap": -97,
+      "revenue": 5835
+    },
+    {
+      "ticker": "MU",
+      "end": "2019-08-29",
+      "gap": 90,
+      "revenue": 4870
+    },
+    {
+      "ticker": "MU",
+      "end": "2021-03-04",
+      "gap": -131,
+      "revenue": 6236
+    },
+    {
+      "ticker": "MU",
+      "end": "2021-06-03",
+      "gap": -427,
+      "revenue": 7422
+    },
+    {
+      "ticker": "MU",
+      "end": "2023-03-02",
+      "gap": -78,
+      "revenue": 3693
+    },
+    {
+      "ticker": "MU",
+      "end": "2023-06-01",
+      "gap": -116,
+      "revenue": 3752
+    },
+    {
+      "ticker": "MU",
+      "end": "2023-08-31",
+      "gap": -99,
+      "revenue": 4010
+    },
+    {
+      "ticker": "MU",
+      "end": "2024-02-29",
+      "gap": 224,
+      "revenue": 5824
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2009-03-29",
+      "gap": -748,
+      "revenue": 2455
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2009-09-27",
+      "gap": -609,
+      "revenue": 2690
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2010-09-26",
+      "gap": -224,
+      "revenue": 2952
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2011-03-27",
+      "gap": -114,
+      "revenue": 3870
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2012-03-25",
+      "gap": -97,
+      "revenue": 4943
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2012-09-30",
+      "gap": -54,
+      "revenue": 4871
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2013-06-30",
+      "gap": -158,
+      "revenue": 6243
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2013-09-29",
+      "gap": -172,
+      "revenue": 6480
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2013-12-29",
+      "gap": -472,
+      "revenue": 6622
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2015-03-29",
+      "gap": -1010,
+      "revenue": 6894
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2015-06-28",
+      "gap": -118,
+      "revenue": 5832
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2015-09-27",
+      "gap": -113,
+      "revenue": 5456
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2015-12-27",
+      "gap": 374,
+      "revenue": 5775
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2016-03-27",
+      "gap": -75,
+      "revenue": 5551
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2016-12-25",
+      "gap": -876,
+      "revenue": 5999
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2017-03-26",
+      "gap": -78,
+      "revenue": 5016
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2017-09-24",
+      "gap": -780,
+      "revenue": 5888
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2017-12-24",
+      "gap": -1183,
+      "revenue": 6035
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2018-03-25",
+      "gap": -310,
+      "revenue": 5220
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2018-06-24",
+      "gap": -112,
+      "revenue": 5577
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2018-09-30",
+      "gap": -1530,
+      "revenue": 5778
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2018-12-30",
+      "gap": -149,
+      "revenue": 4842
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2019-06-30",
+      "gap": -277,
+      "revenue": 9635
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2022-06-26",
+      "gap": 1059,
+      "revenue": 10936
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2023-03-26",
+      "gap": -208,
+      "revenue": 9275
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2023-09-24",
+      "gap": -578,
+      "revenue": 8631
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2024-09-29",
+      "gap": -132,
+      "revenue": 10245
+    },
+    {
+      "ticker": "QCOM",
+      "end": "2026-09-27",
+      "gap": -235,
+      "revenue": 10322
+    },
+    {
+      "ticker": "MSI",
+      "end": "2010-10-02",
+      "gap": -34,
+      "revenue": 1908
+    },
+    {
+      "ticker": "MSI",
+      "end": "2010-12-31",
+      "gap": -31,
+      "revenue": 2185
+    },
+    {
+      "ticker": "MSI",
+      "end": "2011-04-02",
+      "gap": -55,
+      "revenue": 1834
+    },
+    {
+      "ticker": "MSI",
+      "end": "2011-07-02",
+      "gap": -106,
+      "revenue": 1984
+    },
+    {
+      "ticker": "MSI",
+      "end": "2011-10-01",
+      "gap": -60,
+      "revenue": 2085
+    },
+    {
+      "ticker": "MSI",
+      "end": "2011-12-31",
+      "gap": -120,
+      "revenue": 2300
+    },
+    {
+      "ticker": "MSI",
+      "end": "2013-09-28",
+      "gap": -16,
+      "revenue": 1517
+    },
+    {
+      "ticker": "MSI",
+      "end": "2013-12-31",
+      "gap": -34,
+      "revenue": 1817
+    },
+    {
+      "ticker": "MSI",
+      "end": "2014-06-28",
+      "gap": -34,
+      "revenue": 1393
+    },
+    {
+      "ticker": "MSI",
+      "end": "2014-09-27",
+      "gap": -25,
+      "revenue": 1436
+    },
+    {
+      "ticker": "MSI",
+      "end": "2014-12-31",
+      "gap": -1924,
+      "revenue": 1824
+    },
+    {
+      "ticker": "MSI",
+      "end": "2015-04-04",
+      "gap": -14,
+      "revenue": 1223
+    },
+    {
+      "ticker": "MSI",
+      "end": "2015-07-04",
+      "gap": 16,
+      "revenue": 1368
+    },
+    {
+      "ticker": "MSI",
+      "end": "2015-10-03",
+      "gap": -42,
+      "revenue": 1422
+    },
+    {
+      "ticker": "MSI",
+      "end": "2015-12-31",
+      "gap": -44,
+      "revenue": 1682
+    },
+    {
+      "ticker": "MSI",
+      "end": "2016-04-02",
+      "gap": -33,
+      "revenue": 1193
+    },
+    {
+      "ticker": "MSI",
+      "end": "2016-07-02",
+      "gap": -74,
+      "revenue": 1430
+    },
+    {
+      "ticker": "MSI",
+      "end": "2016-10-01",
+      "gap": -37,
+      "revenue": 1532
+    },
+    {
+      "ticker": "MSI",
+      "end": "2016-12-31",
+      "gap": -106,
+      "revenue": 1883
+    },
+    {
+      "ticker": "MSI",
+      "end": "2017-04-01",
+      "gap": -18,
+      "revenue": 1281
+    },
+    {
+      "ticker": "MSI",
+      "end": "2017-07-01",
+      "gap": -37,
+      "revenue": 1497
+    },
+    {
+      "ticker": "MSI",
+      "end": "2017-09-30",
+      "gap": -47,
+      "revenue": 1645
+    },
+    {
+      "ticker": "MSI",
+      "end": "2017-12-31",
+      "gap": -45,
+      "revenue": 1957
+    },
+    {
+      "ticker": "MSI",
+      "end": "2018-03-31",
+      "gap": -67,
+      "revenue": 1468
+    },
+    {
+      "ticker": "MSI",
+      "end": "2018-06-30",
+      "gap": -71,
+      "revenue": 1760
+    },
+    {
+      "ticker": "MSI",
+      "end": "2018-09-29",
+      "gap": -126,
+      "revenue": 1862
+    },
+    {
+      "ticker": "MSI",
+      "end": "2018-12-31",
+      "gap": -70,
+      "revenue": 2254
+    },
+    {
+      "ticker": "MSI",
+      "end": "2019-03-30",
+      "gap": -55,
+      "revenue": 1657
+    },
+    {
+      "ticker": "MSI",
+      "end": "2019-06-29",
+      "gap": -61,
+      "revenue": 1860
+    },
+    {
+      "ticker": "MSI",
+      "end": "2019-09-28",
+      "gap": -63,
+      "revenue": 1994
+    },
+    {
+      "ticker": "MSI",
+      "end": "2019-12-31",
+      "gap": -80,
+      "revenue": 2377
+    },
+    {
+      "ticker": "MSI",
+      "end": "2020-03-28",
+      "gap": -19,
+      "revenue": 1655
+    },
+    {
+      "ticker": "MSI",
+      "end": "2020-06-27",
+      "gap": -90,
+      "revenue": 1618
+    },
+    {
+      "ticker": "MSI",
+      "end": "2020-09-26",
+      "gap": -69,
+      "revenue": 1868
+    },
+    {
+      "ticker": "MSI",
+      "end": "2020-12-31",
+      "gap": -66,
+      "revenue": 2273
+    },
+    {
+      "ticker": "MSI",
+      "end": "2021-04-03",
+      "gap": -79,
+      "revenue": 1773
+    },
+    {
+      "ticker": "MSI",
+      "end": "2021-07-03",
+      "gap": -70,
+      "revenue": 1971
+    },
+    {
+      "ticker": "MSI",
+      "end": "2021-10-02",
+      "gap": -60,
+      "revenue": 2107
+    },
+    {
+      "ticker": "MSI",
+      "end": "2021-12-31",
+      "gap": -77,
+      "revenue": 2320
+    },
+    {
+      "ticker": "MSI",
+      "end": "2022-04-02",
+      "gap": -92,
+      "revenue": 1892
+    },
+    {
+      "ticker": "MSI",
+      "end": "2022-07-02",
+      "gap": -85,
+      "revenue": 2140
+    },
+    {
+      "ticker": "MSI",
+      "end": "2022-10-01",
+      "gap": -83,
+      "revenue": 2373
+    },
+    {
+      "ticker": "MSI",
+      "end": "2022-12-31",
+      "gap": -79,
+      "revenue": 2707
+    },
+    {
+      "ticker": "MSI",
+      "end": "2023-04-01",
+      "gap": -69,
+      "revenue": 2171
+    },
+    {
+      "ticker": "MSI",
+      "end": "2023-07-01",
+      "gap": -66,
+      "revenue": 2403
+    },
+    {
+      "ticker": "MSI",
+      "end": "2023-09-30",
+      "gap": -46,
+      "revenue": 2556
+    },
+    {
+      "ticker": "MSI",
+      "end": "2023-12-31",
+      "gap": -76,
+      "revenue": 2848
+    },
+    {
+      "ticker": "MSI",
+      "end": "2024-03-30",
+      "gap": -58,
+      "revenue": 2389
+    },
+    {
+      "ticker": "MSI",
+      "end": "2024-06-29",
+      "gap": -45,
+      "revenue": 2628
+    },
+    {
+      "ticker": "MSI",
+      "end": "2024-09-28",
+      "gap": -49,
+      "revenue": 2790
+    },
+    {
+      "ticker": "MSI",
+      "end": "2025-03-29",
+      "gap": -49,
+      "revenue": 2528
+    },
+    {
+      "ticker": "MSI",
+      "end": "2025-06-28",
+      "gap": -40,
+      "revenue": 2765
+    },
+    {
+      "ticker": "MSI",
+      "end": "2025-09-27",
+      "gap": -62,
+      "revenue": 3009
+    },
+    {
+      "ticker": "MSI",
+      "end": "2025-12-31",
+      "gap": -56,
+      "revenue": 3380
+    },
+    {
+      "ticker": "MSI",
+      "end": "2026-04-04",
+      "gap": -146,
+      "revenue": 2714
+    },
+    {
+      "ticker": "MSI",
+      "end": "2026-07-04",
+      "gap": -113,
+      "revenue": 3133
+    },
+    {
+      "ticker": "MSI",
+      "end": "2026-10-03",
+      "gap": -211,
+      "revenue": 3376
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2019-03-31",
+      "gap": -355,
+      "revenue": 2094
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2019-06-30",
+      "gap": -356,
+      "revenue": 2217
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2019-09-29",
+      "gap": -336,
+      "revenue": 2265
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2019-12-31",
+      "gap": -363,
+      "revenue": 2301
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2020-03-29",
+      "gap": -271,
+      "revenue": 2021
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2020-06-28",
+      "gap": -381,
+      "revenue": 1817
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2020-09-27",
+      "gap": -417,
+      "revenue": 2267
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2020-12-31",
+      "gap": -144,
+      "revenue": 2507
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2021-04-04",
+      "gap": -180,
+      "revenue": 2567
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2021-07-04",
+      "gap": -139,
+      "revenue": 2596
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2021-10-03",
+      "gap": -137,
+      "revenue": 2861
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2021-12-31",
+      "gap": -136,
+      "revenue": 3039
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2022-04-03",
+      "gap": -135,
+      "revenue": 3136
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2022-07-03",
+      "gap": -132,
+      "revenue": 3312
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2022-10-02",
+      "gap": -129,
+      "revenue": 3445
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2022-12-31",
+      "gap": -110,
+      "revenue": 3312
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2023-04-02",
+      "gap": -88,
+      "revenue": 3121
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2023-07-02",
+      "gap": -81,
+      "revenue": 3299
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2023-10-01",
+      "gap": -78,
+      "revenue": 3434
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2023-12-31",
+      "gap": -68,
+      "revenue": 3422
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2024-03-31",
+      "gap": -57,
+      "revenue": 3126
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2024-06-30",
+      "gap": -32,
+      "revenue": 3127
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2024-09-29",
+      "gap": -34,
+      "revenue": 3250
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2024-12-31",
+      "gap": -68,
+      "revenue": 3111
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2025-09-28",
+      "gap": -33,
+      "revenue": 3173
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2025-12-31",
+      "gap": -39,
+      "revenue": 3335
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2026-03-29",
+      "gap": 589,
+      "revenue": 3181
+    },
+    {
+      "ticker": "NXPI",
+      "end": "2026-06-28",
+      "gap": -36,
+      "revenue": 3496
+    },
+    {
+      "ticker": "AMD",
+      "end": "2012-12-29",
+      "gap": -94,
+      "revenue": 1155
+    },
+    {
+      "ticker": "AMD",
+      "end": "2013-03-30",
+      "gap": -52,
+      "revenue": 1088
+    },
+    {
+      "ticker": "AMD",
+      "end": "2013-09-28",
+      "gap": 17,
+      "revenue": 1461
+    },
+    {
+      "ticker": "AMD",
+      "end": "2013-12-28",
+      "gap": 44,
+      "revenue": 1589
+    },
+    {
+      "ticker": "AMD",
+      "end": "2014-12-27",
+      "gap": -308,
+      "revenue": 1239
+    },
+    {
+      "ticker": "AMD",
+      "end": "2015-03-28",
+      "gap": -90,
+      "revenue": 1030
+    },
+    {
+      "ticker": "AMD",
+      "end": "2015-09-26",
+      "gap": -48,
+      "revenue": 1061
+    },
+    {
+      "ticker": "AMD",
+      "end": "2016-03-26",
+      "gap": 10,
+      "revenue": 832
+    },
+    {
+      "ticker": "AMD",
+      "end": "2016-06-25",
+      "gap": 33,
+      "revenue": 1027
+    },
+    {
+      "ticker": "AMD",
+      "end": "2016-09-24",
+      "gap": 24,
+      "revenue": 1307
+    },
+    {
+      "ticker": "AMD",
+      "end": "2016-12-31",
+      "gap": 31,
+      "revenue": 1106
+    },
+    {
+      "ticker": "AMD",
+      "end": "2017-04-01",
+      "gap": 27,
+      "revenue": 1178
+    },
+    {
+      "ticker": "AMD",
+      "end": "2017-07-01",
+      "gap": 25,
+      "revenue": 1151
+    },
+    {
+      "ticker": "AMD",
+      "end": "2019-03-30",
+      "gap": 60,
+      "revenue": 1272
+    },
+    {
+      "ticker": "AMD",
+      "end": "2022-03-26",
+      "gap": -210,
+      "revenue": 5887
+    },
+    {
+      "ticker": "AMD",
+      "end": "2022-06-25",
+      "gap": -610,
+      "revenue": 6550
+    },
+    {
+      "ticker": "AMD",
+      "end": "2022-09-24",
+      "gap": -582,
+      "revenue": 5565
+    },
+    {
+      "ticker": "AMD",
+      "end": "2022-12-31",
+      "gap": -596,
+      "revenue": 5599
+    },
+    {
+      "ticker": "AMD",
+      "end": "2023-04-01",
+      "gap": -508,
+      "revenue": 5353
+    },
+    {
+      "ticker": "AMD",
+      "end": "2023-07-01",
+      "gap": -473,
+      "revenue": 5359
+    },
+    {
+      "ticker": "AMD",
+      "end": "2023-09-30",
+      "gap": -440,
+      "revenue": 5800
+    },
+    {
+      "ticker": "AMD",
+      "end": "2023-12-30",
+      "gap": -448,
+      "revenue": 6168
+    },
+    {
+      "ticker": "AMD",
+      "end": "2024-03-30",
+      "gap": -392,
+      "revenue": 5473
+    },
+    {
+      "ticker": "AMD",
+      "end": "2024-06-29",
+      "gap": -372,
+      "revenue": 5835
+    },
+    {
+      "ticker": "AMD",
+      "end": "2024-09-28",
+      "gap": -352,
+      "revenue": 6819
+    },
+    {
+      "ticker": "AMD",
+      "end": "2024-12-28",
+      "gap": -518,
+      "revenue": 7658
+    },
+    {
+      "ticker": "AMD",
+      "end": "2025-03-29",
+      "gap": -316,
+      "revenue": 7438
+    },
+    {
+      "ticker": "AMD",
+      "end": "2025-06-28",
+      "gap": -308,
+      "revenue": 7685
+    },
+    {
+      "ticker": "AMD",
+      "end": "2025-09-27",
+      "gap": -302,
+      "revenue": 9246
+    },
+    {
+      "ticker": "AMD",
+      "end": "2025-12-27",
+      "gap": -297,
+      "revenue": 10270
+    },
+    {
+      "ticker": "AMD",
+      "end": "2026-03-28",
+      "gap": -290,
+      "revenue": 10253
+    },
+    {
+      "ticker": "AMD",
+      "end": "2026-06-27",
+      "gap": -284,
+      "revenue": 11536
+    },
+    {
+      "ticker": "AMD",
+      "end": "2026-09-26",
+      "gap": -277,
+      "revenue": 13377
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2017-04-30",
+      "gap": -469,
+      "revenue": 4190
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2017-07-30",
+      "gap": -474,
+      "revenue": 4463
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2018-02-04",
+      "gap": -469,
+      "revenue": 5327
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2018-05-06",
+      "gap": -120,
+      "revenue": 5014
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2018-08-05",
+      "gap": -87,
+      "revenue": 5063
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2018-11-04",
+      "gap": -98,
+      "revenue": 5444
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2019-02-03",
+      "gap": -1049,
+      "revenue": 5789
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2019-05-05",
+      "gap": -549,
+      "revenue": 5517
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2019-08-04",
+      "gap": -524,
+      "revenue": 5515
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2019-11-03",
+      "gap": -512,
+      "revenue": 5776
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2020-02-02",
+      "gap": -660,
+      "revenue": 5858
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2020-05-03",
+      "gap": -653,
+      "revenue": 5742
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2020-08-02",
+      "gap": -652,
+      "revenue": 5821
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2020-11-01",
+      "gap": -634,
+      "revenue": 6467
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2021-01-31",
+      "gap": -565,
+      "revenue": 6655
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2021-05-02",
+      "gap": -519,
+      "revenue": 6610
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2021-08-01",
+      "gap": -520,
+      "revenue": 6778
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2021-10-31",
+      "gap": -520,
+      "revenue": 7407
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2022-01-30",
+      "gap": -414,
+      "revenue": 7706
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2022-05-01",
+      "gap": -416,
+      "revenue": 8103
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2022-07-31",
+      "gap": -366,
+      "revenue": 8464
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2022-10-30",
+      "gap": -373,
+      "revenue": 8930
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2023-01-29",
+      "gap": -358,
+      "revenue": 8915
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2023-04-30",
+      "gap": -357,
+      "revenue": 8733
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2023-07-30",
+      "gap": -562,
+      "revenue": 8876
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2023-10-29",
+      "gap": -361,
+      "revenue": 9295
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2024-02-04",
+      "gap": -1412,
+      "revenue": 11961
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2024-05-05",
+      "gap": -1119,
+      "revenue": 12487
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2024-08-04",
+      "gap": -1115,
+      "revenue": 13072
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2024-11-03",
+      "gap": -1131,
+      "revenue": 14054
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2025-02-02",
+      "gap": -683,
+      "revenue": 14916
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2025-05-04",
+      "gap": -592,
+      "revenue": 15004
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2025-08-03",
+      "gap": -694,
+      "revenue": 15952
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2025-11-02",
+      "gap": -653,
+      "revenue": 18015
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2026-02-01",
+      "gap": -610,
+      "revenue": 19311
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2026-05-03",
+      "gap": -577,
+      "revenue": 22187
+    },
+    {
+      "ticker": "AVGO",
+      "end": "2026-08-02",
+      "gap": -610,
+      "revenue": 29591
+    },
+    {
+      "ticker": "DELL",
+      "end": "2016-01-29",
+      "gap": -207,
+      "revenue": 12679
+    },
+    {
+      "ticker": "DELL",
+      "end": "2017-02-03",
+      "gap": 690,
+      "revenue": 20074
+    },
+    {
+      "ticker": "DELL",
+      "end": "2020-01-31",
+      "gap": -8294,
+      "revenue": 24032
+    },
+    {
+      "ticker": "DELL",
+      "end": "2021-01-29",
+      "gap": -6654,
+      "revenue": 24150
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2016-10-31",
+      "gap": -235,
+      "revenue": 12512
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2017-04-30",
+      "gap": -161,
+      "revenue": 12385
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2017-10-31",
+      "gap": -162,
+      "revenue": 13927
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2019-10-31",
+      "gap": -186,
+      "revenue": 15407
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2020-01-31",
+      "gap": -317,
+      "revenue": 14618
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2022-04-30",
+      "gap": -166,
+      "revenue": 16490
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2022-10-31",
+      "gap": -364,
+      "revenue": 14744
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2023-01-31",
+      "gap": -310,
+      "revenue": 13798
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2023-04-30",
+      "gap": -360,
+      "revenue": 12907
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2023-07-31",
+      "gap": -214,
+      "revenue": 13196
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2023-10-31",
+      "gap": -233,
+      "revenue": 13817
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2024-01-31",
+      "gap": -171,
+      "revenue": 13185
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2024-04-30",
+      "gap": -173,
+      "revenue": 12800
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2024-07-31",
+      "gap": -149,
+      "revenue": 13519
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2024-10-31",
+      "gap": -209,
+      "revenue": 14055
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2025-01-31",
+      "gap": -139,
+      "revenue": 13504
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2025-04-30",
+      "gap": -204,
+      "revenue": 13220
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2025-07-31",
+      "gap": -277,
+      "revenue": 13932
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2025-10-31",
+      "gap": -175,
+      "revenue": 14639
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2026-01-31",
+      "gap": -180,
+      "revenue": 14438
+    },
+    {
+      "ticker": "HPQ",
+      "end": "2026-04-30",
+      "gap": -458,
+      "revenue": 14408
+    },
+    {
+      "ticker": "ARM",
+      "end": "2022-03-31",
+      "gap": -47,
+      "revenue": 2703
+    },
+    {
+      "ticker": "STM",
+      "end": "2007-12-31",
+      "gap": -1180,
+      "revenue": 10001
+    },
+    {
+      "ticker": "STM",
+      "end": "2008-12-31",
+      "gap": -419,
+      "revenue": 9842
+    },
+    {
+      "ticker": "STM",
+      "end": "2009-12-31",
+      "gap": -125,
+      "revenue": 8510
+    },
+    {
+      "ticker": "STM",
+      "end": "2012-12-31",
+      "gap": -1285,
+      "revenue": 8493
+    },
+    {
+      "ticker": "STM",
+      "end": "2013-12-31",
+      "gap": -197,
+      "revenue": 8082
+    },
+    {
+      "ticker": "STM",
+      "end": "2014-12-31",
+      "gap": 117,
+      "revenue": 7404
+    },
+    {
+      "ticker": "STM",
+      "end": "2015-12-31",
+      "gap": 99,
+      "revenue": 6897
+    },
+    {
+      "ticker": "STM",
+      "end": "2019-12-31",
+      "gap": 98,
+      "revenue": 9556
+    },
+    {
+      "ticker": "STM",
+      "end": "2020-12-31",
+      "gap": 191,
+      "revenue": 10219
+    },
+    {
+      "ticker": "STM",
+      "end": "2021-10-02",
+      "gap": 36,
+      "revenue": 3197
+    },
+    {
+      "ticker": "STM",
+      "end": "2021-12-31",
+      "gap": 139,
+      "revenue": 12761
+    },
+    {
+      "ticker": "STM",
+      "end": "2022-04-02",
+      "gap": 63,
+      "revenue": 3546
+    },
+    {
+      "ticker": "STM",
+      "end": "2023-09-30",
+      "gap": 55,
+      "revenue": 4431
+    },
+    {
+      "ticker": "STM",
+      "end": "2024-03-30",
+      "gap": 59,
+      "revenue": 3465
+    },
+    {
+      "ticker": "STM",
+      "end": "2024-06-29",
+      "gap": 34,
+      "revenue": 3232
+    },
+    {
+      "ticker": "STM",
+      "end": "2024-12-31",
+      "gap": 182,
+      "revenue": 13269
+    },
+    {
+      "ticker": "STM",
+      "end": "2025-03-29",
+      "gap": 41,
+      "revenue": 2517
+    },
+    {
+      "ticker": "STM",
+      "end": "2025-06-28",
+      "gap": 52,
+      "revenue": 2766
+    },
+    {
+      "ticker": "STM",
+      "end": "2025-09-27",
+      "gap": 53,
+      "revenue": 3187
+    },
+    {
+      "ticker": "STM",
+      "end": "2025-12-31",
+      "gap": -148,
+      "revenue": 11800
+    },
+    {
+      "ticker": "STM",
+      "end": "2026-09-26",
+      "gap": -41,
+      "revenue": 3757
+    },
+    {
+      "ticker": "ASML",
+      "end": "2013-12-31",
+      "gap": 64.3,
+      "revenue": 5245.3
+    },
+    {
+      "ticker": "ASML",
+      "end": "2014-12-31",
+      "gap": 80.9,
+      "revenue": 5856.3
+    },
+    {
+      "ticker": "ASML",
+      "end": "2017-12-31",
+      "gap": 95.8,
+      "revenue": 8962.7
+    },
+    {
+      "ticker": "ASML",
+      "end": "2021-12-31",
+      "gap": 213.7,
+      "revenue": 18611
+    },
+    {
+      "ticker": "SONY",
+      "end": "2017-03-31",
+      "gap": -608126,
+      "revenue": 7603250
+    },
+    {
+      "ticker": "SONY",
+      "end": "2018-03-31",
+      "gap": -579148,
+      "revenue": 8543982
+    },
+    {
+      "ticker": "SONY",
+      "end": "2019-03-31",
+      "gap": -562675,
+      "revenue": 8665687
+    },
+    {
+      "ticker": "SONY",
+      "end": "2020-03-31",
+      "gap": -659337,
+      "revenue": 8259885
+    },
+    {
+      "ticker": "SONY",
+      "end": "2021-03-31",
+      "gap": -943105,
+      "revenue": 8999360
+    },
+    {
+      "ticker": "BABA",
+      "end": "2021-09-30",
+      "gap": -2906,
+      "revenue": 200690
+    },
+    {
+      "ticker": "BABA",
+      "end": "2021-12-31",
+      "gap": -2837,
+      "revenue": 242580
+    },
+    {
+      "ticker": "BABA",
+      "end": "2022-06-30",
+      "gap": -2751,
+      "revenue": 205555
+    },
+    {
+      "ticker": "BABA",
+      "end": "2022-09-30",
+      "gap": -2729,
+      "revenue": 207176
+    },
+    {
+      "ticker": "BABA",
+      "end": "2022-12-31",
+      "gap": -2719,
+      "revenue": 247756
+    },
+    {
+      "ticker": "BABA",
+      "end": "2023-06-30",
+      "gap": -2479,
+      "revenue": 234156
+    },
+    {
+      "ticker": "BABA",
+      "end": "2023-09-30",
+      "gap": -2431,
+      "revenue": 224790
+    },
+    {
+      "ticker": "BABA",
+      "end": "2023-12-31",
+      "gap": -23091,
+      "revenue": 260348
+    },
+    {
+      "ticker": "BABA",
+      "end": "2025-12-31",
+      "gap": -8895,
+      "revenue": 284843
+    },
+    {
+      "ticker": "BIDU",
+      "end": "2025-09-30",
+      "gap": -16190,
+      "revenue": 31174
+    },
+    {
+      "ticker": "BIDU",
+      "end": "2025-12-31",
+      "gap": -16190,
+      "revenue": 129079
+    },
+    {
+      "ticker": "ZH",
+      "end": "2025-12-31",
+      "gap": -126.344,
+      "revenue": 2749.004
+    },
+    {
+      "ticker": "DIDIY",
+      "end": "2023-09-30",
+      "gap": 777,
+      "revenue": 51401
+    },
+    {
+      "ticker": "DIDIY",
+      "end": "2026-06-30",
+      "gap": 1232,
+      "revenue": 62522
+    },
+    {
+      "ticker": "00992.HK",
+      "end": "2026-06-30",
+      "gap": -1848.12,
+      "revenue": 26943
+    },
+    {
+      "ticker": "00992.HK",
+      "end": "2026-09-30",
+      "gap": -2168.44,
+      "revenue": 30238
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2018-03-31",
+      "gap": 635.98,
+      "revenue": 11275.063
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2018-06-30",
+      "gap": 795.33,
+      "revenue": 15072.764
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2019-03-31",
+      "gap": 381.45,
+      "revenue": 19173.512
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2019-06-30",
+      "gap": 391.68,
+      "revenue": 22703.137
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2020-03-31",
+      "gap": -346.36,
+      "revenue": 16753.887
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2020-06-30",
+      "gap": 1306.85,
+      "revenue": 24721.837
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2021-03-31",
+      "gap": 453.92,
+      "revenue": 37016.262
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2021-06-30",
+      "gap": 1037.37,
+      "revenue": 43759.232
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2022-06-30",
+      "gap": 625.85,
+      "revenue": 50938.363
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2023-03-31",
+      "gap": 1243.7,
+      "revenue": 58617.472
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2023-06-30",
+      "gap": 1414.41,
+      "revenue": 67964.624
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2025-03-31",
+      "gap": 2101.48,
+      "revenue": 86206.145
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2025-06-30",
+      "gap": 1270.3,
+      "revenue": 91490.217
+    },
+    {
+      "ticker": "03690.HK",
+      "end": "2026-06-30",
+      "gap": 3227.84,
+      "revenue": 104643.044
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2007-03-31",
+      "gap": 162.36,
+      "revenue": 3003.0694849112
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2007-06-30",
+      "gap": -37.01,
+      "revenue": 2808.4251820888
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2008-03-31",
+      "gap": -789.13,
+      "revenue": 2543.464894564
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2008-06-30",
+      "gap": -36.01,
+      "revenue": 2294.176026236
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2009-03-31",
+      "gap": -61.86,
+      "revenue": 1001.5884391356
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2009-06-30",
+      "gap": -61.85,
+      "revenue": 1826.4150787644
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2010-03-31",
+      "gap": -83.67,
+      "revenue": 2400.9736231156003
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2010-06-30",
+      "gap": 49.66,
+      "revenue": 2488.9022035843996
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2013-03-31",
+      "gap": 126.94,
+      "revenue": 3144.5366601
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2013-06-30",
+      "gap": 201.46,
+      "revenue": 3299.2975355999997
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2017-03-31",
+      "gap": 97.56,
+      "revenue": 5471.7313405
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2019-03-31",
+      "gap": 198.7,
+      "revenue": 4504.0314165
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2019-06-30",
+      "gap": 942.43,
+      "revenue": 5531.525024200001
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2020-03-31",
+      "gap": 427.34,
+      "revenue": 6411.3920112
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2020-06-30",
+      "gap": 272.56,
+      "revenue": 6638.7813013
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2021-03-31",
+      "gap": 559.21,
+      "revenue": 7252.4086737
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2021-06-30",
+      "gap": 2123.81,
+      "revenue": 8560.3075614
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2022-03-31",
+      "gap": 347.28,
+      "revenue": 11692.711490799999
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2022-06-30",
+      "gap": 742.07,
+      "revenue": 13441.8707704
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2023-03-31",
+      "gap": 372.53,
+      "revenue": 10048.4044496
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2023-06-30",
+      "gap": 428.32,
+      "revenue": 11792.9055976
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2024-03-31",
+      "gap": 540.87,
+      "revenue": 12417.49872
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2024-06-30",
+      "gap": 1239.17,
+      "revenue": 13605.6693936
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2025-03-31",
+      "gap": 813.16,
+      "revenue": 16130.858218200001
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2025-06-30",
+      "gap": 604.09,
+      "revenue": 15769.774728
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2026-03-31",
+      "gap": 409.43,
+      "revenue": 17336.4667478
+    },
+    {
+      "ticker": "00981.HK",
+      "end": "2026-06-30",
+      "gap": 780.31,
+      "revenue": 20198.9139697
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2019-09-30",
+      "gap": 162.03,
+      "revenue": 10189.791
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2019-12-31",
+      "gap": -134.53,
+      "revenue": 11852.38
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2020-06-30",
+      "gap": 295.44,
+      "revenue": 12862.774
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2020-09-30",
+      "gap": 424.21,
+      "revenue": 15356.535
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2021-03-31",
+      "gap": 894.15,
+      "revenue": 17019.45
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2021-06-30",
+      "gap": 445.17,
+      "revenue": 19138.826
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2021-09-30",
+      "gap": 235.48,
+      "revenue": 20492.977
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2021-12-31",
+      "gap": -773.31,
+      "revenue": 24430.26
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2022-03-31",
+      "gap": -543,
+      "revenue": 21067
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2022-09-30",
+      "gap": 407,
+      "revenue": 23128
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2023-09-30",
+      "gap": 562,
+      "revenue": 27948
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2023-12-31",
+      "gap": 576,
+      "revenue": 32561
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2024-03-31",
+      "gap": 563,
+      "revenue": 29408
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2024-06-30",
+      "gap": 408,
+      "revenue": 30975
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2024-09-30",
+      "gap": 465,
+      "revenue": 31131
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2024-12-31",
+      "gap": 779,
+      "revenue": 35384
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2025-03-31",
+      "gap": 490,
+      "revenue": 32608
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2025-06-30",
+      "gap": 585,
+      "revenue": 35046
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2025-09-30",
+      "gap": 623,
+      "revenue": 35554
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2025-12-31",
+      "gap": 453,
+      "revenue": 39568
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2026-03-31",
+      "gap": 1066,
+      "revenue": 33716
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2026-06-30",
+      "gap": 827,
+      "revenue": 35535
+    },
+    {
+      "ticker": "01024.HK",
+      "end": "2026-09-30",
+      "gap": 376,
+      "revenue": 31592
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2013-03-31",
+      "gap": -4.99,
+      "revenue": 456.859
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2013-06-30",
+      "gap": -19.36,
+      "revenue": 496.528
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2014-03-31",
+      "gap": -18.95,
+      "revenue": 675.625
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2014-06-30",
+      "gap": -54.47,
+      "revenue": 750.506
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2015-03-31",
+      "gap": -63.86,
+      "revenue": 1109.36
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2015-06-30",
+      "gap": -46.63,
+      "revenue": 1282.24
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2016-03-31",
+      "gap": -21.34,
+      "revenue": 666.411
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2017-03-31",
+      "gap": 19.96,
+      "revenue": 1213.366
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2017-06-30",
+      "gap": 27.47,
+      "revenue": 1284.412
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2018-06-30",
+      "gap": 36.32,
+      "revenue": 1345.789
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2019-03-31",
+      "gap": 15.6,
+      "revenue": 887.242
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2019-06-30",
+      "gap": 21.15,
+      "revenue": 955.83
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2020-06-30",
+      "gap": 31.13,
+      "revenue": 1420.118
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2021-03-31",
+      "gap": 39.34,
+      "revenue": 1559.607
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2022-03-31",
+      "gap": 21.69,
+      "revenue": 1853.015
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2022-06-30",
+      "gap": 29.44,
+      "revenue": 1834.152
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2023-06-30",
+      "gap": -36.07,
+      "revenue": 2193.49
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2024-06-30",
+      "gap": 28.02,
+      "revenue": 2473.766
+    },
+    {
+      "ticker": "03888.HK",
+      "end": "2026-06-30",
+      "gap": -50.15,
+      "revenue": 2510.419
+    },
+    {
+      "ticker": "066570.KS",
+      "end": "2026-09-30",
+      "gap": 750810,
+      "revenue": 23824080
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2017-12-31",
+      "gap": -1991.66,
+      "revenue": 16575.38
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2018-03-31",
+      "gap": -2549.69,
+      "revenue": 18395.26
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2018-06-30",
+      "gap": -2136.85,
+      "revenue": 16856.21
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2018-09-30",
+      "gap": -3262.69,
+      "revenue": 19717.8
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2018-12-31",
+      "gap": -3464.28,
+      "revenue": 22230.12
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2019-03-31",
+      "gap": -2439.65,
+      "revenue": 22480.53
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2019-06-30",
+      "gap": -2368.01,
+      "revenue": 18692.16
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2019-09-30",
+      "gap": -3384.27,
+      "revenue": 22335.98
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2020-03-31",
+      "gap": -2473.92,
+      "revenue": 25298.49
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2020-06-30",
+      "gap": -3167.68,
+      "revenue": 20335.88
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2020-09-30",
+      "gap": -3753.3,
+      "revenue": 23940.51
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2020-12-31",
+      "gap": -4421.28,
+      "revenue": 28418.36
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2021-03-31",
+      "gap": -3721.76,
+      "revenue": 28064.74
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2021-06-30",
+      "gap": -2895,
+      "revenue": 22656.85
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2021-09-30",
+      "gap": -3458.53,
+      "revenue": 26331.57
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2021-12-31",
+      "gap": -4405.15,
+      "revenue": 32411.12
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2022-03-31",
+      "gap": -4011.79,
+      "revenue": 33187.16
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2022-06-30",
+      "gap": -4050.22,
+      "revenue": 26256.36
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2022-09-30",
+      "gap": -4590.44,
+      "revenue": 30342.36
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2022-12-31",
+      "gap": -4483.42,
+      "revenue": 37768.08
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2023-03-31",
+      "gap": -5032.11,
+      "revenue": 39379.3
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2023-06-30",
+      "gap": -4667.31,
+      "revenue": 31607.9
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2023-09-30",
+      "gap": -4984.15,
+      "revenue": 34328.69
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2023-12-31",
+      "gap": -5765.44,
+      "revenue": 45244.43
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2024-03-31",
+      "gap": -6715.11,
+      "revenue": 46484.74
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2024-06-30",
+      "gap": -5888.3,
+      "revenue": 36966.43
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2024-09-30",
+      "gap": -6151.22,
+      "revenue": 39671.38
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2024-12-31",
+      "gap": -6738.06,
+      "revenue": 51021.53
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2025-03-31",
+      "gap": -6903.79,
+      "revenue": 51443.45
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2025-06-30",
+      "gap": -6614.43,
+      "revenue": 39650.31
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2025-09-30",
+      "gap": -6616.85,
+      "revenue": 39810.13
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2025-12-31",
+      "gap": -6454.18,
+      "revenue": 41150.28
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2026-03-31",
+      "gap": -8126.33,
+      "revenue": 54702.91
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2026-06-30",
+      "gap": -6310.1,
+      "revenue": 37575.16
+    },
+    {
+      "ticker": "600519.SS",
+      "end": "2026-09-30",
+      "gap": -5920.75,
+      "revenue": 41005.58
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2017-12-31",
+      "gap": -180.35,
+      "revenue": 8025.96
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2018-12-31",
+      "gap": -644.81,
+      "revenue": 10475.34
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2019-03-31",
+      "gap": 130.22,
+      "revenue": 9981.86
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2019-09-30",
+      "gap": 199.92,
+      "revenue": 12591.86
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2019-12-31",
+      "gap": -819.61,
+      "revenue": 12932.31
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2020-03-31",
+      "gap": 244.09,
+      "revenue": 9030.79
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2020-06-30",
+      "gap": 137.86,
+      "revenue": 9798.66
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2021-12-31",
+      "gap": 830.94,
+      "revenue": 56994.25
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2022-03-31",
+      "gap": 752.77,
+      "revenue": 48678.42
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2022-06-30",
+      "gap": 1718.31,
+      "revenue": 64292.84
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2022-09-30",
+      "gap": 2199.45,
+      "revenue": 97368.98
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2023-03-31",
+      "gap": 2499.11,
+      "revenue": 89038.47
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2023-06-30",
+      "gap": 2980.35,
+      "revenue": 100207.58
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2024-03-31",
+      "gap": 2291.09,
+      "revenue": 79770.78
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2024-06-30",
+      "gap": 3003.2,
+      "revenue": 86996.05
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2024-09-30",
+      "gap": -1405.1,
+      "revenue": 92277.91
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2024-12-31",
+      "gap": 3528.39,
+      "revenue": 102967.8
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2025-03-31",
+      "gap": 4956.21,
+      "revenue": 84704.59
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2025-06-30",
+      "gap": 5945.18,
+      "revenue": 94181.66
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2025-09-30",
+      "gap": 3714.14,
+      "revenue": 104185.73
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2026-03-31",
+      "gap": 3924.42,
+      "revenue": 129131.04
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2026-06-30",
+      "gap": 5038.37,
+      "revenue": 147785.54
+    },
+    {
+      "ticker": "300750.SZ",
+      "end": "2026-09-30",
+      "gap": 2731.18,
+      "revenue": 165220.84
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2017-09-30",
+      "gap": -796.05,
+      "revenue": 28895.26
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2017-12-31",
+      "gap": -1005.86,
+      "revenue": 31981.81
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2018-03-31",
+      "gap": -936.16,
+      "revenue": 24737.56
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2018-09-30",
+      "gap": -822.27,
+      "revenue": 34830.4
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2018-12-31",
+      "gap": -1603.64,
+      "revenue": 41073.38
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2019-03-31",
+      "gap": -1356.72,
+      "revenue": 30304.11
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2019-06-30",
+      "gap": -648.93,
+      "revenue": 31880.15
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2019-09-30",
+      "gap": -640.28,
+      "revenue": 31637.53
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2019-12-31",
+      "gap": -1739.76,
+      "revenue": 33916.73
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2020-03-31",
+      "gap": -717.25,
+      "revenue": 19678.54
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2020-06-30",
+      "gap": -1639.92,
+      "revenue": 40824.44
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2020-09-30",
+      "gap": -2113.1,
+      "revenue": 44519.65
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2020-12-31",
+      "gap": -1948.31,
+      "revenue": 51575.06
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2021-03-31",
+      "gap": -889.27,
+      "revenue": 40991.87
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2021-12-31",
+      "gap": -2035.9,
+      "revenue": 70950.04
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2022-03-31",
+      "gap": -1185.3,
+      "revenue": 66825.18
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2022-09-30",
+      "gap": -1917.72,
+      "revenue": 117080.6
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2022-12-31",
+      "gap": -3160.7,
+      "revenue": 156372.79
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2023-03-31",
+      "gap": -1916.54,
+      "revenue": 120173.61
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2023-09-30",
+      "gap": -2015.24,
+      "revenue": 162150.7
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2025-03-31",
+      "gap": 2145.59,
+      "revenue": 170360.45
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2025-06-30",
+      "gap": 2101.67,
+      "revenue": 200920.5
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2025-12-31",
+      "gap": -3330.96,
+      "revenue": 237699.41
+    },
+    {
+      "ticker": "002594.SZ",
+      "end": "2026-06-30",
+      "gap": -2746.8,
+      "revenue": 194590.11
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2019-06-30",
+      "gap": 32.82,
+      "revenue": 83.74
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2020-12-31",
+      "gap": 97.15,
+      "revenue": 301.4
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2021-12-31",
+      "gap": 66.33,
+      "revenue": 498.63
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2022-12-31",
+      "gap": -44.18,
+      "revenue": 464.67
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2025-03-31",
+      "gap": 63.12,
+      "revenue": 1111.4
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2025-06-30",
+      "gap": 32.33,
+      "revenue": 1769.24
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2026-03-31",
+      "gap": -180.39,
+      "revenue": 2884.7
+    },
+    {
+      "ticker": "688256.SS",
+      "end": "2026-09-30",
+      "gap": -56.74,
+      "revenue": 3530.83
+    },
+    {
+      "ticker": "688795.SS",
+      "end": "2025-03-31",
+      "gap": 15.73,
+      "revenue": 288.86
+    },
+    {
+      "ticker": "688795.SS",
+      "end": "2025-06-30",
+      "gap": 8.84,
+      "revenue": 412.9
+    },
+    {
+      "ticker": "688795.SS",
+      "end": "2025-12-31",
+      "gap": -85.09,
+      "revenue": 720.93
+    },
+    {
+      "ticker": "688795.SS",
+      "end": "2026-03-31",
+      "gap": 52.41,
+      "revenue": 737.6
+    },
+    {
+      "ticker": "688795.SS",
+      "end": "2026-06-30",
+      "gap": 23.54,
+      "revenue": 998.71
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2017-12-31",
+      "gap": 383.21,
+      "revenue": 14175.73
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2018-06-30",
+      "gap": 564.01,
+      "revenue": 11510.93
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2018-09-30",
+      "gap": 540.41,
+      "revenue": 12926.93
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2018-12-31",
+      "gap": 624.6,
+      "revenue": 16034.44
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2019-03-31",
+      "gap": 101.56,
+      "revenue": 9942.45
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2019-06-30",
+      "gap": 392.64,
+      "revenue": 13980.82
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2019-09-30",
+      "gap": 785.11,
+      "revenue": 15915.64
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2019-12-31",
+      "gap": 473.37,
+      "revenue": 17819.19
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2020-03-31",
+      "gap": 329.69,
+      "revenue": 9428.9
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2020-06-30",
+      "gap": 536.62,
+      "revenue": 14842.26
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2020-12-31",
+      "gap": 250.19,
+      "revenue": 21482.26
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2021-03-31",
+      "gap": 230.39,
+      "revenue": 13988.39
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2021-06-30",
+      "gap": 280.99,
+      "revenue": 19913.71
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2021-09-30",
+      "gap": 492.77,
+      "revenue": 21727.17
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2021-12-31",
+      "gap": 349.56,
+      "revenue": 25790.79
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2022-03-31",
+      "gap": 195.17,
+      "revenue": 16521.55
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2022-06-30",
+      "gap": 881.62,
+      "revenue": 20735.97
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2022-09-30",
+      "gap": 473.45,
+      "revenue": 22464.02
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2022-12-31",
+      "gap": 292.37,
+      "revenue": 23444.78
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2023-03-31",
+      "gap": 195.2,
+      "revenue": 16201.19
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2023-06-30",
+      "gap": 473.75,
+      "revenue": 21370.16
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2023-09-30",
+      "gap": 239.65,
+      "revenue": 23704.66
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2023-12-31",
+      "gap": 433.08,
+      "revenue": 28065.16
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2024-03-31",
+      "gap": 226.93,
+      "revenue": 17817.55
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2024-09-30",
+      "gap": 278.08,
+      "revenue": 23782.37
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2025-03-31",
+      "gap": 242.4,
+      "revenue": 18531.86
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2025-06-30",
+      "gap": 639.1,
+      "revenue": 23286.18
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2025-09-30",
+      "gap": 719.68,
+      "revenue": 23939.74
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2026-06-30",
+      "gap": 550.62,
+      "revenue": 26107.09
+    },
+    {
+      "ticker": "002415.SZ",
+      "end": "2026-09-30",
+      "gap": 357.48,
+      "revenue": 27221.79
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2010-03-31",
+      "gap": -669.84,
+      "revenue": 13255.78
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2010-06-30",
+      "gap": -588.49,
+      "revenue": 17469.64
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2010-09-30",
+      "gap": -411.12,
+      "revenue": 15336.86
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2011-03-31",
+      "gap": -704.1,
+      "revenue": 14976.17
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2011-06-30",
+      "gap": 332.72,
+      "revenue": 22036.94
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2011-09-30",
+      "gap": -1478.99,
+      "revenue": 20825.5
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2011-12-31",
+      "gap": -1939.65,
+      "revenue": 28415.84
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2012-03-31",
+      "gap": -558.73,
+      "revenue": 18613.04
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2012-06-30",
+      "gap": -1281.51,
+      "revenue": 24028.86
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2012-12-31",
+      "gap": -954.76,
+      "revenue": 23385.39
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2013-03-31",
+      "gap": -354.85,
+      "revenue": 18057.9
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2013-06-30",
+      "gap": -1332.57,
+      "revenue": 19446.88
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2013-09-30",
+      "gap": -1592.37,
+      "revenue": 17052.71
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2013-12-31",
+      "gap": -731.11,
+      "revenue": 20676.23
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2014-03-31",
+      "gap": -1352.99,
+      "revenue": 19052.75
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2014-06-30",
+      "gap": -1104.41,
+      "revenue": 18644.56
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2014-09-30",
+      "gap": -893.47,
+      "revenue": 21103.39
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2014-12-31",
+      "gap": -1000.84,
+      "revenue": 22670.57
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2015-03-31",
+      "gap": -1479.38,
+      "revenue": 20998.79
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2015-06-30",
+      "gap": -1883.42,
+      "revenue": 24900
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2015-09-30",
+      "gap": -1017.3,
+      "revenue": 22624.45
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2016-03-31",
+      "gap": -879.47,
+      "revenue": 21858.51
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2016-12-31",
+      "gap": -1254.4,
+      "revenue": 29669.18
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2017-06-30",
+      "gap": -352.57,
+      "revenue": 28265.98
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2017-09-30",
+      "gap": 1673.82,
+      "revenue": 22569.14
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2018-03-31",
+      "gap": -681.58,
+      "revenue": 27526.34
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2018-06-30",
+      "gap": -1839.72,
+      "revenue": 11907.43
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2018-12-31",
+      "gap": -2519.93,
+      "revenue": 26746.96
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2019-03-31",
+      "gap": -1290.95,
+      "revenue": 22201.81
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2019-06-30",
+      "gap": -819.65,
+      "revenue": 22407.4
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2019-09-30",
+      "gap": 1916.97,
+      "revenue": 19631.48
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2019-12-31",
+      "gap": -792.95,
+      "revenue": 26495.88
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2020-03-31",
+      "gap": -1419.75,
+      "revenue": 21484.49
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2020-06-30",
+      "gap": 1322.38,
+      "revenue": 25714.88
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2020-09-30",
+      "gap": 333.3,
+      "revenue": 26930.05
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2020-12-31",
+      "gap": 534.2,
+      "revenue": 27321.25
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2021-03-31",
+      "gap": 871.63,
+      "revenue": 26241.65
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2021-06-30",
+      "gap": 1070.65,
+      "revenue": 26829.32
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2021-09-30",
+      "gap": -422.18,
+      "revenue": 30754.2
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2022-09-30",
+      "gap": -431.59,
+      "revenue": 32740.71
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2022-12-31",
+      "gap": -611.42,
+      "revenue": 30395.4
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2023-03-31",
+      "gap": -429.16,
+      "revenue": 29142.88
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2023-09-30",
+      "gap": -543.46,
+      "revenue": 28688.65
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2023-12-31",
+      "gap": 503.92,
+      "revenue": 34857.43
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2024-12-31",
+      "gap": 370.56,
+      "revenue": 31254.21
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2025-03-31",
+      "gap": 807.39,
+      "revenue": 32968.2
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2025-06-30",
+      "gap": 770.16,
+      "revenue": 38584.54
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2025-09-30",
+      "gap": 503.73,
+      "revenue": 28966.87
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2026-06-30",
+      "gap": 619.57,
+      "revenue": 43037.3
+    },
+    {
+      "ticker": "000063.SZ",
+      "end": "2026-09-30",
+      "gap": 1363.89,
+      "revenue": 38813.11
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2010-03-31",
+      "gap": -305.26,
+      "revenue": 21787.64
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2010-12-31",
+      "gap": -405.11,
+      "revenue": 22623.91
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2011-03-31",
+      "gap": -537.23,
+      "revenue": 39831.41
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2018-06-30",
+      "gap": 1011,
+      "revenue": 73448.41
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2018-09-30",
+      "gap": 840.33,
+      "revenue": 63668.8
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2019-06-30",
+      "gap": 1325.32,
+      "revenue": 78832.22
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2019-09-30",
+      "gap": 803.81,
+      "revenue": 67441.42
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2020-06-30",
+      "gap": 1006.97,
+      "revenue": 81363.36
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2020-09-30",
+      "gap": 1936.3,
+      "revenue": 78033.87
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2020-12-31",
+      "gap": 2268.32,
+      "revenue": 67956.58
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2021-06-30",
+      "gap": 1647.12,
+      "revenue": 91829.77
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2021-09-30",
+      "gap": 1945.06,
+      "revenue": 88095.69
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2021-12-31",
+      "gap": 1479.14,
+      "revenue": 80418.24
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2022-12-31",
+      "gap": 934.1,
+      "revenue": 73933.65
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2023-09-30",
+      "gap": 993.64,
+      "revenue": 94584.04
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2023-12-31",
+      "gap": 1056.37,
+      "revenue": 81330.15
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2024-03-31",
+      "gap": -1175.45,
+      "revenue": 106483.19
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2024-06-30",
+      "gap": 2586.44,
+      "revenue": 111638.65
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2024-09-30",
+      "gap": 2968.42,
+      "revenue": 102227.95
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2024-12-31",
+      "gap": 2007.31,
+      "revenue": 88734.48
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2025-03-31",
+      "gap": 1757.3,
+      "revenue": 128428.42
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2025-06-30",
+      "gap": 3022.52,
+      "revenue": 123903.07
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2025-09-30",
+      "gap": 2116.27,
+      "revenue": 112384.58
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2026-06-30",
+      "gap": 2378.9,
+      "revenue": 129471.51
+    },
+    {
+      "ticker": "000333.SZ",
+      "end": "2026-09-30",
+      "gap": 7040.39,
+      "revenue": 108034.65
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2017-12-31",
+      "gap": -568.98,
+      "revenue": 29390.33
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2018-06-30",
+      "gap": 586.49,
+      "revenue": 26917.9
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2018-09-30",
+      "gap": 535.71,
+      "revenue": 29729.86
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2019-06-30",
+      "gap": 1792.58,
+      "revenue": 14209.66
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2019-09-30",
+      "gap": 746.18,
+      "revenue": 15043.82
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2019-12-31",
+      "gap": 620.14,
+      "revenue": 16173.43
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2020-03-31",
+      "gap": 438.25,
+      "revenue": 13789.54
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2020-06-30",
+      "gap": 621.47,
+      "revenue": 15629.37
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2020-12-31",
+      "gap": 1257.28,
+      "revenue": 27997.24
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2021-03-31",
+      "gap": -640.45,
+      "revenue": 32173.95
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2021-06-30",
+      "gap": 1014.97,
+      "revenue": 42306.04
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2021-09-30",
+      "gap": -1130.68,
+      "revenue": 46673.18
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2021-12-31",
+      "gap": -974.31,
+      "revenue": 42654.62
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2022-12-31",
+      "gap": -693.37,
+      "revenue": 40056.48
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2023-06-30",
+      "gap": -481.21,
+      "revenue": 45724.46
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2023-09-30",
+      "gap": -779.34,
+      "revenue": 47975.81
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2023-12-31",
+      "gap": -2391.45,
+      "revenue": 41280.17
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2024-03-31",
+      "gap": -1350.11,
+      "revenue": 39946.38
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2024-06-30",
+      "gap": -1593.18,
+      "revenue": 40357.03
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2024-09-30",
+      "gap": -2194.51,
+      "revenue": 42828.36
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2024-12-31",
+      "gap": -2266.94,
+      "revenue": 41831.07
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2025-03-31",
+      "gap": -1041.18,
+      "revenue": 40119.48
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2025-06-30",
+      "gap": -1993.5,
+      "revenue": 45542.14
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2025-09-30",
+      "gap": -653.49,
+      "revenue": 50403.12
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2025-12-31",
+      "gap": -2027.27,
+      "revenue": 48146.17
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2026-03-31",
+      "gap": -892.27,
+      "revenue": 43477.82
+    },
+    {
+      "ticker": "000100.SZ",
+      "end": "2026-09-30",
+      "gap": -1404.89,
+      "revenue": 50069.57
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2017-12-31",
+      "gap": -50.22,
+      "revenue": 3783.95
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2018-03-31",
+      "gap": 45.06,
+      "revenue": 2751.99
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2018-06-30",
+      "gap": 178.14,
+      "revenue": 3273.12
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2018-09-30",
+      "gap": 150.21,
+      "revenue": 3423.86
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2018-12-31",
+      "gap": 86.94,
+      "revenue": 3680.3
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2019-03-31",
+      "gap": 83.38,
+      "revenue": 2702.66
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2019-06-30",
+      "gap": 3119.19,
+      "revenue": 3221.84
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2019-09-30",
+      "gap": 231.6,
+      "revenue": 3597.32
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2019-12-31",
+      "gap": 74.62,
+      "revenue": 3319.28
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2020-03-31",
+      "gap": 212.83,
+      "revenue": 2250.33
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2020-06-30",
+      "gap": 410.14,
+      "revenue": 2721.25
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2020-09-30",
+      "gap": 212.45,
+      "revenue": 3002.28
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2020-12-31",
+      "gap": 486.8,
+      "revenue": 3640.87
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2021-03-31",
+      "gap": 249.09,
+      "revenue": 2552.03
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2021-06-30",
+      "gap": 270.1,
+      "revenue": 3067.4
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2021-09-30",
+      "gap": 335.96,
+      "revenue": 2919.57
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2021-12-31",
+      "gap": -345.36,
+      "revenue": 2346.83
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2022-03-31",
+      "gap": 199.61,
+      "revenue": 2525.72
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2022-06-30",
+      "gap": -339.2,
+      "revenue": 2297.88
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2022-09-30",
+      "gap": -1172.01,
+      "revenue": 2110.95
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2022-12-31",
+      "gap": -43.47,
+      "revenue": 2586.28
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2023-03-31",
+      "gap": 61.59,
+      "revenue": 1965.77
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2023-09-30",
+      "gap": -70.95,
+      "revenue": 2234.83
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2023-12-31",
+      "gap": -110.24,
+      "revenue": 2317.46
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2024-03-31",
+      "gap": 248.83,
+      "revenue": 1719.44
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2024-09-30",
+      "gap": 139.79,
+      "revenue": 1917.22
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2024-12-31",
+      "gap": -573.74,
+      "revenue": 2338.7
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2025-03-31",
+      "gap": 284.99,
+      "revenue": 1863.75
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2025-06-30",
+      "gap": 127.03,
+      "revenue": 1963.39
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2025-09-30",
+      "gap": 271.64,
+      "revenue": 2240.81
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2025-12-31",
+      "gap": 234.71,
+      "revenue": 2624.61
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2026-03-31",
+      "gap": 276.03,
+      "revenue": 2010.91
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2026-06-30",
+      "gap": 186.98,
+      "revenue": 2161.21
+    },
+    {
+      "ticker": "601360.SS",
+      "end": "2026-09-30",
+      "gap": 234.03,
+      "revenue": 2152.64
+    },
+    {
+      "ticker": "688825.SS",
+      "end": "2026-03-31",
+      "gap": -2064,
+      "revenue": 50800.15
+    },
+    {
+      "ticker": "688825.SS",
+      "end": "2026-06-30",
+      "gap": -1043.94,
+      "revenue": 99509.93
+    },
+    {
+      "ticker": "688825.SS",
+      "end": "2026-09-30",
+      "gap": -3076.78,
+      "revenue": 118714.03
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2017-12-31",
+      "gap": 191.2,
+      "revenue": 15586.99
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2018-12-31",
+      "gap": 200.75,
+      "revenue": 18225.95
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2019-06-30",
+      "gap": 243.59,
+      "revenue": 21940.59
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2020-09-30",
+      "gap": 267.67,
+      "revenue": 26241.93
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2021-03-31",
+      "gap": 285.09,
+      "revenue": 27362.78
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2022-12-31",
+      "gap": -537.71,
+      "revenue": 29309.6
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2023-09-30",
+      "gap": 650.5,
+      "revenue": 31207.09
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2023-12-31",
+      "gap": -1446.22,
+      "revenue": 28774.98
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2024-03-31",
+      "gap": 2778.88,
+      "revenue": 32577.28
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2024-06-30",
+      "gap": -698.7,
+      "revenue": 27337.58
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2024-09-30",
+      "gap": 315.7,
+      "revenue": 29124.53
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2024-12-31",
+      "gap": -4377.43,
+      "revenue": 26740.17
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2025-09-30",
+      "gap": 625.22,
+      "revenue": 28630.82
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2025-12-31",
+      "gap": -431.83,
+      "revenue": 25367.49
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2026-06-30",
+      "gap": -2061.04,
+      "revenue": 29664.75
+    },
+    {
+      "ticker": "600887.SS",
+      "end": "2026-09-30",
+      "gap": 319.9,
+      "revenue": 29323.6
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2019-03-31",
+      "gap": 773.48,
+      "revenue": 4624.56
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2019-06-30",
+      "gap": 250.75,
+      "revenue": 5547.84
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2019-09-30",
+      "gap": 1228.18,
+      "revenue": 5799.1
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2019-12-31",
+      "gap": 1037.17,
+      "revenue": 6046.38
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2020-03-31",
+      "gap": 705.35,
+      "revenue": 6401.14
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2020-06-30",
+      "gap": 816.34,
+      "revenue": 6760.36
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2020-09-30",
+      "gap": 1359.42,
+      "revenue": 7638.16
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2020-12-31",
+      "gap": 1517.46,
+      "revenue": 6671.05
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2021-03-31",
+      "gap": 292.63,
+      "revenue": 7291.96
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2021-06-30",
+      "gap": 3093.79,
+      "revenue": 8798.43
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2021-09-30",
+      "gap": 1244.97,
+      "revenue": 9280.61
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2021-12-31",
+      "gap": 2512.75,
+      "revenue": 10259.64
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2022-03-31",
+      "gap": 423.87,
+      "revenue": 11854.01
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2022-06-30",
+      "gap": 1261.41,
+      "revenue": 12738.24
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2022-09-30",
+      "gap": 975.3,
+      "revenue": 13171.31
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2022-12-31",
+      "gap": 1357.99,
+      "revenue": 11752.52
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2023-03-31",
+      "gap": 1393.4,
+      "revenue": 10208.9
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2023-06-30",
+      "gap": 1605.01,
+      "revenue": 11108.89
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2023-09-30",
+      "gap": 544.31,
+      "revenue": 11780.45
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2023-12-31",
+      "gap": 1857.52,
+      "revenue": 12152.18
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2024-03-31",
+      "gap": 907.48,
+      "revenue": 12593.78
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2024-06-30",
+      "gap": 1855.22,
+      "revenue": 13675.53
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2024-09-30",
+      "gap": 238.14,
+      "revenue": 15609.41
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2024-12-31",
+      "gap": 2117.54,
+      "revenue": 15916.85
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2025-03-31",
+      "gap": 871.02,
+      "revenue": 16301.08
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2025-06-30",
+      "gap": 511.77,
+      "revenue": 16046.96
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2025-12-31",
+      "gap": 1716.02,
+      "revenue": 17812.78
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2026-06-30",
+      "gap": 2435.07,
+      "revenue": 21017.9
+    },
+    {
+      "ticker": "688981.SS",
+      "end": "2026-09-30",
+      "gap": 575.156,
+      "revenue": 21982.935
+    },
+    {
+      "ticker": "02097.HK",
+      "end": "2021-12-31",
+      "gap": 118.57,
+      "revenue": 10350.986
+    },
+    {
+      "ticker": "02097.HK",
+      "end": "2025-06-30",
+      "gap": 157.51,
+      "revenue": 14874.809
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2015-12-31",
+      "gap": 2863.58,
+      "revenue": 66811.258
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2016-12-31",
+      "gap": 2589.08,
+      "revenue": 68434.161
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2017-03-31",
+      "gap": 1062.14,
+      "revenue": 18531.793
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2017-06-30",
+      "gap": 1891.33,
+      "revenue": 26879.009
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2017-09-30",
+      "gap": 934.12,
+      "revenue": 34099.88
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2017-12-31",
+      "gap": 2772.73,
+      "revenue": 35114.06
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2018-03-31",
+      "gap": 2034.99,
+      "revenue": 34412.362
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2018-12-31",
+      "gap": 2248.39,
+      "revenue": 44421.376
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2019-03-31",
+      "gap": 2525.89,
+      "revenue": 43756.823
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2019-12-31",
+      "gap": 1712.23,
+      "revenue": 56469.724
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2020-06-30",
+      "gap": 3729.95,
+      "revenue": 53537.805
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2020-09-30",
+      "gap": 3305.52,
+      "revenue": 72162.777
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2020-12-31",
+      "gap": 7747.26,
+      "revenue": 70462.884
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2021-03-31",
+      "gap": 2159.55,
+      "revenue": 76882.163
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2021-06-30",
+      "gap": 5472.9,
+      "revenue": 87788.96
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2021-09-30",
+      "gap": -2167.92,
+      "revenue": 78062.855
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2021-12-31",
+      "gap": 1189.99,
+      "revenue": 85575.167
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2022-03-31",
+      "gap": -3625.71,
+      "revenue": 73351.502
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2022-09-30",
+      "gap": -2875.16,
+      "revenue": 70474.269
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2022-12-31",
+      "gap": 3829.53,
+      "revenue": 66047.368
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2023-03-31",
+      "gap": 3661.04,
+      "revenue": 59477.134
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2023-12-31",
+      "gap": 2298.89,
+      "revenue": 73243.687
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2024-03-31",
+      "gap": -983.24,
+      "revenue": 75506.822
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2024-12-31",
+      "gap": 3081.29,
+      "revenue": 109005.159
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2025-03-31",
+      "gap": 3161.12,
+      "revenue": 111293.337
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2025-06-30",
+      "gap": 4504.26,
+      "revenue": 115956.091
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2025-09-30",
+      "gap": 8391.18,
+      "revenue": 113120.734
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2025-12-31",
+      "gap": 3038.09,
+      "revenue": 116916.525
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2026-03-31",
+      "gap": 2363.78,
+      "revenue": 99141.618
+    },
+    {
+      "ticker": "01810.HK",
+      "end": "2026-06-30",
+      "gap": 8622.71,
+      "revenue": 108921.609
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2022-09-30",
+      "gap": -42.94,
+      "revenue": 1821.89
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2022-12-31",
+      "gap": -24.38,
+      "revenue": 1658.7
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2023-06-30",
+      "gap": -24.44,
+      "revenue": 1730.49
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2023-09-30",
+      "gap": -26.19,
+      "revenue": 1859.71
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2023-12-31",
+      "gap": -21.18,
+      "revenue": 1692.34
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2024-03-31",
+      "gap": -20.99,
+      "revenue": 1400
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2024-06-30",
+      "gap": -23.42,
+      "revenue": 1620.89
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2024-09-30",
+      "gap": -18.37,
+      "revenue": 1626.61
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2024-12-31",
+      "gap": -26.6,
+      "revenue": 1439.66
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2025-03-31",
+      "gap": -23.68,
+      "revenue": 1201.17
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2025-06-30",
+      "gap": -23.86,
+      "revenue": 1410.25
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2025-09-30",
+      "gap": -24.27,
+      "revenue": 1437.28
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2025-12-31",
+      "gap": -27.78,
+      "revenue": 1399.44
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2026-03-31",
+      "gap": -23.75,
+      "revenue": 1169.47
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2026-06-30",
+      "gap": -25.97,
+      "revenue": 1390.13
+    },
+    {
+      "ticker": "603866.SH",
+      "end": "2026-09-30",
+      "gap": -25.41,
+      "revenue": 1400.4
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2017-12-31",
+      "gap": -32853.3667,
+      "revenue": 645980.6715
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2018-12-31",
+      "gap": -17842.234148,
+      "revenue": 629079.789427
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2019-03-31",
+      "gap": -14328.3604,
+      "revenue": 624048.7403
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2019-06-30",
+      "gap": -10467.2194,
+      "revenue": 620507.1365
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2019-09-30",
+      "gap": -12400.6995,
+      "revenue": 727195.0012
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2019-12-31",
+      "gap": -11600.64289,
+      "revenue": 663945.540924
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2020-03-31",
+      "gap": -11468.1342,
+      "revenue": 568818.144
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2020-06-30",
+      "gap": -7515.9825,
+      "revenue": 617239.7819
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2020-09-30",
+      "gap": -7838.8414,
+      "revenue": 759436.3642
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2020-12-31",
+      "gap": -8282.5819,
+      "revenue": 699022.7599
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2021-03-31",
+      "gap": -9684.3075,
+      "revenue": 677753.1851
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2021-06-30",
+      "gap": -7235.4002,
+      "revenue": 700486.7705
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2021-09-30",
+      "gap": -9548.303,
+      "revenue": 803508.7622
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2021-12-31",
+      "gap": -9898.2493,
+      "revenue": 762962.8022
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2022-03-31",
+      "gap": -8037.0626,
+      "revenue": 787056.0967
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2022-06-30",
+      "gap": -12129.7834,
+      "revenue": 864053.771
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2022-12-31",
+      "gap": 13694.5887,
+      "revenue": 938929.6635
+    },
+    {
+      "ticker": "SGCC",
+      "end": "2023-06-30",
+      "gap": -8849.319122,
+      "revenue": 812222.7702
+    }
+  ]
+}

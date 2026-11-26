@@ -1026,7 +1026,7 @@
             "fxDate": "2026-06-30"
           }
         ],
-        "notes": "BABA: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
+        "notes": "BABA: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date. opInc 口径（2026-11-26 修正）：2023-12-31 的经营利润 22,511 为 as-reported，含经营内「无形资产减值」12,084（Sun Art）与「商誉减值」8,490（Youku）；2025-12-31 的 10,645 含「商誉减值」9,515（6-K 0001104659-24-011604 / 0001104659-26-032060 ex99-1）。同期 gross − rd − sga 另含未单列的其他经营费用（两期残差 −2,517 / +620），2021Q3–2023Q3 亦有 −2,431~−2,906 的同类小缺口，故不能用三项反推营业利润；stockanalysis 标准化口径已剔除减值项，与本站不同。"
       }
     },
     {
@@ -1481,7 +1481,7 @@
             "fxDate": "2026-06-30"
           }
         ],
-        "notes": "BIDU: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date."
+        "notes": "BIDU: quarterly series (periodType 'q', Q1-Q3 as-disclosed; FY-end quarter not separately reported — annual row covers FY) backfilled from stockanalysis.com quarterly income statements as-reported CNY-M, fetched 2026-10-26, window 2021-09-30..2026-06-30; existing 20-F annual rows kept as periodType 'annual'. mixed 口径：年度与季度为不同期型，禁止跨 periodType 环比/同比（Q4=FY−9M 为推导值不入库）；同期型内比较请用 periodType 过滤. fx: frankfurter per period end (currency-api fallback), fxDate = rate date. opInc 口径（2026-11-26 修正）：2025-09-30 与 2025-12-31 的经营利润为 as-reported，含经营内「长期资产减值（Impairment of long-lived assets）」16,190（6-K 0001193125-25-285391 ex99-1；FY2025 20-F 同期同项），因此 gross − rd − sga 不能反推 opInc（两期缺口均为 −16,190）；stockanalysis 的标准化 Operating Income 已剔除该项，与本站口径不同。"
       }
     },
     {
@@ -6063,7 +6063,8 @@
       "HUAWEI: new private-filer entry (unlisted, official audited annual reports), CNY-M annual FY=Dec, synthetic ticker, 7 FY 2019-2025.",
       "LEGO: new private-filer entry (unlisted, official audited annual reports), DKK-M annual FY=Dec, synthetic ticker, 6 FY 2019-2024.",
       "ByteDance/MiHoYo: NOT added — no official audited public financial statements exist (media-cited internal figures only); out of scope by no-public-filings rule.",
-      "01810.HK/09633.HK/02513.HK/00100.HK/02097.HK/00151.HK: short-history rule backfill 2026-10-27 (用户拍板「有多少正式披露期就入多少，不设最低期数」) — cumulative HK disclosures included as-disclosed (cumulative:true) where differencing not possible; Xiaomi 01810 full chain differenced to single quarters."
+      "01810.HK/09633.HK/02513.HK/00100.HK/02097.HK/00151.HK: short-history rule backfill 2026-10-27 (用户拍板「有多少正式披露期就入多少，不设最低期数」) — cumulative HK disclosures included as-disclosed (cumulative:true) where differencing not possible; Xiaomi 01810 full chain differenced to single quarters.",
+      "opInc 口径 — 2026-11-26: BIDU 2025-09-30 / BABA 2023-12-31 / BABA 2025-12-31 / ZH 2025-12-31 四格经营利润由 stockanalysis 标准化值改为公司 as-reported（分别含减值 16,190 / 12,084+8,490 / 9,515 / 126.344）；gross−rd−sga 与 opInc 的缺口属口径差，已登记 docs/KNOWN_CAVEATS.md 与 data/bridge_gap_baseline.json。"
     ],
     "failures": []
   }

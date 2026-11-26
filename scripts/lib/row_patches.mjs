@@ -16,6 +16,7 @@
 // Consumers:
 //   scripts/patch_rows_2026-11-20.mjs  — standalone targeted write (verifies + writes profit.json + mirror)
 //   scripts/patch_rows_2026-11-26_li.mjs — same writer for the LI as-reported corrections
+//   scripts/patch_rows_2026-11-26_opinc.mjs — same writer for the 4 BIDU/BABA/ZH as-reported opInc cells
 //   scripts/merge_batches.mjs          — every write path (--batch-only and full rebuild), so a
 //                                        rebuild reproduces the corrected values instead of the old ones.
 import fs from 'node:fs';
@@ -29,6 +30,7 @@ export const DEFAULT_PATCH_FILE = 'data/staging/patches/2026-11-20_netinc.json';
 export const DEFAULT_PATCH_FILES = [
   DEFAULT_PATCH_FILE,
   'data/staging/patches/2026-11-26_li.json',
+  'data/staging/patches/2026-11-26_opinc.json',
 ];
 
 /** Load + validate a patch file. Accepts bare array or {_meta, patches:[...]}. */
