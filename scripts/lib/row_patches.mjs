@@ -8,20 +8,28 @@
 // when the on-disk value is neither the expected old value nor the already-applied new value.
 //
 // Contract:
-//   * only fields listed in PATCHABLE_FIELDS may be written (currently: netInc);
+//   * only fields listed in PATCHABLE_FIELDS may be written (currently: netInc, rd, sga, opInc);
 //   * the target row must already exist and already carry the field, so the key ORDER never moves;
 //   * every patch must resolve, otherwise applyRowPatches throws and the caller exits non-zero;
 //   * re-applying the same patch file is a no-op (value === new => reported as "already").
 //
 // Consumers:
 //   scripts/patch_rows_2026-11-20.mjs  — standalone targeted write (verifies + writes profit.json + mirror)
+//   scripts/patch_rows_2026-11-26_li.mjs — same writer for the LI as-reported corrections
 //   scripts/merge_batches.mjs          — every write path (--batch-only and full rebuild), so a
 //                                        rebuild reproduces the corrected values instead of the old ones.
 import fs from 'node:fs';
 import path from 'node:path';
 
-export const PATCHABLE_FIELDS = ['netInc'];
+export const PATCHABLE_FIELDS = ['netInc', 'rd', 'sga', 'opInc'];
 export const DEFAULT_PATCH_FILE = 'data/staging/patches/2026-11-20_netinc.json';
+// Every committed patch file, applied in this order by scripts/merge_batches.mjs so that a full
+// rebuild reproduces the corrected values. DEFAULT_PATCH_FILE stays the single-file default for the
+// 2026-11-20 writer + verify_historical_netinc test.
+export const DEFAULT_PATCH_FILES = [
+  DEFAULT_PATCH_FILE,
+  'data/staging/patches/2026-11-26_li.json',
+];
 
 /** Load + validate a patch file. Accepts bare array or {_meta, patches:[...]}. */
 export function loadPatches(rootDir, file = DEFAULT_PATCH_FILE) {

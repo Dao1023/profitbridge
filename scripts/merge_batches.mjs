@@ -24,7 +24,7 @@
 // Does NOT modify data/staging/* originals. Idempotent: rebuilds merged entries from staging each run.
 import fs from 'node:fs';
 import path from 'node:path';
-import { loadPatches, applyRowPatches, DEFAULT_PATCH_FILE } from './lib/row_patches.mjs';
+import { loadPatches, applyRowPatches, DEFAULT_PATCH_FILES } from './lib/row_patches.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const R = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
@@ -147,13 +147,18 @@ function applyCompanyNotes(bx, tag) {
 // 永远改不到非空旧值。patch 层在主重建里必须**先于 reconcile** 应用：reconcile 会把「重建值 != 磁盘值」
 // 当硬错误，未打补丁的重建值(旧值)会直接 exit 1。挂在所有写盘路径上也保证全量重建复现磁盘修正值。
 const patchArg = process.argv.find(a => a.startsWith('--patch-file='));
-const PATCH_FILE = patchArg ? patchArg.slice('--patch-file='.length) : DEFAULT_PATCH_FILE;
+const PATCH_FILES = patchArg ? [patchArg.slice('--patch-file='.length)] : DEFAULT_PATCH_FILES;
 function applyRowPatchLayer(target, rep) {
-  const { patches } = loadPatches(ROOT, PATCH_FILE);
-  const r = applyRowPatches(target, patches, { label: 'merge_batches' });
-  rep.rowPatches = { file: PATCH_FILE, applied: r.applied, already: r.already };
-  if (r.applied.length) console.log(`row patches: applied ${r.applied.length} value(s) from ${PATCH_FILE}`);
-  return r;
+  const applied = [], already = [];
+  for (const file of PATCH_FILES) {
+    const { patches } = loadPatches(ROOT, file);
+    const r = applyRowPatches(target, patches, { label: `merge_batches:${file}` });
+    applied.push(...r.applied);
+    already.push(...r.already);
+    if (r.applied.length) console.log(`row patches: applied ${r.applied.length} value(s) from ${file}`);
+  }
+  rep.rowPatches = { files: PATCH_FILES, applied, already };
+  return { applied, already };
 }
 
 // ================= single-batch PATCH MODE (non-destructive) =================

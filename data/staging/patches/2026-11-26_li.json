@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "id": "2026-11-26_li",
+    "created": "2026-11-26",
+    "field": "rd|sga|opInc",
+    "scope": "Li Auto Inc. (LI, CIK 1791706) as-reported correction of 12 cells: 4 opInc quarters, 4 opInc fiscal years, 2 FY2021 + 1 2021Q3 rd/sga reclassification cells",
+    "why": "12 cells were taken from stockanalysis normalized statements instead of the company's as-reported consolidated statements of operations. For opInc, stockanalysis subtracts its own 'Gain (Loss) on Sale of Assets' line from the reported income/(loss) from operations; the company's reported operating income already includes disposal gains/losses. For 2021 rd/sga the third party reclassified 10.762 (2021Q3) / 52.985 (FY2021) from R&D to SG&A, total unchanged. Values below are the as-reported CNY-M figures from the SEC 6-K earnings releases (and the FY2021 20-F cross-check).",
+    "fields_note": "Only rd, sga and opInc are written; row key order and every other field/row stay byte-identical. Loaded by scripts/patch_rows_2026-11-26_li.mjs (targeted, verifies disk value === old) and by scripts/merge_batches.mjs on every write path (before the reconcile pass), so a full --out-dir rebuild reproduces the corrected values instead of restoring the stockanalysis ones. Do NOT source future LI Q4 rows from stockanalysis: derive Q4 = FY - Q1 - Q2 - Q3 from as-reported values (known SA deltas 2023Q4 66.107 / 2024Q4 18.439 / 2025Q4 -48.971).",
+    "sources": {
+      "SEC": {
+        "ticker": "LI",
+        "cik": "1791706",
+        "units": "RMB thousands in the filings; stored here as CNY millions (÷1000)",
+        "filings": [
+          { "end": "2021-09-30", "accn": "0001104659-21-144060", "exhibit": "tm2134048d1_ex99-1.htm", "note": "2021-11-29 Q3 earnings release, Unaudited Condensed Consolidated Statements of Operations, three months ended" },
+          { "end": "2021-12-31", "accn": "0001104659-22-027018", "exhibit": "tm227715d1_ex99-3.htm", "note": "2022-02-25 Q4/FY2021 earnings release, Consolidated Statements of Operations, FY2021 column; cross-checked against 20-F accn 0001104659-22-047043" },
+          { "end": "2022-12-31", "accn": "0001104659-23-025677", "exhibit": "tm237911d1_ex99-1.htm", "note": "2023-02-27 Q4/FY2022 earnings release, Consolidated Statements of Operations, FY2022 column" },
+          { "end": "2023-06-30", "accn": "0001104659-23-088650", "exhibit": "tm2322418d1_ex99-3.htm", "note": "2023-08-08 Q2 earnings release, three months ended; disposal gain 64,871 thousand in the cash-flow statement matches the SA delta exactly" },
+          { "end": "2023-12-31", "accn": "0001104659-24-027311", "exhibit": "tm247238d1_ex99-1.htm", "note": "2024-02-26 Q4/FY2023 earnings release, Consolidated Statements of Operations, FY2023 column" },
+          { "end": "2024-06-30", "accn": "0001104659-24-093778", "exhibit": "tm2422884d1_ex99-1.htm", "note": "2024-08-28 Q2 earnings release, three months ended" },
+          { "end": "2024-12-31", "accn": "0001104659-25-023764", "exhibit": "tm259135d1_ex99-1.htm", "note": "2025-03-14 Q4/FY2024 earnings release, Consolidated Statements of Operations, FY2024 column" },
+          { "end": "2025-06-30", "accn": "0001104659-25-084336", "exhibit": "tm2524527d1_ex99-1.htm", "note": "2025-08-28 Q2 earnings release, three months ended (release text also states RMB827.0 million)" },
+          { "end": "2025-12-31", "accn": "0001104659-26-026803", "exhibit": "tm268559d1_ex99-1.htm", "note": "2026-03-12 Q4/FY2025 earnings release, Consolidated Statements of Operations, FY2025 column" },
+          { "end": "2026-06-30", "accn": "0001104659-26-101065", "exhibit": "tm2624080d1_ex99-1.htm", "note": "2026-08-26 Q2 earnings release, three months ended; Loss from operations = -2,300,850 thousand" }
+        ]
+      },
+      "rejected_source": "stockanalysis.com quarterly/annual income statements — 旧值来源；Operating Income 剔除资产处置损益、2021 年 R&D↔SG&A 重分类，均非公司 as-reported 口径"
+    }
+  },
+  "patches": [
+    { "ticker": "LI", "end": "2021-09-30", "field": "rd", "old": 877.698, "new": 888.46, "accn": "0001104659-21-144060", "note": "as-reported R&D 888,460 thousand; SA moved 10.762 to SG&A (total unchanged)" },
+    { "ticker": "LI", "end": "2021-09-30", "field": "sga", "old": 1032.061, "new": 1021.299, "accn": "0001104659-21-144060", "note": "as-reported SG&A 1,021,299 thousand" },
+    { "ticker": "LI", "end": "2023-06-30", "field": "opInc", "old": 1560.999, "new": 1625.87, "accn": "0001104659-23-088650", "note": "as-reported income from operations 1,625,870; SA removed +64.871 disposal gain" },
+    { "ticker": "LI", "end": "2024-06-30", "field": "opInc", "old": 458.356, "new": 468.029, "accn": "0001104659-24-093778", "note": "as-reported income from operations 468,029; SA removed +9.673 disposal gain" },
+    { "ticker": "LI", "end": "2025-06-30", "field": "opInc", "old": 864.173, "new": 827.018, "accn": "0001104659-25-084336", "note": "as-reported income from operations 827,018; SA added -37.155 disposal loss" },
+    { "ticker": "LI", "end": "2026-06-30", "field": "opInc", "old": -2182.152, "new": -2300.85, "accn": "0001104659-26-101065", "note": "as-reported loss from operations -2,300,850; SA added -118.698 disposal loss" },
+    { "ticker": "LI", "end": "2021-12-31", "field": "rd", "old": 3233.404, "new": 3286.389, "accn": "0001104659-22-027018", "note": "FY2021 as-reported R&D 3,286,389 thousand (20-F cross-check)" },
+    { "ticker": "LI", "end": "2021-12-31", "field": "sga", "old": 3545.37, "new": 3492.385, "accn": "0001104659-22-027018", "note": "FY2021 as-reported SG&A 3,492,385 thousand; SA moved 52.985" },
+    { "ticker": "LI", "end": "2022-12-31", "field": "opInc", "old": -3598.997, "new": -3654.877, "accn": "0001104659-23-025677", "note": "FY2022 as-reported loss from operations -3,654,877; SA removed -55.880" },
+    { "ticker": "LI", "end": "2023-12-31", "field": "opInc", "old": 7275.899, "new": 7406.877, "accn": "0001104659-24-027311", "note": "FY2023 as-reported income from operations 7,406,877; SA removed +130.978" },
+    { "ticker": "LI", "end": "2024-12-31", "field": "opInc", "old": 6991.002, "new": 7019.114, "accn": "0001104659-25-023764", "note": "FY2024 as-reported income from operations 7,019,114; SA removed +28.112" },
+    { "ticker": "LI", "end": "2025-12-31", "field": "opInc", "old": -434.991, "new": -521.117, "accn": "0001104659-26-026803", "note": "FY2025 as-reported loss from operations -521,117; SA removed -86.126" }
+  ]
+}
