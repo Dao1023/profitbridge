@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-26",
   "source": "SEC EDGAR segment R files (FilingSummary.xml → R*.htm) + 东方财富 F10 分产品/分行业 + 港交所年报 PDF (HKEXnews) + 公司 IR/年报 PDF（多源合并；各批次来源与推导说明见 notes/failures）",
   "sourceUrl": "https://www.sec.gov/Archives/edgar/data/ | https://datacenter-web.eastmoney.com/ | https://www.hkexnews.hk/ | 公司投资者关系页",
   "companies": {
@@ -11862,6 +11862,20 @@
             "name": "Others",
             "value": 52.298
           }
+        ],
+        "2026-09-30": [
+          {
+            "name": "Marketing services",
+            "value": 29.529
+          },
+          {
+            "name": "Paid content and IP operations",
+            "value": 58.698
+          },
+          {
+            "name": "Others",
+            "value": 10.007
+          }
         ]
       },
       "periodTypes": {
@@ -11871,7 +11885,8 @@
         "2024-12-31": "annual",
         "2025-06-30": "quarter",
         "2025-09-30": "quarter",
-        "2025-12-31": "annual"
+        "2025-12-31": "annual",
+        "2026-09-30": "quarter"
       },
       "periodType": "mixed"
     },

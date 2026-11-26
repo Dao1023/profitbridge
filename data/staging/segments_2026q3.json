@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "tmp-integrate/assemble_staging.js — 本批次合成: 9 家 unitfail(seg_final) + BABA + 港股A(7) + 港股B(5)",
-    "updated": "2026-11-01",
+    "updated": "2026-11-26",
     "staged": [
       "MU",
       "V",
@@ -25,7 +25,8 @@
       "00941.HK",
       "00728.HK",
       "01810.HK",
-      "00151.HK"
+      "00151.HK",
+      "ZH"
     ],
     "units": "USD-M (segment revenue, company reporting currency)",
     "mergeContract": "Append-only: historical quarters copied verbatim from data/segments.json; only new <end> keys are added by scripts/merge_segments.mjs. Same end with different values is an error (no silent overwrite).",
@@ -67,7 +68,8 @@
       "BABA": "FY2023 旧 7 部口径；FY2024 六部+All others；FY2026 四部+All others（含 Unallocated 与负 Inter-segment elimination）。全部 annual。",
       "00941.HK": "FY2025 起按客群披露（公众/政企/国际/其他），此前为 CHBN 四市场口径。",
       "00151.HK": "仅暂存新期端 2026-03-31（历史期汇率错误由独立 fixup 显式修正，不把修复前历史值放入 staging）。",
-      "00992.HK": "EXCLUDED from merge staging：annualOnly，写入 annualQuarters（quarters 保持 {}），由独立幂等 fixup 处理。"
+      "00992.HK": "EXCLUDED from merge staging：annualOnly，写入 annualQuarters（quarters 保持 {}），由独立幂等 fixup 处理。",
+      "ZH": "USD-M；fxToUsd 0.14915355（2026-09-30 ECB 6.7045）。2026Q1 起公司把「paid membership」与「IP operations」合并为「Paid content and IP operations」并追溯重述，故 2026-09-30 只有 3 段（Marketing services 29.529 / Paid content and IP operations 58.698 / Others 10.007，USD-M，合计 98.234 USD-M ≈ 658.609 CNY-M，与 sumCnyM 一致）；历史期保持各自原始口径（4 段或 3 段）不动。"
     }
   },
   "companies": {
@@ -5608,6 +5610,28 @@
         "2026-03-31": "annual"
       },
       "periodType": "annual"
+    },
+    "ZH": {
+      "quarters": {
+        "2026-09-30": [
+          {
+            "name": "Marketing services",
+            "value": 29.529
+          },
+          {
+            "name": "Paid content and IP operations",
+            "value": 58.698
+          },
+          {
+            "name": "Others",
+            "value": 10.007
+          }
+        ]
+      },
+      "periodTypes": {
+        "2026-09-30": "quarter"
+      },
+      "periodType": "mixed"
     }
   }
 }

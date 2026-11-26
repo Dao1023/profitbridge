@@ -1,0 +1,52 @@
+{
+  "batch": "batch18",
+  "_meta": {
+    "batch": "batch18",
+    "description": "新增 ZH（知乎）与 LI（理想汽车）2026-09-30 单季（CNY-M，as reported）。两期均取自 2026-11-25 提交的 6-K 业绩稿 ex99-1 报表；数值已由上游抽取并经人工核验，逐字段照抄，不做任何重算或补字段。",
+    "generatedAt": "2026-11-26",
+    "sources": [
+      "ZH: 6-K accn 0001104659-26-131753（2026-11-25），ex99-1.htm https://www.sec.gov/Archives/edgar/data/1835724/000110465926131753/tm2630593d1_ex99-1.htm",
+      "LI: 6-K accn 0001104659-26-131768（2026-11-25），ex99-1.htm https://www.sec.gov/Archives/edgar/data/1791706/000110465926131768/tm2630657d1_ex99-1.htm",
+      "FX: frankfurter.app (ECB) USD/CNY 2026-09-30 = 6.7045 → fxToUsd 0.14915355（ZH）；LI 沿用 0.14915"
+    ],
+    "notes": "ZH 键集 end/periodType/revenue/gross/opInc/netInc/rd/sga/tax/fxToUsd/fxDate；netInc 为归母净亏损 -49.583（含少数股东的总净亏损 -48.558 不入库），sga = 销售及营销 319.111 + 管理 43.612，tax = 所得税费用 6.483（正数为费用）。LI 同键集；netInc = 归属普通股股东净亏损 -314.097（不含 NCI），tax = -44.244（所得税收益为负）。两期均无 cogs/pbt 字段。"
+  },
+  "results": [
+    {
+      "ticker": "ZH",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 658.609,
+          "gross": 376.78,
+          "opInc": -110.972,
+          "netInc": -49.583,
+          "rd": 125.029,
+          "sga": 362.723,
+          "tax": 6.483,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "ticker": "LI",
+      "newQuarters": [
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 28834.429,
+          "gross": 4816.047,
+          "opInc": -699.612,
+          "netInc": -314.097,
+          "rd": 3116.677,
+          "sga": 2361.284,
+          "tax": -44.244,
+          "fxToUsd": 0.14915,
+          "fxDate": "2026-09-30"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22",
+  "updated": "2026-11-26",
   "source": "SEC EDGAR XBRL companyfacts API (US-GAAP and ifrs-full tags; quarterly periods 85-100d, fiscal Q4 derived as FY minus Q1-Q3 where the 10-K has no quarterly facts; 20-F foreign private issuers use annual periods 300-400d with frequency:\"annual\"; foreign filers stored in their reporting currency — currency field is <ISO>-M)",
   "sourceUrl": "https://data.sec.gov/api/xbrl/companyfacts/",
   "companies": {
@@ -19501,6 +19501,19 @@
           "tax": -243.609,
           "fxToUsd": 0.14737,
           "fxDate": "2026-06-30"
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 28834.429,
+          "gross": 4816.047,
+          "opInc": -699.612,
+          "netInc": -314.097,
+          "rd": 3116.677,
+          "sga": 2361.284,
+          "tax": -44.244,
+          "fxToUsd": 0.14915,
+          "fxDate": "2026-09-30"
         }
       ],
       "frequency": "mixed",
@@ -20424,6 +20437,19 @@
           "tax": -3.366,
           "fxToUsd": 0.14737,
           "fxDate": "2026-06-30"
+        },
+        {
+          "end": "2026-09-30",
+          "periodType": "q",
+          "revenue": 658.609,
+          "gross": 376.78,
+          "opInc": -110.972,
+          "netInc": -49.583,
+          "rd": 125.029,
+          "sga": 362.723,
+          "tax": 6.483,
+          "fxToUsd": 0.14915355,
+          "fxDate": "2026-09-30"
         }
       ],
       "frequency": "mixed",
