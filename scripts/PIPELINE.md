@@ -37,7 +37,7 @@ node scripts/merge_fundamentals.mjs   # stage 2: enrich gross/opInc/rd/sga from 
 Before the 2026-11-20 rewrite, standalone stage 1 erased stage-2 enrichment and aborted with
 `REFUSING 2189 semantic regressions`; that is no longer the expected behaviour. With the glob
 loader + disk-first reconcile, a single stage-1 run reproduces the committed image exactly
-(2026-11-22: 93 companies / 3783 periods, CRLF-normalised bytes identical, sha256 matches the LF
+(2026-11-26: 93 companies / 3785 periods, CRLF-normalised bytes identical, sha256 matches the LF
 blob in git). A refusal now is a **real staging gap** — a disk period no batch produces, or a
 conflicting value — so back-write the fix into `data/staging/`; do not force.
 
@@ -62,8 +62,8 @@ a space-separated `--out-dir DIR` is ignored.
 
 ## Verification used (0-difference reproduction)
 
-Stage 1 alone reproduces the committed `data/profit.json` byte-for-byte (2026-11-22: 93
-companies / 3783 periods; 1,042,637 B canonical LF, 1,082,729 B in a CRLF checkout):
+Stage 1 alone reproduces the committed `data/profit.json` byte-for-byte (2026-11-26: 93
+companies / 3785 periods; 1,043,317 B canonical LF, 1,083,435 B in a CRLF checkout):
 
 ```bash
 node scripts/merge_batches.mjs --out-dir=tmp-fixups-test
